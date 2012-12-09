@@ -3,7 +3,7 @@
 #include <string>
 
 #include "FsMacros.h"
-#include "FsObject.h"
+#include "core/FsObject.h"
 
 FAERIS_NAMESPACE_BEGIN 
 
@@ -14,7 +14,7 @@ class Resource :public FsObject
 		friend ResourceMgr;
 	public:
 		Resource();
-		virtual ~Resource;
+		virtual ~Resource();
 	protected:
 		virtual void onDestroy();
 		void setMgr(ResourceMgr* mgr){m_mgr=mgr;}

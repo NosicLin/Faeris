@@ -18,7 +18,9 @@ SRC=  FsImgDecoder.cc \
 	  FsLog.cc \
 	  FsStringUtil.cc \
 	  platform/FsLibPngDecoder.cc \
-	  platform/FsTinyJpegDecoder.cc
+	  platform/FsTinyJpegDecoder.cc \
+	  FsResource.cc \
+	  FsResourceMgr.cc \
 	
 
 #full src name 

@@ -1,5 +1,7 @@
 #ifndef _FAERIS_MACROS_H_
 #define _FAERIS_MACROS_H_
+#include <assert.h>
+
 #include "FsTypes.h"
 
 #define FS_BEGIN_NAMESPACE(name) namespace name{
@@ -74,6 +76,8 @@
 	FS_MESSAGE(INFO,fmt,##__VA_ARGS__)
 
 
+#define FS_ASSERT(condtion) \
+	assert(condtion)
 
 
 
@@ -130,6 +134,13 @@
 
 
 
+/* EULER  OLDER */
+#define FS_EULER_XYZ (0x1)
+#define FS_EULER_XZY (0x2)
+#define FS_EULER_YXZ (0x3)
+#define FS_EULER_YZX (0x4) 
+#define FS_EULER_ZXY (0x5)
+#define FS_EULER_ZYX (0x6)
 
 
 

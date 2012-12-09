@@ -1,5 +1,6 @@
 #include "util/FsResourceMgr.h"
 #include "util/FsResource.h"
+#include "fsys/FsVFS.h"
 
 FAERIS_NAMESPACE_BEGIN
 ResourceMgr::ResourceMgr(NeedCreateFunc func)
@@ -52,7 +53,7 @@ void ResourceMgr::removeSearchPath(const char* path)
 	FS_TRACE_WARN("Can't Find Search Path(%s)",path);
 }
 
-Resource* ResourceMgr::load(const char* path)
+Resource* ResourceMgr::load(const char* path,FsBool search_path)
 {
 	std::string key_path=std::string(path);
 	Resource* ret=m_resources[key_path];
@@ -69,7 +70,7 @@ Resource* ResourceMgr::load(const char* path)
 	}
 
 	/* Open Current Path */
-	file=VFS::open(key_path);
+	file=VFS::open(key_path.c_str());
 	if(file!=NULL)
 	{
 		ret=m_func(file);
@@ -83,6 +84,12 @@ Resource* ResourceMgr::load(const char* path)
 		}
 	}
 	file=NULL;
+
+	if(!search_path)
+	{
+		FS_TRACE_WARN("Can't Load Source From Path(%s)",path);
+		return NULL;
+	}
 
 	/* Search File In Register Path */
 	std::vector<std::string>::iterator iter;
@@ -106,6 +113,7 @@ Resource* ResourceMgr::load(const char* path)
 	}
 
 	FS_TRACE_WARN("Can't Load Source From Path(%s)",path);
+	return NULL;
 }
 
 void ResourceMgr::remove(Resource* res)

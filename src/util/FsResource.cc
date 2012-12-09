@@ -1,4 +1,5 @@
 #include "util/FsResource.h"
+#include "util/FsResourceMgr.h"
 
 FAERIS_NAMESPACE_BEGIN
 Resource::Resource()
@@ -12,7 +13,7 @@ void Resource::onDestroy()
 {
 	if(m_mgr)
 	{
-		m_mgr->removeResource(this);
+		m_mgr->remove(this);
 	}
 	delete this;
 }

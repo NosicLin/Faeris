@@ -1,7 +1,20 @@
 #include "model/FsSkeletonMesh.h"
 
 FAERIS_NAMESPACE_BEGIN 
+
 static ResourceMgr* s_skeleton_mesh_mgr=NULL;
+static ResourceMgr* s_getMgr()
+{
+	if(s_skeleton_mesh_mgr==NULL)
+	{
+		s_skeleton_mesh_mgr=new ResourceMgr((ResourceMgr::NeedCreateFunc)SkeletonMesh::create);
+	}
+}
+
+ResourceMgr* SkeletonMesh::getMgr() 
+{
+	return s_getMgr();
+}
 
 SkeletonMesh::create(FsFile* file)
 {
@@ -14,14 +27,10 @@ SkeletonMesh::create(FsFile* file)
 	return mesh;
 }
 
-
 SkeletonMesh::loadFromMgr(const FsChar* filename)
 {
-	if(s_skeleton_mesh_mgr==NULL)
-	{
-		s_skeleton_mesh_mgr=new ResourceMgr((ResourceMgr::NeedCreateFunc)SkeletonMesh::create);
-	}
-	SkeletonMesh* mesh=(SkeletonMesh*)s_skeleton_mesh_mgr->load(filename);
+	ResourceMgr* mgr=s_getMgr();
+	SkeletonMesh* mesh=(SkeletonMesh*)mgr->load(filename);
 	return mesh;
 }
 

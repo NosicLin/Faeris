@@ -1,15 +1,9 @@
 #ifndef _FS_MATH_MATRIX4_H_
 #define _FY_MATH_MATRIX4_H_ 
+#include "FsMacros.h"
 #include "math/FsVector3.h"
 #include "math/FsVector4.h"
 #include "math/FsQuaternion.h"
-
-#define FS_EULER_XYZ (0x1)
-#define FS_EULER_XZY (0x2)
-#define FS_EULER_YXZ (0x3)
-#define FS_EULER_YZX (0x4) 
-#define FS_EULER_ZXY (0x5)
-#define FS_EULER_ZYX (0x6)
 
 FAERIS_NAMESPACE_BEGIN
 class  Matrix4

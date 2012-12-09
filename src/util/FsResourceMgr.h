@@ -3,11 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "FsMacros.h"
-
 
 FAERIS_NAMESPACE_BEGIN
 class Resource;
+class FsFile;
 class ResourceMgr 
 {
 	public:
@@ -15,11 +16,11 @@ class ResourceMgr
 	public:
 		ResourceMgr(NeedCreateFunc func);
 	public:
-		void addSearchPath(const char* path);
-		bool existSearchPath(const char* path);
-		void removeSearchPath(const char* path);
+		void addSearchPath(const FsChar* path);
+		bool existSearchPath(const FsChar* path);
+		void removeSearchPath(const FsChar* path);
 
-		Resource* load(const char* path);
+		Resource* load(const FsChar* path,FsBool search_path=true);
 		void remove(Resource* res);
 
 	private:
@@ -27,7 +28,7 @@ class ResourceMgr
 		std::vector<std::string> m_searchPath;
 
 		FsInt m_resNu;
-		std::hash_map<std::string,Resource*> m_resources;
+		std::map<std::string,Resource*> m_resources;
 };
 FAERIS_NAMESPACE_END
 #endif  /*_FS_RESOURCE_MGR_H_*/
