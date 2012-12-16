@@ -1,9 +1,9 @@
 #ifndef _FAERY_FACE3_H_
 #define _FAERY_FACE3_H_
 
-#include "FsTypes.h"
+#include "FsMacros.h"
 
-FAERIS_BEGIN_NAMESPACE 
+FAERIS_NAMESPACE_BEGIN
 class Face3 
 {
 	public:
@@ -17,10 +17,13 @@ class Face3
 			};
 			FsUint v[3];
 		};
-
-
-}
-FAERIS_END_NAMESPACE 
+	public:
+		Face3(FsUint _a,FsUint _b,FsUint _c)
+			:a(_a),b(_b),c(_c)
+		{}
+		Face3(){}
+};
+FAERIS_NAMESPACE_END
 
 #endif 
 
