@@ -1,5 +1,5 @@
-#include"sl_state.h"
-#include"xir_token.h"
+#include "sl_state.h"
+#include "xir_token.h"
 
 extern XirState Double_Quote_Str_Begin;
 extern XirState Double_Quote_Str_Body;

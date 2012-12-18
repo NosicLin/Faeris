@@ -1,6 +1,6 @@
 #ifndef _FEARY_XIR_TOKEN_H_
 #define _FEARY_XIR_TOKEN_H_
-#include<string>
+
 enum XirToken
 {
 	XT_UNKOWN=0,
@@ -27,7 +27,7 @@ enum XirToken
 	XT_TOKEN_NU,
 };
 
-std::string XirToken_Name(int token);
+const char* XirToken_Name(int token);
 #endif  /*_FEARY_XIR_TOKEN_H_*/
 
 

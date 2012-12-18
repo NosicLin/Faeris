@@ -1,11 +1,12 @@
-#include"xirscript/xir_scanner.h"
-#include"xirscript/xir_token.h"
-#include"xirscript/sl_state.h"
 #include<stdio.h>
-#include"util/marocs.h"
 #include<string>
 
-XirScanner::XirScanner(IFile* file,XirState* begin_state)
+#include "FsMacros.h"
+#include "xir_scanner.h"
+#include "xir_token.h"
+#include "sl_state.h"
+
+XirScanner::XirScanner(Faeris::FsFile* file,XirState* begin_state)
 {
 	m_file=new XirFile(file);
 	m_begin_state=begin_state;
@@ -74,19 +75,19 @@ int XirScanner::nextToken()
 		{
 			line++;
 		}
+
 		next_state=cur_state->next(event);
+
 		if(next_state==&Err_State)
 		{
 			if(finnal_state==NULL)
 			{
 				m_cur_token=XT_ERROR;
 				file->mark();
-				//				DEBUG("Error Translate %s(%c)",cur_state->name,event);
 			}
 			else
 			{
 				m_cur_token=finnal_state->token;
-
 			}
 			break;
 		}
@@ -109,7 +110,7 @@ int XirScanner::nextToken()
 	{
 		m_cur_line=line;
 	}
-	file->ForwardToMark();
+	file->forwardToMark();
 	return m_cur_token;
 }
 

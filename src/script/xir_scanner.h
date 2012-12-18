@@ -1,8 +1,9 @@
 #ifndef _FAERY_XIR_SCRIPT_SCANNER_H_
 #define _FAERY_XIR_SCRIPT_SCANNER_H_
-#include"xirscript/xir_file.h"
-#include<string>
-#include"xirscript/xir_state.h"
+#include <string>
+#include "fsys/FsVFS.h"
+#include "xir_file.h"
+#include "xir_state.h"
 class XirScanner
 {
 	private:

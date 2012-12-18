@@ -1,0 +1,423 @@
+Terminals unused in grammar
+
+   tUNKOWN
+   tERR
+   tAMPERSAND
+   tDOLLAR
+
+
+Grammar
+
+    0 $accept: xir_start $end
+
+    1 xir_start: dict
+
+    2 primity: dict
+    3        | array
+    4        | string
+
+    5 string: sim_str
+    6       | dou_str
+    7       | sin_str
+
+    8 sim_str: tSIM_STR
+
+    9 dou_str: tDOU_STR
+
+   10 sin_str: tSIN_STR
+
+   11 delimiter: tNEWLINE
+   12          | tCOMMA
+   13          | tNEWLINE tCOMMA tNEWLINE
+   14          | tCOMMA tNEWLINE
+
+   15 dict_begin: tL_RB
+   16           | tL_RB tNEWLINE
+
+   17 dict_body: dict_begin
+   18          | dict_body sim_str tCOLON primity delimiter
+
+   19 dict: dict_body tR_RB
+   20     | dict_body sim_str tCOLON primity tR_RB
+
+   21 array_begin: tL_SB
+   22            | tL_SB tNEWLINE
+
+   23 array_body: array_begin
+   24           | array_body primity delimiter
+
+   25 array: array_body tR_SB
+   26      | array_body primity tR_SB
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+tUNKOWN (258)
+tERR (259)
+tSIM_STR (260) 8
+tDOU_STR (261) 9
+tSIN_STR (262) 10
+tNEWLINE (263) 11 13 14 16 22
+tCOMMA (264) 12 13 14
+tCOLON (265) 18 20
+tAMPERSAND (266)
+tDOLLAR (267)
+tL_RB (268) 15 16
+tR_RB (269) 19 20
+tL_SB (270) 21 22
+tR_SB (271) 25 26
+
+
+Nonterminals, with rules where they appear
+
+$accept (17)
+    on left: 0
+xir_start (18)
+    on left: 1, on right: 0
+primity (19)
+    on left: 2 3 4, on right: 18 20 24 26
+string (20)
+    on left: 5 6 7, on right: 4
+sim_str (21)
+    on left: 8, on right: 5 18 20
+dou_str (22)
+    on left: 9, on right: 6
+sin_str (23)
+    on left: 10, on right: 7
+delimiter (24)
+    on left: 11 12 13 14, on right: 18 24
+dict_begin (25)
+    on left: 15 16, on right: 17
+dict_body (26)
+    on left: 17 18, on right: 18 19 20
+dict (27)
+    on left: 19 20, on right: 1 2
+array_begin (28)
+    on left: 21 22, on right: 23
+array_body (29)
+    on left: 23 24, on right: 24 25 26
+array (30)
+    on left: 25 26, on right: 3
+
+
+state 0
+
+    0 $accept: . xir_start $end
+
+    tL_RB  shift, and go to state 1
+
+    xir_start   go to state 2
+    dict_begin  go to state 3
+    dict_body   go to state 4
+    dict        go to state 5
+
+
+state 1
+
+   15 dict_begin: tL_RB .
+   16           | tL_RB . tNEWLINE
+
+    tNEWLINE  shift, and go to state 6
+
+    $default  reduce using rule 15 (dict_begin)
+
+
+state 2
+
+    0 $accept: xir_start . $end
+
+    $end  shift, and go to state 7
+
+
+state 3
+
+   17 dict_body: dict_begin .
+
+    $default  reduce using rule 17 (dict_body)
+
+
+state 4
+
+   18 dict_body: dict_body . sim_str tCOLON primity delimiter
+   19 dict: dict_body . tR_RB
+   20     | dict_body . sim_str tCOLON primity tR_RB
+
+    tSIM_STR  shift, and go to state 8
+    tR_RB     shift, and go to state 9
+
+    sim_str  go to state 10
+
+
+state 5
+
+    1 xir_start: dict .
+
+    $default  reduce using rule 1 (xir_start)
+
+
+state 6
+
+   16 dict_begin: tL_RB tNEWLINE .
+
+    $default  reduce using rule 16 (dict_begin)
+
+
+state 7
+
+    0 $accept: xir_start $end .
+
+    $default  accept
+
+
+state 8
+
+    8 sim_str: tSIM_STR .
+
+    $default  reduce using rule 8 (sim_str)
+
+
+state 9
+
+   19 dict: dict_body tR_RB .
+
+    $default  reduce using rule 19 (dict)
+
+
+state 10
+
+   18 dict_body: dict_body sim_str . tCOLON primity delimiter
+   20 dict: dict_body sim_str . tCOLON primity tR_RB
+
+    tCOLON  shift, and go to state 11
+
+
+state 11
+
+   18 dict_body: dict_body sim_str tCOLON . primity delimiter
+   20 dict: dict_body sim_str tCOLON . primity tR_RB
+
+    tSIM_STR  shift, and go to state 8
+    tDOU_STR  shift, and go to state 12
+    tSIN_STR  shift, and go to state 13
+    tL_RB     shift, and go to state 1
+    tL_SB     shift, and go to state 14
+
+    primity      go to state 15
+    string       go to state 16
+    sim_str      go to state 17
+    dou_str      go to state 18
+    sin_str      go to state 19
+    dict_begin   go to state 3
+    dict_body    go to state 4
+    dict         go to state 20
+    array_begin  go to state 21
+    array_body   go to state 22
+    array        go to state 23
+
+
+state 12
+
+    9 dou_str: tDOU_STR .
+
+    $default  reduce using rule 9 (dou_str)
+
+
+state 13
+
+   10 sin_str: tSIN_STR .
+
+    $default  reduce using rule 10 (sin_str)
+
+
+state 14
+
+   21 array_begin: tL_SB .
+   22            | tL_SB . tNEWLINE
+
+    tNEWLINE  shift, and go to state 24
+
+    $default  reduce using rule 21 (array_begin)
+
+
+state 15
+
+   18 dict_body: dict_body sim_str tCOLON primity . delimiter
+   20 dict: dict_body sim_str tCOLON primity . tR_RB
+
+    tNEWLINE  shift, and go to state 25
+    tCOMMA    shift, and go to state 26
+    tR_RB     shift, and go to state 27
+
+    delimiter  go to state 28
+
+
+state 16
+
+    4 primity: string .
+
+    $default  reduce using rule 4 (primity)
+
+
+state 17
+
+    5 string: sim_str .
+
+    $default  reduce using rule 5 (string)
+
+
+state 18
+
+    6 string: dou_str .
+
+    $default  reduce using rule 6 (string)
+
+
+state 19
+
+    7 string: sin_str .
+
+    $default  reduce using rule 7 (string)
+
+
+state 20
+
+    2 primity: dict .
+
+    $default  reduce using rule 2 (primity)
+
+
+state 21
+
+   23 array_body: array_begin .
+
+    $default  reduce using rule 23 (array_body)
+
+
+state 22
+
+   24 array_body: array_body . primity delimiter
+   25 array: array_body . tR_SB
+   26      | array_body . primity tR_SB
+
+    tSIM_STR  shift, and go to state 8
+    tDOU_STR  shift, and go to state 12
+    tSIN_STR  shift, and go to state 13
+    tL_RB     shift, and go to state 1
+    tL_SB     shift, and go to state 14
+    tR_SB     shift, and go to state 29
+
+    primity      go to state 30
+    string       go to state 16
+    sim_str      go to state 17
+    dou_str      go to state 18
+    sin_str      go to state 19
+    dict_begin   go to state 3
+    dict_body    go to state 4
+    dict         go to state 20
+    array_begin  go to state 21
+    array_body   go to state 22
+    array        go to state 23
+
+
+state 23
+
+    3 primity: array .
+
+    $default  reduce using rule 3 (primity)
+
+
+state 24
+
+   22 array_begin: tL_SB tNEWLINE .
+
+    $default  reduce using rule 22 (array_begin)
+
+
+state 25
+
+   11 delimiter: tNEWLINE .
+   13          | tNEWLINE . tCOMMA tNEWLINE
+
+    tCOMMA  shift, and go to state 31
+
+    $default  reduce using rule 11 (delimiter)
+
+
+state 26
+
+   12 delimiter: tCOMMA .
+   14          | tCOMMA . tNEWLINE
+
+    tNEWLINE  shift, and go to state 32
+
+    $default  reduce using rule 12 (delimiter)
+
+
+state 27
+
+   20 dict: dict_body sim_str tCOLON primity tR_RB .
+
+    $default  reduce using rule 20 (dict)
+
+
+state 28
+
+   18 dict_body: dict_body sim_str tCOLON primity delimiter .
+
+    $default  reduce using rule 18 (dict_body)
+
+
+state 29
+
+   25 array: array_body tR_SB .
+
+    $default  reduce using rule 25 (array)
+
+
+state 30
+
+   24 array_body: array_body primity . delimiter
+   26 array: array_body primity . tR_SB
+
+    tNEWLINE  shift, and go to state 25
+    tCOMMA    shift, and go to state 26
+    tR_SB     shift, and go to state 33
+
+    delimiter  go to state 34
+
+
+state 31
+
+   13 delimiter: tNEWLINE tCOMMA . tNEWLINE
+
+    tNEWLINE  shift, and go to state 35
+
+
+state 32
+
+   14 delimiter: tCOMMA tNEWLINE .
+
+    $default  reduce using rule 14 (delimiter)
+
+
+state 33
+
+   26 array: array_body primity tR_SB .
+
+    $default  reduce using rule 26 (array)
+
+
+state 34
+
+   24 array_body: array_body primity delimiter .
+
+    $default  reduce using rule 24 (array_body)
+
+
+state 35
+
+   13 delimiter: tNEWLINE tCOMMA tNEWLINE .
+
+    $default  reduce using rule 13 (delimiter)

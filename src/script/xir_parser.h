@@ -1,9 +1,11 @@
 #ifndef _FAERY_XIR_SCRIPT_XIR_PARSE_H_
 #define _FAERY_XIR_SCRIPT_XIR_PARSE_H_
-#include"xirscript/xir_ast.h"
-#include"fsys/FsFile.h"
-#include"xirscript/xir_scanner.h"
-#include<vector>
+#include <vector>
+
+#include "fsys/FsFile.h"
+#include "xir_scanner.h"
+#include "util/FsDict.h"
+
 class XirParser
 {
 	public:
@@ -13,9 +15,9 @@ class YYParserParm
 {
 	public:
 		XirScanner* m_lex;
-		XirAstNode* m_root;
+		FsDict* m_root;
 		bool m_delimiter;
-		std::vector<XirAstNode*> m_pending_node;
+		std::vector<FsObject*> m_pending_obs;
 	public:
 		YYParserParm(XirScanner* lex)
 		{
@@ -23,45 +25,53 @@ class YYParserParm
 			m_root=NULL;
 			m_delimiter=false;
 		}
-		void deletePendingNode()
+		void releasePendingNode()
 		{
-			unsigned long size=m_pending_node.size();
-			for(unsigned int i=0;i<size;i++)
+			std::vector iter;
+			for(iter=m_pending_obs.begin();iter!=m_pending_obs.end();++iter)
 			{
-				m_pending_node[i]->deleteSelf();
+				iter->release();
 			}
-			m_pending_node.clear();
+			m_pending_obs.clear();
 		}
-		XirAstStringNode* newStringNode()
+		FsString* newStringObject()
 		{
-			int line=m_lex->curLine();
-			XirAstStringNode* node=new XirAstStringNode(m_lex->curString(),line);
-			m_pending_node.push_back(node);
-			return node;
+			FsString* ob=new FsString(m_lex->curString());
+			m_pending_node.push_back(ob);
+			return ob;
 		}
-		XirAstReferNode* newReferNode()
+		FsDict* newDictObject()
 		{
-			int line=m_lex->curLine();
-			XirAstReferNode* node=new XirAstReferNode(m_lex->curString(),line);
-			m_pending_node.push_back(node);
-			return node;
+			FsDict* ob=new FsDict();
+			m_pending_obs.push_back(ob);
+			return ob;
 		}
 
-		XirAstComplexNode* newComplexNode(int type)
+		FsArray* newArrayObject(int type)
 		{
-			int line=m_lex->curLine();
-			XirAstComplexNode* node=new XirAstComplexNode(type,line);
-			m_pending_node.push_back(node);
-			return node;
+			FsArray* ob=new FsArray;
+			m_pending_obs.push_back(ob);
+			return ob;
 		}
 
-		void setRoot(XirAstNode* root)
+		void setRoot(FsDict* root)
 		{
+			if(root) root->addRef();
+			if(m_root) { m_root->release(); }
 			m_root=root;
 		}
-		XirAstNode* getRoot()
+		FsDict* getRoot()
 		{
+			if(m_root)
+			{
+				m_root->addRef();
+			}
 			return m_root;
+		}
+		~YYParserParm()
+		{
+			if(m_root) m_root->release();
+			releasePendingNode();
 		}
 };
 #define YACC_SHIFT_BASE  258

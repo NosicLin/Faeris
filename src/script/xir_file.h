@@ -1,6 +1,8 @@
 #ifndef _FAERY_XIR_SCRIPT_FILE_H_
 #define _FAERY_XIR_SCRIPT_FILE_H_ 
+
 #include "fsys/FsFile.h"
+
 class XirFile
 {
 	private:
@@ -27,7 +29,7 @@ class XirFile
 		{
 			m_buf_pos=m_mark;
 		}
-		void ForwardToMark()
+		void forwardToMark()
 		{
 			m_begin=m_mark;
 			m_buf_pos=m_mark;

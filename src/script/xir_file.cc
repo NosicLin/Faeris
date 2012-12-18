@@ -1,9 +1,11 @@
-#include"xirscript/xir_file.h"
-#include"FsMacros.h"
-#include<string.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "FsMacros.h"
+#include "xir_file.h"
 #define LEX_FILE_DEFAULT_SIZE 64
-XirFile::XirFile(IFile* f)
+
+XirFile::XirFile(Faeris::FsFile* f)
 {
 	m_file=f;
 	m_buf= new char[LEX_FILE_DEFAULT_SIZE];

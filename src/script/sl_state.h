@@ -1,7 +1,7 @@
 #ifndef _FEARY_XIR_SL_STATE_H_
 #define _FEARY_XIR_SL_STATE_H_
 
-#include"xirscript/xir_state.h"
+#include  "xir_state.h"
 
 extern XirState Err_State;
 extern XirState Xir_Top;

@@ -1,5 +1,5 @@
-#include"xirscript/sl_state.h"
-#include"xirscript/xir_token.h"
+#include "sl_state.h"
+#include "xir_token.h"
 enum Xir_Top_Input_Type
 {
 	XP_OTHER=0,

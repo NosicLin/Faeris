@@ -76,7 +76,7 @@
 
 
 /* Line 268 of yacc.c  */
-#line 80 "xir_grammer.cc"
+#line 80 "xir_grammer.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -134,7 +134,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 138 "xir_grammer.cc"
+#line 138 "xir_grammer.tab.c"
 
 #ifdef short
 # undef short
@@ -431,8 +431,8 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    20,    20,    28,    29,    30,    33,    37,    41,    46,
-      52,    58,    65,    65,    65,    65,    69,    74,    81,    86,
-      95,    99,   111,   116,   122,   128,   135,   139
+      52,    58,    65,    65,    65,    65,    69,    74,    76,    81,
+      90,    95,    99,   104,   110,   116,   123,   127
 };
 #endif
 
@@ -1472,19 +1472,10 @@ yyreduce:
 	}
     break;
 
-  case 17:
-
-/* Line 1806 of yacc.c  */
-#line 75 "xir_grammer.y"
-    {
-		(yyval)=CAST_PARAM->newDictObject();
-	}
-    break;
-
   case 18:
 
 /* Line 1806 of yacc.c  */
-#line 82 "xir_grammer.y"
+#line 77 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1493,7 +1484,7 @@ yyreduce:
   case 19:
 
 /* Line 1806 of yacc.c  */
-#line 87 "xir_grammer.y"
+#line 82 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (5)]);
 		FsDict* dict=(FsDict*)((yyvsp[(1) - (5)]));
@@ -1506,29 +1497,16 @@ yyreduce:
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 96 "xir_grammer.y"
+#line 91 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (2)]);
-	}
-    break;
-
-  case 21:
-
-/* Line 1806 of yacc.c  */
-#line 100 "xir_grammer.y"
-    {
-		(yyval)=(yyvsp[(1) - (5)]);
-		FsDict* dict=(FsDict*)((yyvsp[(1) - (5)]));
-		dict->map((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->release();
-		((yyvsp[(4) - (5)]))->release();
 	}
     break;
 
   case 22:
 
 /* Line 1806 of yacc.c  */
-#line 112 "xir_grammer.y"
+#line 100 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newArrayObject();
 	}
@@ -1537,7 +1515,7 @@ yyreduce:
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 117 "xir_grammer.y"
+#line 105 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newArrayObject();
 	}
@@ -1546,7 +1524,7 @@ yyreduce:
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 123 "xir_grammer.y"
+#line 111 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1555,7 +1533,7 @@ yyreduce:
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 129 "xir_grammer.y"
+#line 117 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (3)]);
 		((FsArray*)((yyvsp[(1) - (3)])))->pushBack((yyvsp[(2) - (3)]));
@@ -1566,7 +1544,7 @@ yyreduce:
   case 26:
 
 /* Line 1806 of yacc.c  */
-#line 136 "xir_grammer.y"
+#line 124 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (2)]);
 	}
@@ -1575,18 +1553,17 @@ yyreduce:
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 140 "xir_grammer.y"
+#line 128 "xir_grammer.y"
     {
 		((FsArray*)((yyvsp[(1) - (3)])))->pushBack((yyvsp[(2) - (3)]));
 		(yyval)=(yyvsp[(1) - (3)]);
-		((yyvsp[(2) - (3)]))->release();
 	}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1590 "xir_grammer.cc"
+#line 1567 "xir_grammer.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

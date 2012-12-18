@@ -3,6 +3,8 @@
 
 #include "FsMacros.h"
 
+#define FS_INVALID_HASH_CODE (-1)
+
 FAERIS_NAMESPACE_BEGIN
 
 class FsObject 
@@ -25,6 +27,9 @@ class FsObject
 		FsObject():m_refNu(1){}
 		virtual ~FsObject();
 		virtual const FsChar* getName()=0;
+		virtual FsLong getHashCode();
+		virtual FsBool equal(FsObject* ob); 
+
 		virtual void onDestory();
 };
 

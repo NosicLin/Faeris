@@ -1,6 +1,6 @@
-#include"xir_token.h"
-#include"sl_state.h"
-#include"xir_state.h"
+#include "xir_token.h"
+#include "sl_state.h"
+#include "xir_state.h"
 enum Sim_Str_Input_Type
 {
 	SS_ERR=0,

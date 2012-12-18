@@ -1,5 +1,6 @@
-#include"xirscript/xir_token.h"
-#include"util/marocs.h"
+#include "FsMacros.h"
+#include "xir_token.h"
+
 static const char* s_xir_token_name[]=
 {
 	"XT_UNKOWN",
@@ -21,9 +22,9 @@ static const char* s_xir_token_name[]=
 	"XT_COMMENT",
 	"XT_EOF",
 };
-std::string XirToken_Name(int token)
+const char* XirToken_Name(int token)
 {
 	FS_TRACE_ERROR_ON(token>=XT_TOKEN_NU,"Token(%d) Valied",token);
-	return std::string(s_xir_token_name[token]);
+	return s_xir_token_name[token];
 }
 

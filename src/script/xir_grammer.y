@@ -1,9 +1,9 @@
 %{
-#include"xirscript/xir_scanner.h"
-#include"xirscript/xir_parser.h"
+#include "xir_scanner.h"
+#include "xir_parser.h"
 
 #define CAST_PARAM  ((YYParserParm*) YYPARSE_PARAM)
-#define YYSTYPE XirAstNode* 
+#define YYSTYPE FsObject* 
 %}
 
 %token tUNKOWN tERR
@@ -13,159 +13,137 @@
 %token tL_RB tR_RB tL_SB tR_SB
 
 %pure_parser
+
 %start xir_start
 %%
 
-xir_start:ref_body dict_body 
+xir_start:dict
 	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ROOT);
-		node->addChrild($1);
-		node->addChrild($2);
-		$$=node;
-		CAST_PARAM->setRoot(node);
-	}
-	|delimiter ref_body dict_body
-	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ROOT);
-		node->addChrild($2);
-		node->addChrild($3);
-		$$=node;
-		CAST_PARAM->setRoot(node);
-	}
-	|dict_body
-	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ROOT);
-		node->addChrild($1);
-		$$=node;
-		CAST_PARAM->setRoot(node);
+		$$=$1;
+		CAST_PARAM->setRoot($1);
+		($1)->release();
 	}
 ;
 
 primity:dict{$$=$1;}
 	| array {$$=$1;}
 	| string {$$=$1;}
-	| refer{$$=$1;}
 ;
 
-string:tSIM_STR 
+string:sim_str
 	{
-		$$=CAST_PARAM->newStringNode();
+		$$=$1;
 	}
-	| tDOU_STR
+	| dou_str
 	{
-		$$=CAST_PARAM->newStringNode();
+		$$=$1;
 	}
-	| tSIN_STR
+	| sin_str
 	{
-		$$=CAST_PARAM->newStringNode();
+		$$=$1;
 	}
 ;
-
 sim_str:tSIM_STR
 	{
-		$$=CAST_PARAM->newStringNode();
-	}
-refer:tDOLLAR tSIM_STR
-{
-	$$=CAST_PARAM->newReferNode();
-}
-;	 
-
-delimiter:tNEWLINE | tCOMMA ;
-
-ref_body:tAMPERSAND tL_RB tR_RB	
-	{
-		$$=CAST_PARAM->newComplexNode(XirAstNode::AT_REf_DICT);
-	}
-	|tAMPERSAND tL_RB dict_body tR_RB
-	{
-		XirAstComplexNode* node=(XirAstComplexNode*)($3);
-		node->setType(XirAstNode::AT_REf_DICT);
-		$$=node;
+		$$=CAST_PARAM->newStringObject();
 	}
 ;
 
-dict:tL_RB tR_RB 
-	{	
-		$$=CAST_PARAM->newComplexNode(XirAstNode::AT_DICT);
-	}
-	|tL_RB dict_body tR_RB 
+dou_str:tDOU_STR
 	{
-		$$=$2;
+		$$=CAST_PARAM->newStringObject();
 	}
 ;
 
-dict_body: delimiter 
+sin_str:tSIN_STR
 	{
-		$$=CAST_PARAM->newComplexNode(XirAstNode::AT_DICT);
-	}
-	|dict_body_real{$$=$1;}
-	|dict_body_real delimiter{$$=$1;}
-	|delimiter dict_body_real{$$=$2;}
-	|delimiter dict_body_real delimiter{$$=$2;}
-;
-
-dict_body_real:dict_entry
-	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_DICT);
-		node->addChrild($1);
-		$$=node;
-	}
-	|dict_body_real delimiter dict_entry
-	{
-		XirAstComplexNode* node=(XirAstComplexNode*)($1);
-		node->addChrild($3);
-		$$=node;
-	}
-;
-
-dict_entry: sim_str tCOLON primity 
-	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_DICT_ENTRY);
-		node->addChrild($1);
-		node->addChrild($3);
-		$$=node;
+		$$=CAST_PARAM->newStringObject();
 	}
 ;
 
 
-array:tL_SB tR_SB
+delimiter:tNEWLINE | tCOMMA | tNEWLINE tCOMMA tNEWLINE | tCOMMA tNEWLINE;
+
+
+/* for dict */
+dict_begin:tL_RB
 	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ARRAY);
-		$$=node;
+		$$=CAST_PARAM->newDictObject();
 	}
-	|tL_SB array_body tR_SB{$$=$2;}
+;
+dict_begin: tL_RB  tNEWLINE
+	{
+		$$=CAST_PARAM->newDictObject();
+	}
+;
+	
+
+dict_body:dict_begin
+	{
+		$$=$1;
+	}
+;	
+dict_body:dict_body sim_str tCOLON primity  delimiter
+	{
+		$$=$1;
+		FsDict* dict=(FsDict*)($1);
+		dict->map($2,$4);
+		($2)->release();
+		($4)->release();
+	}
+;
+dict:dict_body tR_RB 
+	{
+		$$=$1;
+	}
+	| dict_body sim_str tCOLON primity tR_RB
+	{
+		$$=$1;
+		FsDict* dict=(FsDict*)($1);
+		dict->map($2,$4);
+		($2)->release();
+		($4)->release();
+	}
 ;
 
-array_body:delimiter
+
+/* for array */
+array_begin:tL_SB 
 	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ARRAY);
-		$$=node;
+		$$=CAST_PARAM->newArrayObject();
 	}
-	|array_body_real{$$=$1;}
-	|array_body_real delimiter{$$=$1;}
-	|delimiter array_body_real {$$=$2;}
-	|delimiter array_body_real delimiter{$$=$2;}
+;
+array_begin: tL_SB  tNEWLINE
+	{
+		$$=CAST_PARAM->newArrayObject();
+	}
 ;
 
-array_body_real:array_entry
+array_body:array_begin
 	{
-		XirAstComplexNode* node=CAST_PARAM->newComplexNode(XirAstNode::AT_ARRAY);
-		node->addChrild($1);
-		$$=node;
+		$$=$1;
 	}
-
-	|array_body_real delimiter array_entry
-	{
-		XirAstComplexNode* node=(XirAstComplexNode*)($1);
-		node->addChrild($3);
-		$$=node;
-	}
-
 ;
 
-array_entry:primity {$$=$1;}
+array_body:array_body primity delimiter
+	{
+		$$=$1;
+		((FsArray*)($1))->pushBack($2);
+		$2->release();
+	}
 ;
+array:array_body tR_SB
+	{
+		$$=$1;
+	}
+	|array_body primity tR_SB
+	{
+		((FsArray*)($1))->pushBack($2);
+		$$=$1;
+		($2)->release();
+	}
+;
+
 
 
 

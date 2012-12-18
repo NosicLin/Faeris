@@ -1,6 +1,6 @@
-#include"xir_token.h"
-#include"sl_state.h"
-#include"xir_state.h"
+#include "xir_token.h"
+#include "sl_state.h"
+#include "xir_state.h"
 
 static unsigned char begin_input_map[]=
 {

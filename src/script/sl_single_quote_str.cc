@@ -1,5 +1,5 @@
-#include"sl_state.h"
-#include"xir_token.h"
+#include "sl_state.h"
+#include "xir_token.h"
 
 static unsigned char input_map[]=
 {

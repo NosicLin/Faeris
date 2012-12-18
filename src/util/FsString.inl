@@ -1,5 +1,6 @@
-#include<util/util.h>
-#include<assert.h>
+#ifndef _FS_UTIL_STRING_INL_
+#define _FS_UTIL_STRING_INL_
+
 inline GrString::GrString():m_string("")
 {
 	mCalHashCode();
@@ -98,13 +99,12 @@ inline void GrString::mCalHashCode()
 
 inline char GrString::operator[](size_t n)const 
 {
-	assert(n<length());
+	FS_ASSERT(n<length());
 	return m_string[n];
 }
 
 
-
-
+#endif /*_FS_UTIL_STRING_INL_*/
 
 
 

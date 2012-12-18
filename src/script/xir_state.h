@@ -1,6 +1,8 @@
 #ifndef _FAERY_XIR_SCRIPT_H_
 #define _FAERY_XIR_SCRIPT_H_
+
 #define ASCII_NUM 256
+
 struct tagXirState
 {
 	const char* name;

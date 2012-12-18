@@ -1,8 +1,8 @@
-#include<stdio.h>
-#include"xirscript/xir_token.h"
-#include"xirscript/sl_state.h"
+#include <stdio.h>
+#include "xir_token.h"
+#include "sl_state.h"
 
-#include"xirscript/xir_parser.h"
+#include "xir_parser.h"
 #define YYACCEPT 0
 
 int yylex(void* lvap,void* parm)
@@ -52,7 +52,7 @@ void xir_parse_err(const char* msg,void* parm)
 
 }
 
-XirAstNode* XirParser::parse(IFile* file)
+FsDict* XirParser::parse(Faeris::FsFile* file)
 {
 	XirScanner* lex=new XirScanner(file,&Xir_Top);
 	YYParserParm* parm=new YYParserParm(lex);
@@ -60,14 +60,13 @@ XirAstNode* XirParser::parse(IFile* file)
 	if(ret!=YYACCEPT)
 	{
 		delete lex;
-		parm->deletePendingNode();
 		delete parm;
 		return NULL;
 	}
 
 	delete lex;
-	XirAstNode* ast=parm->getRoot();
+	FsDict* root=parm->getRoot();
 	FS_TRACE_ERROR_ON(ast==NULL,"Some Error Must Happened In xir_grammy.y");
 	delete parm;
-	return ast;
+	return root;
 }
