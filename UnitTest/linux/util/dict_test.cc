@@ -251,7 +251,7 @@ int test_del_no_exist_item()
 		ret=FsDict_Del(h,key);
 		if(ret==false)
 		{
-			printf("i=%d,key=%s\n",i,((FsString*)key)->c_str());
+			printf("i=%d,key=%s\n",i,((FsString*)key)->cstr());
 			h->release();
 			return 0;
 		}

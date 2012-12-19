@@ -75,7 +75,7 @@ inline int FsString::compare(const FsChar* str)const
 {
 	return m_string.compare(str);
 }
-inline const FsChar* FsString::c_str()const
+inline const FsChar* FsString::cstr()const
 {
 	return m_string.c_str();
 }

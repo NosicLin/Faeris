@@ -5,6 +5,14 @@
 static const FsChar* s_FsStringName="FsStringObject";
 
 FAERIS_NAMESPACE_BEGIN
+
+FsString::FsString(FsInt value)
+{
+	FsChar buf[128];
+	sprintf(buf,"%d",value);
+	m_string=std::string(buf);
+	mCalHashCode();
+}
 FsLong FsString::getHashCode()
 {
 	return m_hash_code;

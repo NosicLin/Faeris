@@ -23,6 +23,7 @@ SRC=  FsImgDecoder.cc \
 	  FsResourceMgr.cc \
 	  FsDict.cc \
 	  FsString.cc \
+	  FsArray.cc \
 	
 
 #full src name 

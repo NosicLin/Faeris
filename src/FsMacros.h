@@ -81,6 +81,15 @@
 
 
 
+/* copy able */
+#define FS_FEATURE public
+
+#define FS_MAKE_NO_COPYABLE(class_name) \
+	private: \
+	class_name& operator&(class_name& other){return *this;} \
+	class_name& operator=(class_name& other){return *this;}
+
+
 
 
 

@@ -5,7 +5,8 @@ SRC=
 
 DEBUG=
 
-BIN= dict_test.cc dict_memleak_test.cc
+BIN= dict_test.cc dict_memleak_test.cc \
+	 array_test.cc 
 	
 
 

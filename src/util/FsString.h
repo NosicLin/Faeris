@@ -17,6 +17,7 @@ class FsString:public FsObject
 	public: 
 		FsString();
 		FsString(const FsChar* str);
+		FsString(FsInt value);
 
 	public:
 		virtual FsLong getHashCode();
@@ -36,7 +37,7 @@ class FsString:public FsObject
 		void clear();
 		int compare(const FsString& str) const;
 		int compare(const FsChar* str)const;
-		const FsChar* c_str()const;
+		const FsChar* cstr()const;
 		bool empty()const; 
 		FsLong length()const;
 		FsString& erase(FsLong pos,FsLong num=1);
