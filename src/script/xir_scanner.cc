@@ -115,7 +115,7 @@ int XirScanner::nextToken()
 }
 
 
-std::string XirScanner::curTokenName()
+const char* XirScanner::curTokenName()
 {
 	return XirToken_Name(m_cur_token);
 }

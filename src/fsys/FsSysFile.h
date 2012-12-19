@@ -17,7 +17,7 @@ FAERIS_NAMESPACE_BEGIN
 class SysFile:public FsFile 
 {
 	public:
-		static SysFile* open(const FsChar* name,FsUint mode);
+		static SysFile* open(const FsChar* name,FsUint mode=FsFile::FS_IO_RDONLY);
 		static SysFile* getStdoutFile();
 		static SysFile* getStderrFile();
 		static SysFile* getStdinFile();

@@ -19,8 +19,8 @@ class XirScanner
 		int nextToken();
 		int curToken(){return m_cur_token;}
 		int curLine(){return m_cur_line;}
-		std::string curString(){return m_cur_string;}
-		std::string curTokenName();
+		const char* curString(){return m_cur_string.c_str();}
+		const char* curTokenName();
 };
 
 #endif /*_FAERY_XIR_SCRIPT_SCANNER_H_*/

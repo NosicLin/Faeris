@@ -2,65 +2,67 @@
 #define _FAERY_XIR_SCRIPT_XIR_PARSE_H_
 #include <vector>
 
+#include "FsMacros.h"
 #include "fsys/FsFile.h"
 #include "xir_scanner.h"
 #include "util/FsDict.h"
+#include "util/FsArray.h"
+#include "util/FsString.h"
+
+
 
 class XirParser
 {
 	public:
-		static XirAstNode* parse(Faeris::FsFile* file);
+		static Faeris::FsDict* parse(Faeris::FsFile* file);
 };
+
 class YYParserParm
 {
 	public:
 		XirScanner* m_lex;
-		FsDict* m_root;
+		Faeris::FsDict* m_root;
 		bool m_delimiter;
-		std::vector<FsObject*> m_pending_obs;
+		Faeris::FsArray* m_pending_obs;
 	public:
 		YYParserParm(XirScanner* lex)
 		{
 			m_lex=lex;
 			m_root=NULL;
 			m_delimiter=false;
+			m_pending_obs=new Faeris::FsArray;
 		}
 		void releasePendingNode()
 		{
-			std::vector iter;
-			for(iter=m_pending_obs.begin();iter!=m_pending_obs.end();++iter)
-			{
-				iter->release();
-			}
-			m_pending_obs.clear();
+			m_pending_obs->decRef();
 		}
-		FsString* newStringObject()
+		Faeris::FsString* newStringObject()
 		{
-			FsString* ob=new FsString(m_lex->curString());
-			m_pending_node.push_back(ob);
+			Faeris::FsString* ob=new Faeris::FsString(m_lex->curString());
+			m_pending_obs->push(ob);
 			return ob;
 		}
-		FsDict* newDictObject()
+		Faeris::FsDict* newDictObject()
 		{
-			FsDict* ob=new FsDict();
-			m_pending_obs.push_back(ob);
+			Faeris::FsDict* ob=new Faeris::FsDict();
+			m_pending_obs->push(ob);
 			return ob;
 		}
 
-		FsArray* newArrayObject(int type)
+		Faeris::FsArray* newArrayObject()
 		{
-			FsArray* ob=new FsArray;
-			m_pending_obs.push_back(ob);
+			Faeris::FsArray* ob=new Faeris::FsArray;
+			m_pending_obs->push(ob);
 			return ob;
 		}
 
-		void setRoot(FsDict* root)
+		void setRoot(Faeris::FsDict* root)
 		{
 			if(root) root->addRef();
-			if(m_root) { m_root->release(); }
+			if(m_root) { m_root->decRef(); }
 			m_root=root;
 		}
-		FsDict* getRoot()
+		Faeris::FsDict* getRoot()
 		{
 			if(m_root)
 			{
@@ -70,7 +72,7 @@ class YYParserParm
 		}
 		~YYParserParm()
 		{
-			if(m_root) m_root->release();
+			if(m_root) m_root->decRef();
 			releasePendingNode();
 		}
 };

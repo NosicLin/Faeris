@@ -72,7 +72,7 @@
 #include "xir_parser.h"
 
 #define CAST_PARAM  ((YYParserParm*) YYPARSE_PARAM)
-#define YYSTYPE FsObject* 
+#define YYSTYPE Faeris::FsObject* 
 
 
 /* Line 268 of yacc.c  */
@@ -351,18 +351,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  7
+#define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   33
+#define YYLAST   41
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  17
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  14
+#define YYNNTS  15
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  27
+#define YYNRULES  30
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  36
+#define YYNSTATES  45
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -409,30 +409,33 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     5,     7,     9,    11,    13,    15,    17,
-      19,    21,    23,    25,    27,    31,    34,    36,    39,    41,
-      47,    50,    56,    58,    61,    63,    67,    70
+       0,     0,     3,     5,    10,    12,    18,    20,    22,    24,
+      26,    28,    30,    32,    34,    36,    38,    40,    44,    47,
+      49,    52,    54,    60,    63,    69,    71,    74,    76,    80,
+      83
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      18,     0,    -1,    27,    -1,    27,    -1,    30,    -1,    20,
-      -1,    21,    -1,    22,    -1,    23,    -1,     5,    -1,     6,
-      -1,     7,    -1,     8,    -1,     9,    -1,     8,     9,     8,
-      -1,     9,     8,    -1,    13,    -1,    13,     8,    -1,    25,
-      -1,    26,    21,    10,    19,    24,    -1,    26,    14,    -1,
-      26,    21,    10,    19,    14,    -1,    15,    -1,    15,     8,
-      -1,    28,    -1,    29,    19,    24,    -1,    29,    16,    -1,
-      29,    19,    16,    -1
+      18,     0,    -1,    19,    -1,    22,    10,    20,    25,    -1,
+       8,    -1,    19,    22,    10,    20,    25,    -1,    28,    -1,
+      31,    -1,    21,    -1,    22,    -1,    23,    -1,    24,    -1,
+       5,    -1,     6,    -1,     7,    -1,     8,    -1,     9,    -1,
+       8,     9,     8,    -1,     9,     8,    -1,    13,    -1,    13,
+       8,    -1,    26,    -1,    27,    22,    10,    20,    25,    -1,
+      27,    14,    -1,    27,    22,    10,    20,    14,    -1,    15,
+      -1,    15,     8,    -1,    29,    -1,    30,    20,    25,    -1,
+      30,    16,    -1,    30,    20,    16,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    20,    20,    28,    29,    30,    33,    37,    41,    46,
-      52,    58,    65,    65,    65,    65,    69,    74,    81,    86,
-      95,    99,   111,   116,   122,   128,   135,   139
+       0,    20,    20,    28,    37,    43,    55,    56,    57,    60,
+      64,    68,    73,    79,    85,    92,    92,    92,    92,    96,
+     101,   108,   113,   122,   126,   138,   143,   149,   155,   162,
+     166
 };
 #endif
 
@@ -444,8 +447,9 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "tUNKOWN", "tERR", "tSIM_STR",
   "tDOU_STR", "tSIN_STR", "tNEWLINE", "tCOMMA", "tCOLON", "tAMPERSAND",
   "tDOLLAR", "tL_RB", "tR_RB", "tL_SB", "tR_SB", "$accept", "xir_start",
-  "primity", "string", "sim_str", "dou_str", "sin_str", "delimiter",
-  "dict_begin", "dict_body", "dict", "array_begin", "array_body", "array", 0
+  "xir_body", "primity", "string", "sim_str", "dou_str", "sin_str",
+  "delimiter", "dict_begin", "dict_body", "dict", "array_begin",
+  "array_body", "array", 0
 };
 #endif
 
@@ -463,16 +467,18 @@ static const yytype_uint16 yytoknum[] =
 static const yytype_uint8 yyr1[] =
 {
        0,    17,    18,    19,    19,    19,    20,    20,    20,    21,
-      22,    23,    24,    24,    24,    24,    25,    25,    26,    26,
-      27,    27,    28,    28,    29,    29,    30,    30
+      21,    21,    22,    23,    24,    25,    25,    25,    25,    26,
+      26,    27,    27,    28,    28,    29,    29,    30,    30,    31,
+      31
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     3,     2,     1,     2,     1,     5,
-       2,     5,     1,     2,     1,     3,     2,     3
+       0,     2,     1,     4,     1,     5,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     3,     2,     1,
+       2,     1,     5,     2,     5,     1,     2,     1,     3,     2,
+       3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -480,35 +486,37 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,    16,     0,    18,     0,     2,    17,     1,     9,    20,
-       0,     0,    10,    11,    22,     0,     5,     6,     7,     8,
-       3,    24,     0,     4,    23,    12,    13,    21,    19,    26,
-       0,     0,    15,    27,    25,    14
+       0,    12,     4,     0,     2,     0,     1,     0,     0,     0,
+      13,    14,    19,    25,     0,     8,     9,    10,    11,    21,
+       0,     6,    27,     0,     7,     0,    20,    26,    15,    16,
+       3,    23,     0,    29,     0,     5,     0,    18,     0,    30,
+      28,    17,     0,    24,    22
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,    15,    16,    17,    18,    19,    28,     3,     4,
-      20,    21,    22,    23
+      -1,     3,     4,    14,    15,    16,    17,    18,    30,    19,
+      20,    21,    22,    23,    24
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -11
+#define YYPACT_NINF -24
 static const yytype_int8 yypact[] =
 {
-     -10,     1,    13,   -11,     2,   -11,   -11,   -11,   -11,   -11,
-       5,    -1,   -11,   -11,    11,    12,   -11,   -11,   -11,   -11,
-     -11,   -11,    -5,   -11,   -11,    14,    16,   -11,   -11,   -11,
-       9,    19,   -11,   -11,   -11,   -11
+       5,   -24,   -24,     4,    11,    -4,   -24,    10,    17,    17,
+     -24,   -24,    20,    23,    29,   -24,   -24,   -24,   -24,   -24,
+      -2,   -24,   -24,     2,   -24,    29,   -24,   -24,    16,    25,
+     -24,   -24,    30,   -24,    18,   -24,    31,   -24,    17,   -24,
+     -24,   -24,    27,   -24,   -24
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,     0,   -11,    24,   -11,   -11,     3,   -11,   -11,
-      29,   -11,   -11,   -11
+     -24,   -24,   -24,    -9,   -24,     1,   -24,   -24,   -23,   -24,
+     -24,   -24,   -24,   -24,   -24
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -517,34 +525,37 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       8,    12,    13,     1,     8,    12,    13,     8,     1,     6,
-      14,    29,     1,     7,    14,    11,     9,    25,    26,    24,
-      25,    26,    30,    31,    32,    33,    27,    35,    10,     5,
-       0,     0,     0,    34
+      25,     5,    35,     1,     6,     7,     8,     1,    10,    11,
+       1,    40,    31,     2,    34,    12,     1,    13,    33,    44,
+       9,    32,     1,    10,    11,    36,    28,    29,    26,    42,
+      12,    27,    13,    37,    39,    28,    29,    28,    29,    41,
+      38,    43
 };
 
 #define yypact_value_is_default(yystate) \
-  ((yystate) == (-11))
+  ((yystate) == (-24))
 
 #define yytable_value_is_error(yytable_value) \
   YYID (0)
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-       5,     6,     7,    13,     5,     6,     7,     5,    13,     8,
-      15,    16,    13,     0,    15,    10,    14,     8,     9,     8,
-       8,     9,    22,     9,     8,    16,    14,     8,     4,     0,
-      -1,    -1,    -1,    30
+       9,     0,    25,     5,     0,     4,    10,     5,     6,     7,
+       5,    34,    14,     8,    23,    13,     5,    15,    16,    42,
+      10,    20,     5,     6,     7,     9,     8,     9,     8,    38,
+      13,     8,    15,     8,    16,     8,     9,     8,     9,     8,
+      10,    14
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    13,    18,    25,    26,    27,     8,     0,     5,    14,
-      21,    10,     6,     7,    15,    19,    20,    21,    22,    23,
-      27,    28,    29,    30,     8,     8,     9,    14,    24,    16,
-      19,     9,     8,    16,    24,     8
+       0,     5,     8,    18,    19,    22,     0,    22,    10,    10,
+       6,     7,    13,    15,    20,    21,    22,    23,    24,    26,
+      27,    28,    29,    30,    31,    20,     8,     8,     8,     9,
+      25,    14,    22,    16,    20,    25,     9,     8,    10,    16,
+      25,     8,    20,    14,    25
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1383,210 +1394,245 @@ yyreduce:
 #line 21 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
-		CAST_PARAM->setRoot((yyvsp[(1) - (1)]));
-		((yyvsp[(1) - (1)]))->release();
+		CAST_PARAM->setRoot((Faeris::FsDict*)(yyvsp[(1) - (1)]));
+		((yyvsp[(1) - (1)]))->decRef();
 	}
     break;
 
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 28 "xir_grammer.y"
-    {(yyval)=(yyvsp[(1) - (1)]);}
+#line 29 "xir_grammer.y"
+    {
+		Faeris::FsDict* dict= CAST_PARAM->newDictObject();
+		(yyval)=dict;
+		dict->insert((yyvsp[(1) - (4)]),(yyvsp[(3) - (4)]));
+		((yyvsp[(1) - (4)]))->decRef();
+		((yyvsp[(3) - (4)]))->decRef();
+	}
     break;
 
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 29 "xir_grammer.y"
-    {(yyval)=(yyvsp[(1) - (1)]);}
+#line 38 "xir_grammer.y"
+    {
+		(yyval)=CAST_PARAM->newDictObject();
+	}
     break;
 
   case 5:
 
 /* Line 1806 of yacc.c  */
-#line 30 "xir_grammer.y"
-    {(yyval)=(yyvsp[(1) - (1)]);}
+#line 44 "xir_grammer.y"
+    {
+		(yyval)=(yyvsp[(1) - (5)]);
+		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
+		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
+		((yyvsp[(2) - (5)]))->decRef();
+		((yyvsp[(4) - (5)]))->decRef();
+}
     break;
 
   case 6:
 
 /* Line 1806 of yacc.c  */
-#line 34 "xir_grammer.y"
-    {
-		(yyval)=(yyvsp[(1) - (1)]);
-	}
+#line 55 "xir_grammer.y"
+    {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 7:
 
 /* Line 1806 of yacc.c  */
-#line 38 "xir_grammer.y"
-    {
-		(yyval)=(yyvsp[(1) - (1)]);
-	}
+#line 56 "xir_grammer.y"
+    {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 8:
 
 /* Line 1806 of yacc.c  */
-#line 42 "xir_grammer.y"
-    {
-		(yyval)=(yyvsp[(1) - (1)]);
-	}
+#line 57 "xir_grammer.y"
+    {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 9:
 
 /* Line 1806 of yacc.c  */
-#line 47 "xir_grammer.y"
+#line 61 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newStringObject();
+		(yyval)=(yyvsp[(1) - (1)]);
 	}
     break;
 
   case 10:
 
 /* Line 1806 of yacc.c  */
-#line 53 "xir_grammer.y"
+#line 65 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newStringObject();
+		(yyval)=(yyvsp[(1) - (1)]);
 	}
     break;
 
   case 11:
 
 /* Line 1806 of yacc.c  */
-#line 59 "xir_grammer.y"
+#line 69 "xir_grammer.y"
+    {
+		(yyval)=(yyvsp[(1) - (1)]);
+	}
+    break;
+
+  case 12:
+
+/* Line 1806 of yacc.c  */
+#line 74 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newStringObject();
 	}
     break;
 
-  case 16:
+  case 13:
 
 /* Line 1806 of yacc.c  */
-#line 70 "xir_grammer.y"
+#line 80 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newDictObject();
+		(yyval)=CAST_PARAM->newStringObject();
 	}
     break;
 
-  case 17:
+  case 14:
 
 /* Line 1806 of yacc.c  */
-#line 75 "xir_grammer.y"
+#line 86 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newDictObject();
-	}
-    break;
-
-  case 18:
-
-/* Line 1806 of yacc.c  */
-#line 82 "xir_grammer.y"
-    {
-		(yyval)=(yyvsp[(1) - (1)]);
+		(yyval)=CAST_PARAM->newStringObject();
 	}
     break;
 
   case 19:
 
 /* Line 1806 of yacc.c  */
-#line 87 "xir_grammer.y"
+#line 97 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (5)]);
-		FsDict* dict=(FsDict*)((yyvsp[(1) - (5)]));
-		dict->map((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->release();
-		((yyvsp[(4) - (5)]))->release();
+		(yyval)=CAST_PARAM->newDictObject();
 	}
     break;
 
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 96 "xir_grammer.y"
+#line 102 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (2)]);
+		(yyval)=CAST_PARAM->newDictObject();
 	}
     break;
 
   case 21:
 
 /* Line 1806 of yacc.c  */
-#line 100 "xir_grammer.y"
+#line 109 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (5)]);
-		FsDict* dict=(FsDict*)((yyvsp[(1) - (5)]));
-		dict->map((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->release();
-		((yyvsp[(4) - (5)]))->release();
+		(yyval)=(yyvsp[(1) - (1)]);
 	}
     break;
 
   case 22:
 
 /* Line 1806 of yacc.c  */
-#line 112 "xir_grammer.y"
+#line 114 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newArrayObject();
+		(yyval)=(yyvsp[(1) - (5)]);
+		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
+		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
+		((yyvsp[(2) - (5)]))->decRef();
+		((yyvsp[(4) - (5)]))->decRef();
 	}
     break;
 
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 117 "xir_grammer.y"
+#line 123 "xir_grammer.y"
     {
-		(yyval)=CAST_PARAM->newArrayObject();
+		(yyval)=(yyvsp[(1) - (2)]);
 	}
     break;
 
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 123 "xir_grammer.y"
+#line 127 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (1)]);
+		(yyval)=(yyvsp[(1) - (5)]);
+		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
+		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
+		((yyvsp[(2) - (5)]))->decRef();
+		((yyvsp[(4) - (5)]))->decRef();
 	}
     break;
 
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 129 "xir_grammer.y"
+#line 139 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (3)]);
-		((FsArray*)((yyvsp[(1) - (3)])))->pushBack((yyvsp[(2) - (3)]));
-		(yyvsp[(2) - (3)])->release();
+		(yyval)=CAST_PARAM->newArrayObject();
 	}
     break;
 
   case 26:
 
 /* Line 1806 of yacc.c  */
-#line 136 "xir_grammer.y"
+#line 144 "xir_grammer.y"
     {
-		(yyval)=(yyvsp[(1) - (2)]);
+		(yyval)=CAST_PARAM->newArrayObject();
 	}
     break;
 
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 140 "xir_grammer.y"
+#line 150 "xir_grammer.y"
     {
-		((FsArray*)((yyvsp[(1) - (3)])))->pushBack((yyvsp[(2) - (3)]));
+		(yyval)=(yyvsp[(1) - (1)]);
+	}
+    break;
+
+  case 28:
+
+/* Line 1806 of yacc.c  */
+#line 156 "xir_grammer.y"
+    {
 		(yyval)=(yyvsp[(1) - (3)]);
-		((yyvsp[(2) - (3)]))->release();
+		((Faeris::FsArray*)((yyvsp[(1) - (3)])))->push((yyvsp[(2) - (3)]));
+		(yyvsp[(2) - (3)])->decRef();
+	}
+    break;
+
+  case 29:
+
+/* Line 1806 of yacc.c  */
+#line 163 "xir_grammer.y"
+    {
+		(yyval)=(yyvsp[(1) - (2)]);
+	}
+    break;
+
+  case 30:
+
+/* Line 1806 of yacc.c  */
+#line 167 "xir_grammer.y"
+    {
+		((Faeris::FsArray*)((yyvsp[(1) - (3)])))->push((yyvsp[(2) - (3)]));
+		(yyval)=(yyvsp[(1) - (3)]);
+		((yyvsp[(2) - (3)]))->decRef();
 	}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1590 "xir_grammer.cc"
+#line 1636 "xir_grammer.cc"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

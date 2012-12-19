@@ -13,19 +13,18 @@ int yylex(void* lvap,void* parm)
 	while(1)
 	{
 		token=l->nextToken();
-		if(token==XT_COMMENT)
+		switch(token)
 		{
-			token=XT_NEWLINE;
+			case XT_COMMENT:
+				token=XT_NEWLINE;
+				break;
+			case XT_WS:
+				continue;
+			case XT_EOF:
+				return EOF;
 		}
-		else if(token==XT_WS)
-		{
-			continue;
-		}
-		else if(token==XT_EOF)
-		{
-			return EOF;
-		}
-		if(token==XT_NEWLINE||token==XT_COMMA)
+
+		if(token==XT_NEWLINE)
 		{
 			if(pm->m_delimiter)
 			{
@@ -46,13 +45,13 @@ void xir_parse_err(const char* msg,void* parm)
 {
 	YYParserParm* pm=(YYParserParm*)parm;
 	XirScanner* l=pm->m_lex;
-	
+
 	int line=l->curLine();
 	printf("yyerror:At Line(%d)\n",line);
 
 }
 
-FsDict* XirParser::parse(Faeris::FsFile* file)
+Faeris::FsDict* XirParser::parse(Faeris::FsFile* file)
 {
 	XirScanner* lex=new XirScanner(file,&Xir_Top);
 	YYParserParm* parm=new YYParserParm(lex);
@@ -65,8 +64,8 @@ FsDict* XirParser::parse(Faeris::FsFile* file)
 	}
 
 	delete lex;
-	FsDict* root=parm->getRoot();
-	FS_TRACE_ERROR_ON(ast==NULL,"Some Error Must Happened In xir_grammy.y");
+	Faeris::FsDict* root=parm->getRoot();
+	FS_TRACE_ERROR_ON(root==NULL,"Some Error Must Happened In xir_grammy.y");
 	delete parm;
 	return root;
 }

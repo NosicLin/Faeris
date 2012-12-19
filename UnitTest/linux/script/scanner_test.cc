@@ -1,10 +1,12 @@
-#include"xir_scanner.h"
-#include"xir_token.h"
-#include"sl_state.h"
-#include"io/sys_file.h"
-#include<stdio.h>
-#include<stdlib.h>
+#include "script/xir_scanner.h"
+#include "script/xir_token.h"
+#include "script/sl_state.h"
+#include "fsys/FsVFS.h"
+#include "fsys/FsSysFile.h"
+#include <stdio.h>
+#include <stdlib.h>
 
+using namespace Faeris;
 
 int main(int argc,char** argv)
 {
@@ -14,7 +16,7 @@ int main(int argc,char** argv)
 		exit(-1);
 	}
 
-	SysFile* f=SysFile::open(argv[1],"rb");
+	SysFile* f=SysFile::open(argv[1]);
 	if(f==NULL)
 	{
 		printf("Open File(%s) Failed\n",argv[1]);
@@ -32,7 +34,7 @@ int main(int argc,char** argv)
 		{
 			break;
 		}
-		printf("%d:%s:<%s>\n",s->curLine(),s->curTokenName().c_str(),s->curString().c_str());
+		printf("%d:%s:<%s>\n",s->curLine(),s->curTokenName(),s->curString());
 	}
 	delete s;
 	delete f;

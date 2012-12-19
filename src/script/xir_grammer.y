@@ -3,7 +3,7 @@
 #include "xir_parser.h"
 
 #define CAST_PARAM  ((YYParserParm*) YYPARSE_PARAM)
-#define YYSTYPE FsObject* 
+#define YYSTYPE Faeris::FsObject* 
 %}
 
 %token tUNKOWN tERR
@@ -17,13 +17,40 @@
 %start xir_start
 %%
 
-xir_start:dict
+xir_start:xir_body
 	{
 		$$=$1;
-		CAST_PARAM->setRoot($1);
-		($1)->release();
+		CAST_PARAM->setRoot((Faeris::FsDict*)$1);
+		($1)->decRef();
 	}
 ;
+
+xir_body: sim_str tCOLON primity delimiter
+	{
+		Faeris::FsDict* dict= CAST_PARAM->newDictObject();
+		$$=dict;
+		dict->insert($1,$3);
+		($1)->decRef();
+		($3)->decRef();
+	}
+;
+xir_body:tNEWLINE
+	{
+		$$=CAST_PARAM->newDictObject();
+	}
+;
+
+xir_body:xir_body sim_str tCOLON primity  delimiter
+{
+		$$=$1;
+		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
+		dict->insert($2,$4);
+		($2)->decRef();
+		($4)->decRef();
+}
+;
+
+
 
 primity:dict{$$=$1;}
 	| array {$$=$1;}
@@ -86,10 +113,10 @@ dict_body:dict_begin
 dict_body:dict_body sim_str tCOLON primity  delimiter
 	{
 		$$=$1;
-		FsDict* dict=(FsDict*)($1);
-		dict->map($2,$4);
-		($2)->release();
-		($4)->release();
+		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
+		dict->insert($2,$4);
+		($2)->decRef();
+		($4)->decRef();
 	}
 ;
 dict:dict_body tR_RB 
@@ -99,10 +126,10 @@ dict:dict_body tR_RB
 	| dict_body sim_str tCOLON primity tR_RB
 	{
 		$$=$1;
-		FsDict* dict=(FsDict*)($1);
-		dict->map($2,$4);
-		($2)->release();
-		($4)->release();
+		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
+		dict->insert($2,$4);
+		($2)->decRef();
+		($4)->decRef();
 	}
 ;
 
@@ -128,8 +155,8 @@ array_body:array_begin
 array_body:array_body primity delimiter
 	{
 		$$=$1;
-		((FsArray*)($1))->pushBack($2);
-		$2->release();
+		((Faeris::FsArray*)($1))->push($2);
+		$2->decRef();
 	}
 ;
 array:array_body tR_SB
@@ -138,9 +165,9 @@ array:array_body tR_SB
 	}
 	|array_body primity tR_SB
 	{
-		((FsArray*)($1))->pushBack($2);
+		((Faeris::FsArray*)($1))->push($2);
 		$$=$1;
-		($2)->release();
+		($2)->decRef();
 	}
 ;
 

@@ -36,7 +36,7 @@ int test_map_no_exist()
 		FsObject* value=all_value[i];
 		FsDict_Map(h,(FsObject*)key,(FsObject*)value);
 	}
-	h->release();
+	h->decRef();
 	return 1;
 }
 
@@ -57,15 +57,15 @@ int test_find_exist_value()
 		value1=FsDict_Lookup(h,key);
 		if(value1==NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 		if(value1!=value)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
-		value->release();
+		value->decRef();
 	}
 	for(i=0;i<DEFALULT_SIZE;i++)
 	{
@@ -73,17 +73,17 @@ int test_find_exist_value()
 		value=FsDict_Lookup(h,key);
 		if(value==NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 		if((value!=all_value[i]))
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
-		value->release();
+		value->decRef();
 	}
-	h->release();
+	h->decRef();
 	return 1;
 }
 int test_find_no_exist_value()
@@ -106,11 +106,11 @@ int test_find_no_exist_value()
 		value=FsDict_Lookup(h,key);
 		if(value!=NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 	}
-	h->release();
+	h->decRef();
 	return 1;
 }
 
@@ -138,15 +138,15 @@ int test_insert_exist_value()
 
 		if(value==NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 		if(value!=value1)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
-		value1->release();
+		value1->decRef();
 	}
 	for(i=0;i<DEFALULT_SIZE;i++)
 	{
@@ -156,17 +156,17 @@ int test_insert_exist_value()
 
 		if(value==NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 		if(value!=all_value[i+1])
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
-		value->release();
+		value->decRef();
 	}
-	h->release();
+	h->decRef();
 	return 1;
 }
 
@@ -190,27 +190,27 @@ int test_del_exist_item()
 		value=FsDict_Lookup(h,key);
 		if((value==NULL))
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 		if(value!=all_value[i])
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
-		value->release();
+		value->decRef();
 
 		ret=FsDict_Del(h,key);
 		if(ret==false)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 
 		value=FsDict_Lookup(h,key);
 		if((value!=NULL))
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 	}
@@ -220,11 +220,11 @@ int test_del_exist_item()
 		value=FsDict_Lookup(h,key);
 		if(value!=NULL)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 	}
-	h->release();
+	h->decRef();
 	return 1;
 }
 
@@ -252,7 +252,7 @@ int test_del_no_exist_item()
 		if(ret==false)
 		{
 			printf("i=%d,key=%s\n",i,((FsString*)key)->cstr());
-			h->release();
+			h->decRef();
 			return 0;
 		}
 	}
@@ -263,12 +263,12 @@ int test_del_no_exist_item()
 		ret=FsDict_Del(h,key);
 		if(ret==true)
 		{
-			h->release();
+			h->decRef();
 			return 0;
 		}
 	}
 
-	h->release();
+	h->decRef();
 	return  1;
 }
 
@@ -329,8 +329,8 @@ int main(int argc,char** argv)
 	Func_Test(test_del_no_exist_item);
 	for(i=0;i<DEFALULT_SIZE*2;i++)
 	{
-		all_keys[i]->release();
-		all_value[i]->release();
+		all_keys[i]->decRef();
+		all_value[i]->decRef();
 	}
 
 	printf("Result: Ok(%d),Falied(%d)\n",g_corret,g_error);

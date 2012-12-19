@@ -35,7 +35,7 @@ class FsArray:public FsObject
 			}
 			~Iterator()
 			{
-				m_host->release();
+				m_host->decRef();
 			}
 
 		private:

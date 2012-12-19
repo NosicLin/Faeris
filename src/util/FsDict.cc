@@ -151,10 +151,10 @@ bool FsDict::remove(FsObject* key)
 //		FS_TRACE_WARN(" %s Key Not Map ",key->getName());
 		return false;
 	}
-	p->m_key->release();
+	p->m_key->decRef();
 	p->m_key=s_dict_dummy_entry;
 
-	p->m_value->release();
+	p->m_value->decRef();
 	p->m_value=NULL;
 	return true;
 }
@@ -206,7 +206,7 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 	}
 	else  /* key aready map */
 	{
-		p->m_value->release();
+		p->m_value->decRef();
 		p->m_value=NULL;
 	}
 
@@ -216,7 +216,7 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 	}
 	else 
 	{
-		key->release();
+		key->decRef();
 	}
 
 	p->m_value=value;
@@ -240,8 +240,8 @@ FsDict::~FsDict()
 			i--;
 			if(p->m_key!=s_dict_dummy_entry)
 			{
-				p->m_key->release();
-				p->m_value->release();
+				p->m_key->decRef();
+				p->m_value->decRef();
 			}
 		}
 	}

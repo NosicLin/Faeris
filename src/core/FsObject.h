@@ -13,7 +13,7 @@ class FsObject
 		FsInt m_refNu;
 	public:
 		void addRef(){m_refNu++;}
-		void release()
+		void decRef()
 		{
 			m_refNu--;
 			FS_TRACE_ERROR_ON(m_refNu<0,"%s Reference Error",getName());

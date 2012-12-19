@@ -17,6 +17,7 @@ INCLUDE_DIR= -I./ -I../
 SRC=  sl_comment.cc \
 	  sl_double_quote_str.cc \
 	  sl_simple_str.cc \
+	  sl_single_quote_str.cc \
 	  sl_specific_symbol.cc \
 	  sl_top.cc \
 	  sl_white_space.cc \

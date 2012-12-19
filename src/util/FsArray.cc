@@ -36,7 +36,7 @@ FsArray::~FsArray()
 	{
 		if(m_obs[i])
 		{
-			m_obs[i]->release();
+			m_obs[i]->decRef();
 			m_obs[i]=NULL;
 		}
 	}
@@ -84,7 +84,7 @@ void FsArray::resize(FsUlong new_size)
 		{
 			if(m_obs[i]!=NULL)
 			{
-				m_obs[i]->release();
+				m_obs[i]->decRef();
 				m_obs[i]=NULL;
 			}
 		}
@@ -103,7 +103,7 @@ void FsArray::pop()
 	FS_TRACE_ERROR_ON(m_size>0,"This Is Now Item To Drop");
 	if(m_obs[m_size-1])
 	{
-		m_obs[m_size-1]->release();
+		m_obs[m_size-1]->decRef();
 		m_obs[m_size-1]=NULL;
 	}
 	m_size--;
@@ -117,7 +117,7 @@ bool FsArray::set(FsUlong index,FsObject* item)
 		return false;
 	}
 	if(item) item->addRef();
-	if(m_obs[index]) m_obs[index]->release();
+	if(m_obs[index]) m_obs[index]->decRef();
 	m_obs[index]=item;
 	return true;
 }
@@ -165,7 +165,7 @@ bool FsArray::remove(FsUlong index)
 		return false;
 	}
 
-	if(m_obs[index]) m_obs[index]->release();
+	if(m_obs[index]) m_obs[index]->decRef();
 
 	for(FsUlong i=index;i<m_size;i++)
 	{
