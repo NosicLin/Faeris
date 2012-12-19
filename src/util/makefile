@@ -1,6 +1,6 @@
 # Normal Information 
 CC=g++
-FLAGS= -g -Wall  -DLINUX
+FLAGS= -g -Wall -Werror  -DLINUX
 FILE_EXT=cc
 
 #Project infor 
@@ -21,6 +21,8 @@ SRC=  FsImgDecoder.cc \
 	  platform/FsTinyJpegDecoder.cc \
 	  FsResource.cc \
 	  FsResourceMgr.cc \
+	  FsDict.cc \
+	  FsString.cc \
 	
 
 #full src name 

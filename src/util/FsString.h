@@ -2,11 +2,11 @@
 #define _FS_REFCONT_STRING_H_
 #include <string>
 
-#include "core/FsObject.h"
 #include "FsMacros.h"
+#include "core/FsObject.h"
 
 FAERIS_NAMESPACE_BEGIN
-class FsString:public GrObject
+class FsString:public FsObject
 {
 	private:
 		std::string m_string;
@@ -19,8 +19,9 @@ class FsString:public GrObject
 		FsString(const FsChar* str);
 
 	public:
-		virtual FsLong getHashCode()const ;
-		virtual const FsChar* getName()const;
+		virtual FsLong getHashCode();
+		virtual const FsChar* getName();
+		virtual FsBool equal(FsObject* ob);
 	public:
 		FsString& append(const FsChar* str);
 		FsString& append(const FsChar* str,FsLong n);
