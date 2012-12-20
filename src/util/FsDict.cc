@@ -12,6 +12,10 @@ static const FsChar* s_FsDict_Name="FsDictObject";
 static int s_dummy_int=0; /* only for get an unique address value */
 FsObject* s_dict_dummy_entry=(FsObject*)&s_dummy_int;
 
+bool FsDict::checkType(FsObject* ob)
+{
+	return ob->getName()==s_FsDict_Name;
+}
 
 const FsChar* FsDict::getName()
 {
@@ -25,6 +29,10 @@ FsDict::FsDict()
 	m_mask=FS_DICT_MIN_SIZE-1;
 	m_table=(DictEntry*)malloc(sizeof(DictEntry)*FS_DICT_MIN_SIZE);
 	memset(m_table,0,sizeof(DictEntry)*FS_DICT_MIN_SIZE);
+}
+bool FsDict::validEntry(FsDict::DictEntry* entry)
+{
+	return entry->m_key!=NULL&&entry->m_key!=s_dict_dummy_entry;
 }
 
 FsDict::DictEntry* FsDict::lookupEntry(FsObject* key,FsLong code)
@@ -118,6 +126,7 @@ void FsDict::resize(FsLong minisize)
 	old_table=m_table;
 	m_table=new_table;
 	m_mask=new_size-1;
+	m_used=0;
 
 	i=m_fill;
 	m_fill=0;
@@ -148,7 +157,7 @@ bool FsDict::remove(FsObject* key)
 
 	if(p->m_key==NULL||p->m_key==s_dict_dummy_entry)
 	{
-//		FS_TRACE_WARN(" %s Key Not Map ",key->getName());
+		FS_TRACE_WARN(" %s Key Not Map ",key->getName());
 		return false;
 	}
 	p->m_key->decRef();
@@ -156,6 +165,7 @@ bool FsDict::remove(FsObject* key)
 
 	p->m_value->decRef();
 	p->m_value=NULL;
+	m_used--;
 	return true;
 }
 

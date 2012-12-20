@@ -7,41 +7,41 @@
 FAERIS_NAMESPACE_BEGIN
 class FsArray:public FsObject
 {
-	class Iterator
-	{
+	public:
+		class Iterator
+		{
+			FS_FEATURE:
+				FS_MAKE_NO_COPYABLE(Iterator);
+			public:
+				bool done()
+				{
+					return m_curPos>=m_host->m_size;
+				}
+				bool next()
+				{
+					return ++m_curPos>=m_host->m_size;
+				}
+				FsObject* getValue()
+				{
+					FsObject* ret=m_host->m_obs[m_curPos];
+					if(ret) ret->addRef();
+					return ret;
+				}
+				Iterator(FsArray* ay)
+				{
+					m_host=ay;
+					m_host->addRef();
+					m_curPos=0;
+				}
+				~Iterator()
+				{
+					m_host->decRef();
+				}
 
-		FS_FEATURE:
-			FS_MAKE_NO_COPYABLE(Iterator);
-		public:
-			bool done()
-			{
-				return m_curPos>=m_host->m_size;
-			}
-			bool next()
-			{
-				return ++m_curPos>=m_host->m_size;
-			}
-			FsObject* getValue()
-			{
-				FsObject* ret=m_host->m_obs[m_curPos];
-				if(ret) ret->addRef();
-				return ret;
-			}
-			Iterator(FsArray* ay)
-			{
-				m_host=ay;
-				m_host->addRef();
-				m_curPos=0;
-			}
-			~Iterator()
-			{
-				m_host->decRef();
-			}
-
-		private:
-			FsArray* m_host;
-			FsUlong m_curPos;
-	};
+			private:
+				FsArray* m_host;
+				FsUlong m_curPos;
+		};
 	public:
 		void push(FsObject* item);
 		void pop();
@@ -57,6 +57,7 @@ class FsArray:public FsObject
 		FsArray(FsUlong size);
 		virtual ~FsArray();
 		virtual const FsChar* getName();
+		static bool checkType(FsObject* ob);
 
 	protected:
 		void enlarge(FsUlong new_size);

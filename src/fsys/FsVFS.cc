@@ -10,17 +10,17 @@ FsFile* open(const FsChar* name,FsUint mode)
 	return SysFile::open(name,mode);
 }
 
-FsFile* getStdoutFile()
+FsFile* getStdout()
 {
-	return SysFile::getStdoutFile();
+	return SysFile::getStdout();
 }
 FsFile* getStdinFile()
 {
-	return SysFile::getStdinFile();
+	return SysFile::getStdin();
 }
-FsFile* getStderrFile()
+FsFile* getStderr()
 {
-	return SysFile::getStderrFile();
+	return SysFile::getStderr();
 }
 
 FS_END_NAMESPACE(VFS)

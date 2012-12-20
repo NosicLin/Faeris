@@ -2,9 +2,10 @@
 #define _FAERY_IO_FSFILE_H_
 
 #include "FsMacros.h"
+#include "core/FsObject.h"
 FAERIS_NAMESPACE_BEGIN
 
-class FsFile
+class FsFile:public FsObject
 {
 	public:
 		enum
@@ -29,6 +30,7 @@ class FsFile
 		virtual FsInt  close()=0;
 		virtual FsLong tell()=0;
 		virtual ~FsFile(){}
+		virtual const FsChar* getName();
 	public:
 		FsLong writeStr(const char* fmt,...);
 };

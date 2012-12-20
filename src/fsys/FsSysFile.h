@@ -18,9 +18,9 @@ class SysFile:public FsFile
 {
 	public:
 		static SysFile* open(const FsChar* name,FsUint mode=FsFile::FS_IO_RDONLY);
-		static SysFile* getStdoutFile();
-		static SysFile* getStderrFile();
-		static SysFile* getStdinFile();
+		static SysFile* getStdout();
+		static SysFile* getStderr();
+		static SysFile* getStdin();
 	private:
 		static SysFile* ms_stdout;
 		static SysFile* ms_stdin;
@@ -32,6 +32,7 @@ class SysFile:public FsFile
 		virtual FsInt close();
 		virtual FsLong tell();
 		virtual ~SysFile();
+		virtual const FsChar* getFileName();
 	protected:
 		SysFile(SysFilePlateform f){m_platfromFile=f;}
 	private:

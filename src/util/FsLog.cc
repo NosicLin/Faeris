@@ -110,7 +110,7 @@ FileLog* FileLog::getStdoutFileLog()
 {
 	if(ms_stdoutFileLog==NULL)
 	{
-		ms_stdoutFileLog=new FileLog(VFS::getStdoutFile());
+		ms_stdoutFileLog=new FileLog(VFS::getStdout());
 	}
 	return ms_stdoutFileLog;
 }

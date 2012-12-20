@@ -5,11 +5,13 @@
 #include <time.h>
 
 FAERIS_NAMESPACE_BEGIN
+/*
 FsLong Sys::getTime()
 {
 	return 0;
 
 }
+*/
 void Sys::usleep(FsLong time)
 {
 	struct timespec req= { time/1000, (time%1000)*1000000 };

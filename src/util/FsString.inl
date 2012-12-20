@@ -83,7 +83,7 @@ inline bool FsString::empty()const
 {
 	return m_string.empty();
 }
-inline FsLong FsString::length()const 
+inline FsUlong FsString::length()const 
 {
 	return m_string.length();
 }
@@ -101,7 +101,7 @@ inline void FsString::mCalHashCode()
 	}
 }
 
-inline FsChar FsString::operator[](FsLong n)const 
+inline FsChar FsString::operator[](FsUlong n)const 
 {
 	FS_ASSERT(n<length());
 	return m_string[n];

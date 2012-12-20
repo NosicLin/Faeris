@@ -35,9 +35,9 @@ FsDir* openDir(const FsChar* name);
 FsBool isDir(const FsChar* name);
 FsBool mapPackage(const FsChar* name);
 
-FsFile* getStdoutFile(); 
-FsFile* getStdinFile(); 
-FsFile* getStderrFile(); 
+FsFile* getStdout(); 
+FsFile* getStdin(); 
+FsFile* getStderr(); 
 
 FS_END_NAMESPACE(VFS)
 FAERIS_NAMESPACE_END

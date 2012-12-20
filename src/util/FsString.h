@@ -39,9 +39,9 @@ class FsString:public FsObject
 		int compare(const FsChar* str)const;
 		const FsChar* cstr()const;
 		bool empty()const; 
-		FsLong length()const;
+		FsUlong length()const;
 		FsString& erase(FsLong pos,FsLong num=1);
-		FsChar operator[](FsLong n)const ;
+		FsChar operator[](FsUlong n)const ;
 	private:
 		inline void mCalHashCode();
 };

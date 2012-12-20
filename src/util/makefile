@@ -24,6 +24,7 @@ SRC=  FsImgDecoder.cc \
 	  FsDict.cc \
 	  FsString.cc \
 	  FsArray.cc \
+	  FsScriptUtil.cc \
 	
 
 #full src name 

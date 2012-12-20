@@ -1,6 +1,6 @@
 # Normal Information 
 CC=gcc
-FLAGS= -g -Wall  -DLINUX
+FLAGS= -g -Wall -Werror -DLINUX
 FILE_EXT=cc
 
 #Project infor 

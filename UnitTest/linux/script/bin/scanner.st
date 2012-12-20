@@ -9,7 +9,12 @@ material:{
 	ambient:0xfffff
 	special:0xfffff
 	color:0x00f32f
-	texture:"image/boy.png"
+	texture:{
+		file:"image/boy.png"
+		wrapT: edge
+		wrapS: edge
+		filter: nicest
+	}
 	vshader:"program/pong.vert"
 	fshader:"program/pong.frag"
 }

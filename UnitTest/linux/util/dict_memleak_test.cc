@@ -12,7 +12,7 @@ using namespace Faeris;
 void test_create()
 {
 	FsDict* dict=new FsDict();
-	dict->release();
+	dict->decRef();
 }
 
 void test_insert()
@@ -21,10 +21,10 @@ void test_insert()
 	FsString* key=new FsString("key");
 	FsString* value=new FsString("value");
 	dict->insert(key,value);
-	key->release();
-	value->release();
+	key->decRef();
+	value->decRef();
 
-	dict->release();
+	dict->decRef();
 }
 void test_reinsert()
 {
@@ -37,10 +37,10 @@ void test_reinsert()
 	dict->insert(key,value1);
 	dict->insert(key,value2);
 
-	key->release();
-	value1->release();
-	value2->release();
-	dict->release();
+	key->decRef();
+	value1->decRef();
+	value2->decRef();
+	dict->decRef();
 }
 void test_remove()
 {
@@ -51,9 +51,9 @@ void test_remove()
 	dict->insert(key,value);
 	dict->remove(key);
 
-	key->release();
-	value->release();
-	dict->release();
+	key->decRef();
+	value->decRef();
+	dict->decRef();
 }
 
 void test_lookup()
@@ -67,10 +67,10 @@ void test_lookup()
 	dict->insert(key,value);
 	ret=dict->lookup(key);
 
-	ret->release();
-	key->release();
-	value->release();
-	dict->release();
+	ret->decRef();
+	key->decRef();
+	value->decRef();
+	dict->decRef();
 }
 
 

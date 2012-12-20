@@ -18,14 +18,14 @@ SubMesh::SubMesh(Geometry* g,Material* m)
 void SubMesh::setGeometry(Geometry* g)
 {
 	if(g) g->addRef();
-	if(m_geometry) m_geometry->release();
+	if(m_geometry) m_geometry->decRef();
 
 	m_geometry=g;
 }
 void SubMesh::setMaterial(Material* m)
 {
 	if(m) m->addRef();
-	if(m_material) m_material->release();
+	if(m_material) m_material->decRef();
 	m_material=m;
 }
 

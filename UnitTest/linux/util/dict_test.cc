@@ -6,7 +6,7 @@
 #include "util/FsDict.h"
 #include "util/FsString.h"
 
-#define DEFALULT_SIZE 1000000
+#define DEFALULT_SIZE 10000
 
 using namespace Faeris;
 
@@ -242,7 +242,13 @@ int test_del_no_exist_item()
 		key=all_keys[i];
 		value=all_value[i];
 		FsDict_Map(h,key,value);
+		if(h->size()!=i+1)
+		{
+			h->decRef();
+			return 0;
+		}
 	}
+
 
 	for(i=0;i<DEFALULT_SIZE;i+=3)
 	{

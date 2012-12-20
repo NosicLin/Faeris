@@ -7,7 +7,9 @@
 
 XirFile::XirFile(Faeris::FsFile* f)
 {
+
 	m_file=f;
+	m_file->addRef();
 	m_buf= new char[LEX_FILE_DEFAULT_SIZE];
 	m_buf_cap=LEX_FILE_DEFAULT_SIZE;
 	m_buf_size=0;
@@ -22,6 +24,7 @@ XirFile::~XirFile()
 		delete[] m_buf;
 		m_buf=0;
 	}
+	m_file->decRef();
 }
 char XirFile::nextChar()
 {
@@ -37,7 +40,7 @@ char XirFile::nextChar()
 
 int XirFile::loadData()
 {
-	//DEBUG("loadData");
+	//FS_TRACE_INFO("loadData");
 	int readbyte;
 	if(m_buf_size==0)
 	{

@@ -2,6 +2,12 @@
 #include "stdarg.h"
 #include "stdio.h"
 FAERIS_NAMESPACE_BEGIN
+static const FsChar* s_FsFileName="FsFileObject";
+const FsChar* FsFile::getName()
+{
+	return s_FsFileName;
+}
+
 FsLong FsFile::writeStr(const char* fmt,...)
 {
 	FsInt cnt=1024;
@@ -18,7 +24,7 @@ FsLong FsFile::writeStr(const char* fmt,...)
 		if(fmt_byte<cnt)
 		{
 			buffer[fmt_byte]='\0';
-			write(buffer,fmt_byte+1);
+			write(buffer,fmt_byte);
 			delete[] buffer;
 			break;
 		}

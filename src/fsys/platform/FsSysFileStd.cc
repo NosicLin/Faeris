@@ -6,28 +6,31 @@ SysFile* SysFile::ms_stdout=NULL;
 SysFile* SysFile::ms_stdin=NULL;
 SysFile* SysFile::ms_stderr=NULL;
 
-SysFile* SysFile::getStdoutFile()
+SysFile* SysFile::getStdout()
 {
 	if(ms_stdout==NULL)
 	{
 		ms_stdout=new SysFile(stdout);
 	}
+	ms_stdout->addRef();
 	return ms_stdout;
 }
-SysFile* SysFile::getStdinFile()
+SysFile* SysFile::getStdin()
 {
 	if(ms_stdin==NULL)
 	{
-		ms_stdin=new SysFile(stdout);
+		ms_stdin=new SysFile(stdin);
 	}
+	ms_stdin->addRef();
 	return ms_stdin;
 }
-SysFile* SysFile::getStderrFile()
+SysFile* SysFile::getStderr()
 {
 	if(ms_stderr==NULL)
 	{
-		ms_stderr=new SysFile(stdout);
+		ms_stderr=new SysFile(stderr);
 	}
+	ms_stderr->addRef();
 	return ms_stderr;
 }
 
@@ -83,7 +86,8 @@ SysFile* SysFile::open(const char* name,FsUint mode)
 
 FsLong SysFile::read(void* buf,FsLong length)
 {
-	return fread(buf,1,length,m_platfromFile);
+	FsLong readbyte=fread(buf,1,length,m_platfromFile);
+	return readbyte;
 }
 
 FsLong SysFile::write(const void* buf,FsLong length)

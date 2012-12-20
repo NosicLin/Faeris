@@ -11,6 +11,10 @@ const FsChar* FsArray::getName()
 	return s_FsArrayName;
 }
 
+bool FsArray::checkType(FsObject* ob)
+{
+	return ob->getName()==s_FsArrayName;
+}
 FsArray::FsArray()
 {
 	m_cap=FS_ARRAY_MIN_SIZE;

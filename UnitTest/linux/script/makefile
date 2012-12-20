@@ -5,7 +5,7 @@ SRC=
 
 DEBUG=
 
-BIN= scanner_test.cc  parser_test.cc 
+BIN= scanner_test.cc  parser_test.cc  load_save_test.cc
 	
 	
 

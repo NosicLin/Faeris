@@ -52,11 +52,11 @@ Program::~Program()
 {
 	if(m_vertex)
 	{
-		m_vertex->release();
+		m_vertex->decRef();
 	}
 	if(m_fragment)
 	{
-		m_fragment->release();
+		m_fragment->decRef();
 	}
 	glDeleteProgram(m_program);
 }
