@@ -94,7 +94,7 @@ inline FsString& FsString::erase(FsLong pos,FsLong num)
 }
 inline void FsString::mCalHashCode()
 {
-	m_hash_code=FsUtil_JStringHashCode(m_string.c_str());
+	m_hash_code=StringUtil::JHashCode(m_string.c_str());
 	if(m_hash_code==FS_INVALID_HASH_CODE)
 	{
 		m_hash_code+=1;

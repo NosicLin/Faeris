@@ -8,6 +8,7 @@
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 #include "util/FsString.h"
+#include "util/FsScriptUtil.h"
 
 
 
@@ -38,7 +39,18 @@ class YYParserParm
 		}
 		Faeris::FsString* newStringObject()
 		{
-			Faeris::FsString* ob=new Faeris::FsString(m_lex->curString());
+			FsChar* esc_str=Faeris::ScriptUtil::escapeStringToOrign(m_lex->curString());
+			Faeris::FsString* ob=NULL;
+			if(esc_str==NULL)
+			{
+				ob=new Faeris::FsString(m_lex->curString());
+			}
+			else 
+			{
+				ob=new Faeris::FsString(esc_str);
+				delete[] esc_str;
+			}
+
 			m_pending_obs->push(ob);
 			return ob;
 		}

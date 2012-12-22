@@ -75,35 +75,30 @@ enum Xir_Top_Input_Type
 void id_array_create()
 {
 	memset(id_array,0,sizeof(id_array));
-	id_array['\n']=XP_NEWLINE;
-	id_array[',']=XP_COMMA;
-	id_array[':']=XP_COLON;
-	id_array['&']=XP_AMPERSAND;
-	id_array['$']=XP_DOLLAR;
-	id_array['{']=XP_L_RB;
-	id_array['}']=XP_R_RB;
-	id_array['[']=XP_L_SB;
-	id_array[']']=XP_R_SB;
-	id_array['#']=XP_COMMENT;
-	id_array[' ']=XP_WS;
-	id_array['\t']=XP_WS;
+
+	id_array[' ']=SS_WS;
+	id_array['\t']=SS_WS;
+
+	id_array['_']=SS_NORMAL;
+	id_array['.']=SS_NORMAL;
+	id_array['+']=SS_NORMAL;
+	id_array['-']=SS_NORMAL;
+
 
 	char c;
 	for(c='0';c<='9';c++)
 	{
-		id_array[c]=XP_LETTER;
+		id_array[c]=SS_NORMAL;
 	}
 	for(c='a';c<='z';c++)
 	{
-		id_array[c]=XP_LETTER;
+		id_array[c]=SS_NORMAL;
 	}
 	for(c='A';c<='Z';c++)
 	{
-		id_array[c]=XP_LETTER;
+		id_array[c]=SS_NORMAL;
 	}
 
-	id_array['\'']=XP_SIN_QUOTE;
-	id_array['\"']=XP_DOU_QUOTE;
 }
 
 

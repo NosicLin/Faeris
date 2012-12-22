@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "util/FsScriptUtil.h"
 #include "util/FsArray.h"
 #include "util/FsDict.h"
@@ -100,6 +102,7 @@ static inline bool s_SpecialChar(char ch)
 {
 	switch(ch)
 	{
+		/* Specifal char */
 		case '{':
 		case '}':
 		case '[':
@@ -110,10 +113,33 @@ static inline bool s_SpecialChar(char ch)
 		case '\"':
 		case '#':
 			return true;
+
+		/* reverse */
+		case '$':
+		case '%':
+		case '&':
+		case '(':
+		case ')':
+		case '*':
+		case '/':
+		case ';':
+		case '<':
+		case '=':
+		case '>':
+		case '?':
+		case '@':
+		case '^':
+		case '`':
+		case '|':
+		case '~':
+			return true;
+
+
+
 	}
 	return false;
 }
-static inline bool s_EscapeChar(char ch)
+static inline bool s_EscapeChar(FsChar ch)
 {
 	switch(ch)
 	{
@@ -124,6 +150,22 @@ static inline bool s_EscapeChar(char ch)
 			return true;
 	}
 	return false;
+}
+
+static inline FsChar  s_EscapeCharToOrign(FsChar ch)
+{
+	switch(ch)
+	{
+		case 't':
+			return '\t';
+		case 'n':
+			return '\n';
+		case '\\':
+			return '\\';
+		case '\"':
+			return '\"';
+	}
+	return ch;
 }
 
 static bool s_StringWrite(FsString* str,FsFile* file)
@@ -206,5 +248,76 @@ bool ScriptUtil::saveScript(FsFile* file,FsDict* dict,FsInt indent)
 	return true;
 }	
 
+FsChar* ScriptUtil::escapeStringToOrign(const FsChar* src)
+{
+	FsChar* buffer=NULL;
+	FsLong src_len=0;
+	FsLong dst_len=0;
+
+	if(src[0]!='\''&&src[0]!='\"')
+	{
+		return NULL;
+	}
+
+	src_len=strlen(src);
+
+	FS_TRACE_ERROR_ON(src_len<2,"Some Error Must Happen");
+
+	buffer=new FsChar[src_len+1];
+
+	FsLong i=1;
+	while(i<src_len-1)
+	{
+		if(src[i]=='\\')
+		{
+			i++;
+			buffer[dst_len++]=s_EscapeCharToOrign(src[i]);
+		}
+		else 
+		{
+			buffer[dst_len++]=src[i];
+		}
+		i++;
+	}
+	buffer[dst_len]='\0';
+	return buffer;
+}
+
+
+
 FAERIS_NAMESPACE_END 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

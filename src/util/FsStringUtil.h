@@ -3,9 +3,11 @@
 
 #include "FsMacros.h"
 FAERIS_NAMESPACE_BEGIN
-
-FsUlong FsUtil_JStringHashCode(const char* str);
-
+class StringUtil
+{
+	public:
+		static FsUlong JHashCode(const char* str);
+};
 FAERIS_NAMESPACE_END
 
 #endif /*FAERIS_STRING_UTIL_H_*/

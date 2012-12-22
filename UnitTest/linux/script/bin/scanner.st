@@ -1,5 +1,5 @@
-version: "v.1"
-type: "animation.skeleton"
+version: v.1
+type:animation.skeleton
 
 color:{r:244,b:345,g:100,a:20 }
 
@@ -10,7 +10,7 @@ material:{
 	special:0xfffff
 	color:0x00f32f
 	texture:{
-		file:"image/boy.png"
+		file:"ima\nge/boy.png"
 		wrapT: edge
 		wrapS: edge
 		filter: nicest

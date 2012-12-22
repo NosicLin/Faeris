@@ -1,7 +1,7 @@
 #include "FsStringUtil.h"
 
 FAERIS_NAMESPACE_BEGIN
-FsUlong FsUtil_JStringHashCode(const char* str)
+FsUlong StringUtil::JHashCode(const char* str)
 {
 	FsUlong hash = 1315423911;
 	while (*str)
