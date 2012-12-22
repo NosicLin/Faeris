@@ -75,7 +75,6 @@ void Frame::start()
 		frameEnd(m_curTime,diff_time);
 
 		frame_used=m_timer.now()-m_curTime;
-
 		sleep_time=m_frameTime-frame_used;
 		if(sleep_time>0)
 		{

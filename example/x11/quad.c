@@ -63,7 +63,11 @@ int main(int argc, char *argv[])
 	swa.colormap = cmap;
 	swa.event_mask = ExposureMask | KeyPressMask;
 
-	win = XCreateWindow(dpy, root, 0, 0, 600, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+	win = XCreateWindow(dpy, root, 0, 0, 600, 600, 0, vi->depth, InputOutput, vi->visual, 
+			CWColormap | CWEventMask, &swa);
+
+	Atom wmDeleteMessage = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
+	XSetWMProtocols(dpy, win, &wmDeleteMessage, 1);
 
 	XMapWindow(dpy, win);
 	XStoreName(dpy, win, "VERY SIMPLE APPLICATION");
@@ -73,6 +77,7 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_DEPTH_TEST); 
 
+
 	while(1) {
 		XNextEvent(dpy, &xev);
 
@@ -80,13 +85,19 @@ int main(int argc, char *argv[])
 			XGetWindowAttributes(dpy, win, &gwa);
 			glViewport(0, 0, gwa.width, gwa.height);
 			DrawAQuad(); 
-			glXSwapBuffers(dpy, win); }
+	//		glXSwapBuffers(dpy, win);
+	   	}
+		else if (xev.type==ClientMessage)
+		{
+			printf("ClientMessage:\n");
+		}
 
 		else if(xev.type == KeyPress) {
 			glXMakeCurrent(dpy, None, NULL);
 			glXDestroyContext(dpy, glc);
 			XDestroyWindow(dpy, win);
 			XCloseDisplay(dpy);
-			exit(0); }
+			exit(0);
+		}
 	} /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */

@@ -2,9 +2,10 @@
 #define _FAERIS_RENDER_TARGET_H_
 #include "FsMacros.h"
 #include "core/FsObject.h"
+
 FAERIS_NAMESPACE_BEGIN
 class Render;
-class RenderTarget:FsObject
+class RenderTarget:public FsObject
 {
 	public:
 		virtual void swapBuffers()=0;

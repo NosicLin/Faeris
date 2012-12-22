@@ -1,6 +1,6 @@
 # Normal Information 
 CC=g++
-FLAGS= -g -Wall  -DLINUX
+FLAGS= -g -Wall -Werror -DLINUX 
 FILE_EXT=cc
 
 #Project infor 
@@ -15,10 +15,9 @@ INCLUDE_DIR=  -I./ -I../
 
 #Source File 
 SRC= FsObject.cc \
-	 FsEvent.cc \
-	 FsEventDispatch.cc \
 	 FsFrame.cc \
 	 FsWindow.cc \
+	 FsEventListener.cc \
 
 
 

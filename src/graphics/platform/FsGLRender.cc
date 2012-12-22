@@ -1,7 +1,10 @@
 #include <GL/gl.h>
 #include "graphics/FsRender.h"
 
-void Render::Render()
+FAERIS_NAMESPACE_BEGIN
+
+
+Render::Render()
 {
 	glClearColor(0,0,0,1);
 	glClearDepth(1);
@@ -17,7 +20,11 @@ void Render::Render()
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+	m_target=NULL;
+	m_material=NULL;
 }
+
 
 void Render::pushMatrix()
 {
@@ -29,11 +36,15 @@ void Render::popMatrix()
 }
 void Render::translate(const Vector3& v)
 {
-	glTransalefv(v.v);
+	glTranslatef(v.x,v.y,v.z);
 }
 void Render::scale(const Vector3& v)
 {
-	glScalefv(v.v);
+	glScalef(v.x,v.y,v.z);
+}
+void Render::rotate(const Vector3& v,FsFloat angle)
+{
+	glRotatef(angle,v.x,v.y,v.z);
 }
 void Render::setViewport(FsInt x,FsInt y,FsInt width,FsInt height)
 {
@@ -43,13 +54,11 @@ void Render::setViewport(FsInt x,FsInt y,FsInt width,FsInt height)
 void Render::setClearColor(Color c)
 {
 	m_clearColor=c;
-	glClearColor4ub(c.r,c.g,c.b,c.a);
+	glClearColor(c.r/255.0f,c.g/255.0f,c.b/255.0f,c.a/255.0f);
 }
-Color Render::getClearColor()
-{
-	return m_clearColor;
-}
-void Render::clear(FsBool color,Fsbool depth,FsBool stencil)
+
+
+void Render::clear(FsBool color,FsBool depth,FsBool stencil)
 {
 	GLint flags=0;
 	if(color) flags|=GL_COLOR_BUFFER_BIT;
@@ -126,8 +135,49 @@ void Render::enableFog(FsBool enable)
 	}
 }
 
-void Render::enablePolygonOffset(FsBool){}
-void Render::setPolygonOffset(FsFloat factor,FsFloat units);
+void Render::setMaterial(Material* mat,bool force)
+{
+	if(!force)
+	{
+		if(mat==m_material) { return ; }
+	}
+
+	if(mat!=NULL)
+	{
+		mat->addRef();
+	}
+
+	if(m_material!=NULL)
+	{
+		m_material->unload(this);
+		m_material->decRef();
+	}
+	if(mat) mat->load(this);
+	m_material=mat;
+}
+
+void Render::setRenderTarget(RenderTarget* target)
+{
+	if(target) target->addRef();
+	if(m_target)
+	{
+	   	m_target->loseCurrent(this);
+		m_target->decRef();
+	}
+
+	if(target) { target->makeCurrent(this); }
+	m_target=target;
+}
+void Render::swapBuffers()
+{
+	if(m_target) m_target->swapBuffers();
+}
 
 
+
+//void Render::enablePolygonOffset(FsBool){}
+//oid Render::setPolygonOffset(FsFloat factor,FsFloat units);
+
+
+FAERIS_NAMESPACE_END
 

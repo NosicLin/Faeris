@@ -52,7 +52,7 @@ Image2D* FsUtil_JpegReader(FsFile* file)
 	}
 	tinyjpeg_get_components(jdec,components);
 
-	img=new Image2D(width,height,components[0],Image2D::FS_PIXEL_RGB888);
+	img=new Image2D(width,height,components[0],Image2D::PIXEL_RGB888);
 error:
 	if(buffer)
 	{

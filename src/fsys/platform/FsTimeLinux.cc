@@ -14,7 +14,7 @@ FsLong Timer::now() const
 {
 	struct timeval cur;
 	gettimeofday(&cur,NULL);
-	return (cur.tv_sec-m_begin.tv_sec)*1000+(cur.tv_usec-m_begin.tv_usec);
+	return (cur.tv_sec-m_begin.tv_sec)*1000+(cur.tv_usec-m_begin.tv_usec)/1000;
 }
 
 

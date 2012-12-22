@@ -9,18 +9,18 @@ class Image2D:public FsObject
 	public:
 		enum PixelFormat
 		{
-			FS_PIXEL_UNKOWN=0,
-			FS_PIXEL_RGB888,
-			FS_PIXEL_RGBA8888,
+			PIXEL_UNKOWN=0,
+			PIXEL_RGB888,
+			PIXEL_RGBA8888,
 		};
 
 		enum ImageType
 		{
-			FS_IMAGE_UNKWON=0,
-			FS_IMAGE_PNG,
-			FS_IMAGE_JEPG,
-			FS_IMAGE_TGA,
-			FS_IMAGE_BMP,
+			IMAGE_UNKWON=0,
+			IMAGE_PNG,
+			IMAGE_JEPG,
+			IMAGE_TGA,
+			IMAGE_BMP,
 		};
 		static FsUint PixelFormatSize(PixelFormat f);
 
@@ -33,7 +33,7 @@ class Image2D:public FsObject
 	public:
 		FsUint getWidth()const{return m_width;} 
 		FsUint getHeight()const{return m_height;};
-		const FsUchar* getPixelData()const{return m_buffer;}
+		const FsVoid* getPixelData()const{return m_buffer;}
 		PixelFormat getPixelFormat()const{return m_format;}
 		Color getColor(FsUint x,FsUint y)const;
 		void setColor(FsUint x,FsUint y,Color c);

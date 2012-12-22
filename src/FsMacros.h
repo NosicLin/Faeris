@@ -98,13 +98,7 @@
 
 /* event part*/
 
-#define FS_MOUSE_EVENT 0x1
-#define FS_KEYBOARD_EVENT 0x2
-#define FS_TOUCH_EVENT 0x3
 
-#define FS_MOUSE_LBUTTON 0x1
-#define FS_MOUSE_MBUTTON 0x2 
-#define FS_MOUSE_RBUTTON 0x3 
 
 
 #define FS_MASK_LSHIFT (0x1ul<<0)
@@ -116,10 +110,16 @@
 #define FS_MASK_LCTRL (0x1ul<<4)
 #define FS_MASK_RCTRL (0x1ul<<5)
 #define FS_MASK_CTRL (FS_MASK_LCTRL|FS_MASK_RCTRL)
+#define FS_MASK_LBUTTON (0x1ul<<6) 
+#define FS_MASK_MBUTTON (0x1ul<<7)
+#define FS_MASK_RBUTTON (0x1ul<<8)
 
-#define FS_MASK_LBUTTON (0x1ul<<6)
-#define FS_MASK_RBUTTON (0x1ul<<7)
-#define FS_MASK_MBUTTON (0x1ul<<8)
+
+
+
+#define FS_LBUTTON (0x1ul<<6)
+#define FS_RBUTTON (0x1ul<<7)
+#define FS_MBUTTON (0x1ul<<8)
 
 #define FS_DOWN 0x1 
 #define FS_UP 0x2 

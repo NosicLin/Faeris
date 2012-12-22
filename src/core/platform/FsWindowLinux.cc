@@ -1,18 +1,70 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#include <X11/Xatom.h>
 #include <GL/glx.h>
 
 #include "core/FsWindow.h"
 #include "core/FsFrame.h"
 
+#define FS_XWINDOW_EVENT_MASK ( \
+		ExposureMask \
+		|KeyPressMask \
+		|ButtonPressMask \
+		|ButtonReleaseMask \
+		|ButtonMotionMask \
+		|StructureNotifyMask \
+		|PointerMotionMask \
+		|FocusChangeMask \
+		)
+
 typedef ::Window XWindow;
 
 FAERIS_NAMESPACE_BEGIN
 
+static const char *event_names[] = {
+   "",
+   "",
+   "KeyPress",
+   "KeyRelease",
+   "ButtonPress",
+   "ButtonRelease",
+   "MotionNotify",
+   "EnterNotify",
+   "LeaveNotify",
+   "FocusIn",
+   "FocusOut",
+   "KeymapNotify",
+   "Expose",
+   "GraphicsExpose",
+   "NoExpose",
+   "VisibilityNotify",
+   "CreateNotify",
+   "DestroyNotify",
+   "UnmapNotify",
+   "MapNotify",
+   "MapRequest",
+   "ReparentNotify",
+   "ConfigureNotify",
+   "ConfigureRequest",
+   "GravityNotify",
+   "ResizeRequest",
+   "CirculateNotify",
+   "CirculateRequest",
+   "PropertyNotify",
+   "SelectionClear",
+   "SelectionRequest",
+   "SelectionNotify",
+   "ColormapNotify",
+   "ClientMessage",
+   "MappingNotify"
+};
+
+static void s_sendEventToWindow(Window* win,XEvent* src_event);
 class WindowFrameListener;
 
 static WindowFrameListener* s_listener=NULL;
 static Display* s_dpy=NULL;
+Atom s_wm_delete_msg;
 static std::vector<Window*> s_wins;
 
 class PlatformWindow
@@ -32,6 +84,7 @@ static Display* s_X11GetDisplay()
 		{
 			FS_TRACE_WARN("Can't Connect to X  Server");
 		}
+		s_wm_delete_msg= XInternAtom(s_dpy, "WM_DELETE_WINDOW", False);
 	}
 	return s_dpy;
 }
@@ -43,16 +96,23 @@ class WindowFrameListener:public FrameListener
 		{
 			Display* dpy=s_X11GetDisplay();
 			XEvent event;
-			FsLong event_mask=ExposureMask|KeyPressMask;
-			while(XCheckMaskEvent(dpy,event_mask,&event))
+			XSync(dpy,false);
+			while(XEventsQueued(dpy,QueuedAfterReading))
 			{
+				XNextEvent(dpy,&event);
 				std::vector<Window*>::iterator iter;
 				for(iter=s_wins.begin();iter!=s_wins.end();++iter)
 				{
 					if(event.xany.window==(*iter)->getPlatformWindow()->m_X11Window)
 					{
-						(*iter)->handleEvent(&event);
+						s_sendEventToWindow(*iter,&event);
+						break;
 					}
+					/*
+					FS_TRACE_ERROR("Failed To Find a Event(%s) Match A Window(%ld)\n",
+							event_names[event.type],
+							event.xany.window);
+							*/
 				}
 			}
 		}
@@ -61,12 +121,12 @@ class WindowFrameListener:public FrameListener
 
 static void s_RegisterWindow(Window* win)
 {
-	s_wins.push_back(win);
-	if(s_wins.size()==1)
+	if(s_wins.size()==0)
 	{
 		s_listener=new WindowFrameListener;
 		Frame::instance()->addListener(s_listener);
 	}
+	s_wins.push_back(win);
 }
 
 static void s_UnRegisterWindow(Window* win)
@@ -77,16 +137,137 @@ static void s_UnRegisterWindow(Window* win)
 		if((*iter)==win)
 		{
 			s_wins.erase(iter);
-			if(s_wins.size()==0)
-			{
-				Frame::instance()->removeListener(s_listener);
-				delete s_listener;
-				s_listener=NULL;
-				Frame::instance()->stop();
-			}
+			break;
 		}
 	}
-	FS_TRACE_ERROR("Window Not Found,Some Bug Happend");
+	if(s_wins.size()==0)
+	{
+		Frame::instance()->removeListener(s_listener);
+		delete s_listener;
+		s_listener=NULL;
+		Frame::instance()->stop();
+	}
+}
+
+static void s_sendEventToWindow(Window* win,XEvent* src_event)
+{
+	switch(src_event->type)
+	{
+		case ClientMessage:
+			{
+				printf("client message\n");
+				if((Atom)(src_event->xclient.data.l[0])==s_wm_delete_msg)
+				{
+					QuitEvent event;
+					win->handleEvent(&event);
+					win->onDestry();
+				}
+				break;
+			}
+		case ConfigureNotify:
+			{
+				FsUint width,height;
+				width=src_event->xconfigure.width;
+				height=src_event->xconfigure.height;
+				ResizeEvent event(width,height); 
+				win->handleEvent(&event);
+				break;
+			}
+		case ButtonPress:
+			{
+				XButtonEvent* e=(XButtonEvent*) src_event;
+				FsInt button;
+				switch(e->button)
+				{
+					case  Button1:
+						button=FS_LBUTTON;
+						break;
+					case Button2:
+						button=FS_MBUTTON;
+						break;
+					case Button3:
+						button=FS_RBUTTON;
+						break;
+					default:
+						/*FIXME if middle button rool,it will used button4 or button5*/
+						button=0;
+						FS_TRACE_WARN("Unkown Button Type");
+						break;
+				}
+				FsUint mask=0;
+				FsUint xmask=e->state;
+				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
+				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
+				MouseEvent event(button,FS_DOWN,mask,e->x,e->y);
+				win->handleEvent(&event);
+				break;
+			}
+		case ButtonRelease:
+			{
+				XButtonEvent* e=(XButtonEvent*) src_event;
+				FsInt button;
+				switch(e->button)
+				{
+					case  Button1:
+						button=FS_LBUTTON;
+						break;
+					case Button2:
+						button=FS_MBUTTON;
+						break;
+					case Button3:
+						button=FS_RBUTTON;
+						break;
+					default:
+						button=0;
+						FS_TRACE_WARN("Unkown Button Type");
+						break;
+				}
+				FsUint mask=0;
+				FsUint xmask=e->state;
+				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
+				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
+				MouseEvent event(button,FS_UP,mask,e->x,e->y);
+				win->handleEvent(&event);
+				break;
+			}
+		case MotionNotify:
+			{
+				XMotionEvent* e=(XMotionEvent*) src_event;
+				FsUint mask=0;
+				FsUint xmask=e->state;
+				if(xmask&Button1Mask) mask|=FS_MASK_LBUTTON;
+				if(xmask&Button2Mask) mask|=FS_MASK_MBUTTON;
+				if(xmask&Button3Mask) mask|=FS_MASK_RBUTTON;
+				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
+				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
+				MotionEvent event(mask,e->x,e->y,0,0);
+				win->handleEvent(&event);
+				break;
+			}
+		case FocusIn:
+			{
+				FocusEvent event(true);
+				win->handleEvent(&event);
+				break;
+			}
+		case FocusOut:
+			{
+				FocusEvent event(false);
+				win->handleEvent(&event);
+				break;
+			}
+		case DestroyNotify:
+			{
+				printf("window kill\n");
+				break;
+			}
+
+		case KeyPress:
+			/*TODO*/
+			break;
+		default:
+			FS_TRACE_WARN("Unkown XEvent(%s)",event_names[src_event->type]);
+	}
 }
 
 
@@ -112,13 +293,15 @@ bool Window::init(FsLong flags)
 	}
 	Colormap cmap=XCreateColormap(dpy,root,vi->visual,AllocNone);
 	swa.colormap=cmap;
-	swa.event_mask=ExposureMask|KeyPressMask;
+	swa.event_mask=FS_XWINDOW_EVENT_MASK;
 	win=XCreateWindow(dpy,root,0,0,600,600,0,vi->depth,InputOutput,vi->visual,
 			CWColormap|CWEventMask,&swa);
 
+	XSetWMProtocols(dpy, win, &s_wm_delete_msg, 1);
 	glc=glXCreateContext(dpy,vi,NULL,GL_TRUE);
 
 	PlatformWindow* platwin=new PlatformWindow;
+	m_caption=std::string("Untitled Window");
 
 	platwin->m_X11Window=win;
 	platwin->m_dpy=dpy;
@@ -145,9 +328,10 @@ Window::Window(FsLong flags)
 	m_window=NULL;
 	init(flags);
 }
-void Window::setName(const FsChar* name)
+void Window::setCaption(const FsChar* name)
 {
 	XStoreName(m_window->m_dpy,m_window->m_X11Window,name);
+	m_caption=std::string(name);
 }
 
 void Window::setPosition(FsInt x,FsInt y)
@@ -215,78 +399,53 @@ FsInt Window::getPosY()
 	return y;
 }
 
-void Window::handleEvent(void* e)
-{
-	FS_TRACE_WARN("Handle Event");
-	FsUint width,height;
-	XEvent* event=(XEvent*)e;
-	switch(event->type)
-	{
-		case Expose:
-			onDisplay();
-			break;
-		case ConfigureNotify:
-			width=event->xconfigure.width;
-			height=event->xconfigure.height;
-			onResize(width,height);
-			break;
-		case ButtonPress:
-			/*TODO*/
-			break;
-		case KeyPress:
-			/*TODO*/
-			break;
-	}
-
-}
-void Window::onCreate(){}
-void Window::onDisplay(){}
-void Window::onFocuseIn(){}
-void Window::onFocuseOut(){}
-void Window::onMouseEnter(){}
-void Window::onMouseLeave(){}
-void Window::onKey(FsInt keycode,FsInt state,FsUlong mask){}
-void Window::onMove(FsInt x,FsInt y,FsUlong mask){}
-void Window::onMouse(FsInt button,FsInt state,FsInt x,FsInt y,FsUlong mask){}
-
-bool Window::onQuit()
-{
-	return true;
-}
-
-void Window::onDestroy(){}
-void Window::onResize(FsInt w,FsInt h){}
-
 Window::~Window()
 {
+	destroy();
+}
+
+void Window::onDestry()
+{
+	delete this;
+}
+
+void Window::destroy()
+{
+	s_UnRegisterWindow(this);
 	if(m_render)
 	{
-		glXMakeCurrent(m_window->m_dpy,None,NULL);
+		m_render->setRenderTarget(NULL);
+		m_render=NULL;
 	}
 	if(m_window)
 	{
 		glXDestroyContext(m_window->m_dpy,m_window->m_contex);
 		XDestroyWindow(m_window->m_dpy,m_window->m_X11Window);
+		XSync(m_window->m_dpy,false);
 		delete m_window;
-		s_UnRegisterWindow(this);
+		m_window=NULL;
 	}
 }
 
+
 void Window::makeCurrent(Render* r)
 {
-	glXMakeCurrent(m_window->m_dpy,None,m_window->m_contex);
+	glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
 	m_render=r;
 }
+
 void Window::loseCurrent(Render* r)
 {
 	glXMakeCurrent(m_window->m_dpy,None,NULL);
 	m_render=NULL;
 }
+
 void Window::swapBuffers()
 {
 	glXSwapBuffers(m_window->m_dpy,m_window->m_X11Window);
 }
-static const char* s_window_name="Window";
+
+static const char* s_window_name="WindowObject";
 const char* Window::getName()
 {
 	return s_window_name;

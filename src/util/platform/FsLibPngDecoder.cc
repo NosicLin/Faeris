@@ -226,12 +226,12 @@ Image2D* FsUtil_PngReader(FsFile* file)
 	Image2D* img=NULL;
 	if(channels==3)
 	{
-		img=new Image2D(width,height,Image2D::FS_PIXEL_RGB888);
+		img=new Image2D(width,height,Image2D::PIXEL_RGB888);
 	}
 	else 
 	{
 		assert(channels==4);
-		img=new Image2D(width,height,Image2D::FS_PIXEL_RGBA8888);
+		img=new Image2D(width,height,Image2D::PIXEL_RGBA8888);
 	}
 
 
@@ -306,13 +306,13 @@ int FsUtil_PngWriter(FsFile* file,Image2D* img)
 
 
 	/* get color_type,channels,bit_depth*/
-	if(img->getPixelFormat()==Image2D::FS_PIXEL_RGB888)
+	if(img->getPixelFormat()==Image2D::PIXEL_RGB888)
 	{
 		color_type=PNG_COLOR_TYPE_RGB;
 		channels=3;
 		bit_depth=8;
 	}
-	else  if(img->getPixelFormat()==Image2D::FS_PIXEL_RGBA8888)
+	else  if(img->getPixelFormat()==Image2D::PIXEL_RGBA8888)
 	{
 		color_type=PNG_COLOR_TYPE_RGB_ALPHA;
 		channels=4;

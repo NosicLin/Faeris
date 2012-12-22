@@ -8,13 +8,13 @@ FsUint Image2D::PixelFormatSize(PixelFormat f)
 	FsUint pixel_bytes;
 	switch(f)
 	{
-		case FS_PIXEL_UNKOWN:
+		case PIXEL_UNKOWN:
 			pixel_bytes=0;
 			break;
-		case FS_PIXEL_RGB888:
+		case PIXEL_RGB888:
 			pixel_bytes=3;
 			break;
-		case FS_PIXEL_RGBA8888:
+		case PIXEL_RGBA8888:
 			pixel_bytes=4;
 			break;
 		default:
@@ -32,7 +32,7 @@ Image2D::Image2D(FsUint width,FsUint height,PixelFormat format)
 		FS_TRACE_WARN("Unkown PixelFormat");
 		m_width=0;
 		m_height=0;
-		m_format=FS_PIXEL_UNKOWN;
+		m_format=PIXEL_UNKOWN;
 		m_pixel_bytes=0;
 		m_buffer=0;
 		return;
@@ -55,7 +55,7 @@ Image2D::Image2D(FsUint width,FsUint height,void* data,PixelFormat format)
 		FS_TRACE_WARN("Unkown PixelFormat");
 		m_width=0;
 		m_height=0;
-		m_format=FS_PIXEL_UNKOWN;
+		m_format=PIXEL_UNKOWN;
 		m_pixel_bytes=0;
 		m_buffer=0;
 		return;
@@ -83,13 +83,13 @@ Color Image2D::getColor(FsUint w,FsUint h)const
 	FsUchar* p=m_buffer+(h*m_width+w)*m_pixel_bytes;
 	switch(m_format)
 	{
-		case FS_PIXEL_RGB888:
+		case PIXEL_RGB888:
 			ret.r=*p++;
 			ret.g=*p++;
 			ret.b=*p++;
 			ret.a=255;
 			break;
-		case FS_PIXEL_RGBA8888:
+		case PIXEL_RGBA8888:
 			ret.r=*p++;
 			ret.g=*p++;
 			ret.b=*p++;
@@ -112,12 +112,12 @@ void Image2D::setColor(FsUint w,FsUint h,Color c)
 
 	switch(m_format)
 	{
-		case FS_PIXEL_RGB888:
+		case PIXEL_RGB888:
 			*p++=c.r;
 			*p++=c.g;
 			*p++=c.b;
 			break;
-		case FS_PIXEL_RGBA8888:
+		case PIXEL_RGBA8888:
 			*p++=c.r;
 			*p++=c.g;
 			*p++=c.b;
