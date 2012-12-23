@@ -27,9 +27,15 @@ void Window::handleEvent(Event* e)
 			}
 			break;
 		case Event::QUIT_EVENT:
-			for(Iterator iter=m_listeners.begin();iter!=m_listeners.end();++iter)
+			if(quit())  /* check weather to quit */
 			{
-				(*iter)->onQuit(this,(QuitEvent*)e);
+				/* notify listener to quit */
+				for(Iterator iter=m_listeners.begin();iter!=m_listeners.end();++iter)
+				{
+					(*iter)->onQuit(this,(QuitEvent*)e);
+				}
+				/* destroy resource */
+				destroy();
 			}
 			break;
 		case Event::RESIZE_EVENT:
@@ -68,13 +74,18 @@ void Window::dropAllEventListener()
 {
 	m_listeners.clear();
 }
+FsBool Window::quit()
+{
+	return true;
+}
+
 
 
 FAERIS_NAMESPACE_END
 
 #if FS_PLATFORM_OS(FS_OS_LINUX)
-	#include "platform/FsWindowLinux.cc"
+#include "platform/FsWindowLinux.cc"
 #else 
-	#error "Unsupport Platform OS"
+#error "Unsupport Platform OS"
 #endif 
-	
+

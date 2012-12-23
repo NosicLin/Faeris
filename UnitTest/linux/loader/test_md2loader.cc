@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<GL/glut.h>
-#include "FsMd2Loader.h"
+#include "model/FsMd2Loader.h"
 
 static GLfloat spin=0.0;
 static unsigned int g_frame_nu=0;

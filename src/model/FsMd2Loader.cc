@@ -22,25 +22,25 @@ Md2Model* Md2Model::create(const char* filename)
 Md2Model* Md2Model::create(FsFile* file)
 {
 	Md2Header md2_header;
-	file->seek(0,FsFile::SK_SET);
+	file->seek(0,FsFile::FS_SEEK_SET);
 	FsLong readbyte=file->read(&md2_header,sizeof(md2_header));
 	if(readbyte<(FsLong)sizeof(md2_header))
 	{
-		FS_WARN("Invailed File Length(%ld)",readbyte);
+		FS_TRACE_WARN("Invailed File Length(%ld)",readbyte);
 		return NULL;
 	}
-	file->seek(0,FsFile::SK_END);
+	file->seek(0,FsFile::FS_SEEK_END);
 	FsLong file_len=file->tell();
 
 	if(file_len!=md2_header.m_iFileSize)
 	{
-		FS_WARN("Invailed File Size(%ld),Expect(%u)",file_len,md2_header.m_iFileSize);
+		FS_TRACE_WARN("Invailed File Size(%ld),Expect(%u)",file_len,md2_header.m_iFileSize);
 		return NULL;
 	}
 
 	if(md2_header.m_iMaigcNum!=FS_MD2_MAGIC_NUM||md2_header.m_iVersion!=FS_MD2_VERSION)
 	{
-		FS_WARN("Not Md2 File Format");
+		FS_TRACE_WARN("Not Md2 File Format");
 		return NULL;
 	}
 	Md2Model* md=new Md2Model(&md2_header,file);
@@ -75,7 +75,7 @@ void Md2Model::loadFrames(struct Md2Header* h,FsFile* file)
 
 	Md2Vectex* vertex=new Md2Vectex[m_iVertexNu];
 
-	file->seek(h->m_iOffsetFrames,FsFile::SK_SET);
+	file->seek(h->m_iOffsetFrames,FsFile::FS_SEEK_SET);
 	for(FsUint i=0;i<m_iFrameNu;i++)
 	{
 		Md2Frame* cur_frame=m_pFrames+i;
@@ -101,7 +101,7 @@ void Md2Model::loadTexCoords(struct Md2Header* h,FsFile* file)
 	/* load texCoords */
 	m_iTexCoordNu=h->m_iNumTexCoords;
 	m_pTexCoords=new TexCoord2[m_iTexCoordNu];
-	file->seek(h->m_iOffsetTexCoords,FsFile::SK_SET);
+	file->seek(h->m_iOffsetTexCoords,FsFile::FS_SEEK_SET);
 	file->read(m_pTexCoords,sizeof(TexCoord2)*m_iTexCoordNu);
 }
 void Md2Model::loadTriangles(struct Md2Header* h,FsFile* file)
@@ -109,17 +109,18 @@ void Md2Model::loadTriangles(struct Md2Header* h,FsFile* file)
 	/* load trangles */
 	m_iTriangleNu=h->m_iNumTriangles;
 	m_pTriangles=new Md2Triangle[m_iTriangleNu];
-	file->seek(h->m_iOffsetTriangles,FsFile::SK_SET);
+	file->seek(h->m_iOffsetTriangles,FsFile::FS_SEEK_SET);
 	file->read(m_pTriangles,sizeof(Md2Triangle)*m_iTriangleNu);
 }
 void Md2Model::loadSkins(struct Md2Header* h,FsFile* file)
 {
+	/*
 	m_iSkinWidthPx=h->m_iSkinWidthPx;
 	m_iSkinHeightPx=h->m_iSkinHeightPx;
 
 	m_iSkinNu=h->m_iNumSkins;
 	m_pSkinName=new FsChar*[m_iSkinNu];
-	file->seek(h->m_iOffsetSkins,FsFile::SK_SET);
+	file->seek(h->m_iOffsetSkins,FsFile::FS_SEEK_SET);
 
 	for(FsUint i=0;i<m_iSkinNu;i++)
 	{
@@ -127,6 +128,7 @@ void Md2Model::loadSkins(struct Md2Header* h,FsFile* file)
 		cur_name=new char[FS_MD2_SKIN_NAME_LEN];
 		file->read(cur_name,FS_MD2_SKIN_NAME_LEN);
 	}
+	*/
 }
 
 FAERIS_NAMESPACE_END

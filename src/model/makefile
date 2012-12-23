@@ -16,6 +16,7 @@ INCLUDE_DIR=  -I./ -I../
 #Source File 
 SRC=FsGeometry.cc \
 	FsSubMesh.cc \
+	FsMd2Loader.cc 
 
 
 

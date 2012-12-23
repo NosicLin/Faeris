@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<GL/glut.h>
-#include "FsMd2Loader.h"
+#include "model/FsMd2Loader.h"
 
 
 using namespace Faeris;

@@ -76,7 +76,7 @@ class Md2Model
 		FsUint m_iTriangleNu;
 
 		FsUint m_iSkinNu;
-		FsTexture* m_pTexture;
+		//FsTexture* m_pTexture;
 };
 
 

@@ -64,6 +64,7 @@ class WindowFrameListener;
 
 static WindowFrameListener* s_listener=NULL;
 static Display* s_dpy=NULL;
+static FsInt s_module_ref_nu=0;
 Atom s_wm_delete_msg;
 static std::vector<Window*> s_wins;
 
@@ -89,11 +90,26 @@ static Display* s_X11GetDisplay()
 	return s_dpy;
 }
 
+static void s_ModuleAddRef()
+{
+	s_module_ref_nu++;
+}
+static void s_ModuleDecRef()
+{
+	s_module_ref_nu--;
+	FS_TRACE_ERROR_ON(s_module_ref_nu<0,"Some Error Ref Happend");
+	if(s_module_ref_nu<=0)
+	{
+		XCloseDisplay(s_dpy);
+	}
+}
+
 class WindowFrameListener:public FrameListener
 {
 	public:
 		virtual void frameBegin(FsLong now,FsLong diff)
 		{
+			s_ModuleAddRef();
 			Display* dpy=s_X11GetDisplay();
 			XEvent event;
 			XSync(dpy,false);
@@ -115,6 +131,7 @@ class WindowFrameListener:public FrameListener
 							*/
 				}
 			}
+			s_ModuleDecRef();
 		}
 };
 
@@ -160,7 +177,6 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 				{
 					QuitEvent event;
 					win->handleEvent(&event);
-					win->onDestry();
 				}
 				break;
 			}
@@ -308,6 +324,7 @@ bool Window::init(FsLong flags)
 	platwin->m_contex=glc;
 
 	m_window=platwin;
+	s_ModuleAddRef();
 	s_RegisterWindow(this);
 	return true;
 }
@@ -330,32 +347,62 @@ Window::Window(FsLong flags)
 }
 void Window::setCaption(const FsChar* name)
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return ;
+	}
 	XStoreName(m_window->m_dpy,m_window->m_X11Window,name);
 	m_caption=std::string(name);
 }
 
 void Window::setPosition(FsInt x,FsInt y)
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return ;
+	}
 	XMoveWindow(m_window->m_dpy,m_window->m_X11Window,x,y);
 }
 
 void Window::setSize(FsUint width,FsUint height)
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return ;
+	}
 	XResizeWindow(m_window->m_dpy,m_window->m_X11Window,width,height);
 }
 
 void Window::show()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return ;
+	}
 	XMapWindow(m_window->m_dpy,m_window->m_X11Window);
 
 }
 void Window::hide()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return ;
+	}
 	XUnmapWindow(m_window->m_dpy,m_window->m_X11Window);
 }
 
 FsInt Window::getWidth()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return 0;
+	}
 	FsInt x,y;
 	FsUint width,height;
 	FsUint border;
@@ -367,17 +414,27 @@ FsInt Window::getWidth()
 }
 FsInt Window::getHeight()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return 0;
+	}
 	FsInt x,y;
 	FsUint width,height;
 	FsUint border;
 	FsUint depth;
-	::Window w;
+	XWindow w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);
 	return width;
 }
 FsInt Window::getPosX()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return 0;
+	}
 	FsInt x,y;
 	FsUint width,height;
 	FsUint border;
@@ -389,11 +446,16 @@ FsInt Window::getPosX()
 }
 FsInt Window::getPosY()
 {
+	if(!m_window)
+	{
+		FS_TRACE_WARN("X11 Window Already Destroy");
+		return 0;
+	}
 	FsInt x,y;
 	FsUint width,height;
 	FsUint border;
 	FsUint depth;
-	::Window w;
+	XWindow w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);
 	return y;
@@ -404,14 +466,8 @@ Window::~Window()
 	destroy();
 }
 
-void Window::onDestry()
-{
-	delete this;
-}
-
 void Window::destroy()
 {
-	s_UnRegisterWindow(this);
 	if(m_render)
 	{
 		m_render->setRenderTarget(NULL);
@@ -419,30 +475,41 @@ void Window::destroy()
 	}
 	if(m_window)
 	{
+		s_UnRegisterWindow(this);
 		glXDestroyContext(m_window->m_dpy,m_window->m_contex);
 		XDestroyWindow(m_window->m_dpy,m_window->m_X11Window);
 		XSync(m_window->m_dpy,false);
 		delete m_window;
 		m_window=NULL;
+		s_ModuleDecRef();
 	}
 }
 
 
 void Window::makeCurrent(Render* r)
 {
-	glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
+	if(m_window)
+	{
+		glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
+	}
 	m_render=r;
 }
 
 void Window::loseCurrent(Render* r)
 {
-	glXMakeCurrent(m_window->m_dpy,None,NULL);
+	if(m_window)
+	{
+		glXMakeCurrent(m_window->m_dpy,None,NULL);
+	}
 	m_render=NULL;
 }
 
 void Window::swapBuffers()
 {
-	glXSwapBuffers(m_window->m_dpy,m_window->m_X11Window);
+	if(m_window)
+	{
+		glXSwapBuffers(m_window->m_dpy,m_window->m_X11Window);
+	}
 }
 
 static const char* s_window_name="WindowObject";

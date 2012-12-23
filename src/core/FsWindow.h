@@ -40,9 +40,9 @@ class Window:public RenderTarget
 		void removeEventListener(EventListener* l);
 		void dropAllEventListener();
 	public:
-		virtual const char* getName();
-		virtual void onDestry();
+		virtual const FsChar* getName();
 		virtual ~Window();
+		virtual FsBool quit();
 
 	public:
 		void handleEvent(Event* e);
