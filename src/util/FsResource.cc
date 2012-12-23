@@ -1,5 +1,5 @@
-#include "util/FsResource.h"
 #include "util/FsResourceMgr.h"
+#include "util/FsResource.h"
 
 FAERIS_NAMESPACE_BEGIN
 Resource::Resource()

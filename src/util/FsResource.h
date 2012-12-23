@@ -3,15 +3,13 @@
 #include <string>
 
 #include "FsMacros.h"
+#include "util/FsResourceMgr.h"
 #include "core/FsObject.h"
 
 FAERIS_NAMESPACE_BEGIN 
 
-class ResourceMgr;
 class Resource :public FsObject
 {
-	public:
-		friend ResourceMgr;
 	public:
 		Resource();
 		virtual ~Resource();
@@ -22,6 +20,8 @@ class Resource :public FsObject
 	private:
 		ResourceMgr* m_mgr;
 		std::string m_resourceName;
+	private:
+		friend class ResourceMgr;
 };
 FAERIS_NAMESPACE_END
 

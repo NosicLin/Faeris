@@ -61,7 +61,6 @@ class FsArray:public FsObject
 
 	protected:
 		void enlarge(FsUlong new_size);
-		friend Iterator;
 	private:
 		FsUlong m_size;
 		FsUlong m_cap;
