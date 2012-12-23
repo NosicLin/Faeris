@@ -87,7 +87,7 @@ class MyFrameListener:public FrameListener
 		virtual void frameUpdate(FsLong now,FsLong diff)
 		{
 			m_time++;
-			//	printf("my frame update (%d), avgFps=%d\n",m_time,Frame::instance()->getAvgFPS());
+			printf("my frame update (%d), avgFps=%d\n",m_time,Frame::instance()->getAvgFPS());
 			Render::instance()->clear(true);
 			Render::instance()->swapBuffers();
 		}
@@ -130,11 +130,10 @@ int main()
 	render->clear(true);
 	render->swapBuffers();
 
-	win2->hide();
 
 	MyFrameListener* framelistener=new MyFrameListener();
 	Frame::instance()->addListener(framelistener);
-	Frame::instance()->setFPS(30);
+	Frame::instance()->setFPS(0);
 	Frame::instance()->start();
 	printf("exit\n");
 

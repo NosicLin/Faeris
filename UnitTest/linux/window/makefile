@@ -31,9 +31,8 @@ CC=g++
 FLAGS=-g -Wall   -DLINUX
 INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../thirdparty
 LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib  -lglut \
-	-lX11 -lGLU -lGL -lGLEW
-
+   	-lfsys -lcore -lutil  -lgraphics  -lglut \
+	-lX11 -lGLU -lGL 
 
 
 
