@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 
 #include "util/FsScriptUtil.h"
 #include "util/FsArray.h"
@@ -281,6 +282,97 @@ FsChar* ScriptUtil::escapeStringToOrign(const FsChar* src)
 	}
 	buffer[dst_len]='\0';
 	return buffer;
+}
+
+
+FsArray* ScriptUtil::getArray(FsDict* dict,const FsChar* key)
+{
+	FsObject* ob=dict->lookup(key);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+
+	if(FsArray::checkType(ob))
+	{
+		return (FsArray*)ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+
+FsDict* ScriptUtil::getDict(FsDict* dict,const FsChar* key)
+{
+	FsObject* ob=dict->lookup(key);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+
+	if(FsDict::checkType(ob))
+	{
+		return (FsDict*)ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+FsString* ScriptUtil::getString(FsDict* dict,const FsChar* key)
+{
+	FsObject* ob=dict->lookup(key);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+
+	if(FsString::checkType(ob))
+	{
+		return (FsString*)ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+
+FsBool ScriptUtil::getInteger(FsDict* dict,const FsChar* key,FsInt* value)
+{
+	FsString* str=getString(dict,key);
+	if(str==NULL)
+	{
+		return false;
+	}
+	*value=parseInteger(str);
+	str->decRef();
+	return true;
+
+}
+
+FsBool ScriptUtil::getFloat(FsDict* dict,const FsChar* key,FsFloat* value)
+{
+	FsString* str=getString(dict,key);
+	if(str==NULL)
+	{
+		return false;
+	}
+	*value=parseFloat(str);
+	str->decRef();
+	return true;
+}
+
+FsFloat ScriptUtil::parseFloat(const FsChar* str)
+{
+	return atof(str);
+}
+FsInt ScriptUtil::parseInteger(const FsChar* str)
+{
+	return atoi(str);
 }
 
 

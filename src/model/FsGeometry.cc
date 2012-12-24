@@ -2,6 +2,15 @@
 #include "model/FsGeometry.h"
 
 FAERIS_NAMESPACE_BEGIN
+
+static const FsChar* s_GeometryName="GeometryObject";
+
+const FsChar* Geometry::getName()
+{
+	return s_GeometryName;
+}
+
+
 void Geometry::setVertexNu(FsUint num)
 {
 
@@ -13,7 +22,7 @@ void Geometry::setVertexNu(FsUint num)
 
 	FsUint min=m_vertexNu>num?num:m_vertexNu;
 	m_vertexNu=num;
-	if(m_flags&FS_GEOMETRY_FLAGS_V_VERTICS_BIT)
+	if(m_flags&V_VERTICS_BIT)
 	{
 		if(num==0)
 		{
@@ -30,7 +39,7 @@ void Geometry::setVertexNu(FsUint num)
 			m_vVertics=vertics_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_V_NORMALS_BIT)
+	if(m_flags&V_NORMALS_BIT)
 	{
 		if(num==0)
 		{
@@ -47,7 +56,7 @@ void Geometry::setVertexNu(FsUint num)
 			m_vNormals=normal_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_V_TEXCOORDS_BIT)
+	if(m_flags&V_TEXCOORDS_BIT)
 	{
 		if(num==0)
 		{
@@ -64,7 +73,7 @@ void Geometry::setVertexNu(FsUint num)
 			m_vTexcoords=texcoord_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_V_COLORS_BIT)
+	if(m_flags&V_COLORS_BIT)
 	{
 		if(num==0)
 		{
@@ -81,7 +90,7 @@ void Geometry::setVertexNu(FsUint num)
 			m_vColors=color_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_V_WEIGHT_BIT)
+	if(m_flags&V_WEIGHT_BIT)
 	{
 		if(num==0)
 		{
@@ -108,7 +117,7 @@ void Geometry::setFaceNu(FsUint num)
 	FsUint min=m_faceNu>num?num:m_faceNu;
 	m_faceNu=num;
 
-	if(m_flags&FS_GEOMETRY_FLAGS_F_FACE_BIT)
+	if(m_flags&F_FACE_BIT)
 	{
 		if(num==0)
 		{
@@ -125,7 +134,7 @@ void Geometry::setFaceNu(FsUint num)
 			m_fFaces=face_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_F_NORMAL_BIT)
+	if(m_flags&F_NORMAL_BIT)
 	{
 		if(num==0)
 		{
@@ -142,7 +151,7 @@ void Geometry::setFaceNu(FsUint num)
 			m_fNormals=normal_new;
 		}
 	}
-	if(m_flags&FS_GEOMETRY_FLAGS_F_COLOR_BIT)
+	if(m_flags&F_COLOR_BIT)
 	{
 		if(num==0)
 		{
@@ -171,7 +180,7 @@ void Geometry::setWeight(FsUint num)
 	FsUint min=m_weightNu<num?m_weightNu:num;
 	m_weightNu=num;
 
-	if(m_flags&FS_GEOMETRY_FLAGS_W_WEIGHT_BIT)
+	if(m_flags&W_WEIGHT_BIT)
 	{
 		if(num==0)
 		{
@@ -226,6 +235,43 @@ Geometry::Geometry(FsUint vertex,FsUint face,FsLong flags)
 Geometry::Geometry(FsUint vertex,FsLong flags)
 {
 	init(vertex,0,0,flags);
+}
+
+Geometry::~Geometry()
+{
+	if(m_vVertics)
+	{
+		delete m_vVertics;
+	}
+	if(m_vNormals)
+	{
+		delete m_vNormals;
+	}
+	if(m_vTexcoords)
+	{
+		delete m_vTexcoords;
+	}
+	if(m_vColors)
+	{
+		delete m_vColors;
+	}
+	if(m_vWeights)
+	{
+		delete m_vWeights;
+	}
+	if(m_fFaces)
+	{
+		delete m_fFaces;
+	}
+	if(m_fNormals)
+	{
+		delete m_fNormals;
+	}
+	if(m_fColors)
+	{
+		delete m_fColors;
+	}
+
 }
 
 FAERIS_NAMESPACE_END

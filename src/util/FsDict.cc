@@ -1,14 +1,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "FsDict.h"
+#include "util/FsDict.h"
+#include "util/FsString.h"
 
 #define FS_DICT_MIN_SIZE 8
 #define FS_DICT_DEFAULT_PERTURB_SHIFT 5
 FAERIS_NAMESPACE_BEGIN
 
 
-static const FsChar* s_FsDict_Name="FsDictObject";
+static const FsChar s_FsDict_Name[]="DictObject";
 static int s_dummy_int=0; /* only for get an unique address value */
 FsObject* s_dict_dummy_entry=(FsObject*)&s_dummy_int;
 
@@ -189,6 +190,14 @@ FsObject* FsDict::lookup(FsObject* key)
 	p->m_value->addRef();
 	return p->m_value;
 }
+FsObject* FsDict::lookup(const FsChar* key)
+{
+	FsObject* ob=new FsString(key);
+	FsObject* ret=lookup(ob);
+	ob->decRef();
+	return ret;
+}
+
 
 bool FsDict::insert(FsObject* key,FsObject* value)
 {

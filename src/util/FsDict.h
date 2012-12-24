@@ -86,6 +86,7 @@ class  FsDict:public FsObject
 		static bool checkType(FsObject* ob);
 	public:
 		FsObject* lookup(FsObject* key);
+		FsObject* lookup(const FsChar* key);
 		bool insert(FsObject* key,FsObject* value);
 		bool insertWithNewKey(FsObject* key,FsObject* value);
 		bool remove(FsObject* key);

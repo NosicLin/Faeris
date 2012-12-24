@@ -12,18 +12,20 @@
 FAERIS_NAMESPACE_BEGIN 
 class Render 
 {
-	enum 
-	{
-		VERTEX_ARRAY=0,
-		COLOR_ARRAY,
-		NORMAL_ARRAY,
-		TEXTURE_COORD_ARRAY
-	};
+	public:
+		enum 
+		{
+			VERTEX_ARRAY=0,
+			COLOR_ARRAY,
+			NORMAL_ARRAY,
+			TEXTURE_COORD_ARRAY,
+
+		};
 
 	public:
 		static Render* instance();
 	public:
-		void setMaterial(Material* m,FsBool force);
+		void setMaterial(Material* m,FsBool force=false);
 		void setRenderTarget(RenderTarget* target);
 		void swapBuffers();
 
@@ -45,13 +47,14 @@ class Render
 
 
 		/* vertex pointer */
-		void setVertexPointer(Vector3* v,FsUint num);
-		void setColorPointer(Color* c,FsUint num);
-		void setNormalVertexPointer(Vector3* n,FsUint num);
-		void setTexCoordPointer(TexCoord2* t,FsUint num);
+		void setVVertexPointer(Vector3* v,FsUint num);
+		void setVColorPointer(Color* c,FsUint num);
+		void setVNormalPointer(Vector3* n,FsUint num);
+		void setVTexCoordPointer(TexCoord2* t,FsUint num);
 		void drawFace3(Face3* f,FsUint num);
 		void enableClientArray(FsInt array);
 		void disableClientArray(FsInt array);
+		void disableAllClientArray();
 
 
 		void setViewport(FsInt x,FsInt y,FsInt width,FsInt height);

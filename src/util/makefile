@@ -25,6 +25,8 @@ SRC=  FsImgDecoder.cc \
 	  FsString.cc \
 	  FsArray.cc \
 	  FsScriptUtil.cc \
+	  FsMeshUtil.cc  \
+
 	
 
 #full src name 

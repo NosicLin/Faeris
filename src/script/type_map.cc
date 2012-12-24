@@ -101,11 +101,51 @@ void id_array_create()
 
 }
 
+void id_array_xtop()
+{
+	memset(id_array,0,sizeof(id_array));
+	id_array['\n']=XP_NEWLINE;
+	id_array[',']=XP_COMMA;
+	id_array[':']=XP_COLON;
+	id_array['&']=XP_AMPERSAND;
+	id_array['$']=XP_DOLLAR;
+	id_array['[']=XP_L_SB;
+	id_array[']']=XP_R_SB;
+	id_array['{']=XP_L_RB;
+	id_array['}']=XP_R_RB;
+	id_array['#']=XP_COMMENT;
+	id_array[' ']=XP_WS;
+	id_array['\t']=XP_WS;
+	id_array['\'']=XP_SIN_QUOTE;
+	id_array['\"']=XP_DOU_QUOTE;
+
+	char c;
+	for(c='0';c<='9';c++)
+	{
+		id_array[c]=XP_LETTER;
+	}
+	for(c='a';c<='z';c++)
+	{
+		id_array[c]=XP_LETTER;
+	}
+	for(c='A';c<='Z';c++)
+	{
+		id_array[c]=XP_LETTER;
+	}
+	id_array['_']=XP_LETTER;
+	id_array['.']=XP_LETTER;
+	id_array['+']=XP_LETTER;
+	id_array['-']=XP_LETTER;
+}
+
+
+
+
 
 
 int main()
 {
-	id_array_create();
+	id_array_xtop();
 	print_array(id_array);
 	return 0;
 }

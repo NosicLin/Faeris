@@ -5,7 +5,8 @@
 #include "model/FsSubMesh.h"
 
 FAERIS_NAMESPACE_BEGIN 
-class Mesh:public FsResource
+class Animation;
+class Mesh:public Resource
 {
 	public:
 		enum 
@@ -26,9 +27,11 @@ class Mesh:public FsResource
 		Animation* getAnimation(const FsChar* name);
 
 		/* render */
-		virtual void draw(Render* r);
+		void draw(Render* r);
 	public:
 		Mesh(FsUint submesh_nu,int type);
+		virtual const FsChar* getName();
+		virtual ~Mesh();
 	private:
 		std::vector<SubMesh*> m_submesh;
 		std::map<std::string,Animation*> m_animations;

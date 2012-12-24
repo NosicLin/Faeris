@@ -53,6 +53,10 @@ FsBool FsString::equal(FsObject* ob)
 	}
 
 }
+FsBool FsString::equal(const FsChar* str)
+{
+	return strcmp(m_string.c_str(),str)==0;
+}
 
 
 

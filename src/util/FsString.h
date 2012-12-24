@@ -23,6 +23,7 @@ class FsString:public FsObject
 		virtual FsLong getHashCode();
 		virtual const FsChar* getName();
 		virtual FsBool equal(FsObject* ob);
+		virtual FsBool equal(const FsChar* str);
 	public:
 		FsString& append(const FsChar* str);
 		FsString& append(const FsChar* str,FsLong n);

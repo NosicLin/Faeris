@@ -1,11 +1,30 @@
 #include "model/FsMesh.h"
+#include "graphics/FsRender.h"
+#include "math/FsFace3.h"
+#include "math/FsVector3.h"
 
 FAERIS_NAMESPACE_BEGIN 
+static const FsChar* s_MeshName="MeshObject";
+const FsChar* Mesh::getName()
+{
+	return s_MeshName;
+}
+
 Mesh::Mesh(FsUint submesh_nu,int type)
 {
 	m_submesh.resize(submesh_nu);
 	m_type=type;
+	for(FsUint i=0;i<submesh_nu;++i)
+	{
+		m_submesh[i]=new SubMesh;
+	}
 }
+
+Mesh::~Mesh()
+{
+	/*TODO*/
+}
+
 
 SubMesh* Mesh::getSubMesh(FsUint index) const 
 {
@@ -16,6 +35,7 @@ SubMesh* Mesh::getSubMesh(FsUint index) const
 	return m_submesh[index];
 }
 
+/*
 void Mesh::addAnimation(const FsChar* name,Animation* ani)
 {
 	std::string key(name);
@@ -33,22 +53,25 @@ void Mesh::removeAnimation(Animation* ani)
 Animation* getAnimation(const char* name)
 {
 }
+*/
 
+/*
 void Mesh::draw(Render* r)
 {
-	std::vector<SubMesh>::iterator iter;
-	for(iter=m_submesh.begin;iter!=m_submesh.end();++iter)
+	std::vector<SubMesh*>::iterator iter;
+	for(iter=m_submesh.begin();iter!=m_submesh.end();++iter)
 	{
-		Geometry* g=iter->getGeometry();
+		Geometry* g=(*iter)->getGeometry();
 		if(g==NULL)
 		{
 			continue;
 		}
-		Material* m=iter->getMaterial();
+		Material* m=(*iter)->getMaterial();
 		if(m==NULL)
 		{
-			g->release();
+			g->decRef();
 		}
+
 		r->setMaterial(m);
 
 		FsUint vertex_nu=g->getVertexNu();
@@ -57,27 +80,28 @@ void Mesh::draw(Render* r)
 		Vector3* normal_pointer=g->vNormalsPointer();
 		TexCoord2* texcoord_pointer=g->vTexCoordsPointer();
 
-		Face* face_pointer=fFacesPointer();
+		Face3* face_pointer=g->fFacesPointer();
 
 		if(face_pointer!=NULL&&vertex_pointer!=NULL)
 		{
 			r->disableAllClientArray();
 			r->enableClientArray(Render::VERTEX_ARRAY);
-			r->setVertexPointer(vertex_pointer,vertex_nu);
+			r->setVVertexPointer(vertex_pointer,vertex_nu);
 			if(normal_pointer)
 			{
 				r->enableClientArray(Render::NORMAL_ARRAY);
-				r->setNormalPointer(normal_pointer,vertex_nu);
+				r->setVNormalPointer(normal_pointer,vertex_nu);
 			}
 			if(texcoord_pointer)
 			{
 				r->enableClientArray(Render::NORMAL_ARRAY);
-				r->setTexCoordPointer(texcoord_pointer,vertex_nu);
+				r->setVTexCoordPointer(texcoord_pointer,vertex_nu);
 			}
 			r->drawFace3(face_pointer,face_nu);
 		}
 	}
 }
+*/
 
 FAERIS_NAMESPACE_END 
 

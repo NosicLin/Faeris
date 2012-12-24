@@ -3,6 +3,10 @@
 #include "FsMacros.h"
 #include "util/FsResourceMgr.h"
 #include "util/FsDict.h"
+#include "util/FsArray.h"
+#include "util/FsString.h"
+#include "model/FsMesh.h"
+#include "fsys/FsFile.h"
 
 FAERIS_NAMESPACE_BEGIN
 class  MeshUtil 
@@ -16,7 +20,7 @@ class  MeshUtil
 
 	public:
 		static Mesh* loadMesh(FsFile* file);
-		static bool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
+		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
 
 	protected:
 		/* load mesh from script file */
@@ -30,9 +34,6 @@ class  MeshUtil
 		static Mesh* loadStaticMeshWithBinaryFile(FsFile* file);
 		static Mesh* loadShapeMeshWithBinaryFile(FsFile* file);
 		static Mesh* loadSkeletonMeshWithBinaryFile(FsFile* file);
-
-
-
 };
 
 FAERIS_NAMESPACE_END

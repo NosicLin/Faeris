@@ -1,0 +1,13 @@
+type:"mesh.static"
+version:"v1.0"
+fflags:"f"
+vflags:"vn"
+meshNu:1
+mesh:[
+	{
+		vertexNu:8
+		faceNu:6
+		vvertex:[1,2,2,2,2,2,3,4,4,56,5,7,8,88,4,5,]
+		vnormal:[0.3,-0.2444,+3.4ss,3.5,3.1]
+	}
+]

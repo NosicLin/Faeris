@@ -12,6 +12,7 @@ class FsObject
 	private:
 		FsInt m_refNu;
 	public:
+		FsInt refCnt(){return m_refNu;}
 		void addRef(){m_refNu++;}
 		void decRef()
 		{
