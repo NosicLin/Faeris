@@ -15,11 +15,11 @@ class Render
 	public:
 		enum 
 		{
-			VERTEX_ARRAY=0,
-			COLOR_ARRAY,
-			NORMAL_ARRAY,
-			TEXTURE_COORD_ARRAY,
-
+			VERTEX_ARRAY=(0x1ul<<0),
+			COLOR_ARRAY=(0x1ul<<1),
+			NORMAL_ARRAY=(0x1ul<<2),
+			TEXTURE_COORD_ARRAY=(0x1ul<<3),
+			ALL_ARRAY=VERTEX_ARRAY|COLOR_ARRAY|NORMAL_ARRAY|TEXTURE_COORD_ARRAY,
 		};
 
 	public:
@@ -52,8 +52,10 @@ class Render
 		void setVNormalPointer(Vector3* n,FsUint num);
 		void setVTexCoordPointer(TexCoord2* t,FsUint num);
 		void drawFace3(Face3* f,FsUint num);
-		void enableClientArray(FsInt array);
-		void disableClientArray(FsInt array);
+
+		/* client vertex array */
+		void enableClientArray(FsUlong flags);
+		void disableClientArray(FsUlong flags);
 		void disableAllClientArray();
 
 
@@ -78,6 +80,8 @@ class Render
 		FsBool m_lineWidth;
 		FsBool m_fogEnable;
 
+		/* client array */
+		FsUlong m_arrayFlags;
 };
 
 FAERIS_NAMESPACE_END 

@@ -100,15 +100,18 @@ void Frame::start()
 void Frame::frameBegin(FsLong now,FsLong diff)
 {
 	Iterator iter;
-	for(iter=m_listener.begin();iter!=m_listener.end();++iter)
+	for(iter=m_listener.begin();iter<m_listener.end();++iter)
 	{
-		(*iter)->frameBegin(now,diff);
+		if(*iter)
+		{
+			(*iter)->frameBegin(now,diff);
+		}
 	}
 }
 void Frame::frameUpdate(FsLong now,FsLong diff)
 {
 	Iterator iter;
-	for(iter=m_listener.begin();iter!=m_listener.end();++iter)
+	for(iter=m_listener.begin();iter<m_listener.end();++iter)
 	{
 		(*iter)->frameUpdate(now,diff);
 	}
@@ -116,7 +119,7 @@ void Frame::frameUpdate(FsLong now,FsLong diff)
 void Frame::frameEnd(FsLong now,FsLong diff)
 {
 	Iterator iter;
-	for(iter=m_listener.begin();iter!=m_listener.end();++iter)
+	for(iter=m_listener.begin();iter<m_listener.end();++iter)
 	{
 		(*iter)->frameEnd(now,diff);
 	}
@@ -130,7 +133,7 @@ void Frame::addListener(FrameListener* l)
 void Frame::removeListener(FrameListener* l)
 {
 	Iterator iter;
-	for(iter=m_listener.begin();iter!=m_listener.end();++iter)
+	for(iter=m_listener.begin();iter<m_listener.end();++iter)
 	{
 		if(*iter==l)
 		{

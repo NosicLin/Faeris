@@ -7,6 +7,8 @@ FAERIS_NAMESPACE_BEGIN
 Render::Render()
 {
 	glClearColor(0,0,0,1);
+	m_clearColor=Color::BLACK;
+
 	glClearDepth(1);
 	glClearStencil(0);
 
@@ -23,6 +25,8 @@ Render::Render()
 
 	m_target=NULL;
 	m_material=NULL;
+	
+	m_arrayFlags=0;
 }
 
 
@@ -171,6 +175,100 @@ void Render::setRenderTarget(RenderTarget* target)
 void Render::swapBuffers()
 {
 	if(m_target) m_target->swapBuffers();
+}
+
+void Render::setVVertexPointer(Vector3* v,FsUint num)
+{
+	glVertexPointer(3,GL_FLOAT,0,v);
+}
+void Render::setVNormalPointer(Vector3* v,FsUint num)
+{
+	glNormalPointer(GL_FLOAT,0,v);
+}
+void Render::setVTexCoordPointer(TexCoord2* v,FsUint num)
+{
+	glTexCoordPointer(2,GL_FLOAT,0,v);
+}
+void Render::drawFace3(Face3* f,FsUint num)
+{
+	glDrawElements(GL_TRIANGLES,num*3,GL_UNSIGNED_INT,f);
+}
+
+void Render::enableClientArray(FsUlong flags)
+{
+	if(flags&VERTEX_ARRAY)
+	{
+		if(!(m_arrayFlags&VERTEX_ARRAY))
+		{
+			glEnableClientState(GL_VERTEX_ARRAY);
+		}
+	}
+
+	if(flags&NORMAL_ARRAY)
+	{
+		if(!(m_arrayFlags&NORMAL_ARRAY))
+		{
+			glEnableClientState(GL_NORMAL_ARRAY);
+		}
+	}
+
+	if(flags&TEXTURE_COORD_ARRAY)
+	{
+		if(!(m_arrayFlags&TEXTURE_COORD_ARRAY))
+		{
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		}
+	}
+
+	if(flags&COLOR_ARRAY)
+	{
+		if(!(m_arrayFlags&COLOR_ARRAY))
+		{
+			glEnableClientState(GL_COLOR_ARRAY);
+		}
+	}
+	m_arrayFlags|=flags;
+}
+
+void Render::disableClientArray(FsUlong flags)
+{
+	if(flags&VERTEX_ARRAY)
+	{
+		if(m_arrayFlags&VERTEX_ARRAY)
+		{
+			glDisableClientState(GL_VERTEX_ARRAY);
+		}
+	}
+
+	if(flags&NORMAL_ARRAY)
+	{
+		if(m_arrayFlags&NORMAL_ARRAY)
+		{
+			glDisableClientState(GL_NORMAL_ARRAY);
+		}
+	}
+
+	if(flags&COLOR_ARRAY)
+	{
+		if(m_arrayFlags&COLOR_ARRAY)
+		{
+			glDisableClientState(COLOR_ARRAY);
+		}
+	}
+
+	if(flags&TEXTURE_COORD_ARRAY)
+	{
+		if(m_arrayFlags&TEXTURE_COORD_ARRAY)
+		{
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		}
+	}
+	m_arrayFlags&=!flags;
+}
+
+void Render::disableAllClientArray()
+{
+	disableClientArray(ALL_ARRAY);
 }
 
 

@@ -7,7 +7,8 @@ DEBUG=
 
 BIN= md2file_info.cc \
 	 test_md2loader.cc \
-	 mesh_loader.cc 
+	 mesh_loader.cc  \
+	 mesh_show.cc 
 	
 
 
@@ -33,8 +34,8 @@ CC=g++
 FLAGS=-g -Wall   -DLINUX
 INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../thirdparty
 LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib  -lglut \
-	-lX11 -lGLU -lGL -lGLEW -lmodel -lscript
+   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib  -lGL -lglut  \
+	-lX11  -lmodel -lscript
 
 
 

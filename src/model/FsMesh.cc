@@ -55,7 +55,6 @@ Animation* getAnimation(const char* name)
 }
 */
 
-/*
 void Mesh::draw(Render* r)
 {
 	std::vector<SubMesh*>::iterator iter;
@@ -67,41 +66,47 @@ void Mesh::draw(Render* r)
 			continue;
 		}
 		Material* m=(*iter)->getMaterial();
-		if(m==NULL)
-		{
-			g->decRef();
-		}
 
 		r->setMaterial(m);
 
 		FsUint vertex_nu=g->getVertexNu();
 		FsUint face_nu=g->getFaceNu();
+
 		Vector3* vertex_pointer=g->vVerticsPointer();
 		Vector3* normal_pointer=g->vNormalsPointer();
 		TexCoord2* texcoord_pointer=g->vTexCoordsPointer();
 
 		Face3* face_pointer=g->fFacesPointer();
 
-		if(face_pointer!=NULL&&vertex_pointer!=NULL)
+		if((face_pointer!=NULL)&&(vertex_pointer!=NULL))
 		{
 			r->disableAllClientArray();
 			r->enableClientArray(Render::VERTEX_ARRAY);
+
+			/* set vertex array */
 			r->setVVertexPointer(vertex_pointer,vertex_nu);
+
+			/* set normal array */
 			if(normal_pointer)
 			{
 				r->enableClientArray(Render::NORMAL_ARRAY);
 				r->setVNormalPointer(normal_pointer,vertex_nu);
 			}
+
+			/* set texture array */
 			if(texcoord_pointer)
 			{
-				r->enableClientArray(Render::NORMAL_ARRAY);
+				r->enableClientArray(Render::TEXTURE_COORD_ARRAY);
 				r->setVTexCoordPointer(texcoord_pointer,vertex_nu);
 			}
+
+			/* draw faces */
 			r->drawFace3(face_pointer,face_nu);
 		}
+		if(g) g->decRef();
+		if(m) m->decRef();
 	}
 }
-*/
 
 FAERIS_NAMESPACE_END 
 

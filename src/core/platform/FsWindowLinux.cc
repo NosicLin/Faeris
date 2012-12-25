@@ -117,7 +117,7 @@ class WindowFrameListener:public FrameListener
 			{
 				XNextEvent(dpy,&event);
 				std::vector<Window*>::iterator iter;
-				for(iter=s_wins.begin();iter!=s_wins.end();++iter)
+				for(iter=s_wins.begin();iter<s_wins.end();++iter)
 				{
 					if(event.xany.window==(*iter)->getPlatformWindow()->m_X11Window)
 					{
@@ -149,7 +149,7 @@ static void s_RegisterWindow(Window* win)
 static void s_UnRegisterWindow(Window* win)
 {
 	std::vector<Window*>::iterator iter;
-	for(iter=s_wins.begin();iter!=s_wins.end();++iter)
+	for(iter=s_wins.begin();iter<s_wins.end();++iter)
 	{
 		if((*iter)==win)
 		{

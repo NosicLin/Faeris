@@ -230,6 +230,50 @@ static FsBool s_GeometryLoadVNormal(Geometry* geo,FsDict* dict,const char* name)
 	}
 	return true;
 }
+static FsBool s_GeometryLoadFFace(Geometry* geo,FsDict* dict,const char* name)
+{
+	FsArray* sct_fface=ScriptUtil::getArray(dict,name);
+	Face3* p_face=geo->fFacesPointer();
+	FsUint face_nu=geo->getFaceNu();
+	if(sct_fface!=NULL)
+	{
+		FsUint num=sct_fface->size()/3;
+		if(num>face_nu)
+		{
+			num=face_nu;
+		}
+		for(FsUint j=0;j<num;j++)
+		{
+			FsObject* sct_value1=sct_fface->get(j*3);
+			if(FsString::checkType(sct_value1))
+			{
+				(p_face+j)->a=ScriptUtil::parseInteger((FsString*)sct_value1);
+			}
+			/* get y */
+			FsObject* sct_value2=sct_fface->get(j*3+1);
+			if(FsString::checkType(sct_value2))
+			{
+				(p_face+j)->b=ScriptUtil::parseInteger((FsString*)sct_value2);
+			}
+			/* get z */
+			FsObject* sct_value3=sct_fface->get(j*3+2);
+			if(FsString::checkType(sct_value3))
+			{
+				(p_face+j)->c=ScriptUtil::parseInteger((FsString*)sct_value3);
+			}
+			sct_value1->decRef();
+			sct_value2->decRef();
+			sct_value3->decRef();
+		}
+		sct_fface->decRef();
+	}
+	else 
+	{
+		return false;
+	}
+	return true;
+
+}
 
 Mesh* MeshUtil::parseStaticMeshWithScriptFile(FsDict* script)
 {
@@ -332,7 +376,7 @@ Mesh* MeshUtil::parseStaticMeshWithScriptFile(FsDict* script)
 		/* fflags */
 		if(fflags&Geometry::F_FACE_BIT)
 		{
-
+			s_GeometryLoadFFace(geometry,sct_curdict,"fface");
 		}
 		if(fflags&Geometry::F_NORMAL_BIT)
 		{
@@ -395,6 +439,19 @@ FsBool s_saveMeshWithScript(Mesh* mesh,FsFile* file)
 				}
 				file->writeStr("]\n");
 			}
+
+			Face3* faces=geometry->fFacesPointer();
+			if(faces)
+			{
+				file->writeStr("\t\tffaces:[");
+				for(FsUint j=0;j<face_nu;j++)
+				{
+					Face3* pf=faces+j;
+					file->writeStr("%u,%u,%u,",pf->a,pf->b,pf->c);
+				}
+				file->writeStr("]\n");
+			}
+
 			file->writeStr("\t},\n");
 			geometry->decRef();
 		}

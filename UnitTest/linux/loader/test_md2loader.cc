@@ -1,4 +1,6 @@
+
 #include<stdio.h>
+#include <GL/gl.h>
 #include<GL/glut.h>
 #include "model/FsMd2Loader.h"
 
