@@ -6,3 +6,4 @@ main:
 	make -C model 
 	make -C script 
 	make -C util
+	make -C loader

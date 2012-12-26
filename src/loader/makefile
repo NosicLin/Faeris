@@ -5,7 +5,7 @@ FILE_EXT=cc
 
 #Project infor 
 PROJECT_PATH=../../build/
-PROJECT=graphics
+PROJECT=loader
 
 # User Config Information 
 LIB_DIR=$(PROJECT_PATH)lib
@@ -14,13 +14,8 @@ SRC_DIR=./
 INCLUDE_DIR=  -I./ -I../
 
 #Source File 
-SRC=FsColor.cc  \
-	FsImage2D.cc \
-	FsTexture2D.cc \
-	FsImage2D.cc \
-	FsRender.cc \
-	FsShader.cc \
-	FsProgram.cc \
+SRC=FsMeshLoader.cc
+
 
 
 

@@ -1,4 +1,5 @@
-#include "util/FsMeshUtil.h"
+#include <string.h>
+#include "loader/FsMeshLoader.h"
 #include "util/FsScriptUtil.h"
 #include "model/FsGeometry.h"
 
@@ -9,7 +10,7 @@ static FsBool s_isBinaryFile(FsFile* file)
 }
 
 
-Mesh* MeshUtil::loadMesh(FsFile* file)
+Mesh* MeshLoader::loadMesh(FsFile* file)
 {
 	if(s_isBinaryFile(file))
 	{
@@ -23,7 +24,7 @@ Mesh* MeshUtil::loadMesh(FsFile* file)
 }
 
 
-Mesh* MeshUtil::loadMeshWithScriptFile(FsFile* file)
+Mesh* MeshLoader::loadMeshWithScriptFile(FsFile* file)
 {
 	Mesh* ret=NULL;
 	FsDict* script=NULL;
@@ -274,8 +275,66 @@ static FsBool s_GeometryLoadFFace(Geometry* geo,FsDict* dict,const char* name)
 	return true;
 
 }
+static FsBool s_GeometryLoadVColor(Geometry* geo,FsDict* dict,const char* name)
+{
+	FsArray* sct_vcolor=ScriptUtil::getArray(dict,name);
+	Color* p_color=geo->vColorsPointer();
+	FsUint vertex_nu=geo->getVertexNu();
+	if(sct_vcolor!=NULL)
+	{
+		FsUint num=sct_vcolor->size()/4;
+		if(num>vertex_nu)
+		{
+			num=vertex_nu;
+		}
+		for(FsUint j=0;j<num;j++)
+		{
+			FsUint value;
 
-Mesh* MeshUtil::parseStaticMeshWithScriptFile(FsDict* script)
+			/* get red */
+			FsObject* sct_value1=sct_vcolor->get(j*4);
+			if(FsString::checkType(sct_value1))
+			{
+				value=ScriptUtil::parseInteger((FsString*)sct_value1);
+				(p_color+j)->r=value>255?255:value;
+			}
+			/* get green*/
+			FsObject* sct_value2=sct_vcolor->get(j*4+1);
+			if(FsString::checkType(sct_value2))
+			{
+				value=ScriptUtil::parseInteger((FsString*)sct_value2);
+				(p_color+j)->g=value>255?255:value;
+			}
+			/* get blue */
+			FsObject* sct_value3=sct_vcolor->get(j*4+2);
+			if(FsString::checkType(sct_value3))
+			{
+				value=ScriptUtil::parseInteger((FsString*)sct_value3);
+				(p_color+j)->b=value>255?255:value;
+			}
+			/* get alpha */
+			FsObject* sct_value4=sct_vcolor->get(j*4+3);
+			if(FsString::checkType(sct_value4))
+			{
+				value=ScriptUtil::parseInteger((FsString*)sct_value4);
+				(p_color+j)->a=value>255?255:value;
+			}
+			sct_value1->decRef();
+			sct_value2->decRef();
+			sct_value3->decRef();
+			sct_value4->decRef();
+		}
+		sct_vcolor->decRef();
+	}
+	else 
+	{
+		return false;
+	}
+	return true;
+
+}
+
+Mesh* MeshLoader::parseStaticMeshWithScriptFile(FsDict* script)
 {
 	FsUint submesh_nu=0;
 	FsUlong fflags=0,vflags=0;
@@ -353,19 +412,22 @@ Mesh* MeshUtil::parseStaticMeshWithScriptFile(FsDict* script)
 		/* vflags */
 		if(vflags&Geometry::V_VERTICS_BIT) /* load vertex */
 		{
+			memset(geometry->vVerticsPointer(),0,sizeof(Vector3)*vertex_nu);
 			s_GeometryLoadVVertex(geometry,sct_curdict,"vvertex");
 		}
 
 		if(vflags&Geometry::V_NORMALS_BIT) /* load normal */
 		{
+			memset(geometry->vNormalsPointer(),0,sizeof(Vector3)*vertex_nu);
 			s_GeometryLoadVNormal(geometry,sct_curdict,"vnormal");
 		}
 		if(vflags&Geometry::V_TEXCOORDS_BIT) /*load TexCoord*/
 		{
-
 		}
 		if(vflags&Geometry::V_COLORS_BIT) /*load Color*/
 		{
+			memset(geometry->vColorsPointer(),0,sizeof(Color)*vertex_nu);
+			s_GeometryLoadVColor(geometry,sct_curdict,"vcolor");
 
 		}
 		if(vflags&Geometry::V_WEIGHT_BIT) /*load Weight*/
@@ -376,6 +438,7 @@ Mesh* MeshUtil::parseStaticMeshWithScriptFile(FsDict* script)
 		/* fflags */
 		if(fflags&Geometry::F_FACE_BIT)
 		{
+			memset(geometry->fFacesPointer(),0,sizeof(Face3)*face_nu);
 			s_GeometryLoadFFace(geometry,sct_curdict,"fface");
 		}
 		if(fflags&Geometry::F_NORMAL_BIT)
@@ -460,7 +523,7 @@ FsBool s_saveMeshWithScript(Mesh* mesh,FsFile* file)
 	return true;
 }
 
-FsBool MeshUtil::saveMesh(Mesh* mesh,FsFile* file,bool text)
+FsBool MeshLoader::saveMesh(Mesh* mesh,FsFile* file,bool text)
 {
 	FsBool ret;
 	if(text)

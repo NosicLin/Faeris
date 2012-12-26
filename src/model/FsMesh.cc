@@ -75,6 +75,7 @@ void Mesh::draw(Render* r)
 		Vector3* vertex_pointer=g->vVerticsPointer();
 		Vector3* normal_pointer=g->vNormalsPointer();
 		TexCoord2* texcoord_pointer=g->vTexCoordsPointer();
+		Color* color_pointer=g->vColorsPointer();
 
 		Face3* face_pointer=g->fFacesPointer();
 
@@ -98,6 +99,11 @@ void Mesh::draw(Render* r)
 			{
 				r->enableClientArray(Render::TEXTURE_COORD_ARRAY);
 				r->setVTexCoordPointer(texcoord_pointer,vertex_nu);
+			}
+			if(color_pointer)
+			{
+				r->enableClientArray(Render::COLOR_ARRAY);
+				r->setVColorPointer(color_pointer,vertex_nu);
 			}
 
 			/* draw faces */

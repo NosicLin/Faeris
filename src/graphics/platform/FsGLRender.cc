@@ -6,14 +6,21 @@ FAERIS_NAMESPACE_BEGIN
 
 Render::Render()
 {
-	glClearColor(0,0,0,1);
+	m_target=NULL;
+	m_material=NULL;
+	m_arrayFlags=0;
+	init();
+}
+
+void Render::init()
+{
+	glClearColor(0,0,0,255);
 	m_clearColor=Color::BLACK;
 
 	glClearDepth(1);
 	glClearStencil(0);
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_DEPTH);
 
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -23,10 +30,7 @@ Render::Render()
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	m_target=NULL;
-	m_material=NULL;
 	
-	m_arrayFlags=0;
 }
 
 
@@ -188,6 +192,10 @@ void Render::setVNormalPointer(Vector3* v,FsUint num)
 void Render::setVTexCoordPointer(TexCoord2* v,FsUint num)
 {
 	glTexCoordPointer(2,GL_FLOAT,0,v);
+}
+void Render::setVColorPointer(Color* v,FsUint num)
+{
+	glColorPointer(4,GL_UNSIGNED_BYTE,0,v);
 }
 void Render::drawFace3(Face3* f,FsUint num)
 {

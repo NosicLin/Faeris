@@ -314,6 +314,7 @@ bool Window::init(FsLong flags)
 			CWColormap|CWEventMask,&swa);
 
 	XSetWMProtocols(dpy, win, &s_wm_delete_msg, 1);
+
 	glc=glXCreateContext(dpy,vi,NULL,GL_TRUE);
 
 	PlatformWindow* platwin=new PlatformWindow;

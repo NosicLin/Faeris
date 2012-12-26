@@ -9,7 +9,7 @@
 #include "fsys/FsFile.h"
 
 FAERIS_NAMESPACE_BEGIN
-class  MeshUtil 
+class  MeshLoader
 {
 	private:
 		static ResourceMgr* m_mgr;
