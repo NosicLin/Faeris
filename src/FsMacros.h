@@ -7,8 +7,12 @@
 #define FS_BEGIN_NAMESPACE(name) namespace name{
 #define FS_END_NAMESPACE(name) }
 
-#define FAERIS_NAMESPACE_BEGIN FS_BEGIN_NAMESPACE(Faeris)
-#define FAERIS_NAMESPACE_END  FS_END_NAMESPACE(Faeris)
+#define NS_FS_BEGIN FS_BEGIN_NAMESPACE(Faeris)
+#define NS_FS_END FS_END_NAMESPACE(Faeris)
+#define NS_FS_USE using namespace Faeris;
+
+#define FAERIS_NAMESPACE_BEGIN  NS_FS_BEGIN
+#define FAERIS_NAMESPACE_END  NS_FS_END
 
 #if defined(WIN32)
 	#define FS_OS_WIN
@@ -154,6 +158,10 @@
 
 
 
+/* file type */
+#define FS_FILE_UNKOWN (0x1)
+#define FS_FILE_BINARY (0x2)
+#define FS_FILE_SCRIPT (0x3)
 
 
 

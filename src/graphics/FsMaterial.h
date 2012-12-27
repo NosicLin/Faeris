@@ -2,6 +2,7 @@
 #define _FS_MATTERIAL_H_
 #include "FsMacros.h"
 #include "util/FsResource.h"
+#include "graphics/FsRender.h"
 FAERIS_NAMESPACE_BEGIN
 class Render;
 class Material:public FsObject
@@ -20,9 +21,9 @@ class Material:public FsObject
 	public:
 		Material()
 			:blendEnable(true),
-			blendEquation(EQUATION_ADD),
-			blendSrc(FACTOR_SRC_ALPHA),
-			blendDst(FACTOR_ONE_MINUS_SRC_ALPHA),
+			blendEquation(Render::EQUATION_ADD),
+			blendSrc(Render::FACTOR_SRC_ALPHA),
+			blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
 			depthTest(true),
 			depthMask(true)
 			{}

@@ -2,14 +2,14 @@
 #define _FS_RENDER_H_
 #include "FsMacros.h"
 #include "graphics/FsColor.h"
-#include "graphics/FsMaterial.h"
 #include "graphics/FsRenderTarget.h"
 #include "math/FsMatrix4.h"
 #include "math/FsVector3.h"
 #include "math/FsTexCoord2.h"
 #include "math/FsFace3.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN
+class Material;
 class Render 
 {
 	public:
@@ -129,8 +129,7 @@ class Render
 		FsUlong m_arrayFlags;
 };
 
-FAERIS_NAMESPACE_END 
-
+NS_FS_END
 #endif /*_FS_RENDER_H_*/
 
 

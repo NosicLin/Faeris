@@ -32,13 +32,60 @@ static inline GLint s_wrapToGlEnum(FsInt wrap)
 	switch(wrap)
 	{
 		case Texture2D::WRAP_CLAMP:
-			return GL_CLAMP_TO_EDGE;
+			return GL_CLAMP
 		case Texture2D::WRAP_REPEAT:
 			return GL_REPEAT;
+		case Texture2D::WRAP_CLAMP_TO_EDGE:
+			return GL_CLAMP_TO_EDGE;
+		case Texture2D::WRAP_CLAMP_TO_BORDER:
+			return GL_CLAMP_TO_BORDER;
 		default:
-			return GL_REPEAT;
+			return GL_CLAMP_TO_EDGE;
 	}
 }
+
+static inline GLint s_fomatToGLEnum(FsInt format)
+{
+	switch(format)
+	{
+		case Texture2D::FORMAT_RGBA:
+			return GL_RGBA;
+		case Texture2D::FORMAT_ALPHA:
+			return GL_ALPHA;
+		case Texture2D::FORMAT_LUMINANCE:
+			return GL_LUMINANCE;
+		case Texture2D::FORMAT_LUMINANCE_ALPHA:
+			return GL_LUMINANCE_ALPHA;
+		case Texture2D::FORMAT_INTENSITY:
+			return GL_INTENSITY;
+		case Texture2D::FORMAT_RGB:
+			return GL_RGB;
+		default:
+			return GL_RGBA;
+	}
+}
+
+static inline GLint s_envModeToGLEnum(FsInt mode)
+{
+	switch(mode)
+	{
+		case Texture2D::ENV_DECAL:
+			return GL_DECAL;
+		case Texture2D::ENV_REPLACE:
+			return GL_REPLACE;
+		case Texture2D::ENV_MODULATE:
+			return GL_MODULATE;
+		case Texture2D::ENV_BLEND:
+			return GL_BLEND;
+		case Texture2D::ENV_ADD:
+			return GL_ADD;
+		case Texture2D::ENV_COMBINE:
+			return GL_COMBINE;
+		default:
+			return GL_REPLACE;
+	}
+}
+
 
 
 Texture2D* Texture2D::create(
