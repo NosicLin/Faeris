@@ -365,6 +365,87 @@ FsBool ScriptUtil::getFloat(FsDict* dict,const FsChar* key,FsFloat* value)
 	str->decRef();
 	return true;
 }
+/* aux for quick get object in array */
+FsArray* ScriptUtil::getArray(FsArray* array,FsUint index)
+{
+	FsObject* ob=array->get(index);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+	if(FsArray::checkType(ob))
+	{
+		return (FsArray*) ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+
+
+FsDict* ScriptUtil::getDict(FsArray* array,FsUint index)
+{
+	FsObject* ob=array->get(index);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+	if(FsDict::checkType(ob))
+	{
+		return (FsDict*) ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+
+FsString* ScriptUtil::getString(FsArray* array,FsUint index)
+{
+	FsObject* ob=array->get(index);
+	if(ob==NULL)
+	{
+		return NULL;
+	}
+	if(FsString::checkType(ob))
+	{
+		return (FsString*) ob;
+	}
+	else 
+	{
+		ob->decRef();
+		return NULL;
+	}
+}
+
+FsBool ScriptUtil::getInteger(FsArray* array,FsUint index,FsInt* v)
+{
+	FsString* str=ScriptUtil::getString(array,index);
+	if(str==NULL)
+	{
+		return false;
+	}
+
+	*v=parseInteger(str);
+	str->decRef();
+	return true;
+}
+FsBool ScriptUtil::getFloat(FsArray* array,FsUint index,FsFloat* v)
+{
+	FsString* str=ScriptUtil::getString(array,index);
+	if(str==NULL)
+	{
+		return false ;
+	}
+	*v=parseFloat(str);
+	str->decRef();
+	return true;
+}
+	
+
 
 FsFloat ScriptUtil::parseFloat(const FsChar* str)
 {
@@ -374,6 +455,7 @@ FsInt ScriptUtil::parseInteger(const FsChar* str)
 {
 	return atoi(str);
 }
+
 
 
 

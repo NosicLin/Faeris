@@ -13,11 +13,11 @@ class TextureLoader
 	public:
 		static ResourceMgr* shareMgr();
 	public:
-		Texture2D* loadFromMgr(const FsChar* filename);
-		Texture2D* loadFromFile(FsFile* file);
-		Texture2D* loadFromScriptFile(FsFile* file);
-		Texture2D* loadFromBinaryFile(FsFile* file);
-		FsInt checkFileType(FsFile* file);
+		static Texture2D* loadFromMgr(const FsChar* filename);
+		static Texture2D* loadFromFile(FsFile* file);
+		static Texture2D* loadFromScriptFile(FsFile* file);
+		static Texture2D* loadFromBinaryFile(FsFile* file);
+		static FsInt checkFileType(FsFile* file);
 };
 
 

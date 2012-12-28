@@ -10,7 +10,7 @@ DEBUG=
 	 mesh_loader.cc  \
 	 mesh_show.cc 
 
-BIN=mesh_show.cc
+BIN=textureloader_test.cc
 
 
 
@@ -36,7 +36,7 @@ FLAGS=-g -Wall   -DLINUX
 INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../thirdparty
 LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
    	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib  -lGL -lGLU -lGLEW \
-	-lX11  -lmodel -lscript -lloader
+	-lX11  -lmodel -lscript -lloader -lglut
 
 
 

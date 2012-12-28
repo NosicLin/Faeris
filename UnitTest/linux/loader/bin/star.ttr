@@ -1,0 +1,24 @@
+type:"texture.2d"
+filter_mag:linear
+filter_min:linear
+filter_mipmap:linear
+
+swap_t:repeat
+swap_s:repeat
+
+format:rgba
+
+env_mode:modulate
+imageNu:1
+source:[
+	"star512x512.png"
+	"star256x256.png"
+	"star128x128.png"
+	"star64x64.png"
+	"star32x32.png"
+	"star16x16.png"
+	"star8x8.png"
+	"star4x4.png"
+	"star2x2.png"
+	"star1x1.png"
+]

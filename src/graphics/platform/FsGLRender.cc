@@ -1,4 +1,5 @@
 #include <GL/gl.h>
+#include "graphics/FsMaterial.h"
 #include "graphics/FsRender.h"
 
 FAERIS_NAMESPACE_BEGIN

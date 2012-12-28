@@ -58,8 +58,7 @@ class Texture2D
 				FsInt wraps,
 				FsInt wrapt,
 				FsInt internal_format,
-				FsInt env_mode,
-				FsBool auto_mipmap=false
+				FsInt env_mode
 				);
 
 		static Texture2D* create(
@@ -111,7 +110,7 @@ class Texture2D
 
 		/* evn mode */
 		void setEvnMode(FsInt mode);
-		FsInt getEvnMode(){return m_evnMode;}
+		FsInt getEvnMode(){return m_envMode;}
 
 	public:
 		void bind();
@@ -132,7 +131,7 @@ class Texture2D
 		FsInt m_wrapS;
 		FsInt m_wrapT;
 		/* env */
-		FsInt m_evnMode;
+		FsInt m_envMode;
 		PlatformTexture m_platformTexture;
 };
 

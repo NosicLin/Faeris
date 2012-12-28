@@ -149,7 +149,7 @@ static FsVoid s_getEnvMode(FsDict* dict,FsInt* env_mode)
 		const FsChar* str=sct_evn_mode->cstr();
 		if(strcmp(str,"replace")==0)
 		{
-			*env_mode=Texture2D::ENV_REPLEACE;
+			*env_mode=Texture2D::ENV_REPLACE;
 		}
 		else if(strcmp(str,"decal")==0)
 		{
@@ -173,6 +173,40 @@ static FsVoid s_getEnvMode(FsDict* dict,FsInt* env_mode)
 		}
 		sct_evn_mode->decRef();
 		sct_evn_mode=NULL;
+	}
+}
+static FsVoid s_getFormat(FsDict* dict,FsInt* format)
+{
+	FsString* sct_format=ScriptUtil::getString(dict,"format");
+	if(sct_format!=NULL)
+	{
+		const char* str=sct_format->cstr();
+		if(strcmp(str,"rgba")==0)
+		{
+			*format=Texture2D::FORMAT_RGBA;
+		}
+		else if(strcmp(str,"rgb")==0)
+		{
+			*format=Texture2D::FORMAT_RGB;
+		}
+		else if(strcmp(str,"alpha")==0)
+		{
+			*format=Texture2D::FORMAT_ALPHA;
+		}
+		else if(strcmp(str,"luminance")==0)
+		{
+			*format=Texture2D::FORMAT_LUMINANCE;
+		}
+		else if(strcmp(str,"luminance_alpha")==0)
+		{
+			*format=Texture2D::FORMAT_LUMINANCE_ALPHA;
+		}
+		else if(strcmp(str,"intensity")==0)
+		{
+			*format=Texture2D::FORMAT_INTENSITY;
+		}
+		sct_format->decRef();
+		sct_format=NULL;
 	}
 }
 static FsVoid s_getImageNu(FsDict* dict,FsInt* image_nu)
@@ -222,9 +256,11 @@ static FsVoid s_getImages(FsDict* dict,Image2D** images,FsInt* image_nu)
 			FS_TRACE_WARN("Entry(%d) In Source  Array Is Not Image File",i);
 			continue;
 		}
-		images[realNum++]=cur_image;
+		images[realNum]=cur_image;
+		realNum++;
 	}
 	*image_nu=realNum;
+	sct_images->decRef();
 }
 
 
@@ -250,22 +286,25 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 	FsInt internal_format=Texture2D::FORMAT_RGBA;
 
 	/* env_mode */
-	FsInt env_mode=Texture2D::ENV_REPLEACE;
+	FsInt env_mode=Texture2D::ENV_REPLACE;
 
 	/* mipmap */
 	FsBool mipmap=false;
 
 	/* image */
-	FsUint image_nu;
+	FsUint image_nu=0;
 	Image2D** images=NULL;
 
+	s_getFormat(dict,&internal_format);
 	s_getFilters(dict,&filter_mag,&filter_min,&filter_mipmap);
 	s_getWrap(dict,&wraps,&wrapt);
 	s_getAutoMipmap(dict,&mipmap);
 	s_getImageNu(dict,(FsInt*)&image_nu);
 	s_getEnvMode(dict,&env_mode);
+
 	if(image_nu==0)
 	{
+		dict->decRef();
 		FS_TRACE_WARN("ImageNu Is Zero, So No Need To Create Texture2D");
 		return NULL;
 	}
@@ -273,15 +312,40 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 	memset(images,0,sizeof(Image2D*)*image_nu);
 
 	s_getImages(dict,images,(FsInt*)&image_nu);
+	if(image_nu==0)
+	{
+		delete[] images;
+		dict->decRef();
+		FS_TRACE_WARN("ImageNu Is Zero, So No Need To Create Texture2D");
+
+	}
 
 	if(image_nu==1)
 	{
-		ret=Texture2D::create(images[0],
-				filter_mag, filter_min,
-				wraps,wrapt,
+		if(mipmap)
+		{
+			ret=Texture2D::create(
+				images[0],
+				filter_mag, 
+				filter_min,
+				filter_mipmap,
+				wraps,
+				wrapt,
 				internal_format,
-				env_mode,
-				mipmap);
+				env_mode
+				);
+		}
+		else 
+		{
+			ret=Texture2D::create(
+					images[0],
+					filter_mag,
+					filter_min,
+					wraps,
+					wrapt,
+					internal_format,
+					env_mode);
+		}
 	}
 	else 
 	{
@@ -296,11 +360,14 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 				internal_format,
 				env_mode);
 	}
+
 	for(FsUint i=0;i<image_nu;i++)
 	{
 		images[i]->decRef();
 	}
-	delete images;
+
+	dict->decRef();
+	delete[] images;
 	return ret;
 
 }
