@@ -5,7 +5,7 @@
 #include "math/FsVector4.h"
 #include "math/FsQuaternion.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class  Matrix4
 {
 	public:
@@ -99,6 +99,6 @@ class  Matrix4
 			m30=v30;m31=v31;m32=v32;m33=v33;
 		}
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif 
 

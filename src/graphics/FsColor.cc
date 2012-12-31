@@ -1,6 +1,6 @@
 #include "FsColor.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 Color Color::DEFAULT_COLOR=Color(255,255,255,255);
 Color Color::RED=Color(255,0,0,255);
@@ -63,5 +63,5 @@ Color Color::operator*(FsFloat s)
 	return Color(red,green,blue,alpha);
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

@@ -30,12 +30,18 @@ void DrawAQuad()
 	glLoadIdentity();
 	gluLookAt(0., 0., 10., 0., 0., 0., 0., 1., 0.);
 
-	glBegin(GL_QUADS);
-	glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
-	glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
-	glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
-	glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
-	glEnd(); 
+	glTranslatef(20,20,20);
+	int j=0;
+	for(j=0;j<10000;j++)
+	{
+
+		glBegin(GL_QUADS);
+		glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
+		glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
+		glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
+		glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
+		glEnd(); 
+	}
 } 
 
 int main(int argc, char *argv[]) 
@@ -78,26 +84,32 @@ int main(int argc, char *argv[])
 	glEnable(GL_DEPTH_TEST); 
 
 
+	int i=0;
 	while(1) {
-		XNextEvent(dpy, &xev);
+		while (XEventsQueued(dpy,QueuedAfterReading)) 
+		{ 
+			XNextEvent(dpy, &xev);
 
-		if(xev.type == Expose) {
-			XGetWindowAttributes(dpy, win, &gwa);
-			glViewport(0, 0, gwa.width, gwa.height);
-			DrawAQuad(); 
-	//		glXSwapBuffers(dpy, win);
-	   	}
-		else if (xev.type==ClientMessage)
-		{
-			printf("ClientMessage:\n");
-		}
+			if(xev.type == Expose) {
+			}
+			else if (xev.type==ClientMessage)
+			{
+				printf("ClientMessage:\n");
+			}
 
-		else if(xev.type == KeyPress) {
-			glXMakeCurrent(dpy, None, NULL);
-			glXDestroyContext(dpy, glc);
-			XDestroyWindow(dpy, win);
-			XCloseDisplay(dpy);
-			exit(0);
+			else if(xev.type == KeyPress) {
+				glXMakeCurrent(dpy, None, NULL);
+				glXDestroyContext(dpy, glc);
+				XDestroyWindow(dpy, win);
+				XCloseDisplay(dpy);
+				exit(0);
+			}
 		}
+		XGetWindowAttributes(dpy, win, &gwa);
+		glViewport(0, 0, gwa.width, gwa.height);
+		int j;
+		DrawAQuad(); 
+		glXSwapBuffers(dpy, win);
+		printf("i=%d\n",i++);
 	} /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */

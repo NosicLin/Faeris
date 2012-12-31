@@ -6,11 +6,14 @@
 #if FS_PLATFORM_OS(FS_OS_LINUX)
 	#include <sys/time.h>
 	typedef struct timeval PlatformTimeVal;
+#elif FS_PLATFORM_OS(FS_OS_WIN32)
+	#include <Windows.h>
+	typedef DWORD  PlatformTimeVal;
 #else 
 	#error "Unsupport Platform OS"
 #endif 
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 
 class Timer
@@ -23,7 +26,7 @@ class Timer
 		PlatformTimeVal m_begin;
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif /*_FAERY_TIMER_H_*/
 

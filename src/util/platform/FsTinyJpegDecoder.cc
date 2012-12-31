@@ -2,7 +2,7 @@
 #include "fsys/FsFile.h"
 #include "tinyjpeg/tinyjpeg.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 Image2D* FsUtil_JpegReader(FsFile* file)
 {
@@ -74,4 +74,4 @@ FsInt FsUtil_JpegWriter(FsFile* file,Image2D* img)
 	return -1;
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END

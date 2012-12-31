@@ -1,7 +1,7 @@
 #ifndef _FAERIS_COLOR_H_
 #define _FAERIS_COLOR_H_
 #include "FsMacros.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Color 
 {
 	public:
@@ -34,6 +34,6 @@ class Color
 		bool operator==(Color right){return rgba==right.rgba;}
 		bool operator!=(Color right){return rgba!=right.rgba;}
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_COLOR_H_*/
 

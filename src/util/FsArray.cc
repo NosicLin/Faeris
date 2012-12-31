@@ -3,7 +3,7 @@
 #include "util/FsArray.h"
 
 #define FS_ARRAY_MIN_SIZE 8
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 static const FsChar* s_FsArrayName="FsArrayObject";
 const FsChar* FsArray::getName()
@@ -181,5 +181,5 @@ bool FsArray::remove(FsUlong index)
 	
 
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

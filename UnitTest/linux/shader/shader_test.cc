@@ -76,7 +76,7 @@ void init(int argc,char** argv)
 			printf("Create Fragment Shader Failed\n");
 			delete vertex_file;
 			delete fragment_file;
-			vertex->release();
+			vertex->decRef();
 			exit(-1);
 		}
 		delete vertex_file;
@@ -88,11 +88,11 @@ void init(int argc,char** argv)
 		printf("Create program Failed\n");
 		if(vertex)
 		{
-			vertex->release();
+			vertex->decRef();
 		}
 		if(fragment)
 		{
-			fragment->release();
+			fragment->decRef();
 		}
 		exit(-1);
 	}
@@ -101,18 +101,23 @@ void init(int argc,char** argv)
 }
 
 float time=1;
+int i=0;
 void display(void)
 {
-	glUniform3f(loc,200,100,time);
-	glClearColor(0.0,0.0,0.0,1.0);
-	glColor4f(1.0,0.0,1.0,1.0);
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	gluLookAt(0.0,0.0,5.0,
-			0.0,0.0,0.0,
-			0.0f,1.0f,0.0f);
-	glMatrixMode(GL_MODELVIEW);
-	glutSolidTeapot(1);
+	printf("%d\n",i++);
+	for(int i=0;i<10;i++)
+	{
+		glUniform3f(loc,200,100,time);
+		glClearColor(0.0,0.0,0.0,1.0);
+		glColor4f(1.0,0.0,1.0,1.0);
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		gluLookAt(0.0,0.0,5.0,
+				0.0,0.0,0.0,
+				0.0f,1.0f,0.0f);
+		glMatrixMode(GL_MODELVIEW);
+		glutSolidTeapot(1);
+	}
 	glutSwapBuffers();
 }
 
@@ -123,7 +128,7 @@ void onTimer(int value)
 	{
 		time=1;
 	}
-	glutTimerFunc(30,onTimer,1);
+	glutTimerFunc(20,onTimer,1);
 	glutPostRedisplay();
 }
 void reshape(int w,int h)
@@ -161,15 +166,15 @@ int main(int argc,char** argv)
 	glutMainLoop();
 	if(vertex)
 	{
-		vertex->release();
+		vertex->decRef();
 	}
 	if(fragment)
 	{
-		fragment->release();
+		fragment->decRef();
 	}
 	if(program)
 	{
-		program->release();
+		program->decRef();
 	}
 	printf("over\n");
 

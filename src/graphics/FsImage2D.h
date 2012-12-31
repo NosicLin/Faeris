@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 #include "graphics/FsColor.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Image2D:public FsObject
 {
 	public:
@@ -33,7 +33,7 @@ class Image2D:public FsObject
 	public:
 		FsUint getWidth()const{return m_width;} 
 		FsUint getHeight()const{return m_height;};
-		const FsVoid* getPixelData()const{return m_buffer;}
+		FsVoid* getPixelData()const{return m_buffer;}
 		PixelFormat getPixelFormat()const{return m_format;}
 		Color getColor(FsUint x,FsUint y)const;
 		void setColor(FsUint x,FsUint y,Color c);
@@ -44,6 +44,6 @@ class Image2D:public FsObject
 		PixelFormat m_format;
 		FsUchar* m_buffer;
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /* _FAERIS_IMAGE2D_H_*/
 

@@ -1,7 +1,8 @@
 #include "graphics/FsProgram.h"
 #include "GL/glew.h"
+
 #define FS_MAX_GL_PROGRAM_LOG_LENGTH 1024
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 Program* Program::create(Shader* vertex,Shader* fragment)
 {
 	GLuint program;
@@ -66,5 +67,5 @@ const FsChar* Program::getName()
 	return sProgramName;
 }
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

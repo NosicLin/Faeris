@@ -38,11 +38,11 @@ int main(int argc,char** argv)
 	height=img->getHeight();
 
 	printf("ImageInfo: Width=%d,Height=%d,",width,height);
-	if(img->getPixelFormat()==Image2D::FS_PIXEL_RGB888)
+	if(img->getPixelFormat()==Image2D::PIXEL_RGB888)
 	{
 		printf("PixelFormat=FS_PIXEL_RGB_888\n");
 	}
-	else  if(img->getPixelFormat()==Image2D::FS_PIXEL_RGBA8888)
+	else  if(img->getPixelFormat()==Image2D::PIXEL_RGBA8888)
 	{
 		printf("PixelFormat=FS_PIXEL_RGBA_8888\n");
 	}

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 SysFile* SysFile::ms_stdout=NULL;
 SysFile* SysFile::ms_stdin=NULL;
@@ -137,4 +137,4 @@ SysFile::~SysFile()
 	}
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END

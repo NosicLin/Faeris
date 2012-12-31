@@ -8,7 +8,7 @@
 
 
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 
 
 static bool fs_png_check(const unsigned char* buf,unsigned int len)
@@ -393,5 +393,5 @@ int FsUtil_PngWriter(FsFile* file,Image2D* img)
 
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

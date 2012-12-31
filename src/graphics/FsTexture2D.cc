@@ -1,6 +1,6 @@
 #include "graphics/FsTexture2D.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 #if FS_CONFIG(FS_GL_RENDER)
 	#include "platform/FsGLTexture2D.cc"
@@ -8,5 +8,5 @@ FAERIS_NAMESPACE_BEGIN
 	#error "Unsupport PlatformTexture"
 #endif 
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

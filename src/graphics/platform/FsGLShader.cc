@@ -1,8 +1,10 @@
-#include "graphics/FsShader.h"
 #include "GL/glew.h"
+#include "graphics/FsShader.h"
+
 #define FS_MAX_GL_SHADER_LOG_LENGTH 1024
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
+
 Shader* Shader::create(FsFile* file,ShaderType t)
 {
 	FsInt length,readbyte;
@@ -74,4 +76,4 @@ const FsChar* Shader::getName()
 	return sShaderName;
 }
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 

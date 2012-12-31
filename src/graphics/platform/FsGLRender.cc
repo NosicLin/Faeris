@@ -1,19 +1,24 @@
-#include <GL/gl.h>
+#include "GL/glew.h"
+#include "graphics/FsMaterial.h"
 #include "graphics/FsRender.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 
 Render::Render()
 {
-	glClearColor(0,0,0,1);
+	m_target=NULL;
+	m_material=NULL;
+	m_arrayFlags=0;
+
+
+	glClearColor(0,0,0,255);
 	m_clearColor=Color::BLACK;
 
 	glClearDepth(1);
 	glClearStencil(0);
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_DEPTH);
 
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -23,12 +28,7 @@ Render::Render()
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	m_target=NULL;
-	m_material=NULL;
-	
-	m_arrayFlags=0;
 }
-
 
 void Render::pushMatrix()
 {
@@ -189,6 +189,10 @@ void Render::setVTexCoordPointer(TexCoord2* v,FsUint num)
 {
 	glTexCoordPointer(2,GL_FLOAT,0,v);
 }
+void Render::setVColorPointer(Color* v,FsUint num)
+{
+	glColorPointer(4,GL_UNSIGNED_BYTE,0,v);
+}
 void Render::drawFace3(Face3* f,FsUint num)
 {
 	glDrawElements(GL_TRIANGLES,num*3,GL_UNSIGNED_INT,f);
@@ -277,5 +281,5 @@ void Render::disableAllClientArray()
 //oid Render::setPolygonOffset(FsFloat factor,FsFloat units);
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

@@ -2,7 +2,7 @@
 #define _FAERIS_TEX_COORD2_H_
 #include "FsMacros.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 class TexCoord2
 {
@@ -19,6 +19,6 @@ class TexCoord2
 		TexCoord2(FsFloat t_u,FsFloat t_v):tu(t_u),tv(t_v){}
 		TexCoord2():tu(0),tv(0){}
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_TEX_COORD2_H_*/
 

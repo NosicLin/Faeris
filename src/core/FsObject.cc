@@ -1,6 +1,6 @@
 #include "FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 
 FsObject::~FsObject()
 {
@@ -17,5 +17,5 @@ FsBool FsObject::equal(FsObject* ob)
 {
 	return this==ob;
 }
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

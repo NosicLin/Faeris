@@ -7,7 +7,7 @@
 #include "math/FsFace3.h"
 #include "graphics/FsColor.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 class Weight
 {
@@ -74,16 +74,16 @@ class Geometry:public FsObject
 		Vector3* vVerticsPointer()const{return m_vVertics;}
 		Vector3* vNormalsPointer()const{return m_vNormals;}
 		TexCoord2* vTexCoordsPointer()const{return m_vTexcoords;}
-		Color* vColorPointer()const {return m_vColors;}
-		VertexWeight* vWeightPointer()const{return m_vWeights;}
+		Color* vColorsPointer()const {return m_vColors;}
+		VertexWeight* vWeightsPointer()const{return m_vWeights;}
 
 		/* face info */
 		Face3* fFacesPointer()const{return m_fFaces;}
 		Vector3* fNormalsPointer()const {return m_fNormals;}
-		Color* fColorPointer()const {return m_fColors;}
+		Color* fColorsPointer()const {return m_fColors;}
 
 		/* skeleton animation */
-		Weight* wWeightPointer()const{return m_wWeights;}
+		Weight* wWeightsPointer()const{return m_wWeights;}
 
 	public:
 		void setVertexNu(FsUint num);
@@ -106,6 +106,6 @@ class Geometry:public FsObject
 
 };
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 #endif /*_FS_GEOMETRY_H_*/
 

@@ -1,7 +1,7 @@
 #include <string.h>
 #include "graphics/FsImage2D.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 FsUint Image2D::PixelFormatSize(PixelFormat f)
 {
@@ -146,5 +146,5 @@ const char* Image2D::getName()
 
 
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

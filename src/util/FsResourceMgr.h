@@ -6,7 +6,7 @@
 #include <map>
 #include "FsMacros.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Resource;
 class FsFile;
 class ResourceMgr 
@@ -30,7 +30,7 @@ class ResourceMgr
 		FsInt m_resNu;
 		std::map<std::string,Resource*> m_resources;
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif  /*_FS_RESOURCE_MGR_H_*/
 
 

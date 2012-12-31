@@ -1,7 +1,7 @@
 #include "string.h"
 #include "model/FsGeometry.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 static const FsChar* s_GeometryName="GeometryObject";
 
@@ -274,7 +274,7 @@ Geometry::~Geometry()
 
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 
 

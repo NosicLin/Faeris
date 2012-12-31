@@ -4,7 +4,7 @@
 #include "FsMacros.h"
 #include "FsMathUtil.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Vector2
 {
 	public:
@@ -34,7 +34,7 @@ class Vector2
 };
 
 #include "FsVector2.inl"
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif 
 
 

@@ -7,7 +7,7 @@
 #include "util/FsString.h"
 #include "fsys/FsFile.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class ScriptUtil
 {
 	public:
@@ -24,6 +24,13 @@ class ScriptUtil
 		static FsBool getInteger(FsDict* dict,const FsChar* key,FsInt* value);
 		static FsBool getFloat(FsDict* dict,const FsChar* key,FsFloat* value);
 
+		/* aux for quick get object in array */
+		static FsArray* getArray(FsArray* array,FsUint index);
+		static FsDict* getDict(FsArray* array,FsUint index);
+		static FsString* getString(FsArray* array,FsUint index);
+		static FsBool getInteger(FsArray* array,FsUint index,FsInt* v);
+		static FsBool getFloat(FsArray* array,FsUint index,FsFloat* v);
+
 		/* aux for translate string to float,integer*/
 		static FsFloat parseFloat(const FsChar* str);
 		static FsFloat parseFloat(FsString* str)
@@ -39,7 +46,7 @@ class ScriptUtil
 	
 };
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 
 

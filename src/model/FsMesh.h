@@ -4,7 +4,7 @@
 #include "util/FsResource.h"
 #include "model/FsSubMesh.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 class Animation;
 class Mesh:public Resource
 {
@@ -38,6 +38,6 @@ class Mesh:public Resource
 		FsInt m_type;
 };
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 #endif /*_FS_MESH_H_*/

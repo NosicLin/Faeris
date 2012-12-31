@@ -6,7 +6,7 @@
 
 #define FS_DICT_MIN_SIZE 8
 #define FS_DICT_DEFAULT_PERTURB_SHIFT 5
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 
 static const FsChar s_FsDict_Name[]="DictObject";
@@ -273,5 +273,5 @@ FsDict::~FsDict()
 
 
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

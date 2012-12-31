@@ -2,7 +2,7 @@
 #define FY_MATH_MATH_UTIL_H_
 #include "FsMacros.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 FS_BEGIN_NAMESPACE(Math)
 
 FsFloat cos(FsFloat angle);
@@ -30,7 +30,7 @@ FS_END_NAMESPACE(Math)
 #define PI 3.1415926f
 #endif 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif 
 

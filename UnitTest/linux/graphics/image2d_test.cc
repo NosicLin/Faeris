@@ -17,7 +17,7 @@ void init(int argc,char** argv)
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_FLAT);
 	glClearColor(0.0,0.0,0.0,0.0);
-	img=new Image2D(255,255,Image2D::FS_PIXEL_RGB888);
+	img=new Image2D(255,255,Image2D::PIXEL_RGB888);
 	for(int i=0;i<255;i++)
 	{
 		for(int j=0;j<255;j++)
@@ -38,7 +38,7 @@ void display(void)
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	
-	GLint pixel_format=img->getPixelFormat()==Image2D::FS_PIXEL_RGB888?GL_RGB:GL_RGBA;
+	GLint pixel_format=img->getPixelFormat()==Image2D::PIXEL_RGB888?GL_RGB:GL_RGBA;
 	glDrawPixels(img->getWidth(),img->getHeight(),pixel_format,GL_UNSIGNED_BYTE,img->getPixelData());
 	glFlush();
 }
@@ -81,7 +81,7 @@ void keyboard(unsigned char key,int x,int y)
 			delete img;
 		}
 
-		img=new Image2D(255,255,Image2D::FS_PIXEL_RGB888);
+		img=new Image2D(255,255,Image2D::PIXEL_RGB888);
 		FsUint width,height;
 		width=img->getWidth();
 		height=img->getHeight();
@@ -113,7 +113,7 @@ void keyboard(unsigned char key,int x,int y)
 		{
 			delete img;
 		}
-		img=new Image2D(255,255,Image2D::FS_PIXEL_RGBA8888);
+		img=new Image2D(255,255,Image2D::PIXEL_RGBA8888);
 		FsUint width,height;
 		width=img->getWidth();
 		height=img->getHeight();

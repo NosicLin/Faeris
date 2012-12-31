@@ -1,9 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include <GL/gl.h>
-#include <GL/glut.h>
+#include <GL/glew.h>
+#include <GL/glu.h>
 
-#include "util/FsMeshUtil.h"
+#include "loader/FsMeshLoader.h"
 #include "fsys/FsFile.h"
 #include "fsys/FsVFS.h"
 #include "fsys/FsSysFile.h"
@@ -28,12 +28,28 @@ class MyFrameListener:public FrameListener
 		virtual void frameUpdate(FsLong now,FsLong diff)
 		{
 			m_time++;
-			Render::instance()->clear(true);
 			printf("draw begin=%d,%d\n",m_time,Frame::instance()->getAvgFPS());
-			for(FsInt i=0;i<100;i++)
-			{
-				m_mesh->draw(Render::instance());
-			}
+
+			Render* render=Render::instance();
+			render->clear(true);
+
+
+			render->rotate(Vector3(1,0.5,0.25),0.5);
+			glPushMatrix();
+			render->translate(Vector3(-2.5,-0.5,0.5));
+			m_mesh->draw(Render::instance());
+			glPopMatrix();
+
+			glPushMatrix();
+			render->translate(Vector3(-0.5,-0.5,0.5));
+			m_mesh->draw(Render::instance());
+			glPopMatrix();
+
+			glPushMatrix();
+			render->translate(Vector3(1.5,-0.5,0.5));
+			m_mesh->draw(Render::instance());
+			glPopMatrix();
+
 			printf("draw end\n");
 			Render::instance()->swapBuffers();
 		}
@@ -44,6 +60,7 @@ class MyFrameListener:public FrameListener
 
 int main(int argc,char** argv)
 {
+	glewInit();
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	if(argc!=2)
 	{
@@ -58,18 +75,13 @@ int main(int argc,char** argv)
 		exit(-1);
 	}
 
-	Mesh* mesh =MeshUtil::loadMesh(file);
+	Mesh* mesh =MeshLoader::loadMesh(file);
 	file->decRef();
 
 	if(mesh==NULL)
 	{
 		printf("Load Mesh Failed\n");
 		return 0;
-	}
-	else 
-	{
-		printf("Load Mesh Success\n");
-		MeshUtil::saveMesh(mesh,SysFile::getStdout());
 	}
 
 	Window* win=Window::create(0);
@@ -78,17 +90,34 @@ int main(int argc,char** argv)
 	win->setCaption("Faeris.V1.0.1");
 	win->show();
 	win->setPosition(100,200);
+
+
+
+
 	render->setRenderTarget(win);
-	//render->setViewport(0,0,100,100);
-	render->rotate(Vector3(1,1,0),40);
+
+	render->init();
+
+	render->setViewport(0,0,1024,800);
+
+	//render->scale(Vector3(0.5,0.5,1));
+	//render->rotate(Vector3(0,1,0),45);
+	glHint(GL_POLYGON_SMOOTH_HINT,GL_NICEST);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(90,(float)1024.0/800.0,0,1000);
+	//glOrtho(-1,1,-1,1,-100,100);
+	glMatrixMode(GL_MODELVIEW);
+
+	render->translate(Vector3(0,0,-4.5));
 
 	MyFrameListener* framelistener=new MyFrameListener(mesh);
 	Frame::instance()->addListener(framelistener);
-	Frame::instance()->setFPS(0);
+	Frame::instance()->setFPS(50);
 	Frame::instance()->start();
 
 	if(mesh) mesh->decRef();
-	return 0;
 }
 
 

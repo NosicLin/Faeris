@@ -6,7 +6,7 @@
 #include "util/FsResourceMgr.h"
 #include "core/FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 
 class Resource :public FsObject
 {
@@ -23,7 +23,7 @@ class Resource :public FsObject
 	private:
 		friend class ResourceMgr;
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif /*_FS_RESOURCE_H_*/
 

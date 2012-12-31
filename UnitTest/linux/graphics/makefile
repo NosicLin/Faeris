@@ -5,8 +5,12 @@ SRC=
 
 DEBUG=
 
-BIN=  jpeg_load_test.cc loadjpeg.cc png_load_test.cc png_converto_png.cc \
-	  image2d_test.cc
+BIN=  jpeg_load_test.cc  \
+	  loadjpeg.cc  \
+	  png_load_test.cc \
+	  png_converto_png.cc \
+	  image2d_test.cc \
+
 
 
 
@@ -28,10 +32,11 @@ BIN_OBJ_NAME=$(BIN:%.cc=%.o)
 BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 
 CC=g++
-FLAGS=-g -Wall   -include sys/types.h
-INCLUDE=-I. -I./debug   -I../   -I../../src -I../../thirdparty
-LIB=-Llib -L../lib  -L../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib -lGLU -lglut
+FLAGS=-g -Wall   -include sys/types.h -DLINUX
+INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../thirdparty
+LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
+   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics  \
+	-llibpng -lzlib -lGLU -lglut -lloader -lscript
 
 
 

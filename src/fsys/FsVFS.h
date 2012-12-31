@@ -3,7 +3,7 @@
 
 #include "FsFile.h" 
 #include "FsMacros.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class FsDir;
 
 FS_BEGIN_NAMESPACE(VFS)
@@ -40,7 +40,7 @@ FsFile* getStdin();
 FsFile* getStderr(); 
 
 FS_END_NAMESPACE(VFS)
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif 
 

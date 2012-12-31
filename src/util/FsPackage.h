@@ -7,7 +7,7 @@
 	#include "minizip.h"
 #endif 
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class FsFile;
 class Package
 {
@@ -22,6 +22,6 @@ class Package
 
 	
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_PACKAGE_H_*/
 

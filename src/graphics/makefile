@@ -19,6 +19,8 @@ SRC=FsColor.cc  \
 	FsTexture2D.cc \
 	FsImage2D.cc \
 	FsRender.cc \
+	FsShader.cc \
+	FsProgram.cc \
 
 
 

@@ -3,7 +3,7 @@
 #include "math/FsFace3.h"
 #include "math/FsVector3.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 static const FsChar* s_MeshName="MeshObject";
 const FsChar* Mesh::getName()
 {
@@ -75,6 +75,7 @@ void Mesh::draw(Render* r)
 		Vector3* vertex_pointer=g->vVerticsPointer();
 		Vector3* normal_pointer=g->vNormalsPointer();
 		TexCoord2* texcoord_pointer=g->vTexCoordsPointer();
+		Color* color_pointer=g->vColorsPointer();
 
 		Face3* face_pointer=g->fFacesPointer();
 
@@ -99,6 +100,11 @@ void Mesh::draw(Render* r)
 				r->enableClientArray(Render::TEXTURE_COORD_ARRAY);
 				r->setVTexCoordPointer(texcoord_pointer,vertex_nu);
 			}
+			if(color_pointer)
+			{
+				r->enableClientArray(Render::COLOR_ARRAY);
+				r->setVColorPointer(color_pointer,vertex_nu);
+			}
 
 			/* draw faces */
 			r->drawFace3(face_pointer,face_nu);
@@ -108,5 +114,5 @@ void Mesh::draw(Render* r)
 	}
 }
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

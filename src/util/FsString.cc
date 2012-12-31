@@ -4,7 +4,7 @@
 
 static const FsChar* s_FsStringName="FsStringObject";
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 FsString::FsString(FsInt value)
 {
@@ -60,5 +60,5 @@ FsBool FsString::equal(const FsChar* str)
 
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

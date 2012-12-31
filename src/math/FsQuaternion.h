@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "math/FsVector3.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 class Matrix4;
 class Quaternion 
@@ -48,7 +48,7 @@ class Quaternion
 
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERY_CORE_QUATERNION_H_*/
 
 

@@ -3,7 +3,7 @@
 #include <math.h>
 #include "FsMacros.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 FS_BEGIN_NAMESPACE(Math)
 #ifndef FS_PI 
 #define FS_PI 3.1415926f
@@ -18,15 +18,15 @@ inline float angleToRadian(float  angle)
 	return angle/180.0f*FS_PI;
 }
 
-inline float cosr(float radian){return ::cos(radian);}
-inline float sinr(float radian){return ::sin(radian);}
-inline float tanr(float radian){return ::tan(radian);}
-inline float acosr(float radian){return ::acos(radian);}
+inline float cosr(float radian){return ::cosf(radian);}
+inline float sinr(float radian){return ::sinf(radian);}
+inline float tanr(float radian){return ::tanf(radian);}
+inline float acosr(float radian){return ::acosf(radian);}
 
-inline float cosa(float angle){return ::cos(angleToRadian(angle));}
-inline float sina(float angle){return ::sin(angleToRadian(angle));}
-inline float tana(float angle){return ::tan(angleToRadian(angle));}
-inline float acosa(float angle){return ::acos(angleToRadian(angle));}
+inline float cosa(float angle){return ::cosf(angleToRadian(angle));}
+inline float sina(float angle){return ::sinf(angleToRadian(angle));}
+inline float tana(float angle){return ::tanf(angleToRadian(angle));}
+inline float acosa(float angle){return ::acosf(angleToRadian(angle));}
 
 inline float sqrt(float v){return ::sqrt(v);}
 
@@ -45,7 +45,7 @@ FS_END_NAMESPACE(Math)
 
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif 
 

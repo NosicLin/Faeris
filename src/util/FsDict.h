@@ -4,7 +4,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class  FsDict:public FsObject
 {
 	public:
@@ -104,7 +104,7 @@ class  FsDict:public FsObject
 		FsUlong m_mask;
 		DictEntry* m_table;
 };
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 #endif /*_FS_UTIL_DICT_H_*/
 
