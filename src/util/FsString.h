@@ -5,7 +5,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class FsString:public FsObject
 {
 	private:
@@ -46,7 +46,7 @@ class FsString:public FsObject
 	private:
 		inline void mCalHashCode();
 };
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 #include "FsString.inl"
 

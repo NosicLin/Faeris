@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <time.h>
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 /*
 FsLong Sys::getTime()
 {
@@ -32,4 +32,4 @@ void Sys::usleep(FsLong time)
 		break;
 	}
 }
-FAERIS_NAMESPACE_END 
+NS_FS_END

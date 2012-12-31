@@ -15,10 +15,6 @@ INCLUDE_DIR=  -I./ -I../
 
 #Source File 
 SRC= FsObject.cc \
-	 FsFrame.cc \
-	 FsWindow.cc \
-	 FsEventListener.cc \
-
 
 
 

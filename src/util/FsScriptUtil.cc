@@ -7,7 +7,7 @@
 #include "util/FsString.h"
 #include "script/xir_parser.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 static bool s_ObjectWrite(FsObject* ob,FsFile* file,FsInt indent);
 static void s_IndentWrite(FsFile* file,FsInt indent);
 static bool s_ArrayWrite(FsArray* ay,FsFile* file);
@@ -459,7 +459,7 @@ FsInt ScriptUtil::parseInteger(const FsChar* str)
 
 
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 
 

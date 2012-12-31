@@ -1,12 +1,12 @@
 #ifndef _FAERIS_SYS_H_
 #define _FAERIS_SYS_H_
 #include "FsMacros.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Sys
 {
 	public:
 		static void usleep(FsLong time);
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_SYS_H_*/
 

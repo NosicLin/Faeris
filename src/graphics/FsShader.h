@@ -5,13 +5,15 @@
 #include "fsys/FsFile.h"
 #include "FsConfig.h"
 #include "core/FsObject.h"
+
+
 #if FS_CONFIG(FS_GL_RENDER)
 	typedef FsUint PlatformShader;
 #else 
 	#error "Unsupport PlatformShader"
 #endif 
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Shader:public FsObject
 {
 	public:
@@ -32,6 +34,6 @@ class Shader:public FsObject
 		PlatformShader m_shader;
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif /*FAERIS_SHADER_H_*/

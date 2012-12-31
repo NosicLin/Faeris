@@ -4,7 +4,7 @@
 #include "FsMacros.h"
 #include "util/FsStringUtil.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 inline FsString::FsString():m_string("")
 {
 	mCalHashCode();
@@ -107,7 +107,7 @@ inline FsChar FsString::operator[](FsUlong n)const
 	return m_string[n];
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif /*_FS_UTIL_STRING_INL_*/
 

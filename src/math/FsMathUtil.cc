@@ -3,7 +3,7 @@
 
 #include "FsMathUtil.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 FsVoid Math::srand(FsUlong s)
 {
@@ -19,4 +19,4 @@ FsInt Math::random(FsInt begin,FsInt end)
 	return begin+::rand()%(end-begin);
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END

@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "util/FsResource.h"
 #include "graphics/FsRender.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Render;
 class Material:public FsObject
 {
@@ -34,6 +34,6 @@ class Material:public FsObject
 		virtual void load(Render* r);
 		virtual void unload(Render* r);
 };
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 #endif /*_FS_MATTERIAL_H_*/
 

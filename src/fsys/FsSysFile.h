@@ -5,7 +5,7 @@
 #include "FsFile.h"
 
 
-#if FS_PLATFORM_OS(FS_OS_WIN) || FS_PLATFORM_OS(FS_OS_LINUX)
+#if FS_PLATFORM_OS(FS_OS_WIN32) || FS_PLATFORM_OS(FS_OS_LINUX)
 	#include<stdio.h>
 	typedef FILE* SysFilePlateform ;
 #else 
@@ -13,7 +13,7 @@
 #endif 
 
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class SysFile:public FsFile 
 {
 	public:
@@ -38,7 +38,7 @@ class SysFile:public FsFile
 	private:
 		SysFilePlateform m_platfromFile;
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif  /*_FAERY_SYS_FILE_H_*/
 

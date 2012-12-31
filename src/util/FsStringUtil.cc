@@ -1,6 +1,6 @@
 #include "FsStringUtil.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 FsUlong StringUtil::JHashCode(const char* str)
 {
 	FsUlong hash = 1315423911;
@@ -10,5 +10,5 @@ FsUlong StringUtil::JHashCode(const char* str)
 	}
 	return hash ;
 }
-FAERIS_NAMESPACE_END
+NS_FS_END
 

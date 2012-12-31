@@ -2,7 +2,7 @@
 #define FS_UTIL_LOG_H_
 #include "FsMacros.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 
 class FsFile;
 class FsLog
@@ -37,7 +37,7 @@ void FsUtil_Log(const FsChar* tag,const FsChar* msg,...);
 void FsUtil_Log(const FsChar* fmt,...);
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif  /*FS_UTIL_LOG_H_*/
 

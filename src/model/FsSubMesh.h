@@ -6,7 +6,7 @@
 #include "graphics/FsMaterial.h"
 #include "model/FsGeometry.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class SubMesh
 {
 	private:
@@ -21,7 +21,7 @@ class SubMesh
 		Geometry* getGeometry()const;
 		Material* getMaterial()const;
 };
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 #endif /*_FS_SUB_MESH_H_*/
 
 

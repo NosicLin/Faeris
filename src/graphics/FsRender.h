@@ -56,7 +56,8 @@ class Render
 		};
 
 	public:
-		static Render* instance();
+		static Render* shareRender();
+		static void purgeShareRender();
 	public:
 		void init();
 		void setMaterial(Material* m,FsBool force=false);
@@ -113,7 +114,7 @@ class Render
 		FsBool m_depthTest;
 		FsBool m_depthMask;
 
-		FsBool m_lineWidth;
+		FsFloat m_lineWidth;
 		FsBool m_fogEnable;
 
 		/* blend */

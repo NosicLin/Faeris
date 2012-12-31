@@ -3,7 +3,7 @@
 
 #include "FsMacros.h"
 #include "core/FsObject.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 class FsFile:public FsObject
 {
@@ -35,7 +35,7 @@ class FsFile:public FsObject
 		FsLong writeStr(const char* fmt,...);
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif  /*_FAERY_IO_FSFILE_H_*/
 

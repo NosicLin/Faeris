@@ -4,7 +4,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class FsArray:public FsObject
 {
 	public:
@@ -68,6 +68,6 @@ class FsArray:public FsObject
 
 };
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 #endif /*_FS_UTIL_ARRAY_H_*/
 

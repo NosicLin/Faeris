@@ -1,8 +1,8 @@
-#include <GL/gl.h>
+#include "GL/glew.h"
 #include "graphics/FsMaterial.h"
 #include "graphics/FsRender.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 
 Render::Render()
@@ -10,11 +10,8 @@ Render::Render()
 	m_target=NULL;
 	m_material=NULL;
 	m_arrayFlags=0;
-	init();
-}
 
-void Render::init()
-{
+
 	glClearColor(0,0,0,255);
 	m_clearColor=Color::BLACK;
 
@@ -31,9 +28,7 @@ void Render::init()
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	
 }
-
 
 void Render::pushMatrix()
 {
@@ -286,5 +281,5 @@ void Render::disableAllClientArray()
 //oid Render::setPolygonOffset(FsFloat factor,FsFloat units);
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

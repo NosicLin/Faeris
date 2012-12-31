@@ -15,7 +15,7 @@
 #endif 
 
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 class Texture2D 
 {
 	public:
@@ -135,7 +135,7 @@ class Texture2D
 		PlatformTexture m_platformTexture;
 };
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 #endif /*_FS_TEXTURE_2D_H_*/
 

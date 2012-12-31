@@ -5,7 +5,7 @@
 
 #define FS_INVALID_HASH_CODE (-1)
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 class FsObject 
 {
@@ -34,6 +34,6 @@ class FsObject
 		virtual void onDestory();
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif 
 

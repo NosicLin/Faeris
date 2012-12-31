@@ -1,4 +1,4 @@
-#include "GL/gl.h"
+#include "GL/glew.h"
 
 #include "graphics/FsTexture2D.h"
 
@@ -282,8 +282,8 @@ Texture2D* Texture2D::create(
 	env_mode_gl=s_envModeToGLEnum(env_mode);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,env_mode_gl);
 
-	//glGenerateMipmap(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
 
 	/* set texture data */
 	height=image->getHeight();
@@ -382,8 +382,8 @@ Texture2D* Texture2D::create(
 	/* internal_format */
 	internal_format_gl=s_fomatToGLEnum(internal_format);
 
-	//glGenerateMipmap(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
 
 	/* env_mode */
 	env_mode_gl=s_envModeToGLEnum(env_mode);

@@ -11,11 +11,9 @@
 #define NS_FS_END FS_END_NAMESPACE(Faeris)
 #define NS_FS_USE using namespace Faeris;
 
-#define FAERIS_NAMESPACE_BEGIN  NS_FS_BEGIN
-#define FAERIS_NAMESPACE_END  NS_FS_END
 
 #if defined(WIN32)
-	#define FS_OS_WIN
+	#define FS_OS_WIN32
 #elif defined(LINUX)
 	#define FS_OS_LINUX
 #elif defined(ANDROID)
@@ -33,7 +31,7 @@
 #endif 
 
 
-#if defined(FS_OS_WIN)
+#if defined(FS_OS_WIN32)
 #define snprintf _snprintf
 #endif 
 

@@ -2,7 +2,7 @@
 #include "util/FsResource.h"
 #include "fsys/FsVFS.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 ResourceMgr::ResourceMgr(NeedCreateFunc func)
 {
 	m_func=func;
@@ -124,5 +124,5 @@ void ResourceMgr::remove(Resource* res)
 }
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

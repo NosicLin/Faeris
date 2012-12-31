@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Render;
 class RenderTarget:public FsObject
 {
@@ -12,6 +12,6 @@ class RenderTarget:public FsObject
 		virtual void makeCurrent(Render*)=0;
 		virtual void loseCurrent(Render*)=0;
 };
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_RENDER_TARGET_H_*/
 

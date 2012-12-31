@@ -2,17 +2,26 @@
 #include "FsConfig.h"
 
 
-FAERIS_NAMESPACE_BEGIN
-static Render* s_singletonRender=NULL;
-Render* Render::instance()
+NS_FS_BEGIN
+static Render* s_share_render=NULL;
+Render* Render::shareRender()
 {
-	if(s_singletonRender==NULL)
+	if(s_share_render==NULL)
 	{
-		s_singletonRender=new Render;
+		s_share_render=new Render;
 	}
-	return s_singletonRender;
+	return s_share_render;
 }
-FAERIS_NAMESPACE_END
+
+void Render::purgeShareRender()
+{
+	if(s_share_render)
+	{
+		delete s_share_render;
+		s_share_render=NULL;
+	}
+}
+NS_FS_END
 
 #if FS_CONFIG(FS_GL_RENDER) 
 	#include "platform/FsGLRender.cc"

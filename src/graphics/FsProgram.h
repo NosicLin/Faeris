@@ -12,7 +12,7 @@
 	#error "Unsupport PlatformProgram"
 #endif 
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 class Program:public FsObject
 {
 	public:
@@ -28,7 +28,7 @@ class Program:public FsObject
 		Shader* m_vertex;
 		Shader* m_fragment;
 };
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 
 #endif  /*FAERIS_PROGRAM_H_*/
 

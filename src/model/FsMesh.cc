@@ -3,7 +3,7 @@
 #include "math/FsFace3.h"
 #include "math/FsVector3.h"
 
-FAERIS_NAMESPACE_BEGIN 
+NS_FS_BEGIN 
 static const FsChar* s_MeshName="MeshObject";
 const FsChar* Mesh::getName()
 {
@@ -114,5 +114,5 @@ void Mesh::draw(Render* r)
 	}
 }
 
-FAERIS_NAMESPACE_END 
+NS_FS_END 
 

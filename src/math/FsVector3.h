@@ -1,7 +1,7 @@
 #ifndef FY_MATH_VECTORE3_H_
 #define FY_MATH_VECTORE3_H_
 #include "FsMathUtil.h"
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class Vector3
 {
 	public:
@@ -34,6 +34,6 @@ class Vector3
 
 };
 #include "FsVector3.inl"
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif 
 

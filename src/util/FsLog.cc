@@ -6,7 +6,7 @@
 #include <stdarg.h>
 
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 static FsLog* s_global_log=NULL;
 FileLog* FileLog::ms_stdoutFileLog=NULL;
 
@@ -131,4 +131,4 @@ FileLog::~FileLog()
 	delete m_file;
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
