@@ -11,7 +11,7 @@ PROJECT=graphics
 LIB_DIR=$(PROJECT_PATH)lib
 OBJ_DIR=$(PROJECT_PATH)obj
 SRC_DIR=./
-INCLUDE_DIR=  -I./ -I../
+INCLUDE_DIR=  -I./ -I../ -I../../platform/thirdparty
 
 #Source File 
 SRC=FsColor.cc  \

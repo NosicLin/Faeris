@@ -8,7 +8,7 @@
 #include "model/FsMesh.h"
 #include "fsys/FsFile.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class  MeshLoader
 {
 	private:
@@ -36,7 +36,7 @@ class  MeshLoader
 		static Mesh* loadSkeletonMeshWithBinaryFile(FsFile* file);
 };
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 #endif /*_FS_MESH_UTIL_H_*/
 

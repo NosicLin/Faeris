@@ -4,7 +4,7 @@
 #include "string.h"
 #define FS_MD2_SKIN_NAME_LEN 64
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 Md2Model* Md2Model::create(const char* filename)
 {
 	FsFile* f=VFS::open(filename);
@@ -131,5 +131,5 @@ void Md2Model::loadSkins(struct Md2Header* h,FsFile* file)
 	*/
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

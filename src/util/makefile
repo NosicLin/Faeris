@@ -11,7 +11,7 @@ PROJECT=util
 LIB_DIR=$(PROJECT_PATH)lib
 OBJ_DIR=$(PROJECT_PATH)obj
 SRC_DIR=./
-INCLUDE_DIR=  -I./  -I../  -I../../thirdparty
+INCLUDE_DIR=  -I./  -I../  -I../../platform/thirdparty
 
 #Source File 
 SRC=  FsImgDecoder.cc \

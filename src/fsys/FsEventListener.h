@@ -8,13 +8,13 @@ class Window;
 class EventListener
 {
 	public:
-		virtual void onResize(Window* win,ResizeEvent* e);
-		virtual void onMouse(Window* win,MouseEvent* e);
-		virtual void onMotion(Window* win,MotionEvent* e);
-		virtual void onKey(Window* win,KeyEvent* e);
-		virtual void onTouch(Window* win,TouchEvent* e);
-		virtual void onFocus(Window* win,FocusEvent* e);
-		virtual void onQuit(Window* win,QuitEvent* e);
+		virtual void onResize(ResizeEvent* e);
+		virtual void onMouse(MouseEvent* e);
+		virtual void onMotion(MotionEvent* e);
+		virtual void onKey(KeyEvent* e);
+		virtual void onTouch(TouchEvent* e);
+		virtual void onFocus(FocusEvent* e);
+		virtual void onQuit(QuitEvent* e);
 		virtual ~EventListener();
 };
 NS_FS_END

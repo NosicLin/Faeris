@@ -18,7 +18,11 @@ SRC= FsFile.cc \
      FsSysFile.cc \
      FsVFS.cc \
 	 FsSys.cc \
-	 FsTimer.cc
+	 FsTimer.cc \
+	 FsEventListener.cc \
+	 FsFrame.cc  \
+	 FsWindow.cc \
+	 FsEventDispatcher.cc 
 	
 
 #full src name 

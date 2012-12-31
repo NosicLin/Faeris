@@ -46,14 +46,8 @@ class Window:public RenderTarget
 			FsInt getPosX();
 			FsInt getPosY();
 			void setCenter();
-
-	public:
-			void addEventListener(EventListener* l);
-			void removeEventListener(EventListener* l);
-			void dropAllEventListener();
 	public:
 			virtual const FsChar* getName();
-			virtual FsBool quit();
 
 	public:
 			void handleEvent(Event* e);
@@ -67,13 +61,7 @@ class Window:public RenderTarget
 
 	private:
 			Render* m_render;
-
 			std::string m_caption;
-			/* EventListener*/
-			typedef std::vector<EventListener*>::iterator Iterator;
-			std::vector<EventListener*> m_listeners;
-
-			/* PlatformWindow */
 			PlatformWindow* m_window;
 };
 

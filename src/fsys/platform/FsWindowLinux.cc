@@ -1,10 +1,17 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#include "GL/glew.h"
+
 #include <GL/glx.h>
 
-#include "core/FsWindow.h"
-#include "core/FsFrame.h"
+#include <string.h>
+#include <stdlib.h>
+
+#include "util/FsLog.h"
+#include "fsys/FsWindow.h"
+#include "fsys/FsFrame.h"
+#include "fsys/FsEventDispatcher.h"
 
 #define FS_XWINDOW_EVENT_MASK ( \
 		ExposureMask \
@@ -17,9 +24,9 @@
 		|FocusChangeMask \
 		)
 
+NS_FS_BEGIN
 typedef ::Window XWindow;
-
-FAERIS_NAMESPACE_BEGIN
+static void s_sendEventToWindow(Window* win,XEvent* src_event);
 
 static const char *event_names[] = {
    "",
@@ -59,14 +66,11 @@ static const char *event_names[] = {
    "MappingNotify"
 };
 
-static void s_sendEventToWindow(Window* win,XEvent* src_event);
+
 class WindowFrameListener;
 
-static WindowFrameListener* s_listener=NULL;
-static Display* s_dpy=NULL;
-static FsInt s_module_ref_nu=0;
-Atom s_wm_delete_msg;
-static std::vector<Window*> s_wins;
+static Window* s_shareWindow=NULL;
+static WindowFrameListener* s_frameListener=NULL;
 
 class PlatformWindow
 {
@@ -74,109 +78,157 @@ class PlatformWindow
 		XWindow m_X11Window;
 		Display* m_dpy;
 		GLXContext m_contex;
+		Atom m_delete_msg;
+		XVisualInfo* m_vi;
+		
+	protected:
+		FsBool initWin();
+		FsBool initGL();
+	public:
+		static PlatformWindow* create();
+		PlatformWindow();
+		~PlatformWindow();
 };
 
-static Display* s_X11GetDisplay()
+PlatformWindow::PlatformWindow()
 {
-	if(s_dpy==NULL)
+	m_X11Window=0;
+	m_dpy=NULL;
+	m_contex=NULL;
+	m_delete_msg=0;
+}
+PlatformWindow::~PlatformWindow()
+{
+	glXDestroyContext(m_dpy,m_contex);
+	XDestroyWindow(m_dpy,m_X11Window);
+	XCloseDisplay(m_dpy);
+	XFree(m_vi);
+}
+PlatformWindow* PlatformWindow::create()
+{
+	PlatformWindow* ret=new PlatformWindow();
+	if(!ret->initWin())
 	{
-		s_dpy=XOpenDisplay(NULL);
-		if(s_dpy==NULL)
-		{
-			FS_TRACE_WARN("Can't Connect to X  Server");
-		}
-		s_wm_delete_msg= XInternAtom(s_dpy, "WM_DELETE_WINDOW", False);
+		delete ret;
+		return NULL;
 	}
-	return s_dpy;
+	return ret;
 }
 
-static void s_ModuleAddRef()
+FsBool PlatformWindow::initWin()
 {
-	s_module_ref_nu++;
-}
-static void s_ModuleDecRef()
-{
-	s_module_ref_nu--;
-	FS_TRACE_ERROR_ON(s_module_ref_nu<0,"Some Error Ref Happend");
-	if(s_module_ref_nu<=0)
+	m_dpy=XOpenDisplay(NULL);
+	if(!m_dpy)
 	{
-		XCloseDisplay(s_dpy);
+		FS_TRACE_WARN("Can't Connect to x Server ");
+		return false;
 	}
+	m_delete_msg=XInternAtom(m_dpy,"WM_DELETE_WINDOW",False);
+
+	GLint attr[]={GLX_RGBA,GLX_DEPTH_SIZE,24,GLX_DOUBLEBUFFER,None};
+	XWindow root;
+
+	XSetWindowAttributes swa;
+
+	root=DefaultRootWindow(m_dpy);
+	m_vi=glXChooseVisual(m_dpy,0,attr);
+	if(m_vi==NULL)
+	{
+		FS_TRACE_WARN("No Appropriate Visual Found");
+		return false;
+	}
+	Colormap cmap=XCreateColormap(m_dpy,root,m_vi->visual,AllocNone);
+	swa.colormap=cmap;
+	swa.event_mask=FS_XWINDOW_EVENT_MASK;
+	m_X11Window=XCreateWindow(
+			m_dpy,
+			root,
+			0,0,600,600,
+			0,m_vi->depth,
+			InputOutput,
+			m_vi->visual,
+			CWColormap|CWEventMask,&swa);
+
+	XSetWMProtocols(m_dpy, m_X11Window, &m_delete_msg, 1);
+
+	if(!initGL())
+	{
+		return false;
+	}
+
+	XSync(m_dpy,false);
+	return true;
 }
+FsBool PlatformWindow::initGL()
+{
+	m_contex=glXCreateContext(m_dpy,m_vi,NULL,GL_TRUE);
+	glXMakeCurrent(m_dpy,m_X11Window,m_contex);
+	const GLubyte* gl_version=glGetString(GL_VERSION);
+	GLenum ret=glewInit();
+	FsUtil_Log("OpenGL Version=%s",gl_version);
+	if(atof((FsChar*)gl_version)<1.5)
+	{
+		char str_compain[256]={0};
+		sprintf(str_compain,"OpenGL 1.5 or higher is required(your version is %s), \
+				please upgrade the driver of your video card",gl_version);
+		FsUtil_Log("%s",str_compain);
+		return false;
+	}
+	if(ret!=GLEW_OK)
+	{
+		FsUtil_Log("Init Glew Failed %s",glewGetErrorString(ret));
+		return false;
+	}
+	return true;
+}
+
+
 
 class WindowFrameListener:public FrameListener
 {
 	public:
-		virtual void frameBegin(FsLong now,FsLong diff)
+		virtual void frameBegin(FsLong diff)
 		{
-			s_ModuleAddRef();
-			Display* dpy=s_X11GetDisplay();
+			if(!s_shareWindow)
+			{
+				return ;
+			}
+			PlatformWindow* plt_window=s_shareWindow->getPlatformWindow();
+			if(!plt_window)
+			{
+				return ;
+			}
+			Display* dpy=plt_window->m_dpy;
 			XEvent event;
 			XSync(dpy,false);
 			while(XEventsQueued(dpy,QueuedAfterReading))
 			{
 				XNextEvent(dpy,&event);
-				std::vector<Window*>::iterator iter;
-				for(iter=s_wins.begin();iter<s_wins.end();++iter)
-				{
-					if(event.xany.window==(*iter)->getPlatformWindow()->m_X11Window)
-					{
-						s_sendEventToWindow(*iter,&event);
-						break;
-					}
-					/*
-					FS_TRACE_ERROR("Failed To Find a Event(%s) Match A Window(%ld)\n",
-							event_names[event.type],
-							event.xany.window);
-							*/
-				}
+				s_sendEventToWindow(s_shareWindow,&event);
 			}
-			s_ModuleDecRef();
 		}
 };
 
 
-static void s_RegisterWindow(Window* win)
-{
-	if(s_wins.size()==0)
-	{
-		s_listener=new WindowFrameListener;
-		Frame::instance()->addListener(s_listener);
-	}
-	s_wins.push_back(win);
-}
-
-static void s_UnRegisterWindow(Window* win)
-{
-	std::vector<Window*>::iterator iter;
-	for(iter=s_wins.begin();iter<s_wins.end();++iter)
-	{
-		if((*iter)==win)
-		{
-			s_wins.erase(iter);
-			break;
-		}
-	}
-	if(s_wins.size()==0)
-	{
-		Frame::instance()->removeListener(s_listener);
-		delete s_listener;
-		s_listener=NULL;
-		Frame::instance()->stop();
-	}
-}
-
 static void s_sendEventToWindow(Window* win,XEvent* src_event)
 {
+	PlatformWindow* plt_window=win->getPlatformWindow();
+	EventDispatcher* dispatcher=EventDispatcher::shareEventDispatcher();
+	printf("handle event \n");
+
+	if(!plt_window)
+	{
+		return ;
+	}
+
 	switch(src_event->type)
 	{
 		case ClientMessage:
 			{
-				printf("client message\n");
-				if((Atom)(src_event->xclient.data.l[0])==s_wm_delete_msg)
+				if((Atom)(src_event->xclient.data.l[0])==plt_window->m_delete_msg)
 				{
 					QuitEvent event;
-					win->handleEvent(&event);
+					dispatcher->dispatchEvent(&event);
 				}
 				break;
 			}
@@ -186,7 +238,7 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 				width=src_event->xconfigure.width;
 				height=src_event->xconfigure.height;
 				ResizeEvent event(width,height); 
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case ButtonPress:
@@ -215,7 +267,7 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
 				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
 				MouseEvent event(button,FS_DOWN,mask,e->x,e->y);
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case ButtonRelease:
@@ -243,7 +295,7 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
 				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
 				MouseEvent event(button,FS_UP,mask,e->x,e->y);
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case MotionNotify:
@@ -257,24 +309,23 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
 				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
 				MotionEvent event(mask,e->x,e->y,0,0);
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case FocusIn:
 			{
 				FocusEvent event(true);
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case FocusOut:
 			{
 				FocusEvent event(false);
-				win->handleEvent(&event);
+				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case DestroyNotify:
 			{
-				printf("window kill\n");
 				break;
 			}
 
@@ -288,64 +339,38 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 
 
 
-bool Window::init(FsLong flags)
+Window* Window::shareWindow()
 {
-	GLint attr[]={GLX_RGBA,GLX_DEPTH_SIZE,24,GLX_DOUBLEBUFFER,None};
-	XWindow win,root;
-	GLXContext glc;
-	XSetWindowAttributes swa;
-
-	Display* dpy=s_X11GetDisplay();
-	if(dpy==NULL)
+	if(s_shareWindow==NULL)
 	{
-		return 0;
+		PlatformWindow* plt_window=PlatformWindow::create();
+		if(!plt_window)
+		{
+			FS_TRACE_WARN("Create PlatformWindow Failed");
+			return NULL;
+		}
+		s_shareWindow=new Window;
+		s_shareWindow->m_window=plt_window;
+		s_frameListener=new WindowFrameListener;
+		Frame::shareFrame()->addListener(s_frameListener);
+		FS_ASSERT(s_shareWindow);
 	}
-	root=DefaultRootWindow(dpy);
-	XVisualInfo* vi=glXChooseVisual(dpy,0,attr);
-	if(vi==NULL)
-	{
-		FS_TRACE_WARN("No Appropriate Visual Found");
-		return 0;
-	}
-	Colormap cmap=XCreateColormap(dpy,root,vi->visual,AllocNone);
-	swa.colormap=cmap;
-	swa.event_mask=FS_XWINDOW_EVENT_MASK;
-	win=XCreateWindow(dpy,root,0,0,600,600,0,vi->depth,InputOutput,vi->visual,
-			CWColormap|CWEventMask,&swa);
-
-	XSetWMProtocols(dpy, win, &s_wm_delete_msg, 1);
-
-	glc=glXCreateContext(dpy,vi,NULL,GL_TRUE);
-
-	PlatformWindow* platwin=new PlatformWindow;
-	m_caption=std::string("Untitled Window");
-
-	platwin->m_X11Window=win;
-	platwin->m_dpy=dpy;
-	platwin->m_contex=glc;
-
-	m_window=platwin;
-	s_ModuleAddRef();
-	s_RegisterWindow(this);
-	return true;
+	return s_shareWindow;
 }
 
-Window* Window::create(FsLong flags)
+void Window::purgeShareWindow()
 {
-	Window* win=new Window(flags);
-	if(!win->m_window)
+	if(s_shareWindow)
 	{
-		delete win;
-		return NULL;
+		Frame::shareFrame()->removeListener(s_frameListener);
+		delete s_frameListener;
+		s_frameListener=NULL;
+		delete s_shareWindow;
+		s_shareWindow=NULL;
 	}
-	return win;
 }
-Window::Window(FsLong flags)
-{
-	m_render=NULL;
-	m_window=NULL;
-	init(flags);
-}
+
+
 void Window::setCaption(const FsChar* name)
 {
 	if(!m_window)
@@ -462,36 +487,12 @@ FsInt Window::getPosY()
 	return y;
 }
 
-Window::~Window()
-{
-	destroy();
-}
-
-void Window::destroy()
-{
-	if(m_render)
-	{
-		m_render->setRenderTarget(NULL);
-		m_render=NULL;
-	}
-	if(m_window)
-	{
-		s_UnRegisterWindow(this);
-		glXDestroyContext(m_window->m_dpy,m_window->m_contex);
-		XDestroyWindow(m_window->m_dpy,m_window->m_X11Window);
-		XSync(m_window->m_dpy,false);
-		delete m_window;
-		m_window=NULL;
-		s_ModuleDecRef();
-	}
-}
-
 
 void Window::makeCurrent(Render* r)
 {
 	if(m_window)
 	{
-		glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
+		//glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
 	}
 	m_render=r;
 }
@@ -500,7 +501,7 @@ void Window::loseCurrent(Render* r)
 {
 	if(m_window)
 	{
-		glXMakeCurrent(m_window->m_dpy,None,NULL);
+		//glXMakeCurrent(m_window->m_dpy,None,m_window->m_contex);
 	}
 	m_render=NULL;
 }
@@ -512,10 +513,19 @@ void Window::swapBuffers()
 		glXSwapBuffers(m_window->m_dpy,m_window->m_X11Window);
 	}
 }
+Window::~Window()
+{
+	if(m_render)
+	{
+		m_render->setRenderTarget(NULL);
+		m_render=NULL;
+	}
+	delete m_window;
+	m_window=NULL;
 
+}
 
-FAERIS_NAMESPACE_END
-
+NS_FS_END
 
 
 

@@ -2,7 +2,7 @@
 #include "math/FsMathUtil.h"
 #include "math/FsMatrix4.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 
 void Quaternion::makeFromEuler(const Vector3& v,int order)
 {
@@ -265,5 +265,5 @@ void Quaternion::slerp(const Quaternion& qa,const Quaternion& qb,float t)
 
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 

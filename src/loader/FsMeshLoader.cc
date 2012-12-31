@@ -3,7 +3,7 @@
 #include "util/FsScriptUtil.h"
 #include "model/FsGeometry.h"
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 static FsBool s_isBinaryFile(FsFile* file)
 {
 	return false;
@@ -537,7 +537,7 @@ FsBool MeshLoader::saveMesh(Mesh* mesh,FsFile* file,bool text)
 	return ret;
 }
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 
 
 

@@ -1,19 +1,21 @@
-#include "core/FsWindow.h"
-#include "core/FsFrame.h"
+#include "fsys/FsWindow.h"
+#include "fsys/FsFrame.h"
 #include "graphics/FsRender.h"
-#include "core/FsEventListener.h"
+#include "fsys/FsEventListener.h"
+#include "fsys/FsEventDispatcher.h"
 #include<stdio.h>
 #include <string>
+#include "GL/glew.h"
+
+
 using namespace Faeris;
 
 
 class WinListener:public EventListener
 {
 	public:
-		virtual void onFocus(Window* win, FocusEvent* e)
+		virtual void onFocus(FocusEvent* e)
 		{
-			std::string name=win->getCaption();
-			printf("%s:",name.c_str());
 			if(e->focus)
 			{
 				printf("FocusIn\n");
@@ -24,28 +26,20 @@ class WinListener:public EventListener
 			}
 		}
 
-		virtual void onKey(Window* win,KeyEvent* e)
+		virtual void onKey(KeyEvent* e)
 		{
-			std::string name=win->getCaption();
-			printf("%s:",name.c_str());
 			printf("key event\n");
 		}
-		virtual void onResize(Window* win,ResizeEvent* e)
+		virtual void onResize(ResizeEvent* e)
 		{
-			std::string name=win->getCaption();
-			printf("%s:",name.c_str());
 			printf("window resize(%d,%d)\n",e->width,e->height);
 		}
-		virtual void onMotion(Window* win,MotionEvent* e)
+		virtual void onMotion(MotionEvent* e)
 		{
-			std::string name=win->getCaption();
-			printf("%s:",name.c_str());
 			printf("mouse motion (%d,%d) \n",e->x,e->y);
 		}
-		virtual void onMouse(Window* win,MouseEvent* e)
+		virtual void onMouse(MouseEvent* e)
 		{
-			std::string name=win->getCaption();
-			printf("%s:",name.c_str());
 			if(e->button==FS_LBUTTON)
 			{
 				printf("Left Button");
@@ -84,60 +78,55 @@ class MyFrameListener:public FrameListener
 		}
 
 	public:
-		virtual void frameUpdate(FsLong now,FsLong diff)
+		virtual void frameUpdate(FsLong diff)
 		{
 			m_time++;
-	//		printf("my frame update (%d), avgFps=%d\n",m_time,Frame::instance()->getAvgFPS());
-			Render::instance()->clear(true);
-			Render::instance()->swapBuffers();
+			printf("my frame update (%d), avgFps=%d\n",m_time,Frame::shareFrame()->getAvgFPS());
+			Render::shareRender()->clear(true);
+			Render::shareRender()->swapBuffers();
 		}
 	private:
 		FsInt m_time;
 };
+
+
 int main()
 {
-	Window* win=Window::create(0);
-	Window* win2=Window::create(0);
-
+	
+	Window* win=Window::shareWindow();
+	printf("win address %lx\n",(long)win);
 	WinListener* listener=new WinListener;
-	win->addEventListener(listener);
-	win2->addEventListener(listener);
-
+	EventDispatcher::shareEventDispatcher()->addEventListener(listener);
 	if(win==NULL)
 	{
-		printf("create win error\n");
+		printf("Create Win Error\n");
 		return 0;
 	}
+	Render* render=Render::shareRender();
 
-	Render* render=Render::instance();
-
-
+	win->show();
 	win->setSize(1024,800);
 	win->setCaption("Faeris.V1.0.1");
-	win->show();
-	win->setPosition(100,200);
+	win->setPosition(600,200);
 
-	win2->setSize(600,800);
-	win2->setCaption("Faeris.V1.0.2");
-	win2->show();
-	win2->setPosition(300,300);
 
+	
 	render->setRenderTarget(win);
 
-
-	render->setRenderTarget(win2);
 	render->setClearColor(Color(255,0,0));
 	render->clear(true);
 	render->swapBuffers();
 
 
 	MyFrameListener* framelistener=new MyFrameListener();
-	Frame::instance()->addListener(framelistener);
-	Frame::instance()->setFPS(0);
-	Frame::instance()->start();
-	Render::instance()->setRenderTarget(NULL);
-	delete win;
-	delete win2;
+	Frame::shareFrame()->addListener(framelistener);
+	Frame::shareFrame()->setFPS(40);
+	Frame::shareFrame()->start();
+	//render->setRenderTarget(NULL);
+
+
+	Window::purgeShareWindow();
+
 	delete listener;
 	delete framelistener;
 	printf("exit\n");
@@ -147,3 +136,5 @@ int main()
 	return 0;
 
 }
+
+

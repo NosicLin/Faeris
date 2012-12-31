@@ -7,7 +7,7 @@
 #define FS_MD2_MAGIC_NUM 844121161
 #define FS_MD2_VERSION 8
 
-FAERIS_NAMESPACE_BEGIN
+NS_FS_BEGIN
 class FsFile;
 struct Md2Header
 {
@@ -81,6 +81,6 @@ class Md2Model
 
 
 
-FAERIS_NAMESPACE_END
+NS_FS_END
 #endif /*_FAERIS_FSMD2_LOADER_H_*/
 

@@ -13,7 +13,7 @@ NS_FS_BEGIN
 
 static bool fs_png_check(const unsigned char* buf,unsigned int len)
 {
-	return png_sig_cmp(buf,(png_size_t)0,len)==0;
+	return png_sig_cmp((png_byte*)buf,(png_size_t)0,len)==0;
 }
 
 static void fs_png_read_data(png_structp png_ptr,png_bytep data,png_size_t length)
@@ -61,7 +61,7 @@ Image2D* FsUtil_PngReader(FsFile* file)
 	png_infop info_ptr=NULL;
 
 	png_uint_32 width,height;
-	png_int_32  bit_depth,color_type;
+	FsInt bit_depth, color_type;
 	double gamma;
 	png_uint_32 channels;
 	png_uint_32 row_bytes;
