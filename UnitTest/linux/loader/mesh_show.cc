@@ -30,12 +30,12 @@ class MyFrameListener:public FrameListener
 			m_time++;
 			Render::instance()->clear(true);
 			printf("draw begin=%d,%d\n",m_time,Frame::instance()->getAvgFPS());
-			for(FsInt i=0;i<500;i++)
+			for(FsInt i=0;i<100;i++)
 			{
-			//	m_mesh->draw(Render::instance());
+				m_mesh->draw(Render::instance());
 			}
 			printf("draw end\n");
-			//Render::instance()->swapBuffers();
+			Render::instance()->swapBuffers();
 		}
 	private:
 		FsInt m_time;
