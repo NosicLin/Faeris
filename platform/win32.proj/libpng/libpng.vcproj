@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\build\win32"
+			OutputDirectory="..\..\..\build\win32\prebuild\debug"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../platform/thirdparty/zlib"
+				AdditionalIncludeDirectories="../../../platform/thirdparty/win32/zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -80,7 +80,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="..\..\..\build\win32\prebuild\release"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -105,7 +105,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="../../../platform/thirdparty/win32/zlib"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -150,95 +151,91 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\thirdparty\libpng\config.h"
+				RelativePath=".\src\png.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\png.c"
+				RelativePath=".\src\png.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\png.h"
+				RelativePath=".\src\pngconf.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngconf.h"
+				RelativePath=".\src\pngdebug.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngdebug.h"
+				RelativePath=".\src\pngerror.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngerror.c"
+				RelativePath=".\src\pngget.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngget.c"
+				RelativePath=".\src\pnginfo.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pnginfo.h"
+				RelativePath=".\src\pngmem.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pnglibconf.h"
+				RelativePath=".\src\pngpread.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngmem.c"
+				RelativePath=".\src\pngpriv.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngpread.c"
+				RelativePath=".\src\pngread.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngpriv.h"
+				RelativePath=".\src\pngrio.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngread.c"
+				RelativePath=".\src\pngrtran.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngrio.c"
+				RelativePath=".\src\pngrutil.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngrtran.c"
+				RelativePath=".\src\pngset.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngrutil.c"
+				RelativePath=".\src\pngstruct.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngset.c"
+				RelativePath=".\src\pngtest.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngstruct.h"
+				RelativePath=".\src\pngtrans.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngtrans.c"
+				RelativePath=".\src\pngwio.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngwio.c"
+				RelativePath=".\src\pngwrite.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngwrite.c"
+				RelativePath=".\src\pngwtran.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\thirdparty\libpng\pngwtran.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\thirdparty\libpng\pngwutil.c"
+				RelativePath=".\src\pngwutil.c"
 				>
 			</File>
 		</Filter>

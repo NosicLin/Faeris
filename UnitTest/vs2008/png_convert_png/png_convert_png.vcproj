@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../;../../../src"
+				AdditionalIncludeDirectories="../../../platform/thirdparty/win32;../../../src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="faeris.lib zlib.lib libpng.lib glut32.lib tinyjpeg.lib"
+				AdditionalDependencies="faeris.lib zlib.lib libpng.lib glut32.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../build/win32"
+				AdditionalLibraryDirectories="../../../build/win32/prebuild/debug"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

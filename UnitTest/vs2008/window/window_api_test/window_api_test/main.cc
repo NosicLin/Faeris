@@ -2,9 +2,9 @@
 #include "fsys/FsFrame.h"
 #include "graphics/FsRender.h"
 #include "fsys/FsEventListener.h"
+#include "fsys/FsEventDispatcher.h"
 #include<stdio.h>
 #include <string>
-#include "GL/glew.h"
 
 
 using namespace Faeris;
@@ -87,10 +87,10 @@ class MyFrameListener:public FrameListener
 		}
 
 	public:
-		virtual void frameUpdate(FsLong now,FsLong diff)
+		virtual void frameUpdate(FsLong diff)
 		{
 			m_time++;
-	//		printf("my frame update (%d), avgFps=%d\n",m_time,Frame::instance()->getAvgFPS());
+			printf("my frame update (%d), avgFps=%d\n",m_time,Frame::shareFrame()->getAvgFPS());
 			Render::shareRender()->clear(true);
 			Render::shareRender()->swapBuffers();
 		}
@@ -107,7 +107,7 @@ int main()
 	Window* win=Window::shareWindow();
 
 	WinListener* listener=new WinListener;
-	win->addEventListener(listener);
+	EventDispatcher::shareEventDispatcher()->addEventListener(listener);
 
 
 	if(win==NULL)

@@ -43,7 +43,7 @@ void init(int argc,char** argv)
 	width=img->getWidth();
 	height=img->getHeight();
 	printf("ImageInfo: width=%d,height=%d,",width,height);
-	if(img->getPixelFormat()==Image2D::FS_PIXEL_RGB888)
+	if(img->getPixelFormat()==Image2D::PIXEL_RGB888)
 	{
 		printf("format=RGB888\n");
 	}
@@ -76,7 +76,7 @@ void display(void)
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	
-	GLint pixel_format=img->getPixelFormat()==Image2D::FS_PIXEL_RGB888?GL_RGB:GL_RGBA;
+	GLint pixel_format=img->getPixelFormat()==Image2D::PIXEL_RGB888?GL_RGB:GL_RGBA;
 	glDrawPixels(img->getWidth(),img->getHeight(),pixel_format,GL_UNSIGNED_BYTE,img->getPixelData());
 	glFlush();
 }

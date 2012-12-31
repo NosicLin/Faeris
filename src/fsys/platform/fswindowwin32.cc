@@ -275,10 +275,14 @@ Window* Window::shareWindow()
 }
 void Window::purgeShareWindow()
 {
-	Frame::shareFrame()->removeListener(s_frameListener);
-	s_frameListener=NULL;
-	delete s_shareWindow;
-	s_shareWindow=NULL;
+	if(s_shareWindow)
+	{
+		Frame::shareFrame()->removeListener(s_frameListener);
+		delete s_frameListener;
+		s_frameListener=NULL;
+		delete s_shareWindow;
+		s_shareWindow=NULL;
+	}
 
 }
 

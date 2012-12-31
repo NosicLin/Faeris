@@ -30,7 +30,10 @@ grammar.tab.c
 *.pdb
 BuildLog.htm
 Debug
+Release
 temp
+*.idb 
+*.manifest
 
 *.swo
 

@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\build\win32"
+			OutputDirectory="..\..\..\build\win32\prebuild\debug"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../src;../../../platform/thirdparty"
+				AdditionalIncludeDirectories="../../../src;../../../platform/thirdparty/win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -80,7 +80,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="..\..\..\build\win32\prebuild\release"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -105,7 +105,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="../../../src;../../../platform/thirdparty/win32"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -315,10 +316,6 @@
 						RelativePath="..\..\..\src\util\platform\FsLibPngDecoder.cc"
 						>
 					</File>
-					<File
-						RelativePath="..\..\..\src\util\platform\FsTinyJpegDecoder.cc"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -326,6 +323,14 @@
 				>
 				<File
 					RelativePath="..\..\..\src\fsys\FsEvent.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\fsys\FsEventDispatcher.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\fsys\FsEventDispatcher.h"
 					>
 				</File>
 				<File
@@ -562,6 +567,34 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\math\FsVector4.inl"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="loader"
+				>
+				<File
+					RelativePath="..\..\..\src\loader\FsMd2Loader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMd2Loader.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMeshLoader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMeshLoader.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsTextureLoader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsTextureLoader.h"
 					>
 				</File>
 			</Filter>

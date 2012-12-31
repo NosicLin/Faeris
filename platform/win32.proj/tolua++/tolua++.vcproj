@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="zlib"
-	ProjectGUID="{A511AD25-4E47-42D1-B88B-CB62EA0DA8AC}"
-	RootNamespace="zlib"
+	Name="tolua++"
+	ProjectGUID="{39A360BA-9552-4C1C-A793-4177F6242DAB}"
+	RootNamespace="tolua"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="../../thirdparty/win32/lua"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -104,7 +105,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="../../thirdparty/win32/lua"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -149,114 +151,34 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\adler32.c"
+				RelativePath=".\src\tolua++.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\compress.c"
+				RelativePath=".\src\tolua_event.c"
 				>
 			</File>
 			<File
-				RelativePath=".\src\crc32.c"
+				RelativePath=".\src\tolua_event.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\crc32.h"
+				RelativePath=".\src\tolua_is.c"
 				>
 			</File>
 			<File
-				RelativePath=".\src\deflate.c"
+				RelativePath=".\src\tolua_map.c"
 				>
 			</File>
 			<File
-				RelativePath=".\src\deflate.h"
+				RelativePath=".\src\tolua_push.c"
 				>
 			</File>
 			<File
-				RelativePath=".\src\gzclose.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\gzguts.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\gzlib.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\gzread.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\gzwrite.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\infback.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inffast.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inffast.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inffixed.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inflate.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inflate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inftrees.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\inftrees.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\trees.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\trees.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\uncompr.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\zconf.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\zlib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\zutil.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\zutil.h"
+				RelativePath=".\src\tolua_to.c"
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

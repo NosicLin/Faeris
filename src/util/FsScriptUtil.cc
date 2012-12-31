@@ -449,7 +449,7 @@ FsBool ScriptUtil::getFloat(FsArray* array,FsUint index,FsFloat* v)
 
 FsFloat ScriptUtil::parseFloat(const FsChar* str)
 {
-	return atof(str);
+	return (FsFloat)atof(str);
 }
 FsInt ScriptUtil::parseInteger(const FsChar* str)
 {
