@@ -4,14 +4,14 @@ FLAGS= -g -Wall  -DLINUX
 FILE_EXT=cc
 
 #Project infor 
-PROJECT_PATH=../../build/
+PROJECT_PATH=../../build/linux/
 PROJECT=graphics
 
 # User Config Information 
 LIB_DIR=$(PROJECT_PATH)lib
 OBJ_DIR=$(PROJECT_PATH)obj
 SRC_DIR=./
-INCLUDE_DIR=  -I./ -I../ -I../../platform/thirdparty
+INCLUDE_DIR=  -I./ -I../ 
 
 #Source File 
 SRC=FsColor.cc  \

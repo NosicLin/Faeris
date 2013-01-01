@@ -4,7 +4,7 @@ FLAGS= -g -Wall  -DLINUX
 FILE_EXT=cc
 
 #Project infor 
-PROJECT_PATH=../../build/
+PROJECT_PATH=../../build/linux/
 PROJECT=model
 
 # User Config Information 
@@ -16,7 +16,6 @@ INCLUDE_DIR=  -I./ -I../
 #Source File 
 SRC=FsGeometry.cc \
 	FsSubMesh.cc \
-	FsMd2Loader.cc \
 	FsMesh.cc 
 
 

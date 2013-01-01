@@ -30,8 +30,11 @@ BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 CC=g++
 FLAGS=-g -Wall  -DLINUX
 INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../platform/thirdparty
-LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics -llibpng -lzlib -lGLU -lglut -lGLEW
+LIB=-Llib -L../lib  -L../../../build/linux/lib \
+	-L../../../build/linux/prebuild/debug \
+	-l$(PROJECT) -l$(PROJECT)debug \
+   	-lfsys -lcore -lutil  -lgraphics  \
+	-llibpng -lzlib -lGLU -lglut -lGLEW
 
 
 

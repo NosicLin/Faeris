@@ -5,9 +5,7 @@ SRC=
 
 DEBUG=
 
-BIN=  jpeg_load_test.cc  \
-	  loadjpeg.cc  \
-	  png_load_test.cc \
+BIN=  png_load_test.cc \
 	  png_converto_png.cc \
 	  image2d_test.cc \
 
@@ -33,9 +31,11 @@ BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 
 CC=g++
 FLAGS=-g -Wall   -include sys/types.h -DLINUX
-INCLUDE=-I. -I./debug   -I../   -I../../../src -I../../../thirdparty
-LIB=-Llib -L../lib  -L../../../build/lib -l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -ltinyjpeg -lgraphics  \
+INCLUDE=-I. -I./debug   -I../   -I../../../src 
+LIB=-Llib -L../lib  -L../../../build/linux/lib \
+	-L../../../build/linux/prebuild/debug/ \
+	-l$(PROJECT) -l$(PROJECT)debug \
+   	-lfsys -lcore -lutil  -lgraphics  \
 	-llibpng -lzlib -lGLU -lglut -lloader -lscript
 
 

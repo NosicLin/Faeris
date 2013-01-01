@@ -4,28 +4,26 @@ FLAGS= -g -Wall -Werror  -DLINUX
 FILE_EXT=cc
 
 #Project infor 
-PROJECT_PATH=../../build/
+PROJECT_PATH=../../build/linux/
 PROJECT=util
 
 # User Config Information 
 LIB_DIR=$(PROJECT_PATH)lib
 OBJ_DIR=$(PROJECT_PATH)obj
 SRC_DIR=./
-INCLUDE_DIR=  -I./  -I../  -I../../platform/thirdparty
+INCLUDE_DIR=  -I./  -I../  -I../../platform/thirdparty/linux
 
 #Source File 
 SRC=  FsImgDecoder.cc \
 	  FsLog.cc \
 	  FsStringUtil.cc \
 	  platform/FsLibPngDecoder.cc \
-	  platform/FsTinyJpegDecoder.cc \
 	  FsResource.cc \
 	  FsResourceMgr.cc \
 	  FsDict.cc \
 	  FsString.cc \
 	  FsArray.cc \
 	  FsScriptUtil.cc \
-	  FsMeshUtil.cc  \
 
 	
 

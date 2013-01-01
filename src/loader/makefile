@@ -4,7 +4,7 @@ FLAGS= -g -Wall  -DLINUX
 FILE_EXT=cc
 
 #Project infor 
-PROJECT_PATH=../../build/
+PROJECT_PATH=../../build/linux/
 PROJECT=loader
 
 # User Config Information 
