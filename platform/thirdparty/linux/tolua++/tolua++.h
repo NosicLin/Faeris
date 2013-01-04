@@ -179,6 +179,10 @@ TOLUA_API int tolua_fast_isa(lua_State *L, int mt_indexa, int mt_indexb, int sup
 #define tolua_owned
 #endif
 
+
+
+/* faeris add */
+TOLUA_API void tolua_mapsuper(lua_State* L,const char* type,const char* base);
 #ifdef __cplusplus
 }
 #endif

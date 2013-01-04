@@ -1,0 +1,13 @@
+$#include "FsLuaFaeris.h"
+
+$pfile "FsTypes.pkg"   /* it must first here */
+$pfile "FsObject.pkg"
+$pfile "FsResource.pkg"
+
+$pfile "FsWindow.pkg"
+$pfile "FsRender.pkg"
+$pfile "FsColor.pkg"
+$pfile "FsMeshLoader.pkg"
+
+$pfile "FsMesh.pkg"
+$pfile "FsFrame.pkg"

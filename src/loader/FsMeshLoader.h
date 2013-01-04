@@ -19,6 +19,7 @@ class  MeshLoader
 
 
 	public:
+		static Mesh* loadMesh(const char* filename);
 		static Mesh* loadMesh(FsFile* file);
 		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
 

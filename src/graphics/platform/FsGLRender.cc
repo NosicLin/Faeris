@@ -29,6 +29,19 @@ Render::Render()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 }
+Render::~Render()
+{
+	if(m_target)
+	{
+		m_target->loseCurrent(this);
+		m_target->decRef();
+	}
+	if(m_material)
+	{
+		m_material->decRef();
+	}
+
+}
 
 void Render::pushMatrix()
 {

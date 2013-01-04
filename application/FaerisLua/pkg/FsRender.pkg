@@ -1,25 +1,15 @@
-#ifndef _FS_RENDER_H_
-#define _FS_RENDER_H_
-#include "FsMacros.h"
-#include "graphics/FsColor.h"
-#include "graphics/FsRenderTarget.h"
-#include "math/FsMatrix4.h"
-#include "math/FsVector3.h"
-#include "math/FsTexCoord2.h"
-#include "math/FsFace3.h"
+$#include "graphics/FsRender.h"
 
-NS_FS_BEGIN
-class Material;
 class Render 
 {
 	public:
 		enum 
 		{
-			VERTEX_ARRAY=(0x1ul<<0),
-			COLOR_ARRAY=(0x1ul<<1),
-			NORMAL_ARRAY=(0x1ul<<2),
-			TEXTURE_COORD_ARRAY=(0x1ul<<3),
-			ALL_ARRAY=VERTEX_ARRAY|COLOR_ARRAY|NORMAL_ARRAY|TEXTURE_COORD_ARRAY,
+			VERTEX_ARRAY,
+			COLOR_ARRAY,
+			NORMAL_ARRAY,
+			TEXTURE_COORD_ARRAY,
+			ALL_ARRAY,
 		};
 		enum 
 		{
@@ -56,13 +46,9 @@ class Render
 		};
 
 	public:
-		static Render* shareRender();
-		static void purgeShareRender();
-	public:
 		void setMaterial(Material* m,FsBool force=false);
 		void setRenderTarget(RenderTarget* target);
 		void swapBuffers();
-
 
 		/* color */
 		void setClearColor(Color c);
@@ -72,8 +58,8 @@ class Render
 		/* transform */
 		void pushMatrix();
 		void popMatrix();
-		void mulMatrix(const Matrix4& m);
-		void setMatrix(const Matrix4& m);
+		//void mulMatrix(const Matrix4& m);
+		//void setMatrix(const Matrix4& m);
 		void translate(const Vector3& t);
 		void scale(const Vector3& s);
 		void rotate(const Vector3& v,FsFloat angle);
@@ -100,54 +86,6 @@ class Render
 		void setDepthMask(FsBool enable);
 		void setLineWidth(FsFloat width);
 		void enableFog(FsBool enable);
-	private:
-		Render();
-		~Render();
-	private:
-		RenderTarget* m_target;
-		Material* m_material;
 
-		/* cache GL State */
-		Color m_clearColor;
-		FsBool m_scissorEnable;
-
-		FsBool m_depthTest;
-		FsBool m_depthMask;
-
-		FsFloat m_lineWidth;
-		FsBool m_fogEnable;
-
-		/* blend */
-
-		FsBool m_blendEnable;
-		FsInt m_blendEquation;
-		FsInt m_blendSrc;
-		FsInt m_blednDst;
-
-
-
-		/* client array */
-		FsUlong m_arrayFlags;
-};
-
-NS_FS_END
-#endif /*_FS_RENDER_H_*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

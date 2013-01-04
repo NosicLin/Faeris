@@ -1,0 +1,13 @@
+$#include "loader/FsMeshLoader.h"
+class  MeshLoader
+{
+	public:
+		//static ResourceMgr* getMgr();
+		//static Mesh* loadFromMgr(const FsChar* name);
+
+	public:
+		static Mesh* loadMesh(const char* name);
+		static Mesh* loadMesh(FsFile* file);
+		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
+
+};

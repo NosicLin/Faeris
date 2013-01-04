@@ -8,7 +8,7 @@ class FsFile;
 class FsLog
 {
 	public:
-		void log(const FsChar* tag,const FsChar* fmt,...);
+		void tagLog(const FsChar* tag,const FsChar* fmt,...);
 		void log(const FsChar* fmt,...);
 
 		virtual ~FsLog(){}
@@ -33,7 +33,7 @@ class FileLog:public FsLog
 		FsFile* m_file;
 };
 
-void FsUtil_Log(const FsChar* tag,const FsChar* msg,...);
+void FsUtil_TagLog(const FsChar* tag,const FsChar* msg,...);
 void FsUtil_Log(const FsChar* fmt,...);
 
 

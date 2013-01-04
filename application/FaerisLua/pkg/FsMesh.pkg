@@ -1,0 +1,26 @@
+$#include "model/FsMesh.h"
+class Mesh:public Resource
+{
+	public:
+		enum 
+		{
+			TYPE_STATIC,
+			TYPE_SHAPE,
+			TYPE_SKELETON,
+		};
+	public:
+		//FsUint subMeshNu()const{return m_submesh.size();}
+		//SubMesh* getSubMesh(FsUint index)const;
+		FsInt  getType()const{return m_type;} 
+
+		/* animation */
+		//void addAnimation(const FsChar* name,Animation* ani);
+		//void removeAnimation(const FsChar* name);
+		//void removeAnimation(Animation* ani);
+		//Animation* getAnimation(const FsChar* name);
+
+		/* render */
+		void draw(Render* r);
+
+};
+
