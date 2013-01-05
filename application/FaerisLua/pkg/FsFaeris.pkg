@@ -1,6 +1,8 @@
 $#include "FsLuaFaeris.h"
 
-$pfile "FsTypes.pkg"   /* it must first here */
+/*  FsTypes.pkg it must first here */
+
+$pfile "FsTypes.pkg"   
 $pfile "FsObject.pkg"
 $pfile "FsResource.pkg"
 
@@ -11,3 +13,6 @@ $pfile "FsMeshLoader.pkg"
 
 $pfile "FsMesh.pkg"
 $pfile "FsFrame.pkg"
+$pfile "FsFrameListener.pkg"
+
+$pfile "FsVector3.pkg"

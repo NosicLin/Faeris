@@ -17,8 +17,12 @@ extern "C"
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
-#pragma warning (disable:4800)
+#if defined(FS_OS_WIN32)
+	#pragma warning (disable:4800)
+#endif   /*FS_OS_WIN32 */
 NS_FS_USE
+
+typedef int LUA_FUNCTION;
 
 TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 

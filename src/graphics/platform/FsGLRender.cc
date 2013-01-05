@@ -99,7 +99,7 @@ Render::Render()
 	m_blendDst=FACTOR_ONE_MINUS_SRC_ALPHA;
 
 	/* texture */
-	glEnable(GL_TEXTURE2D);
+	glEnable(GL_TEXTURE_2D);
 }
 Render::~Render()
 {

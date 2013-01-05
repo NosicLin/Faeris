@@ -8,13 +8,19 @@
 
 NS_FS_BEGIN
 
+class Frame;
 class FrameListener
 {
 	public:
 		virtual void frameBegin(FsLong diff);
 		virtual void frameUpdate(FsLong diff);
 		virtual void frameEnd(FsLong diff);
+
+		FrameListener(){m_frame=NULL;}
 		virtual ~FrameListener();
+	private:
+		Frame* m_frame;
+		friend class Frame;
 };
 
 class Frame 

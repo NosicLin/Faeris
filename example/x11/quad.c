@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<X11/X.h>
 #include<X11/Xlib.h>
+#include<GL/glew.h>
 #include<GL/gl.h>
 #include<GL/glx.h>
 #include<GL/glu.h>
@@ -19,29 +20,23 @@ XEvent                  xev;
 
 void DrawAQuad() 
 {
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(1.0, 1.0, 0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	return ;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-1., 1., -1., 1., 1., 20.);
+	glOrtho(-1., 1., -1., 1., 1., -20.);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0., 0., 10., 0., 0., 0., 0., 1., 0.);
 
-	glTranslatef(20,20,20);
-	int j=0;
-	for(j=0;j<10000;j++)
-	{
-
-		glBegin(GL_QUADS);
-		glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
-		glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
-		glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
-		glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
-		glEnd(); 
-	}
+	glBegin(GL_QUADS);
+	glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
+	glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
+	glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
+	glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
+	glEnd(); 
 } 
 
 int main(int argc, char *argv[]) 
@@ -74,18 +69,23 @@ int main(int argc, char *argv[])
 
 	Atom wmDeleteMessage = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(dpy, win, &wmDeleteMessage, 1);
-
 	XMapWindow(dpy, win);
 	XStoreName(dpy, win, "VERY SIMPLE APPLICATION");
 
 	glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
 	glXMakeCurrent(dpy, win, glc);
 
+	glewInit();
+
 	glEnable(GL_DEPTH_TEST); 
 
+	XSync(dpy,False);
+	DrawAQuad(); 
+	glXSwapBuffers(dpy, win);
 
 	int i=0;
 	while(1) {
+		continue;
 		while (XEventsQueued(dpy,QueuedAfterReading)) 
 		{ 
 			XNextEvent(dpy, &xev);
@@ -107,9 +107,7 @@ int main(int argc, char *argv[])
 		}
 		XGetWindowAttributes(dpy, win, &gwa);
 		glViewport(0, 0, gwa.width, gwa.height);
-		int j;
-		DrawAQuad(); 
-		glXSwapBuffers(dpy, win);
-		printf("i=%d\n",i++);
+	//	DrawAQuad(); 
+	//	glXSwapBuffers(dpy, win);
 	} /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */

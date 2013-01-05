@@ -1,0 +1,7 @@
+FIXME:the bug need to fix
+BUG Number:1
+
+*) 2013-1-5  #BUG201315_glx_1 
+	 on platfrom linux,when glx context init, if you call glClear and glxSwapBuffers pairs only a few times at the begin time, it will not window clear the full window, the right boarder(about 10px)  will be left unclear. but if you do glClear and glxSwapBuffers pairs more times, for example 100,it will be work very will.
+
+

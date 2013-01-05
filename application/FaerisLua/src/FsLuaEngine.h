@@ -29,7 +29,9 @@ class LuaEngine
 		/* ref function */
 		void removeRefFunction(int refid);
 		void pushRefFunction(int refid);
-		void callRefFunction(int refid,int argnu,int retnu);
+
+		/* call function */
+		void call(int argnu,int retnu);
 
 		void cleanStack();
 

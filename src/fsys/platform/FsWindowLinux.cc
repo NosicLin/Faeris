@@ -28,6 +28,7 @@ NS_FS_BEGIN
 typedef ::Window XWindow;
 static void s_sendEventToWindow(Window* win,XEvent* src_event);
 
+#if 0
 static const char *event_names[] = {
    "",
    "",
@@ -65,6 +66,7 @@ static const char *event_names[] = {
    "ClientMessage",
    "MappingNotify"
 };
+#endif 
 
 
 class WindowFrameListener;
@@ -149,6 +151,7 @@ FsBool PlatformWindow::initWin()
 			m_vi->visual,
 			CWColormap|CWEventMask,&swa);
 
+	XMapWindow(m_dpy,m_X11Window);
 	XSetWMProtocols(m_dpy, m_X11Window, &m_delete_msg, 1);
 
 	if(!initGL())
@@ -214,7 +217,6 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 {
 	PlatformWindow* plt_window=win->getPlatformWindow();
 	EventDispatcher* dispatcher=EventDispatcher::shareEventDispatcher();
-	printf("handle event \n");
 
 	if(!plt_window)
 	{
@@ -333,7 +335,8 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 			/*TODO*/
 			break;
 		default:
-			FS_TRACE_WARN("Unkown XEvent(%s)",event_names[src_event->type]);
+			//FS_TRACE_WARN("Unkown XEvent(%s)",event_names[src_event->type]);
+			break;
 	}
 }
 
@@ -380,6 +383,7 @@ void Window::setCaption(const FsChar* name)
 	}
 	XStoreName(m_window->m_dpy,m_window->m_X11Window,name);
 	m_caption=std::string(name);
+	XSync(m_window->m_dpy,False);
 }
 
 void Window::setPosition(FsInt x,FsInt y)
@@ -390,6 +394,7 @@ void Window::setPosition(FsInt x,FsInt y)
 		return ;
 	}
 	XMoveWindow(m_window->m_dpy,m_window->m_X11Window,x,y);
+	XSync(m_window->m_dpy,False);
 }
 
 void Window::setSize(FsUint width,FsUint height)
@@ -400,6 +405,7 @@ void Window::setSize(FsUint width,FsUint height)
 		return ;
 	}
 	XResizeWindow(m_window->m_dpy,m_window->m_X11Window,width,height);
+	XSync(m_window->m_dpy,False);
 }
 
 void Window::show()
@@ -410,6 +416,7 @@ void Window::show()
 		return ;
 	}
 	XMapWindow(m_window->m_dpy,m_window->m_X11Window);
+	XSync(m_window->m_dpy,False);
 
 }
 void Window::hide()
@@ -420,6 +427,7 @@ void Window::hide()
 		return ;
 	}
 	XUnmapWindow(m_window->m_dpy,m_window->m_X11Window);
+	XSync(m_window->m_dpy,False);
 }
 
 FsInt Window::getWidth()
@@ -492,7 +500,8 @@ void Window::makeCurrent(Render* r)
 {
 	if(m_window)
 	{
-		//glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
+		glXMakeCurrent(m_window->m_dpy,m_window->m_X11Window,m_window->m_contex);
+		XSync(m_window->m_dpy,False);
 	}
 	m_render=r;
 }

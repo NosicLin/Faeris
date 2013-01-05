@@ -42,6 +42,7 @@ LuaEngine::LuaEngine()
 	m_state=lua_open();
 	luaL_openlibs(m_state);
 	tolua_FsFaeris_open(m_state);
+	tolua_fs_open(m_state);
 }
 
 
@@ -102,11 +103,29 @@ int LuaEngine::executeFile(const char* filename)
 }
 
 
+void LuaEngine::pushInteger(int value)
+{
+	lua_pushinteger(m_state,value);
+}
+void LuaEngine::pushNumber(double value)
+{
+	lua_pushnumber(m_state,value);
+}
+void LuaEngine::pushString(const char* str)
+{
+	lua_pushstring(m_state,str);
+}
+void LuaEngine::pushUserType(void* value,const char* type)
+{
+	tolua_pushusertype(m_state,value,type);
+}
+
 void LuaEngine::pushCFunction(CFunction func)
 {
 
 	lua_pushcfunction(m_state,func);
 }
+
 
 void LuaEngine::setGlobalCFunction(const char* name,CFunction func)
 {
@@ -119,6 +138,39 @@ void LuaEngine::setGlobalUserType(const char* name,void* data,const char* type)
 	tolua_pushusertype(m_state,data,type);
 	lua_setfield(m_state,LUA_GLOBALSINDEX,name);
 }
+
+
+void LuaEngine::removeRefFunction(int refid)
+{
+	tolua_fs_remove_reffunction(m_state,refid);
+}
+
+void LuaEngine::pushRefFunction(int refid)
+{
+	tolua_fs_push_reffunction(m_state,refid);
+}
+
+void LuaEngine::call(int argu,int retnu)
+{
+	if(lua_pcall(m_state,argu,retnu,0))
+	{
+		FsUtil_Log("[LUA_ERROR] %s",lua_tostring(m_state,-1));
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

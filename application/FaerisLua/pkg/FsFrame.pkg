@@ -11,7 +11,7 @@ class Frame
 		FsInt getInstantFPS();
 		FsInt getAvgFPS();
 
-		void addListener(FrameListener* l);
-		void removeListener(FrameListener* l);
+		void addListener(LuaFrameListener* l);
+		void removeListener(LuaFrameListener* l);
 };
 

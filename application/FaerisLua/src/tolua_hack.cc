@@ -1,5 +1,5 @@
 #include <string.h>
-#include <math.h>
+#include "util/FsMathUtil.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -50,9 +50,15 @@ static int tolua_fs_newmetatable(lua_State* L,const char* name)
 	lua_pop(L,1);
 	return r;
 }
+TOLUA_API void tolua_fs_open(lua_State* L)
+{
+	lua_pushstring(L,TOLUA_REFID_FUNCTION_MAPPING); /*statck "str"  table */
+	lua_newtable(L);
+	lua_rawset(L,LUA_REGISTRYINDEX);
+}
 
 
-TOLUA_API void tolua_fs_reg_object(lua_State* L,const char* type)
+TOLUA_API void tolua_fs_regobject(lua_State* L,const char* type)
 {
 	char ctype[128]="const";
 	strncat(ctype,type,120);
@@ -100,7 +106,7 @@ TOLUA_API void tolua_fs_remove_reffunction(lua_State* L,int refid)
 
 TOLUA_API int tolua_fs_isfunction(lua_State* L,int lo,const char* type,int def,tolua_Error* err)
 {
-	if(lua_gettop(L)>=abs(lo)&&lua_isfunction(L,lo))
+	if(lua_gettop(L)>=Math::abs(lo)&&lua_isfunction(L,lo))
 	{
 		return 1;
 	}

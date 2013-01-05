@@ -1,8 +1,10 @@
+#include "GL/glew.h"
 #include "fsys/FsWindow.h"
 #include "fsys/FsFrame.h"
 #include "graphics/FsRender.h"
 #include "loader/FsMeshLoader.h"
 #include "FsLuaEngine.h"
+
 
 NS_FS_USE
 
@@ -13,9 +15,10 @@ static int s_quit(lua_State* L)
 	s_quit_flags=1;
 	return 0;
 }
+
 int main(int argc,char** argv)
 {
-	char* loadfile="main.lua";
+	const char* loadfile="main.lua";
 	if(argc==2)
 	{
 		loadfile=argv[1];
@@ -29,9 +32,12 @@ int main(int argc,char** argv)
 
 
 	/* default init */
-	win->setSize(640,480);
 	win->show();
+	win->setSize(640,480);
+	win->setPosition(100,100);
 	render->setRenderTarget(win);
+
+	render->setClearColor(Color(255,255,0));
 
 
 	/* set lua global */
@@ -42,8 +48,7 @@ int main(int argc,char** argv)
 
 
 
-	printf("n=%d\n",'\r');
-	printf("n=%d\n",'\n');
+	frame->setFPS(60);
 
 	/*load file */
 	engine->executeFile(loadfile);

@@ -136,17 +136,29 @@ void Frame::frameEnd(FsLong diff)
 
 void Frame::addListener(FrameListener* l)
 {
+	if(l->m_frame!=NULL)
+	{
+		FS_TRACE_WARN("FrameListener Already Add");
+		return;
+	}
 	m_listener.push_back(l);
+	l->m_frame=this;
 }
 
 void Frame::removeListener(FrameListener* l)
 {
+	if(l->m_frame==NULL)
+	{
+		FS_TRACE_WARN("FrameListener Not Add");
+		return;
+	}
 	Iterator iter;
 	for(iter=m_listener.begin();iter<m_listener.end();++iter)
 	{
 		if(*iter==l)
 		{
 			m_listener.erase(iter);
+			l->m_frame=NULL;
 			return;
 		}
 	}
@@ -182,7 +194,14 @@ FsInt Frame::getAvgFPS()
 void FrameListener::frameBegin(FsLong diff){}
 void FrameListener::frameUpdate(FsLong diff){}
 void FrameListener::frameEnd(FsLong diff){}
-FrameListener::~FrameListener(){}
+FrameListener::~FrameListener()
+{
+	if(m_frame)
+	{
+		m_frame->removeListener(this);
+		m_frame=NULL;
+	}
+}
 
 
 NS_FS_END
