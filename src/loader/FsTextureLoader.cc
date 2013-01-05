@@ -44,7 +44,7 @@ static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt*
 		sct_mag=NULL;
 	}
 	
-	FsString* sct_min=ScriptUtil::getString(dict,"filter_mip");
+	FsString* sct_min=ScriptUtil::getString(dict,"filter_min");
 	if(sct_min!=NULL)
 	{
 		if(strcmp(sct_min->cstr(),"linear")==0)
@@ -175,6 +175,7 @@ static FsVoid s_getEnvMode(FsDict* dict,FsInt* env_mode)
 		sct_evn_mode=NULL;
 	}
 }
+
 static FsVoid s_getFormat(FsDict* dict,FsInt* format)
 {
 	FsString* sct_format=ScriptUtil::getString(dict,"format");
@@ -209,6 +210,7 @@ static FsVoid s_getFormat(FsDict* dict,FsInt* format)
 		sct_format=NULL;
 	}
 }
+
 static FsVoid s_getImageNu(FsDict* dict,FsInt* image_nu)
 {
 	ScriptUtil::getInteger(dict,"imageNu",image_nu);
@@ -320,45 +322,29 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 
 	}
 
-	if(image_nu==1)
+	if((image_nu==1)&&!mipmap)
 	{
-		if(mipmap)
-		{
-			ret=Texture2D::create(
+		ret=Texture2D::create(
 				images[0],
 				filter_mag, 
 				filter_min,
-				filter_mipmap,
 				wraps,
 				wrapt,
-				internal_format,
-				env_mode
+				internal_format
 				);
-		}
-		else 
-		{
-			ret=Texture2D::create(
-					images[0],
-					filter_mag,
-					filter_min,
-					wraps,
-					wrapt,
-					internal_format,
-					env_mode);
-		}
 	}
 	else 
 	{
-
-		ret=Texture2D::create(images,
+		ret=Texture2D::create(
+				images,
 				image_nu,
 				filter_mag,
 				filter_min,
 				filter_mipmap,
 				wraps,
 				wrapt,
-				internal_format,
-				env_mode);
+				internal_format
+				);
 	}
 
 	for(FsUint i=0;i<image_nu;i++)

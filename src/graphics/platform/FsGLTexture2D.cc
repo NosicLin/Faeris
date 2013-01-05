@@ -127,8 +127,7 @@ Texture2D* Texture2D::create(
 		FsInt filter_min,
 		FsInt wraps,
 		FsInt wrapt,
-		FsInt internal_format,
-		FsInt env_mode
+		FsInt internal_format
 		)
 		
 {
@@ -137,7 +136,6 @@ Texture2D* Texture2D::create(
 	GLint filter_mag_gl,filter_min_gl;
 	GLint wraps_gl,wrapt_gl;
 	GLint internal_format_gl;
-	GLint env_mode_gl;
 	GLint width,height;
 	GLvoid* pixels;
 
@@ -177,8 +175,6 @@ Texture2D* Texture2D::create(
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,wrapt_gl);
 
 	/* env mode */
-	env_mode_gl=s_envModeToGLEnum(env_mode);
-	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,env_mode_gl);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 
@@ -213,105 +209,6 @@ Texture2D* Texture2D::create(
 	ret->m_useMipmap=false;
 	ret->m_wrapS=wraps;
 	ret->m_wrapT=wrapt;
-	ret->m_envMode=env_mode;
-	ret->m_platformTexture=texture;
-	return ret;
-}
-Texture2D* Texture2D::create(
-		Image2D* image,
-		FsInt filter_mag,
-		FsInt filter_min,
-		FsInt filter_mipmap,
-		FsInt wraps,
-		FsInt wrapt,
-		FsInt internal_format,
-		FsInt env_mode
-		)
-		
-{
-
-	GLint format_gl;
-	GLint filter_mag_gl,filter_min_gl;
-	GLint wraps_gl,wrapt_gl;
-	GLint internal_format_gl;
-	GLint env_mode_gl;
-	GLint width,height;
-	GLvoid* pixels;
-
-	/* pixel format */
-	switch(image->getPixelFormat())
-	{
-		case Image2D::PIXEL_RGBA8888:
-			format_gl=GL_RGBA;
-			break;
-		case Image2D::PIXEL_RGB888:
-			format_gl=GL_RGB;
-			break;
-		default:
-			FS_TRACE_WARN("Unsupport Pixel Format To Texture2D");
-			return NULL;
-	}
-
-	/* env mode */
-
-	/* gen texture */
-	GLuint texture;
-	glGenTextures(1,&texture);
-
-	/* bind texture */
-	s_bindTexture2D(texture);
-
-	/* filter */
-	filter_mag_gl=s_filterToGlEnum(filter_mag);
-	filter_min_gl=s_filterToGlEnum(filter_min,filter_mipmap);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter_mag_gl);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter_min_gl);
-
-	/* wrap */
-	wraps_gl=s_wrapToGlEnum(wraps);
-	wrapt_gl=s_wrapToGlEnum(wrapt);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,wraps_gl);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,wrapt_gl);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-
-	/* internal_format */
-	internal_format_gl=s_fomatToGLEnum(internal_format);
-
-	/* env_mode */
-	env_mode_gl=s_envModeToGLEnum(env_mode);
-	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,env_mode_gl);
-
-	glGenerateMipmap(GL_TEXTURE_2D);
-	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
-
-	/* set texture data */
-	height=image->getHeight();
-	width=image->getWidth();
-	pixels=image->getPixelData();
-	glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			internal_format_gl,
-			width,
-			height,
-			0,
-			format_gl,
-			GL_UNSIGNED_BYTE,
-			pixels
-			);
-
-	Texture2D* ret=new Texture2D();
-	ret->m_width=width;
-	ret->m_height=height;
-	ret->m_format=internal_format;
-	ret->m_filterMin=filter_min;
-	ret->m_filterMag=filter_mag;
-	ret->m_filterMipmap=filter_mipmap;
-	ret->m_useMipmap=true;
-	ret->m_wrapS=wraps;
-	ret->m_wrapT=wrapt;
-	ret->m_envMode=env_mode;
 	ret->m_platformTexture=texture;
 	return ret;
 }
@@ -325,14 +222,12 @@ Texture2D* Texture2D::create(
 		FsInt filter_mipmap,
 		FsInt wraps,
 		FsInt wrapt,
-		FsInt internal_format,
-		FsInt env_mode)
+		FsInt internal_format)
 {
 	GLint* formats_gl;
 	GLint filter_mag_gl,filter_min_gl;
 	GLint wraps_gl,wrapt_gl;
 	GLint internal_format_gl;
-	GLint env_mode_gl;
 	GLint width,height;
 	GLvoid* pixels;
 
@@ -382,12 +277,12 @@ Texture2D* Texture2D::create(
 	/* internal_format */
 	internal_format_gl=s_fomatToGLEnum(internal_format);
 
-	glGenerateMipmap(GL_TEXTURE_2D);
-	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
-
-	/* env_mode */
-	env_mode_gl=s_envModeToGLEnum(env_mode);
-	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,env_mode_gl);
+	/* FIXME:
+	 * if used glGenerateMipmap, we can't set level 2 or higher 
+	 * bitmap, so here use glTexParameteri instead 
+	 */
+	//glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
 
 	for(FsUint i=0;i<imageCnt;++i)
 	{
@@ -406,6 +301,7 @@ Texture2D* Texture2D::create(
 				pixels);
 	}
 
+
 	width=images[0]->getWidth();
 	height=images[0]->getHeight();
 
@@ -419,7 +315,6 @@ Texture2D* Texture2D::create(
 	ret->m_useMipmap=true;
 	ret->m_wrapS=wraps;
 	ret->m_wrapT=wrapt;
-	ret->m_envMode=env_mode;
 	ret->m_platformTexture=texture;
 	delete[] formats_gl;
 	return ret;
@@ -433,8 +328,7 @@ Texture2D* Texture2D::create(Image2D* image)
 			FILTER_LINEAR,
 			WRAP_CLAMP_TO_EDGE,
 			WRAP_CLAMP_TO_EDGE,
-			FORMAT_RGBA,
-			ENV_REPLACE);
+			FORMAT_RGBA);
 }
 
 void Texture2D::setFilter(FsInt mag,FsInt min,FsInt mipmap)
@@ -463,11 +357,6 @@ void Texture2D::setWrap(FsInt wraps,FsInt wrapt)
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,gl_wraps);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,gl_wrapt);
-}
-void Texture2D::setEvnMode(FsInt mode)
-{
-	GLint mode_gl=s_envModeToGLEnum(mode);
-	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode_gl);
 }
 
 void Texture2D::bind()

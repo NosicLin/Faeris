@@ -5,6 +5,64 @@
 NS_FS_BEGIN
 
 
+static GLint s_blendToGLenum(FsInt value)
+{
+	switch(value)
+	{
+		case Render::EQUATION_ADD:
+			return GL_ADD;
+		case Render::EQUATION_SUBTRACT:
+			return GL_SUBTRACT;
+			/*
+		case Render::EQUATION_REVERSE_SUBTRACT:
+			return GL_REVERSE_SUBTRACT;
+			*/
+		case Render::EQUATION_MIN:
+			return GL_MIN;
+		case Render::EQUATION_MAX:
+			return GL_MAX;
+		case Render::EQUATION_LOGIC_OP:
+			return GL_LOGIC_OP; 
+
+		case Render::FACTOR_ZERO:
+			return GL_ZERO;
+
+		case Render::FACTOR_ONE:
+			return GL_ONE;
+
+		case Render::FACTOR_SRC_COLOR:
+			return GL_SRC_COLOR;
+
+		case Render::FACTOR_ONE_MINUS_SRC_COLOR:
+			return GL_ONE_MINUS_SRC_COLOR;
+
+		case Render::FACTOR_DST_COLOR:
+			return GL_DST_COLOR;
+
+		case Render::FACTOR_ONE_MINUS_DST_COLOR:
+			return GL_ONE_MINUS_DST_COLOR;
+
+		case Render::FACTOR_SRC_ALPHA:
+			return GL_SRC_ALPHA;
+
+		case Render::FACTOR_ONE_MINUS_SRC_ALPHA:
+			return GL_ONE_MINUS_SRC_ALPHA;
+
+		case Render::FACTOR_DST_ALPHA:
+			return GL_DST_ALPHA;
+
+		case Render::FACTOR_ONE_MINUS_DST_ALPHA:
+			return GL_ONE_MINUS_DST_ALPHA;
+		case Render::FACTOR_SRC_ALPHA_SATURATE:
+			return GL_SRC_ALPHA_SATURATE;
+
+		default:
+			FS_TRACE_ERROR("Invalid Param to Glenum");
+
+	}
+	return 0;
+}
+
 Render::Render()
 {
 	m_target=NULL;
@@ -18,16 +76,30 @@ Render::Render()
 	glClearDepth(1);
 	glClearStencil(0);
 
+	/* depth */
 	glEnable(GL_DEPTH);
+	m_depthTest=true;
 
+	/* face */
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 
+	m_cullFace=SIDE_BACK;
+	m_frontFace=FRONT_CCW;
+
+
+	/* blend */
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
+	m_blendEquation=EQUATION_ADD;
+	m_blendSrc=FACTOR_SRC_ALPHA;
+	m_blendDst=FACTOR_ONE_MINUS_SRC_ALPHA;
+
+	/* texture */
+	glEnable(GL_TEXTURE2D);
 }
 
 void Render::pushMatrix()
@@ -273,6 +345,34 @@ void Render::disableClientArray(FsUlong flags)
 void Render::disableAllClientArray()
 {
 	disableClientArray(ALL_ARRAY);
+}
+
+void Render::setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst)
+{
+	if((blend_eq==m_blendEquation) 
+		&&(factor_src==m_blendSrc )
+		&&(factor_dst==m_blendDst))
+	{
+		return ;
+	}
+
+	if(blend_eq==EQUATION_NONE) 
+	{
+		glDisable(GL_BLEND);
+	}
+	else 
+	{
+		if(m_blendEquation==EQUATION_NONE)
+		{
+			glEnable(GL_BLEND);
+		}
+		glBlendEquation(s_blendToGLenum(blend_eq));
+		glBlendFunc(s_blendToGLenum(factor_src),
+				s_blendToGLenum(factor_dst));
+	}
+	m_blendEquation=blend_eq;
+	m_blendSrc=factor_src;
+	m_blendDst=factor_dst;
 }
 
 

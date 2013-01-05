@@ -1,0 +1,22 @@
+[片元处理器]
+
+*)主要操作
+  1) 在插值得到的值上的操作
+  2) 访问纹理
+  3) 应用纹理
+  4) 雾化
+  5) 颜色汇总
+  
+*)内置的易变变量
+  1) gl_Color:片元的颜色值
+  2) gl_SecondaryColor:片元的第二颜色值
+  3) gl_TexCoord[0..n]:纹理坐标
+  4) gl_FogFragCoord:雾化坐标
+  
+*)特殊的输入变量
+  1) gl_FragCoord:片元的位置
+  2) gl_FrontFacing: 
+  
+*)特殊的输出变量
+  1) gl_FragColor: 片元颜色值
+  2) gl_FragDepth: 片元的深度值

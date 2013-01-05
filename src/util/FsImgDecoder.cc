@@ -49,7 +49,8 @@ Image2D* FsUtil_ImageReader(FsFile* file,FsInt image_type)
 	switch(image_type)
 	{
 		case Image2D::IMAGE_JEPG:
-			return FsUtil_JpegReader(file);
+			/* TODO (add jpeg decoder here)*/
+			return NULL;
 		case Image2D::IMAGE_PNG:
 			return FsUtil_PngReader(file);
 		case Image2D::IMAGE_BMP:

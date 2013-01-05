@@ -8,8 +8,8 @@ swap_s:repeat
 
 format:rgba
 
-env_mode:modulate
-imageNu:1
+auto_bitmap:true
+imageNu:10
 source:[
 	"star512x512.png"
 	"star256x256.png"

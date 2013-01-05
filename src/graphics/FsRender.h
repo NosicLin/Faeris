@@ -31,8 +31,10 @@ class Render
 			SIDE_FRONT,
 			SIDE_BACK,
 			SIDE_FRONT_AND_BACK,
+			SIDE_NONE,
 
 			/* blend equation */
+			EQUATION_NONE,
 			EQUATION_ADD,
 			EQUATION_SUBTRACT,
 			EQUATION_REVERSE_SUBTRACT,
@@ -101,6 +103,10 @@ class Render
 		void setDepthMask(FsBool enable);
 		void setLineWidth(FsFloat width);
 		void enableFog(FsBool enable);
+
+		/* blend */
+		void setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
+
 	private:
 		Render();
 	private:
@@ -111,6 +117,7 @@ class Render
 		Color m_clearColor;
 		FsBool m_scissorEnable;
 
+		/* depth */
 		FsBool m_depthTest;
 		FsBool m_depthMask;
 
@@ -118,11 +125,13 @@ class Render
 		FsBool m_fogEnable;
 
 		/* blend */
-
-		FsBool m_blendEnable;
 		FsInt m_blendEquation;
 		FsInt m_blendSrc;
-		FsInt m_blednDst;
+		FsInt m_blendDst;
+
+		/* face */
+		FsInt m_frontFace;
+		FsInt m_cullFace;
 
 
 

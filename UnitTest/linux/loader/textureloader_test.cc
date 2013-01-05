@@ -1,3 +1,4 @@
+#include<GL/glew.h>
 #include<GL/glut.h>
 #include "graphics/FsTexture2D.h"
 #include "loader/FsTextureLoader.h"
@@ -7,6 +8,7 @@ NS_FS_USE
 Texture2D* ttr=NULL;
 void init(const char* filename)
 {
+	glewInit();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);

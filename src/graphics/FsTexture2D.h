@@ -57,20 +57,8 @@ class Texture2D
 				FsInt filter_min,
 				FsInt wraps,
 				FsInt wrapt,
-				FsInt internal_format,
-				FsInt env_mode
-				);
+				FsInt internal_format);
 
-		static Texture2D* create(
-				Image2D* image,
-				FsInt filter_mag,
-				FsInt filter_min,
-				FsInt filter_mipmap,
-				FsInt wraps,
-				FsInt wrapt,
-				FsInt internal_format,
-				FsInt env_mode
-				);
 		static Texture2D* create(
 				Image2D** images,
 				FsUint imageCnt,
@@ -79,8 +67,7 @@ class Texture2D
 				FsInt filter_mipmap,
 				FsInt wraps,
 				FsInt wrapt,
-				FsInt internal_format,
-				FsInt env_mode);
+				FsInt internal_format);
 
 		/* for quick create texture from image */
 		static Texture2D* create(Image2D* image);
@@ -106,11 +93,8 @@ class Texture2D
 		FsUint getHeight(){return m_height;}
 
 		/* mipmap */
-		FsBool enableMipmap(FsBool enable);
+		FsBool enableMipmap();
 
-		/* evn mode */
-		void setEvnMode(FsInt mode);
-		FsInt getEvnMode(){return m_envMode;}
 
 	public:
 		void bind();
@@ -130,8 +114,8 @@ class Texture2D
 		/* wrap */
 		FsInt m_wrapS;
 		FsInt m_wrapT;
+
 		/* env */
-		FsInt m_envMode;
 		PlatformTexture m_platformTexture;
 };
 
