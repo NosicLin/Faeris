@@ -45,7 +45,7 @@ static void FsLog_FormatLogTagBuffer(FsChar* buf,FsUlong size,
 
 
 
-void FsUtil_Log(const FsChar* tag,const FsChar* fmt,...)
+void FsUtil_TagLog(const FsChar* tag,const FsChar* fmt,...)
 {
 	init_global_log();
 
@@ -70,7 +70,7 @@ void FsUtil_Log(const FsChar* fmt,...)
 	s_global_log->log("%s",buf);
 }
 
-void FsLog::log(const FsChar* tag,const FsChar* fmt,...)
+void FsLog::tagLog(const FsChar* tag,const FsChar* fmt,...)
 {
 	FsChar buf[FS_MAX_LOG_BUF];
 	va_list args;

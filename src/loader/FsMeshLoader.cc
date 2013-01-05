@@ -2,6 +2,7 @@
 #include "loader/FsMeshLoader.h"
 #include "util/FsScriptUtil.h"
 #include "model/FsGeometry.h"
+#include "fsys/FsVFS.h"
 
 NS_FS_BEGIN
 static FsBool s_isBinaryFile(FsFile* file)
@@ -23,6 +24,18 @@ Mesh* MeshLoader::loadMesh(FsFile* file)
 	return NULL;
 }
 
+Mesh* MeshLoader::loadMesh(const char* filename)
+{
+	FsFile* file=VFS::open(filename);
+	if(file==NULL)
+	{
+		FS_TRACE_WARN("Load Mesh Failed(File Not Found %s)",filename);
+		return NULL;
+	}
+	Mesh* ret=loadMesh(file);
+	file->decRef();
+	return ret;
+}
 
 Mesh* MeshLoader::loadMeshWithScriptFile(FsFile* file)
 {

@@ -1,0 +1,26 @@
+#include "graphics/FsColor.h"
+class Color 
+{
+	public:
+		static Color DEFAULT_COLOR;
+		static Color RED;
+		static Color BLUE;
+		static Color GREEN;
+		static Color WHITE;
+		static Color BLACK;
+	public:
+		unsigned char r;
+		unsigned char g;
+		unsigned char b;
+		unsigned char a;
+	public:
+		Color(FsUchar red,FsUchar green,FsUchar blue,FsUchar alpha);
+		Color();
+		Color(FsUchar red,FsUchar green,FsUchar blue);
+
+		Color operator+(Color right);
+		Color operator-(Color right);
+		Color operator*(FsFloat s);
+		bool operator==(Color right);
+};
+

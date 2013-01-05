@@ -25,7 +25,7 @@
 /* Create metatable
 	* Create and register new metatable
 */
-static int tolua_newmetatable (lua_State* L, char* name)
+static int tolua_newmetatable (lua_State* L, const char* name)
 {
 	int r = luaL_newmetatable(L,name);
 
@@ -702,3 +702,8 @@ TOLUA_API void tolua_dobuffer(lua_State* L, char* B, unsigned int size, const ch
  #endif
 };
 
+
+TOLUA_API void tolua_mapsuper (lua_State* L, const char* name, const char* base)
+{
+	mapsuper(L,name,base);
+}

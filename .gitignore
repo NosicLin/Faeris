@@ -34,6 +34,7 @@ Release
 temp
 *.idb 
 *.manifest
+*.DLL
 
 *.swo
 

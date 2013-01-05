@@ -148,7 +148,7 @@ PlatformWindow::~PlatformWindow()
 			{
 				DestroyWindow(hwnd);
 			}
-			UnregisterClass(L"FaerisWindow",hinstance);
+			UnregisterClass("FaerisWindow",hinstance);
 }
 PlatformWindow::PlatformWindow()
 {
@@ -173,7 +173,7 @@ FsBool PlatformWindow::initWin()
 	wc.hCursor=LoadCursor(NULL,IDC_ARROW);
 	wc.hbrBackground=NULL;
 	wc.lpszMenuName=NULL;
-	wc.lpszClassName=L"FaerisWindow";
+	wc.lpszClassName="FaerisWindow";
 	if(!RegisterClass(&wc))
 	{
 		FS_TRACE_WARN("RegisterClass Failed");
@@ -183,7 +183,7 @@ FsBool PlatformWindow::initWin()
 
 	hwnd=CreateWindowEx(
 			WS_EX_APPWINDOW|WS_EX_WINDOWEDGE,
-			L"FaerisWindow",
+			"FaerisWindow",
 			TEXT(FS_DEFAULT_WINDOW_NAME),
 			WS_CAPTION|WS_POPUPWINDOW|WS_MINIMIZEBOX,
 			0,0,

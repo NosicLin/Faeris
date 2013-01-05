@@ -6,6 +6,9 @@
 #include "xir_token.h"
 #include "sl_state.h"
 
+
+#define ASCII_NEWLINE 10
+
 XirScanner::XirScanner(Faeris::FsFile* file,XirState* begin_state)
 {
 	m_file=new XirFile(file);
@@ -42,11 +45,12 @@ int XirScanner::nextToken()
 	while(1)
 	{
 		char event=file->nextChar();
+		if(event==13) continue;  /* window use \n\r for newline, it is too boring here,i just ingore it  */
 		if(event==EOF)
 		{
 			if(!m_eof)
 			{
-				event='\n';
+				event=ASCII_NEWLINE;
 				m_eof=true;
 			}
 			else
@@ -71,7 +75,7 @@ int XirScanner::nextToken()
 
 		token_size++;
 		m_cur_string.append(1,event);
-		if(event=='\n')
+		if(event==ASCII_NEWLINE)
 		{
 			line++;
 		}

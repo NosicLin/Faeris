@@ -101,6 +101,19 @@ Render::Render()
 	/* texture */
 	glEnable(GL_TEXTURE2D);
 }
+Render::~Render()
+{
+	if(m_target)
+	{
+		m_target->loseCurrent(this);
+		m_target->decRef();
+	}
+	if(m_material)
+	{
+		m_material->decRef();
+	}
+
+}
 
 void Render::pushMatrix()
 {
