@@ -162,6 +162,21 @@
 #define FS_FILE_SCRIPT (0x3)
 
 
+enum 
+{
+	FS_FLOAT=0,
+	FS_INT,
+
+	FS_INT8,
+	FS_INT16,
+	FS_INT32,
+
+	FS_UINT8,
+	FS_UINT16,
+	FS_UINT32,
+
+	FS_MAX_TYPE_NU,
+};
 
 
 

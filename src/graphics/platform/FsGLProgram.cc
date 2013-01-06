@@ -1,70 +1,144 @@
-#include "graphics/FsProgram.h"
 #include "GL/glew.h"
+#include "graphics/FsProgram.h"
+#include "util/FsLog.h"
 
+#define FS_MAX_GL_SHADER_LOG_LENGTH 1024
 #define FS_MAX_GL_PROGRAM_LOG_LENGTH 1024
+
 NS_FS_BEGIN
-Program* Program::create(Shader* vertex,Shader* fragment)
+GLint s_create_shader_object(const FsChar* source,FsInt length,FsInt type)
 {
-	GLuint program;
-	FsChar* log_info=NULL;
+	FsInt length,readbyte;
+	FsChar* source=NULL;
+	FsChar log_info[FS_MAX_GL_SHADER_LOG_LENGTH];
+	Shader* ret=NULL;
+	GLint compile_result,log_length;
+
+	GLenum type_gl;
+	switch(type)
+	{
+		case VERTEX_SHADER:
+			type_gl=GL_VERTEX_SHADER;
+			break;
+		case FRAGMENT_SHADER:
+			type_gl=GL_FRAGMENT_SHADER;
+			break;
+		default:
+			FS_TRACE_WARN("Unkown Type");
+			return 0;
+	}
+
+	GLuint shader=0;
+	shader=glCreateShader(type_gl);
+
+	const FsChar* all_source[]={source};
+	const FsInt all_source_length[]={length};
+
+	glShaderSource(shader,1,all_source,all_source_length);
+	glCompileShader(shader);
+	glGetShaderiv(shader,GL_COMPILE_STATUS,&compile_result);
+
+	if(compile_result==GL_FALSE)
+	{
+		glGetShaderInfoLog(shader,
+				FS_MAX_GL_SHADER_LOG_LENGTH,
+				&log_length,log_info);
+		log_info[FS_MAX_GL_SHADER_LOG_LENGTH-1]='\0';
+		FsUtil_Log("Compile Shader(%s)",log_info);
+		glDeleteShader(shader);
+		return 0;
+	}
+	return shader;
+}
+
+
+Program* Program::create(
+		const FsChar* vertex_src,FsUint v_size;
+		const FsChar* fragmet_src,FsUint f_size;
+		)
+{
+	GLuint program=0;
+	GLuint vertex_shader=0;
+	GLuint fragment_shader=0;
+	FsChar log_info[FS_MAX_GL_PROGRAM_LOG_LENGTH];
 	FsInt log_length;
 	GLint link_result;
+	Program* ret=NULL;
 
+	/* create vertex shader  object */
+	vertex_shader=s_create_shader_object(vertex_src,v_size);
+	if(vertex_shader==0)
+	{
+		goto error;
+	}
+
+	/* create fragment shader object */
+	fragment_shader=s_create_shader_object(fragmet_src,f_size);
+	if(fragment_shader==0)
+	{
+		goto error;
+	}
+
+	/* create program object */
 	program=glCreateProgram();
-	if(vertex)
-	{
-		glAttachShader(program,vertex->getPlatformShader());
-	}
-	if(fragment)
-	{
-		glAttachShader(program,fragment->getPlatformShader());
-	}
+
+	/* attach vertex and fragment shader */
+	glAttachShader(program,vertex_shader);
+	glAttachShader(program,fragment_shader);
+
+	/* link program */
 	glLinkProgram(program);
+
+	/* check error */
 	glGetProgramiv(program,GL_LINK_STATUS,&link_result);
 	if(link_result==GL_FALSE)
 	{
-		log_info=new FsChar[FS_MAX_GL_PROGRAM_LOG_LENGTH];
 		glGetProgramInfoLog(program,FS_MAX_GL_PROGRAM_LOG_LENGTH,&log_length,log_info);
 		log_info[FS_MAX_GL_PROGRAM_LOG_LENGTH-1]='\0';
-		FS_TRACE_WARN("Program Result(%s)",log_info);
-		delete[] log_info;
-		glDeleteProgram(program);
-		return NULL;
+		FsUtil_Log("Program Result(%s)",log_info);
+		goto error;
 	}
 
-	Program* ret=new Program(program,vertex,fragment);
+	Program* ret=new Program();
+	ret->m_program=program;
+
+	/* delete  shader */
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
+
 	return ret;
+error:
+	if(vertex_shader)
+	{
+		glDeleteShader(vertex_shader);
+	}
+	if(fragment_shader)
+	{
+		glDeleteShader(fragment_shader);
+	}
+	if(program)
+	{
+		glDeleteProgram(program);
+	}
+	return NULL;
 }
-Program::Program(GLuint program,Shader* vertex,Shader* fragment)
+
+Program::Program()
 {
-	if(vertex)
-	{
-		vertex->addRef();
-	}
-	if(fragment)
-	{
-		fragment->addRef();
-	}
-	m_vertex=vertex;
-	m_fragment=fragment;
-	m_program=program;
+	m_program=0;
 }
 Program::~Program()
 {
-	if(m_vertex)
+	if(m_program!=0)
 	{
-		m_vertex->decRef();
+		glDeleteProgram(m_program);
 	}
-	if(m_fragment)
-	{
-		m_fragment->decRef();
-	}
-	glDeleteProgram(m_program);
 }
-const FsChar* sProgramName="Program";
+
+const FsChar* s_programName="ProgramObject";
 const FsChar* Program::getName()
 {
-	return sProgramName;
+	return s_programName;
 }
 
 NS_FS_END 

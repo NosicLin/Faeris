@@ -29,58 +29,52 @@ class VertexWeight
 class Geometry:public FsObject
 {
 	public:
-		enum 
+		class Attribute:public FsObject
 		{
-			V_VERTICS_BIT =(0x1<<0),
-			V_NORMALS_BIT =(0x1<<1),
-			V_TEXCOORDS_BIT= (0x1<<2),
-			V_COLORS_BIT =(0x1<<3),
-			V_WEIGHT_BIT =(0x1<<4),
-
-			F_FACE_BIT =(0x1<<5),
-			F_NORMAL_BIT= (0x1<<6),
-			F_COLOR_BIT =(0x1<<7),
-
-			W_WEIGHT_BIT =(0x1<<8),
+			public:
+				FsString* name;
+				FsInt type;
+				FsInt size; 
+				void* value;
+				FsInt count;
+			public:
+				void resize(FsInt nu);
+				Attribute(const FsChar* _name,FsInt _type,FsInt _size);
+				Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt _count);
+				~Attribute();
 		};
-	private:
-		/* flags bit */
-		FsLong m_flags;
 
+	private:
 		/*normal info */
 		FsUint m_vertexNu;
 		FsUint m_faceNu;
 		FsUint m_weightNu;
 
-		/* vertex info */
-		Vector3* m_vVertics;
-		Vector3* m_vNormals;
-		TexCoord2* m_vTexcoords;
-		Color* m_vColors;
+		/* vertex attribute */
+		FsArray* m_attrs;
+
+		/* gerneral vertex for quick access */
+		Attribute* m_vVertics; 
+		Attribute* m_vNormals;
+		Attribute* m_vColors;
+		Attribute* m_vFogs;
+		Attribute* m_vTexCoords;
+
+		/* Weight */
 		VertexWeight* m_vWeights;
 
 		/* face info */
 		Face3* m_fFaces;
-		Vector3* m_fNormals;
-		Color* m_fColors;
 
 		/* skeleton animation */
 		Weight* m_wWeights;
 
-		/* TODO(shader extend)*/
-		/*Attribute attrs*/
 	public:
-		/* vertex info */
-		Vector3* vVerticsPointer()const{return m_vVertics;}
-		Vector3* vNormalsPointer()const{return m_vNormals;}
-		TexCoord2* vTexCoordsPointer()const{return m_vTexcoords;}
-		Color* vColorsPointer()const {return m_vColors;}
+
 		VertexWeight* vWeightsPointer()const{return m_vWeights;}
 
 		/* face info */
 		Face3* fFacesPointer()const{return m_fFaces;}
-		Vector3* fNormalsPointer()const {return m_fNormals;}
-		Color* fColorsPointer()const {return m_fColors;}
 
 		/* skeleton animation */
 		Weight* wWeightsPointer()const{return m_wWeights;}
@@ -94,10 +88,22 @@ class Geometry:public FsObject
 		FsUint getFaceNu()const{return m_faceNu;}
 		FsUint getWeightNu()const{return m_weightNu;}
 
+		void setVVertics(Attribute* attr);
+		void setVColors(Attribute* attr);
+		void setVNormals(Attribute* attr);
+		void setVTexCoords(Attribute* attr);
+		void setVFogs(Attribute* attr);
+
+		Attribute* getVVertics();
+		Attribute* getVNormals();
+		Attribute* getVColors();
+		Attribute* getVTexCoords();
+		Attribute* getVFog();
+
 	public:
-		Geometry(FsUint vertex,FsUint face,FsUint weight,FsLong flags);
-		Geometry(FsUint vertex,FsUint face,FsLong flags);
-		Geometry(FsUint vertex,FsLong flags);
+		Geometry(FsUint vertex,FsUint face,FsUint weight);
+		Geometry(FsUint vertex,FsUint face);
+		Geometry(FsUint vertex);
 		~Geometry();
 		virtual const FsChar* getName();
 	protected:
