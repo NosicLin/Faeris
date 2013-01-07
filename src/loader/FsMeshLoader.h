@@ -15,26 +15,38 @@ class  MeshLoader
 		static ResourceMgr* m_mgr;
 	public:
 		static ResourceMgr* getMgr();
+
+		/* load from mgr, it mesh is not create before, it will create 
+		 * it and cache it in mgr, if mesh create before, it will return 
+		 * the cached.
+		 */
 		static Mesh* loadFromMgr(const FsChar* name);
 
 
 	public:
-		static Mesh* loadMesh(const char* filename);
-		static Mesh* loadMesh(FsFile* file);
+		static Mesh* create(const char* filename);
+		static Mesh* create(FsFile* file);
 		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
 
-	protected:
-		/* load mesh from script file */
-		static Mesh* loadMeshWithScriptFile(FsFile* file);
-		static Mesh* parseStaticMeshWithScriptFile(FsDict* script);
-		static Mesh* parseShapeMeshWithScriptFile(FsDict* script);
-		static Mesh* parseSkeletonMeshWithScriptFile(FsDict* script);
+		/* load mesh from script file, it will check the mesh type,
+		 * but caller must make sure the file type is script file. 
+		 */
+		static Mesh* createFromScript(FsFile* file);
 
-		/* load mesh from binary file */
-		static Mesh* loadMeshWithBinaryFile(FsFile* file);
-		static Mesh* loadStaticMeshWithBinaryFile(FsFile* file);
-		static Mesh* loadShapeMeshWithBinaryFile(FsFile* file);
-		static Mesh* loadSkeletonMeshWithBinaryFile(FsFile* file);
+		/* call must make sure script is right type */
+		static Mesh* createStaticMeshFromDict(FsDict* script);
+		static Mesh* createShapeMeshFromDict(FsDict* script);
+		static Mesh* createSkeletonMeshFromDict(FsDict* script);
+
+		/* load mesh from binary file, it will check the mesh type,
+		 * but caller must make sure the file type is binary file.
+		 */
+		static Mesh* createFromBinary(FsFile* file);
+
+		/* caller must make sure the binary is the right type */
+		static Mesh* createStaticMeshFromBinary(FsFile* file);
+		static Mesh* createShapeMeshFromBinary(FsFile* file);
+		static Mesh* createSkeletonMeshFromBinary(FsFile* file);
 };
 
 NS_FS_END
