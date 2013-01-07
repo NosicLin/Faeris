@@ -6,6 +6,8 @@
 #include "math/FsTexCoord2.h"
 #include "math/FsFace3.h"
 #include "graphics/FsColor.h"
+#include "util/FsString.h"
+#include "util/FsArray.h"
 
 NS_FS_BEGIN
 
@@ -35,13 +37,14 @@ class Geometry:public FsObject
 				FsString* name;
 				FsInt type;
 				FsInt size; 
-				void* value;
+				FsVoid* value;
 				FsInt count;
 			public:
 				void resize(FsInt nu);
 				Attribute(const FsChar* _name,FsInt _type,FsInt _size);
 				Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt _count);
-				~Attribute();
+				virtual ~Attribute();
+				virtual const FsChar* getName();
 		};
 
 	private:
@@ -88,17 +91,20 @@ class Geometry:public FsObject
 		FsUint getFaceNu()const{return m_faceNu;}
 		FsUint getWeightNu()const{return m_weightNu;}
 
-		void setVVertics(Attribute* attr);
-		void setVColors(Attribute* attr);
-		void setVNormals(Attribute* attr);
-		void setVTexCoords(Attribute* attr);
-		void setVFogs(Attribute* attr);
+		void setVVertics(Geometry::Attribute* attr);
+		void setVColors(Geometry::Attribute* attr);
+		void setVNormals(Geometry::Attribute* attr);
+		void setVTexCoords(Geometry::Attribute* attr);
+		void setVFogs(Geometry::Attribute* attr);
 
-		Attribute* getVVertics();
-		Attribute* getVNormals();
-		Attribute* getVColors();
-		Attribute* getVTexCoords();
-		Attribute* getVFog();
+		Geometry::Attribute* getVVertics();
+		Geometry::Attribute* getVNormals();
+		Geometry::Attribute* getVColors();
+		Geometry::Attribute* getVTexCoords();
+		Geometry::Attribute* getVFog();
+
+		void addAttribute(Attribute* attr);
+		FsArray* getAttrs();
 
 	public:
 		Geometry(FsUint vertex,FsUint face,FsUint weight);
@@ -107,7 +113,7 @@ class Geometry:public FsObject
 		~Geometry();
 		virtual const FsChar* getName();
 	protected:
-		void init(FsUint vertex,FsUint face,FsUint weight,FsLong flags);
+		void init(FsUint vertex,FsUint face,FsUint weight);
 
 
 };

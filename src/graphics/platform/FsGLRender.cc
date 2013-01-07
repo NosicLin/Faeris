@@ -1,9 +1,39 @@
+#include <string.h>
+
 #include "GL/glew.h"
 #include "graphics/FsMaterial.h"
 #include "graphics/FsRender.h"
+#include "graphics/FsProgram.h"
+
+#include "util/FsString.h"
 
 NS_FS_BEGIN
 
+static GLint s_FsTypeToGLenum(FsInt t)
+{
+	switch(t)
+	{
+		case FS_FLOAT:
+			return GL_FLOAT;
+		case FS_INT:
+			return GL_INT;
+		case FS_INT8:
+			return GL_BYTE;
+		case FS_INT16:
+			return GL_SHORT;
+		case FS_INT32:
+			return GL_INT;
+		case FS_UINT8:
+			return GL_UNSIGNED_BYTE;
+		case FS_UINT16:
+			return GL_UNSIGNED_SHORT;
+		case FS_UINT32:
+			return GL_UNSIGNED_INT;
+		default:
+			FS_TRACE_ERROR("Unkown Type");
+	}
+	return 0;
+};
 
 static GLint s_blendToGLenum(FsInt value)
 {
@@ -67,7 +97,16 @@ Render::Render()
 {
 	m_target=NULL;
 	m_material=NULL;
+	m_program=NULL;
+
+	/* client arrayflags */
 	m_arrayFlags=0;
+
+	/* vertex attr array flags [] */
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&m_vertexAttrMaxNu);
+	m_vertexAttrFlags=new FsBool[m_vertexAttrMaxNu];
+	memset(m_vertexAttrFlags,0,sizeof(FsBool)*m_vertexAttrMaxNu);
+	m_vertexAttrEnableNu=0;
 
 
 	glClearColor(0,0,0,255);
@@ -108,10 +147,18 @@ Render::~Render()
 		m_target->loseCurrent(this);
 		m_target->decRef();
 	}
+
 	if(m_material)
 	{
 		m_material->decRef();
 	}
+
+	if(m_program)
+	{
+		m_program->decRef();
+	}
+	delete[] m_vertexAttrFlags;
+
 
 }
 
@@ -243,6 +290,28 @@ void Render::setMaterial(Material* mat,bool force)
 	}
 	if(mat) mat->load(this);
 	m_material=mat;
+}
+void Render::setProgram(Program* prog)
+{
+	if(m_program==prog)
+	{
+		return;
+	}
+
+	if(prog) { prog->addRef(); }
+
+	if(m_program)
+	{
+		m_program->decRef();
+		disableAllAttrArray();
+	}
+
+	if(prog)
+	{
+		GLint plat_prog=prog->getPlatformProgram();
+		glUseProgram(plat_prog);
+	}
+	m_program=prog;
 }
 
 void Render::setRenderTarget(RenderTarget* target)
@@ -389,6 +458,255 @@ void Render::setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst)
 }
 
 
+/* vertex attribute  */
+FsVoid Render::setVertexAttrPointer( 
+		FsString* name, FsInt size,FsInt type,
+		FsInt count,FsInt stride,FsVoid* pointer)
+{
+	if(m_program)
+	{
+		FS_TRACE_WARN("No Shader Program Used Now");
+		return;
+	}
+	FsInt loc=m_program->getAttributeLocation(name);
+	if(loc==-1)
+	{
+		FS_TRACE_WARN("Attribute Not Used In Program");
+		return;
+	}
+	FS_ASSERT(loc<m_vertexAttrMaxNu);
+	GLint type_gl=s_FsTypeToGLenum(type);
+	glVertexAttribPointer(loc,size,type_gl,0,stride,pointer);
+
+}
+FsVoid Render::setVertexAttrPointer(
+		const FsChar* name,FsInt size,FsInt type,
+		FsInt count,FsInt stride,FsVoid* pointer)
+{
+	FsString* fs_name=new FsString(name);
+	setVertexAttrPointer(fs_name,size,type,count,stride,pointer);
+	fs_name->decRef();
+}
+
+FsVoid Render::setAndEnableVertexAttrPointer( 
+		FsString* name, FsInt size, FsInt type, 
+		FsInt count, FsInt stride, FsVoid* pointer)
+{
+	if(m_program)
+	{
+		FS_TRACE_WARN("No Shader Program Used Now");
+		return;
+	}
+	FsInt loc=m_program->getAttributeLocation(name);
+	if(loc==-1)
+	{
+		FS_TRACE_WARN("Attribute Not Used In Program");
+		return;
+	}
+	FS_ASSERT(loc<m_vertexAttrMaxNu);
+
+	if(!m_vertexAttrFlags[loc])
+	{
+		glEnableVertexAttribArray(loc);
+		m_vertexAttrFlags[loc]=true;
+		m_vertexAttrEnableNu++;
+	}
+
+	GLint type_gl=s_FsTypeToGLenum(type);
+	glVertexAttribPointer(loc,size,type_gl,0,stride,pointer);
+}
+
+FsVoid Render::setAndEnableVertexAttrPointer( 
+		const FsChar* name, FsInt size, FsInt type, 
+		FsInt count, FsInt stride, FsVoid* pointer)
+{
+	FsString* fs_name=new FsString(name);
+	setAndEnableVertexAttrPointer(fs_name,size,type,count,stride,pointer);
+	fs_name->decRef();
+}
+
+
+/* disable/enable vertex attribute */
+FsVoid Render::disableAllAttrArray()
+{
+	for(FsInt i=0;i<m_vertexAttrMaxNu;i++)
+	{
+		if(m_vertexAttrFlags[i])
+		{
+			glDisableVertexAttribArray(i);
+			m_vertexAttrEnableNu--;
+			if(m_vertexAttrEnableNu==0)
+			{
+				break;
+			}
+		}
+
+	}
+}
+
+FsVoid Render::enableAttrArray(const FsChar* name)
+{
+	FsString* fs_name=new FsString(name);
+	enableAttrArray(fs_name);
+	fs_name->decRef();
+}
+FsVoid Render::enableAttrArray(FsString* name)
+{
+	if(m_program)
+	{
+		FS_TRACE_WARN("No Shader Program Used Now");
+		return;
+	}
+	FsInt loc=m_program->getAttributeLocation(name);
+	if(loc==-1)
+	{
+		FS_TRACE_WARN("Attribute Not Used In Program");
+		return;
+	}
+	FS_ASSERT(loc<m_vertexAttrMaxNu);
+
+	if(!m_vertexAttrFlags[loc])
+	{
+		m_vertexAttrFlags[loc]=true;
+		glEnableVertexAttribArray(loc);
+		m_vertexAttrEnableNu++;
+	}
+}
+
+FsVoid Render::disableAttrArray(const FsChar* name)
+{
+	FsString* fs_name=new FsString(name);
+	enableAttrArray(fs_name);
+	fs_name->decRef();
+}
+
+FsVoid Render::disableAttrArray(FsString* name)
+{
+	if(m_program)
+	{
+		FS_TRACE_WARN("No Shader Program Used Now");
+		return;
+	}
+	FsInt loc=m_program->getAttributeLocation(name);
+	if(loc==-1)
+	{
+		FS_TRACE_WARN("Attribute Not Used In Program");
+		return;
+	}
+	FS_ASSERT(loc<m_vertexAttrMaxNu);
+
+	if(m_vertexAttrFlags[loc])
+	{
+		m_vertexAttrFlags[loc]=false;
+		glDisableVertexAttribArray(loc);
+		m_vertexAttrEnableNu--;
+	}
+}
+
+FsVoid Render::setUniform(FsString* name,FsInt type,FsInt count,FsVoid* value)
+{
+	if(!m_program)
+	{
+		FS_TRACE_WARN("No Shader Program Used Now");
+		return;
+	}
+	FsInt loc=m_program->getUniformLocation(name);
+	if(loc==-1)
+	{
+		FS_TRACE_WARN("Uniform %s Not Used Int Program",name->cstr());
+		return ;
+	}
+	setUniform(loc,type,count,value);
+}
+
+FsVoid Render::setUniform(const FsChar* name,FsInt type,FsInt count,FsVoid* value)
+{
+	FsString* fs_name=new FsString(name);
+	setUniform(fs_name,type,count,value);
+	fs_name->decRef();
+}
+
+FsVoid Render::setUniform(FsInt loc,FsInt type,FsInt count,FsVoid* value)
+{                                                                          
+	switch(type)
+	{
+		/* float vec */
+		case U_F_1:
+			glUniform1fv(loc,count,(GLfloat*) value);
+			break;
+		case U_F_2:
+			glUniform2fv(loc,count,(GLfloat*) value);
+			break;
+		case U_F_3:
+			glUniform3fv(loc,count,(GLfloat*) value);
+			break;
+		case U_F_4:
+			glUniform4fv(loc,count,(GLfloat*) value);
+			break;
+
+		/* int vec */                                                      
+		case U_I_1:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_I_2:
+			glUniform2iv(loc,count,(GLint*) value);
+			break;
+		case U_I_3:
+			glUniform3iv(loc,count,(GLint*) value);
+			break;
+		case U_I_4:
+			glUniform4iv(loc,count,(GLint*) value);
+			break;
+
+		/* unsigned int vec */
+		case U_UI_1:
+			glUniform1uiv(loc,count,(GLuint*) value);
+			break;
+		case U_UI_2:
+			glUniform2uiv(loc,count,(GLuint*) value);
+			break;
+		case U_UI_3:
+			glUniform3uiv(loc,count,(GLuint*) value);
+			break;
+		case U_UI_4:
+			glUniform4uiv(loc,count,(GLuint*) value);
+			break;
+
+
+		/* matrix vec */
+		case U_M_2:
+			glUniformMatrix2fv(loc,count,true,(GLfloat*) value);
+			break;
+		case U_M_3:
+			glUniformMatrix3fv(loc,count,true,(GLfloat*) value);      
+			break;
+		case U_M_4:
+			glUniformMatrix4fv(loc,count,true,(GLfloat*) value);
+			break;
+
+		/* sampler */
+		case U_S_1D:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_S_2D:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_S_3D:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_S_CUBE:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_S_1D_SHADOW:      
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		case U_S_2D_SHADOW:
+			glUniform1iv(loc,count,(GLint*) value);
+			break;
+		default:
+			FS_TRACE_WARN("Unkown Uniform Type");
+	}
+}
 
 //void Render::enablePolygonOffset(FsBool){}
 //oid Render::setPolygonOffset(FsFloat factor,FsFloat units);

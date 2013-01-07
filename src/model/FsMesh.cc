@@ -65,48 +65,74 @@ void Mesh::draw(Render* r)
 		{
 			continue;
 		}
+
 		Material* m=(*iter)->getMaterial();
+		if(m==NULL)
+		{
+			g->decRef();
+			continue;
+		}
 
 		r->setMaterial(m);
+		r->disableAllAttrArray();
 
-		FsUint vertex_nu=g->getVertexNu();
 		FsUint face_nu=g->getFaceNu();
 
-		Vector3* vertex_pointer=g->vVerticsPointer();
-		Vector3* normal_pointer=g->vNormalsPointer();
-		TexCoord2* texcoord_pointer=g->vTexCoordsPointer();
-		Color* color_pointer=g->vColorsPointer();
-
 		Face3* face_pointer=g->fFacesPointer();
-
-		if((face_pointer!=NULL)&&(vertex_pointer!=NULL))
+		Geometry::Attribute* attr=NULL;
+		FsArray* attrs=NULL;
+		if(face_pointer!=NULL)
 		{
-			r->disableAllClientArray();
-			r->enableClientArray(Render::VERTEX_ARRAY);
-
-			/* set vertex array */
-			r->setVVertexPointer(vertex_pointer,vertex_nu);
-
-			/* set normal array */
-			if(normal_pointer)
+			attr=g->getVVertics();
+			if(attr)
 			{
-				r->enableClientArray(Render::NORMAL_ARRAY);
-				r->setVNormalPointer(normal_pointer,vertex_nu);
+				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
+				attr->decRef();
 			}
-
-			/* set texture array */
-			if(texcoord_pointer)
+			attr=g->getVNormals();
+			if(attr)
 			{
-				r->enableClientArray(Render::TEXTURE_COORD_ARRAY);
-				r->setVTexCoordPointer(texcoord_pointer,vertex_nu);
+				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
+				attr->decRef();
 			}
-			if(color_pointer)
+			attr=g->getVColors();
+			if(attr)
 			{
-				r->enableClientArray(Render::COLOR_ARRAY);
-				r->setVColorPointer(color_pointer,vertex_nu);
+				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
+				attr->decRef();
 			}
-
-			/* draw faces */
+			attr=g->getVTexCoords();
+			if(attr)
+			{
+				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
+			}
+			attr=g->getVFog();
+			if(attr)
+			{
+				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
+				attr->decRef();
+			}
+			attrs=g->getAttrs();
+			if(attrs)
+			{
+				FsArray::Iterator  iter(attrs);
+				while(!iter.done())
+				{
+					attr=(Geometry::Attribute*)iter.getValue();
+					if(attr)
+					{
+						r->setAndEnableVertexAttrPointer(
+								attr->name,
+								attr->size,
+								attr->type,
+								attr->count,
+								0,
+								attr->value);
+						attr->decRef(); 
+					}
+				}
+				attrs->decRef();
+			}
 			r->drawFace3(face_pointer,face_nu);
 		}
 		if(g) g->decRef();

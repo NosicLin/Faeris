@@ -1,10 +1,11 @@
 #include "graphics/FsProgram.h"
+#include "graphics/FsRender.h"
 
 NS_FS_BEGIN
 
 void Program::addUniform(const FsChar* name,FsInt type,FsInt count)
 {
-	if(type>=U_MAX_NU||type<0)
+	if(type>=Render::U_MAX_NU||type<0)
 	{
 		FS_TRACE_WARN("Unkown Uniform Type");
 		return;
@@ -15,7 +16,7 @@ void Program::addUniform(const FsChar* name,FsInt type,FsInt count)
 	}
 
 	FsString* fs_name=new FsString(name);
-	Uniform* uniform=m_uniforms->lookup(fs_name);
+	Uniform* uniform=(Uniform*) m_uniforms->lookup(fs_name);
 	if(uniform!=NULL)
 	{
 		fs_name->decRef();
@@ -43,8 +44,8 @@ void Program::addAttribute(const FsChar* name,FsInt type)
 		m_attrs=new FsDict();
 	}
 
-	FsString* fs_name=new FsString(_name);
-	Attribute* attr=m_attrs->lookup(fs_name);
+	FsString* fs_name=new FsString(name);
+	Attribute* attr=(Attribute*) m_attrs->lookup(fs_name);
 	if(attr!=NULL)
 	{
 		fs_name->decRef();
@@ -63,7 +64,7 @@ Program::Uniform::~Uniform()
 {
 	name->decRef();
 }
-const FsChar* s_UniformName="UniformObject";
+const FsChar* s_UniformName="Program::UniformObject";
 const FsChar* Program::Uniform::getName()
 {
 	return s_UniformName;
@@ -74,7 +75,7 @@ Program::Attribute::~Attribute()
 {
 	name->decRef();
 }
-const FsChar* s_AttributeName="AttributeObject";
+const FsChar* s_AttributeName="Program::AttributeObject";
 const FsChar* Program::Attribute::getName()
 {
 	return s_AttributeName;

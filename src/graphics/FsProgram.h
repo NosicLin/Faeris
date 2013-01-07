@@ -5,8 +5,10 @@
 #include "fsys/FsFile.h"
 #include "FsConfig.h"
 #include "core/FsObject.h"
-#include "graphics/FsShader.h"
 #include "util/FsResource.h"
+#include "util/FsDict.h"
+#include "util/FsString.h"
+
 #if FS_CONFIG(FS_GL_RENDER)
 	typedef FsUint PlatformProgram;
 #else 
@@ -26,6 +28,7 @@ class Program:public Resource
 			FsInt type;
 			FsInt count;
 			FsInt location;
+			FsInt used;
 		public:
 			Uniform(FsString* _name,FsInt _type,FsInt _count)
 			{
@@ -33,6 +36,7 @@ class Program:public Resource
 				name->addRef();
 				type=_type;
 				count=_count;
+				used=true;
 				location=-1;
 			}
 			virtual ~Uniform();
@@ -44,12 +48,14 @@ class Program:public Resource
 		public:
 			FsString* name;
 			FsInt location;
+			FsInt used;
 		public:
 			Attribute(FsString* _name,FsInt _type)
 			{
 				name=_name;
 				name->addRef();
-				type=_type;
+
+				used=true;
 				location=-1;
 			}
 
@@ -58,56 +64,22 @@ class Program:public Resource
 
 	};
 	public:
-		enum 
-		{
-			/* float vec2 vec3 vec4 */
-			U_F_1=0,
-			U_F_2,
-			U_F_3,
-			U_F_4,
-
-			/* int ivec2 ivec3 ivec4 */
-			U_I_1,
-			U_I_2,
-			U_I_3,
-			U_I_4,
-
-			/* bool bvec2 bvec3 bvec4 */
-			U_B_1,
-			U_B_2,
-			U_B_3,
-			U_B_4,
-
-			/* mat2 mat3 mat4 */
-			U_M_2,
-			U_M_3,
-			U_M_4,
-
-			/* sampler */
-			U_S_1D,         /* sampler1D,sampler2D,sampler3D */
-			U_S_2D,
-			U_S_3D,
-			U_S_CUBE,       /* samplerCube */
-			U_S_1D_SHADOW,  /* sampler1DShadow, sampler2DShadow */
-			U_S_2D_SHADOW,
-
-			U_MAX_NU,
-		};
 	public:
 		static Program* create(
 				const FsChar* vertex_src,FsUint v_size,
 				const FsChar* fragment_src,FsUint f_size);
 	public:
+
 		void addAttribute(const FsChar* name,FsInt type);
 		void addUniform(const FsChar* name,FsInt type,FsInt count);
 
+		/* return the location of the  Attribute/Uniform 
+		 * if not exist in program,-1 will returned 
+		 */
 		FsInt getAttributeLocation(const FsChar* name);
+		FsInt getAttributeLocation(FsString* name);
 		FsInt getUniformLocation(const FsChar* name);
-
-		void setUniform(FsInt loc,FsInt type,void* value);
-		void setUniforms(FsInt loc,FsInt type,void* value,FsUint num);
-		void setUniform(FsChar* name,void* value);
-		void setUniforms(FsChar* name,void* value,FsUint num);
+		FsInt getUniformLocation(FsString* name);
 
 		PlatformProgram getPlatformProgram()const{return m_program;}
 		virtual const FsChar* getName();
@@ -115,7 +87,6 @@ class Program:public Resource
 		Program();
 		~Program();
 	private:
-		FsBool m_active;
 		FsDict* m_uniforms;
 		FsDict* m_attrs;
 		PlatformProgram m_program;

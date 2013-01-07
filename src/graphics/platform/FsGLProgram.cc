@@ -6,30 +6,14 @@
 #define FS_MAX_GL_PROGRAM_LOG_LENGTH 1024
 
 NS_FS_BEGIN
-GLint s_create_shader_object(const FsChar* source,FsInt length,FsInt type)
+
+GLint s_create_shader_object(const FsChar* source,FsInt length,GLint type)
 {
-	FsInt length,readbyte;
-	FsChar* source=NULL;
 	FsChar log_info[FS_MAX_GL_SHADER_LOG_LENGTH];
-	Shader* ret=NULL;
 	GLint compile_result,log_length;
 
-	GLenum type_gl;
-	switch(type)
-	{
-		case VERTEX_SHADER:
-			type_gl=GL_VERTEX_SHADER;
-			break;
-		case FRAGMENT_SHADER:
-			type_gl=GL_FRAGMENT_SHADER;
-			break;
-		default:
-			FS_TRACE_WARN("Unkown Type");
-			return 0;
-	}
-
 	GLuint shader=0;
-	shader=glCreateShader(type_gl);
+	shader=glCreateShader(type);
 
 	const FsChar* all_source[]={source};
 	const FsInt all_source_length[]={length};
@@ -53,8 +37,8 @@ GLint s_create_shader_object(const FsChar* source,FsInt length,FsInt type)
 
 
 Program* Program::create(
-		const FsChar* vertex_src,FsUint v_size;
-		const FsChar* fragmet_src,FsUint f_size;
+		const FsChar* vertex_src,FsUint v_size,
+		const FsChar* fragmet_src,FsUint f_size
 		)
 {
 	GLuint program=0;
@@ -66,14 +50,14 @@ Program* Program::create(
 	Program* ret=NULL;
 
 	/* create vertex shader  object */
-	vertex_shader=s_create_shader_object(vertex_src,v_size);
+	vertex_shader=s_create_shader_object(vertex_src,v_size,GL_VERTEX_SHADER);
 	if(vertex_shader==0)
 	{
 		goto error;
 	}
 
 	/* create fragment shader object */
-	fragment_shader=s_create_shader_object(fragmet_src,f_size);
+	fragment_shader=s_create_shader_object(fragmet_src,f_size,GL_FRAGMENT_SHADER);
 	if(fragment_shader==0)
 	{
 		goto error;
@@ -99,7 +83,7 @@ Program* Program::create(
 		goto error;
 	}
 
-	Program* ret=new Program();
+	ret=new Program();
 	ret->m_program=program;
 
 	/* delete  shader */
@@ -123,15 +107,112 @@ error:
 	return NULL;
 }
 
+FsInt Program::getAttributeLocation(const FsChar* name)
+{
+	
+	FsString* fs_name=new FsString(name);
+	FsInt loc=getAttributeLocation(fs_name);
+	fs_name->decRef();
+	return loc;
+}
+FsInt Program::getUniformLocation(const FsChar* name)
+{
+	FsString* fs_name=new FsString(name);
+	FsInt loc=getUniformLocation(fs_name);
+	fs_name->decRef();
+	return loc;
+}
+
+FsInt Program::getAttributeLocation(FsString* name)
+{
+	FsInt loc=-1;
+	if(!m_attrs)
+	{
+		return -1;
+	}
+
+	Attribute* attr=(Attribute*) m_attrs->lookup(name);
+	if(!attr)
+	{
+		return -1;
+	}
+	if(!attr->used)
+	{
+		loc=-1;
+	}
+	else 
+	{
+		if(attr->location==-1)
+		{
+			attr->location=glGetAttribLocation(m_program,name->cstr());
+			if(attr->location==-1)
+			{
+				attr->used=false;
+			}
+		}
+		loc=attr->location;
+	}
+	attr->decRef();
+	return loc;
+}
+
+
+FsInt Program::getUniformLocation(FsString* name)
+{
+	FsInt loc=-1;
+	if(!m_uniforms)
+	{
+		return -1;
+	}
+
+	Uniform* u=(Uniform*) m_uniforms->lookup(name);
+	if(!u)
+	{
+		return -1;
+	}
+	if(!u->used)
+	{
+		loc=-1;
+	}
+	else 
+	{
+		if(u->location==-1)
+		{
+			u->location=glGetUniformLocation(m_program,name->cstr());
+			if(u->location==-1)
+			{
+				u->used=false;
+			}
+		}
+		loc=u->location;
+	}
+	u->decRef();
+	return loc;
+}
+
+
+
+
+
 Program::Program()
 {
 	m_program=0;
+	m_uniforms=NULL;
+	m_attrs=NULL;
 }
 Program::~Program()
 {
 	if(m_program!=0)
 	{
 		glDeleteProgram(m_program);
+	}
+	if(m_uniforms)
+	{
+		m_uniforms->decRef();
+	}
+	if(m_attrs)
+	{
+		m_attrs->decRef();
 	}
 }
 
