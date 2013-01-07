@@ -9,23 +9,35 @@
     6) 彩色材质应用
     
  *) 内置属性变量
-    1) 颜色: gl_Color
-    2) 表面法线: gl_Normal
-    3) 顶点位置: gl_Vertex
+    1) vec4 gl_Color: 颜色
+    2) vec4 gl_SecondaryColor: 第二颜色
+    3) vec4 gl_Normal: 表面法线
+    4) vec4 gl_Vertex: 顶点位置
+    5) vec4 gl_MultiTexCoord0,...,gl_MultiTexCoordN-1: 纹理坐标
+    6) float gl_FogCoord: 雾坐标
     
  *) 一致变量
     1) gl_ModelViewMatrix:当前模型矩阵
     2) gl_LightSource[i]: 第i个光源的当前参数
     3) gl_Fog: 当前雾化信息
     
- *) 输出
-    1) gl_Position
+ *) 特殊输出变量
+    1) vec4 gl_Position
+    2) float gl_PointSize
+    3) vec4 gl_ClipVertex 
+    
+ *) 易变变量
+    1) vec4 gl_FrontColor
+    2) vec4 gl_BackColor
+    3) vec4 gl_FrontSecondaryColor
+    4) vec4 gl_TexCoord[gl_MaxTextureCoords]
+    5) float gl_FogFragCoord
     
  *) 基本要求
     1) 顶点着色器必须计算坐标在载剪空间中的齐次位置并将结果存储在特殊的输出变量gl_Position中
     
     
- *) OpenGL固定功能的机点着色器
+ *) OpenGL固定功能的顶点着色器
     1) 模型矩阵应用于顶点坐标
     2) 投影矩阵应用于顶点坐标
     3) 纹理矩阵应用于纹理坐标
@@ -36,3 +48,38 @@
     8) 执行彩色材质计逄
     9) 执行彩色索引光照
     10) 执行点大小距离的衰减
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
