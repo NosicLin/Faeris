@@ -110,13 +110,7 @@ void Geometry::setVertexNu(FsUint num)
 		return;
 	}
 
-	if(m_vVertics) m_vVertics->resize(num);
-	if(m_vNormals) m_vNormals->resize(num);
-	if(m_vColors) m_vColors->resize(num);
-	if(m_vFogs) m_vFogs->resize(num);
-	if(m_vTexCoords) m_vTexCoords->resize(num);
-
-	FsArray::Iterator iter(m_attrs);
+	FsDict::Iterator iter(m_attrs);
 	while(!iter.done())
 	{
 		Geometry::Attribute* attr=(Geometry::Attribute*)iter.getValue();
@@ -192,13 +186,7 @@ void Geometry::setWeight(FsUint num)
 
 void Geometry::init(FsUint vertex,FsUint face,FsUint weight)
 {
-	m_attrs=new FsArray();
-
-	m_vVertics=NULL;
-	m_vNormals=NULL;
-	m_vColors=NULL;
-	m_vFogs=NULL;
-	m_vTexCoords=NULL;
+	m_attrs=new FsDict();
 
 	m_fFaces=NULL;
 	m_wWeights=NULL;
@@ -224,158 +212,9 @@ Geometry::Geometry(FsUint vertex)
 Geometry::~Geometry()
 {
 	m_attrs->decRef();
-	if(m_vVertics) m_vVertics->decRef();
-	if(m_vNormals) m_vNormals->decRef();
-	if(m_vColors) m_vColors->decRef();
-	if(m_vFogs) m_vFogs->decRef();
-	if(m_vTexCoords) m_vTexCoords->decRef();
-
 	if(m_fFaces) delete[] m_fFaces;
-
 	if(m_wWeights) delete[] m_wWeights;
 }
-
-void Geometry::addAttribute(Geometry::Attribute* attr)
-{
-	m_attrs->push(attr);
-}
-
-void Geometry::setVVertics(Geometry::Attribute* attr)
-{
-	if(attr)
-	{
-		attr->addRef();
-		attr->resize(m_vertexNu);
-	}
-	if(m_vVertics)
-	{
-		m_vVertics->decRef();
-	}
-	m_vVertics=attr;
-}
-
-void Geometry::setVNormals(Geometry::Attribute* attr)
-{
-	if(attr)
-	{
-		attr->addRef();
-		attr->resize(m_vertexNu);
-	}
-	if(m_vNormals)
-	{
-		m_vNormals->decRef();
-	}
-	m_vNormals=attr;
-}
-void Geometry::setVColors(Geometry::Attribute* attr)
-{
-	if(attr)
-	{
-		attr->addRef();
-		attr->resize(m_vertexNu);
-	}
-	if(m_vColors)
-	{
-		m_vColors->decRef();
-	}
-	m_vColors=attr;
-}
-
-void Geometry::setVFogs(Geometry::Attribute* attr)
-{
-	if(attr)
-	{
-		attr->addRef();
-		attr->resize(m_vertexNu);
-	}
-	if(m_vFogs)
-	{
-		m_vFogs->decRef();
-	}
-	m_vFogs=attr;
-}
-
-void Geometry::setVTexCoords(Geometry::Attribute* attr)
-{
-	if(attr)
-	{
-		attr->addRef();
-		attr->resize(m_vertexNu);
-	}
-	if(m_vTexCoords)
-	{
-		m_vTexCoords->decRef();
-	}
-	m_vTexCoords=attr;
-}
-
-
-Geometry::Attribute* Geometry::getVVertics()
-{
-	if(m_vVertics)
-	{
-		m_vVertics->addRef();
-	}
-	return m_vVertics;
-}
-Geometry::Attribute* Geometry::getVNormals()
-{
-	if(m_vNormals)
-	{
-		m_vNormals->addRef();
-	}
-	return m_vNormals;
-}
-Geometry::Attribute* Geometry::getVColors()
-{
-	if(m_vColors)
-	{
-		m_vColors->addRef();
-	}
-	return m_vColors;
-}
-Geometry::Attribute* Geometry::getVTexCoords()
-{
-	if(m_vTexCoords)
-	{
-		m_vTexCoords->addRef();
-	}
-	return m_vTexCoords;
-}
-Geometry::Attribute* Geometry::getVFog()
-{
-	if(m_vFogs)
-	{
-		m_vFogs->addRef();
-	}
-	return m_vFogs;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 NS_FS_END
 

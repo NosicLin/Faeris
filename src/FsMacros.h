@@ -179,6 +179,13 @@ enum
 };
 
 
+/* file type */
+enum 
+{
+	FS_FTYPE_SCRIPT,
+	FS_FTYPE_BINARY
+};
+
 
 #endif /*_FAERIS_MACROS_H_*/
 

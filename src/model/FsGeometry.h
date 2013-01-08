@@ -7,7 +7,7 @@
 #include "math/FsFace3.h"
 #include "graphics/FsColor.h"
 #include "util/FsString.h"
-#include "util/FsArray.h"
+#include "util/FsDict.h"
 
 NS_FS_BEGIN
 
@@ -41,8 +41,8 @@ class Geometry:public FsObject
 				FsInt count;
 			public:
 				void resize(FsInt nu);
-				Attribute(const FsChar* _name,FsInt _type,FsInt _size);
-				Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt _count);
+				Attribute(FsString* _name,FsInt _type,FsInt _size);
+				Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _count);
 				virtual ~Attribute();
 				virtual const FsChar* getName();
 		};
@@ -54,14 +54,7 @@ class Geometry:public FsObject
 		FsUint m_weightNu;
 
 		/* vertex attribute */
-		FsArray* m_attrs;
-
-		/* gerneral vertex for quick access */
-		Attribute* m_vVertics; 
-		Attribute* m_vNormals;
-		Attribute* m_vColors;
-		Attribute* m_vFogs;
-		Attribute* m_vTexCoords;
+		FsDict* m_attrs;
 
 		/* Weight */
 		VertexWeight* m_vWeights;
@@ -75,7 +68,6 @@ class Geometry:public FsObject
 	public:
 
 		VertexWeight* vWeightsPointer()const{return m_vWeights;}
-
 		/* face info */
 		Face3* fFacesPointer()const{return m_fFaces;}
 
@@ -91,20 +83,17 @@ class Geometry:public FsObject
 		FsUint getFaceNu()const{return m_faceNu;}
 		FsUint getWeightNu()const{return m_weightNu;}
 
-		void setVVertics(Geometry::Attribute* attr);
-		void setVColors(Geometry::Attribute* attr);
-		void setVNormals(Geometry::Attribute* attr);
-		void setVTexCoords(Geometry::Attribute* attr);
-		void setVFogs(Geometry::Attribute* attr);
+		void addAttribute(Attribute* attr)
+		{
+			attr->resize(m_vertexNu);
+			m_attrs->insert(attr->name,attr);
+		}
 
-		Geometry::Attribute* getVVertics();
-		Geometry::Attribute* getVNormals();
-		Geometry::Attribute* getVColors();
-		Geometry::Attribute* getVTexCoords();
-		Geometry::Attribute* getVFog();
-
-		void addAttribute(Attribute* attr);
-		FsArray* getAttrs();
+		FsDict* getAttrs()
+		{
+			m_attrs->addRef();
+			return m_attrs;
+		}
 
 	public:
 		Geometry(FsUint vertex,FsUint face,FsUint weight);

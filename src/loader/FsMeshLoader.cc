@@ -11,7 +11,7 @@ static FsBool s_isBinaryFile(FsFile* file)
 }
 
 
-Mesh* MeshLoader::loadMesh(FsFile* file)
+Mesh* MeshLoader::create(FsFile* file)
 {
 	if(s_isBinaryFile(file))
 	{
@@ -24,7 +24,7 @@ Mesh* MeshLoader::loadMesh(FsFile* file)
 	return NULL;
 }
 
-Mesh* MeshLoader::loadMesh(const char* filename)
+Mesh* MeshLoader::create(const char* filename)
 {
 	FsFile* file=VFS::open(filename);
 	if(file==NULL)
@@ -37,7 +37,7 @@ Mesh* MeshLoader::loadMesh(const char* filename)
 	return ret;
 }
 
-Mesh* MeshLoader::loadMeshWithScriptFile(FsFile* file)
+Mesh* MeshLoader::createFromScript(FsFile* file)
 {
 	Mesh* ret=NULL;
 	FsDict* script=NULL;
