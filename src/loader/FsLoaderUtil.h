@@ -6,8 +6,7 @@ NS_FS_BEGIN
 class LoaderUtil
 {
 	public:
-		static FsInt fileType(FsFile* file);
-
+		static FsInt fileType(FsFile* file){return FS_FTYPE_SCRIPT;}
 };
 NS_FS_END
 

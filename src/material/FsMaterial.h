@@ -2,8 +2,10 @@
 #define _FS_BASE_MATTERIAL_H_
 #include "FsMacros.h"
 #include "util/FsResource.h"
+#include "core/FsObject.h"
+#include "graphics/FsRender.h"
+
 NS_FS_BEGIN
-class Render;
 class Material:public FsObject
 {
 	protected:

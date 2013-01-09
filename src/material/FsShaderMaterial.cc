@@ -1,18 +1,22 @@
+#include <string.h>
+
 #include "material/FsShaderMaterial.h"
 #include "graphics/FsRender.h"
 #include "graphics/FsProgram.h"
+#include "util/FsDict.h"
 
+NS_FS_BEGIN
 
-static const FsChar* s_ShaderMateral_Uniform="ShaderMaterial::UniformObject";
-static const FsChar* s_ShaderMaterial="ShaderMaterialObject";
+static const FsChar* s_ShaderMateral_UniformName="ShaderMaterial::UniformObject";
+static const FsChar* s_ShaderMaterialName="ShaderMaterialObject";
 
 const FsChar* ShaderMaterial::Uniform::getName()
 {
-	return s_ShaderMater_Uniform;
+	return s_ShaderMateral_UniformName;
 }
-const Fschar* ShaderMaterial::getName()
+const FsChar* ShaderMaterial::getName()
 {
-	return s_ShaderMaterial;
+	return s_ShaderMaterialName;
 }
 
 ShaderMaterial::Uniform::Uniform(FsString* name,FsInt type,FsInt count)
@@ -24,7 +28,7 @@ ShaderMaterial::Uniform::Uniform(FsString* name,FsInt type,FsInt count)
 
 	m_location=-1;
 	m_value=new FsChar[Render::uniformTypeSize(type)*m_count];
-	memset(m_value,0,Render::UniformObject(type)*m_count);
+	memset(m_value,0,Render::uniformTypeSize(type)*m_count);
 }
 
 ShaderMaterial::Uniform::~Uniform()
@@ -35,7 +39,7 @@ ShaderMaterial::Uniform::~Uniform()
 
 void ShaderMaterial::Uniform::setValue(void* value)
 {
-	memcpy(m_value,value,Render::uniformTypeSize(type)*m_count);
+	memcpy(m_value,value,Render::uniformTypeSize(m_type)*m_count);
 }
 
 
@@ -55,7 +59,7 @@ void ShaderMaterial::setProgram(Program* prog)
 
 void ShaderMaterial::refreshUniform()
 {
-	FsArray::Iterator iter(m_uniforms);
+	FsDict::Iterator iter(m_uniforms);
 	while(!iter.done())
 	{
 		Uniform* u=(Uniform*)iter.getValue();
@@ -73,24 +77,21 @@ void ShaderMaterial::refreshUniform()
 
 void ShaderMaterial::setUniform(const FsChar* name,FsVoid* value)
 {
-	FsArray::Iterator iter(m_uniforms);
-	while(!iter.done())
+	Uniform* u=(Uniform*)m_uniforms->lookup(name);
+	if(u)
 	{
-		Uniform* u=(Uniform*)iter.getValue();
-		if(u->equal(name))
-		{
-			u->setValue(value);
-			u->decRef();
-			break;
-		}
+		u->setValue(value);
 		u->decRef();
 	}
-	FS_TRACE_WARN("Uniform %s Not Found Int Material",name);
+	else 
+	{
+		FS_TRACE_WARN("Uniform %s Not Found Int Material",name);
+	}
 }
 
 void ShaderMaterial::addUniform(ShaderMaterial::Uniform* u)
 {
-	m_uniforms->push(u);
+	m_uniforms->insert(u->m_name,u);
 	if(m_program)
 	{
 		u->m_location=m_program->getUniformLocation(u->m_name);
@@ -106,7 +107,7 @@ ShaderMaterial::ShaderMaterial()
 	m_wireFrame=false;
 	m_wireFrameWidth=1;
 	m_program=NULL;
-	m_uniforms=new FsArray();
+	m_uniforms=new FsDict();
 }
 
 ShaderMaterial::~ShaderMaterial()
@@ -118,7 +119,7 @@ ShaderMaterial::~ShaderMaterial()
 	m_uniforms->decRef();
 }
 
-ShaderMaterial::configRender(Render* r)
+void ShaderMaterial::configRender(Render* r)
 {
 	Material::configRender(r);
 	/*TODO(Set WireFrame Here) */
@@ -130,13 +131,13 @@ void ShaderMaterial::load(Render* r)
 	r->setProgram(m_program);
 	if(m_program)
 	{
-		FsArray::Iterator iter(m_uniforms);
+		FsDict::Iterator iter(m_uniforms);
 		while(!iter.done())
 		{
-			Uniform* u=iter.getValue();
-			if(u->location!=-1)
+			Uniform* u=(Uniform*)iter.getValue();
+			if(u->m_location!=-1)
 			{
-				r->setUniform(u->location,u->type,u->count,u->value);
+				r->setUniform(u->m_location,u->m_type,u->m_count,u->m_value);
 			}
 			u->decRef();
 		}
@@ -149,6 +150,7 @@ void ShaderMaterial::unload(Render* r)
 
 
 
+NS_FS_END
 
 
 

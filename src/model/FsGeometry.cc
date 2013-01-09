@@ -41,9 +41,32 @@ static FsInt s_typesize(FsInt t)
 	}
 	return 0;
 }
+
+Geometry::Attribute::Attribute(FsString*  _name,FsInt _type,FsInt _size)
+{
+	name=_name;
+	name->addRef();
+	type=_type;
+	size=_size;
+	count=0;
+	value=0;
+}
+
+Geometry::Attribute::Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _count)
+{
+	name=_name;
+	name->addRef();
+	type=_type;
+	size=_size;
+	count=0;
+	value=0;
+	resize(_count);
+}
+
 Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size)
 {
-	name=new FsString(_name);
+	FsString* fs_name=new FsString(_name);
+	name=fs_name;
 	type=_type;
 	size=_size;
 	count=0;
@@ -52,7 +75,8 @@ Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size)
 
 Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt _count)
 {
-	name=new FsString(_name);
+	FsString* fs_name=new FsString(_name);
+	name=fs_name;
 	type=_type;
 	size=_size;
 	count=0;
@@ -96,6 +120,7 @@ void Geometry::Attribute::resize(FsInt num)
 
 Geometry::Attribute::~Attribute()
 {
+	name->decRef();
 	if(value)
 	{
 		delete[] (FsChar*)value;
@@ -121,6 +146,7 @@ void Geometry::setVertexNu(FsUint num)
 		}
 		iter.next();
 	}
+	m_vertexNu=num;
 }
 
 void Geometry::setFaceNu(FsUint num)
@@ -190,6 +216,9 @@ void Geometry::init(FsUint vertex,FsUint face,FsUint weight)
 
 	m_fFaces=NULL;
 	m_wWeights=NULL;
+	m_vertexNu=0;
+	m_faceNu=0;
+	m_weightNu=0;
 
 	setVertexNu(vertex);
 	setFaceNu(face);

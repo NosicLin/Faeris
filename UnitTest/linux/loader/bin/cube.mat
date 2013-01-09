@@ -1,0 +1,28 @@
+type:"material.shader"
+version:"v1.0"
+vertexShader:"pong.vert"
+fragmentShader:"pong.frag"
+frontSide:ccw
+blendEquation:add
+srcFactor:src_zero
+dstFactor:dst_zero
+shadeMode:flat
+depthTest:true
+depthMask:true
+opacity:1.0
+uniforms:[
+	{
+		name:lightIndent
+		type:float
+		count:1
+		value:[1]
+	},
+	{
+		name:lightColor
+		type:fvec3
+		count:1
+		value:[1.0,1.0,1.0]
+	}
+]
+
+

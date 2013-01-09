@@ -23,6 +23,7 @@ class ScriptUtil
 		static FsString* getString(FsDict* dict,const FsChar* key);
 		static FsBool getInteger(FsDict* dict,const FsChar* key,FsInt* value);
 		static FsBool getFloat(FsDict* dict,const FsChar* key,FsFloat* value);
+		static FsBool getBoolean(FsDict* dict,const FsChar* key,FsBool* value);
 
 		/* aux for quick get object in array */
 		static FsArray* getArray(FsArray* array,FsUint index);
@@ -30,6 +31,7 @@ class ScriptUtil
 		static FsString* getString(FsArray* array,FsUint index);
 		static FsBool getInteger(FsArray* array,FsUint index,FsInt* v);
 		static FsBool getFloat(FsArray* array,FsUint index,FsFloat* v);
+		static FsBool getBoolean(FsDict* dict,FsUint index,FsBool* value);
 
 		/* aux for translate string to float,integer*/
 		static FsFloat parseFloat(const FsChar* str);

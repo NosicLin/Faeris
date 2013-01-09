@@ -14,7 +14,7 @@ FsFile* getStdout()
 {
 	return SysFile::getStdout();
 }
-FsFile* getStdinFile()
+FsFile* getStdin()
 {
 	return SysFile::getStdin();
 }

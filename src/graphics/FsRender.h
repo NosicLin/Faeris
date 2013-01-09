@@ -185,6 +185,9 @@ class Render
 		FsVoid setLineWidth(FsFloat width);
 		FsVoid enableFog(FsBool enable);
 
+		FsVoid setShadeMode(FsInt mode);
+		FsVoid setOpacity(FsFloat value);
+
 		/* blend */
 		FsVoid setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
 

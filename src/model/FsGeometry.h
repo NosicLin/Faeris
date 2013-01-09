@@ -41,6 +41,8 @@ class Geometry:public FsObject
 				FsInt count;
 			public:
 				void resize(FsInt nu);
+				Attribute(const FsChar* _name,FsInt type,FsInt _size);
+				Attribute(const FsChar* _name,FsInt type,FsInt _size,FsInt count);
 				Attribute(FsString* _name,FsInt _type,FsInt _size);
 				Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _count);
 				virtual ~Attribute();

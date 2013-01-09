@@ -9,6 +9,7 @@
 NS_FS_BEGIN
 class Render;
 class Program;
+class FsDict;
 class ShaderMaterial:public Material
 {
 	public:
@@ -35,8 +36,12 @@ class ShaderMaterial:public Material
 
 		void setUniform(const FsChar* name,FsVoid* value);
 		void addUniform(ShaderMaterial::Uniform* u);
+	public:
+		ShaderMaterial();
+		virtual ~ShaderMaterial();
 		virtual const FsChar* getName();
-
+		virtual void load(Render* r);
+		virtual void unload(Render* r);
 	protected:
 		void refreshUniform();
 		void configRender(Render* r);
@@ -45,7 +50,7 @@ class ShaderMaterial:public Material
 		FsBool m_wireFrame;
 		FsInt m_wireFrameWidth;
 		Program* m_program;
-		FsArray* m_uniforms;
+		FsDict* m_uniforms;
 };
 NS_FS_END
 #endif /*_FS_SHADER_MATERIAL_H_*/

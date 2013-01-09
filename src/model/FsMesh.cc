@@ -80,42 +80,13 @@ void Mesh::draw(Render* r)
 
 		Face3* face_pointer=g->fFacesPointer();
 		Geometry::Attribute* attr=NULL;
-		FsArray* attrs=NULL;
+		FsDict* attrs=NULL;
 		if(face_pointer!=NULL)
 		{
-			attr=g->getVVertics();
-			if(attr)
-			{
-				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
-				attr->decRef();
-			}
-			attr=g->getVNormals();
-			if(attr)
-			{
-				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
-				attr->decRef();
-			}
-			attr=g->getVColors();
-			if(attr)
-			{
-				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
-				attr->decRef();
-			}
-			attr=g->getVTexCoords();
-			if(attr)
-			{
-				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
-			}
-			attr=g->getVFog();
-			if(attr)
-			{
-				r->setAndEnableVertexAttrPointer(attr->name,attr->size,attr->type,attr->count,0,attr->value);
-				attr->decRef();
-			}
 			attrs=g->getAttrs();
 			if(attrs)
 			{
-				FsArray::Iterator  iter(attrs);
+				FsDict::Iterator  iter(attrs);
 				while(!iter.done())
 				{
 					attr=(Geometry::Attribute*)iter.getValue();

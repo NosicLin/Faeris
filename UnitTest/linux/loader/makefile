@@ -6,19 +6,21 @@ SRC=
 DEBUG=
 
 #BIN= md2file_info.cc \
-	 test_md2loader.cc \
-	 mesh_loader.cc  \
-	 mesh_show.cc 
+	test_md2loader.cc \
+	textureloader_test.cc \
+	mesh_loader.cc  \
+	mesh_show.cc 
 
-BIN=textureloader_test.cc
+BIN= geometry_loader.cc 
+
 
 
 
 OBJ_NAME=$(SRC:%.cc=%.o) 
-OBJ_NAME_WITH_PATH=$(addprefix obj/,$(OBJ_NAME))
+	OBJ_NAME_WITH_PATH=$(addprefix obj/,$(OBJ_NAME))
 
 DEBUG_OBJ_NAME=$(DEBUG:%.cc=%.o) 
-DEBUG_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(DEBUG_OBJ_NAME))
+	DEBUG_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(DEBUG_OBJ_NAME))
 
 ALL_OBJ=$(OBJ_NAME) $(DEBUG_OBJ_NAME)
 ALL_OBJ_WITH_PATH= $(OBJ_NAME_WITH_PATH) $(DEBUG_OBJ_NAME_WITH_PATH)
@@ -26,10 +28,10 @@ ALL_OBJ_WITH_PATH= $(OBJ_NAME_WITH_PATH) $(DEBUG_OBJ_NAME_WITH_PATH)
 
 
 BIN_NAME=$(BIN:%.cc=%.exe)
-BIN_NAME_WITH_PATH=$(addprefix bin/,$(BIN_NAME))
+	BIN_NAME_WITH_PATH=$(addprefix bin/,$(BIN_NAME))
 
 BIN_OBJ_NAME=$(BIN:%.cc=%.o)
-BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
+	BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 
 CC=g++
 FLAGS=-g -Wall   -DLINUX
@@ -38,15 +40,15 @@ LIB=-Llib -L../lib  \
 	-L../../../build/linux/prebuild/debug \
 	-L../../../build/linux/lib \
 	-l$(PROJECT) -l$(PROJECT)debug \
-   	-lfsys -lcore -lutil -lgraphics  \
-	-llibpng -lzlib  -lGL -lGLU -lGLEW \
-	-lX11  -lmodel -lscript -lloader -lglut
+	-lfsys -lcore -lutil -lgraphics  \
+	-lmodel -lscript -lloader -lglut -lloader   \
+	-llibpng -lzlib  -lGL -lGLU -lGLEW -lX11 \
 
 
 
 
 main: obj lib bin $(ALL_OBJ_WITH_PATH) $(BIN_OBJ_NAME_WITH_PATH) \
-   	$(BIN_NAME_WITH_PATH)  lib/lib$(PROJECT).a
+	$(BIN_NAME_WITH_PATH)  lib/lib$(PROJECT).a
 
 lib/lib$(PROJECT).a:$(OBJ_NAME_WITH_PATH) ../lib 
 	ar cr $@ $(OBJ_NAME_WITH_PATH)
@@ -64,10 +66,10 @@ obj/%.o:%.cc
 
 obj/%.o:debug/%.cc
 	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE) 
-	
+
 xir_grammer.cc:xir_grammer.y
 	bison xir_grammer.y -o xir_grammer.cc
-	
+
 init:
 	mkdir -p obj 
 	mkdir -p bin
@@ -98,7 +100,7 @@ depend:
 		file_name=`basename $$element`;\
 		result=`echo $$file_name | sed -e 's/.c/.o/'`;\
 		gcc -M -MT "obj/$$result" $$element $(INCLUDE) >>.$(PROJECT).dep ;\
-	done
+		done
 
 -include .$(PROJECT).dep
 
