@@ -29,6 +29,7 @@ class FsFile:public FsObject
 		virtual FsLong seek(FsLong offset,FsInt where)=0;
 		virtual FsInt  close()=0;
 		virtual FsLong tell()=0;
+		virtual FsLong getLength();
 		virtual ~FsFile(){}
 		virtual const FsChar* getName();
 	public:

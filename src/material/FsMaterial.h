@@ -35,27 +35,64 @@ class Material:public FsObject
 		virtual ~Material();
 		virtual const FsChar* getName();
 	public:
+		/* blend */
 		void setBlend(FsInt equation,FsInt src,FsInt dst)
 		{
 			m_blendEquation=equation;
 			m_blendSrc=src;
 			m_blendDst=dst;
 		}
+		FsInt getBlendEquation()
+		{
+			return m_blendEquation;
+		}
+		FsInt getBlendSrc()
+		{
+			return m_blendSrc;
+		}
+		FsInt getBlendDst()
+		{
+			return m_blendDst;
+		}
+
+		/* shader mode */
 		void setShadeMode(FsInt mode)
 		{
 			m_shadeMode=mode;
 		}
+		FsInt getShadeMode()
+		{
+			return m_shadeMode;
+		}
+
+		/* opacity */
 		void setOpacity(FsFloat opacity)
 		{
 			m_opacity=opacity;
 		}
+		FsFloat getOpactty()
+		{
+			return m_opacity;
+		}
+
+		/* depth test */
 		void setDepthTest(FsBool enable)
 		{
 			m_depthTest=enable;
 		}
+		FsBool getDepthTest()
+		{
+			return m_depthTest;
+		}
+
+		/* depth mask */
 		void setDepthMask(FsBool enable)
 		{
 			m_depthMask=enable;
+		}
+		FsBool getDepthMask()
+		{
+			return m_depthMask;
 		}
 	protected:
 		void configRender(Render* r);

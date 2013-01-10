@@ -102,7 +102,8 @@ class Render
 	public:
 		static Render* shareRender();
 		static FsVoid purgeShareRender();
-		static FsInt uniformTypeSize(FsInt type);
+		static FsInt sizeofUniformType(FsInt type);
+		static FsInt uniformTypeComponent(FsInt type);
 	public:
 		FsVoid setMaterial(Material* m,FsBool force=false);
 		FsVoid setProgram(Program* prog);

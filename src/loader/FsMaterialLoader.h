@@ -2,32 +2,39 @@
 #define _FS_MATERIAL_LOADER_H_ 
 #include "FsMacros.h"
 #include "material/FsMaterial.h"
+#include "material/FsShaderMaterial.h"
 #include "util/FsResourceMgr.h"
 
 NS_FS_BEGIN 
 class FsFile;
+class FsDict;
 class MaterialLoader 
 {
 	private:
 		static ResourceMgr* m_mgr;
 	public:
 		static ResourceMgr* getMgr();
-		static loadFromMgr(const FsChar* name);
+		static Material* loadFromMgr(const FsChar* name);
 	public:
-		Material* create(FsChar* name);
-		Material* create(FsFile* file);
+		static Material* create(FsChar* name);
+		static Material* create(FsFile* file);
 
-		ShaderMaterial* createShaderMaterial(FsFile* file);
+		static ShaderMaterial* createShaderMaterial(FsFile* file);
 	public:
-		Material* createFromScript(FsFile* file);
-		Material* createFromBinary(FsFile* file);
+		static Material* createFromScript(FsFile* file);
+		static Material* createFromBinary(FsFile* file);
 	protected:
-		void setMatrial(Material* mat,FsDict* dict);
-		void setShaderMaterial(ShaderMaterial* mat,FsDict* dict);
+		static void setMaterial(Material* mat,FsDict* dict);
+		static void setShaderMaterial(ShaderMaterial* mat,FsDict* dict);
+
+	public:
+		/* debug */
+		static void saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* file);
+
 
 };
 
 NS_FS_END 
 
-#define _FS_MATERIAL_LOADER_H_
+#endif /*_FS_MATERIAL_LOADER_H_*/
 

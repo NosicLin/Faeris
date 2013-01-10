@@ -3,41 +3,24 @@
 
 NS_FS_BEGIN
 
-void Program::addUniform(const FsChar* name,FsInt type,FsInt count)
+void Program::addUniform(const FsChar* name)
 {
-	if(type>=Render::U_MAX_NU||type<0)
-	{
-		FS_TRACE_WARN("Unkown Uniform Type");
-		return;
-	}
 	if(m_uniforms==NULL)
 	{
 		m_uniforms=new FsDict();
 	}
 
 	FsString* fs_name=new FsString(name);
-	Uniform* uniform=(Uniform*) m_uniforms->lookup(fs_name);
-	if(uniform!=NULL)
-	{
-		fs_name->decRef();
-		uniform->decRef();
-		FS_TRACE_WARN("Uniform %s Is Already Add",name);
-		return;
-	}
-	uniform=new Uniform(fs_name,type,count);
-	m_uniforms->insert(fs_name,uniform);
+	Location* l=new Location(fs_name);
+
+	m_uniforms->insert(fs_name,l);
 
 	fs_name->decRef();
-	uniform->decRef();
+	l->decRef();
 }
 
-void Program::addAttribute(const FsChar* name,FsInt type)
+void Program::addAttribute(const FsChar* name)
 {
-	if(type<0||type>=FS_MAX_TYPE_NU)
-	{
-		FS_TRACE_WARN("Unkown Attribute Type");
-		return;
-	}
 
 	if(m_attrs==NULL)
 	{
@@ -45,40 +28,23 @@ void Program::addAttribute(const FsChar* name,FsInt type)
 	}
 
 	FsString* fs_name=new FsString(name);
-	Attribute* attr=(Attribute*) m_attrs->lookup(fs_name);
-	if(attr!=NULL)
-	{
-		fs_name->decRef();
-		attr->decRef();
-		FS_TRACE_WARN("Attribute %s Is Already Add",name);
-		return ;
-	}
-	attr=new Attribute(fs_name,type);
+	Location* l=new Location(fs_name);
+	m_attrs->insert(fs_name,l);
 
-	m_attrs->insert(fs_name,attr);
 	fs_name->decRef();
-	attr->decRef();
+	l->decRef();
 }
 
-Program::Uniform::~Uniform()
+
+Program::Location::~Location()
 {
 	name->decRef();
 }
-const FsChar* s_UniformName="Program::UniformObject";
-const FsChar* Program::Uniform::getName()
-{
-	return s_UniformName;
-}
 
-
-Program::Attribute::~Attribute()
+const FsChar* s_LocationName="Program::Location";
+const FsChar* Program::Location::getName()
 {
-	name->decRef();
-}
-const FsChar* s_AttributeName="Program::AttributeObject";
-const FsChar* Program::Attribute::getName()
-{
-	return s_AttributeName;
+	return s_LocationName;
 }
 
 

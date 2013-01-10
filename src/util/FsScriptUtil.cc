@@ -444,6 +444,29 @@ FsBool ScriptUtil::getFloat(FsArray* array,FsUint index,FsFloat* v)
 	str->decRef();
 	return true;
 }
+
+FsBool ScriptUtil::getBoolean(FsDict* dict,const FsChar* name,FsBool* value)
+{
+	FsString* str=ScriptUtil::getString(dict,name);
+	if(str==NULL)
+	{
+		return false;
+	}
+	*value=parseBoolean(str);
+	str->decRef();
+	return true;
+}
+FsBool ScriptUtil::getBoolean(FsArray* array,FsUint index,FsBool* value)
+{
+	FsString* str=ScriptUtil::getString(array,index);
+	if(str==NULL)
+	{
+		return false;
+	}
+	*value=parseBoolean(str);
+	str->decRef();
+	return true;
+}
 	
 
 
@@ -456,6 +479,14 @@ FsInt ScriptUtil::parseInteger(const FsChar* str)
 	return atoi(str);
 }
 
+FsBool ScriptUtil::parseBoolean(const FsChar* str)
+{
+	if(strcmp(str,"false")==0)
+	{
+		return false;
+	}
+	return true;
+}
 
 
 

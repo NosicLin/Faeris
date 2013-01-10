@@ -4,6 +4,7 @@
 #include "util/FsResourceMgr.h"
 
 NS_FS_BEGIN
+class Program;
 class ProgramLoader
 {
 	public:
@@ -16,7 +17,8 @@ class ProgramLoader
 		static ResourceMgr* getMgr();
 	public:
 		/* it will check the file type */
-		static Program* create(const char* FsFile* file);
+		static Program* create(const char* name);
+		static Program* create(FsFile* file);
 
 		/* caller must make sure the file is the right type */
 		static Program* createFromScript(FsFile* file);

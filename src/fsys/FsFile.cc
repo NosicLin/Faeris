@@ -32,10 +32,17 @@ FsLong FsFile::writeStr(const char* fmt,...)
 		delete[] buffer;
 	}
 	return  fmt_byte;
-
-
-
-
-
 }
+
+FsLong FsFile::getLength()
+{
+	FsLong cur_pos=tell();
+	seek(0,FS_SEEK_END);
+
+	FsLong length=tell();
+	seek(cur_pos,FS_SEEK_SET);
+	return length;
+}
+
 NS_FS_END
+

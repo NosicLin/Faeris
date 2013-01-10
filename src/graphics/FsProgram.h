@@ -19,59 +19,34 @@ NS_FS_BEGIN
 
 class Program:public Resource
 {
-	public:
+	private:
 
-		class Uniform:public FsObject
-	{
-		public:
-			FsString* name;
-			FsInt type;
-			FsInt count;
-			FsInt location;
-			FsInt used;
-		public:
-			Uniform(FsString* _name,FsInt _type,FsInt _count)
-			{
-				name=_name;
-				name->addRef();
-				type=_type;
-				count=_count;
-				used=true;
-				location=-1;
-			}
-			virtual ~Uniform();
-		public:
-			virtual const FsChar* getName();
-	};
-		class Attribute:public FsObject
+		class Location:public FsObject
 	{
 		public:
 			FsString* name;
 			FsInt location;
 			FsInt used;
 		public:
-			Attribute(FsString* _name,FsInt _type)
+			Location(FsString* _name)
 			{
 				name=_name;
 				name->addRef();
-
 				used=true;
 				location=-1;
 			}
-
-			virtual ~Attribute();
+			virtual ~Location();
+		public:
 			virtual const FsChar* getName();
-
 	};
-	public:
 	public:
 		static Program* create(
 				const FsChar* vertex_src,FsUint v_size,
 				const FsChar* fragment_src,FsUint f_size);
 	public:
 
-		void addAttribute(const FsChar* name,FsInt type);
-		void addUniform(const FsChar* name,FsInt type,FsInt count);
+		void addAttribute(const FsChar* name);
+		void addUniform(const FsChar* name);
 
 		/* return the location of the  Attribute/Uniform 
 		 * if not exist in program,-1 will returned 

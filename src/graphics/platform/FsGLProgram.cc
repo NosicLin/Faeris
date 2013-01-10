@@ -38,7 +38,7 @@ GLint s_create_shader_object(const FsChar* source,FsInt length,GLint type)
 
 Program* Program::create(
 		const FsChar* vertex_src,FsUint v_size,
-		const FsChar* fragmet_src,FsUint f_size
+		const FsChar* fragment_src,FsUint f_size
 		)
 {
 	GLuint program=0;
@@ -49,26 +49,46 @@ Program* Program::create(
 	GLint link_result;
 	Program* ret=NULL;
 
-	/* create vertex shader  object */
-	vertex_shader=s_create_shader_object(vertex_src,v_size,GL_VERTEX_SHADER);
-	if(vertex_shader==0)
+	if(vertex_src==NULL&&fragment_src==NULL)
 	{
-		goto error;
+		FS_TRACE_WARN("No Information About Vertex Shader Or Fragment Shader");
+		return NULL;
 	}
 
-	/* create fragment shader object */
-	fragment_shader=s_create_shader_object(fragmet_src,f_size,GL_FRAGMENT_SHADER);
-	if(fragment_shader==0)
+	/* create vertex shader  object */
+	if(vertex_src!=NULL)
 	{
-		goto error;
+		vertex_shader=s_create_shader_object(vertex_src,v_size,GL_VERTEX_SHADER);
+		if(vertex_shader==0)
+		{
+			goto error;
+		}
+	}
+
+
+	/* create fragment shader object */
+	if(fragment_src!=NULL)
+	{
+		fragment_shader=s_create_shader_object(fragment_src,f_size,GL_FRAGMENT_SHADER);
+		if(fragment_shader==0)
+		{
+			goto error;
+		}
 	}
 
 	/* create program object */
 	program=glCreateProgram();
 
 	/* attach vertex and fragment shader */
-	glAttachShader(program,vertex_shader);
-	glAttachShader(program,fragment_shader);
+	if(vertex_shader!=0)
+	{
+		glAttachShader(program,vertex_shader);
+	}
+
+	if(fragment_shader!=0)
+	{
+		glAttachShader(program,fragment_shader);
+	}
 
 	/* link program */
 	glLinkProgram(program);
@@ -109,7 +129,7 @@ error:
 
 FsInt Program::getAttributeLocation(const FsChar* name)
 {
-	
+
 	FsString* fs_name=new FsString(name);
 	FsInt loc=getAttributeLocation(fs_name);
 	fs_name->decRef();
@@ -131,7 +151,7 @@ FsInt Program::getAttributeLocation(FsString* name)
 		return -1;
 	}
 
-	Attribute* attr=(Attribute*) m_attrs->lookup(name);
+	Location* attr=(Location*) m_attrs->lookup(name);
 	if(!attr)
 	{
 		return -1;
@@ -165,7 +185,7 @@ FsInt Program::getUniformLocation(FsString* name)
 		return -1;
 	}
 
-	Uniform* u=(Uniform*) m_uniforms->lookup(name);
+	Location* u=(Location*) m_uniforms->lookup(name);
 	if(!u)
 	{
 		return -1;

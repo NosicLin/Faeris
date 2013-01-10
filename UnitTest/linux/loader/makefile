@@ -9,9 +9,10 @@ DEBUG=
 	test_md2loader.cc \
 	textureloader_test.cc \
 	mesh_loader.cc  \
-	mesh_show.cc 
+	mesh_show.cc  \
+	geometry_loader.cc 
 
-BIN= geometry_loader.cc 
+BIN=  material_loader.cc
 
 
 
@@ -40,9 +41,9 @@ LIB=-Llib -L../lib  \
 	-L../../../build/linux/prebuild/debug \
 	-L../../../build/linux/lib \
 	-l$(PROJECT) -l$(PROJECT)debug \
-	-lfsys -lcore -lutil -lgraphics  \
-	-lmodel -lscript -lloader -lglut -lloader   \
-	-llibpng -lzlib  -lGL -lGLU -lGLEW -lX11 \
+	-lfsys -lcore -lutil -lloader -lgraphics   -lmaterial \
+	-lmodel -lscript  -lglut \
+	-llibpng -lzlib  -lGL -lGLU  -lX11 -lGLEW \
 
 
 

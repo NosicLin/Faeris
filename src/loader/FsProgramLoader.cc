@@ -1,6 +1,176 @@
+#include "loader/FsLoaderUtil.h"
+#include "util/FsScriptUtil.h"
 #include "loader/FsProgramLoader.h"
+#include "fsys/FsVFS.h"
+
 NS_FS_BEGIN
 
+Program* ProgramLoader::loadFromMgr(const FsChar* name)
+{
+	/*TODO(and real share here)*/
+	return create(name);
+}
+Program* ProgramLoader::create(const FsChar* name)
+{
+	FsFile* file=VFS::open(name);
+	if(file==NULL)
+	{
+		FS_TRACE_WARN("Can't Load File(%s) For Program",name);
+		return NULL;
+	}
+	Program* prog=create(file);
+	file->decRef();
+	return prog;
+}
+Program* ProgramLoader::create(FsFile* file)
+{
+	if(LoaderUtil::fileType(file)==FS_FTYPE_SCRIPT)
+	{
+		return createFromScript(file);
+	}
+	else 
+	{
+		return createFromBinary(file);
+	}
+}
+
+
+
+Program* ProgramLoader::createFromScript(FsFile* file)
+{
+	FsDict* dict=ScriptUtil::parseScript(file);
+	if(dict==NULL)
+	{
+		FS_TRACE_WARN("Error Script For Program");
+		return NULL;
+	}
+
+	FsString* v_shader=ScriptUtil::getString(dict,"vertexShader");
+	FsString* f_shader=ScriptUtil::getString(dict,"fragmentShader");
+
+	FsChar* v_source=NULL;
+	FsInt v_length=0;
+	FsChar* f_source=NULL;
+	FsInt f_length=0;
+	Program* ret=NULL;
+
+	if(v_shader==NULL&&f_shader==NULL)
+	{
+		dict->decRef();
+		FS_TRACE_WARN("Not Shader Found In Program Script");
+		return NULL;
+	}
+
+	if(v_shader)
+	{
+		FsFile* v_file=NULL;
+		v_file=VFS::open(v_shader->cstr());
+
+		FsInt v_length=v_file->getLength();
+		if(v_length>0)
+		{
+			v_source=new FsChar[v_length];
+			v_file->read(v_source,v_length);
+		}
+		v_shader->decRef();
+		v_file->decRef();
+
+	}
+
+	if(f_shader)
+	{
+		FsFile* f_file=NULL;
+		f_file=VFS::open(f_shader->cstr());
+
+		FsInt f_length=f_file->getLength();
+		if(f_length>0)
+		{
+			f_source=new FsChar[f_length];
+			f_file->read(f_source,f_length);
+		}
+		v_shader->decRef();
+		f_shader->decRef();
+	}
+
+	if(f_source==NULL&&v_source==NULL)
+	{
+		FS_TRACE_WARN("Not Shader Found In Program Script");
+		dict->decRef();
+		return NULL;
+	}
+
+	ret=Program::create(v_source,v_length,f_source,f_length);
+	if(ret==NULL)
+	{
+		FS_TRACE_WARN("Compile Shader Failed");
+		dict->decRef();
+		return NULL;
+	}
+
+	FsArray* uniforms=ScriptUtil::getArray(dict,"uniforms");
+	if(uniforms)
+	{
+		FsInt uniform_nu=uniforms->size();
+		for(FsInt i=0;i<uniform_nu;i++)
+		{
+			FsString* cur_uniform=ScriptUtil::getString(uniforms,i);
+			if(!cur_uniform)
+			{
+				continue;
+			}
+			ret->addUniform(cur_uniform->cstr());
+			cur_uniform->decRef();
+		}
+		uniforms->decRef();
+	}
+
+	FsArray* attrs=ScriptUtil::getArray(dict,"attributes");
+	if(attrs)
+	{
+		FsInt attrs_nu=attrs->size();
+		for(FsInt i=0;i<attrs_nu;i++)
+		{
+			FsString* cur_attr=ScriptUtil::getString(attrs,i);
+			if(!cur_attr)
+			{
+				continue;
+			}
+			ret->addAttribute(cur_attr->cstr());
+			cur_attr->decRef();
+		}
+		attrs->decRef();
+	}
+	dict->decRef();
+	return ret;
+}
+Program* ProgramLoader::createFromBinary(FsFile* file)
+{
+
+	/*TODO(load from binary file)*/
+	return NULL;
+}
+
 NS_FS_END 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

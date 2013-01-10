@@ -27,8 +27,8 @@ ShaderMaterial::Uniform::Uniform(FsString* name,FsInt type,FsInt count)
 	m_count=count;
 
 	m_location=-1;
-	m_value=new FsChar[Render::uniformTypeSize(type)*m_count];
-	memset(m_value,0,Render::uniformTypeSize(type)*m_count);
+	m_value=new FsChar[Render::sizeofUniformType(type)*m_count];
+	memset(m_value,0,Render::sizeofUniformType(type)*m_count);
 }
 
 ShaderMaterial::Uniform::~Uniform()
@@ -39,7 +39,7 @@ ShaderMaterial::Uniform::~Uniform()
 
 void ShaderMaterial::Uniform::setValue(void* value)
 {
-	memcpy(m_value,value,Render::uniformTypeSize(m_type)*m_count);
+	memcpy(m_value,value,Render::sizeofUniformType(m_type)*m_count);
 }
 
 

@@ -15,7 +15,7 @@ uniforms:[
 		name:lightIndent
 		type:float
 		count:1
-		value:[1]
+		value:[1,3,3,3]
 	},
 	{
 		name:lightColor

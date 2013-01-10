@@ -19,7 +19,10 @@ INCLUDE_DIR=  -I./ -I../
 #
 
 
-SRC=FsGeometryLoader.cc 
+SRC=FsGeometryLoader.cc  \
+	FsProgramLoader.cc \
+	FsMaterialLoader.cc  \
+	FsLoaderUtil.cc 
 
 
 

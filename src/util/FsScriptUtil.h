@@ -31,7 +31,7 @@ class ScriptUtil
 		static FsString* getString(FsArray* array,FsUint index);
 		static FsBool getInteger(FsArray* array,FsUint index,FsInt* v);
 		static FsBool getFloat(FsArray* array,FsUint index,FsFloat* v);
-		static FsBool getBoolean(FsDict* dict,FsUint index,FsBool* value);
+		static FsBool getBoolean(FsArray* dict,FsUint index,FsBool* value);
 
 		/* aux for translate string to float,integer*/
 		static FsFloat parseFloat(const FsChar* str);
@@ -44,6 +44,12 @@ class ScriptUtil
 		static FsInt parseInteger(FsString* str)
 		{
 			return parseInteger(str->cstr());
+		}
+
+		static FsBool parseBoolean(const FsChar* str);
+		static FsBool parseBoolean(FsString* str)
+		{
+			return parseBoolean(str->cstr());
 		}
 	
 };

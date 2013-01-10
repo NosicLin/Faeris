@@ -3,7 +3,7 @@
 
 NS_FS_BEGIN
 static const FsChar* s_MaterialName="MaterialObject";
-const FsChar* getName(){return s_MaterialName;}
+const FsChar* Material::getName(){return s_MaterialName;}
 
 Material::~Material(){}
 
