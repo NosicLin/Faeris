@@ -65,15 +65,23 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	{
 		FsFile* v_file=NULL;
 		v_file=VFS::open(v_shader->cstr());
-
-		FsInt v_length=v_file->getLength();
-		if(v_length>0)
+		if(v_file)
 		{
-			v_source=new FsChar[v_length];
-			v_file->read(v_source,v_length);
+			v_length=v_file->getLength();
+			if(v_length>0)
+			{
+				v_source=new FsChar[v_length];
+				FsInt readbyte=v_file->read(v_source,v_length);
+
+				if(readbyte!=v_length)
+				{
+					delete[] v_source;
+					v_source=NULL;
+				}
+			}
+			v_file->decRef();
 		}
 		v_shader->decRef();
-		v_file->decRef();
 
 	}
 
@@ -81,14 +89,22 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	{
 		FsFile* f_file=NULL;
 		f_file=VFS::open(f_shader->cstr());
-
-		FsInt f_length=f_file->getLength();
-		if(f_length>0)
+		if(f_file)
 		{
-			f_source=new FsChar[f_length];
-			f_file->read(f_source,f_length);
+			f_length=f_file->getLength();
+			if(f_length>0)
+			{
+				f_source=new FsChar[f_length];
+				FsInt readbyte=f_file->read(f_source,f_length);
+
+				if(readbyte!=f_length)
+				{
+					delete[] f_source;
+					f_source=NULL;
+				}
+			}
+			f_file->decRef();
 		}
-		v_shader->decRef();
 		f_shader->decRef();
 	}
 
@@ -100,6 +116,9 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	}
 
 	ret=Program::create(v_source,v_length,f_source,f_length);
+	if(v_source) delete[] v_source;
+	if(f_source) delete[] f_source;
+
 	if(ret==NULL)
 	{
 		FS_TRACE_WARN("Compile Shader Failed");

@@ -96,6 +96,7 @@ void reshape(int w,int h)
 	glViewport(0,0,w,h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	/*
 	if(w<=h)
 	{
 		gluOrtho2D(-2.0,2.0,
@@ -106,12 +107,14 @@ void reshape(int w,int h)
 	{
 		gluOrtho2D(-2.0*w/h,2.0*w/h,-2.0,2.0);
 	}
+	*/
+	gluOrtho2D(-2.0,2.0,-2.0,2.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
 
 
-			
+
 int main(int argc,char** argv)
 {
 	glutInit(&argc,argv);

@@ -107,15 +107,14 @@ ShaderMaterial::ShaderMaterial()
 	m_wireFrame=false;
 	m_wireFrameWidth=1;
 	m_program=NULL;
+	m_programSourceName=NULL;
 	m_uniforms=new FsDict();
 }
 
 ShaderMaterial::~ShaderMaterial()
 {
-	if(m_program)
-	{
-		m_program->decRef();
-	}
+	FS_SAFE_DEC_REF(m_program);
+	FS_SAFE_DEC_REF(m_programSourceName);
 	m_uniforms->decRef();
 }
 
@@ -147,6 +146,24 @@ void ShaderMaterial::unload(Render* r)
 {
 }
 
+
+FsDict* ShaderMaterial::getUniforms()
+{
+	m_uniforms->addRef();
+	return m_uniforms;
+}
+void ShaderMaterial::setProgramSourceName(FsString* name)
+{
+	FS_SAFE_ADD_REF(name);
+	FS_SAFE_DEC_REF(m_programSourceName);
+	m_programSourceName=name;
+}
+
+FsString* ShaderMaterial::getProgramSourceName()
+{
+	FS_SAFE_ADD_REF(m_programSourceName);
+	return m_programSourceName;
+}
 
 
 

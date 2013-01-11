@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "FsMacros.h"
 #include "fsys/FsVFS.h"
+#include "fsys/FsWindow.h"
+#include "fsys/FsFrame.h"
 #include "loader/FsMaterialLoader.h"
 #include "material/FsMaterial.h"
 #include "material/FsShaderMaterial.h"
@@ -16,6 +18,7 @@ int main(int argc,char** argv)
 		printf("usage:%s <input file> <output file>\n",argv[0]);
 		exit(-1);
 	}
+	Window::shareWindow();
 	FsFile* infile=NULL;
 	FsFile* outfile=NULL;
 	Material* g=NULL;
@@ -58,6 +61,8 @@ error:
 	if(infile) infile->decRef();
 	if(outfile) outfile->decRef();
 	if(g) g->decRef();
+	Window::purgeShareWindow();
+	Frame::purgeShareFrame();
 	return 0;
 }
 

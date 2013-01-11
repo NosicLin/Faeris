@@ -16,7 +16,11 @@ class Material:public FsObject
 
 		FsFloat m_opacity;
 
+		/* shade mode */
 		FsInt m_shadeMode;
+
+		/* front side */
+		FsInt m_frontSide;
 
 		/* depth */
 		FsBool m_depthTest;
@@ -29,7 +33,8 @@ class Material:public FsObject
 			m_blendSrc(Render::FACTOR_SRC_ALPHA),
 			m_blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
 			m_opacity(1.0f),
-			m_shadeMode(Render::SHADER_MODE_SMOOTH),
+			m_shadeMode(Render::SHADE_MODE_SMOOTH),
+			m_frontSide(Render::FRONT_CCW),
 			m_depthTest(true),
 			m_depthMask(true) {}
 		virtual ~Material();
@@ -70,7 +75,7 @@ class Material:public FsObject
 		{
 			m_opacity=opacity;
 		}
-		FsFloat getOpactty()
+		FsFloat getOpacity()
 		{
 			return m_opacity;
 		}
@@ -93,6 +98,15 @@ class Material:public FsObject
 		FsBool getDepthMask()
 		{
 			return m_depthMask;
+		}
+
+		void setFrontSide(FsInt type)
+		{
+			m_frontSide=type;
+		}
+		FsInt getFrontSide()
+		{
+			return m_frontSide;
 		}
 	protected:
 		void configRender(Render* r);

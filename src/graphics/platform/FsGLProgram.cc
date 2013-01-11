@@ -28,7 +28,9 @@ GLint s_create_shader_object(const FsChar* source,FsInt length,GLint type)
 				FS_MAX_GL_SHADER_LOG_LENGTH,
 				&log_length,log_info);
 		log_info[FS_MAX_GL_SHADER_LOG_LENGTH-1]='\0';
-		FsUtil_Log("Compile Shader(%s)",log_info);
+		FsUtil_Log("Compile %s Shader(%s)",
+				type==GL_VERTEX_SHADER?"Vertex":"Fragment",
+				log_info);
 		glDeleteShader(shader);
 		return 0;
 	}

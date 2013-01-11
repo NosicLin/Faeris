@@ -66,8 +66,8 @@ class Render
 			FRONT_CW,
 
 			/* shader mode */
-			SHADER_MODE_SMOOTH,
-			SHADER_MODE_FLAT,
+			SHADE_MODE_SMOOTH,
+			SHADE_MODE_FLAT,
 
 			/* front and back */
 			SIDE_FRONT,

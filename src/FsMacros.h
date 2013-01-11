@@ -94,6 +94,14 @@
 
 
 
+/* for safe add and dec object refrence */
+
+#define FS_SAFE_ADD_REF(f) \
+	do{ if(f) f->addRef(); }while(0)
+
+#define FS_SAFE_DEC_REF(f) \
+	do{ if(f) f->decRef();} while(0)
+
 
 
 /* global Macros For Faeris */

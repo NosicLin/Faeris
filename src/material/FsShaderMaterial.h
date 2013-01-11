@@ -34,8 +34,13 @@ class ShaderMaterial:public Material
 		void setWireFrameWidth(FsInt width){m_wireFrameWidth=width;}
 		void setProgram(Program* prog);
 
+		void setProgramSourceName(FsString* name);
+		FsString* getProgramSourceName();
+
 		void setUniform(const FsChar* name,FsVoid* value);
 		void addUniform(ShaderMaterial::Uniform* u);
+		FsDict* getUniforms();
+
 	public:
 		ShaderMaterial();
 		virtual ~ShaderMaterial();
@@ -50,6 +55,7 @@ class ShaderMaterial:public Material
 		FsBool m_wireFrame;
 		FsInt m_wireFrameWidth;
 		Program* m_program;
+		FsString* m_programSourceName;
 		FsDict* m_uniforms;
 };
 NS_FS_END

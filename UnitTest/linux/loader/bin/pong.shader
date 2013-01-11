@@ -4,4 +4,3 @@ vertexShader:"pong.vert"
 fragmentShader:"pong.frag"
 uniforms:["lightColor","specialColor","indent"]
 attributes:["a_color","a_vector" ]
-

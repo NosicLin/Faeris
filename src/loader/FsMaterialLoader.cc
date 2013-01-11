@@ -61,20 +61,14 @@ Material* MaterialLoader::createFromScript(FsFile* file)
 	type->decRef();
 	return mat;
 }
+
 FsInt s_GetFromSide(FsDict* dict,const FsChar* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=Render::FRONT_CCW;
+	FsInt ret=-1;
 	if(value!=NULL)
 	{
-		if(value->equal("ccw"))
-		{
-			ret=Render::FRONT_CCW;
-		}
-		else if(value->equal("cw"))
-		{
-			ret=Render::FRONT_CW;
-		}
+		ret=LoaderUtil::parseFrontSide(value->cstr());
 		value->decRef();
 	}
 	return ret;
@@ -82,37 +76,10 @@ FsInt s_GetFromSide(FsDict* dict,const FsChar* key)
 FsInt s_GetBlendEquation(FsDict* dict,const FsChar* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=Render::EQUATION_ADD;
+	FsInt ret=-1;
 	if(value!=NULL)
 	{
-		if(value->equal("none"))
-		{
-			ret=Render::EQUATION_NONE;
-		}
-		else if(value->equal("add"))
-		{
-			ret=Render::EQUATION_ADD;
-		}
-		else if(value->equal("subtract"))
-		{
-			ret=Render::EQUATION_SUBTRACT;
-		}
-		else if(value->equal("reverse_subtract"))
-		{
-			ret=Render::EQUATION_REVERSE_SUBTRACT;
-		}
-		else if(value->equal("min"))
-		{
-			ret=Render::EQUATION_MIN;
-		}
-		else if(value->equal("max"))
-		{
-			ret=Render::EQUATION_MAX;
-		}
-		else if(value->equal("logic_op"))
-		{
-			ret=Render::EQUATION_LOGIC_OP;
-		}
+		ret=LoaderUtil::parseBlendEquation(value->cstr());
 		value->decRef();
 	}
 	return ret;
@@ -121,71 +88,32 @@ FsInt s_GetBlendEquation(FsDict* dict,const FsChar* key)
 FsInt s_GetBlendFactor(FsDict* dict,const FsChar* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=Render::FACTOR_SRC_ALPHA;
+	FsInt ret=-1;
 	if(value!=NULL)
 	{
-		if(value->equal("src_alpha"))
-		{
-			ret=Render::FACTOR_SRC_ALPHA;
-		}
-		else if(value->equal("one_minus_src_alpha"))
-		{
-			ret=Render::FACTOR_ONE_MINUS_SRC_ALPHA;
-		}
-		else if(value->equal("zero"))
-		{
-			ret=Render::FACTOR_ZERO;
-		}
-		else if(value->equal("one"))
-		{
-			ret=Render::FACTOR_ONE;
-		}
-		else if(value->equal("src_color"))
-		{
-			ret=Render::FACTOR_SRC_COLOR;
-		}
-		else if(value->equal("one_minus_src_color"))
-		{
-			ret=Render::FACTOR_ONE_MINUS_SRC_COLOR;
-		}
-		else if(value->equal("dst_color"))
-		{
-			ret=Render::FACTOR_DST_COLOR;
-		}
-		else if(value->equal("one_minus_dst_color"))
-		{
-			ret=Render::FACTOR_ONE_MINUS_DST_COLOR;
-		}
-		else if(value->equal("dst_alpha"))
-		{
-			ret=Render::FACTOR_DST_ALPHA;
-		}
-		else if(value->equal("one_minus_dst_alpha"))
-		{
-			ret=Render::FACTOR_ONE_MINUS_DST_ALPHA;
-		}
-		else if(value->equal("src_alpha_saturate"))
-		{
-			ret=Render::FACTOR_SRC_ALPHA_SATURATE;
-		}
+		ret=LoaderUtil::parseBlendFactor(value->cstr());
 		value->decRef();
 	}
 	return ret;
 }
 FsInt s_GetShadeMode(FsDict* dict,const FsChar*  key)
 {
-	FsInt ret=Render::SHADER_MODE_SMOOTH;
+	FsInt ret=-1;
 	FsString* value=ScriptUtil::getString(dict,key);
 	if(value!=NULL)
 	{
-		if(value->equal("smooth"))
-		{
-			ret=Render::SHADER_MODE_SMOOTH;
-		}
-		else if(value->equal("flat"))
-		{
-			ret=Render::SHADER_MODE_FLAT;
-		}
+		ret=LoaderUtil::parseShadeMode(value->cstr());
+		value->decRef();
+	}
+	return ret;
+}
+FsInt s_GetFrontSide(FsDict* dict,const FsChar* key)
+{
+	FsInt ret=-1;
+	FsString* value=ScriptUtil::getString(dict,key);
+	if(value!=NULL)
+	{
+		ret=LoaderUtil::parseFrontSide(value->cstr());
 		value->decRef();
 	}
 	return ret;
@@ -196,11 +124,21 @@ FsInt s_GetShadeMode(FsDict* dict,const FsChar*  key)
 void MaterialLoader::setMaterial(Material* mat,FsDict* dict)
 {
 
-//	FsInt front_side=s_GetFromSide(dict,"frontSide");
 	FsInt blend_equation=s_GetBlendEquation(dict,"blendEquation");
+	if(blend_equation==-1) { blend_equation=Render::EQUATION_ADD; }
+
 	FsInt src_factor=s_GetBlendFactor(dict,"srcFactor");
+	if(src_factor==-1) { src_factor=Render::FACTOR_SRC_ALPHA; }
+
 	FsInt dst_factor=s_GetBlendFactor(dict,"dstFactor");
+	if(dst_factor==-1) { dst_factor=Render::FACTOR_ONE_MINUS_SRC_ALPHA;}
+
 	FsInt shade_mode=s_GetShadeMode(dict,"shadeMode");
+	if(shade_mode==-1) { shade_mode=Render::SHADE_MODE_SMOOTH;}
+
+	FsInt front_side=s_GetFrontSide(dict,"frontSide");
+	if(front_side==-1) { front_side=Render::FRONT_CCW;}
+
 	FsFloat opacity=1.0;
 	FsBool depth_mask=true;
 	FsBool depth_test=true;
@@ -213,6 +151,7 @@ void MaterialLoader::setMaterial(Material* mat,FsDict* dict)
 	mat->setOpacity(opacity);
 	mat->setDepthTest(depth_test);
 	mat->setDepthMask(depth_mask);
+	mat->setFrontSide(front_side);
 }
 
 static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
@@ -372,6 +311,7 @@ void MaterialLoader::setShaderMaterial(ShaderMaterial* mat,FsDict* dict)
 	FsString* prog_name=ScriptUtil::getString(dict,"shader");
 	if(prog_name!=NULL)
 	{
+		mat->setProgramSourceName(prog_name);
 		/*TODO(Add reletive current file path support)*/ 
 		/* cur_path=resource->getPath();*/
 		/* prog=ProgramLoader::loadFromMgr("cur_path+prog_name") */
@@ -401,44 +341,17 @@ void MaterialLoader::setShaderMaterial(ShaderMaterial* mat,FsDict* dict)
 			continue;
 		}
 		ShaderMaterial::Uniform* u=s_ToUniform(cur_udict);
-		mat->addUniform(u);
-		u->decRef();
+		if(u!=NULL)
+		{
+			mat->addUniform(u);
+			u->decRef();
+		}
 		cur_udict->decRef();
 	}
 	uniforms->decRef();
 }
 
 
-static const FsChar* s_BlendFactorToStr(FsInt factor)
-{
-	switch(factor)
-	{
-		case Render::FACTOR_ZERO:
-			return "zero";
-		case Render::FACTOR_ONE:
-			return "one";
-		case Render::FACTOR_SRC_COLOR:
-			return "src_color";
-		case Render::FACTOR_ONE_MINUS_SRC_COLOR:
-			return "one_minus_src_color";
-		case Render::FACTOR_DST_COLOR:
-			return "dst_color";
-		case Render::FACTOR_ONE_MINUS_DST_COLOR:
-			return "one_minus_dst_color";
-		case Render::FACTOR_SRC_ALPHA:
-			return "src_alpha";
-		case Render::FACTOR_ONE_MINUS_SRC_ALPHA:
-			return "one_minus_src_alpha";
-		case Render::FACTOR_DST_ALPHA:
-			return "dst_alpha";
-		case Render::FACTOR_ONE_MINUS_DST_ALPHA:
-			return "one_minus_dst_alpha";
-		case Render::FACTOR_SRC_ALPHA_SATURATE:
-			return "src_alpha_saturate";
-		default:
-			return "error";
-	}
-}
 
 
 
@@ -448,38 +361,104 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 	file->writeStr("version:\"v.10\"\n");
 
 	/* blendEquation */
-	file->writeStr("blendEquation:");
-	switch(mat->getBlendEquation())
+	file->writeStr("blendEquation:%s\n",LoaderUtil::blendEquationToStr(mat->getBlendEquation()));
+	file->writeStr("srcFactor:%s\n",LoaderUtil::blendFactorToStr(mat->getBlendSrc()));
+	file->writeStr("dstFactor:%s\n",LoaderUtil::blendFactorToStr(mat->getBlendDst()));
+	file->writeStr("frontSide:%s\n",LoaderUtil::frontSideToStr(mat->getFrontSide()));
+	file->writeStr("shadeMode:%s\n",LoaderUtil::shadeModeToStr(mat->getShadeMode()));
+	if(mat->getDepthMask())
 	{
-		case Render::EQUATION_NONE:
-			file->writeStr("none");
-			break;
-		case Render::EQUATION_ADD:
-			file->writeStr("add");
-			break;
-		case Render::EQUATION_SUBTRACT:
-			file->writeStr("subtract");
-			break;
-		case Render::EQUATION_REVERSE_SUBTRACT:
-			file->writeStr("reverse_substract");
-			break;
-		case Render::EQUATION_MIN:
-			file->writeStr("min");
-			break;
-		case Render::EQUATION_MAX:
-			file->writeStr("max");
-			break;
-		case Render::EQUATION_LOGIC_OP:
-			file->writeStr("logic_op");
-			break;
-		default:
-			file->writeStr("error");
+		file->writeStr("depthMask:true\n");
 	}
-	file->writeStr("\n");
+	else 
+	{
+		file->writeStr("depthMask:false\n");
+	}
 
-	file->writeStr("srcFactor:%s\n",s_BlendFactorToStr(mat->getBlendSrc()));
-	file->writeStr("dstFactor:%s\n",s_BlendFactorToStr(mat->getBlendDst()));
+	if(mat->getDepthTest())
+	{
+		file->writeStr("depthTest:true\n");
+	}
+	else 
+	{
+		file->writeStr("depthTest:false\n");
+	}
+	file->writeStr("opacity:%.10g\n",mat->getOpacity());
 
+	FsString* shader_name=mat->getProgramSourceName();
+	if(shader_name) 
+	{
+		file->writeStr("shader:%s\n",shader_name->cstr());
+		shader_name->decRef();
+	}
+
+	FsDict* uniforms=mat->getUniforms();
+	if(uniforms)
+	{
+		file->writeStr("uniforms:[\n");
+		FsDict::Iterator iter(uniforms);
+		while(!iter.done())
+		{
+			file->writeStr("\t{\n");
+			ShaderMaterial::Uniform* u=(ShaderMaterial::Uniform*)iter.getValue();
+			file->writeStr("\t\tname:%s\n",u->m_name->cstr());
+			file->writeStr("\t\ttype:%s\n",LoaderUtil::uniformTypeToStr(u->m_type));
+			file->writeStr("\t\tcount:%d\n",u->m_count);
+			file->writeStr("\t\tvalue:[");
+
+			FsInt compoents=Render::uniformTypeComponent(u->m_type);
+			switch(u->m_type)
+			{
+				case Render::U_F_1:
+				case Render::U_F_2:
+				case Render::U_F_3:
+				case Render::U_F_4:
+				case Render::U_M_2:
+				case Render::U_M_3:
+				case Render::U_M_4:
+				{
+					FsFloat* value=(FsFloat*) u->m_value;
+					for(FsInt i=0;i<compoents*u->m_count;i++)
+					{
+						file->writeStr("%.10g,",value[i]);
+					}
+					break;
+				}
+				case Render::U_UI_1:
+				case Render::U_UI_2:
+				case Render::U_UI_3:
+				case Render::U_UI_4:
+				{
+					FsUint* value=(FsUint*) u->m_value;
+					for(FsInt i=0;i<compoents*u->m_count;i++)
+					{
+						file->writeStr("%u,",value[i]);
+					}
+					break;
+				}
+				case Render::U_I_1:
+				case Render::U_I_2:
+				case Render::U_I_3:
+				case Render::U_I_4:
+				{
+					FsInt* value=(FsInt*) u->m_value;
+					for(FsInt i=0;i<compoents*u->m_count;i++)
+					{
+						file->writeStr("%d,",value[i]);
+					}
+					break;
+				}
+			}
+
+			file->writeStr("]\n");
+			file->writeStr("\t},\n");
+
+			u->decRef();
+			iter.next();
+		}
+		file->writeStr("]\n");
+	}
+	uniforms->decRef();
 }
 
 NS_FS_END
