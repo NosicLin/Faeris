@@ -7,9 +7,16 @@
 #include "util/FsScriptUtil.h"
 #include "material/FsShaderMaterial.h"
 
+
 NS_FS_BEGIN
 
-Material* MaterialLoader::create(FsChar* name)
+Material* MaterialLoader::loadFromMgr(const FsChar* name)
+{
+	/*TODO(add real mgr here)*/
+	return create(name);
+}
+
+Material* MaterialLoader::create(const FsChar* name)
 {
 	FsFile* file=VFS::open(name);
 	if(file==NULL)
@@ -460,6 +467,12 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 	}
 	uniforms->decRef();
 }
+
+
+
+
+
+
 
 NS_FS_END
 

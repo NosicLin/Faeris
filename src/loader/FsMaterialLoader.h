@@ -16,7 +16,7 @@ class MaterialLoader
 		static ResourceMgr* getMgr();
 		static Material* loadFromMgr(const FsChar* name);
 	public:
-		static Material* create(FsChar* name);
+		static Material* create(const FsChar* name);
 		static Material* create(FsFile* file);
 
 		static ShaderMaterial* createShaderMaterial(FsFile* file);

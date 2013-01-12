@@ -10,7 +10,7 @@ class ShaderMaterial:public Material
 	public:
 		void setShadeMode(int mode);
 		void enableWireFrame(FsBool enable);
-		void setWireFrameWidth(int width);
+		void setWireFrameWidth(float width);
 		void setProgram(Program* prog);
 
 		void setProgramSourceName(FsString* name);

@@ -1,4 +1,3 @@
-#include "GL/glew.h"
 #include "fsys/FsWindow.h"
 #include "fsys/FsFrame.h"
 #include "graphics/FsRender.h"

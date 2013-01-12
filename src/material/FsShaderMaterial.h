@@ -32,7 +32,7 @@ class ShaderMaterial:public Material
 	public:
 		void setShadeMode(FsInt mode){m_shadeMode=mode;}
 		void enableWireFrame(FsBool enable){m_wireFrame=enable;}
-		void setWireFrameWidth(FsInt width){m_wireFrameWidth=width;}
+		void setWireFrameWidth(FsFloat width){m_wireFrameWidth=width;}
 		void setProgram(Program* prog);
 
 		void setProgramSourceName(FsString* name);
@@ -166,7 +166,7 @@ class ShaderMaterial:public Material
 
 	private:
 		FsBool m_wireFrame;
-		FsInt m_wireFrameWidth;
+		FsFloat m_wireFrameWidth;
 		Program* m_program;
 		FsString* m_programSourceName;
 		FsDict* m_uniforms;

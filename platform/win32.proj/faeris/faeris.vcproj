@@ -182,10 +182,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\graphics\FsMaterial.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\graphics\FsProgram.cc"
 					>
 				</File>
@@ -203,14 +199,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\graphics\FsRenderTarget.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\graphics\FsShader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\graphics\FsShader.h"
 					>
 				</File>
 				<File
@@ -574,19 +562,35 @@
 				Name="loader"
 				>
 				<File
-					RelativePath="..\..\..\src\loader\FsMd2Loader.cc"
+					RelativePath="..\..\..\src\loader\FsGeometryLoader.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\loader\FsMd2Loader.h"
+					RelativePath="..\..\..\src\loader\FsGeometryLoader.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\loader\FsMeshLoader.cc"
+					RelativePath="..\..\..\src\loader\FsLoaderUtil.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\loader\FsMeshLoader.h"
+					RelativePath="..\..\..\src\loader\FsLoaderUtil.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMaterialLoader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMaterialLoader.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsProgramLoader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsProgramLoader.h"
 					>
 				</File>
 				<File
@@ -595,6 +599,26 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\loader\FsTextureLoader.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="material"
+				>
+				<File
+					RelativePath="..\..\..\src\material\FsMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsMaterial.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsShaderMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsShaderMaterial.h"
 					>
 				</File>
 			</Filter>

@@ -9,6 +9,13 @@ NS_FS_BEGIN
 
 ResourceMgr* GeometryLoader::m_mgr=NULL;
 
+
+Geometry* GeometryLoader::loadFromMgr(const FsChar* name)
+{
+	/*TODO(add real mgr here)*/
+	return create(name);
+
+}
 Geometry* GeometryLoader::create(const FsChar* filename)
 {
 	FsFile* file=VFS::open(filename);

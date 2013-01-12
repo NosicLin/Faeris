@@ -2,22 +2,43 @@
 
 #include "util/FsScriptUtil.h"
 #include "util/FsDict.h"
-#include "loader/FsTextureLoader.h"
 #include "util/FsImgDecoder.h"
+
+#include "loader/FsTextureLoader.h"
+#include "loader/FsLoaderUtil.h"
+
 #include "fsys/FsVFS.h"
 
 NS_FS_BEGIN
-Texture2D* TextureLoader::loadFromFile(FsFile* file)
+
+Texture2D* TextureLoader::loadFromMgr(const FsChar* name)
 {
-	FsInt type=checkFileType(file);
+	return create(name);
+}
+
+Texture2D* TextureLoader::create(const FsChar* name)
+{
+	FsFile* file=VFS::open(name);
+	if(file==NULL)
+	{
+		FS_TRACE_WARN("Open File(%s) For Texture Failed",name);
+		return NULL;
+	}
+	Texture2D* ret=create(file);
+	file->decRef();
+	return ret;
+}
+Texture2D* TextureLoader::create(FsFile* file)
+{
+	FsInt type=LoaderUtil::fileType(file);
 	Texture2D* ret=NULL;
 	switch(type)
 	{
 		case FS_FILE_SCRIPT:
-			ret=loadFromScriptFile(file);
+			ret=createFromScript(file);
 			break;
 		case FS_FILE_BINARY:
-			ret=loadFromBinaryFile(file);
+			ret=createFromBinary(file);
 			break;
 		default:
 			FS_TRACE_WARN("File Is Not Texture2D File Format");
@@ -32,46 +53,34 @@ static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt*
 	FsString* sct_mag=ScriptUtil::getString(dict,"filter_mag");
 	if(sct_mag!=NULL)
 	{
-		if(strcmp(sct_mag->cstr(),"linear")==0)
+		FsInt filter=LoaderUtil::parseTextureFilter(sct_mag->cstr());
+		if(filter!=-1)
 		{
-			*filter_mag=Texture2D::FILTER_LINEAR;
-		}
-		else if(strcmp(sct_mag->cstr(),"nearest")==0)
-		{
-			*filter_mag=Texture2D::FILTER_NEAREST;
+			*filter_mag=filter;
 		}
 		sct_mag->decRef();
-		sct_mag=NULL;
 	}
 	
 	FsString* sct_min=ScriptUtil::getString(dict,"filter_min");
 	if(sct_min!=NULL)
 	{
-		if(strcmp(sct_min->cstr(),"linear")==0)
+		FsInt filter=LoaderUtil::parseTextureFilter(sct_min->cstr());
+		if(filter!=-1)
 		{
-			*filter_min=Texture2D::FILTER_LINEAR;
-		}
-		else if(strcmp(sct_min->cstr(),"nearest")==0)
-		{
-			*filter_min=Texture2D::FILTER_NEAREST;
+			*filter_min=filter;
 		}
 		sct_min->decRef();
-		sct_min=NULL;
 	}
 
 	FsString* sct_mipmap=ScriptUtil::getString(dict,"filter_mipmap");
 	if(sct_mipmap!=NULL)
 	{
-		if(strcmp(sct_mipmap->cstr(),"linear")==0)
+		FsInt filter=LoaderUtil::parseTextureFilter(sct_mipmap->cstr());
+		if(filter!=-1)
 		{
-			*filter_mipmap=Texture2D::FILTER_LINEAR;
-		}
-		else if(strcmp(sct_mipmap->cstr(),"nearest")==0)
-		{
-			*filter_mipmap=Texture2D::FILTER_NEAREST;
+			*filter_mipmap=filter;
 		}
 		sct_mipmap->decRef();
-		sct_mipmap=NULL;
 	}
 }
 
@@ -80,24 +89,12 @@ static FsVoid s_getWrap(FsDict* dict,FsInt* wraps,FsInt* wrapt)
 	FsString* sct_wraps=ScriptUtil::getString(dict,"swap_s");
 	if(sct_wraps!=NULL)
 	{
-		const char* str=sct_wraps->cstr();
-		FsInt* target=wraps;
-
-		if(strcmp(str,"clamp_to_edge")==0)
+		FsInt s=LoaderUtil::parseTextureSwap(sct_wraps->cstr());
+		if(s!=-1)
 		{
-			*target=Texture2D::WRAP_CLAMP_TO_EDGE;
+			*wraps=s;
 		}
-		else if(strcmp(str,"repeat")==0)
-		{
-			*target=Texture2D::WRAP_REPEAT;
-		}
-		else if(strcmp(str,"clamp")==0)
-		{
-			*target=Texture2D::WRAP_CLAMP;
-		}
-
 		sct_wraps->decRef();
-		sct_wraps=NULL;
 	}
 
 
@@ -105,24 +102,17 @@ static FsVoid s_getWrap(FsDict* dict,FsInt* wraps,FsInt* wrapt)
 	if(sct_wrapt!=NULL)
 	{
 		const char* str=sct_wrapt->cstr();
-		FsInt* target=wrapt;
-
-		if(strcmp(str,"clamp_to_edge")==0)
+		FsInt s=LoaderUtil::parseTextureSwap(sct_wrapt->cstr());
+		if(s!=-1)
 		{
-			*target=Texture2D::WRAP_CLAMP_TO_EDGE;
-		}
-		else if(strcmp(str,"repeat")==0)
-		{
-			*target=Texture2D::WRAP_REPEAT;
-		}
-		else if(strcmp(str,"clamp")==0)
-		{
-			*target=Texture2D::WRAP_CLAMP;
+			*wrapt=s;
 		}
 		sct_wrapt->decRef();
-		sct_wrapt=NULL;
 	}
 }
+
+
+
 
 static FsVoid s_getAutoMipmap(FsDict* dict,FsBool* value)
 {
@@ -141,73 +131,18 @@ static FsVoid s_getAutoMipmap(FsDict* dict,FsBool* value)
 		sct_auto_mipmap=NULL;
 	}
 }
-static FsVoid s_getEnvMode(FsDict* dict,FsInt* env_mode)
-{
-	FsString* sct_evn_mode=ScriptUtil::getString(dict,"env_mode");
-	if(sct_evn_mode!=NULL)
-	{
-		const FsChar* str=sct_evn_mode->cstr();
-		if(strcmp(str,"replace")==0)
-		{
-			*env_mode=Texture2D::ENV_REPLACE;
-		}
-		else if(strcmp(str,"decal")==0)
-		{
-			*env_mode=Texture2D::ENV_DECAL;
-		}
-		else if(strcmp(str,"modulate")==0)
-		{
-			*env_mode=Texture2D::ENV_MODULATE;
-		}
-		else if(strcmp(str,"blend")==0)
-		{
-			*env_mode=Texture2D::ENV_BLEND;
-		}
-		else if(strcmp(str,"add")==0)
-		{
-			*env_mode=Texture2D::ENV_ADD;
-		}
-		else if(strcmp(str,"combine")==0)
-		{
-			*env_mode=Texture2D::ENV_COMBINE;
-		}
-		sct_evn_mode->decRef();
-		sct_evn_mode=NULL;
-	}
-}
 
 static FsVoid s_getFormat(FsDict* dict,FsInt* format)
 {
 	FsString* sct_format=ScriptUtil::getString(dict,"format");
 	if(sct_format!=NULL)
 	{
-		const char* str=sct_format->cstr();
-		if(strcmp(str,"rgba")==0)
+		FsInt f=LoaderUtil::parseTextureFormat(sct_format->cstr());
+		if(f!=-1)
 		{
-			*format=Texture2D::FORMAT_RGBA;
-		}
-		else if(strcmp(str,"rgb")==0)
-		{
-			*format=Texture2D::FORMAT_RGB;
-		}
-		else if(strcmp(str,"alpha")==0)
-		{
-			*format=Texture2D::FORMAT_ALPHA;
-		}
-		else if(strcmp(str,"luminance")==0)
-		{
-			*format=Texture2D::FORMAT_LUMINANCE;
-		}
-		else if(strcmp(str,"luminance_alpha")==0)
-		{
-			*format=Texture2D::FORMAT_LUMINANCE_ALPHA;
-		}
-		else if(strcmp(str,"intensity")==0)
-		{
-			*format=Texture2D::FORMAT_INTENSITY;
+			*format=f;
 		}
 		sct_format->decRef();
-		sct_format=NULL;
 	}
 }
 
@@ -267,7 +202,7 @@ static FsVoid s_getImages(FsDict* dict,Image2D** images,FsInt* image_nu)
 
 
 
-Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
+Texture2D* TextureLoader::createFromScript(FsFile* file)
 {
 	Texture2D* ret=NULL;
 	FsDict* dict=ScriptUtil::parseScript(file);
@@ -287,8 +222,6 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 	/* internal_format */
 	FsInt internal_format=Texture2D::FORMAT_RGBA;
 
-	/* env_mode */
-	FsInt env_mode=Texture2D::ENV_REPLACE;
 
 	/* mipmap */
 	FsBool mipmap=false;
@@ -302,7 +235,6 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 	s_getWrap(dict,&wraps,&wrapt);
 	s_getAutoMipmap(dict,&mipmap);
 	s_getImageNu(dict,(FsInt*)&image_nu);
-	s_getEnvMode(dict,&env_mode);
 
 	if(image_nu==0)
 	{
@@ -358,16 +290,11 @@ Texture2D* TextureLoader::loadFromScriptFile(FsFile* file)
 
 }
 
-Texture2D* TextureLoader::loadFromBinaryFile(FsFile* file)
+Texture2D* TextureLoader::createFromBinary(FsFile* file)
 {
 	/* TODO(load from binary file )*/
 	return NULL;
 }
 
-FsInt TextureLoader::checkFileType(FsFile* file)
-{
-	/*TODO(Add Type CheckHere)*/
-	return FS_FILE_SCRIPT;
-}
 NS_FS_END
 

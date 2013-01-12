@@ -26,6 +26,10 @@ $pfile "FsVector4.pkg"
 
 /* loader */
 //$pfile "FsMeshLoader.pkg"
+$pfile "FsGeometryLoader.pkg"
+$pfile "FsMaterialLoader.pkg"
+$pfile "FsProgramLoader.pkg"
+$pfile "FsTextureLoader.pkg"
 
 
 /* graphics */

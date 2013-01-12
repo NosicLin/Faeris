@@ -1,7 +1,7 @@
 #include <string.h>
 
 #include "GL/glew.h"
-#include "graphics/FsMaterial.h"
+#include "material/FsMaterial.h"
 #include "graphics/FsRender.h"
 #include "graphics/FsProgram.h"
 

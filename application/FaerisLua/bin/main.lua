@@ -10,16 +10,11 @@ g_render:setViewport(0,0,1024,800)
 g_frame:setFPS(60)
 
 
-mesh=MeshLoader:loadMesh("cube.msh");
-if mesh==nil then 
-	g_quit()
-	return
-end
+gm=GeometryLoader:loadFromMgr("cube.gry");
 
 local function onFrameEnd(diff)
 	print("time "..diff.." FPS"..g_frame:getAvgFPS())
 	g_render:clear(true)
-	mesh:draw(g_render);
 	g_render:swapBuffers();
 end
 

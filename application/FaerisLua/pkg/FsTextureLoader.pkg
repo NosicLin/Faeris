@@ -1,0 +1,9 @@
+$#include "loader/FsTextureLoader.h"
+
+class TextureLoader
+{
+	public:
+		//static ResourceMgr* getMgr();
+		static Texture2D* loadFromMgr(const char* name);
+};
+

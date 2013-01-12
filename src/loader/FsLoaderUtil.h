@@ -25,6 +25,16 @@ class LoaderUtil
 
 		static FsInt parseFrontSide(const FsChar* str);
 		static const FsChar* frontSideToStr(FsInt type);
+
+		static FsInt parseTextureFilter(const FsChar* str);
+		static const FsChar* textureFilterToStr(FsInt type);
+
+
+		static FsInt parseTextureSwap(const FsChar* str);
+		static const FsChar* textureSwapToStr(FsInt type);
+
+		static FsInt parseTextureFormat(const FsChar* str);
+		static const FsChar* textureFormatToStr(FsInt type);
 };
 NS_FS_END
 

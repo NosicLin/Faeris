@@ -1,0 +1,8 @@
+$#include "loader/FsMaterialLoader.h"
+class MaterialLoader 
+{
+	public:
+//		static ResourceMgr* getMgr();
+		static Material* loadFromMgr(const char* name);
+};
+

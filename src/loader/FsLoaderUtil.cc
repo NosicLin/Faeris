@@ -1,6 +1,7 @@
 #include <string.h>
 #include "loader/FsLoaderUtil.h"
 #include "graphics/FsRender.h"
+#include "graphics/FsTexture2D.h"
 
 NS_FS_BEGIN
 FsInt LoaderUtil::parseFsType(const FsChar* t)
@@ -342,6 +343,95 @@ const FsChar* LoaderUtil::uniformTypeToStr(FsInt type)
 	}
 }
 
+FsInt LoaderUtil::parseTextureFilter(const FsChar* str)
+{
+	FsInt ret;
+	if(strcmp(str,"linear")==0)
+	{
+			ret=Texture2D::FILTER_LINEAR;
+	}
+	else if(strcmp(str,"nearest")==0)
+	{
+			ret=Texture2D::FILTER_NEAREST;
+	}
+	else
+	{
+		ret=-1;
+	}
+	return ret;
+}
+
+/*
+const FsChar* LoaderUtil::filterToStr(FsInt type)
+{
+}
+*/
+
+
+
+
+FsInt LoaderUtil::parseTextureSwap(const FsChar* str)
+{
+	FsInt ret;
+	if(strcmp(str,"clamp_to_edge")==0)
+	{
+			ret=Texture2D::WRAP_CLAMP_TO_EDGE;
+	}
+	else if(strcmp(str,"repeat")==0)
+	{
+			ret=Texture2D::WRAP_REPEAT;
+	}
+	else if(strcmp(str,"clamp")==0)
+	{
+			ret=Texture2D::WRAP_CLAMP;
+	}
+	else 
+	{
+		ret=-1;
+	}
+	return ret;
+}
+
+/*
+FsInt LoaderUtil::swapToStr(FsInt type)
+{
+}
+*/
+
+
+FsInt LoaderUtil::parseTextureFormat(const FsChar* str)
+{
+	FsInt ret;
+	if(strcmp(str,"rgba")==0)
+	{
+		ret=Texture2D::FORMAT_RGBA;
+	}
+	else if(strcmp(str,"rgb")==0)
+	{
+		ret=Texture2D::FORMAT_RGB;
+	}
+	else if(strcmp(str,"alpha")==0)
+	{
+		ret=Texture2D::FORMAT_ALPHA;
+	}
+	else if(strcmp(str,"luminance")==0)
+	{
+		ret=Texture2D::FORMAT_LUMINANCE;
+	}
+	else if(strcmp(str,"luminance_alpha")==0)
+	{
+		ret=Texture2D::FORMAT_LUMINANCE_ALPHA;
+	}
+	else if(strcmp(str,"intensity")==0)
+	{
+		ret=Texture2D::FORMAT_INTENSITY;
+	}
+	else 
+	{
+		ret=-1;
+	}
+	return ret;
+}
 NS_FS_END
 
 

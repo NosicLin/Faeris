@@ -1,0 +1,7 @@
+$#include "loader/FsProgramLoader.h"
+class ProgramLoader
+{
+	public:
+		static Program* loadFromMgr(const char* name);
+		//static ResourceMgr* getMgr();
+};
