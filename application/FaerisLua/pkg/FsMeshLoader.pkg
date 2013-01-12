@@ -6,8 +6,8 @@ class  MeshLoader
 		//static Mesh* loadFromMgr(const FsChar* name);
 
 	public:
-		static Mesh* loadMesh(const char* name);
-		static Mesh* loadMesh(FsFile* file);
+		static Mesh* create(const char* name);
+		static Mesh* create(FsFile* file);
 		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
 
 };

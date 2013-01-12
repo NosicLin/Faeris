@@ -14,15 +14,16 @@ SRC_DIR=./
 INCLUDE_DIR=  -I./ -I../
 
 #Source File 
-#SRC=FsMeshLoader.cc \
-#	FsTextureLoader.cc 
+#SRC= FsMeshLoader.cc \
+#	
 #
 
 
 SRC=FsGeometryLoader.cc  \
 	FsProgramLoader.cc \
 	FsMaterialLoader.cc  \
-	FsLoaderUtil.cc 
+	FsTextureLoader.cc \
+	FsLoaderUtil.cc  \
 
 
 

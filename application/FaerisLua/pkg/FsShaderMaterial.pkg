@@ -1,0 +1,61 @@
+$#include "material/FsShaderMaterial.h"
+class ShaderMaterial:public Material
+{
+	public:
+		class Uniform:public FsObject
+		{
+			public:
+				Uniform(FsString* name,int type,int count);
+		};
+	public:
+		void setShadeMode(int mode);
+		void enableWireFrame(FsBool enable);
+		void setWireFrameWidth(int width);
+		void setProgram(Program* prog);
+
+		void setProgramSourceName(FsString* name);
+		FsString* getProgramSourceName();
+
+
+		void setUniform1i(const char* name,int v);
+		void setUniform2i(const char* name,int v1,int v2);
+		void setUniform3i(const char* name,int v1,int v2,int v3);
+		void setUniform4i(const char* name,int v1,int v2,int v3,int v4);
+
+		void setUniform1f(const char* name,float v);
+		void setUniform2f(const char* name,float v1,float v2);
+		void setUniform3f(const char* name,float v1,float v2,float v3);
+		void setUniform4f(const char* name,float v1,float v2,float v3,float v4);
+
+		void setUniform1ui(const char* name,unsigned int v);
+		void setUniform2ui(const char* name,unsigned int v1,unsigned int v2);
+		void setUniform3ui(const char* name,unsigned int v1,unsigned int v2,unsigned int v3);
+		void setUniform4ui(const char* name,unsigned int v1,unsigned int v2,unsigned int v3,unsigned int v4);
+
+		void setUniform1iv(const char* name,int count,const int v[count]);
+		void setUniform2iv(const char* name,int count,const int v[count*2]);
+		void setUniform3iv(const char* name,int count,const int v[count*3]);
+		void setUniform4iv(const char* name,int count,const int v[count*4]);
+
+		void setUniform1fv(const char* name,int count,const float v[count]);
+		void setUniform2fv(const char* name,int count,const float v[count*2]);
+		void setUniform3fv(const char* name,int count,const float v[count*3]);
+		void setUniform4fv(const char* name,int count,const float v[count*4]);
+
+		void setUniform1uiv(const char* name,int count,const unsigned int v[count]);
+		void setUniform2uiv(const char* name,int count,const unsigned int v[count*2]);
+		void setUniform3uiv(const char* name,int count,const unsigned int v[count*3]);
+		void setUniform4uiv(const char* name,int count,const unsigned int v[count*4]);
+
+		void addUniform(ShaderMaterial::Uniform* u);
+
+		FsDict* getUniforms();
+	public:
+
+		ShaderMaterial();
+		~ShaderMaterial();
+		const char* getName();
+		void load(Render* r);
+		void unload(Render* r);
+};
+

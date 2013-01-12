@@ -221,7 +221,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 				ScriptUtil::getFloat(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
-			u->setValue(v);
+			u->setValue(v,real_type,count);
 			delete[] v;
 			sct_value->decRef();
 			break;
@@ -250,7 +250,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 				ScriptUtil::getInteger(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
-			u->setValue(v);
+			u->setValue(v,real_type,count);
 			sct_value->decRef();
 			delete[] v;
 			break;
@@ -280,7 +280,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 				ScriptUtil::getInteger(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
-			u->setValue(v);
+			u->setValue(v,real_type,count);
 			sct_value->decRef();
 			delete[] v;
 			break;

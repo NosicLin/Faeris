@@ -28,6 +28,7 @@ LINK_LIB= -lscript \
 		  -lfsys \
 		  -lloader \
 		  -lmodel \
+		  -lmaterial \
 		  -lmath \
 		  -lgraphics \
 	      -lGL  \

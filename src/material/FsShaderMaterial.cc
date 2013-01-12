@@ -37,9 +37,20 @@ ShaderMaterial::Uniform::~Uniform()
 	delete[] (FsChar*)m_value;
 }
 
-void ShaderMaterial::Uniform::setValue(void* value)
+void ShaderMaterial::Uniform::setValue(void* value,FsInt type,FsInt count)
 {
-	memcpy(m_value,value,Render::sizeofUniformType(m_type)*m_count);
+	if(type!=m_type)
+	{
+		FS_TRACE_WARN("Error Type For Material Uniform %s",m_name->cstr());
+		return;
+	}
+	if(count>m_count)
+	{
+		FS_TRACE_WARN("Count Enlarge Than We Need,so Trunk It");
+		count=m_count;
+	}
+
+	memcpy(m_value,value,Render::sizeofUniformType(m_type)*count);
 }
 
 
@@ -75,12 +86,12 @@ void ShaderMaterial::refreshUniform()
 	}
 }
 
-void ShaderMaterial::setUniform(const FsChar* name,FsVoid* value)
+void ShaderMaterial::setUniform(const FsChar* name,FsInt type,FsVoid* value,FsInt count)
 {
 	Uniform* u=(Uniform*)m_uniforms->lookup(name);
 	if(u)
 	{
-		u->setValue(value);
+		u->setValue(value,type,count);
 		u->decRef();
 	}
 	else 

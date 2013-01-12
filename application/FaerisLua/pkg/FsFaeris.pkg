@@ -3,16 +3,40 @@ $#include "FsLuaFaeris.h"
 /*  FsTypes.pkg it must first here */
 
 $pfile "FsTypes.pkg"   
+
+/* core */
 $pfile "FsObject.pkg"
+
+
+/* util */
 $pfile "FsResource.pkg"
 
-$pfile "FsWindow.pkg"
-$pfile "FsRender.pkg"
-$pfile "FsColor.pkg"
-$pfile "FsMeshLoader.pkg"
 
-$pfile "FsMesh.pkg"
+/* fsys */
+$pfile "FsWindow.pkg"
 $pfile "FsFrame.pkg"
 $pfile "FsFrameListener.pkg"
 
+
+/* math */
+$pfile "FsVector2.pkg"
 $pfile "FsVector3.pkg"
+$pfile "FsVector4.pkg"
+//$pfile "FsMatrix4.pkg"
+
+/* loader */
+//$pfile "FsMeshLoader.pkg"
+
+
+/* graphics */
+$pfile "FsRender.pkg"
+$pfile "FsColor.pkg"
+
+
+/* model */
+$pfile "FsMesh.pkg"
+
+
+/* material */
+$pfile "FsMaterial.pkg"
+$pfile "FsShaderMaterial.pkg"

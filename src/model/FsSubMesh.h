@@ -3,7 +3,7 @@
 
 #include "FsMacros.h"
 
-#include "graphics/FsMaterial.h"
+#include "material/FsMaterial.h"
 #include "model/FsGeometry.h"
 
 NS_FS_BEGIN

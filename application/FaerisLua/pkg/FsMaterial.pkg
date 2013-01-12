@@ -1,0 +1,36 @@
+$#include "material/FsMaterial.h"
+class Material:public FsObject
+{
+	public:
+		const FsChar* getName();
+	public:
+		/* blend */
+		void setBlend(FsInt equation,FsInt src,FsInt dst);
+		FsInt getBlendEquation();
+		FsInt getBlendSrc();
+		FsInt getBlendDst();
+
+		/* shader mode */
+		void setShadeMode(FsInt mode);
+		FsInt getShadeMode();
+
+		/* opacity */
+		void setOpacity(FsFloat opacity);
+		FsFloat getOpacity();
+
+		/* depth test */
+		void setDepthTest(FsBool enable);
+		FsBool getDepthTest();
+
+		/* depth mask */
+		void setDepthMask(FsBool enable);
+		FsBool getDepthMask();
+
+		void setFrontSide(FsInt type);
+		FsInt getFrontSide();
+	public:
+		void load(Render* r);
+		void unload(Render* r);
+};
+
+

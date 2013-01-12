@@ -1,5 +1,5 @@
-#ifndef _FS_BASE_MATTERIAL_H_
-#define _FS_BASE_MATTERIAL_H_
+#ifndef _FS_BASE_MATERIAL_H_
+#define _FS_BASE_MATERIAL_H_
 #include "FsMacros.h"
 #include "util/FsResource.h"
 #include "core/FsObject.h"
