@@ -38,12 +38,12 @@ class Mesh:public Resource
 		/* render */
 		void draw(Render* r);
 	public:
-		Mesh(FsUint submesh_nu,int type);
+		Mesh(int type=Mesh::TYPE_STATIC);
 		virtual const FsChar* getName();
 		virtual ~Mesh();
 	private:
 		FsArray* m_submesh;
-		std::map<std::string,Animation*> m_animations;
+	//	std::map<std::string,Animation*> m_animations;
 		FsInt m_type;
 };
 

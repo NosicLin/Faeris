@@ -3,18 +3,22 @@ g_window:setSize(1024,800)
 g_window:setCaption("FaerisGame")
 
 
-g_render:setClearColor(Color(255,255,255))
+g_render:setClearColor(Color(0,0,0))
 g_render:clear(true)
 g_render:swapBuffers()
 g_render:setViewport(0,0,1024,800)
-g_frame:setFPS(60)
+g_frame:setFPS(0)
 
 
-gm=GeometryLoader:loadFromMgr("cube.gry");
+mesh=MeshLoader:loadFromMgr("cube.msh");
 
+g_render:clear(true)
+mesh:draw(g_render);
+g_render:swapBuffers();
 local function onFrameEnd(diff)
-	print("time "..diff.." FPS"..g_frame:getAvgFPS())
+	print( "update"..diff.."FPS:"..g_frame:getAvgFPS())
 	g_render:clear(true)
+	mesh:draw(g_render);
 	g_render:swapBuffers();
 end
 

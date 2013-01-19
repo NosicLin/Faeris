@@ -1,7 +1,5 @@
 type: "mesh.static"
 version:"v1.0"
-fflags:"f"
-vflags:"vc"
 meshNu:1
 mesh:[
 	{

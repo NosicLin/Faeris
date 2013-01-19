@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaerisLua", "FaerisLua\FaerisLua.vcproj", "{C61972DD-8D0D-476B-8A4E-5E63D553C3B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925} = {1A220C0A-1B8C-4B0D-9EF8-157B34855925}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faeris", "..\..\..\platform\win32.proj\faeris\faeris.vcproj", "{1A220C0A-1B8C-4B0D-9EF8-157B34855925}"
 EndProject

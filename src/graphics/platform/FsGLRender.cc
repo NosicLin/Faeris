@@ -492,7 +492,7 @@ FsVoid Render::setAndEnableVertexAttrPointer(
 		FsString* name, FsInt size, FsInt type, 
 		FsInt count, FsInt stride, FsVoid* pointer)
 {
-	if(m_program)
+	if(!m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
@@ -500,7 +500,7 @@ FsVoid Render::setAndEnableVertexAttrPointer(
 	FsInt loc=m_program->getAttributeLocation(name);
 	if(loc==-1)
 	{
-		FS_TRACE_WARN("Attribute Not Used In Program");
+		FS_TRACE_WARN("Attribute(%s) Not Used In Program",name->cstr());
 		return;
 	}
 	FS_ASSERT(loc<m_vertexAttrMaxNu);
@@ -535,6 +535,7 @@ FsVoid Render::disableAllAttrArray()
 		{
 			glDisableVertexAttribArray(i);
 			m_vertexAttrEnableNu--;
+			m_vertexAttrFlags[i]=false;
 			if(m_vertexAttrEnableNu==0)
 			{
 				break;
@@ -576,7 +577,7 @@ FsVoid Render::enableAttrArray(FsString* name)
 FsVoid Render::disableAttrArray(const FsChar* name)
 {
 	FsString* fs_name=new FsString(name);
-	enableAttrArray(fs_name);
+	disableAttrArray(fs_name);
 	fs_name->decRef();
 }
 

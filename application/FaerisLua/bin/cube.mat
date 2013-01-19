@@ -1,0 +1,12 @@
+type:"material.shader"
+version:"v1.0"
+shader:"hello.shader"
+frontSide:ccw
+blendEquation:add
+srcFactor:src_alpha
+dstFactor:one_minus_src_alpha
+shadeMode:smooth
+depthTest:true
+depthMask:true
+
+

@@ -77,6 +77,7 @@ void Frame::start()
 	while(!m_stop)
 	{
 
+		m_curTime=m_timer.now();
 		diff_time=m_curTime-lastframe_time;
 
 		frameBegin(diff_time);
@@ -89,10 +90,8 @@ void Frame::start()
 		{
 			m_idleTime+=sleep_time;
 			Sys::usleep(sleep_time);
-		}
 
-		lastframe_time=m_curTime;
-		m_curTime=m_timer.now();
+		}
 
 		m_instantTime+=diff_time;
 		m_curFrame++;
@@ -103,6 +102,7 @@ void Frame::start()
 			m_instantFrame=0;
 			m_instantFPS=m_instantFrame;
 		}
+		lastframe_time=m_curTime;
 
 	}
 }

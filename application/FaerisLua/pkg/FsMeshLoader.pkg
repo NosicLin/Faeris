@@ -3,11 +3,5 @@ class  MeshLoader
 {
 	public:
 		//static ResourceMgr* getMgr();
-		//static Mesh* loadFromMgr(const FsChar* name);
-
-	public:
-		static Mesh* create(const char* name);
-		static Mesh* create(FsFile* file);
-		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
-
+		static Mesh* loadFromMgr(const char* name);
 };

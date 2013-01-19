@@ -25,7 +25,7 @@ $pfile "FsVector4.pkg"
 //$pfile "FsMatrix4.pkg"
 
 /* loader */
-//$pfile "FsMeshLoader.pkg"
+$pfile "FsMeshLoader.pkg"
 $pfile "FsGeometryLoader.pkg"
 $pfile "FsMaterialLoader.pkg"
 $pfile "FsProgramLoader.pkg"

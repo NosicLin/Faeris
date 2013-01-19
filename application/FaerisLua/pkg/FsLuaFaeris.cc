@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 01/12/13 18:42:10.
+** Generated automatically by tolua++-1.0.92 on 01/13/13 22:04:44.
 */
 
 #ifndef __cplusplus
@@ -22,6 +22,7 @@ TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 #include "math/FsVector2.h"
 #include "math/FsVector3.h"
 #include "math/FsVector4.h"
+#include "loader/FsMeshLoader.h"
 #include "loader/FsGeometryLoader.h"
 #include "loader/FsMaterialLoader.h"
 #include "loader/FsProgramLoader.h"
@@ -100,12 +101,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"LuaFrameListener");
  tolua_usertype(tolua_S,"Mesh");
  tolua_usertype(tolua_S,"Vector3");
+ tolua_usertype(tolua_S,"FsDict");
  tolua_usertype(tolua_S,"Face3");
  tolua_usertype(tolua_S,"Program");
- tolua_usertype(tolua_S,"FsDict");
  tolua_usertype(tolua_S,"ShaderMaterial::Uniform");
  tolua_usertype(tolua_S,"Material");
  tolua_usertype(tolua_S,"ProgramLoader");
+ tolua_usertype(tolua_S,"MeshLoader");
  tolua_usertype(tolua_S,"TexCoord2");
  tolua_usertype(tolua_S,"Vector4");
  tolua_usertype(tolua_S,"Texture2D");
@@ -2770,6 +2772,36 @@ static int tolua_FsFaeris_Vector4_equal00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'equal'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadFromMgr of class  MeshLoader */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_MeshLoader_loadFromMgr00
+static int tolua_FsFaeris_MeshLoader_loadFromMgr00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"MeshLoader",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Mesh* tolua_ret = (Mesh*)  MeshLoader::loadFromMgr(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Mesh");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
  return 0;
 #endif
 }
@@ -7106,6 +7138,10 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"length",tolua_FsFaeris_Vector4_length00);
    tolua_function(tolua_S,"length2",tolua_FsFaeris_Vector4_length200);
    tolua_function(tolua_S,"equal",tolua_FsFaeris_Vector4_equal00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"MeshLoader","MeshLoader","",NULL);
+  tolua_beginmodule(tolua_S,"MeshLoader");
+   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_MeshLoader_loadFromMgr00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"GeometryLoader","GeometryLoader","",NULL);
   tolua_beginmodule(tolua_S,"GeometryLoader");

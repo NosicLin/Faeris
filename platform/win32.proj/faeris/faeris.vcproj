@@ -586,6 +586,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\loader\FsMeshLoader.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\loader\FsMeshLoader.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\loader\FsProgramLoader.cc"
 					>
 				</File>

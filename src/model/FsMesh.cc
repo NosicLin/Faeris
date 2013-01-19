@@ -10,66 +10,34 @@ const FsChar* Mesh::getName()
 	return s_MeshName;
 }
 
-Mesh::Mesh(FsUint submesh_nu,int type)
+Mesh::Mesh(FsInt type)
 {
-	m_submesh.resize(submesh_nu);
+	m_submesh=new FsArray();
 	m_type=type;
-	for(FsUint i=0;i<submesh_nu;++i)
-	{
-		m_submesh[i]=new SubMesh;
-	}
 }
 
 Mesh::~Mesh()
 {
-	/*TODO*/
+	m_submesh->decRef();
 }
 
-
-SubMesh* Mesh::getSubMesh(FsUint index) const 
+void Mesh::pushSubMesh(SubMesh* sm)
 {
-	if(index>=m_submesh.size())
-	{
-		return NULL;
-	}
-	return m_submesh[index];
+	m_submesh->push(sm);
 }
-
-/*
-void Mesh::addAnimation(const FsChar* name,Animation* ani)
-{
-	std::string key(name);
-	if(std::map.find(key))
-	{
-
-	}
-}
-void Mesh::removeAnimation(const FsChar* name)
-{
-}
-void Mesh::removeAnimation(Animation* ani)
-{
-}
-Animation* getAnimation(const char* name)
-{
-}
-*/
 
 void Mesh::draw(Render* r)
 {
-	std::vector<SubMesh*>::iterator iter;
-	for(iter=m_submesh.begin();iter!=m_submesh.end();++iter)
+	FsArray::Iterator iter(m_submesh);
+	while(!iter.done())
 	{
-		Geometry* g=(*iter)->getGeometry();
-		if(g==NULL)
-		{
-			continue;
-		}
-
-		Material* m=(*iter)->getMaterial();
+		SubMesh* sm=(SubMesh*)iter.getValue();
+		Geometry* g=sm->getGeometry();
+		Material* m=sm->getMaterial();
 		if(m==NULL)
 		{
 			g->decRef();
+			iter.next();
 			continue;
 		}
 
@@ -101,6 +69,7 @@ void Mesh::draw(Render* r)
 								attr->value);
 						attr->decRef(); 
 					}
+					iter.next();
 				}
 				attrs->decRef();
 			}
@@ -108,7 +77,9 @@ void Mesh::draw(Render* r)
 		}
 		if(g) g->decRef();
 		if(m) m->decRef();
+		iter.next();
 	}
+
 }
 
 NS_FS_END 

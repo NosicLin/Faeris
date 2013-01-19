@@ -1,6 +1,11 @@
 #include "model/FsSubMesh.h"
 
 NS_FS_BEGIN
+static const FsChar* s_SubMeshName="SubMeshObject";
+const FsChar* SubMesh::getName()
+{
+	return s_SubMeshName;
+}
 SubMesh::SubMesh()
 {
 	m_geometry=NULL;
@@ -8,38 +13,41 @@ SubMesh::SubMesh()
 }
 SubMesh::SubMesh(Geometry* g,Material* m)
 {
-	if(g) g->addRef();
-	if(m) m->addRef();
+	FS_SAFE_ADD_REF(g);
+	FS_SAFE_ADD_REF(m);
 
 	m_geometry=g;
 	m_material=m;
+}
+SubMesh::~SubMesh()
+{
+	FS_SAFE_DEC_REF(m_geometry);
+	FS_SAFE_DEC_REF(m_material);
+
 }
 
 void SubMesh::setGeometry(Geometry* g)
 {
-	if(g) g->addRef();
-	if(m_geometry) m_geometry->decRef();
-
+	FS_SAFE_ADD_REF(g);
+	FS_SAFE_DEC_REF(m_geometry);
 	m_geometry=g;
 }
 void SubMesh::setMaterial(Material* m)
 {
-	if(m) m->addRef();
-	if(m_material) m_material->decRef();
+	FS_SAFE_ADD_REF(m);
+	FS_SAFE_DEC_REF(m_material);
 	m_material=m;
 }
 
-Geometry* SubMesh::getGeometry()const 
+Geometry* SubMesh::getGeometry()
 {
-	Geometry* g=m_geometry;
-	if(g) g->addRef();
-	return g;
+	FS_SAFE_ADD_REF(m_geometry);
+	return m_geometry;
 }
-Material* SubMesh::getMaterial()const 
+Material* SubMesh::getMaterial()
 {
-	Material* m=m_material;
-	if(m) m->addRef();
-	return m;
+	FS_SAFE_ADD_REF(m_material);
+	return m_material;
 }
 
 

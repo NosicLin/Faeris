@@ -5,9 +5,10 @@
 
 #include "material/FsMaterial.h"
 #include "model/FsGeometry.h"
+#include "core/FsObject.h"
 
 NS_FS_BEGIN
-class SubMesh
+class SubMesh:public FsObject
 {
 	private:
 		Geometry* m_geometry;
@@ -17,9 +18,12 @@ class SubMesh
 		SubMesh(Geometry* g,Material* m);
 		void setGeometry(Geometry* g);
 		void setMaterial(Material* m);
+		Geometry* getGeometry();
+		Material* getMaterial();
 
-		Geometry* getGeometry()const;
-		Material* getMaterial()const;
+	public:
+		virtual ~SubMesh();
+		virtual const FsChar* getName();
 };
 NS_FS_END 
 #endif /*_FS_SUB_MESH_H_*/
