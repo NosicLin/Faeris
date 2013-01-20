@@ -117,8 +117,10 @@ class Render
 		FsVoid clear(FsBool color=true,FsBool depth=true,FsBool stencil=false);
 
 		/* transform */
+		FsVoid setProjectionMatrix(const Matrix4& mat);
 		FsVoid pushMatrix();
 		FsVoid popMatrix();
+		FsVoid loadIdentity();
 		FsVoid mulMatrix(const Matrix4& m);
 		FsVoid setMatrix(const Matrix4& m);
 		FsVoid translate(const Vector3& t);
@@ -191,6 +193,10 @@ class Render
 
 		/* blend */
 		FsVoid setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
+
+
+		/* aux draw quick function*/
+		FsVoid drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c);
 
 	private:
 		Render();

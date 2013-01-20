@@ -1,42 +1,40 @@
 #ifndef _FAERIS_SCENE_NODE_H_
 #define _FAERIS_SCENE_NODE_H_
 
-#include <string>
 
 #include "FsMacros.h"
-#include "FsObject.h"
-#include "geometry/FsVector3.h"
-#include "geometry/FsMatrix44.h"
-#include "geometry/FsQuaternion.h"
-#include "geometry/FsBoundSphere.h"
-#include "geometry/FsBoundBox.h"
-#include "util/FsListHead.h"
+#include "core/FsObject.h"
+#include "math/FsVector3.h"
+#include "math/FsMatrix44.h"
+#include "math/FsBoundSphere.h"
+#include "math/FsBoundBox.h"
+#include "util/FsString.h"
+#include "util/FsList.h"
 
-FAERIS_NAMESPACE_BEGIN
-
-
-class SceneNode :public FsObject.h
+NS_FS_BEGIN
+class SceneNode :public FsObject.h,public FsList;
 {
 	public:
-		Node(std::string name);
-		Node();
+		SceneNode(FsString* name);
+		SceneNode();
+
 	public:
 		virtual void update(FsLong msec);
 		virtual void draw(Render* r);
+
 	public:
-		void applyMatrix(const Matrix44& m);
 
 		Vector3 localToWorld(Vector3 l);
 		Vector3 worldToLocal(Vector3 l);
 
-		void lLookAt(Vector3 at);
 
 		/* relation ship*/
 		void addChirld(Node* n);
 		void remove(node* n);
 		void kill();
 
-		Node* getChildByName(std::string name,FsBool recusive=0);
+		SceneNode* getChildByName(FsString* name,FsBool recusive=0);
+		SceneNode* getChildByName(const FsChar* name,FsBool recusive=0);
 
 		void updateLocalMatrix();
 		void updateWorldMatrix(FsBool force);
@@ -45,9 +43,54 @@ class SceneNode :public FsObject.h
 		virtual Node* clone(FsBool deep=0);
 		virtual void draw(Render* );
 
+	public: /* transform */
+		void rotate(FsFloat rx,FsFloat ry,FsFloat rz);
+		void rotateX(FsFloat r);
+		void rotateY(FsFloat r);
+		void rotateZ(FsFloat r);
 
-	protected:
+		void scale(FsFloat sx,FsFloat sy,FsFloat sz);
+		void scaleX(FsFloat s);
+		void scaleY(FsFloat s);
+		void scaleZ(FsFloat s);
+
+		void move(FsFloat tx,FsFloat ty,FsFloat tz);
+		void moveX(FsFloat t);
+		void moveY(FsFloat t);
+		void moveZ(FsFloat t);
+
+	public:/* set transform */
+		void setRotate(FsFloat rx,FsFloat ry,FsFloat rz);
+		void setRotateX(FsFloat r);
+		void setRotateY(FsFloat r);
+		void setRotateZ(FsFloat r);
+
+		void setScale(FsFloat sx,FsFloat sy,FsFloat sz);
+		void setScaleX(FsFloat s);
+		void setScaleY(FsFloat s);
+		void setScaleZ(FsFloat s);
+
+		void setPosition(FsFloat tx,FsFloat ty,FsFloat tz);
+		void setPositionX(FsFloat t);
+		void setPositionY(FsFloat t);
+		void setPositionZ(FsFloat t);
+
+		void setPositionInWorld(FsFloat tx,FsFloat ty,FsFloat tz);
+		void setPositionXInWorld(FsFloat t);
+		void setPositionYInWorld(FsFloat t);
+		void setPositionZInWorld(FsFloat t);
+	public:
+		void hide(){m_visible=0;}
+		void show(){m_visible=1;}
+		FsBool getVisible(){return m_visible;}
+
+	public:
+		virtual FsBool hit(const Ray& r);
+		
+
+	private:
 		void initData();
+
 
 
 	protected:  
@@ -56,30 +99,26 @@ class SceneNode :public FsObject.h
 		union 
 		{
 			struct{
-				FsUlong m_matrixAutoUpdate:1;
-				FsUlong m_matrixWorldNeedsUpdate:1;
-				FsUlong m_useQuaternion:1;
-				FsUlong m_hasSphere:1;
-				FsUlong m_hasBox:1;
+				FsUlong m_localMatrixDirty:1;
+				FsUlong m_worldMatrixDirty:1;
+				FsUlong m_hasBoundSphere:1;
+				FsUlong m_hasBoundBox:1;
 				FsUlong m_visible:1;
 			};
 			FsUlong m_flags;
 		};
 
 
-		std::string m_name;
+		FsString* m_name;
+
 		/* transform info */
-		Vector3 m_position;
-		Vector3 m_rotation;
-		Vector3 m_eulerOrder;
-		Vector3 m_scale;
+		FsFloat m_tx,m_ty,m_tz;
+		FsFloat m_rx,m_ry,m_rz;
+		FsFloat m_sx,m_sy,m_sz;
 
 		/* matrix */
-		Matrix44 m_localMatrix;
-		Matrix44 m_worldMatrix;
-
-		/* use quaternion instead of euler rotation*/
-		Quaternion m_quaternion;
+		Matrix4 m_localMatrix;
+		Matrix4 m_worldMatrix;
 
 		/* bool bounding  volume */
 		BoundSphere m_boundSphere;
@@ -88,14 +127,13 @@ class SceneNode :public FsObject.h
 
 		/* relation ship*/
 		Node* m_parent;
-		ListHead<Node*> m_chirldHead;
-		ListHead<Node*> m_slibing;
 
-	private:
-		FsLong m_existCnt;
+		FsListHead m_chirldHead;
+		FsListHead m_slibing;
 };
+NS_FS_END
 
-
-FAERIS_NAMESPACE_END
 #endif 
+
+
 

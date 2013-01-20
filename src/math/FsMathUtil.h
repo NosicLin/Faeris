@@ -1,5 +1,6 @@
-#ifndef FY_MATH_MATH_UTIL_H_
-#define FY_MATH_MATH_UTIL_H_
+#ifndef FS_MATH_UTIL_H_
+#define FS_MATH_UTIL_H_
+
 #include <math.h>
 #include "FsMacros.h"
 

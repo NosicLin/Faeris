@@ -530,6 +530,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\math\FsMatrix4.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\math\FsMatrix4.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\math\FsTexCoord2.h"
 					>
 				</File>

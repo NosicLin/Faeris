@@ -5,6 +5,7 @@
 #include "math/FsVector4.h"
 #include "math/FsQuaternion.h"
 
+
 NS_FS_BEGIN
 class  Matrix4
 {
@@ -23,7 +24,13 @@ class  Matrix4
 	public:
 
 		Matrix4(){}
-		Matrix4(const float* v);
+		Matrix4(const float* v)
+		{
+			set(v[0],  v[1],  v[2],  v[3],
+				v[4],  v[5],  v[6],  v[7],
+				v[8],  v[9],  v[10], v[11],
+				v[12], v[13], v[14], v[15]);
+		}
 
 		Matrix4(float v00,float v01,float v02,float v03,
 				float v10,float v11,float v12,float v13,
@@ -41,7 +48,12 @@ class  Matrix4
 		/* normal operating for Matrix4 */
 		void add(const Matrix4& n); 
 		void mul(const Matrix4& n);
+
 		void mulScaler(float s);
+		Vector3 mulVector3(const Vector3& v);
+		Vector4 mulVector4(const Vector4& v);
+
+
 
 		void transpose();
 		void getTranspose(Matrix4* m);
@@ -51,41 +63,63 @@ class  Matrix4
 
 
 		/* aux function to quick change Matrix4  */
+		void makeTranslate(float x,float y,float z);
+		void makeTranslate(const Vector3& v){makeTranslate(v.x,v.y,v.z);}
+
 		void makeRotateX(float theta);
 		void makeRotateY(float theta);
 		void makeRotateZ(float theta);
-		void makeRotateAxis(const Vector3& v,float angle);
+		void makeRotateAxis(const Vector3& v,float angle){makeRotateAxis(v.x,v.y,v.z,angle);}
+		void makeRotateAxis(float x,float y,float z,float angle);
+
+		void makeRotateFromEuler(float x,float y,float z,int type);
+		void makeRotateFromEuler(const Vector3& v,int type){makeRotateFromEuler(v.x,v.y,v.z,type);}
+
 		void makeScale(float x,float y,float z);
+		void makeScale(const Vector3& v){makeScale(v.x,v.y,v.z);}
+		void makeIdentity();
+
+		void makeLookAt(const Vector3& eye,const Vector3& target,const Vector3& up);
 		void makeFrustum(float left,float right,float bottom,float top,float near,float far);
 		void makePerspective(float fov,float aspect,float near,float far);
-		void makeOrthographic(float left,float right,float top,float bottom,float neay,float far);
-		void makeIdentity();
+		void makeOrthographic(float left,float right,float bottom,float top,float near,float far);
 
 
 		/* set rotate,scale and translate part in Matrix4 */
+		void setTranslate(float x,float y,float z);
+		void setTranslate(const Vector3& v){setTranslate(v.x,v.y,v.z);}
 		void setRotationFromEuler(float rx,float ry,float rz,int type);
 		void setRotationFromQuaternion(const Quaternion& q); 
 		void setScale(float sx,float sy,float sz);
 		void setScale(const Vector3& v){setScale(v.x,v.y,v.z);}
-		void setTranslate(float x,float y,float z);
-		void setTranslate(const Vector3& v){setTranslate(v.x,v.y,v.z);}
 
 		/* transform rotate,scale,translate part in Matrix4 */
-		void translate(const Vector3& v);
+		void translate(float vx,float vy,float vz);
+		void translate(const Vector3& v){translate(v.x,v.y,v.z);}
+
 		void rotateX(float angle);
 		void rotateY(float angle);
 		void rotateZ(float angle);
-		void rotateByAxis(const Vector3& v,float angle);
-		void scale(const Vector3& v);
+		void rotateByAxis(float x,float y,float z,float angle);
+		void rotateByAxis(const Vector3& v,float angle){rotateByAxis(v.x,v.y,v.z,angle);}
+	
+		void scale(float x,float y,float z);
+		void scale(const Vector3& v){scale(v.x,v.y,v.z);}
 
+		/* decompose and compose matrix */
+		void compose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
+		void compose(const Vector3& t,const Quaternion& q,const Vector3& s);
+		void decompose(Vector3* t,Quaternion* q,Vector3* s);
 		
 		/* get rotate,scale,and translate information from Matrix4 */
-		void getColumnX(Vector3* v);
-		void getColumnY(Vector3* v);
-		void getColumnZ(Vector3* v);
-		void getTranslate(Vector3* v);
-		void getScale(Vector3* v);
-		void getRotate(Quaternion* q);
+		Vector3 getColumnX();
+		Vector3 getColumnY();
+		Vector3 getColumnZ();
+
+
+		Vector3 getTranslate();
+		Vector3 getScale();
+		Quaternion getRotate();
 
 		void set(float v00,float v01,float v02,float v03,
 				float v10,float v11,float v12,float v13,
@@ -97,7 +131,15 @@ class  Matrix4
 			m20=v20;m21=v21;m22=v22;m23=v23;
 			m30=v30;m31=v31;m32=v32;m33=v33;
 		}
+	protected:
+		void rawSetRotateFromEuler(float rx,float ry,float rz,int type);
+
 };
 NS_FS_END
 #endif  /*_FS_MATH_MATRIX4_H_*/
+
+
+
+
+
 

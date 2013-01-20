@@ -100,8 +100,10 @@ class Render
 		/* transform */
 		void pushMatrix();
 		void popMatrix();
-		//void mulMatrix(const Matrix4& m);
-		//void setMatrix(const Matrix4& m);
+		void loadIdentity();
+		void setProjectionMatrix(const Matrix4& m);
+		void mulMatrix(const Matrix4& m);
+		void setMatrix(const Matrix4& m);
 		void translate(const Vector3& t);
 		void scale(const Vector3& s);
 		void rotate(const Vector3& v,FsFloat angle);
@@ -152,6 +154,11 @@ class Render
 
 		/* blend */
 		void setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
+
+
+		/* aux for quick draw */
+		FsVoid drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c);
+
 };
 
 

@@ -139,6 +139,8 @@ Render::Render()
 
 	/* texture */
 	glEnable(GL_TEXTURE_2D);
+
+	glMatrixMode(GL_MODELVIEW_MATRIX);
 }
 Render::~Render()
 {
@@ -158,9 +160,17 @@ Render::~Render()
 		m_program->decRef();
 	}
 	delete[] m_vertexAttrFlags;
-
-
 }
+
+
+
+FsVoid Render::setProjectionMatrix(const Matrix4& mat)
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadTransposeMatrixf(mat.v);
+	glMatrixMode(GL_MODELVIEW);
+}
+
 
 void Render::pushMatrix()
 {
@@ -169,6 +179,18 @@ void Render::pushMatrix()
 void Render::popMatrix()
 {
 	glPopMatrix();
+}
+void Render::loadIdentity()
+{
+	glLoadIdentity();
+}
+void Render::setMatrix(const Matrix4& m)
+{
+	glLoadTransposeMatrixf(m.v);
+}
+void Render::mulMatrix(const Matrix4& m)
+{
+	glMultTransposeMatrixf(m.v);
 }
 void Render::translate(const Vector3& v)
 {
@@ -713,5 +735,17 @@ FsVoid Render::setUniform(FsInt loc,FsInt type,FsInt count,FsVoid* value)
 //oid Render::setPolygonOffset(FsFloat factor,FsFloat units);
 
 
+
+
+/* aux func for quick draw */
+FsVoid Render::drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c)
+{
+	glColor3ub(c.r,c.g,c.b);
+	glLineWidth(width);
+	glBegin(GL_LINES);
+	glVertex3fv(start.v);
+	glVertex3fv(end.v);
+	glEnd();
+}
 NS_FS_END
 

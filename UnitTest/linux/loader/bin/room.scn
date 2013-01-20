@@ -1,0 +1,64 @@
+type:"sence.static"
+name:"room"
+camera:{
+	type:"camera.perspetive"
+	near:10.0
+	far: 1000.0
+	aspect:1.2
+}
+
+chirdren:[
+	{
+		name:"desktop"
+		type:"entity"
+		translate:[20,30,0]
+		rotation:[23,42,24]
+		scale:[1.0,1.0,1.0]
+		mesh:{
+			geometry:"desktop.gry"
+			material:"desktop.mat"
+		}
+		chirdren:[
+			{
+				name:"computer"
+				type:"entity.static"
+				translate:[0,10,0]
+				rotation:[90,0,0]
+				scale:[1.0,1.0,1.0]
+				mesh:{
+					geometry:"computer.gry"
+					material:"desktop.mat"
+				}
+			},
+			{
+				name:"notebook"
+				type:"entity.static"
+				translate:[10,10,10]
+				rotation:[90,0,0]
+				scale:[1.0,1.0,1.0]
+				mesh:{
+					geometry:"computer.gry"
+					material:"desktop.mat"
+				}
+			}
+
+		]
+	},
+	{
+		name:"chair"
+		type:"entity"
+		translate:[20,50,0]
+		rotation:[23,45,12]
+		scale:[1.0,2.0,1.0]
+		mesh:{
+			geometry:"chair.gry"
+			material:"chair.mat"
+		}
+	},
+]
+
+
+
+
+
+

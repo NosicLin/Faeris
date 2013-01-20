@@ -12,31 +12,29 @@ g_render:setViewport(0,0,1024,800)
 g_frame:setFPS(0)
 
 mat=Matrix4()
-mat:makeOrthographic(-2,2,-2,2,0,100);
+mat:makeOrthographic(-100,100,-100,100,0,100);
 g_render:setProjectionMatrix(mat);
 
 
 g_render:clear(true)
 
 local function onFrameEnd(diff)
-	--print( "update"..diff.."FPS:"..g_frame:getAvgFPS())
-	g_render:pushMatrix();
-	g_render:clear(true)
 
-	--Used to Test translate 
-	--draw_test_make_translate();
-	--draw_test_make_rotate()
-	--draw_test_make_rotate_from_euler()
-	draw_test_transform()
-	--draw_test_mul()
-	g_render:popMatrix();
+	g_render:clear(true)
+	--g_render:loadIdentity()
+
+	--mat:makeIdentity();
+	mat:scale(0.5,0.5,0.5);
+--	g_render:setMatrix(mat);
+
+	--g_render:scale(Vector3(0.5,0.5,0.5));
+
+	draw_coord()
 	g_render:swapBuffers();
 end
 
 
-
-
-
+g_render:translate(Vector3(0,0,-13))
 
 local function onFrameUpdate(diff)
 end

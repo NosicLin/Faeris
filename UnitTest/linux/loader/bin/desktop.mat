@@ -1,0 +1,17 @@
+type:"material.pong"
+version:"v1.0"
+frontSide:ccw
+blendEquation:logic_op
+srcFactor:src_alpha_saturate
+dstFactor:src_alpha_saturate
+shadeMode:smooth
+depthTest:false
+depthMask:false
+opacity:0.33
+
+abiment:[1.0,1.0,1.0,1.0]
+diffuse:[0.2,0.3,0.1,1.0]
+special:[0.3,0.3,0.1,1.0]
+shinness:250
+
+texture:"desktop.ttr"
