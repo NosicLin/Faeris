@@ -333,6 +333,10 @@ void Render::setProgram(Program* prog)
 		GLint plat_prog=prog->getPlatformProgram();
 		glUseProgram(plat_prog);
 	}
+	else 
+	{
+		glUseProgram(0);
+	}
 	m_program=prog;
 }
 

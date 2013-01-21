@@ -16,7 +16,7 @@ class Vector3
 			FsFloat v[3];
 		};
 	public:
-		Vector3(FsFloat x,FsFloat y,FsFloat z);
+		Vector3(FsFloat _x,FsFloat _y,FsFloat _z);
 		Vector3();
 		Vector3 add(const Vector3& v) const ;
 		Vector3 sub(const Vector3& v) const ;
@@ -30,6 +30,7 @@ class Vector3
 		FsFloat length() const;
 		FsFloat length2() const;
 		FsBool equal(const Vector3& v) const;
+		FsVoid set(FsFloat _x,FsFloat _y,FsFloat _z);
 
 
 };

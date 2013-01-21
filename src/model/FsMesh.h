@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "util/FsResource.h"
 #include "util/FsArray.h"
-#include "model/FsSubMesh.h"
+#include "model/FsGeometry.h"
 #include "material/FsMaterial.h"
 
 NS_FS_BEGIN 
@@ -18,16 +18,10 @@ class Mesh:public Resource
 			TYPE_SKELETON,
 		};
 	public:
-		FsUint subMeshNu()const{return m_submesh->size();}
-
-
-		SubMesh* getSubMesh(FsUint index);
-		void setSubMesh(SubMesh* mesh,FsUint index);
-
-		void pushSubMesh(SubMesh* mesh);
-		void pushSubMesh(Geometry* g,Material* mat);
-
-		FsInt  getType()const{return m_type;} 
+		void setGeometry(Geometry* g);
+		void setMaterial(Material* m);
+		Geometry* getGeometry();
+		Material* getMaterial();
 
 		/* animation */
 		void addAnimation(const FsChar* name,Animation* ani);
@@ -36,15 +30,15 @@ class Mesh:public Resource
 		Animation* getAnimation(const FsChar* name);
 
 		/* render */
-		void draw(Render* r);
+		virtual void draw(Render* r,FsInt frame=0,FsFloat subframe=0.0f);
 	public:
-		Mesh(int type=Mesh::TYPE_STATIC);
+		Mesh();
+		Mesh(Geometry* g,Material* m);
 		virtual const FsChar* getName();
 		virtual ~Mesh();
 	private:
-		FsArray* m_submesh;
-	//	std::map<std::string,Animation*> m_animations;
-		FsInt m_type;
+		Geometry* m_geometry;
+		Material* m_material;
 };
 
 NS_FS_END 

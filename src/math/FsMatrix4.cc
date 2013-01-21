@@ -494,7 +494,7 @@ void Matrix4::compose(const Vector3& translate,const Quaternion& q,const Vector3
 }
 */
 
-void Matrix4::compose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s)
+void Matrix4::makeCompose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s)
 {
 	rawSetRotateFromEuler(r.x,r.y,r.z,r_type);
 

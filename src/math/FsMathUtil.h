@@ -1,11 +1,12 @@
-#ifndef FS_MATH_UTIL_H_
-#define FS_MATH_UTIL_H_
+#ifndef _FS_MATH_UTIL_H_
+#define _FS_MATH_UTIL_H_
 
 #include <math.h>
 #include "FsMacros.h"
 
 NS_FS_BEGIN
 FS_BEGIN_NAMESPACE(Math)
+
 #ifndef FS_PI 
 #define FS_PI 3.1415926f
 #endif 
@@ -19,17 +20,45 @@ inline float angleToRadian(float  angle)
 	return angle/180.0f*FS_PI;
 }
 
-inline float cosr(float radian){return ::cosf(radian);}
-inline float sinr(float radian){return ::sinf(radian);}
-inline float tanr(float radian){return ::tanf(radian);}
-inline float acosr(float radian){return ::acosf(radian);}
+static inline float sqrt(float v)
+{
+	return ::sqrt(v);
+}
+inline float cosr(float radian)
+{
+	return ::cosf(radian);
+}
+inline float sinr(float radian)
+{
+	return ::sinf(radian);
+}
+inline float tanr(float radian)
+{
+	return ::tanf(radian);
+}
+inline float acosr(float radian)
+{
+	return ::acosf(radian);
+}
 
-inline float cosa(float angle){return ::cosf(angleToRadian(angle));}
-inline float sina(float angle){return ::sinf(angleToRadian(angle));}
-inline float tana(float angle){return ::tanf(angleToRadian(angle));}
-inline float acosa(float angle){return ::acosf(angleToRadian(angle));}
+inline float cosa(float angle)
+{
+	return ::cosf(angleToRadian(angle));
+}
+inline float sina(float angle)
+{
+	return ::sinf(angleToRadian(angle));
+}
+inline float tana(float angle)
+{
+	return ::tanf(angleToRadian(angle));
+}
+inline float acosa(float angle)
+{
+	return ::acosf(angleToRadian(angle));
+}
 
-inline float sqrt(float v){return ::sqrt(v);}
+
 
 template<typename T> T abs(T f){return f<0?-f:f;}
 

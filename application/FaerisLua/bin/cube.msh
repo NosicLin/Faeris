@@ -1,11 +1,5 @@
 type: "mesh.static"
 version:"v1.0"
-meshNu:1
-mesh:[
-	{
-		name:"head"
-		transform:[]
-		geometry:"cube.gry"
-		material:"cube.mat"
-	}
-]
+name:"head"
+geometry:"cube.gry"
+material:"cube.mat"

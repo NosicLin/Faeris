@@ -83,6 +83,8 @@ class  Matrix4
 		void makeFrustum(float left,float right,float bottom,float top,float near,float far);
 		void makePerspective(float fov,float aspect,float near,float far);
 		void makeOrthographic(float left,float right,float bottom,float top,float near,float far);
+		void makeCompose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
+		void makeCompose(const Vector3& t,const Quaternion& q,const Vector3& s);
 
 
 		/* set rotate,scale and translate part in Matrix4 */
@@ -107,8 +109,7 @@ class  Matrix4
 		void scale(const Vector3& v){scale(v.x,v.y,v.z);}
 
 		/* decompose and compose matrix */
-		void compose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
-		void compose(const Vector3& t,const Quaternion& q,const Vector3& s);
+
 		void decompose(Vector3* t,Quaternion* q,Vector3* s);
 		
 		/* get rotate,scale,and translate information from Matrix4 */

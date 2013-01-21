@@ -10,74 +10,67 @@ const FsChar* Mesh::getName()
 	return s_MeshName;
 }
 
-Mesh::Mesh(FsInt type)
+Mesh::Mesh(Geometry* g,Material* m)
 {
-	m_submesh=new FsArray();
-	m_type=type;
+	FS_SAFE_ADD_REF(g);
+	FS_SAFE_ADD_REF(m);
+	m_geometry=g;
+	m_material=m;
+}
+
+Mesh::Mesh()
+{
+	m_geometry=NULL;
+	m_material=NULL;
 }
 
 Mesh::~Mesh()
 {
-	m_submesh->decRef();
+	FS_SAFE_DEC_REF(m_geometry);
+	FS_SAFE_DEC_REF(m_material);
 }
 
-void Mesh::pushSubMesh(SubMesh* sm)
-{
-	m_submesh->push(sm);
-}
 
-void Mesh::draw(Render* r)
+void Mesh::draw(Render* r,FsInt frame,FsFloat subFrame)
 {
-	FsArray::Iterator iter(m_submesh);
-	while(!iter.done())
+	if(m_material==NULL||m_geometry==NULL)
 	{
-		SubMesh* sm=(SubMesh*)iter.getValue();
-		Geometry* g=sm->getGeometry();
-		Material* m=sm->getMaterial();
-		if(m==NULL)
+		return;
+	}
+
+	r->setMaterial(m_material);
+	r->disableAllAttrArray();
+
+	FsUint face_nu=m_geometry->getFaceNu();
+
+	Face3* face_pointer=m_geometry->fFacesPointer();
+	Geometry::Attribute* attr=NULL;
+	FsDict* attrs=NULL;
+	if(face_pointer!=NULL)
+	{
+		attrs=m_geometry->getAttrs();
+		if(attrs)
 		{
-			g->decRef();
-			iter.next();
-			continue;
-		}
-
-		r->setMaterial(m);
-		r->disableAllAttrArray();
-
-		FsUint face_nu=g->getFaceNu();
-
-		Face3* face_pointer=g->fFacesPointer();
-		Geometry::Attribute* attr=NULL;
-		FsDict* attrs=NULL;
-		if(face_pointer!=NULL)
-		{
-			attrs=g->getAttrs();
-			if(attrs)
+			FsDict::Iterator  iter(attrs);
+			while(!iter.done())
 			{
-				FsDict::Iterator  iter(attrs);
-				while(!iter.done())
+				attr=(Geometry::Attribute*)iter.getValue();
+				if(attr)
 				{
-					attr=(Geometry::Attribute*)iter.getValue();
-					if(attr)
-					{
-						r->setAndEnableVertexAttrPointer(
-								attr->name,
-								attr->size,
-								attr->type,
-								attr->count,
-								0,
-								attr->value);
-						attr->decRef(); 
-					}
-					iter.next();
+					r->setAndEnableVertexAttrPointer(
+							attr->name,
+							attr->size,
+							attr->type,
+							attr->count,
+							0,
+							attr->value);
+					attr->decRef(); 
 				}
-				attrs->decRef();
+				iter.next();
 			}
-			r->drawFace3(face_pointer,face_nu);
+			attrs->decRef();
 		}
-		if(g) g->decRef();
-		if(m) m->decRef();
-		iter.next();
+		r->drawFace3(face_pointer,face_nu);
 	}
 
 }

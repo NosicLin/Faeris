@@ -97,48 +97,25 @@ error:
 
 Mesh* MeshLoader::createStaticMeshFromDict(FsDict* script)
 {
-	FsUlong fflags=0,vflags=0;
 	Mesh* ret=NULL;
-	FsInt i;
 
-	/* create mesh */
-	ret=new Mesh(Mesh::TYPE_STATIC);
-
-	FsArray* sct_submesh=ScriptUtil::getArray(script,"mesh");
-	if(sct_submesh==NULL)
+	Geometry* g=NULL;
+	Material* m=NULL;
+	FsString* sct_geometry=ScriptUtil::getString(script,"geometry");
+	if(sct_geometry)
 	{
-		FS_TRACE_WARN("Can't Get \"mesh\"(Key Not Find)");
-		script->decRef();
-		return ret;
-	}
-
-	FsInt submesh_nu=sct_submesh->size();
-
-	/* create submesh */
-	for(i=0;i<submesh_nu;i++)
-	{
-		FsDict* sct_curmesh=ScriptUtil::getDict(sct_submesh,i);
-		if(sct_curmesh==NULL)
-		{
-			FS_TRACE_WARN("Submesh is Not Dict Object,Ingore");
-			continue;
-		}
-
-		Geometry* g=NULL;
-		Material* m=NULL;
-		FsString* sct_geometry=ScriptUtil::getString(sct_curmesh,"geometry");
-		FsString* sct_material=ScriptUtil::getString(sct_curmesh,"material");
 		g=GeometryLoader::loadFromMgr(sct_geometry->cstr());
+		sct_geometry->decRef();
+	}
+	FsString* sct_material=ScriptUtil::getString(script,"material");
+	if(sct_material)
+	{
+
 		m=MaterialLoader::loadFromMgr(sct_material->cstr());
-
-		SubMesh* sm=new SubMesh(g,m);
-
-		ret->pushSubMesh(sm);
-
-		sct_curmesh->decRef();
+		sct_material->decRef();
 	}
 
-	sct_submesh->decRef();
+	ret=new Mesh(g,m);
 	return ret;
 }
 

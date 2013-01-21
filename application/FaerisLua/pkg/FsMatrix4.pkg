@@ -44,6 +44,8 @@ class  Matrix4
 		void makeScale(const Vector3& v);
 		void makeIdentity();
 
+		void makeCompose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
+
 		void makeLookAt(const Vector3& eye,const Vector3& target,const Vector3& up);
 		void makeFrustum(float left,float right,float bottom,float top,float n,float f);
 		void makePerspective(float fov,float aspect,float n,float f);
@@ -72,7 +74,6 @@ class  Matrix4
 		void scale(const Vector3& v);
 
 		/* decompose and compose matrix */
-		void compose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
 
 	//	void compose(const Vector3& t,const Quaternion& q,const Vector3& s);
 	//	void decompose(Vector3* t,Quaternion* q,Vector3* s);

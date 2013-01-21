@@ -425,14 +425,6 @@
 					RelativePath="..\..\..\src\model\FsMesh.h"
 					>
 				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsSubMesh.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsSubMesh.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="script"
@@ -635,6 +627,30 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\material\FsShaderMaterial.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="scene"
+				>
+				<File
+					RelativePath="..\..\..\src\scene\FsEntity.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsEntity.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsSceneNode.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsSceneNode.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsSceneNode.inl"
 					>
 				</File>
 			</Filter>

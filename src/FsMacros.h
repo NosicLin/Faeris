@@ -198,5 +198,12 @@ enum
 };
 
 
+/* bound type */
+enum 
+{
+	FS_BOUND_BOX,
+	FS_BOUND_SPHERE
+};
+
 #endif /*_FAERIS_MACROS_H_*/
 

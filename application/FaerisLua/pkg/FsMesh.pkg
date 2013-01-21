@@ -11,7 +11,7 @@ class Mesh:public Resource
 	public:
 		//FsUint subMeshNu()const{return m_submesh.size();}
 		//SubMesh* getSubMesh(FsUint index)const;
-		FsInt  getType()const{return m_type;} 
+		//FsInt  getType()const{return m_type;} 
 
 		/* animation */
 		//void addAnimation(const FsChar* name,Animation* ani);

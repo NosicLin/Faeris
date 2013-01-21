@@ -10,36 +10,29 @@ g_render:setViewport(0,0,1024,800)
 g_frame:setFPS(0)
 
 mat=Matrix4()
-mat:makeFrustum(-5,5,-5,5,12,100);
+--mat:makeOrthographic(-4,4,-4,4,1,100);
+mat:makeFrustum(-4,4,-4,4,1,100);
 g_render:setProjectionMatrix(mat);
 
 
-mesh=MeshLoader:loadFromMgr("cube.msh");
 
 g_render:clear(true)
-mesh:draw(g_render);
-g_render:swapBuffers();
+
+dofile("test_scene_node.lua")
+
 local function onFrameEnd(diff)
-	print( "update"..diff.."FPS:"..g_frame:getAvgFPS())
+--	print( "update"..diff.."FPS:"..g_frame:getAvgFPS())
 
 	g_render:clear(true)
-	g_render:drawLine( Vector3(0,0,0), Vector3(10,10,10), 2, Color(255,255,0))
---	mesh:draw(g_render);
+	test_set_postion();
 	g_render:swapBuffers();
 end
 
 
-g_render:translate(Vector3(0,0,-13))
+g_render:translate(Vector3(0,0,-4))
 
 local function onFrameUpdate(diff)
 
-	local x_rotate=20*(diff/1000.0)
-	local y_rotate=10*(diff/1000.0)
-	local z_rotate=5*(diff/1000.0)
-
-	mat=Matrix4();
-	mat:makeRotateFromEuler(x_rotate,y_rotate,z_rotate,FS.EULER_XYZ);
-	g_render:mulMatrix(mat);
 end
 
 frame_listener=FrameListener()

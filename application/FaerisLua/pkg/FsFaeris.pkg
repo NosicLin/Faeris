@@ -25,6 +25,7 @@ $pfile "FsVector2.pkg"
 $pfile "FsVector3.pkg"
 $pfile "FsVector4.pkg"
 $pfile "FsMatrix4.pkg"
+$pfile "FsMath.pkg"
 
 /* loader */
 $pfile "FsMeshLoader.pkg"
@@ -46,3 +47,8 @@ $pfile "FsMesh.pkg"
 /* material */
 $pfile "FsMaterial.pkg"
 $pfile "FsShaderMaterial.pkg"
+
+
+/* Scene */
+$pfile "FsSceneNode.pkg"
+$pfile "FsEntity.pkg"

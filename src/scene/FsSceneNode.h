@@ -5,43 +5,52 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 #include "math/FsVector3.h"
-#include "math/FsMatrix44.h"
-#include "math/FsBoundSphere.h"
-#include "math/FsBoundBox.h"
+#include "math/FsMatrix4.h"
+//#include "math/FsBoundSphere.h"
+//#include "math/FsBoundBox.h"
 #include "util/FsString.h"
-#include "util/FsList.h"
+#include "util/FsArray.h"
+
 
 NS_FS_BEGIN
-class SceneNode :public FsObject.h,public FsList;
+class Render;
+class SceneNode :public FsObject
 {
 	public:
 		SceneNode(FsString* name);
 		SceneNode();
+		virtual ~SceneNode();
+		virtual const FsChar* getName();
 
 	public:
 		virtual void update(FsLong msec);
+		virtual void updateSelf(FsLong mesc);
 		virtual void draw(Render* r);
+		virtual void drawSelf(Render* r);
+
 
 	public:
 
-		Vector3 localToWorld(Vector3 l);
-		Vector3 worldToLocal(Vector3 l);
+		Vector3 localToWorld(const Vector3& v);
+		Vector3 worldToLocal(const Vector3& v);
 
 
 		/* relation ship*/
-		void addChirld(Node* n);
-		void remove(node* n);
-		void kill();
+		void addChild(SceneNode* n);
+		void remove(SceneNode* n);
 
 		SceneNode* getChildByName(FsString* name,FsBool recusive=0);
 		SceneNode* getChildByName(const FsChar* name,FsBool recusive=0);
 
 		void updateLocalMatrix();
-		void updateWorldMatrix(FsBool force);
+		void updateWorldMatrix();
+		void updateAllWorldMatrix();
 
-	public:
-		virtual Node* clone(FsBool deep=0);
-		virtual void draw(Render* );
+
+	public: /* get transform info */
+		Vector3 getPosition(){return m_translate;}
+		Vector3 getScale(){return m_scale;}
+		Vector3 getRotate(){return m_rotate;}
 
 	public: /* transform */
 		void rotate(FsFloat rx,FsFloat ry,FsFloat rz);
@@ -85,16 +94,15 @@ class SceneNode :public FsObject.h,public FsList;
 		FsBool getVisible(){return m_visible;}
 
 	public:
-		virtual FsBool hit(const Ray& r);
+	//	virtual FsBool hit(const Ray& r,FsInt bound_type);
 		
 
 	private:
 		void initData();
-
-
+		void updateAllWorldMatrixInternal(FsBool force);
+		void notifyChirdWorldMatrixDirty();
 
 	protected:  
-
 		/* flags */
 		union 
 		{
@@ -112,25 +120,27 @@ class SceneNode :public FsObject.h,public FsList;
 		FsString* m_name;
 
 		/* transform info */
-		FsFloat m_tx,m_ty,m_tz;
-		FsFloat m_rx,m_ry,m_rz;
-		FsFloat m_sx,m_sy,m_sz;
+		Vector3 m_translate;
+		Vector3 m_rotate;
+		Vector3 m_scale;
 
 		/* matrix */
 		Matrix4 m_localMatrix;
 		Matrix4 m_worldMatrix;
 
 		/* bool bounding  volume */
-		BoundSphere m_boundSphere;
-		BoundBox m_boundBox;
+	//	BoundSphere m_boundSphere;
+	//	BoundBox m_boundBox;
 
 
 		/* relation ship*/
-		Node* m_parent;
+		SceneNode* m_parent;
+		FsArray* m_chirdren;
 
-		FsListHead m_chirldHead;
-		FsListHead m_slibing;
 };
+
+
+#include "scene/FsSceneNode.inl"
 NS_FS_END
 
 #endif 

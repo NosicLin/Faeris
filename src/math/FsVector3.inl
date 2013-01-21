@@ -95,5 +95,11 @@ inline FsBool Vector3::equal(const Vector3& v) const
 			Math::floatEqual(z,v.z));
 }
 
+inline FsVoid Vector3::set(FsFloat _x,FsFloat _y,FsFloat _z)
+{
+	x=_x;
+	y=_y;
+	z=_z;
+}
 
 #endif 
