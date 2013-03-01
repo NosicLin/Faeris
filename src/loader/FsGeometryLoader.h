@@ -11,12 +11,6 @@ class FsFile;
 class FsDict;
 class GeometryLoader
 {
-	private:
-		static ResourceMgr* m_mgr;
-	public:
-		static ResourceMgr* getMgr();
-		static Geometry* loadFromMgr(const FsChar* name);
-
 	public:
 		static Geometry* create(const FsChar* filename);
 		static Geometry* create(FsFile* file);

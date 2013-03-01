@@ -3,18 +3,12 @@
 #include "FsMacros.h"
 #include "material/FsMaterial.h"
 #include "material/FsShaderMaterial.h"
-#include "util/FsResourceMgr.h"
 
 NS_FS_BEGIN 
 class FsFile;
 class FsDict;
 class MaterialLoader 
 {
-	private:
-		static ResourceMgr* m_mgr;
-	public:
-		static ResourceMgr* getMgr();
-		static Material* loadFromMgr(const FsChar* name);
 	public:
 		static Material* create(const FsChar* name);
 		static Material* create(FsFile* file);

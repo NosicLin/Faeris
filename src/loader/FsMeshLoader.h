@@ -11,17 +11,6 @@
 NS_FS_BEGIN
 class  MeshLoader
 {
-	private:
-		static ResourceMgr* m_mgr;
-	public:
-		static ResourceMgr* getMgr();
-
-		/* load from mgr, it mesh is not create before, it will create 
-		 * it and cache it in mgr, if mesh create before, it will return 
-		 * the cached.
-		 */
-		static Mesh* loadFromMgr(const FsChar* name);
-
 
 	public:
 		static Mesh* create(const char* filename);

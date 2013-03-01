@@ -8,14 +8,6 @@ class Program;
 class ProgramLoader
 {
 	public:
-		/* load from mgr,it program already load before,
-		 * it will return the program create before,
-		 * if the program is the first time to load, mgr
-		 * will create it and cache it
-		 */
-		static Program* loadFromMgr(const FsChar* name);
-		static ResourceMgr* getMgr();
-	public:
 		/* it will check the file type */
 		static Program* create(const char* name);
 		static Program* create(FsFile* file);

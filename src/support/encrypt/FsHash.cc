@@ -1,7 +1,5 @@
-#include "FsStringUtil.h"
-
-NS_FS_BEGIN
-FsUlong StringUtil::JHashCode(const char* str)
+#include "encrypt/FsHash.h"
+FsUlong FsHash_JCode(const char* str)
 {
 	FsUlong hash = 1315423911;
 	while (*str)
@@ -10,5 +8,4 @@ FsUlong StringUtil::JHashCode(const char* str)
 	}
 	return hash ;
 }
-NS_FS_END
 
