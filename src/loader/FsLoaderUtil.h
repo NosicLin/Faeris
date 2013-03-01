@@ -7,34 +7,34 @@ class FsFile;
 class LoaderUtil
 {
 	public:
-		static FsInt fileType(FsFile* file){return FS_FTYPE_SCRIPT;}
-		static FsInt parseFsType(const FsChar* t);
+		static int fileType(FsFile* file){return FS_FTYPE_SCRIPT;}
+		static int parseFsType(const char* t);
 
-		static FsInt parseUniformType(const FsChar* t);
-		static const FsChar* uniformTypeToStr(FsInt type);
-
-
-		static FsInt parseBlendEquation(const FsChar* t);
-		static const FsChar* blendEquationToStr(FsInt type);
-
-		static FsInt parseShadeMode(const FsChar* str);
-		static const FsChar* shadeModeToStr(FsInt type);
-
-		static FsInt parseBlendFactor(const FsChar* str);
-		static const FsChar* blendFactorToStr(FsInt factor);
-
-		static FsInt parseFrontSide(const FsChar* str);
-		static const FsChar* frontSideToStr(FsInt type);
-
-		static FsInt parseTextureFilter(const FsChar* str);
-		static const FsChar* textureFilterToStr(FsInt type);
+		static int parseUniformType(const char* t);
+		static const char* uniformTypeToStr(int type);
 
 
-		static FsInt parseTextureSwap(const FsChar* str);
-		static const FsChar* textureSwapToStr(FsInt type);
+		static int parseBlendEquation(const char* t);
+		static const char* blendEquationToStr(int type);
 
-		static FsInt parseTextureFormat(const FsChar* str);
-		static const FsChar* textureFormatToStr(FsInt type);
+		static int parseShadeMode(const char* str);
+		static const char* shadeModeToStr(int type);
+
+		static int parseBlendFactor(const char* str);
+		static const char* blendFactorToStr(int factor);
+
+		static int parseFrontSide(const char* str);
+		static const char* frontSideToStr(int type);
+
+		static int parseTextureFilter(const char* str);
+		static const char* textureFilterToStr(int type);
+
+
+		static int parseTextureSwap(const char* str);
+		static const char* textureSwapToStr(int type);
+
+		static int parseTextureFormat(const char* str);
+		static const char* textureFormatToStr(int type);
 };
 NS_FS_END
 
