@@ -18,14 +18,14 @@ long FsString::getHashCode()
 	return m_hash_code;
 }
 
-const char* FsString::getName()
+const char* FsString::className()
 {
 	return s_FsStringName;
 }
 
 bool FsString::checkType(FsObject* ob)
 {
-	return ob->getName()==s_FsStringName;
+	return ob->className()==s_FsStringName;
 }
 bool FsString::equal(FsObject* ob)
 {

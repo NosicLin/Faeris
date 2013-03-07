@@ -20,7 +20,7 @@ class SceneNode :public FsObject
 		SceneNode(FsString* name);
 		SceneNode();
 		virtual ~SceneNode();
-		virtual const char* getName();
+		virtual const char* className();
 
 	public:
 		virtual void update(long msec);

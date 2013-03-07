@@ -42,7 +42,7 @@ Program::Location::~Location()
 }
 
 const char* s_LocationName="Program::Location";
-const char* Program::Location::getName()
+const char* Program::Location::className()
 {
 	return s_LocationName;
 }

@@ -46,7 +46,7 @@ class Geometry:public FsObject
 				Attribute(FsString* _name,int _type,int _size);
 				Attribute(FsString* _name,int _type,int _size,int _count);
 				virtual ~Attribute();
-				virtual const char* getName();
+				virtual const char* className();
 		};
 
 	private:
@@ -102,7 +102,7 @@ class Geometry:public FsObject
 		Geometry(uint vertex,uint face);
 		Geometry(uint vertex);
 		~Geometry();
-		virtual const char* getName();
+		virtual const char* className();
 	protected:
 		void init(uint vertex,uint face,uint weight);
 

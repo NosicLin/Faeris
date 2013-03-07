@@ -6,11 +6,11 @@ NS_FS_BEGIN
 static const char* s_GeometryName="GeometryObject";
 static const char* s_GeometryAttributeName="GeometryAttributeObject";
 
-const char* Geometry::Attribute::getName()
+const char* Geometry::Attribute::className()
 {
 	return s_GeometryAttributeName;
 }
-const char* Geometry::getName()
+const char* Geometry::className()
 {
 	return s_GeometryName;
 }

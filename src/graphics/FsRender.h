@@ -12,6 +12,7 @@ NS_FS_BEGIN
 class Material;
 class FsString;
 class Program;
+class Texture2D;
 
 class Render 
 {
@@ -108,6 +109,7 @@ class Render
 		void setMaterial(Material* m,bool force=false);
 		void setProgram(Program* prog);
 		void setRenderTarget(RenderTarget* target);
+		void bindTexture(Texture2D* tex);
 		void swapBuffers();
 
 

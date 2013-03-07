@@ -207,6 +207,8 @@ enum
 
 
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
+#define FS_TEXTURE2D_CLASS_NAME "Texture2D"
+#define FS_SYSFILE_CLASS_NAME "SysFile"
 
 
 

@@ -34,7 +34,7 @@ class Mesh:public Resource
 	public:
 		Mesh();
 		Mesh(Geometry* g,Material* m);
-		virtual const char* getName();
+		virtual const char* className();
 		virtual ~Mesh();
 	private:
 		Geometry* m_geometry;

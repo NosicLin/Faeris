@@ -6,8 +6,7 @@
 #include "FsMacros.h"
 #include "graphics/FsRenderTarget.h"
 #include "FsConfig.h"
-#include "sys/FsEvent.h"
-#include "sys/FsEventListener.h"
+
 
 #define FS_DEFAULT_WINDOW_NAME "FaerisEngine"
 
@@ -47,10 +46,7 @@ class Window:public RenderTarget
 			int getPosY();
 			void setCenter();
 	public:
-			virtual const char* getName();
-
-	public:
-			void handleEvent(Event* e);
+			virtual const char* className();
 
 	protected:
 			Window();

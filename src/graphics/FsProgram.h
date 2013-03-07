@@ -37,7 +37,7 @@ class Program:public Resource
 			}
 			virtual ~Location();
 		public:
-			virtual const char* getName();
+			virtual const char* className();
 	};
 	public:
 		static Program* create(
@@ -57,7 +57,7 @@ class Program:public Resource
 		int getUniformLocation(FsString* name);
 
 		PlatformProgram getPlatformProgram()const{return m_program;}
-		virtual const char* getName();
+		virtual const char* className();
 	protected:
 		Program();
 		~Program();

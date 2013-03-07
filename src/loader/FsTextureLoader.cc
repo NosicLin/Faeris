@@ -2,7 +2,7 @@
 
 #include "util/FsScriptUtil.h"
 #include "util/FsDict.h"
-#include "image/FsImgDecoder.h"
+#include "image/FsImageDecoder.h"
 
 #include "loader/FsTextureLoader.h"
 #include "loader/FsLoaderUtil.h"
@@ -170,7 +170,7 @@ static void s_getImages(FsDict* dict,Image2D** images,int* image_nu)
 			continue;
 		}
 
-		int image_type=FsUtil_ImageType(cur_source->cstr());
+		Image2D::ImageType image_type=FsUtil_ImageType(cur_source->cstr());
 		FsFile* file=VFS::open(cur_source->cstr());
 		cur_source->decRef();
 		cur_source=NULL;

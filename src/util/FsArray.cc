@@ -6,14 +6,14 @@
 NS_FS_BEGIN
 
 static const char* s_FsArrayName="FsArrayObject";
-const char* FsArray::getName()
+const char* FsArray::className()
 {
 	return s_FsArrayName;
 }
 
 bool FsArray::checkType(FsObject* ob)
 {
-	return ob->getName()==s_FsArrayName;
+	return ob->className()==s_FsArrayName;
 }
 FsArray::FsArray()
 {

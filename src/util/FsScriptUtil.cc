@@ -31,7 +31,7 @@ static bool s_ObjectWrite(FsObject* ob,FsFile* file,int indent)
 	}
 	else 
 	{
-		file->writeStr("%s(%ld)",ob->getName(),(long)ob);
+		file->writeStr("%s(%ld)",ob->className(),(long)ob);
 	}
 	return true;
 }

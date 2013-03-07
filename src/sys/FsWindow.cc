@@ -12,7 +12,7 @@ Window::Window()
 }
 
 static const char* s_window_name="WindowObject";
-const char* Window::getName()
+const char* Window::className()
 {
 	return s_window_name;
 }

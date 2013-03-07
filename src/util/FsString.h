@@ -21,7 +21,7 @@ class FsString:public FsObject
 
 	public:
 		virtual long getHashCode();
-		virtual const char* getName();
+		virtual const char* className();
 		virtual bool equal(FsObject* ob);
 		virtual bool equal(const char* str);
 	public:

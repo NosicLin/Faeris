@@ -1,4 +1,5 @@
 #include "graphics/FsRender.h"
+#include "graphics/FsTexture2D.h"
 #include "FsConfig.h"
 
 
@@ -125,6 +126,10 @@ void Render::setShadeMode(int mode)
 void Render::setOpacity(float value)
 {
 	/*TODO*/
+}
+void Render::bindTexture(Texture2D* tex)
+{
+	tex->bind();
 }
 
 

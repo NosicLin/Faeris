@@ -401,14 +401,6 @@
 					RelativePath="..\..\..\src\loader\FsProgramLoader.h"
 					>
 				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsTextureLoader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsTextureLoader.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="material"
@@ -497,26 +489,6 @@
 			<Filter
 				Name="sys"
 				>
-				<File
-					RelativePath="..\..\..\src\sys\FsEvent.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\sys\FsEventDispatcher.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\sys\FsEventDispatcher.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\sys\FsEventListener.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\sys\FsEventListener.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\..\src\sys\FsFrame.cc"
 					>

@@ -31,7 +31,7 @@ class FsFile:public FsObject
 		virtual long tell()=0;
 		virtual long getLength();
 		virtual ~FsFile(){}
-		virtual const char* getName();
+		virtual const char* className();
 	public:
 		long writeStr(const char* fmt,...);
 };

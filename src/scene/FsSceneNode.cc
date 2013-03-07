@@ -4,7 +4,7 @@
 NS_FS_BEGIN
 const char* s_SceneNodeName="SceneNodeObject";
 
- const char* SceneNode::getName()
+ const char* SceneNode::className()
 {
 	return s_SceneNodeName;
 }

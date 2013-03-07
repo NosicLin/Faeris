@@ -3,7 +3,7 @@
 
 NS_FS_BEGIN
 static const char* s_MaterialName="MaterialObject";
-const char* Material::getName(){return s_MaterialName;}
+const char* Material::className(){return s_MaterialName;}
 
 Material::~Material(){}
 

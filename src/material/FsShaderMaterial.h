@@ -27,7 +27,7 @@ class ShaderMaterial:public Material
 				virtual ~Uniform();
 
 				void setValue(void* value,int type,int count);
-				virtual const char* getName();
+				virtual const char* className();
 		};
 	public:
 		void setShadeMode(int mode){m_shadeMode=mode;}
@@ -156,7 +156,7 @@ class ShaderMaterial:public Material
 	public:
 		ShaderMaterial();
 		virtual ~ShaderMaterial();
-		virtual const char* getName();
+		virtual const char* className();
 		virtual void load(Render* r);
 		virtual void unload(Render* r);
 	protected:

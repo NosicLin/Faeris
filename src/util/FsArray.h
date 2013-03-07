@@ -56,7 +56,7 @@ class FsArray:public FsObject
 		FsArray();
 		FsArray(ulong size);
 		virtual ~FsArray();
-		virtual const char* getName();
+		virtual const char* className();
 		static bool checkType(FsObject* ob);
 
 	protected:

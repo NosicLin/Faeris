@@ -82,7 +82,7 @@ class  FsDict:public FsObject
 	public:
 		FsDict();
 		~FsDict();
-		virtual const char* getName();
+		virtual const char* className();
 		static bool checkType(FsObject* ob);
 	public:
 		FsObject* lookup(FsObject* key);

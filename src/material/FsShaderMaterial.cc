@@ -10,11 +10,11 @@ NS_FS_BEGIN
 static const char* s_ShaderMateral_UniformName="ShaderMaterial::UniformObject";
 static const char* s_ShaderMaterialName="ShaderMaterialObject";
 
-const char* ShaderMaterial::Uniform::getName()
+const char* ShaderMaterial::Uniform::className()
 {
 	return s_ShaderMateral_UniformName;
 }
-const char* ShaderMaterial::getName()
+const char* ShaderMaterial::className()
 {
 	return s_ShaderMaterialName;
 }

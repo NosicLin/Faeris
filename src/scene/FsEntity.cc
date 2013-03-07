@@ -3,7 +3,7 @@ NS_FS_BEGIN
 
 
 const char* s_EntityName="EntityObject";
-const char* Entity::getName()
+const char* Entity::className()
 {
 	return s_EntityName;
 }

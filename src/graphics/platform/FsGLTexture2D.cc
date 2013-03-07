@@ -98,27 +98,6 @@ static inline GLint s_fomatToGLEnum(int format)
 	}
 }
 
-static inline GLint s_envModeToGLEnum(int mode)
-{
-	switch(mode)
-	{
-		case Texture2D::ENV_DECAL:
-			return GL_DECAL;
-		case Texture2D::ENV_REPLACE:
-			return GL_REPLACE;
-		case Texture2D::ENV_MODULATE:
-			return GL_MODULATE;
-		case Texture2D::ENV_BLEND:
-			return GL_BLEND;
-		case Texture2D::ENV_ADD:
-			return GL_ADD;
-		case Texture2D::ENV_COMBINE:
-			return GL_COMBINE;
-		default:
-			return GL_REPLACE;
-	}
-}
-
 
 
 Texture2D* Texture2D::create(
@@ -379,6 +358,10 @@ Texture2D::~Texture2D()
 
 
 
+const char* Texture2D::className()
+{
+	return FS_TEXTURE2D_CLASS_NAME;
+}
 
 
 

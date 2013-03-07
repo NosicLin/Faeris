@@ -15,10 +15,10 @@ FsObject* s_dict_dummy_entry=(FsObject*)&s_dummy_int;
 
 bool FsDict::checkType(FsObject* ob)
 {
-	return ob->getName()==s_FsDict_Name;
+	return ob->className()==s_FsDict_Name;
 }
 
-const char* FsDict::getName()
+const char* FsDict::className()
 {
 	return s_FsDict_Name;
 }
@@ -151,14 +151,14 @@ bool FsDict::remove(FsObject* key)
 	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
-		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
+		FS_TRACE_WARN("Can't Hash %s Object",key->className());
 		return false;
 	}
 	DictEntry* p=lookupEntry(key,code);
 
 	if(p->m_key==NULL||p->m_key==s_dict_dummy_entry)
 	{
-		FS_TRACE_WARN(" %s Key Not Map ",key->getName());
+		FS_TRACE_WARN(" %s Key Not Map ",key->className());
 		return false;
 	}
 	p->m_key->decRef();
@@ -178,7 +178,7 @@ FsObject* FsDict::lookup(FsObject* key)
 	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
-		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
+		FS_TRACE_WARN("Can't Hash %s Object",key->className());
 		return NULL ;
 	}
 	DictEntry* p=lookupEntry(key,code);
@@ -204,7 +204,7 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
-		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
+		FS_TRACE_WARN("Can't Hash %s Object",key->className());
 		return false;
 	}
 	long used=m_used;

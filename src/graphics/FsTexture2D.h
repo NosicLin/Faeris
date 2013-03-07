@@ -17,7 +17,7 @@
 
 
 NS_FS_BEGIN 
-class Texture2D:public FsResource
+class Texture2D:public Resource
 {
 	public:
 		enum 
@@ -86,9 +86,10 @@ class Texture2D:public FsResource
 		/* mipmap */
 		bool enableMipmap();
 
-
-	public:
 		void bind();
+	public:
+		virtual const char* className();
+	
 
 	private:
 		Texture2D(){}

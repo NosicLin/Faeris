@@ -38,7 +38,7 @@ class Material:public FsObject
 			m_depthTest(true),
 			m_depthMask(true) {}
 		virtual ~Material();
-		virtual const char* getName();
+		virtual const char* className();
 	public:
 		/* blend */
 		void setBlend(int equation,int src,int dst)

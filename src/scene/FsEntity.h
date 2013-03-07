@@ -11,7 +11,7 @@ class Entity:public SceneNode
 		Entity(Mesh* m);
 		Entity();
 		virtual ~Entity();
-		virtual const char* getName();
+		virtual const char* className();
 
 	public:
 		void setMesh(Mesh* m);

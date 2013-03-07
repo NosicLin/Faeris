@@ -239,7 +239,7 @@ Program::~Program()
 }
 
 const char* s_programName="ProgramObject";
-const char* Program::getName()
+const char* Program::className()
 {
 	return s_programName;
 }

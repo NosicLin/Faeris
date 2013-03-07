@@ -5,7 +5,7 @@
 
 NS_FS_BEGIN 
 static const char* s_MeshName="MeshObject";
-const char* Mesh::getName()
+const char* Mesh::className()
 {
 	return s_MeshName;
 }
