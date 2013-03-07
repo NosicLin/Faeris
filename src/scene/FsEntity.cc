@@ -2,8 +2,8 @@
 NS_FS_BEGIN
 
 
-const FsChar* s_EntityName="EntityObject";
-const FsChar* Entity::getName()
+const char* s_EntityName="EntityObject";
+const char* Entity::getName()
 {
 	return s_EntityName;
 }

@@ -1,5 +1,5 @@
-#include "util/FsResourceMgr.h"
-#include "util/FsResource.h"
+#include "io/FsResourceMgr.h"
+#include "io/FsResource.h"
 
 NS_FS_BEGIN
 Resource::Resource()

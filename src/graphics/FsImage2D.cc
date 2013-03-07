@@ -1,11 +1,11 @@
 #include <string.h>
 #include "graphics/FsImage2D.h"
+#include "image/FsImageDecoder.h"
 
 NS_FS_BEGIN
-
-FsUint Image2D::PixelFormatSize(PixelFormat f)
+uint Image2D::PixelFormatSize(PixelFormat f)
 {
-	FsUint pixel_bytes;
+	uint pixel_bytes;
 	switch(f)
 	{
 		case PIXEL_UNKOWN:
@@ -24,9 +24,40 @@ FsUint Image2D::PixelFormatSize(PixelFormat f)
 	FS_TRACE_WARN_ON(pixel_bytes==0,"UnKown PixelFormat");
 	return pixel_bytes;
 }
-Image2D::Image2D(FsUint width,FsUint height,PixelFormat format)
+
+Image2D* Image2D::create(const char* filename,ImageType format)
 {
-	FsUint pixel_bytes=PixelFormatSize(format);
+	return FsUtil_ImageReader(filename,format);
+}
+Image2D* Image2D::create(uint width,uint height,PixelFormat format)
+{
+	FS_TRACE_ERROR_ON(format==PIXEL_UNKOWN,"Unkown PixelFormat");
+	Image2D* ret=new Image2D();
+	ret->init(width,height,format);
+	return ret;
+}
+Image2D* Image2D::create(uint width,uint height,void* data,PixelFormat format)
+{
+	FS_TRACE_ERROR_ON(format==PIXEL_UNKOWN,"Unkown PixelFormat");
+	Image2D* ret=new Image2D();
+	ret->init(width,height,data,format);
+	return ret;
+}
+
+
+
+
+Image2D::Image2D()
+{
+	m_pixel_bytes=0;
+	m_width=0;
+	m_height=0;
+	m_format=PIXEL_UNKOWN;
+	m_buffer=NULL;
+}
+void Image2D::init(uint width,uint height,PixelFormat format)
+{
+	uint pixel_bytes=PixelFormatSize(format);
 	if(pixel_bytes==0)
 	{
 		FS_TRACE_WARN("Unkown PixelFormat");
@@ -38,8 +69,8 @@ Image2D::Image2D(FsUint width,FsUint height,PixelFormat format)
 		return;
 	}
 
-	FsUint size=width*height*pixel_bytes;
-	m_buffer=new FsUchar[size];
+	uint size=width*height*pixel_bytes;
+	m_buffer=new uint8_t[size];
 	memset(m_buffer,0,size);
 	m_width=width;
 	m_height=height;
@@ -47,9 +78,9 @@ Image2D::Image2D(FsUint width,FsUint height,PixelFormat format)
 	m_pixel_bytes=pixel_bytes;
 } 
 
-Image2D::Image2D(FsUint width,FsUint height,void* data,PixelFormat format)
+void Image2D::init(uint width,uint height,void* data,PixelFormat format)
 {
-	FsUint pixel_bytes=PixelFormatSize(format);
+	uint pixel_bytes=PixelFormatSize(format);
 	if(pixel_bytes==0)
 	{
 		FS_TRACE_WARN("Unkown PixelFormat");
@@ -61,8 +92,8 @@ Image2D::Image2D(FsUint width,FsUint height,void* data,PixelFormat format)
 		return;
 	}
 
-	FsUint size=width*height*pixel_bytes;
-	m_buffer=new FsUchar[size];
+	uint size=width*height*pixel_bytes;
+	m_buffer=new uint8_t[size];
 	memcpy(m_buffer,data,size);
 	m_width=width;
 	m_height=height;
@@ -72,7 +103,7 @@ Image2D::Image2D(FsUint width,FsUint height,void* data,PixelFormat format)
 
 
 
-Color Image2D::getColor(FsUint w,FsUint h)const 
+Color Image2D::getColor(uint w,uint h)const 
 {
 	if(w>=m_width||h>=m_height)
 	{
@@ -80,7 +111,7 @@ Color Image2D::getColor(FsUint w,FsUint h)const
 		return Color::DEFAULT_COLOR;
 	}
 	Color ret;
-	FsUchar* p=m_buffer+(h*m_width+w)*m_pixel_bytes;
+	uint8_t* p=m_buffer+(h*m_width+w)*m_pixel_bytes;
 	switch(m_format)
 	{
 		case PIXEL_RGB888:
@@ -101,14 +132,14 @@ Color Image2D::getColor(FsUint w,FsUint h)const
 	return ret;
 }
 
-void Image2D::setColor(FsUint w,FsUint h,Color c)
+void Image2D::setColor(uint w,uint h,Color c)
 {
 	if(w>=m_width||h>m_height)
 	{
 		FS_TRACE_WARN("Invalid Index");
 		return ;
 	}
-	FsUchar* p=m_buffer+(h*m_width+w)*m_pixel_bytes;
+	uint8_t* p=m_buffer+(h*m_width+w)*m_pixel_bytes;
 
 	switch(m_format)
 	{
@@ -129,16 +160,21 @@ void Image2D::setColor(FsUint w,FsUint h,Color c)
 }
 Image2D::~Image2D()
 {
+	destroy();
+}
+
+void Image2D::destroy()
+{
 	if(m_buffer)
 	{
 		delete[] m_buffer;
 		m_buffer=NULL;
 	}
 }
-static const char* s_Image_Type="Image2D";
-const char* Image2D::getName()
+
+const char* Image2D::className()
 {
-	return s_Image_Type;
+	return FS_IMAGE2D_CLASS_NAME;
 }
 
 

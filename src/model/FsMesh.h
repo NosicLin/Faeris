@@ -1,7 +1,7 @@
 #ifndef _FS_MESH_H_
 #define _FS_MESH_H_
 #include "FsMacros.h"
-#include "util/FsResource.h"
+#include "io/FsResource.h"
 #include "util/FsArray.h"
 #include "model/FsGeometry.h"
 #include "material/FsMaterial.h"
@@ -24,17 +24,17 @@ class Mesh:public Resource
 		Material* getMaterial();
 
 		/* animation */
-		void addAnimation(const FsChar* name,Animation* ani);
-		void removeAnimation(const FsChar* name);
+		void addAnimation(const char* name,Animation* ani);
+		void removeAnimation(const char* name);
 		void removeAnimation(Animation* ani);
-		Animation* getAnimation(const FsChar* name);
+		Animation* getAnimation(const char* name);
 
 		/* render */
-		virtual void draw(Render* r,FsInt frame=0,FsFloat subframe=0.0f);
+		virtual void draw(Render* r,int frame=0,float subframe=0.0f);
 	public:
 		Mesh();
 		Mesh(Geometry* g,Material* m);
-		virtual const FsChar* getName();
+		virtual const char* getName();
 		virtual ~Mesh();
 	private:
 		Geometry* m_geometry;

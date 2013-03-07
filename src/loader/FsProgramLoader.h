@@ -1,7 +1,7 @@
 #ifndef _FS_PROGRAM_LOADER_H_
 #define _FS_PROGRAM_LOADER_H_ 
 #include "graphics/FsProgram.h"
-#include "util/FsResourceMgr.h"
+#include "io/FsResourceMgr.h"
 
 NS_FS_BEGIN
 class Program;

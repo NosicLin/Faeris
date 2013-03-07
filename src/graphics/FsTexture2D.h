@@ -3,20 +3,21 @@
 
 #include "FsMacros.h"
 #include "FsConfig.h"
-#include "util/FsResourceMgr.h"
-#include "util/FsResource.h"
-#include "fsys/FsFile.h"
+#include "io/FsResourceMgr.h"
+#include "io/FsResource.h"
+#include "io/FsFile.h"
 #include "graphics/FsImage2D.h"
 
 #if FS_CONFIG(FS_GL_RENDER)
-	typedef FsUint PlatformTexture;
+	typedef uint PlatformTexture;
 #else 
 	#error "Unsupport PlatformTexture"
 #endif 
 
 
+
 NS_FS_BEGIN 
-class Texture2D 
+class Texture2D:public FsResource
 {
 	public:
 		enum 
@@ -39,81 +40,73 @@ class Texture2D
 			FORMAT_INTENSITY,
 			FORMAT_RGB,
 
-
-			/* env mode */
-			ENV_DECAL,
-			ENV_REPLACE,
-			ENV_MODULATE,
-			ENV_BLEND,
-			ENV_ADD,
-			ENV_COMBINE,
-
 		};
 
 	public:
 		static Texture2D* create(
 				Image2D* image,
-				FsInt filter_mag,
-				FsInt filter_min,
-				FsInt wraps,
-				FsInt wrapt,
-				FsInt internal_format);
+				int filter_mag,
+				int filter_min,
+				int wraps,
+				int wrapt,
+				int internal_format);
 
 		static Texture2D* create(
 				Image2D** images,
-				FsUint imageCnt,
-				FsInt filter_mag,
-				FsInt fileter_min,
-				FsInt filter_mipmap,
-				FsInt wraps,
-				FsInt wrapt,
-				FsInt internal_format);
+				uint imageCnt,
+				int filter_mag,
+				int fileter_min,
+				int filter_mipmap,
+				int wraps,
+				int wrapt,
+				int internal_format);
 
 		/* for quick create texture from image */
 		static Texture2D* create(Image2D* image);
 	public:
 
-
 		/* fileter */
-		void setFilter(FsInt mag,FsInt min,FsInt mip=FILTER_LINEAR);
-		FsInt getFilterMin(){return m_filterMin;}
-		FsInt getFilterMag(){return m_filterMag;}
-		FsInt getFilterMipmap(){return m_filterMipmap;}
+		void setFilter(int mag,int min,int mip=FILTER_LINEAR);
+		int getFilterMin(){return m_filterMin;}
+		int getFilterMag(){return m_filterMag;}
+		int getFilterMipmap(){return m_filterMipmap;}
 
 		/* wrap */
-		void setWrap(FsInt wraps,FsInt wrapt);
-		FsInt getWrapS(){return m_wrapS;}
-		FsInt getWrapT(){return m_wrapT;}
+		void setWrap(int wraps,int wrapt);
+		int getWrapS(){return m_wrapS;}
+		int getWrapT(){return m_wrapT;}
 
 		/* format */
-		FsInt getFormat(){return m_format;}
+		int getFormat(){return m_format;}
 
 		/* height,and width */
-		FsUint getWidth(){return m_width;}
-		FsUint getHeight(){return m_height;}
+		uint getWidth(){return m_width;}
+		uint getHeight(){return m_height;}
 
 		/* mipmap */
-		FsBool enableMipmap();
+		bool enableMipmap();
 
 
 	public:
 		void bind();
+
 	private:
 		Texture2D(){}
+		~Texture2D();
 	private:
-		FsBool m_useMipmap;
+		bool m_useMipmap;
 
-		FsInt m_width;
-		FsInt m_height;
+		int m_width;
+		int m_height;
 		/* format */
-		FsInt m_format;
+		int m_format;
 		/* filter */
-		FsInt m_filterMin;
-		FsInt m_filterMag;
-		FsInt m_filterMipmap;
+		int m_filterMin;
+		int m_filterMag;
+		int m_filterMipmap;
 		/* wrap */
-		FsInt m_wrapS;
-		FsInt m_wrapT;
+		int m_wrapS;
+		int m_wrapT;
 
 		/* env */
 		PlatformTexture m_platformTexture;

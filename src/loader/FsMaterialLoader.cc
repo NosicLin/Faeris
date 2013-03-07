@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 #include "loader/FsMaterialLoader.h"
 #include "loader/FsLoaderUtil.h"
 #include "loader/FsProgramLoader.h"
@@ -10,13 +10,7 @@
 
 NS_FS_BEGIN
 
-Material* MaterialLoader::loadFromMgr(const FsChar* name)
-{
-	/*TODO(add real mgr here)*/
-	return create(name);
-}
-
-Material* MaterialLoader::create(const FsChar* name)
+Material* MaterialLoader::create(const char* name)
 {
 	FsFile* file=VFS::open(name);
 	if(file==NULL)
@@ -69,10 +63,10 @@ Material* MaterialLoader::createFromScript(FsFile* file)
 	return mat;
 }
 
-FsInt s_GetFromSide(FsDict* dict,const FsChar* key)
+int s_GetFromSide(FsDict* dict,const char* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=-1;
+	int ret=-1;
 	if(value!=NULL)
 	{
 		ret=LoaderUtil::parseFrontSide(value->cstr());
@@ -80,10 +74,10 @@ FsInt s_GetFromSide(FsDict* dict,const FsChar* key)
 	}
 	return ret;
 }
-FsInt s_GetBlendEquation(FsDict* dict,const FsChar* key)
+int s_GetBlendEquation(FsDict* dict,const char* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=-1;
+	int ret=-1;
 	if(value!=NULL)
 	{
 		ret=LoaderUtil::parseBlendEquation(value->cstr());
@@ -92,10 +86,10 @@ FsInt s_GetBlendEquation(FsDict* dict,const FsChar* key)
 	return ret;
 }
 
-FsInt s_GetBlendFactor(FsDict* dict,const FsChar* key)
+int s_GetBlendFactor(FsDict* dict,const char* key)
 {
 	FsString* value=ScriptUtil::getString(dict,key);
-	FsInt ret=-1;
+	int ret=-1;
 	if(value!=NULL)
 	{
 		ret=LoaderUtil::parseBlendFactor(value->cstr());
@@ -103,9 +97,9 @@ FsInt s_GetBlendFactor(FsDict* dict,const FsChar* key)
 	}
 	return ret;
 }
-FsInt s_GetShadeMode(FsDict* dict,const FsChar*  key)
+int s_GetShadeMode(FsDict* dict,const char*  key)
 {
-	FsInt ret=-1;
+	int ret=-1;
 	FsString* value=ScriptUtil::getString(dict,key);
 	if(value!=NULL)
 	{
@@ -114,9 +108,9 @@ FsInt s_GetShadeMode(FsDict* dict,const FsChar*  key)
 	}
 	return ret;
 }
-FsInt s_GetFrontSide(FsDict* dict,const FsChar* key)
+int s_GetFrontSide(FsDict* dict,const char* key)
 {
-	FsInt ret=-1;
+	int ret=-1;
 	FsString* value=ScriptUtil::getString(dict,key);
 	if(value!=NULL)
 	{
@@ -131,24 +125,24 @@ FsInt s_GetFrontSide(FsDict* dict,const FsChar* key)
 void MaterialLoader::setMaterial(Material* mat,FsDict* dict)
 {
 
-	FsInt blend_equation=s_GetBlendEquation(dict,"blendEquation");
+	int blend_equation=s_GetBlendEquation(dict,"blendEquation");
 	if(blend_equation==-1) { blend_equation=Render::EQUATION_ADD; }
 
-	FsInt src_factor=s_GetBlendFactor(dict,"srcFactor");
+	int src_factor=s_GetBlendFactor(dict,"srcFactor");
 	if(src_factor==-1) { src_factor=Render::FACTOR_SRC_ALPHA; }
 
-	FsInt dst_factor=s_GetBlendFactor(dict,"dstFactor");
+	int dst_factor=s_GetBlendFactor(dict,"dstFactor");
 	if(dst_factor==-1) { dst_factor=Render::FACTOR_ONE_MINUS_SRC_ALPHA;}
 
-	FsInt shade_mode=s_GetShadeMode(dict,"shadeMode");
+	int shade_mode=s_GetShadeMode(dict,"shadeMode");
 	if(shade_mode==-1) { shade_mode=Render::SHADE_MODE_SMOOTH;}
 
-	FsInt front_side=s_GetFrontSide(dict,"frontSide");
+	int front_side=s_GetFrontSide(dict,"frontSide");
 	if(front_side==-1) { front_side=Render::FRONT_CCW;}
 
-	FsFloat opacity=1.0;
-	FsBool depth_mask=true;
-	FsBool depth_test=true;
+	float opacity=1.0;
+	bool depth_mask=true;
+	bool depth_test=true;
 	ScriptUtil::getFloat(dict,"opacity",&opacity);
 	ScriptUtil::getBoolean(dict,"depthMask",&depth_mask);
 	ScriptUtil::getBoolean(dict,"depthTest",&depth_test);
@@ -177,7 +171,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 		return NULL;
 	}
 
-	FsInt count=0;
+	int count=0;
 	if(!ScriptUtil::getInteger(dict,"count",&count))
 	{
 		FS_TRACE_WARN("Can't Get Count For Material Uniforms");
@@ -185,7 +179,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 		name->decRef();
 		return NULL;
 	}
-	FsInt real_type=LoaderUtil::parseUniformType(type->cstr());
+	int real_type=LoaderUtil::parseUniformType(type->cstr());
 	if(real_type==-1)
 	{
 		FS_TRACE_WARN("Unkown Uniform Type(%s)",type->cstr());
@@ -198,7 +192,7 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 	name->decRef();
 	type->decRef();
 
-	FsInt compoents=Render::uniformTypeComponent(real_type);
+	int compoents=Render::uniformTypeComponent(real_type);
 	switch(real_type)
 	{
 		case Render::U_F_1:
@@ -214,17 +208,17 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 			{
 				break;
 			}
-			FsInt total_value=compoents*count;
-			FsFloat* v=new FsFloat[total_value];
-			memset(v,0,total_value*sizeof(FsFloat));
-			FsInt value_nu=sct_value->size();
+			int total_value=compoents*count;
+			float* v=new float[total_value];
+			memset(v,0,total_value*sizeof(float));
+			int value_nu=sct_value->size();
 			if(value_nu>compoents*count)
 			{
 				value_nu=compoents*count;
 			}
-			for(FsInt i=0;i<value_nu;i++)
+			for(int i=0;i<value_nu;i++)
 			{
-				FsFloat cur_value=0;
+				float cur_value=0;
 				ScriptUtil::getFloat(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
@@ -243,17 +237,17 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 			{
 				break;
 			}
-			FsInt total_value=compoents*count;
-			FsInt* v=new FsInt[total_value];
-			memset(v,0,total_value*sizeof(FsInt));
-			FsInt value_nu=sct_value->size();
+			int total_value=compoents*count;
+			int* v=new int[total_value];
+			memset(v,0,total_value*sizeof(int));
+			int value_nu=sct_value->size();
 			if(value_nu>compoents*count)
 			{
 				value_nu=compoents*count;
 			}
-			for(FsInt i=0;i<value_nu;i++)
+			for(int i=0;i<value_nu;i++)
 			{
-				FsInt cur_value=0;
+				int cur_value=0;
 				ScriptUtil::getInteger(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
@@ -273,17 +267,17 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 			{
 				break;
 			}
-			FsInt total_value=compoents*count;
-			FsUint* v=new FsUint[total_value];
-			memset(v,0,total_value*sizeof(FsUint));
-			FsInt value_nu=sct_value->size();
+			int total_value=compoents*count;
+			uint* v=new uint[total_value];
+			memset(v,0,total_value*sizeof(uint));
+			int value_nu=sct_value->size();
 			if(value_nu>compoents*count)
 			{
 				value_nu=compoents*count;
 			}
-			for(FsInt i=0;i<value_nu;i++)
+			for(int i=0;i<value_nu;i++)
 			{
-				FsInt cur_value=0;
+				int cur_value=0;
 				ScriptUtil::getInteger(sct_value,i,&cur_value);
 				v[i]=cur_value;
 			}
@@ -308,8 +302,8 @@ static ShaderMaterial::Uniform* s_ToUniform(FsDict* dict)
 void MaterialLoader::setShaderMaterial(ShaderMaterial* mat,FsDict* dict)
 {
 	setMaterial(mat,dict);
-	FsBool wire_frame=false;
-	FsFloat wire_frame_width=1.0f;
+	bool wire_frame=false;
+	float wire_frame_width=1.0f;
 	ScriptUtil::getBoolean(dict,"wireFrame",&wire_frame);
 	ScriptUtil::getFloat(dict,"wireFrameWidth",&wire_frame_width);
 	mat->enableWireFrame(wire_frame);
@@ -323,7 +317,7 @@ void MaterialLoader::setShaderMaterial(ShaderMaterial* mat,FsDict* dict)
 		/* cur_path=resource->getPath();*/
 		/* prog=ProgramLoader::loadFromMgr("cur_path+prog_name") */
 
-		Program* prog=ProgramLoader::loadFromMgr(prog_name->cstr());
+		Program* prog=ResourceMgr::loadProgram(prog_name->cstr());
 		if(prog!=NULL)
 		{
 			mat->setProgram(prog);
@@ -339,8 +333,8 @@ void MaterialLoader::setShaderMaterial(ShaderMaterial* mat,FsDict* dict)
 		return;
 	}
 
-	FsInt uniform_nu=uniforms->size();
-	for(FsInt i=0;i<uniform_nu;i++)
+	int uniform_nu=uniforms->size();
+	for(int i=0;i<uniform_nu;i++)
 	{
 		FsDict* cur_udict=ScriptUtil::getDict(uniforms,i);
 		if(cur_udict==NULL)
@@ -413,7 +407,7 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 			file->writeStr("\t\tcount:%d\n",u->m_count);
 			file->writeStr("\t\tvalue:[");
 
-			FsInt compoents=Render::uniformTypeComponent(u->m_type);
+			int compoents=Render::uniformTypeComponent(u->m_type);
 			switch(u->m_type)
 			{
 				case Render::U_F_1:
@@ -424,8 +418,8 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 				case Render::U_M_3:
 				case Render::U_M_4:
 				{
-					FsFloat* value=(FsFloat*) u->m_value;
-					for(FsInt i=0;i<compoents*u->m_count;i++)
+					float* value=(float*) u->m_value;
+					for(int i=0;i<compoents*u->m_count;i++)
 					{
 						file->writeStr("%.10g,",value[i]);
 					}
@@ -436,8 +430,8 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 				case Render::U_UI_3:
 				case Render::U_UI_4:
 				{
-					FsUint* value=(FsUint*) u->m_value;
-					for(FsInt i=0;i<compoents*u->m_count;i++)
+					uint* value=(uint*) u->m_value;
+					for(int i=0;i<compoents*u->m_count;i++)
 					{
 						file->writeStr("%u,",value[i]);
 					}
@@ -448,8 +442,8 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 				case Render::U_I_3:
 				case Render::U_I_4:
 				{
-					FsInt* value=(FsInt*) u->m_value;
-					for(FsInt i=0;i<compoents*u->m_count;i++)
+					int* value=(int*) u->m_value;
+					for(int i=0;i<compoents*u->m_count;i++)
 					{
 						file->writeStr("%d,",value[i]);
 					}

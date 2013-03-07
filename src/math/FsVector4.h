@@ -11,28 +11,28 @@ class Vector4
 		{
 			struct 
 			{
-				FsFloat x;
-				FsFloat y;
-				FsFloat z;
-				FsFloat w;
+				float x;
+				float y;
+				float z;
+				float w;
 			};
-			FsFloat v[4];
+			float v[4];
 		};
 	public:
-		Vector4(FsFloat fx,FsFloat fy,FsFloat fz,FsFloat fw);
-		Vector4(FsFloat fx,FsFloat fy,FsFloat fz);
+		Vector4(float fx,float fy,float fz,float fw);
+		Vector4(float fx,float fy,float fz);
 		Vector4();
 		Vector4 add(const Vector4& v)const ;
 		Vector4 sub(const Vector4& v)const;
-		Vector4 scale(FsFloat k)const ;
-		FsFloat dot(const Vector4& v)const;
+		Vector4 scale(float k)const ;
+		float dot(const Vector4& v)const;
 
 		Vector4 normal() const ;
-		FsVoid normalize() ;
-		FsFloat length() const;
-		FsFloat length2() const;
+		void normalize() ;
+		float length() const;
+		float length2() const;
 
-		FsBool equal(const Vector4& v) const;
+		bool equal(const Vector4& v) const;
 };
 
 #include"FsVector4.inl"

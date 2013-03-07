@@ -3,7 +3,7 @@
 #include <string>
 
 #include "FsMacros.h"
-#include "util/FsResourceMgr.h"
+#include "io/FsResourceMgr.h"
 #include "core/FsObject.h"
 
 NS_FS_BEGIN 
@@ -16,7 +16,7 @@ class Resource :public FsObject
 	protected:
 		virtual void onDestroy();
 		void setMgr(ResourceMgr* mgr){m_mgr=mgr;}
-		void setName(const FsChar* name){m_resourceName=std::string(name);}
+		void setName(const char* name){m_resourceName=std::string(name);}
 	private:
 		ResourceMgr* m_mgr;
 		std::string m_resourceName;

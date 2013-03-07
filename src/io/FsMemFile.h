@@ -7,24 +7,24 @@ FAERY_NAMESPACE_BEGIN
 class FsMemFile:public FsIFile
 {
 	public:
-		FsMemFile(const FsVoid* mem,FsUlong len);
+		FsMemFile(const void* mem,ulong len);
 		FsMemFile();
 	public:
-		virtual FsLong read(FsVoid* buf,FsLong len);
-		virtual FsLong write(const FsVoid* buf,FsLong len);
-		virtual FsLong seek(FsLong offset,FsInt where);
-		virtual FsLong tell();
-		virtual FsInt close();
+		virtual long read(void* buf,long len);
+		virtual long write(const void* buf,long len);
+		virtual long seek(long offset,int where);
+		virtual long tell();
+		virtual int close();
 		virtual ~FsMemFile();
 	public:
-		FsInt save(const FsChar* name);
+		int save(const char* name);
 	protected:
-		FsVoid ensureMore(FsUint len);
+		void ensureMore(uint len);
 	private:
-		FsChar* m_mem;
-		FsUlong m_length;
-		FsUlong m_cap;
-		FsUlong m_pos;
+		char* m_mem;
+		ulong m_length;
+		ulong m_cap;
+		ulong m_pos;
 };
 
 FAERY_NAMESPACE_END

@@ -1,6 +1,6 @@
 #include "FsMd2Loader.h"
-#include "fsys/FsFile.h"
-#include "fsys/FsVFS.h"
+#include "io/FsFile.h"
+#include "io/FsVFS.h"
 #include "string.h"
 #define FS_MD2_SKIN_NAME_LEN 64
 
@@ -23,14 +23,14 @@ Md2Model* Md2Model::create(FsFile* file)
 {
 	Md2Header md2_header;
 	file->seek(0,FsFile::FS_SEEK_SET);
-	FsLong readbyte=file->read(&md2_header,sizeof(md2_header));
-	if(readbyte<(FsLong)sizeof(md2_header))
+	long readbyte=file->read(&md2_header,sizeof(md2_header));
+	if(readbyte<(long)sizeof(md2_header))
 	{
 		FS_TRACE_WARN("Invailed File Length(%ld)",readbyte);
 		return NULL;
 	}
 	file->seek(0,FsFile::FS_SEEK_END);
-	FsLong file_len=file->tell();
+	long file_len=file->tell();
 
 	if(file_len!=md2_header.m_iFileSize)
 	{
@@ -56,8 +56,8 @@ Md2Model::Md2Model(struct Md2Header* h,FsFile* file)
 }
 struct Md2Vectex
 {
-	FsUchar x,y,z;
-	FsUchar normal;
+	uint8_t x,y,z;
+	uint8_t normal;
 };
 
 	
@@ -68,15 +68,15 @@ void Md2Model::loadFrames(struct Md2Header* h,FsFile* file)
 	m_pFrames=new Md2Frame[m_iFrameNu];
 	struct 
 	{
-		FsFloat sx,sy,sz;
-		FsFloat tx,ty,tz;
-		FsChar name[16];
+		float sx,sy,sz;
+		float tx,ty,tz;
+		char name[16];
 	}frame_header;
 
 	Md2Vectex* vertex=new Md2Vectex[m_iVertexNu];
 
 	file->seek(h->m_iOffsetFrames,FsFile::FS_SEEK_SET);
-	for(FsUint i=0;i<m_iFrameNu;i++)
+	for(uint i=0;i<m_iFrameNu;i++)
 	{
 		Md2Frame* cur_frame=m_pFrames+i;
 		file->read(&frame_header,sizeof(frame_header));
@@ -85,7 +85,7 @@ void Md2Model::loadFrames(struct Md2Header* h,FsFile* file)
 		memcpy(cur_frame->m_caName,frame_header.name,16);
 		cur_frame->m_pVerts= new Vector3[m_iVertexNu];
 
-		for(FsUint j=0;j<m_iVertexNu;j++)
+		for(uint j=0;j<m_iVertexNu;j++)
 		{
 			Vector3* cur_vec=cur_frame->m_pVerts+j;
 			cur_vec->x=vertex[j].x*frame_header.sx+frame_header.tx;
@@ -119,12 +119,12 @@ void Md2Model::loadSkins(struct Md2Header* h,FsFile* file)
 	m_iSkinHeightPx=h->m_iSkinHeightPx;
 
 	m_iSkinNu=h->m_iNumSkins;
-	m_pSkinName=new FsChar*[m_iSkinNu];
+	m_pSkinName=new char*[m_iSkinNu];
 	file->seek(h->m_iOffsetSkins,FsFile::FS_SEEK_SET);
 
-	for(FsUint i=0;i<m_iSkinNu;i++)
+	for(uint i=0;i<m_iSkinNu;i++)
 	{
-		FsChar* cur_name=m_pSkinName+i;
+		char* cur_name=m_pSkinName+i;
 		cur_name=new char[FS_MD2_SKIN_NAME_LEN];
 		file->read(cur_name,FS_MD2_SKIN_NAME_LEN);
 	}

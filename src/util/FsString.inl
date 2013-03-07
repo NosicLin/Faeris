@@ -2,24 +2,24 @@
 #define _FS_UTIL_STRING_INL_
 
 #include "FsMacros.h"
-#include "util/FsStringUtil.h"
+#include "encrypt/FsHash.h"
 
 NS_FS_BEGIN
 inline FsString::FsString():m_string("")
 {
 	mCalHashCode();
 }
-inline FsString::FsString(const FsChar* str):m_string(str)
+inline FsString::FsString(const char* str):m_string(str)
 {
 	mCalHashCode();
 }
-inline FsString& FsString::append(const FsChar* str)
+inline FsString& FsString::append(const char* str)
 {
 	m_string.append(str);
 	mCalHashCode();
 	return *this;
 }
-inline FsString& FsString::append(const FsChar* str,FsLong n)
+inline FsString& FsString::append(const char* str,long n)
 {
 	m_string.append(str,n);
 	mCalHashCode();
@@ -31,7 +31,7 @@ inline FsString& FsString::append(const FsString& str)
 	mCalHashCode();
 	return *this;
 }
-inline FsString& FsString::append(const FsString& str,FsLong n)
+inline FsString& FsString::append(const FsString& str,long n)
 {
 	m_string.append(str.m_string,0,n);
 	mCalHashCode();
@@ -44,19 +44,19 @@ inline FsString& FsString::assign(const FsString& str)
 	m_hash_code=str.m_hash_code;
 	return *this;
 }
-inline FsString& FsString::assign(const FsString& str,FsLong n)
+inline FsString& FsString::assign(const FsString& str,long n)
 {
 	m_string.assign(str.m_string,0,n);
 	mCalHashCode();
 	return *this;
 }
-inline FsString& FsString::assign(const FsChar* str)
+inline FsString& FsString::assign(const char* str)
 {
 	m_string.assign(str);
 	mCalHashCode();
 	return *this;
 }
-inline FsString& FsString::assign(const FsChar* str,FsLong n)
+inline FsString& FsString::assign(const char* str,long n)
 {
 	m_string.assign(str,n);
 	mCalHashCode();
@@ -71,11 +71,11 @@ inline int FsString::compare(const FsString& str)const
 {
 	return m_string.compare(str.m_string);
 }
-inline int FsString::compare(const FsChar* str)const
+inline int FsString::compare(const char* str)const
 {
 	return m_string.compare(str);
 }
-inline const FsChar* FsString::cstr()const
+inline const char* FsString::cstr()const
 {
 	return m_string.c_str();
 }
@@ -83,25 +83,25 @@ inline bool FsString::empty()const
 {
 	return m_string.empty();
 }
-inline FsUlong FsString::length()const 
+inline ulong FsString::length()const 
 {
 	return m_string.length();
 }
-inline FsString& FsString::erase(FsLong pos,FsLong num)
+inline FsString& FsString::erase(long pos,long num)
 {
 	m_string.erase(pos,num);
 	return *this;
 }
 inline void FsString::mCalHashCode()
 {
-	m_hash_code=StringUtil::JHashCode(m_string.c_str());
+	m_hash_code=FsHash_JCode(m_string.c_str());
 	if(m_hash_code==FS_INVALID_HASH_CODE)
 	{
 		m_hash_code+=1;
 	}
 }
 
-inline FsChar FsString::operator[](FsUlong n)const 
+inline char FsString::operator[](ulong n)const 
 {
 	FS_ASSERT(n<length());
 	return m_string[n];

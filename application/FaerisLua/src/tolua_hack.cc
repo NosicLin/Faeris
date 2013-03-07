@@ -1,5 +1,5 @@
 #include <string.h>
-#include "util/FsMathUtil.h"
+#include "math/FsMathUtil.h"
 
 #ifdef __cplusplus
 extern "C"

@@ -9,28 +9,28 @@ class Vector3
 		{
 			struct
 			{
-				FsFloat x;
-				FsFloat y;
-				FsFloat z;
+				float x;
+				float y;
+				float z;
 			};
-			FsFloat v[3];
+			float v[3];
 		};
 	public:
-		Vector3(FsFloat _x,FsFloat _y,FsFloat _z);
+		Vector3(float _x,float _y,float _z);
 		Vector3();
 		Vector3 add(const Vector3& v) const ;
 		Vector3 sub(const Vector3& v) const ;
-		Vector3 scale(FsFloat k) const ;
-		FsFloat dot(const Vector3& v) const ;
+		Vector3 scale(float k) const ;
+		float dot(const Vector3& v) const ;
 		Vector3 cross(const Vector3& v)const;
 		Vector3 normal() const ;
 		void normalize() ;
 		Vector3 proj(const Vector3& v) const;
-		FsFloat angle(const Vector3& v) const;
-		FsFloat length() const;
-		FsFloat length2() const;
-		FsBool equal(const Vector3& v) const;
-		FsVoid set(FsFloat _x,FsFloat _y,FsFloat _z);
+		float angle(const Vector3& v) const;
+		float length() const;
+		float length2() const;
+		bool equal(const Vector3& v) const;
+		void set(float _x,float _y,float _z);
 
 
 };

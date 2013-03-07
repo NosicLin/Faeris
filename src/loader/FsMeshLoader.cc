@@ -4,10 +4,11 @@
 #include "loader/FsMaterialLoader.h"
 #include "util/FsScriptUtil.h"
 #include "model/FsGeometry.h"
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
+#include "io/FsResourceMgr.h"
 
 NS_FS_BEGIN
-static FsBool s_isBinaryFile(FsFile* file)
+static bool s_isBinaryFile(FsFile* file)
 {
 	return false;
 }
@@ -26,11 +27,7 @@ Mesh* MeshLoader::create(FsFile* file)
 	return NULL;
 }
 
-Mesh* MeshLoader::loadFromMgr(const char* name)
-{
-	/*TODO(add real Mgr here)*/
-	return create(name);
-}
+
 
 Mesh* MeshLoader::create(const char* filename)
 {
@@ -104,14 +101,14 @@ Mesh* MeshLoader::createStaticMeshFromDict(FsDict* script)
 	FsString* sct_geometry=ScriptUtil::getString(script,"geometry");
 	if(sct_geometry)
 	{
-		g=GeometryLoader::loadFromMgr(sct_geometry->cstr());
+		g=ResourceMgr::loadGeometry(sct_geometry->cstr());
 		sct_geometry->decRef();
 	}
 	FsString* sct_material=ScriptUtil::getString(script,"material");
 	if(sct_material)
 	{
 
-		m=MaterialLoader::loadFromMgr(sct_material->cstr());
+		m=ResourceMgr::loadMaterial(sct_material->cstr());
 		sct_material->decRef();
 	}
 

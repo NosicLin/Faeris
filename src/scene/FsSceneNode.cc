@@ -2,9 +2,9 @@
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
-const FsChar* s_SceneNodeName="SceneNodeObject";
+const char* s_SceneNodeName="SceneNodeObject";
 
- const FsChar* SceneNode::getName()
+ const char* SceneNode::getName()
 {
 	return s_SceneNodeName;
 }
@@ -25,7 +25,7 @@ SceneNode::~SceneNode()
 	FS_SAFE_DEC_REF(m_chirdren);
 }
 
-void SceneNode::update(FsLong msec)
+void SceneNode::update(long msec)
 {
 	updateSelf(msec);
 
@@ -38,7 +38,7 @@ void SceneNode::update(FsLong msec)
 		iter.next();
 	}
 }
-void SceneNode::updateSelf(FsLong mesc)
+void SceneNode::updateSelf(long mesc)
 {
 }
 void SceneNode::draw(Render* r)
@@ -165,7 +165,7 @@ void SceneNode::updateWorldMatrix()
 
 void SceneNode::updateAllWorldMatrix()
 {
-	FsBool force=false;
+	bool force=false;
 	updateLocalMatrix();
 	if(!m_parent)
 	{
@@ -197,7 +197,7 @@ void SceneNode::updateAllWorldMatrix()
 	}
 }
 
-void SceneNode::updateAllWorldMatrixInternal(FsBool force)
+void SceneNode::updateAllWorldMatrixInternal(bool force)
 {
 	updateLocalMatrix();
 	if(force)
@@ -272,8 +272,8 @@ void SceneNode::addChild(SceneNode* n)
 }
 void SceneNode::remove(SceneNode* n)
 {
-	FsInt length=m_chirdren->size();
-	for(FsInt i=0;i<length;i++)
+	int length=m_chirdren->size();
+	for(int i=0;i<length;i++)
 	{
 		SceneNode* node=(SceneNode*)m_chirdren->get(i);
 		if(n==node)

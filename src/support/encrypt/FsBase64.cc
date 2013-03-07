@@ -3,7 +3,7 @@
 
 #define FS_BASE64_VALID_VALUE 255 
 
-static FsUint8 s_detable[256]={
+static uint8_t s_detable[256]={
 	64,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
 	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
 	255,255,255,255,255,255,255,255,255,255,255, 62,255,255,255, 63,
@@ -22,7 +22,7 @@ static FsUint8 s_detable[256]={
 	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
 };
 
-static FsUint8 s_entable[64]={
+static uint8_t s_entable[64]={
 	'A','B','C','D','E','F','G','H','I','J',
 	'K','L','M','N','O','P','Q','R','S','T',
 	'U','V','W','X','Y','Z','a','b','c','d',
@@ -32,13 +32,13 @@ static FsUint8 s_entable[64]={
 	'8','9','+','/',
 };
 
-int _FsBase64_Decode(FsUint8* src_buf,FsUint src_length, FsUint8* dst_buf,FsUint* dst_length)
+int _FsBase64_Decode(uint8_t* src_buf,uint src_length, uint8_t* dst_buf,uint* dst_length)
 {
-	FsUint src_idx=0,dst_idx=0;
-	FsUint errors=0;
-	FsUint  v,bits=0;
-	FsUint8 c;
-	FsUint char_nu=0;
+	uint src_idx=0,dst_idx=0;
+	uint errors=0;
+	uint  v,bits=0;
+	uint8_t c;
+	uint char_nu=0;
 	for(src_idx=0;src_idx<src_length;src_idx++)
 	{
 		c=src_buf[src_idx];
@@ -94,15 +94,15 @@ int _FsBase64_Decode(FsUint8* src_buf,FsUint src_length, FsUint8* dst_buf,FsUint
 	return errors;
 }
 
-int FsBase64_Decode(FsUint8* src_buf,FsUint src_length,
-		FsUint8** dst_buf,FsUint* dst_length)
+int FsBase64_Decode(uint8_t* src_buf,uint src_length,
+		uint8_t** dst_buf,uint* dst_length)
 {
-	FsUint ret=-1;
-	FsUint8* out=new FsUint8[(FsUlong )(src_length*3.0/4.0f+1)];
-	FsUint out_length=0;
+	uint ret=-1;
+	uint8_t* out=new uint8_t[(ulong )(src_length*3.0/4.0f+1)];
+	uint out_length=0;
 	if(out!=0)
 	{
-		FsUint errors=_FsBase64_Decode(src_buf,src_length,out,&out_length);
+		uint errors=_FsBase64_Decode(src_buf,src_length,out,&out_length);
 		if(errors)
 		{
 			delete[] out;
@@ -123,16 +123,16 @@ int FsBase64_Decode(FsUint8* src_buf,FsUint src_length,
 }
 
 
-int FsBase64_Encode(FsUint8* src_buf,FsUint src_length,FsUint8** dst_buf,FsUint* dst_length)
+int FsBase64_Encode(uint8_t* src_buf,uint src_length,uint8_t** dst_buf,uint* dst_length)
 {
-	FsUint bit24_nu=src_length/3;
-	FsBool has_padding=src_length>bit24_nu*3;
+	uint bit24_nu=src_length/3;
+	bool has_padding=src_length>bit24_nu*3;
 	bool has_padding2=src_length==(bit24_nu*3+2);
 
-	FsUint num_bret=4*(bit24_nu+has_padding);
+	uint num_bret=4*(bit24_nu+has_padding);
 
-	FsUint8* result=new FsUint8[num_bret+1]; /*allow for trailing '/0' */
-	FsUint i;
+	uint8_t* result=new uint8_t[num_bret+1]; /*allow for trailing '/0' */
+	uint i;
 	for(i=0;i<bit24_nu;i++)
 	{
 		result[4*i+0]=s_entable[(src_buf[3*i]>>2)&0x3f];

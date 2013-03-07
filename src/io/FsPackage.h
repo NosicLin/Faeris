@@ -1,5 +1,13 @@
 #ifndef _FS_PACKAGE_H_
 #define _FS_PACKAGE_H_ 
+
+#include "core/FsObject.h"
+
+NS_FS_BEGIN
+
+class FsFile;
+
+
 enum 
 {
 	PACKAGE_UNKOWN=0,
@@ -14,7 +22,10 @@ class Package:public FsObject
 		static Package* create(FsFile* file,int pak_type=PACKAGE_UNKOWN);
 	public:
 		virtual FsFile* getBlock(const char* file)=0;
-		virtual Package(){}
+		virtual ~Package(){}
 
 };
+
+NS_FS_END
+
 #endif /*_FS_PACKAGE_H_*/

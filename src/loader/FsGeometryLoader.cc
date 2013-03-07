@@ -1,22 +1,14 @@
 #include "loader/FsGeometryLoader.h"
 #include "loader/FsLoaderUtil.h"
 #include "model/FsGeometry.h"
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 #include "util/FsDict.h"
 #include "util/FsScriptUtil.h"
 
 NS_FS_BEGIN
 
-ResourceMgr* GeometryLoader::m_mgr=NULL;
 
-
-Geometry* GeometryLoader::loadFromMgr(const FsChar* name)
-{
-	/*TODO(add real mgr here)*/
-	return create(name);
-
-}
-Geometry* GeometryLoader::create(const FsChar* filename)
+Geometry* GeometryLoader::create(const char* filename)
 {
 	FsFile* file=VFS::open(filename);
 	if(file==NULL)
@@ -83,7 +75,7 @@ error:
 }
 
 
-Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,FsInt count)
+Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,int count)
 {
 
 	FsString* sct_name=ScriptUtil::getString(dict,"name");
@@ -99,7 +91,7 @@ Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,FsInt count)
 		sct_name->decRef();
 		return NULL;
 	}
-	FsInt size=0;
+	int size=0;
 	if(!ScriptUtil::getInteger(dict,"size",&size))
 	{
 		FS_TRACE_WARN("Can't get \"size\" In Attribute");
@@ -114,7 +106,7 @@ Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,FsInt count)
 		sct_type->decRef();
 		return NULL;
 	}
-	FsInt type;
+	int type;
 	if(sct_type->equal("float"))
 	{
 		type=FS_FLOAT;
@@ -168,48 +160,48 @@ Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,FsInt count)
 		return ret;
 	}
 
-	FsInt min_count=sct_value->size()/size;
+	int min_count=sct_value->size()/size;
 	if(min_count>count)
 	{
 		min_count=count;
 	}
-	FsVoid* p_value=ret->value;
-	for(FsInt i=0;i<min_count;i++)
+	void* p_value=ret->value;
+	for(int i=0;i<min_count;i++)
 	{
-		for(FsInt j=0;j<size;j++)
+		for(int j=0;j<size;j++)
 		{
 			switch(type)
 			{
 				case FS_FLOAT:
 				{
-					FsFloat fvalue=0;
+					float fvalue=0;
 					ScriptUtil::getFloat(sct_value, i*size+j,&fvalue);
-					*(((FsFloat*)p_value)+i*size+j)=fvalue;
+					*(((float*)p_value)+i*size+j)=fvalue;
 					break;
 				}
 				case FS_INT:
 				case FS_INT32:
 				case FS_UINT32:
 				{
-					FsInt i32value=0;
+					int i32value=0;
 					ScriptUtil::getInteger(sct_value,i*size+j,&i32value);
-					*(((FsInt*)p_value)+i*size+j)=i32value;
+					*(((int*)p_value)+i*size+j)=i32value;
 					break;
 				}
 				case FS_INT8:
 				case FS_UINT8:
 				{
-					FsInt i8value=0;
+					int i8value=0;
 					ScriptUtil::getInteger(sct_value,i*size+j,&i8value);
-					*(((FsInt8*)p_value)+i*size+j)=i8value;
+					*(((int8_t*)p_value)+i*size+j)=i8value;
 					break;
 				}
 				case FS_INT16:
 				case FS_UINT16:
 				{
-					FsInt i16value=0;
+					int i16value=0;
 					ScriptUtil::getInteger(sct_value,i*size+j,&i16value);
-					*(((FsInt16*)p_value)+i*size+j)=i16value;
+					*(((int16_t*)p_value)+i*size+j)=i16value;
 					break;
 				}
 			}
@@ -221,8 +213,8 @@ Geometry::Attribute* s_ToGeometryAttribute(FsDict* dict,FsInt count)
 
 Geometry* GeometryLoader::createFromDict(FsDict* dict)
 {
-	FsInt vertex_nu=0;
-	FsInt face_nu=0;
+	int vertex_nu=0;
+	int face_nu=0;
 	Geometry* ret=NULL;
 
 	if(!ScriptUtil::getInteger(dict,"vertexNu",&vertex_nu))
@@ -241,8 +233,8 @@ Geometry* GeometryLoader::createFromDict(FsDict* dict)
 		return ret;
 	}
 
-	FsInt attrs_nu=attrs->size();
-	for(FsInt i=0;i<attrs_nu;i++)
+	int attrs_nu=attrs->size();
+	for(int i=0;i<attrs_nu;i++)
 	{
 		FsDict* cur_attr=ScriptUtil::getDict(attrs,i);
 		if(cur_attr==NULL)
@@ -266,13 +258,13 @@ Geometry* GeometryLoader::createFromDict(FsDict* dict)
 		return ret;
 	}
 	Face3* p_face=ret->fFacesPointer();
-	FsInt cur_face_nu=face3->size()/3;
+	int cur_face_nu=face3->size()/3;
 	if(cur_face_nu>face_nu)
 	{
 		cur_face_nu=face_nu;
 	}
-	FsInt value;
-	for(FsInt i=0;i<cur_face_nu;i++)
+	int value;
+	for(int i=0;i<cur_face_nu;i++)
 	{
 
 		if(ScriptUtil::getInteger(face3,i*3+0,&value))
@@ -294,7 +286,7 @@ Geometry* GeometryLoader::createFromDict(FsDict* dict)
 	return ret;
 }
 
-void GeometryLoader::saveGeometry(Geometry* g,FsFile* file,FsInt type)
+void GeometryLoader::saveGeometry(Geometry* g,FsFile* file,int type)
 {
 	if(type==FS_FTYPE_BINARY)
 	{
@@ -352,45 +344,45 @@ void GeometryLoader::saveGeometryWithScript(Geometry* g,FsFile* file)
 		file->writeStr("\"\n");
 		file->writeStr("\t\tsize:%d\n",cur_attr->size);
 		file->writeStr("\t\tvalue:[");
-		FsVoid* value=cur_attr->value;
-		for(FsInt i=0;i<cur_attr->count*cur_attr->size;i++)
+		void* value=cur_attr->value;
+		for(int i=0;i<cur_attr->count*cur_attr->size;i++)
 		{
 			switch(cur_attr->type)
 			{
 				case FS_FLOAT:
 					{
-						file->writeStr("%.100g,",*(((FsFloat*)value)+i));
+						file->writeStr("%.100g,",*(((float*)value)+i));
 						break;
 					}
 				case FS_INT:
 				case FS_INT32:
 					{
-						file->writeStr("%d,",*(((FsInt*)value)+i));
+						file->writeStr("%d,",*(((int*)value)+i));
 						break;
 					}
 				case FS_INT8:
 					{
-						file->writeStr("%d,",*(((FsInt8*)value)+i));
+						file->writeStr("%d,",*(((int8_t*)value)+i));
 						break;
 					}
 				case FS_INT16:
 					{
-						file->writeStr("%d,",*(((FsInt16*)value)+i));
+						file->writeStr("%d,",*(((int16_t*)value)+i));
 						break;
 					}
 				case FS_UINT8:
 					{
-						file->writeStr("%u,",*(((FsUint8*)value)+i));
+						file->writeStr("%u,",*(((uint8_t*)value)+i));
 						break;
 					}
 				case FS_UINT16:
 					{
-						file->writeStr("%u,",*(((FsUint16*)value)+i));
+						file->writeStr("%u,",*(((uint16_t*)value)+i));
 						break;
 					}
 				case FS_UINT32:
 					{
-						file->writeStr("%u,",*(((FsUint32*)value)+i));
+						file->writeStr("%u,",*(((uint32_t*)value)+i));
 						break;
 					}
 			}
@@ -405,11 +397,11 @@ void GeometryLoader::saveGeometryWithScript(Geometry* g,FsFile* file)
 	file->writeStr("]\n");
 	attrs->decRef();
 	Face3* face=g->fFacesPointer();
-	FsInt faceNu=g->getFaceNu();
+	int faceNu=g->getFaceNu();
 	if(face)
 	{
 		file->writeStr("face3s:[");
-		for(FsInt i=0;i<faceNu;i++)
+		for(int i=0;i<faceNu;i++)
 		{
 			file->writeStr("%d,",(face+i)->a);
 			file->writeStr("%d,",(face+i)->b);

@@ -17,7 +17,7 @@ NS_FS_BEGIN
 class SysFile:public FsFile 
 {
 	public:
-		static SysFile* open(const FsChar* name,FsUint mode=FsFile::FS_IO_RDONLY);
+		static SysFile* open(const char* name,uint mode=FsFile::FS_IO_RDONLY);
 		static SysFile* getStdout();
 		static SysFile* getStderr();
 		static SysFile* getStdin();
@@ -26,13 +26,13 @@ class SysFile:public FsFile
 		static SysFile* ms_stdin;
 		static SysFile* ms_stderr;
 	public:
-		virtual FsLong read(FsVoid* buf,FsLong length);
-		virtual FsLong write(const FsVoid* buf,FsLong length);
-		virtual FsLong seek(FsLong offset,FsInt where);
-		virtual FsInt close();
-		virtual FsLong tell();
+		virtual long read(void* buf,long length);
+		virtual long write(const void* buf,long length);
+		virtual long seek(long offset,int where);
+		virtual int close();
+		virtual long tell();
 		virtual ~SysFile();
-		virtual const FsChar* getFileName();
+		virtual const char* getFileName();
 	protected:
 		SysFile(SysFilePlateform f){m_platfromFile=f;}
 	private:

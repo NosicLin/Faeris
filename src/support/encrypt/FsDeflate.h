@@ -7,7 +7,7 @@
  * 	after FsDeflate_Compress on src_length bytes. It would be used before 
  * 	a FsDeflate_Compress call to allocate the destination buffer 
  */
-FsUint FsDeflate_CompressBound(FsUint value);
+uint FsDeflate_CompressBound(uint value);
 
 /* description:
  * 		Compress the source buffer into the destination buffer,sourcelen is 
@@ -16,8 +16,8 @@ FsUint FsDeflate_CompressBound(FsUint value);
  * 	the actual size of the compressed buffer 
  * 		if success 0 will return, -1 if there was not falied 
  */
-int FsDeflate_Compress(const FsUint8* src_buf,FsUint src_length,
-		FsUint8* dst_buf,FsUint8* dst_length);
+int FsDeflate_Compress(const uint8_t* src_buf,uint src_length,
+		uint8_t* dst_buf,uint8_t* dst_length);
 
 
 /* description:
@@ -31,8 +31,8 @@ int FsDeflate_Compress(const FsUint8* src_buf,FsUint src_length,
  * 	compressed buffer.
  * 		uncompressed returns 0 if success, -1 if falied
  */
-int FsDeflate_UnCompress(const FsUint8* src_buf,FsUint src_length,
-		FsUint8* dst_buf,FsUint8* dst_length);
+int FsDeflate_UnCompress(const uint8_t* src_buf,uint src_length,
+		uint8_t* dst_buf,uint8_t* dst_length);
 
 #endif /*_FS_DEFLATE_H_*/
 

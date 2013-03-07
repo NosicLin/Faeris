@@ -10,30 +10,27 @@ NS_FS_BEGIN
 class FsObject 
 {
 	private:
-		FsInt m_refNu;
+		int m_refNu;
 	public:
-		FsInt refCnt(){return m_refNu;}
+		int refCnt(){return m_refNu;}
 		void addRef(){m_refNu++;}
 		void decRef()
 		{
 			m_refNu--;
-			FS_TRACE_ERROR_ON(m_refNu<0,"%s Reference Error",getName());
+			FS_TRACE_ERROR_ON(m_refNu<0,"%s Reference Error",className());
 			if(m_refNu<=0)
 			{
-				onDestory();
+				delete this;
 			}
 		}
 
 	public:
 		FsObject():m_refNu(1){}
 		virtual ~FsObject();
-		virtual const FsChar* getName()=0;
-		virtual FsLong getHashCode();
-		virtual FsBool equal(FsObject* ob); 
-
-		virtual void onDestory();
+		virtual const char* className()=0;
+		virtual long getHashCode();
+		virtual bool equal(FsObject* ob); 
 };
-
 NS_FS_END
 #endif 
 

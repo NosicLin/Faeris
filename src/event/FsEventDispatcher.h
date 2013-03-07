@@ -2,8 +2,8 @@
 #define _FS_EVENT_DISPATCH_H_ 
 #include <vector>
 #include "FsMacros.h"
-#include "fsys/FsEvent.h"
-#include "fsys/FsEventListener.h"
+#include "sys/FsEvent.h"
+#include "sys/FsEventListener.h"
 NS_FS_BEGIN
 class EventDispatcher 
 {

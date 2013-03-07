@@ -19,8 +19,8 @@ class Weight
 
 class VertexWeight
 {
-	FsUint16 index;
-	FsUint16 num;
+	uint16_t index;
+	uint16_t num;
 };
 
 /* face info */
@@ -35,25 +35,25 @@ class Geometry:public FsObject
 		{
 			public:
 				FsString* name;
-				FsInt type;
-				FsInt size; 
-				FsVoid* value;
-				FsInt count;
+				int type;
+				int size; 
+				void* value;
+				int count;
 			public:
-				void resize(FsInt nu);
-				Attribute(const FsChar* _name,FsInt type,FsInt _size);
-				Attribute(const FsChar* _name,FsInt type,FsInt _size,FsInt count);
-				Attribute(FsString* _name,FsInt _type,FsInt _size);
-				Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _count);
+				void resize(int nu);
+				Attribute(const char* _name,int type,int _size);
+				Attribute(const char* _name,int type,int _size,int count);
+				Attribute(FsString* _name,int _type,int _size);
+				Attribute(FsString* _name,int _type,int _size,int _count);
 				virtual ~Attribute();
-				virtual const FsChar* getName();
+				virtual const char* getName();
 		};
 
 	private:
 		/*normal info */
-		FsUint m_vertexNu;
-		FsUint m_faceNu;
-		FsUint m_weightNu;
+		uint m_vertexNu;
+		uint m_faceNu;
+		uint m_weightNu;
 
 		/* vertex attribute */
 		FsDict* m_attrs;
@@ -77,13 +77,13 @@ class Geometry:public FsObject
 		Weight* wWeightsPointer()const{return m_wWeights;}
 
 	public:
-		void setVertexNu(FsUint num);
-		void setFaceNu(FsUint num);
-		void setWeight(FsUint num);
+		void setVertexNu(uint num);
+		void setFaceNu(uint num);
+		void setWeight(uint num);
 
-		FsUint getVertexNu()const{return m_vertexNu;}
-		FsUint getFaceNu()const{return m_faceNu;}
-		FsUint getWeightNu()const{return m_weightNu;}
+		uint getVertexNu()const{return m_vertexNu;}
+		uint getFaceNu()const{return m_faceNu;}
+		uint getWeightNu()const{return m_weightNu;}
 
 		void addAttribute(Attribute* attr)
 		{
@@ -98,13 +98,13 @@ class Geometry:public FsObject
 		}
 
 	public:
-		Geometry(FsUint vertex,FsUint face,FsUint weight);
-		Geometry(FsUint vertex,FsUint face);
-		Geometry(FsUint vertex);
+		Geometry(uint vertex,uint face,uint weight);
+		Geometry(uint vertex,uint face);
+		Geometry(uint vertex);
 		~Geometry();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 	protected:
-		void init(FsUint vertex,FsUint face,FsUint weight);
+		void init(uint vertex,uint face,uint weight);
 
 
 };

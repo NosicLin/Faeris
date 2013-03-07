@@ -7,19 +7,19 @@
 
 NS_FS_BEGIN
 
-static const FsChar* s_ShaderMateral_UniformName="ShaderMaterial::UniformObject";
-static const FsChar* s_ShaderMaterialName="ShaderMaterialObject";
+static const char* s_ShaderMateral_UniformName="ShaderMaterial::UniformObject";
+static const char* s_ShaderMaterialName="ShaderMaterialObject";
 
-const FsChar* ShaderMaterial::Uniform::getName()
+const char* ShaderMaterial::Uniform::getName()
 {
 	return s_ShaderMateral_UniformName;
 }
-const FsChar* ShaderMaterial::getName()
+const char* ShaderMaterial::getName()
 {
 	return s_ShaderMaterialName;
 }
 
-ShaderMaterial::Uniform::Uniform(FsString* name,FsInt type,FsInt count)
+ShaderMaterial::Uniform::Uniform(FsString* name,int type,int count)
 {
 	m_name=name;
 	m_name->addRef();
@@ -27,17 +27,17 @@ ShaderMaterial::Uniform::Uniform(FsString* name,FsInt type,FsInt count)
 	m_count=count;
 
 	m_location=-1;
-	m_value=new FsChar[Render::sizeofUniformType(type)*m_count];
+	m_value=new char[Render::sizeofUniformType(type)*m_count];
 	memset(m_value,0,Render::sizeofUniformType(type)*m_count);
 }
 
 ShaderMaterial::Uniform::~Uniform()
 {
 	m_name->decRef();
-	delete[] (FsChar*)m_value;
+	delete[] (char*)m_value;
 }
 
-void ShaderMaterial::Uniform::setValue(void* value,FsInt type,FsInt count)
+void ShaderMaterial::Uniform::setValue(void* value,int type,int count)
 {
 	if(type!=m_type)
 	{
@@ -86,7 +86,7 @@ void ShaderMaterial::refreshUniform()
 	}
 }
 
-void ShaderMaterial::setUniform(const FsChar* name,FsInt type,FsVoid* value,FsInt count)
+void ShaderMaterial::setUniform(const char* name,int type,void* value,int count)
 {
 	Uniform* u=(Uniform*)m_uniforms->lookup(name);
 	if(u)

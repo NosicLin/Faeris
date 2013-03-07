@@ -4,7 +4,7 @@
 #include "graphics/FsTexture2D.h"
 
 NS_FS_BEGIN
-FsInt LoaderUtil::parseFsType(const FsChar* t)
+int LoaderUtil::parseFsType(const char* t)
 {
 	if(strcmp(t,"float")==0)
 	{
@@ -40,7 +40,7 @@ FsInt LoaderUtil::parseFsType(const FsChar* t)
 	}
 	return -1;
 }
-FsInt LoaderUtil::parseFrontSide(const FsChar* t)
+int LoaderUtil::parseFrontSide(const char* t)
 {
 	if(strcmp(t,"ccw")==0)
 	{
@@ -52,7 +52,7 @@ FsInt LoaderUtil::parseFrontSide(const FsChar* t)
 	}
 	return -1;
 }
-const FsChar* LoaderUtil::frontSideToStr(FsInt t)
+const char* LoaderUtil::frontSideToStr(int t)
 {
 	switch(t)
 	{
@@ -65,9 +65,9 @@ const FsChar* LoaderUtil::frontSideToStr(FsInt t)
 	}
 }
 
-FsInt LoaderUtil::parseBlendEquation(const FsChar* str)
+int LoaderUtil::parseBlendEquation(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"none")==0)
 	{
 		ret=Render::EQUATION_NONE;
@@ -102,7 +102,7 @@ FsInt LoaderUtil::parseBlendEquation(const FsChar* str)
 	}
 	return ret;
 }
-const FsChar* LoaderUtil::blendEquationToStr(FsInt type)
+const char* LoaderUtil::blendEquationToStr(int type)
 {
 	switch(type)
 	{
@@ -124,9 +124,9 @@ const FsChar* LoaderUtil::blendEquationToStr(FsInt type)
 			return "error";
 	}
 }
-FsInt LoaderUtil::parseShadeMode(const FsChar* str)
+int LoaderUtil::parseShadeMode(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"smooth")==0)
 	{
 		ret=Render::SHADE_MODE_SMOOTH;
@@ -141,7 +141,7 @@ FsInt LoaderUtil::parseShadeMode(const FsChar* str)
 	}
 	return ret;
 }
-const FsChar* LoaderUtil::shadeModeToStr(FsInt t)
+const char* LoaderUtil::shadeModeToStr(int t)
 {
 	switch(t)
 	{
@@ -153,9 +153,9 @@ const FsChar* LoaderUtil::shadeModeToStr(FsInt t)
 			return "error";
 	}
 }
-FsInt LoaderUtil::parseBlendFactor(const FsChar* str)
+int LoaderUtil::parseBlendFactor(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"src_alpha")==0)
 	{
 		ret=Render::FACTOR_SRC_ALPHA;
@@ -208,7 +208,7 @@ FsInt LoaderUtil::parseBlendFactor(const FsChar* str)
 }
 
 
-const FsChar* LoaderUtil::blendFactorToStr(FsInt factor)
+const char* LoaderUtil::blendFactorToStr(int factor)
 {
 	switch(factor)
 	{
@@ -239,7 +239,7 @@ const FsChar* LoaderUtil::blendFactorToStr(FsInt factor)
 	}
 }
 
-FsInt LoaderUtil::parseUniformType(const FsChar* t)
+int LoaderUtil::parseUniformType(const char* t)
 {
 	if(strcmp(t,"float")==0)
 	{
@@ -304,7 +304,7 @@ FsInt LoaderUtil::parseUniformType(const FsChar* t)
 	return -1;
 }
 
-const FsChar* LoaderUtil::uniformTypeToStr(FsInt type)
+const char* LoaderUtil::uniformTypeToStr(int type)
 {
 	switch(type)
 	{
@@ -343,9 +343,9 @@ const FsChar* LoaderUtil::uniformTypeToStr(FsInt type)
 	}
 }
 
-FsInt LoaderUtil::parseTextureFilter(const FsChar* str)
+int LoaderUtil::parseTextureFilter(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"linear")==0)
 	{
 			ret=Texture2D::FILTER_LINEAR;
@@ -362,7 +362,7 @@ FsInt LoaderUtil::parseTextureFilter(const FsChar* str)
 }
 
 /*
-const FsChar* LoaderUtil::filterToStr(FsInt type)
+const char* LoaderUtil::filterToStr(int type)
 {
 }
 */
@@ -370,9 +370,9 @@ const FsChar* LoaderUtil::filterToStr(FsInt type)
 
 
 
-FsInt LoaderUtil::parseTextureSwap(const FsChar* str)
+int LoaderUtil::parseTextureSwap(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"clamp_to_edge")==0)
 	{
 			ret=Texture2D::WRAP_CLAMP_TO_EDGE;
@@ -393,15 +393,15 @@ FsInt LoaderUtil::parseTextureSwap(const FsChar* str)
 }
 
 /*
-FsInt LoaderUtil::swapToStr(FsInt type)
+int LoaderUtil::swapToStr(int type)
 {
 }
 */
 
 
-FsInt LoaderUtil::parseTextureFormat(const FsChar* str)
+int LoaderUtil::parseTextureFormat(const char* str)
 {
-	FsInt ret;
+	int ret;
 	if(strcmp(str,"rgba")==0)
 	{
 		ret=Texture2D::FORMAT_RGBA;

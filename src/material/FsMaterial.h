@@ -1,7 +1,7 @@
 #ifndef _FS_BASE_MATERIAL_H_
 #define _FS_BASE_MATERIAL_H_
 #include "FsMacros.h"
-#include "util/FsResource.h"
+#include "io/FsResource.h"
 #include "core/FsObject.h"
 #include "graphics/FsRender.h"
 
@@ -10,21 +10,21 @@ class Material:public FsObject
 {
 	protected:
 		/* alpha blend*/
-		FsInt m_blendEquation;
-		FsInt m_blendSrc;
-		FsInt m_blendDst;
+		int m_blendEquation;
+		int m_blendSrc;
+		int m_blendDst;
 
-		FsFloat m_opacity;
+		float m_opacity;
 
 		/* shade mode */
-		FsInt m_shadeMode;
+		int m_shadeMode;
 
 		/* front side */
-		FsInt m_frontSide;
+		int m_frontSide;
 
 		/* depth */
-		FsBool m_depthTest;
-		FsBool m_depthMask;
+		bool m_depthTest;
+		bool m_depthMask;
 
 
 	public:
@@ -38,73 +38,73 @@ class Material:public FsObject
 			m_depthTest(true),
 			m_depthMask(true) {}
 		virtual ~Material();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 	public:
 		/* blend */
-		void setBlend(FsInt equation,FsInt src,FsInt dst)
+		void setBlend(int equation,int src,int dst)
 		{
 			m_blendEquation=equation;
 			m_blendSrc=src;
 			m_blendDst=dst;
 		}
-		FsInt getBlendEquation()
+		int getBlendEquation()
 		{
 			return m_blendEquation;
 		}
-		FsInt getBlendSrc()
+		int getBlendSrc()
 		{
 			return m_blendSrc;
 		}
-		FsInt getBlendDst()
+		int getBlendDst()
 		{
 			return m_blendDst;
 		}
 
 		/* shader mode */
-		void setShadeMode(FsInt mode)
+		void setShadeMode(int mode)
 		{
 			m_shadeMode=mode;
 		}
-		FsInt getShadeMode()
+		int getShadeMode()
 		{
 			return m_shadeMode;
 		}
 
 		/* opacity */
-		void setOpacity(FsFloat opacity)
+		void setOpacity(float opacity)
 		{
 			m_opacity=opacity;
 		}
-		FsFloat getOpacity()
+		float getOpacity()
 		{
 			return m_opacity;
 		}
 
 		/* depth test */
-		void setDepthTest(FsBool enable)
+		void setDepthTest(bool enable)
 		{
 			m_depthTest=enable;
 		}
-		FsBool getDepthTest()
+		bool getDepthTest()
 		{
 			return m_depthTest;
 		}
 
 		/* depth mask */
-		void setDepthMask(FsBool enable)
+		void setDepthMask(bool enable)
 		{
 			m_depthMask=enable;
 		}
-		FsBool getDepthMask()
+		bool getDepthMask()
 		{
 			return m_depthMask;
 		}
 
-		void setFrontSide(FsInt type)
+		void setFrontSide(int type)
 		{
 			m_frontSide=type;
 		}
-		FsInt getFrontSide()
+		int getFrontSide()
 		{
 			return m_frontSide;
 		}

@@ -2,15 +2,15 @@
 #define _FS_PROGRAM_H_
 
 #include "FsMacros.h"
-#include "fsys/FsFile.h"
+#include "io/FsFile.h"
 #include "FsConfig.h"
 #include "core/FsObject.h"
-#include "util/FsResource.h"
+#include "io/FsResource.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"
 
 #if FS_CONFIG(FS_GL_RENDER)
-	typedef FsUint PlatformProgram;
+	typedef uint PlatformProgram;
 #else 
 	#error "Unsupport PlatformProgram"
 #endif 
@@ -25,8 +25,8 @@ class Program:public Resource
 	{
 		public:
 			FsString* name;
-			FsInt location;
-			FsInt used;
+			int location;
+			int used;
 		public:
 			Location(FsString* _name)
 			{
@@ -37,27 +37,27 @@ class Program:public Resource
 			}
 			virtual ~Location();
 		public:
-			virtual const FsChar* getName();
+			virtual const char* getName();
 	};
 	public:
 		static Program* create(
-				const FsChar* vertex_src,FsUint v_size,
-				const FsChar* fragment_src,FsUint f_size);
+				const char* vertex_src,uint v_size,
+				const char* fragment_src,uint f_size);
 	public:
 
-		void addAttribute(const FsChar* name);
-		void addUniform(const FsChar* name);
+		void addAttribute(const char* name);
+		void addUniform(const char* name);
 
 		/* return the location of the  Attribute/Uniform 
 		 * if not exist in program,-1 will returned 
 		 */
-		FsInt getAttributeLocation(const FsChar* name);
-		FsInt getAttributeLocation(FsString* name);
-		FsInt getUniformLocation(const FsChar* name);
-		FsInt getUniformLocation(FsString* name);
+		int getAttributeLocation(const char* name);
+		int getAttributeLocation(FsString* name);
+		int getUniformLocation(const char* name);
+		int getUniformLocation(FsString* name);
 
 		PlatformProgram getPlatformProgram()const{return m_program;}
-		virtual const FsChar* getName();
+		virtual const char* getName();
 	protected:
 		Program();
 		~Program();

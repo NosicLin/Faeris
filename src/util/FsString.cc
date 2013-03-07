@@ -2,32 +2,32 @@
 
 #include "util/FsString.h"
 
-static const FsChar* s_FsStringName="FsStringObject";
+static const char* s_FsStringName="FsStringObject";
 
 NS_FS_BEGIN
 
-FsString::FsString(FsInt value)
+FsString::FsString(int value)
 {
-	FsChar buf[128];
+	char buf[128];
 	sprintf(buf,"%d",value);
 	m_string=std::string(buf);
 	mCalHashCode();
 }
-FsLong FsString::getHashCode()
+long FsString::getHashCode()
 {
 	return m_hash_code;
 }
 
-const FsChar* FsString::getName()
+const char* FsString::getName()
 {
 	return s_FsStringName;
 }
 
-FsBool FsString::checkType(FsObject* ob)
+bool FsString::checkType(FsObject* ob)
 {
 	return ob->getName()==s_FsStringName;
 }
-FsBool FsString::equal(FsObject* ob)
+bool FsString::equal(FsObject* ob)
 {
 	if(!FsString::checkType(ob))
 	{
@@ -53,7 +53,7 @@ FsBool FsString::equal(FsObject* ob)
 	}
 
 }
-FsBool FsString::equal(const FsChar* str)
+bool FsString::equal(const char* str)
 {
 	return strcmp(m_string.c_str(),str)==0;
 }

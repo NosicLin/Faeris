@@ -10,7 +10,7 @@ class FsDict;
 class MaterialLoader 
 {
 	public:
-		static Material* create(const FsChar* name);
+		static Material* create(const char* name);
 		static Material* create(FsFile* file);
 
 		static ShaderMaterial* createShaderMaterial(FsFile* file);

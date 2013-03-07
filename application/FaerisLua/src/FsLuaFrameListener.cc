@@ -24,7 +24,7 @@ LuaFrameListener::~LuaFrameListener()
 	}
 }
 
-void LuaFrameListener::frameBegin(FsLong diff)
+void LuaFrameListener::frameBegin(long diff)
 {
 	if(m_beginFunc)
 	{
@@ -33,7 +33,7 @@ void LuaFrameListener::frameBegin(FsLong diff)
 		m_engine->call(1,0);
 	}
 }
-void LuaFrameListener::frameUpdate(FsLong diff)
+void LuaFrameListener::frameUpdate(long diff)
 {
 
 	if(m_updateFunc)
@@ -43,7 +43,7 @@ void LuaFrameListener::frameUpdate(FsLong diff)
 		m_engine->call(1,0);
 	}
 }
-void LuaFrameListener::frameEnd(FsLong diff)
+void LuaFrameListener::frameEnd(long diff)
 {
 	if(m_endFunc)
 	{
@@ -53,7 +53,7 @@ void LuaFrameListener::frameEnd(FsLong diff)
 	}
 }
 
-void LuaFrameListener::registerBeginFunc(FsInt func)
+void LuaFrameListener::registerBeginFunc(int func)
 {
 	if(m_beginFunc)
 	{
@@ -61,7 +61,7 @@ void LuaFrameListener::registerBeginFunc(FsInt func)
 	}
 	m_beginFunc=func;
 }
-void LuaFrameListener::registerUpdateFunc(FsInt func)
+void LuaFrameListener::registerUpdateFunc(int func)
 {
 	if(m_updateFunc)
 	{
@@ -70,7 +70,7 @@ void LuaFrameListener::registerUpdateFunc(FsInt func)
 	m_updateFunc=func;
 }
 
-void LuaFrameListener::registerEndFunc(FsInt func)
+void LuaFrameListener::registerEndFunc(int func)
 {
 	if(m_endFunc)
 	{

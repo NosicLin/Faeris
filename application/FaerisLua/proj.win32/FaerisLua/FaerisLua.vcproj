@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\..\platform\thirdparty\win32\tolua++&quot;;..\..\..\..\src;..\..\..\..\platform\thirdparty\win32\lua"
+				AdditionalIncludeDirectories="..\..\..\..\platform\thirdparty\win32\;&quot;..\..\..\..\platform\thirdparty\win32\tolua++&quot;;..\..\..\..\src\support;..\..\..\..\src;..\..\..\..\platform\thirdparty\win32\lua"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

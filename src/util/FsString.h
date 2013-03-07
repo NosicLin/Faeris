@@ -10,39 +10,39 @@ class FsString:public FsObject
 {
 	private:
 		std::string m_string;
-		FsLong m_hash_code;
+		long m_hash_code;
 	public:
-		static FsBool checkType(FsObject* ob);
+		static bool checkType(FsObject* ob);
 
 	public: 
 		FsString();
-		FsString(const FsChar* str);
-		FsString(FsInt value);
+		FsString(const char* str);
+		FsString(int value);
 
 	public:
-		virtual FsLong getHashCode();
-		virtual const FsChar* getName();
-		virtual FsBool equal(FsObject* ob);
-		virtual FsBool equal(const FsChar* str);
+		virtual long getHashCode();
+		virtual const char* getName();
+		virtual bool equal(FsObject* ob);
+		virtual bool equal(const char* str);
 	public:
-		FsString& append(const FsChar* str);
-		FsString& append(const FsChar* str,FsLong n);
+		FsString& append(const char* str);
+		FsString& append(const char* str,long n);
 		FsString& append(const FsString& str);
-		FsString& append(const FsString& str,FsLong n);
+		FsString& append(const FsString& str,long n);
 
 		FsString& assign(const FsString& str);
-		FsString& assign(const FsString& str,FsLong n);
-		FsString& assign(const FsChar* str);
-		FsString& assign(const FsChar* str,FsLong n);
+		FsString& assign(const FsString& str,long n);
+		FsString& assign(const char* str);
+		FsString& assign(const char* str,long n);
 
 		void clear();
 		int compare(const FsString& str) const;
-		int compare(const FsChar* str)const;
-		const FsChar* cstr()const;
+		int compare(const char* str)const;
+		const char* cstr()const;
 		bool empty()const; 
-		FsUlong length()const;
-		FsString& erase(FsLong pos,FsLong num=1);
-		FsChar operator[](FsUlong n)const ;
+		ulong length()const;
+		FsString& erase(long pos,long num=1);
+		char operator[](ulong n)const ;
 	private:
 		inline void mCalHashCode();
 };

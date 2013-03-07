@@ -7,16 +7,16 @@
 
 NS_FS_BEGIN
 
-GLint s_create_shader_object(const FsChar* source,FsInt length,GLint type)
+GLint s_create_shader_object(const char* source,int length,GLint type)
 {
-	FsChar log_info[FS_MAX_GL_SHADER_LOG_LENGTH];
+	char log_info[FS_MAX_GL_SHADER_LOG_LENGTH];
 	GLint compile_result,log_length;
 
 	GLuint shader=0;
 	shader=glCreateShader(type);
 
-	const FsChar* all_source[]={source};
-	const FsInt all_source_length[]={length};
+	const char* all_source[]={source};
+	const int all_source_length[]={length};
 
 	glShaderSource(shader,1,all_source,all_source_length);
 	glCompileShader(shader);
@@ -39,15 +39,15 @@ GLint s_create_shader_object(const FsChar* source,FsInt length,GLint type)
 
 
 Program* Program::create(
-		const FsChar* vertex_src,FsUint v_size,
-		const FsChar* fragment_src,FsUint f_size
+		const char* vertex_src,uint v_size,
+		const char* fragment_src,uint f_size
 		)
 {
 	GLuint program=0;
 	GLuint vertex_shader=0;
 	GLuint fragment_shader=0;
-	FsChar log_info[FS_MAX_GL_PROGRAM_LOG_LENGTH];
-	FsInt log_length;
+	char log_info[FS_MAX_GL_PROGRAM_LOG_LENGTH];
+	int log_length;
 	GLint link_result;
 	Program* ret=NULL;
 
@@ -129,25 +129,25 @@ error:
 	return NULL;
 }
 
-FsInt Program::getAttributeLocation(const FsChar* name)
+int Program::getAttributeLocation(const char* name)
 {
 
 	FsString* fs_name=new FsString(name);
-	FsInt loc=getAttributeLocation(fs_name);
+	int loc=getAttributeLocation(fs_name);
 	fs_name->decRef();
 	return loc;
 }
-FsInt Program::getUniformLocation(const FsChar* name)
+int Program::getUniformLocation(const char* name)
 {
 	FsString* fs_name=new FsString(name);
-	FsInt loc=getUniformLocation(fs_name);
+	int loc=getUniformLocation(fs_name);
 	fs_name->decRef();
 	return loc;
 }
 
-FsInt Program::getAttributeLocation(FsString* name)
+int Program::getAttributeLocation(FsString* name)
 {
-	FsInt loc=-1;
+	int loc=-1;
 	if(!m_attrs)
 	{
 		return -1;
@@ -179,9 +179,9 @@ FsInt Program::getAttributeLocation(FsString* name)
 }
 
 
-FsInt Program::getUniformLocation(FsString* name)
+int Program::getUniformLocation(FsString* name)
 {
-	FsInt loc=-1;
+	int loc=-1;
 	if(!m_uniforms)
 	{
 		return -1;
@@ -238,8 +238,8 @@ Program::~Program()
 	}
 }
 
-const FsChar* s_programName="ProgramObject";
-const FsChar* Program::getName()
+const char* s_programName="ProgramObject";
+const char* Program::getName()
 {
 	return s_programName;
 }

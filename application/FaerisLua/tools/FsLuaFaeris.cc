@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 01/22/13 00:05:39.
+** Generated automatically by tolua++-1.0.92 on 03/01/13 21:53:41.
 */
 
 #ifndef __cplusplus
@@ -15,19 +15,15 @@ TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 
 #include "FsLuaFaeris.h"
 #include "core/FsObject.h"
-#include "util/FsResource.h"
-#include "fsys/FsWindow.h"
-#include "fsys/FsFrame.h"
+#include "io/FsResource.h"
+#include "io/FsResourceMgr.h"
+#include "sys/FsWindow.h"
+#include "sys/FsFrame.h"
 #include "FsLuaFrameListener.h"
 #include "math/FsVector2.h"
 #include "math/FsVector3.h"
 #include "math/FsVector4.h"
 #include "math/FsMatrix4.h"
-#include "loader/FsMeshLoader.h"
-#include "loader/FsGeometryLoader.h"
-#include "loader/FsMaterialLoader.h"
-#include "loader/FsProgramLoader.h"
-#include "loader/FsTextureLoader.h"
 #include "graphics/FsRender.h"
 #include "model/FsMesh.h"
 #include "material/FsMaterial.h"
@@ -115,35 +111,181 @@ static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"Render");
  tolua_usertype(tolua_S,"Resource");
- tolua_usertype(tolua_S,"FsDict");
  tolua_usertype(tolua_S,"Color");
  tolua_usertype(tolua_S,"Window");
- tolua_usertype(tolua_S,"MaterialLoader");
+ tolua_usertype(tolua_S,"ShaderMaterial::Uniform");
  tolua_usertype(tolua_S,"RenderTarget");
- tolua_usertype(tolua_S,"SceneNode");
- tolua_usertype(tolua_S,"TextureLoader");
+ tolua_usertype(tolua_S,"TexCoord2");
  tolua_usertype(tolua_S,"FsObject");
  tolua_usertype(tolua_S,"ShaderMaterial");
- tolua_usertype(tolua_S,"Entity");
+ tolua_usertype(tolua_S,"ResourceMgr");
  tolua_usertype(tolua_S,"LuaFrameListener");
  tolua_usertype(tolua_S,"Mesh");
  tolua_usertype(tolua_S,"Vector3");
- tolua_usertype(tolua_S,"ShaderMaterial::Uniform");
  tolua_usertype(tolua_S,"Face3");
  tolua_usertype(tolua_S,"Program");
+ tolua_usertype(tolua_S,"Entity");
+ tolua_usertype(tolua_S,"SceneNode");
+ tolua_usertype(tolua_S,"FsDict");
  tolua_usertype(tolua_S,"Material");
- tolua_usertype(tolua_S,"GeometryLoader");
- tolua_usertype(tolua_S,"TexCoord2");
- tolua_usertype(tolua_S,"MeshLoader");
- tolua_usertype(tolua_S,"Geometry");
- tolua_usertype(tolua_S,"ProgramLoader");
+ tolua_usertype(tolua_S,"Matrix4");
  tolua_usertype(tolua_S,"Texture2D");
  tolua_usertype(tolua_S,"FsString");
  tolua_usertype(tolua_S,"Vector2");
  tolua_usertype(tolua_S,"Frame");
- tolua_usertype(tolua_S,"Matrix4");
+ tolua_usertype(tolua_S,"Geometry");
  tolua_usertype(tolua_S,"Vector4");
 }
+
+/* method: loadTexture2D of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ResourceMgr_loadTexture2D00
+static int tolua_FsFaeris_ResourceMgr_loadTexture2D00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Texture2D* tolua_ret = (Texture2D*)  ResourceMgr::loadTexture2D(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Texture2D");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadTexture2D'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadProgram of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ResourceMgr_loadProgram00
+static int tolua_FsFaeris_ResourceMgr_loadProgram00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Program* tolua_ret = (Program*)  ResourceMgr::loadProgram(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Program");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadProgram'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadMesh of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ResourceMgr_loadMesh00
+static int tolua_FsFaeris_ResourceMgr_loadMesh00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Mesh* tolua_ret = (Mesh*)  ResourceMgr::loadMesh(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Mesh");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadMesh'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadGeometry of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ResourceMgr_loadGeometry00
+static int tolua_FsFaeris_ResourceMgr_loadGeometry00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Geometry* tolua_ret = (Geometry*)  ResourceMgr::loadGeometry(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Geometry");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadGeometry'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadMaterial of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ResourceMgr_loadMaterial00
+static int tolua_FsFaeris_ResourceMgr_loadMaterial00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   Material* tolua_ret = (Material*)  ResourceMgr::loadMaterial(name);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Material");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadMaterial'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
 
 /* method: setCaption of class  Window */
 #ifndef TOLUA_DISABLE_tolua_FsFaeris_Window_setCaption00
@@ -5096,156 +5238,6 @@ static int tolua_FsFaeris_Math_random01(lua_State* tolua_S)
  return 1;
 tolua_lerror:
  return tolua_FsFaeris_Math_random00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadFromMgr of class  MeshLoader */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_MeshLoader_loadFromMgr00
-static int tolua_FsFaeris_MeshLoader_loadFromMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"MeshLoader",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   Mesh* tolua_ret = (Mesh*)  MeshLoader::loadFromMgr(name);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Mesh");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadFromMgr of class  GeometryLoader */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_GeometryLoader_loadFromMgr00
-static int tolua_FsFaeris_GeometryLoader_loadFromMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"GeometryLoader",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   Geometry* tolua_ret = (Geometry*)  GeometryLoader::loadFromMgr(name);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Geometry");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadFromMgr of class  MaterialLoader */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_MaterialLoader_loadFromMgr00
-static int tolua_FsFaeris_MaterialLoader_loadFromMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"MaterialLoader",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   Material* tolua_ret = (Material*)  MaterialLoader::loadFromMgr(name);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Material");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadFromMgr of class  ProgramLoader */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_ProgramLoader_loadFromMgr00
-static int tolua_FsFaeris_ProgramLoader_loadFromMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"ProgramLoader",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   Program* tolua_ret = (Program*)  ProgramLoader::loadFromMgr(name);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Program");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadFromMgr of class  TextureLoader */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_TextureLoader_loadFromMgr00
-static int tolua_FsFaeris_TextureLoader_loadFromMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"TextureLoader",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   Texture2D* tolua_ret = (Texture2D*)  TextureLoader::loadFromMgr(name);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Texture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadFromMgr'.",&tolua_err);
- return 0;
-#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -11096,6 +11088,14 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"Resource","Resource","FsObject",NULL);
   tolua_beginmodule(tolua_S,"Resource");
   tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"ResourceMgr","ResourceMgr","",NULL);
+  tolua_beginmodule(tolua_S,"ResourceMgr");
+   tolua_function(tolua_S,"loadTexture2D",tolua_FsFaeris_ResourceMgr_loadTexture2D00);
+   tolua_function(tolua_S,"loadProgram",tolua_FsFaeris_ResourceMgr_loadProgram00);
+   tolua_function(tolua_S,"loadMesh",tolua_FsFaeris_ResourceMgr_loadMesh00);
+   tolua_function(tolua_S,"loadGeometry",tolua_FsFaeris_ResourceMgr_loadGeometry00);
+   tolua_function(tolua_S,"loadMaterial",tolua_FsFaeris_ResourceMgr_loadMaterial00);
+  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Window","Window","FsObject",NULL);
   tolua_beginmodule(tolua_S,"Window");
    tolua_constant(tolua_S,"STYLE_MAXBOX",Window::STYLE_MAXBOX);
@@ -11299,26 +11299,6 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"srand",tolua_FsFaeris_Math_srand00);
    tolua_function(tolua_S,"random",tolua_FsFaeris_Math_random00);
    tolua_function(tolua_S,"random",tolua_FsFaeris_Math_random01);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"MeshLoader","MeshLoader","",NULL);
-  tolua_beginmodule(tolua_S,"MeshLoader");
-   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_MeshLoader_loadFromMgr00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"GeometryLoader","GeometryLoader","",NULL);
-  tolua_beginmodule(tolua_S,"GeometryLoader");
-   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_GeometryLoader_loadFromMgr00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"MaterialLoader","MaterialLoader","",NULL);
-  tolua_beginmodule(tolua_S,"MaterialLoader");
-   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_MaterialLoader_loadFromMgr00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"ProgramLoader","ProgramLoader","",NULL);
-  tolua_beginmodule(tolua_S,"ProgramLoader");
-   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_ProgramLoader_loadFromMgr00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"TextureLoader","TextureLoader","",NULL);
-  tolua_beginmodule(tolua_S,"TextureLoader");
-   tolua_function(tolua_S,"loadFromMgr",tolua_FsFaeris_TextureLoader_loadFromMgr00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Render","Render","",NULL);
   tolua_beginmodule(tolua_S,"Render");

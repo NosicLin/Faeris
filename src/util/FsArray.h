@@ -40,30 +40,30 @@ class FsArray:public FsObject
 
 			private:
 				FsArray* m_host;
-				FsUlong m_curPos;
+				ulong m_curPos;
 		};
 	public:
 		void push(FsObject* item);
 		void pop();
 
-		bool set(FsUlong index,FsObject*  item);
-		FsObject* get(FsUlong index);
-		bool insert(FsUlong index,FsObject* item);
-		bool remove(FsUlong index);
-		void resize(FsUlong new_size);
-		FsUlong size() { return m_size; }
+		bool set(ulong index,FsObject*  item);
+		FsObject* get(ulong index);
+		bool insert(ulong index,FsObject* item);
+		bool remove(ulong index);
+		void resize(ulong new_size);
+		ulong size() { return m_size; }
 	public:
 		FsArray();
-		FsArray(FsUlong size);
+		FsArray(ulong size);
 		virtual ~FsArray();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 		static bool checkType(FsObject* ob);
 
 	protected:
-		void enlarge(FsUlong new_size);
+		void enlarge(ulong new_size);
 	private:
-		FsUlong m_size;
-		FsUlong m_cap;
+		ulong m_size;
+		ulong m_cap;
 		FsObject** m_obs;
 
 };

@@ -2,7 +2,7 @@
 #define _FAERIS_MACROS_H_
 #include <assert.h>
 
-#include "FsTypes.h"
+
 
 #define FS_BEGIN_NAMESPACE(name) namespace name{
 #define FS_END_NAMESPACE(name) }
@@ -205,5 +205,16 @@ enum
 	FS_BOUND_SPHERE
 };
 
+
+#define FS_IMAGE2D_CLASS_NAME "Image2D"
+
+
+
+#include "FsTypes.h"
+
+
+
 #endif /*_FAERIS_MACROS_H_*/
+
+
 

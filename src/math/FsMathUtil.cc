@@ -5,16 +5,16 @@
 
 NS_FS_BEGIN
 
-FsVoid Math::srand(FsUlong s)
+void Math::srand(ulong s)
 {
 	::srand(s);
 }
 
-FsInt Math::random()
+int Math::random()
 {
 	return ::rand();
 }
-FsInt Math::random(FsInt begin,FsInt end)
+int Math::random(int begin,int end)
 {
 	return begin+::rand()%(end-begin);
 }

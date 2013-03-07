@@ -14,23 +14,23 @@ class Color
 	public:
 		union{
 			struct{
-				FsUchar r;
-				FsUchar g;
-				FsUchar b;
-				FsUchar a;
+				uint8_t r;
+				uint8_t g;
+				uint8_t b;
+				uint8_t a;
 			};
-			FsUint rgba;
+			uint rgba;
 		};
 	public:
-		Color(FsUchar red,FsUchar green,FsUchar blue,FsUchar alpha)
+		Color(uint8_t red,uint8_t green,uint8_t blue,uint8_t alpha)
 			:r(red),g(green),b(blue),a(alpha){}
 		Color():r(0),g(0),b(0),a(255){}
-		Color(FsUchar red,FsUchar green,FsUchar blue)
+		Color(uint8_t red,uint8_t green,uint8_t blue)
 			:r(red),g(green),b(blue),a(255){}
 
 		Color operator+(Color right);
 		Color operator-(Color right);
-		Color operator*(FsFloat s);
+		Color operator*(float s);
 		bool operator==(Color right){return rgba==right.rgba;}
 		bool operator!=(Color right){return rgba!=right.rgba;}
 };

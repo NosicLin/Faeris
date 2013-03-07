@@ -1,5 +1,5 @@
-#include "fsys/FsFrame.h"
-#include "fsys/FsSys.h"
+#include "sys/FsFrame.h"
+#include "sys/FsSys.h"
 
 NS_FS_BEGIN
 static Frame* s_shareFrame=NULL;
@@ -39,7 +39,7 @@ Frame::Frame()
 }
 
 
-void Frame::setFPS(FsInt fps)
+void Frame::setFPS(int fps)
 {
 	m_FPS=fps;
 	if(m_FPS==0)
@@ -52,15 +52,15 @@ void Frame::setFPS(FsInt fps)
 	}
 }
 
-FsInt Frame::getFPS()
+int Frame::getFPS()
 {
 	return m_FPS;
 }
 
 void Frame::start()
 {
-	FsLong lastframe_time,diff_time,frame_used;
-	FsLong sleep_time;
+	long lastframe_time,diff_time,frame_used;
+	long sleep_time;
 	m_beginTime=m_timer.now();
 	m_idleTime=0;
 	m_curFrame=0;
@@ -106,7 +106,7 @@ void Frame::start()
 
 	}
 }
-void Frame::frameBegin(FsLong diff)
+void Frame::frameBegin(long diff)
 {
 	Iterator iter;
 	for(iter=m_listener.begin();iter<m_listener.end();++iter)
@@ -117,7 +117,7 @@ void Frame::frameBegin(FsLong diff)
 		}
 	}
 }
-void Frame::frameUpdate(FsLong diff)
+void Frame::frameUpdate(long diff)
 {
 	Iterator iter;
 	for(iter=m_listener.begin();iter<m_listener.end();++iter)
@@ -125,7 +125,7 @@ void Frame::frameUpdate(FsLong diff)
 		(*iter)->frameUpdate(diff);
 	}
 }
-void Frame::frameEnd(FsLong diff)
+void Frame::frameEnd(long diff)
 {
 	Iterator iter;
 	for(iter=m_listener.begin();iter<m_listener.end();++iter)
@@ -170,15 +170,15 @@ void Frame::stop()
 {
 	m_stop=true;
 }
-void Frame::setInstantGap(FsLong time)
+void Frame::setInstantGap(long time)
 {
 	m_instantGap=time;
 }
-FsInt Frame::getInstantFPS()
+int Frame::getInstantFPS()
 {
 	return m_instantFPS;
 }
-FsInt Frame::getAvgFPS()
+int Frame::getAvgFPS()
 {
 	int seconds=(m_curTime-m_beginTime)/1000;
 	if(seconds==0)
@@ -191,9 +191,9 @@ FsInt Frame::getAvgFPS()
 	}
 }
 
-void FrameListener::frameBegin(FsLong diff){}
-void FrameListener::frameUpdate(FsLong diff){}
-void FrameListener::frameEnd(FsLong diff){}
+void FrameListener::frameBegin(long diff){}
+void FrameListener::frameUpdate(long diff){}
+void FrameListener::frameEnd(long diff){}
 FrameListener::~FrameListener()
 {
 	if(m_frame)

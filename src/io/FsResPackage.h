@@ -1,7 +1,11 @@
 #ifndef _FS_RES_PACKAGE_H_
 #define _FS_RES_PACKAGE_H_
+#include "FsMacros.h"
 #include "io/FsPackage.h"
-class ResPackage:public FsPackage
+
+NS_FS_BEGIN
+class FsDict;
+class ResPackage:public Package
 {
 	protected:
 		class ResFileInfo:public FsObject
@@ -21,7 +25,7 @@ class ResPackage:public FsPackage
 		static ResPackage* create(const char* name);
 		static ResPackage* create(FsFile* file);
 	public:
-		virtual FsFile* getBlock(const char* name;);
+		virtual FsFile* getBlock(const char* name);
 		virtual ~ResPackage();
 	protected:
 		ResPackage();
@@ -30,6 +34,9 @@ class ResPackage:public FsPackage
 		FsDict* m_fileInfos;
 		FsFile* m_packFile;
 };
+
+NS_FS_END 
+
 #endif /*_FS_RES_PACKAGE_H_*/
 
 

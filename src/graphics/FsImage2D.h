@@ -22,28 +22,42 @@ class Image2D:public FsObject
 			IMAGE_TGA,
 			IMAGE_BMP,
 		};
-		static FsUint PixelFormatSize(PixelFormat f);
+	public:
+		static Image2D* create(const char* filename,ImageType format=IMAGE_UNKWON);
+		static Image2D* create(uint width,uint height,PixelFormat format);
+		static Image2D* create(uint width,uint height,void* data,PixelFormat format);
+		static uint PixelFormatSize(PixelFormat f);
+
 
 	public:
-		Image2D(FsUint width,FsUint height,PixelFormat format);
-		Image2D(FsUint width,FsUint height,void* data,PixelFormat format);
-	public:
-		virtual ~Image2D();
-		virtual const char* getName();
-	public:
-		FsUint getWidth()const{return m_width;} 
-		FsUint getHeight()const{return m_height;};
-		FsVoid* getPixelData()const{return m_buffer;}
+		uint getWidth()const{return m_width;} 
+		uint getHeight()const{return m_height;};
+		void* getPixelData()const{return m_buffer;}
 		PixelFormat getPixelFormat()const{return m_format;}
-		Color getColor(FsUint x,FsUint y)const;
-		void setColor(FsUint x,FsUint y,Color c);
+		Color getColor(uint x,uint y)const;
+		void setColor(uint x,uint y,Color c);
+
+		/* overide FsObject */
+		virtual const char* className();
+
+	protected:
+		Image2D();
+		virtual ~Image2D();
+		void init(uint width,uint height,PixelFormat format);
+		void init(uint width,uint height,void* data,PixelFormat format);
+		void destroy();
+
 	private:
-		FsUint m_pixel_bytes;
-		FsUint m_width;
-		FsUint m_height;
+		uint m_pixel_bytes;
+		uint m_width;
+		uint m_height;
 		PixelFormat m_format;
-		FsUchar* m_buffer;
+		uint8_t* m_buffer;
 };
 NS_FS_END
 #endif /* _FAERIS_IMAGE2D_H_*/
+
+
+
+
 

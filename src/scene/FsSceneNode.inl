@@ -2,133 +2,133 @@
 #define _FS_SCENE_NODE_INL_
 
 
-inline void SceneNode::rotate(FsFloat rx,FsFloat ry,FsFloat rz)
+inline void SceneNode::rotate(float rx,float ry,float rz)
 {
 	m_rotate.x+=rx;
 	m_rotate.y+=ry;
 	m_rotate.z+=rz;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::rotateX(FsFloat r)
+inline void SceneNode::rotateX(float r)
 {
 	m_rotate.x+=r;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::rotateY(FsFloat r)
+inline void SceneNode::rotateY(float r)
 {
 	m_rotate.y+=r;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::rotateZ(FsFloat r)
+inline void SceneNode::rotateZ(float r)
 {
 	m_rotate.z+=r;
 	m_localMatrixDirty=1;
 }
 
-inline void SceneNode::scale(FsFloat sx,FsFloat sy,FsFloat sz)
+inline void SceneNode::scale(float sx,float sy,float sz)
 {
 	m_scale.x*=sx;
 	m_scale.y*=sy;
 	m_scale.z*=sz;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::scaleX(FsFloat s)
+inline void SceneNode::scaleX(float s)
 {
 	m_scale.x*=s;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::scaleY(FsFloat s)
+inline void SceneNode::scaleY(float s)
 {
 	m_scale.y*=s;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::scaleZ(FsFloat s)
+inline void SceneNode::scaleZ(float s)
 {
 	m_scale.z*=s;
 	m_localMatrixDirty=1;
 }
 
-inline void SceneNode::move(FsFloat tx,FsFloat ty,FsFloat tz)
+inline void SceneNode::move(float tx,float ty,float tz)
 {
 	m_translate.x+=tx;
 	m_translate.y+=ty;
 	m_translate.z+=tz;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::moveX(FsFloat t)
+inline void SceneNode::moveX(float t)
 {
 	m_translate.x+=t;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::moveY(FsFloat t)
+inline void SceneNode::moveY(float t)
 {
 	m_translate.y+=t;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::moveZ(FsFloat t)
+inline void SceneNode::moveZ(float t)
 {
 	m_translate.z+=t;
 	m_localMatrixDirty=1;
 }
 
-inline void SceneNode::setRotate(FsFloat rx,FsFloat ry,FsFloat rz)
+inline void SceneNode::setRotate(float rx,float ry,float rz)
 {
 	m_rotate.set(rx,ry,rz);
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setRotateX(FsFloat r)
+inline void SceneNode::setRotateX(float r)
 {
 	m_rotate.x=r;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setRotateY(FsFloat r)
+inline void SceneNode::setRotateY(float r)
 {
 	m_rotate.y=r;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setRotateZ(FsFloat r)
+inline void SceneNode::setRotateZ(float r)
 {
 	m_rotate.z=r;
 	m_localMatrixDirty=1;
 }
 
-inline void SceneNode::setScale(FsFloat sx,FsFloat sy,FsFloat sz)
+inline void SceneNode::setScale(float sx,float sy,float sz)
 {
 	m_scale.set(sx,sy,sz);
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setScaleX(FsFloat s)
+inline void SceneNode::setScaleX(float s)
 {
 	m_scale.x=s;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setScaleY(FsFloat s)
+inline void SceneNode::setScaleY(float s)
 {
 	m_scale.y=s;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setScaleZ(FsFloat s)
+inline void SceneNode::setScaleZ(float s)
 {
 	m_scale.z=s;
 	m_localMatrixDirty=1;
 }
 
-inline void SceneNode::setPosition(FsFloat tx,FsFloat ty,FsFloat tz)
+inline void SceneNode::setPosition(float tx,float ty,float tz)
 {
 	m_translate.set(tx,ty,tz);
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setPositionX(FsFloat t)
+inline void SceneNode::setPositionX(float t)
 {
 	m_translate.x=t;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setPositionY(FsFloat t)
+inline void SceneNode::setPositionY(float t)
 {
 	m_translate.y=t;
 	m_localMatrixDirty=1;
 }
-inline void SceneNode::setPositionZ(FsFloat t)
+inline void SceneNode::setPositionZ(float t)
 {
 	m_translate.z=t;
 	m_localMatrixDirty=1;

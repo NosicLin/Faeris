@@ -5,7 +5,7 @@ NS_FS_BEGIN
 class Sys
 {
 	public:
-		static void usleep(FsLong time);
+		static void usleep(long time);
 };
 NS_FS_END
 #endif /*_FAERIS_SYS_H_*/

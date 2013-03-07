@@ -11,12 +11,12 @@ class TexCoord2
 		{
 			struct
 			{
-				FsFloat tu;
-				FsFloat tv;
+				float tu;
+				float tv;
 			};
-			FsFloat v[2];
+			float v[2];
 		};
-		TexCoord2(FsFloat t_u,FsFloat t_v):tu(t_u),tv(t_v){}
+		TexCoord2(float t_u,float t_v):tu(t_u),tv(t_v){}
 		TexCoord2():tu(0),tv(0){}
 };
 NS_FS_END

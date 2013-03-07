@@ -3,7 +3,7 @@
 
 NS_FS_BEGIN
 
-void Sys::usleep(FsLong time)
+void Sys::usleep(long time)
 {
 	Sleep(time);
 }

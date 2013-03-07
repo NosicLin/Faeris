@@ -20,11 +20,11 @@ class SceneNode :public FsObject
 		SceneNode(FsString* name);
 		SceneNode();
 		virtual ~SceneNode();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 
 	public:
-		virtual void update(FsLong msec);
-		virtual void updateSelf(FsLong mesc);
+		virtual void update(long msec);
+		virtual void updateSelf(long mesc);
 		virtual void draw(Render* r);
 		virtual void drawSelf(Render* r);
 
@@ -39,8 +39,8 @@ class SceneNode :public FsObject
 		void addChild(SceneNode* n);
 		void remove(SceneNode* n);
 
-		SceneNode* getChildByName(FsString* name,FsBool recusive=0);
-		SceneNode* getChildByName(const FsChar* name,FsBool recusive=0);
+		SceneNode* getChildByName(FsString* name,bool recusive=0);
+		SceneNode* getChildByName(const char* name,bool recusive=0);
 
 		void updateLocalMatrix();
 		void updateWorldMatrix();
@@ -53,53 +53,53 @@ class SceneNode :public FsObject
 		Vector3 getRotate(){return m_rotate;}
 
 	public: /* transform */
-		void rotate(FsFloat rx,FsFloat ry,FsFloat rz);
-		void rotateX(FsFloat r);
-		void rotateY(FsFloat r);
-		void rotateZ(FsFloat r);
+		void rotate(float rx,float ry,float rz);
+		void rotateX(float r);
+		void rotateY(float r);
+		void rotateZ(float r);
 
-		void scale(FsFloat sx,FsFloat sy,FsFloat sz);
-		void scaleX(FsFloat s);
-		void scaleY(FsFloat s);
-		void scaleZ(FsFloat s);
+		void scale(float sx,float sy,float sz);
+		void scaleX(float s);
+		void scaleY(float s);
+		void scaleZ(float s);
 
-		void move(FsFloat tx,FsFloat ty,FsFloat tz);
-		void moveX(FsFloat t);
-		void moveY(FsFloat t);
-		void moveZ(FsFloat t);
+		void move(float tx,float ty,float tz);
+		void moveX(float t);
+		void moveY(float t);
+		void moveZ(float t);
 
 	public:/* set transform */
-		void setRotate(FsFloat rx,FsFloat ry,FsFloat rz);
-		void setRotateX(FsFloat r);
-		void setRotateY(FsFloat r);
-		void setRotateZ(FsFloat r);
+		void setRotate(float rx,float ry,float rz);
+		void setRotateX(float r);
+		void setRotateY(float r);
+		void setRotateZ(float r);
 
-		void setScale(FsFloat sx,FsFloat sy,FsFloat sz);
-		void setScaleX(FsFloat s);
-		void setScaleY(FsFloat s);
-		void setScaleZ(FsFloat s);
+		void setScale(float sx,float sy,float sz);
+		void setScaleX(float s);
+		void setScaleY(float s);
+		void setScaleZ(float s);
 
-		void setPosition(FsFloat tx,FsFloat ty,FsFloat tz);
-		void setPositionX(FsFloat t);
-		void setPositionY(FsFloat t);
-		void setPositionZ(FsFloat t);
+		void setPosition(float tx,float ty,float tz);
+		void setPositionX(float t);
+		void setPositionY(float t);
+		void setPositionZ(float t);
 
-		void setPositionInWorld(FsFloat tx,FsFloat ty,FsFloat tz);
-		void setPositionXInWorld(FsFloat t);
-		void setPositionYInWorld(FsFloat t);
-		void setPositionZInWorld(FsFloat t);
+		void setPositionInWorld(float tx,float ty,float tz);
+		void setPositionXInWorld(float t);
+		void setPositionYInWorld(float t);
+		void setPositionZInWorld(float t);
 	public:
 		void hide(){m_visible=0;}
 		void show(){m_visible=1;}
-		FsBool getVisible(){return m_visible;}
+		bool getVisible(){return m_visible;}
 
 	public:
-	//	virtual FsBool hit(const Ray& r,FsInt bound_type);
+	//	virtual bool hit(const Ray& r,int bound_type);
 		
 
 	private:
 		void initData();
-		void updateAllWorldMatrixInternal(FsBool force);
+		void updateAllWorldMatrixInternal(bool force);
 		void notifyChirdWorldMatrixDirty();
 
 	protected:  
@@ -107,13 +107,13 @@ class SceneNode :public FsObject
 		union 
 		{
 			struct{
-				FsUlong m_localMatrixDirty:1;
-				FsUlong m_worldMatrixDirty:1;
-				FsUlong m_hasBoundSphere:1;
-				FsUlong m_hasBoundBox:1;
-				FsUlong m_visible:1;
+				ulong m_localMatrixDirty:1;
+				ulong m_worldMatrixDirty:1;
+				ulong m_hasBoundSphere:1;
+				ulong m_hasBoundBox:1;
+				ulong m_visible:1;
 			};
-			FsUlong m_flags;
+			ulong m_flags;
 		};
 
 

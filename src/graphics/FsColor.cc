@@ -12,10 +12,10 @@ Color Color::BLACK=Color(0,0,0,255);
 
 Color Color::operator+(Color right)
 {
-	FsInt red=r+right.r;
-	FsInt green=g+right.g;
-	FsInt blue=b+right.b;
-	FsInt alpha=a+right.a;
+	int red=r+right.r;
+	int green=g+right.g;
+	int blue=b+right.b;
+	int alpha=a+right.a;
 
 	if(red>255) red=255;
 	if(green>255) green=255;
@@ -27,10 +27,10 @@ Color Color::operator+(Color right)
 
 Color Color::operator-(Color right)
 {
-	FsInt red=r-right.r;
-	FsInt green=g-right.g;
-	FsInt blue=b-right.b;
-	FsInt alpha=a-right.a;
+	int red=r-right.r;
+	int green=g-right.g;
+	int blue=b-right.b;
+	int alpha=a-right.a;
 
 	if(red<0) red=0;
 	if(green<0) green=0;
@@ -40,12 +40,12 @@ Color Color::operator-(Color right)
 	return Color(red,green,blue,alpha);
 }
 
-Color Color::operator*(FsFloat s)
+Color Color::operator*(float s)
 {
-	FsInt red=(FsInt)(r*s);
-	FsInt green=(FsInt)(g*s);
-	FsInt blue=(FsInt)(b*s);
-	FsInt alpha=(FsInt)(a*s);
+	int red=(int)(r*s);
+	int green=(int)(g*s);
+	int blue=(int)(b*s);
+	int alpha=(int)(a*s);
 
 	if(red<0) red=0;
 	if(red>255) red=255;

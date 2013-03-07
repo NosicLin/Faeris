@@ -5,8 +5,8 @@
 #define FS_ARRAY_MIN_SIZE 8
 NS_FS_BEGIN
 
-static const FsChar* s_FsArrayName="FsArrayObject";
-const FsChar* FsArray::getName()
+static const char* s_FsArrayName="FsArrayObject";
+const char* FsArray::getName()
 {
 	return s_FsArrayName;
 }
@@ -22,7 +22,7 @@ FsArray::FsArray()
 	memset(m_obs,0,sizeof(FsObject*)*FS_ARRAY_MIN_SIZE);
 	m_size=0;
 }
-FsArray::FsArray(FsUlong size)
+FsArray::FsArray(ulong size)
 {
 	if(size<FS_ARRAY_MIN_SIZE)
 	{
@@ -36,7 +36,7 @@ FsArray::FsArray(FsUlong size)
 }
 FsArray::~FsArray()
 {
-	for(FsUlong i=0;i<m_size;i++)
+	for(ulong i=0;i<m_size;i++)
 	{
 		if(m_obs[i])
 		{
@@ -47,20 +47,20 @@ FsArray::~FsArray()
 	free(m_obs);
 }
 
-void FsArray::enlarge(FsUlong new_size)
+void FsArray::enlarge(ulong new_size)
 {
 	if(new_size<m_cap)
 	{
 		return ;
 	}
 
-	FsUlong minsize=FS_ARRAY_MIN_SIZE;
+	ulong minsize=FS_ARRAY_MIN_SIZE;
 	while(minsize<new_size) minsize<<=1;
 
 	FsObject** new_obs=(FsObject**)malloc(sizeof(FsObject*)*minsize);
 	memset(new_obs,0,sizeof(FsObject*)*minsize);
 
-	for(FsUlong i=0;i<m_size;i++)
+	for(ulong i=0;i<m_size;i++)
 	{
 		new_obs[i]=m_obs[i];
 	}
@@ -72,15 +72,15 @@ void FsArray::push(FsObject* item)
 {
 	if(m_size>=m_cap)
 	{
-		FsUlong new_size=m_cap*2;
+		ulong new_size=m_cap*2;
 		enlarge(new_size);
 	}
 	if(item) item->addRef();
 	m_obs[m_size++]=item;
 }
-void FsArray::resize(FsUlong new_size)
+void FsArray::resize(ulong new_size)
 {
-	FsUlong i;
+	ulong i;
 
 	if(m_size>=new_size)
 	{
@@ -113,7 +113,7 @@ void FsArray::pop()
 	m_size--;
 }
 
-bool FsArray::set(FsUlong index,FsObject* item)
+bool FsArray::set(ulong index,FsObject* item)
 {
 	if(index>=m_size)
 	{
@@ -126,7 +126,7 @@ bool FsArray::set(FsUlong index,FsObject* item)
 	return true;
 }
 
-FsObject* FsArray::get(FsUlong index)
+FsObject* FsArray::get(ulong index)
 {
 	if(index>=m_size)
 	{
@@ -137,7 +137,7 @@ FsObject* FsArray::get(FsUlong index)
 	return m_obs[index];
 }
 
-bool FsArray::insert(FsUlong index,FsObject* item)
+bool FsArray::insert(ulong index,FsObject* item)
 {
 	if(index>m_size)
 	{
@@ -147,11 +147,11 @@ bool FsArray::insert(FsUlong index,FsObject* item)
 	/* no space here */
 	if(m_size==m_cap)
 	{
-		FsUlong new_size=m_cap*2;
+		ulong new_size=m_cap*2;
 		enlarge(new_size);
 	}
 
-	FsUlong i;
+	ulong i;
 	for(i=m_size;i>index;i--)
 	{
 		m_obs[i]=m_obs[i-1];
@@ -161,7 +161,7 @@ bool FsArray::insert(FsUlong index,FsObject* item)
 	m_size++;
 	return true;
 }
-bool FsArray::remove(FsUlong index)
+bool FsArray::remove(ulong index)
 {
 	if(index>=m_size)
 	{
@@ -171,7 +171,7 @@ bool FsArray::remove(FsUlong index)
 
 	if(m_obs[index]) m_obs[index]->decRef();
 
-	for(FsUlong i=index;i<m_size;i++)
+	for(ulong i=index;i<m_size;i++)
 	{
 		m_obs[i]=m_obs[i+1];
 	}

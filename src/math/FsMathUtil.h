@@ -62,11 +62,11 @@ inline float acosa(float angle)
 
 template<typename T> T abs(T f){return f<0?-f:f;}
 
-FsVoid srand(FsUlong s);
-FsInt random();
-FsInt random(FsInt begin,FsInt end);
+void srand(ulong s);
+int random();
+int random(int begin,int end);
 
-inline FsInt floatEqual(float a,float b)
+inline int floatEqual(float a,float b)
 {
 	return abs(a-b)<0.0001?1:0;
 }

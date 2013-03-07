@@ -1,16 +1,11 @@
 #include "loader/FsLoaderUtil.h"
 #include "util/FsScriptUtil.h"
 #include "loader/FsProgramLoader.h"
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 
 NS_FS_BEGIN
 
-Program* ProgramLoader::loadFromMgr(const FsChar* name)
-{
-	/*TODO(and real share here)*/
-	return create(name);
-}
-Program* ProgramLoader::create(const FsChar* name)
+Program* ProgramLoader::create(const char* name)
 {
 	FsFile* file=VFS::open(name);
 	if(file==NULL)
@@ -48,10 +43,10 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	FsString* v_shader=ScriptUtil::getString(dict,"vertexShader");
 	FsString* f_shader=ScriptUtil::getString(dict,"fragmentShader");
 
-	FsChar* v_source=NULL;
-	FsInt v_length=0;
-	FsChar* f_source=NULL;
-	FsInt f_length=0;
+	char* v_source=NULL;
+	int v_length=0;
+	char* f_source=NULL;
+	int f_length=0;
 	Program* ret=NULL;
 
 	if(v_shader==NULL&&f_shader==NULL)
@@ -70,8 +65,8 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 			v_length=v_file->getLength();
 			if(v_length>0)
 			{
-				v_source=new FsChar[v_length];
-				FsInt readbyte=v_file->read(v_source,v_length);
+				v_source=new char[v_length];
+				int readbyte=v_file->read(v_source,v_length);
 
 				if(readbyte!=v_length)
 				{
@@ -94,8 +89,8 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 			f_length=f_file->getLength();
 			if(f_length>0)
 			{
-				f_source=new FsChar[f_length];
-				FsInt readbyte=f_file->read(f_source,f_length);
+				f_source=new char[f_length];
+				int readbyte=f_file->read(f_source,f_length);
 
 				if(readbyte!=f_length)
 				{
@@ -129,8 +124,8 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	FsArray* uniforms=ScriptUtil::getArray(dict,"uniforms");
 	if(uniforms)
 	{
-		FsInt uniform_nu=uniforms->size();
-		for(FsInt i=0;i<uniform_nu;i++)
+		int uniform_nu=uniforms->size();
+		for(int i=0;i<uniform_nu;i++)
 		{
 			FsString* cur_uniform=ScriptUtil::getString(uniforms,i);
 			if(!cur_uniform)
@@ -146,8 +141,8 @@ Program* ProgramLoader::createFromScript(FsFile* file)
 	FsArray* attrs=ScriptUtil::getArray(dict,"attributes");
 	if(attrs)
 	{
-		FsInt attrs_nu=attrs->size();
-		for(FsInt i=0;i<attrs_nu;i++)
+		int attrs_nu=attrs->size();
+		for(int i=0;i<attrs_nu;i++)
 		{
 			FsString* cur_attr=ScriptUtil::getString(attrs,i);
 			if(!cur_attr)

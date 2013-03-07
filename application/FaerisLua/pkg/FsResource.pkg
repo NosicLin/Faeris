@@ -1,4 +1,4 @@
-$#include "util/FsResource.h"
+$#include "io/FsResource.h"
 class Resource:public FsObject
 {
 };

@@ -6,8 +6,8 @@
 #include "FsMacros.h"
 #include "graphics/FsRenderTarget.h"
 #include "FsConfig.h"
-#include "fsys/FsEvent.h"
-#include "fsys/FsEventListener.h"
+#include "sys/FsEvent.h"
+#include "sys/FsEventListener.h"
 
 #define FS_DEFAULT_WINDOW_NAME "FaerisEngine"
 
@@ -31,23 +31,23 @@ class Window:public RenderTarget
 			virtual void loseCurrent(Render* r);
 			virtual void swapBuffers();
 	public:
-			void setCaption(const FsChar* name);
+			void setCaption(const char* name);
 			std::string getCaption(){return m_caption;}
-			void setPosition(FsInt x,FsInt y);
-			void setSize(FsUint width,FsUint height);
+			void setPosition(int x,int y);
+			void setSize(uint width,uint height);
 			void show();
 			void hide();
-			void setStyle(FsLong flags);
+			void setStyle(long flags);
 
-			void setFullScreen(FsBool full);
+			void setFullScreen(bool full);
 
-			FsInt getWidth();
-			FsInt getHeight();
-			FsInt getPosX();
-			FsInt getPosY();
+			int getWidth();
+			int getHeight();
+			int getPosX();
+			int getPosY();
 			void setCenter();
 	public:
-			virtual const FsChar* getName();
+			virtual const char* getName();
 
 	public:
 			void handleEvent(Event* e);

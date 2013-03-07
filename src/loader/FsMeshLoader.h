@@ -1,12 +1,12 @@
 #ifndef _FS_MESH_UTIL_H_
 #define _FS_MESH_UTIL_H_
 #include "FsMacros.h"
-#include "util/FsResourceMgr.h"
+#include "io/FsResourceMgr.h"
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 #include "util/FsString.h"
 #include "model/FsMesh.h"
-#include "fsys/FsFile.h"
+#include "io/FsFile.h"
 
 NS_FS_BEGIN
 class  MeshLoader
@@ -15,7 +15,7 @@ class  MeshLoader
 	public:
 		static Mesh* create(const char* filename);
 		static Mesh* create(FsFile* file);
-		static FsBool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
+		static bool saveMesh(Mesh* mesh,FsFile* file,bool text=true);
 
 		/* load mesh from script file, it will check the mesh type,
 		 * but caller must make sure the file type is script file. 

@@ -2,14 +2,14 @@
 #define _FS_TEXTURE_LOADER_H_
 #include "FsMacros.h"
 #include "graphics/FsTexture2D.h"
-#include "util/FsResourceMgr.h"
+#include "io/FsResourceMgr.h"
 
 NS_FS_BEGIN
 
 class TextureLoader
 {
 	public:
-		static Texture2D* create(const FsChar* name);
+		static Texture2D* create(const char* name);
 		static Texture2D* create(FsFile* file);
 		static Texture2D* createFromScript(FsFile* file);
 		static Texture2D* createFromBinary(FsFile* file);

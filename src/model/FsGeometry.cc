@@ -3,46 +3,46 @@
 
 NS_FS_BEGIN
 
-static const FsChar* s_GeometryName="GeometryObject";
-static const FsChar* s_GeometryAttributeName="GeometryAttributeObject";
+static const char* s_GeometryName="GeometryObject";
+static const char* s_GeometryAttributeName="GeometryAttributeObject";
 
-const FsChar* Geometry::Attribute::getName()
+const char* Geometry::Attribute::getName()
 {
 	return s_GeometryAttributeName;
 }
-const FsChar* Geometry::getName()
+const char* Geometry::getName()
 {
 	return s_GeometryName;
 }
 
 
-static FsInt s_typesize(FsInt t)
+static int s_typesize(int t)
 {
 	switch(t)
 	{
 		case FS_FLOAT:
-			return sizeof(FsFloat);
+			return sizeof(float);
 		case FS_INT:
-			return sizeof(FsInt);
+			return sizeof(int);
 		case FS_INT8:
-			return sizeof(FsInt8);
+			return sizeof(int8_t);
 		case FS_INT16:
-			return sizeof(FsInt16);
+			return sizeof(int16_t);
 		case FS_INT32:
-			return sizeof(FsInt32);
+			return sizeof(int32_t);
 		case FS_UINT8:
-			return sizeof(FsUint8);
+			return sizeof(uint8_t);
 		case FS_UINT16:
-			return sizeof(FsUint16);
+			return sizeof(uint16_t);
 		case FS_UINT32:
-			return sizeof(FsUint32);
+			return sizeof(uint32_t);
 		default:
 			FS_TRACE_ERROR("Unkown Type");
 	}
 	return 0;
 }
 
-Geometry::Attribute::Attribute(FsString*  _name,FsInt _type,FsInt _size)
+Geometry::Attribute::Attribute(FsString*  _name,int _type,int _size)
 {
 	name=_name;
 	name->addRef();
@@ -52,7 +52,7 @@ Geometry::Attribute::Attribute(FsString*  _name,FsInt _type,FsInt _size)
 	value=0;
 }
 
-Geometry::Attribute::Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _count)
+Geometry::Attribute::Attribute(FsString* _name,int _type,int _size,int _count)
 {
 	name=_name;
 	name->addRef();
@@ -63,7 +63,7 @@ Geometry::Attribute::Attribute(FsString* _name,FsInt _type,FsInt _size,FsInt _co
 	resize(_count);
 }
 
-Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size)
+Geometry::Attribute::Attribute(const char* _name,int _type,int _size)
 {
 	FsString* fs_name=new FsString(_name);
 	name=fs_name;
@@ -73,7 +73,7 @@ Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size)
 	value=0;
 }
 
-Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt _count)
+Geometry::Attribute::Attribute(const char* _name,int _type,int _size,int _count)
 {
 	FsString* fs_name=new FsString(_name);
 	name=fs_name;
@@ -85,33 +85,33 @@ Geometry::Attribute::Attribute(const FsChar* _name,FsInt _type,FsInt _size,FsInt
 }
 
 
-void Geometry::Attribute::resize(FsInt num)
+void Geometry::Attribute::resize(int num)
 {
 	if(count==num) 
 	{
 		return;
 	}
-	FsInt min=count<num?count:num;
+	int min=count<num?count:num;
 
 	if(num==0)
 	{
-		delete[] (FsChar*)value;
+		delete[] (char*)value;
 		value=NULL;
 	}
 	else 
 	{
 
-		FsInt new_length=s_typesize(type)*size*num;
-		FsVoid* new_value=new FsChar[new_length];
+		int new_length=s_typesize(type)*size*num;
+		void* new_value=new char[new_length];
 
 		if(value!=NULL)  /* if we has data before, just copy it */
 		{
 			memcpy(new_value,value,min*s_typesize(type)*size);
-			delete[] (FsChar*)value;
+			delete[] (char*)value;
 		}
 		if(num>count) /* set the other value zero */
 		{
-			memset((FsChar*)new_value+count*s_typesize(type)*size,0,(num-count)*s_typesize(type)*size);
+			memset((char*)new_value+count*s_typesize(type)*size,0,(num-count)*s_typesize(type)*size);
 		}
 		value=new_value;
 	}
@@ -123,12 +123,12 @@ Geometry::Attribute::~Attribute()
 	name->decRef();
 	if(value)
 	{
-		delete[] (FsChar*)value;
+		delete[] (char*)value;
 	}
 }
 
 
-void Geometry::setVertexNu(FsUint num)
+void Geometry::setVertexNu(uint num)
 {
 	if(m_vertexNu==num)
 	{
@@ -149,13 +149,13 @@ void Geometry::setVertexNu(FsUint num)
 	m_vertexNu=num;
 }
 
-void Geometry::setFaceNu(FsUint num)
+void Geometry::setFaceNu(uint num)
 {
 	if(m_faceNu==num)
 	{
 		return ;
 	}
-	FsUint min=m_faceNu>num?num:m_faceNu;
+	uint min=m_faceNu>num?num:m_faceNu;
 
 	if(num==0)
 	{
@@ -179,14 +179,14 @@ void Geometry::setFaceNu(FsUint num)
 	m_faceNu=num;
 }
 
-void Geometry::setWeight(FsUint num)
+void Geometry::setWeight(uint num)
 {
 	if(m_weightNu==num)
 	{
 		return ;
 	}
 
-	FsUint min=m_weightNu<num?m_weightNu:num;
+	uint min=m_weightNu<num?m_weightNu:num;
 	if(num==0)
 	{
 		delete[] m_wWeights;
@@ -210,7 +210,7 @@ void Geometry::setWeight(FsUint num)
 }
 
 
-void Geometry::init(FsUint vertex,FsUint face,FsUint weight)
+void Geometry::init(uint vertex,uint face,uint weight)
 {
 	m_attrs=new FsDict();
 
@@ -225,15 +225,15 @@ void Geometry::init(FsUint vertex,FsUint face,FsUint weight)
 	setWeight(weight);
 }
 
-Geometry::Geometry(FsUint vertex,FsUint face,FsUint weight)
+Geometry::Geometry(uint vertex,uint face,uint weight)
 {
 	init(vertex,face,weight);
 }
-Geometry::Geometry(FsUint vertex,FsUint face)
+Geometry::Geometry(uint vertex,uint face)
 {
 	init(vertex,face,0);
 }
-Geometry::Geometry(FsUint vertex)
+Geometry::Geometry(uint vertex)
 {
 	init(vertex,0,0);
 }

@@ -5,17 +5,17 @@
 #include "util/FsArray.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"
-#include "script/xir_parser.h"
+#include "felis/xir_parser.h"
 
 NS_FS_BEGIN
-static bool s_ObjectWrite(FsObject* ob,FsFile* file,FsInt indent);
-static void s_IndentWrite(FsFile* file,FsInt indent);
+static bool s_ObjectWrite(FsObject* ob,FsFile* file,int indent);
+static void s_IndentWrite(FsFile* file,int indent);
 static bool s_ArrayWrite(FsArray* ay,FsFile* file);
-static bool s_DictWrite(FsDict* dt,FsFile* file,FsInt indent);
+static bool s_DictWrite(FsDict* dt,FsFile* file,int indent);
 static bool s_StringWrite(FsString* str,FsFile* file);
 
 
-static bool s_ObjectWrite(FsObject* ob,FsFile* file,FsInt indent)
+static bool s_ObjectWrite(FsObject* ob,FsFile* file,int indent)
 {
 	if(FsString::checkType(ob))
 	{
@@ -31,13 +31,13 @@ static bool s_ObjectWrite(FsObject* ob,FsFile* file,FsInt indent)
 	}
 	else 
 	{
-		file->writeStr("%s(%ld)",ob->getName(),(FsLong)ob);
+		file->writeStr("%s(%ld)",ob->getName(),(long)ob);
 	}
 	return true;
 }
-static void s_IndentWrite(FsFile* file,FsInt indent)
+static void s_IndentWrite(FsFile* file,int indent)
 {
-	for(FsInt i=0;i<indent;++i)
+	for(int i=0;i<indent;++i)
 	{
 		file->writeStr("\t");
 	}
@@ -60,7 +60,7 @@ static bool s_ArrayWrite(FsArray* ay,FsFile* file)
 	file->writeStr("]");
 	return true;
 }
-static bool s_DictWrite(FsDict* dt,FsFile* file,FsInt indent)
+static bool s_DictWrite(FsDict* dt,FsFile* file,int indent)
 {
 	FsDict::Iterator iter(dt);
 	file->writeStr("{");
@@ -140,7 +140,7 @@ static inline bool s_SpecialChar(char ch)
 	}
 	return false;
 }
-static inline bool s_EscapeChar(FsChar ch)
+static inline bool s_EscapeChar(char ch)
 {
 	switch(ch)
 	{
@@ -153,7 +153,7 @@ static inline bool s_EscapeChar(FsChar ch)
 	return false;
 }
 
-static inline FsChar  s_EscapeCharToOrign(FsChar ch)
+static inline char  s_EscapeCharToOrign(char ch)
 {
 	switch(ch)
 	{
@@ -173,8 +173,8 @@ static bool s_StringWrite(FsString* str,FsFile* file)
 {
 
 	bool need_quote=false;
-	const FsChar* chs=str->cstr();
-	for(FsUint i=0;i<str->length();++i)
+	const char* chs=str->cstr();
+	for(uint i=0;i<str->length();++i)
 	{
 		if(s_SpecialChar(chs[i])||s_EscapeChar(chs[i]))
 		{
@@ -186,7 +186,7 @@ static bool s_StringWrite(FsString* str,FsFile* file)
 	if(need_quote)
 	{
 		file->writeStr("\"");
-		for(FsUint i=0;i<str->length();++i)
+		for(uint i=0;i<str->length();++i)
 		{
 			switch(chs[i])
 			{
@@ -220,7 +220,7 @@ FsDict* ScriptUtil::parseScript(FsFile* file)
 {
 	return XirParser::parse(file);
 }
-bool ScriptUtil::saveScript(FsFile* file,FsDict* dict,FsInt indent)
+bool ScriptUtil::saveScript(FsFile* file,FsDict* dict,int indent)
 {
 	FsDict::Iterator iter(dict);
 	while(!iter.done())
@@ -249,11 +249,11 @@ bool ScriptUtil::saveScript(FsFile* file,FsDict* dict,FsInt indent)
 	return true;
 }	
 
-FsChar* ScriptUtil::escapeStringToOrign(const FsChar* src)
+char* ScriptUtil::escapeStringToOrign(const char* src)
 {
-	FsChar* buffer=NULL;
-	FsLong src_len=0;
-	FsLong dst_len=0;
+	char* buffer=NULL;
+	long src_len=0;
+	long dst_len=0;
 
 	if(src[0]!='\''&&src[0]!='\"')
 	{
@@ -264,9 +264,9 @@ FsChar* ScriptUtil::escapeStringToOrign(const FsChar* src)
 
 	FS_TRACE_ERROR_ON(src_len<2,"Some Error Must Happen");
 
-	buffer=new FsChar[src_len+1];
+	buffer=new char[src_len+1];
 
-	FsLong i=1;
+	long i=1;
 	while(i<src_len-1)
 	{
 		if(src[i]=='\\')
@@ -285,7 +285,7 @@ FsChar* ScriptUtil::escapeStringToOrign(const FsChar* src)
 }
 
 
-FsArray* ScriptUtil::getArray(FsDict* dict,const FsChar* key)
+FsArray* ScriptUtil::getArray(FsDict* dict,const char* key)
 {
 	FsObject* ob=dict->lookup(key);
 	if(ob==NULL)
@@ -304,7 +304,7 @@ FsArray* ScriptUtil::getArray(FsDict* dict,const FsChar* key)
 	}
 }
 
-FsDict* ScriptUtil::getDict(FsDict* dict,const FsChar* key)
+FsDict* ScriptUtil::getDict(FsDict* dict,const char* key)
 {
 	FsObject* ob=dict->lookup(key);
 	if(ob==NULL)
@@ -322,7 +322,7 @@ FsDict* ScriptUtil::getDict(FsDict* dict,const FsChar* key)
 		return NULL;
 	}
 }
-FsString* ScriptUtil::getString(FsDict* dict,const FsChar* key)
+FsString* ScriptUtil::getString(FsDict* dict,const char* key)
 {
 	FsObject* ob=dict->lookup(key);
 	if(ob==NULL)
@@ -341,7 +341,7 @@ FsString* ScriptUtil::getString(FsDict* dict,const FsChar* key)
 	}
 }
 
-FsBool ScriptUtil::getInteger(FsDict* dict,const FsChar* key,FsInt* value)
+bool ScriptUtil::getInteger(FsDict* dict,const char* key,int* value)
 {
 	FsString* str=getString(dict,key);
 	if(str==NULL)
@@ -354,7 +354,7 @@ FsBool ScriptUtil::getInteger(FsDict* dict,const FsChar* key,FsInt* value)
 
 }
 
-FsBool ScriptUtil::getFloat(FsDict* dict,const FsChar* key,FsFloat* value)
+bool ScriptUtil::getFloat(FsDict* dict,const char* key,float* value)
 {
 	FsString* str=getString(dict,key);
 	if(str==NULL)
@@ -366,7 +366,7 @@ FsBool ScriptUtil::getFloat(FsDict* dict,const FsChar* key,FsFloat* value)
 	return true;
 }
 /* aux for quick get object in array */
-FsArray* ScriptUtil::getArray(FsArray* array,FsUint index)
+FsArray* ScriptUtil::getArray(FsArray* array,uint index)
 {
 	FsObject* ob=array->get(index);
 	if(ob==NULL)
@@ -385,7 +385,7 @@ FsArray* ScriptUtil::getArray(FsArray* array,FsUint index)
 }
 
 
-FsDict* ScriptUtil::getDict(FsArray* array,FsUint index)
+FsDict* ScriptUtil::getDict(FsArray* array,uint index)
 {
 	FsObject* ob=array->get(index);
 	if(ob==NULL)
@@ -403,7 +403,7 @@ FsDict* ScriptUtil::getDict(FsArray* array,FsUint index)
 	}
 }
 
-FsString* ScriptUtil::getString(FsArray* array,FsUint index)
+FsString* ScriptUtil::getString(FsArray* array,uint index)
 {
 	FsObject* ob=array->get(index);
 	if(ob==NULL)
@@ -421,7 +421,7 @@ FsString* ScriptUtil::getString(FsArray* array,FsUint index)
 	}
 }
 
-FsBool ScriptUtil::getInteger(FsArray* array,FsUint index,FsInt* v)
+bool ScriptUtil::getInteger(FsArray* array,uint index,int* v)
 {
 	FsString* str=ScriptUtil::getString(array,index);
 	if(str==NULL)
@@ -433,7 +433,7 @@ FsBool ScriptUtil::getInteger(FsArray* array,FsUint index,FsInt* v)
 	str->decRef();
 	return true;
 }
-FsBool ScriptUtil::getFloat(FsArray* array,FsUint index,FsFloat* v)
+bool ScriptUtil::getFloat(FsArray* array,uint index,float* v)
 {
 	FsString* str=ScriptUtil::getString(array,index);
 	if(str==NULL)
@@ -445,7 +445,7 @@ FsBool ScriptUtil::getFloat(FsArray* array,FsUint index,FsFloat* v)
 	return true;
 }
 
-FsBool ScriptUtil::getBoolean(FsDict* dict,const FsChar* name,FsBool* value)
+bool ScriptUtil::getBoolean(FsDict* dict,const char* name,bool* value)
 {
 	FsString* str=ScriptUtil::getString(dict,name);
 	if(str==NULL)
@@ -456,7 +456,7 @@ FsBool ScriptUtil::getBoolean(FsDict* dict,const FsChar* name,FsBool* value)
 	str->decRef();
 	return true;
 }
-FsBool ScriptUtil::getBoolean(FsArray* array,FsUint index,FsBool* value)
+bool ScriptUtil::getBoolean(FsArray* array,uint index,bool* value)
 {
 	FsString* str=ScriptUtil::getString(array,index);
 	if(str==NULL)
@@ -470,16 +470,16 @@ FsBool ScriptUtil::getBoolean(FsArray* array,FsUint index,FsBool* value)
 	
 
 
-FsFloat ScriptUtil::parseFloat(const FsChar* str)
+float ScriptUtil::parseFloat(const char* str)
 {
-	return (FsFloat)atof(str);
+	return (float)atof(str);
 }
-FsInt ScriptUtil::parseInteger(const FsChar* str)
+int ScriptUtil::parseInteger(const char* str)
 {
 	return atoi(str);
 }
 
-FsBool ScriptUtil::parseBoolean(const FsChar* str)
+bool ScriptUtil::parseBoolean(const char* str)
 {
 	if(strcmp(str,"false")==0)
 	{

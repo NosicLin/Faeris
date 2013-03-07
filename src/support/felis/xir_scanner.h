@@ -1,7 +1,7 @@
 #ifndef _FAERY_XIR_SCRIPT_SCANNER_H_
 #define _FAERY_XIR_SCRIPT_SCANNER_H_
 #include <string>
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 #include "xir_file.h"
 #include "xir_state.h"
 class XirScanner

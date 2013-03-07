@@ -5,7 +5,7 @@ NS_FS_BEGIN
 
 FS_BEGIN_NAMESPACE(VFS)
 
-FsFile* open(const FsChar* name,FsUint mode)
+FsFile* open(const char* name,uint mode)
 {
 	return SysFile::open(name,mode);
 }

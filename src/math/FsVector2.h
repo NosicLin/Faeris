@@ -12,25 +12,25 @@ class Vector2
 		{
 			struct 
 			{
-				FsFloat x;
-				FsFloat y;
+				float x;
+				float y;
 			};
-			FsFloat v[2];
+			float v[2];
 		};
 	public:
-		Vector2(FsFloat fx,FsFloat fy);
+		Vector2(float fx,float fy);
 		Vector2();
 		Vector2 add(const Vector2& v)const;
 		Vector2 sub(const Vector2& v)const;
-		Vector2 scale(FsFloat k) const ;
-		FsFloat dot(const Vector2& v)const;
+		Vector2 scale(float k) const ;
+		float dot(const Vector2& v)const;
 		Vector2 normal()const;
-		FsVoid normalize();
+		void normalize();
 		Vector2 proj(const Vector2& v)const;
-		FsFloat angle(const Vector2& v)const;
-		FsFloat length() const;
-		FsFloat length2() const;
-		FsBool equal(const Vector2& v)const ;
+		float angle(const Vector2& v)const;
+		float length() const;
+		float length2() const;
+		bool equal(const Vector2& v)const ;
 };
 
 #include "FsVector2.inl"

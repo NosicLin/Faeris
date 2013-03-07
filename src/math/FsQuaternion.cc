@@ -123,7 +123,7 @@ void Quaternion::makeFromRotationMatrix(const Matrix4& m)
 
 void Quaternion::calcuateW()
 {
-	w=-Math::sqrt(Math::abs(1.0-x*x-y*y-z*z));
+	w=-Math::sqrt(Math::abs(1.0f-x*x-y*y-z*z));
 }
 
 /* q*inverse(q) =1 */
@@ -238,15 +238,15 @@ void Quaternion::slerp(const Quaternion& qa,const Quaternion& qb,float t)
 	}
 
 	float half_theta = Math::acosr( cos_half_theta );
-	float sin_half_theta = Math::sqrt( 1.0 - cos_half_theta * cos_half_theta );
+	float sin_half_theta = Math::sqrt( 1.0f - cos_half_theta * cos_half_theta );
 
 	/* if theta=180 degrees then result is not fully defined */
 	if ( Math::abs( sin_half_theta ) < 0.001 ) {
 
-		w = 0.5 * ( qa.w + qmw );
-		x = 0.5 * ( qa.x + qmx );
-		y = 0.5 * ( qa.y + qmy );
-		z = 0.5 * ( qa.z + qmz );
+		w = 0.5f * ( qa.w + qmw );
+		x = 0.5f * ( qa.x + qmx );
+		y = 0.5f * ( qa.y + qmy );
+		z = 0.5f * ( qa.z + qmz );
 		return ;
 	}
 

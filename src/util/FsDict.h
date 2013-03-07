@@ -39,11 +39,11 @@ class  FsDict:public FsObject
 				}
 				bool done()
 				{
-					return m_curPos>(FsLong)m_dict->m_mask;
+					return m_curPos>(long)m_dict->m_mask;
 				}
 				bool next()
 				{
-					if(m_curPos>(FsLong)m_dict->m_mask)
+					if(m_curPos>(long)m_dict->m_mask)
 					{
 						return false;
 					}
@@ -52,11 +52,11 @@ class  FsDict:public FsObject
 			protected:
 				bool findNext()
 				{
-					if(m_curPos>(FsLong)m_dict->m_mask)
+					if(m_curPos>(long)m_dict->m_mask)
 					{
 						return false;
 					}
-					while(++m_curPos<(FsLong)((m_dict->m_mask+1)))
+					while(++m_curPos<(long)((m_dict->m_mask+1)))
 					{
 						if(m_dict->validEntry(m_dict->m_table+m_curPos))
 						{
@@ -67,13 +67,13 @@ class  FsDict:public FsObject
 				}
 			private:
 				FsDict* m_dict;
-				FsLong m_curPos;
-				FsLong m_iterNu;
+				long m_curPos;
+				long m_iterNu;
 		};
 		class DictEntry
 		{
 			public:
-				FsLong m_code;
+				long m_code;
 				FsObject* m_key;
 				FsObject* m_value;
 			public:
@@ -82,26 +82,26 @@ class  FsDict:public FsObject
 	public:
 		FsDict();
 		~FsDict();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 		static bool checkType(FsObject* ob);
 	public:
 		FsObject* lookup(FsObject* key);
-		FsObject* lookup(const FsChar* key);
+		FsObject* lookup(const char* key);
 		bool insert(FsObject* key,FsObject* value);
 		bool insertWithNewKey(FsObject* key,FsObject* value);
 		bool remove(FsObject* key);
 		Iterator* getIterator();
-		FsUlong size(){return m_used;}
+		ulong size(){return m_used;}
 	protected:
 		DictEntry* getEntry(FsObject* key);
-		DictEntry* lookupEntry(FsObject* key,FsLong code);
-		void resize(FsLong minisize);
-		void simpleInsert(FsObject* key,FsLong hcode,FsObject* value);
+		DictEntry* lookupEntry(FsObject* key,long code);
+		void resize(long minisize);
+		void simpleInsert(FsObject* key,long hcode,FsObject* value);
 		bool validEntry(DictEntry* entry);
 	private:
-		FsLong m_fill;  /* slot already filled include dummy */
-		FsLong m_used;  /* real key num */
-		FsUlong m_mask;
+		long m_fill;  /* slot already filled include dummy */
+		long m_used;  /* real key num */
+		ulong m_mask;
 		DictEntry* m_table;
 };
 NS_FS_END 

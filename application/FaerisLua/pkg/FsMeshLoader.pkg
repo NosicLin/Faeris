@@ -1,7 +1,0 @@
-$#include "loader/FsMeshLoader.h"
-class  MeshLoader
-{
-	public:
-		//static ResourceMgr* getMgr();
-		static Mesh* loadFromMgr(const char* name);
-};

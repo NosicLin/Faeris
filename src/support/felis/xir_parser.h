@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "FsMacros.h"
-#include "fsys/FsFile.h"
+#include "io/FsFile.h"
 #include "xir_scanner.h"
 #include "util/FsDict.h"
 #include "util/FsArray.h"
@@ -39,7 +39,7 @@ class YYParserParm
 		}
 		Faeris::FsString* newStringObject()
 		{
-			FsChar* esc_str=Faeris::ScriptUtil::escapeStringToOrign(m_lex->curString());
+			char* esc_str=Faeris::ScriptUtil::escapeStringToOrign(m_lex->curString());
 			Faeris::FsString* ob=NULL;
 			if(esc_str==NULL)
 			{

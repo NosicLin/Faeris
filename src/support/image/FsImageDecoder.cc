@@ -1,18 +1,20 @@
 #include <string.h>
 
-#include "util/FsImgDecoder.h"
+#include "image/FsImageDecoder.h"
+#include "image/FsImagePng.h"
 #include "graphics/FsImage2D.h"
+#include "io/FsVFS.h"
 
 NS_FS_BEGIN
-FsInt FsUtil_ImageType(const FsChar* name)
+Image2D::ImageType FsUtil_ImageType(const char* name)
 {
-	FsUint str_len=strlen(name);
+	uint str_len=strlen(name);
 	if(str_len<=5)  /*  *.jpg, *.png, *.bmp *.tga */
 	{
 		return Image2D::IMAGE_UNKWON;
 	}
 
-	const FsChar* ext=name+str_len-4;
+	const char* ext=name+str_len-4;
 	if(strcmp(ext,".jpg")==0)
 	{
 		return Image2D::IMAGE_JEPG;
@@ -44,7 +46,7 @@ FsInt FsUtil_ImageType(const FsChar* name)
 	return Image2D::IMAGE_UNKWON;
 }
 
-Image2D* FsUtil_ImageReader(FsFile* file,FsInt image_type)
+Image2D* FsUtil_ImageReader(FsFile* file,int image_type)
 {
 	switch(image_type)
 	{
@@ -63,4 +65,36 @@ Image2D* FsUtil_ImageReader(FsFile* file,FsInt image_type)
 	}
 
 }
+Image2D* FsUtil_ImageReader(const char* filename,Image2D::ImageType image_type)
+{
+	if(image_type==Image2D::IMAGE_UNKWON)
+	{
+		image_type=FsUtil_ImageType(filename);
+	}
+
+	switch(image_type)
+	{
+		case Image2D::IMAGE_JEPG:
+			/* TODO (add jpeg decoder here)*/
+			return NULL;
+		case Image2D::IMAGE_PNG:
+			return FsUtil_PngReader(filename);
+		case Image2D::IMAGE_BMP:
+			/*TODO add Bitmap Reader hear */
+			//	return FsUtil_BmpReader(file);
+			return NULL;
+		default:
+			FS_TRACE_WARN("Image Type Is Not Support");
+			return NULL;
+	}
+}
+
+
+
 NS_FS_END
+
+
+
+
+
+

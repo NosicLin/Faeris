@@ -35,7 +35,7 @@ SysFile* SysFile::getStderr()
 }
 
 
-SysFile* SysFile::open(const char* name,FsUint mode)
+SysFile* SysFile::open(const char* name,uint mode)
 {
 	FILE* f=NULL;
 	switch(mode)
@@ -84,19 +84,19 @@ SysFile* SysFile::open(const char* name,FsUint mode)
 	return new SysFile(f);
 }
 
-FsLong SysFile::read(void* buf,FsLong length)
+long SysFile::read(void* buf,long length)
 {
-	FsLong readbyte=fread(buf,1,length,m_platfromFile);
+	long readbyte=fread(buf,1,length,m_platfromFile);
 	return readbyte;
 }
 
-FsLong SysFile::write(const void* buf,FsLong length)
+long SysFile::write(const void* buf,long length)
 {
 	return fwrite(buf,1,length,m_platfromFile);
 }
-FsLong SysFile::seek(FsLong offset,FsInt where)
+long SysFile::seek(long offset,int where)
 {
-	FsLong ret;
+	long ret;
 	switch(where)
 	{
 		case FsFile::FS_SEEK_CUR:
@@ -114,13 +114,13 @@ FsLong SysFile::seek(FsLong offset,FsInt where)
 	}
 	return ret;
 }
-FsLong SysFile::tell()
+long SysFile::tell()
 {
 	return ftell(m_platfromFile);
 }
-FsInt SysFile::close()
+int SysFile::close()
 {
-	FsInt ret=0;
+	int ret=0;
 	if(m_platfromFile)
 	{
 		ret=fclose(m_platfromFile);

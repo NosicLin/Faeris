@@ -9,7 +9,7 @@
 
 NS_FS_BEGIN
 
-static GLint s_FsTypeToGLenum(FsInt t)
+static GLint s_FsTypeToGLenum(int t)
 {
 	switch(t)
 	{
@@ -35,7 +35,7 @@ static GLint s_FsTypeToGLenum(FsInt t)
 	return 0;
 };
 
-static GLint s_blendToGLenum(FsInt value)
+static GLint s_blendToGLenum(int value)
 {
 	switch(value)
 	{
@@ -104,8 +104,8 @@ Render::Render()
 
 	/* vertex attr array flags [] */
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&m_vertexAttrMaxNu);
-	m_vertexAttrFlags=new FsBool[m_vertexAttrMaxNu];
-	memset(m_vertexAttrFlags,0,sizeof(FsBool)*m_vertexAttrMaxNu);
+	m_vertexAttrFlags=new bool[m_vertexAttrMaxNu];
+	memset(m_vertexAttrFlags,0,sizeof(bool)*m_vertexAttrMaxNu);
 	m_vertexAttrEnableNu=0;
 
 
@@ -164,7 +164,7 @@ Render::~Render()
 
 
 
-FsVoid Render::setProjectionMatrix(const Matrix4& mat)
+void Render::setProjectionMatrix(const Matrix4& mat)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadTransposeMatrixf(mat.v);
@@ -200,11 +200,11 @@ void Render::scale(const Vector3& v)
 {
 	glScalef(v.x,v.y,v.z);
 }
-void Render::rotate(const Vector3& v,FsFloat angle)
+void Render::rotate(const Vector3& v,float angle)
 {
 	glRotatef(angle,v.x,v.y,v.z);
 }
-void Render::setViewport(FsInt x,FsInt y,FsInt width,FsInt height)
+void Render::setViewport(int x,int y,int width,int height)
 {
 	glViewport(x,y,width,height);
 }
@@ -216,7 +216,7 @@ void Render::setClearColor(Color c)
 }
 
 
-void Render::clear(FsBool color,FsBool depth,FsBool stencil)
+void Render::clear(bool color,bool depth,bool stencil)
 {
 	GLint flags=0;
 	if(color) flags|=GL_COLOR_BUFFER_BIT;
@@ -225,11 +225,11 @@ void Render::clear(FsBool color,FsBool depth,FsBool stencil)
 	glClear(flags);
 }
 
-void Render::setScissor(FsInt x,FsInt y,FsInt width,FsInt height)
+void Render::setScissor(int x,int y,int width,int height)
 {
 	glScissor(x,y,width,height);
 }
-void Render::enableScissorTest(FsBool enable)
+void Render::enableScissorTest(bool enable)
 {
 	if(m_scissorEnable!=enable)
 	{
@@ -244,7 +244,7 @@ void Render::enableScissorTest(FsBool enable)
 		m_scissorEnable=enable;
 	}
 }
-void Render::enableDepthTest(FsBool enable)
+void Render::enableDepthTest(bool enable)
 {
 	if(m_depthTest==enable)
 	{
@@ -259,7 +259,7 @@ void Render::enableDepthTest(FsBool enable)
 		m_depthTest=enable;
 	}
 }
-void Render::setDepthMask(FsBool enable)
+void Render::setDepthMask(bool enable)
 {
 	if(m_depthMask!=enable)
 	{
@@ -268,7 +268,7 @@ void Render::setDepthMask(FsBool enable)
 	}
 }
 
-void Render::setLineWidth(FsFloat width)
+void Render::setLineWidth(float width)
 {
 	if(m_lineWidth!=width)
 	{
@@ -277,7 +277,7 @@ void Render::setLineWidth(FsFloat width)
 	}
 }
 
-void Render::enableFog(FsBool enable)
+void Render::enableFog(bool enable)
 {
 	if(m_fogEnable!=enable)
 	{
@@ -357,28 +357,28 @@ void Render::swapBuffers()
 	if(m_target) m_target->swapBuffers();
 }
 
-void Render::setVVertexPointer(Vector3* v,FsUint num)
+void Render::setVVertexPointer(Vector3* v,uint num)
 {
 	glVertexPointer(3,GL_FLOAT,0,v);
 }
-void Render::setVNormalPointer(Vector3* v,FsUint num)
+void Render::setVNormalPointer(Vector3* v,uint num)
 {
 	glNormalPointer(GL_FLOAT,0,v);
 }
-void Render::setVTexCoordPointer(TexCoord2* v,FsUint num)
+void Render::setVTexCoordPointer(TexCoord2* v,uint num)
 {
 	glTexCoordPointer(2,GL_FLOAT,0,v);
 }
-void Render::setVColorPointer(Color* v,FsUint num)
+void Render::setVColorPointer(Color* v,uint num)
 {
 	glColorPointer(4,GL_UNSIGNED_BYTE,0,v);
 }
-void Render::drawFace3(Face3* f,FsUint num)
+void Render::drawFace3(Face3* f,uint num)
 {
 	glDrawElements(GL_TRIANGLES,num*3,GL_UNSIGNED_INT,f);
 }
 
-void Render::enableClientArray(FsUlong flags)
+void Render::enableClientArray(ulong flags)
 {
 	if(flags&VERTEX_ARRAY)
 	{
@@ -414,7 +414,7 @@ void Render::enableClientArray(FsUlong flags)
 	m_arrayFlags|=flags;
 }
 
-void Render::disableClientArray(FsUlong flags)
+void Render::disableClientArray(ulong flags)
 {
 	if(flags&VERTEX_ARRAY)
 	{
@@ -455,7 +455,7 @@ void Render::disableAllClientArray()
 	disableClientArray(ALL_ARRAY);
 }
 
-void Render::setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst)
+void Render::setBlend(int blend_eq,int factor_src,int factor_dst)
 {
 	if((blend_eq==m_blendEquation) 
 		&&(factor_src==m_blendSrc )
@@ -485,16 +485,16 @@ void Render::setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst)
 
 
 /* vertex attribute  */
-FsVoid Render::setVertexAttrPointer( 
-		FsString* name, FsInt size,FsInt type,
-		FsInt count,FsInt stride,FsVoid* pointer)
+void Render::setVertexAttrPointer( 
+		FsString* name, int size,int type,
+		int count,int stride,void* pointer)
 {
 	if(m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
 	}
-	FsInt loc=m_program->getAttributeLocation(name);
+	int loc=m_program->getAttributeLocation(name);
 	if(loc==-1)
 	{
 		FS_TRACE_WARN("Attribute Not Used In Program");
@@ -505,25 +505,25 @@ FsVoid Render::setVertexAttrPointer(
 	glVertexAttribPointer(loc,size,type_gl,0,stride,pointer);
 
 }
-FsVoid Render::setVertexAttrPointer(
-		const FsChar* name,FsInt size,FsInt type,
-		FsInt count,FsInt stride,FsVoid* pointer)
+void Render::setVertexAttrPointer(
+		const char* name,int size,int type,
+		int count,int stride,void* pointer)
 {
 	FsString* fs_name=new FsString(name);
 	setVertexAttrPointer(fs_name,size,type,count,stride,pointer);
 	fs_name->decRef();
 }
 
-FsVoid Render::setAndEnableVertexAttrPointer( 
-		FsString* name, FsInt size, FsInt type, 
-		FsInt count, FsInt stride, FsVoid* pointer)
+void Render::setAndEnableVertexAttrPointer( 
+		FsString* name, int size, int type, 
+		int count, int stride, void* pointer)
 {
 	if(!m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
 	}
-	FsInt loc=m_program->getAttributeLocation(name);
+	int loc=m_program->getAttributeLocation(name);
 	if(loc==-1)
 	{
 		FS_TRACE_WARN("Attribute(%s) Not Used In Program",name->cstr());
@@ -542,9 +542,9 @@ FsVoid Render::setAndEnableVertexAttrPointer(
 	glVertexAttribPointer(loc,size,type_gl,0,stride,pointer);
 }
 
-FsVoid Render::setAndEnableVertexAttrPointer( 
-		const FsChar* name, FsInt size, FsInt type, 
-		FsInt count, FsInt stride, FsVoid* pointer)
+void Render::setAndEnableVertexAttrPointer( 
+		const char* name, int size, int type, 
+		int count, int stride, void* pointer)
 {
 	FsString* fs_name=new FsString(name);
 	setAndEnableVertexAttrPointer(fs_name,size,type,count,stride,pointer);
@@ -553,9 +553,9 @@ FsVoid Render::setAndEnableVertexAttrPointer(
 
 
 /* disable/enable vertex attribute */
-FsVoid Render::disableAllAttrArray()
+void Render::disableAllAttrArray()
 {
-	for(FsInt i=0;i<m_vertexAttrMaxNu;i++)
+	for(int i=0;i<m_vertexAttrMaxNu;i++)
 	{
 		if(m_vertexAttrFlags[i])
 		{
@@ -571,20 +571,20 @@ FsVoid Render::disableAllAttrArray()
 	}
 }
 
-FsVoid Render::enableAttrArray(const FsChar* name)
+void Render::enableAttrArray(const char* name)
 {
 	FsString* fs_name=new FsString(name);
 	enableAttrArray(fs_name);
 	fs_name->decRef();
 }
-FsVoid Render::enableAttrArray(FsString* name)
+void Render::enableAttrArray(FsString* name)
 {
 	if(m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
 	}
-	FsInt loc=m_program->getAttributeLocation(name);
+	int loc=m_program->getAttributeLocation(name);
 	if(loc==-1)
 	{
 		FS_TRACE_WARN("Attribute Not Used In Program");
@@ -600,21 +600,21 @@ FsVoid Render::enableAttrArray(FsString* name)
 	}
 }
 
-FsVoid Render::disableAttrArray(const FsChar* name)
+void Render::disableAttrArray(const char* name)
 {
 	FsString* fs_name=new FsString(name);
 	disableAttrArray(fs_name);
 	fs_name->decRef();
 }
 
-FsVoid Render::disableAttrArray(FsString* name)
+void Render::disableAttrArray(FsString* name)
 {
 	if(m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
 	}
-	FsInt loc=m_program->getAttributeLocation(name);
+	int loc=m_program->getAttributeLocation(name);
 	if(loc==-1)
 	{
 		FS_TRACE_WARN("Attribute Not Used In Program");
@@ -630,14 +630,14 @@ FsVoid Render::disableAttrArray(FsString* name)
 	}
 }
 
-FsVoid Render::setUniform(FsString* name,FsInt type,FsInt count,FsVoid* value)
+void Render::setUniform(FsString* name,int type,int count,void* value)
 {
 	if(!m_program)
 	{
 		FS_TRACE_WARN("No Shader Program Used Now");
 		return;
 	}
-	FsInt loc=m_program->getUniformLocation(name);
+	int loc=m_program->getUniformLocation(name);
 	if(loc==-1)
 	{
 		FS_TRACE_WARN("Uniform %s Not Used Int Program",name->cstr());
@@ -646,14 +646,14 @@ FsVoid Render::setUniform(FsString* name,FsInt type,FsInt count,FsVoid* value)
 	setUniform(loc,type,count,value);
 }
 
-FsVoid Render::setUniform(const FsChar* name,FsInt type,FsInt count,FsVoid* value)
+void Render::setUniform(const char* name,int type,int count,void* value)
 {
 	FsString* fs_name=new FsString(name);
 	setUniform(fs_name,type,count,value);
 	fs_name->decRef();
 }
 
-FsVoid Render::setUniform(FsInt loc,FsInt type,FsInt count,FsVoid* value)
+void Render::setUniform(int loc,int type,int count,void* value)
 {                                                                          
 	switch(type)
 	{
@@ -735,14 +735,14 @@ FsVoid Render::setUniform(FsInt loc,FsInt type,FsInt count,FsVoid* value)
 	}
 }
 
-//void Render::enablePolygonOffset(FsBool){}
-//oid Render::setPolygonOffset(FsFloat factor,FsFloat units);
+//void Render::enablePolygonOffset(bool){}
+//oid Render::setPolygonOffset(float factor,float units);
 
 
 
 
 /* aux func for quick draw */
-FsVoid Render::drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c)
+void Render::drawLine(const Vector3 start,const Vector3 end,float width,Color c)
 {
 	glColor3ub(c.r,c.g,c.b);
 	glLineWidth(width);

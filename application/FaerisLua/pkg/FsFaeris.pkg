@@ -10,8 +10,9 @@ $pfile "FsObject.pkg"
 /*common*/
 $pfile "FsMacros.pkg"
 
-/* util */
+/* io*/
 $pfile "FsResource.pkg"
+$pfile "FsResourceMgr.pkg"
 
 
 /* fsys */
@@ -26,13 +27,6 @@ $pfile "FsVector3.pkg"
 $pfile "FsVector4.pkg"
 $pfile "FsMatrix4.pkg"
 $pfile "FsMath.pkg"
-
-/* loader */
-$pfile "FsMeshLoader.pkg"
-$pfile "FsGeometryLoader.pkg"
-$pfile "FsMaterialLoader.pkg"
-$pfile "FsProgramLoader.pkg"
-$pfile "FsTextureLoader.pkg"
 
 
 /* graphics */

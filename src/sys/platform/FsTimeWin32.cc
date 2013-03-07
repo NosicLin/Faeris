@@ -1,6 +1,6 @@
 #include <Windows.h>
 
-#include "fsys/FsTimer.h"
+#include "sys/FsTimer.h"
 
 NS_FS_BEGIN 
 Timer::Timer()
@@ -12,7 +12,7 @@ void Timer::reset()
 	m_begin=GetTickCount();
 }
 
-FsLong Timer::now() const 
+long Timer::now() const 
 {
 	return  GetTickCount()-m_begin;
 }

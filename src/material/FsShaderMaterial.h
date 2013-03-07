@@ -18,155 +18,155 @@ class ShaderMaterial:public Material
 		{
 			public:
 				FsString* m_name;
-				FsInt m_type;
-				FsInt m_count;
-				FsInt m_location;
-				FsVoid* m_value;
+				int m_type;
+				int m_count;
+				int m_location;
+				void* m_value;
 			public:
-				Uniform(FsString* name,FsInt type,FsInt count);
+				Uniform(FsString* name,int type,int count);
 				virtual ~Uniform();
 
-				void setValue(void* value,FsInt type,FsInt count);
-				virtual const FsChar* getName();
+				void setValue(void* value,int type,int count);
+				virtual const char* getName();
 		};
 	public:
-		void setShadeMode(FsInt mode){m_shadeMode=mode;}
-		void enableWireFrame(FsBool enable){m_wireFrame=enable;}
-		void setWireFrameWidth(FsFloat width){m_wireFrameWidth=width;}
+		void setShadeMode(int mode){m_shadeMode=mode;}
+		void enableWireFrame(bool enable){m_wireFrame=enable;}
+		void setWireFrameWidth(float width){m_wireFrameWidth=width;}
 		void setProgram(Program* prog);
 
 		void setProgramSourceName(FsString* name);
 		FsString* getProgramSourceName();
 
 
-		void setUniform1i(const FsChar* name,FsInt v)
+		void setUniform1i(const char* name,int v)
 		{
 			setUniform(name,Render::U_I_1,&v,1);
 		}
-		void setUniform2i(const FsChar* name,FsInt v1,FsInt v2)
+		void setUniform2i(const char* name,int v1,int v2)
 		{
-			FsInt v[]={v1,v2};
+			int v[]={v1,v2};
 			setUniform(name,Render::U_I_2,v,1);
 		}
-		void setUniform3i(const FsChar* name,FsInt v1,FsInt v2,FsInt v3)
+		void setUniform3i(const char* name,int v1,int v2,int v3)
 		{
-			FsInt v[]={v1,v2,v3};
+			int v[]={v1,v2,v3};
 			setUniform(name,Render::U_I_3,v,1);
 		}
-		void setUniform4i(const FsChar* name,FsInt v1,FsInt v2,FsInt v3,FsInt v4)
+		void setUniform4i(const char* name,int v1,int v2,int v3,int v4)
 		{
-			FsInt v[]={v1,v2,v3,v4};
+			int v[]={v1,v2,v3,v4};
 			setUniform(name,Render::U_I_4,v,1);
 		}
 
-		void setUniform1f(const FsChar* name,FsFloat v)
+		void setUniform1f(const char* name,float v)
 		{
 			setUniform(name,Render::U_F_1,&v,1);
 		}
-		void setUniform2f(const FsChar* name,FsFloat v1,FsFloat v2)
+		void setUniform2f(const char* name,float v1,float v2)
 		{
-			FsFloat v[]={v1,v2};
+			float v[]={v1,v2};
 			setUniform(name,Render::U_F_2,v,1);
 		}
-		void setUniform3f(const FsChar* name,FsFloat v1,FsFloat v2,FsFloat v3)
+		void setUniform3f(const char* name,float v1,float v2,float v3)
 		{
-			FsFloat v[]={v1,v2,v3};
+			float v[]={v1,v2,v3};
 			setUniform(name,Render::U_F_3,v,1);
 		}
-		void setUniform4f(const FsChar* name,FsFloat v1,FsFloat v2,FsFloat v3,FsFloat v4)
+		void setUniform4f(const char* name,float v1,float v2,float v3,float v4)
 		{
-			FsFloat v[]={v1,v2,v3,v4};
+			float v[]={v1,v2,v3,v4};
 			setUniform(name,Render::U_F_4,v,1);
 		}
 
-		void setUniform1ui(const FsChar* name,FsUint v)
+		void setUniform1ui(const char* name,uint v)
 		{
 			setUniform(name,Render::U_UI_1,&v,1);
 		}
-		void setUniform2ui(const FsChar* name,FsUint v1,FsUint v2)
+		void setUniform2ui(const char* name,uint v1,uint v2)
 		{
-			FsUint v[]={v1,v2};
+			uint v[]={v1,v2};
 			setUniform(name,Render::U_UI_2,v,1);
 		}
-		void setUniform3ui(const FsChar* name,FsUint v1,FsUint v2,FsUint v3)
+		void setUniform3ui(const char* name,uint v1,uint v2,uint v3)
 		{
-			FsUint v[]={v1,v2,v3};
+			uint v[]={v1,v2,v3};
 			setUniform(name,Render::U_UI_3,v,1);
 		}
-		void setUniform4ui(const FsChar* name,FsUint v1,FsUint v2,FsUint v3,FsUint v4)
+		void setUniform4ui(const char* name,uint v1,uint v2,uint v3,uint v4)
 		{
-			FsUint v[]={v1,v2,v3,v4};
+			uint v[]={v1,v2,v3,v4};
 			setUniform(name,Render::U_UI_4,v,1);
 		}
 
-		void setUniform1iv(const FsChar* name,FsInt count,FsInt* v)
+		void setUniform1iv(const char* name,int count,int* v)
 		{
 			setUniform(name,Render::U_I_1,v,count);
 		}
-		void setUniform2iv(const FsChar* name,FsInt count,FsInt* v)
+		void setUniform2iv(const char* name,int count,int* v)
 		{
 			setUniform(name,Render::U_I_2,v,count);
 		}
-		void setUniform3iv(const FsChar* name,FsInt count,FsInt* v)
+		void setUniform3iv(const char* name,int count,int* v)
 		{
 			setUniform(name,Render::U_I_3,v,count);
 		}
-		void setUniform4iv(const FsChar* name,FsInt count,FsInt* v)
+		void setUniform4iv(const char* name,int count,int* v)
 		{
 			setUniform(name,Render::U_I_4,v,count);
 		}
 
-		void setUniform1fv(const FsChar* name,FsInt count,FsFloat* v)
+		void setUniform1fv(const char* name,int count,float* v)
 		{
 			setUniform(name,Render::U_F_1,v,count);
 		}
-		void setUniform2fv(const FsChar* name,FsInt count,FsFloat* v)
+		void setUniform2fv(const char* name,int count,float* v)
 		{
 			setUniform(name,Render::U_F_2,v,count);
 		}
-		void setUniform3fv(const FsChar* name,FsInt count,FsFloat* v)
+		void setUniform3fv(const char* name,int count,float* v)
 		{
 			setUniform(name,Render::U_F_3,v,count);
 		}
-		void setUniform4fv(const FsChar* name,FsInt count,FsFloat* v)
+		void setUniform4fv(const char* name,int count,float* v)
 		{
 			setUniform(name,Render::U_F_4,v,count);
 		}
 
-		void setUniform1uiv(const FsChar* name,FsInt count,FsUint* v)
+		void setUniform1uiv(const char* name,int count,uint* v)
 		{
 			setUniform(name,Render::U_UI_1,v,count);
 		}
-		void setUniform2uiv(const FsChar* name,FsInt count,FsUint* v)
+		void setUniform2uiv(const char* name,int count,uint* v)
 		{
 			setUniform(name,Render::U_UI_2,v,count);
 		}
-		void setUniform3uiv(const FsChar* name,FsInt count,FsUint* v)
+		void setUniform3uiv(const char* name,int count,uint* v)
 		{
 			setUniform(name,Render::U_UI_3,v,count);
 		}
-		void setUniform4uiv(const FsChar* name,FsInt count,FsUint* v)
+		void setUniform4uiv(const char* name,int count,uint* v)
 		{
 			setUniform(name,Render::U_UI_4,v,count);
 		}
 
-		void addUniform(const FsChar* name,FsInt type,FsInt count);
+		void addUniform(const char* name,int type,int count);
 		void addUniform(ShaderMaterial::Uniform* u);
 		FsDict* getUniforms();
 	public:
 		ShaderMaterial();
 		virtual ~ShaderMaterial();
-		virtual const FsChar* getName();
+		virtual const char* getName();
 		virtual void load(Render* r);
 		virtual void unload(Render* r);
 	protected:
-		void setUniform(const FsChar* name,FsInt type,FsVoid* value,FsInt count);
+		void setUniform(const char* name,int type,void* value,int count);
 		void refreshUniform();
 		void configRender(Render* r);
 
 	private:
-		FsBool m_wireFrame;
-		FsFloat m_wireFrameWidth;
+		bool m_wireFrame;
+		float m_wireFrameWidth;
 		Program* m_program;
 		FsString* m_programSourceName;
 		FsDict* m_uniforms;

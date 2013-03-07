@@ -2,8 +2,8 @@
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
-static const FsChar* s_MaterialName="MaterialObject";
-const FsChar* Material::getName(){return s_MaterialName;}
+static const char* s_MaterialName="MaterialObject";
+const char* Material::getName(){return s_MaterialName;}
 
 Material::~Material(){}
 

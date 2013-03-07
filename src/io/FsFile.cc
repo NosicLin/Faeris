@@ -2,20 +2,20 @@
 #include "stdarg.h"
 #include "stdio.h"
 NS_FS_BEGIN
-static const FsChar* s_FsFileName="FsFileObject";
-const FsChar* FsFile::getName()
+static const char* s_FsFileName="FsFileObject";
+const char* FsFile::getName()
 {
 	return s_FsFileName;
 }
 
-FsLong FsFile::writeStr(const char* fmt,...)
+long FsFile::writeStr(const char* fmt,...)
 {
-	FsInt cnt=1024;
-	FsLong fmt_byte=0;
+	int cnt=1024;
+	long fmt_byte=0;
 
 	while(1)
 	{
-		FsChar* buffer=new FsChar[cnt];
+		char* buffer=new char[cnt];
 
 		va_list argptr;
 		va_start(argptr,fmt);
@@ -34,12 +34,12 @@ FsLong FsFile::writeStr(const char* fmt,...)
 	return  fmt_byte;
 }
 
-FsLong FsFile::getLength()
+long FsFile::getLength()
 {
-	FsLong cur_pos=tell();
+	long cur_pos=tell();
 	seek(0,FS_SEEK_END);
 
-	FsLong length=tell();
+	long length=tell();
 	seek(cur_pos,FS_SEEK_SET);
 	return length;
 }

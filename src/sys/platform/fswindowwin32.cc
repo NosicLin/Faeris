@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include "GL/glew.h"
-#include "fsys/FsWindow.h"
-#include "fsys/FsFrame.h"
+#include "sys/FsWindow.h"
+#include "sys/FsFrame.h"
 #include "util/FsLog.h"
 
 //#include "fsys/FsEventDispatch.h"
@@ -32,8 +32,8 @@ LRESULT CALLBACK s_winproc(
 	{
 		case WM_LBUTTONDOWN:
 		{
-			FsInt x=(FsInt)LOWORD(lparam);
-			FsInt y=(FsInt)HIWORD(lparam);
+			int x=(int)LOWORD(lparam);
+			int y=(int)HIWORD(lparam);
 			break;
 		}
 
@@ -157,7 +157,7 @@ PlatformWindow::PlatformWindow()
 	hdc=0;
 	hinstance=0;
 }
-FsBool PlatformWindow::initWin()
+bool PlatformWindow::initWin()
 {
 
 	hinstance=GetModuleHandle(NULL);
@@ -206,7 +206,7 @@ FsBool PlatformWindow::initWin()
 	return true;
 }
 
-FsBool PlatformWindow::initGL()
+bool PlatformWindow::initGL()
 {
 	hdc=GetDC(hwnd);
 	SetupPixelFormat(hdc);
@@ -214,7 +214,7 @@ FsBool PlatformWindow::initGL()
 	wglMakeCurrent(hdc,hrc);
 	const GLubyte* gl_version=glGetString(GL_VERSION);
 	FsUtil_Log("OpenGL Version=%s",gl_version);
-	if(atof((FsChar*)gl_version)<1.5)
+	if(atof((char*)gl_version)<1.5)
 	{
 		char str_compain[256]={0};
 		sprintf(str_compain,"OpenGL 1.5 or higher is required(your version is %s), \
@@ -236,7 +236,7 @@ FsBool PlatformWindow::initGL()
 class WindowFrameListener:public FrameListener 
 {
 	public:
-		virtual void frameBegin(FsLong diff)
+		virtual void frameBegin(long diff)
 		{
 			if(s_shareWindow)
 			{
@@ -310,7 +310,7 @@ void Window::swapBuffers()
 	}
 }
 
-void Window::setCaption(const FsChar* name)
+void Window::setCaption(const char* name)
 {
 
 	if(m_window)
@@ -319,14 +319,14 @@ void Window::setCaption(const FsChar* name)
 		m_caption=name;
 	}
 }
-void Window::setPosition(FsInt x,FsInt y)
+void Window::setPosition(int x,int y)
 {
 	if(m_window)
 	{
 		SetWindowPos(m_window->hwnd, 0, x, y, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 	}
 }
-void Window::setSize(FsUint width,FsUint height)
+void Window::setSize(uint width,uint height)
 {
 	if(!m_window)
 	{
@@ -368,13 +368,13 @@ void Window::hide()
 		ShowWindow(m_window->hwnd,SW_HIDE);
 	}
 }
-void Window::setStyle(FsLong flags)
+void Window::setStyle(long flags)
 {
 }
-void Window::setFullScreen(FsBool full)
+void Window::setFullScreen(bool full)
 {
 }
-FsInt Window::getWidth() 
+int Window::getWidth() 
 {
 	if(m_window)
 	{
@@ -384,7 +384,7 @@ FsInt Window::getWidth()
 	}
 	return 0;
 }
-FsInt Window::getHeight()
+int Window::getHeight()
 {
 	if(m_window)
 	{
@@ -394,7 +394,7 @@ FsInt Window::getHeight()
 	}
 	return 0;
 }
-FsInt Window::getPosX()
+int Window::getPosX()
 {
 	if(m_window)
 	{
@@ -404,7 +404,7 @@ FsInt Window::getPosX()
 	}
 	return 0;
 }
-FsInt Window::getPosY() 
+int Window::getPosY() 
 {
 	if(m_window)
 	{

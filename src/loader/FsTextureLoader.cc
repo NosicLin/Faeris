@@ -2,21 +2,17 @@
 
 #include "util/FsScriptUtil.h"
 #include "util/FsDict.h"
-#include "util/FsImgDecoder.h"
+#include "image/FsImgDecoder.h"
 
 #include "loader/FsTextureLoader.h"
 #include "loader/FsLoaderUtil.h"
 
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 
 NS_FS_BEGIN
 
-Texture2D* TextureLoader::loadFromMgr(const FsChar* name)
-{
-	return create(name);
-}
 
-Texture2D* TextureLoader::create(const FsChar* name)
+Texture2D* TextureLoader::create(const char* name)
 {
 	FsFile* file=VFS::open(name);
 	if(file==NULL)
@@ -30,7 +26,7 @@ Texture2D* TextureLoader::create(const FsChar* name)
 }
 Texture2D* TextureLoader::create(FsFile* file)
 {
-	FsInt type=LoaderUtil::fileType(file);
+	int type=LoaderUtil::fileType(file);
 	Texture2D* ret=NULL;
 	switch(type)
 	{
@@ -48,12 +44,12 @@ Texture2D* TextureLoader::create(FsFile* file)
 	return ret;
 }
 
-static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt* filter_mipmap)
+static void s_getFilters(FsDict* dict,int* filter_mag,int* filter_min,int* filter_mipmap)
 {
 	FsString* sct_mag=ScriptUtil::getString(dict,"filter_mag");
 	if(sct_mag!=NULL)
 	{
-		FsInt filter=LoaderUtil::parseTextureFilter(sct_mag->cstr());
+		int filter=LoaderUtil::parseTextureFilter(sct_mag->cstr());
 		if(filter!=-1)
 		{
 			*filter_mag=filter;
@@ -64,7 +60,7 @@ static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt*
 	FsString* sct_min=ScriptUtil::getString(dict,"filter_min");
 	if(sct_min!=NULL)
 	{
-		FsInt filter=LoaderUtil::parseTextureFilter(sct_min->cstr());
+		int filter=LoaderUtil::parseTextureFilter(sct_min->cstr());
 		if(filter!=-1)
 		{
 			*filter_min=filter;
@@ -75,7 +71,7 @@ static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt*
 	FsString* sct_mipmap=ScriptUtil::getString(dict,"filter_mipmap");
 	if(sct_mipmap!=NULL)
 	{
-		FsInt filter=LoaderUtil::parseTextureFilter(sct_mipmap->cstr());
+		int filter=LoaderUtil::parseTextureFilter(sct_mipmap->cstr());
 		if(filter!=-1)
 		{
 			*filter_mipmap=filter;
@@ -84,12 +80,12 @@ static void s_getFilters(FsDict* dict,FsInt* filter_mag,FsInt* filter_min,FsInt*
 	}
 }
 
-static FsVoid s_getWrap(FsDict* dict,FsInt* wraps,FsInt* wrapt)
+static void s_getWrap(FsDict* dict,int* wraps,int* wrapt)
 {
 	FsString* sct_wraps=ScriptUtil::getString(dict,"swap_s");
 	if(sct_wraps!=NULL)
 	{
-		FsInt s=LoaderUtil::parseTextureSwap(sct_wraps->cstr());
+		int s=LoaderUtil::parseTextureSwap(sct_wraps->cstr());
 		if(s!=-1)
 		{
 			*wraps=s;
@@ -102,7 +98,7 @@ static FsVoid s_getWrap(FsDict* dict,FsInt* wraps,FsInt* wrapt)
 	if(sct_wrapt!=NULL)
 	{
 		const char* str=sct_wrapt->cstr();
-		FsInt s=LoaderUtil::parseTextureSwap(sct_wrapt->cstr());
+		int s=LoaderUtil::parseTextureSwap(sct_wrapt->cstr());
 		if(s!=-1)
 		{
 			*wrapt=s;
@@ -114,7 +110,7 @@ static FsVoid s_getWrap(FsDict* dict,FsInt* wraps,FsInt* wrapt)
 
 
 
-static FsVoid s_getAutoMipmap(FsDict* dict,FsBool* value)
+static void s_getAutoMipmap(FsDict* dict,bool* value)
 {
 	FsString* sct_auto_mipmap=ScriptUtil::getString(dict,"auto_mipmap");
 	if(sct_auto_mipmap!=NULL)
@@ -132,12 +128,12 @@ static FsVoid s_getAutoMipmap(FsDict* dict,FsBool* value)
 	}
 }
 
-static FsVoid s_getFormat(FsDict* dict,FsInt* format)
+static void s_getFormat(FsDict* dict,int* format)
 {
 	FsString* sct_format=ScriptUtil::getString(dict,"format");
 	if(sct_format!=NULL)
 	{
-		FsInt f=LoaderUtil::parseTextureFormat(sct_format->cstr());
+		int f=LoaderUtil::parseTextureFormat(sct_format->cstr());
 		if(f!=-1)
 		{
 			*format=f;
@@ -146,11 +142,11 @@ static FsVoid s_getFormat(FsDict* dict,FsInt* format)
 	}
 }
 
-static FsVoid s_getImageNu(FsDict* dict,FsInt* image_nu)
+static void s_getImageNu(FsDict* dict,int* image_nu)
 {
 	ScriptUtil::getInteger(dict,"imageNu",image_nu);
 }
-static FsVoid s_getImages(FsDict* dict,Image2D** images,FsInt* image_nu)
+static void s_getImages(FsDict* dict,Image2D** images,int* image_nu)
 {
 	FsArray* sct_images=ScriptUtil::getArray(dict,"source");
 	if(sct_images==NULL)
@@ -158,14 +154,14 @@ static FsVoid s_getImages(FsDict* dict,Image2D** images,FsInt* image_nu)
 		*image_nu=0;
 	}
 
-	FsInt num=sct_images->size();
+	int num=sct_images->size();
 	if(num>*image_nu)
 	{
 		num=*image_nu;
 	}
 
-	FsInt realNum=0;
-	for(FsInt i=0;i<num;i++)
+	int realNum=0;
+	for(int i=0;i<num;i++)
 	{
 		FsString* cur_source=ScriptUtil::getString(sct_images,i);
 		if(cur_source==NULL)
@@ -174,7 +170,7 @@ static FsVoid s_getImages(FsDict* dict,Image2D** images,FsInt* image_nu)
 			continue;
 		}
 
-		FsInt image_type=FsUtil_ImageType(cur_source->cstr());
+		int image_type=FsUtil_ImageType(cur_source->cstr());
 		FsFile* file=VFS::open(cur_source->cstr());
 		cur_source->decRef();
 		cur_source=NULL;
@@ -211,30 +207,30 @@ Texture2D* TextureLoader::createFromScript(FsFile* file)
 		return NULL;
 	}
 	/* filter */
-	FsInt filter_mag=Texture2D::FILTER_LINEAR;
-	FsInt filter_min=Texture2D::FILTER_LINEAR;
-	FsInt filter_mipmap=Texture2D::FILTER_LINEAR;
+	int filter_mag=Texture2D::FILTER_LINEAR;
+	int filter_min=Texture2D::FILTER_LINEAR;
+	int filter_mipmap=Texture2D::FILTER_LINEAR;
 	
 	/* wraps */
-	FsInt wraps=Texture2D::WRAP_CLAMP_TO_EDGE;
-	FsInt wrapt=Texture2D::WRAP_CLAMP_TO_EDGE;
+	int wraps=Texture2D::WRAP_CLAMP_TO_EDGE;
+	int wrapt=Texture2D::WRAP_CLAMP_TO_EDGE;
 
 	/* internal_format */
-	FsInt internal_format=Texture2D::FORMAT_RGBA;
+	int internal_format=Texture2D::FORMAT_RGBA;
 
 
 	/* mipmap */
-	FsBool mipmap=false;
+	bool mipmap=false;
 
 	/* image */
-	FsUint image_nu=0;
+	uint image_nu=0;
 	Image2D** images=NULL;
 
 	s_getFormat(dict,&internal_format);
 	s_getFilters(dict,&filter_mag,&filter_min,&filter_mipmap);
 	s_getWrap(dict,&wraps,&wrapt);
 	s_getAutoMipmap(dict,&mipmap);
-	s_getImageNu(dict,(FsInt*)&image_nu);
+	s_getImageNu(dict,(int*)&image_nu);
 
 	if(image_nu==0)
 	{
@@ -245,7 +241,7 @@ Texture2D* TextureLoader::createFromScript(FsFile* file)
 	images=new Image2D* [image_nu];
 	memset(images,0,sizeof(Image2D*)*image_nu);
 
-	s_getImages(dict,images,(FsInt*)&image_nu);
+	s_getImages(dict,images,(int*)&image_nu);
 	if(image_nu==0)
 	{
 		delete[] images;
@@ -279,7 +275,7 @@ Texture2D* TextureLoader::createFromScript(FsFile* file)
 				);
 	}
 
-	for(FsUint i=0;i<image_nu;i++)
+	for(uint i=0;i<image_nu;i++)
 	{
 		images[i]->decRef();
 	}

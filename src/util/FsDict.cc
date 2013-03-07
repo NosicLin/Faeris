@@ -9,7 +9,7 @@
 NS_FS_BEGIN
 
 
-static const FsChar s_FsDict_Name[]="DictObject";
+static const char s_FsDict_Name[]="DictObject";
 static int s_dummy_int=0; /* only for get an unique address value */
 FsObject* s_dict_dummy_entry=(FsObject*)&s_dummy_int;
 
@@ -18,7 +18,7 @@ bool FsDict::checkType(FsObject* ob)
 	return ob->getName()==s_FsDict_Name;
 }
 
-const FsChar* FsDict::getName()
+const char* FsDict::getName()
 {
 	return s_FsDict_Name;
 }
@@ -36,16 +36,16 @@ bool FsDict::validEntry(FsDict::DictEntry* entry)
 	return entry->m_key!=NULL&&entry->m_key!=s_dict_dummy_entry;
 }
 
-FsDict::DictEntry* FsDict::lookupEntry(FsObject* key,FsLong code)
+FsDict::DictEntry* FsDict::lookupEntry(FsObject* key,long code)
 {
-	FsUlong mask=m_mask;
-	FsUlong i=code&mask;
-	FsUlong perturb;
+	ulong mask=m_mask;
+	ulong i=code&mask;
+	ulong perturb;
 
 	DictEntry* table=m_table;
 	DictEntry* p=table+i;
 	DictEntry* freeslot=NULL;
-	FsInt cmp;
+	int cmp;
 	if(p->m_key==NULL)
 	{
 		return p;
@@ -87,11 +87,11 @@ FsDict::DictEntry* FsDict::lookupEntry(FsObject* key,FsLong code)
 		}
 	}
 }
-void FsDict::simpleInsert(FsObject* key,FsLong code,FsObject* value)
+void FsDict::simpleInsert(FsObject* key,long code,FsObject* value)
 {
-	FsUlong mask=m_mask;
-	FsUlong i=code&mask;
-	FsUlong perturb=code;
+	ulong mask=m_mask;
+	ulong i=code&mask;
+	ulong perturb=code;
 
 	DictEntry* table=m_table;
 	DictEntry* p=table+i;
@@ -110,13 +110,13 @@ void FsDict::simpleInsert(FsObject* key,FsLong code,FsObject* value)
 	m_used++;
 }
 
-void FsDict::resize(FsLong minisize)
+void FsDict::resize(long minisize)
 {
 	DictEntry* old_table=0;
 	DictEntry* new_table=0;
 	DictEntry* p=0;
-	FsLong new_size=FS_DICT_MIN_SIZE;
-	FsLong i;
+	long new_size=FS_DICT_MIN_SIZE;
+	long i;
 
 	while(new_size<minisize&&new_size>0) new_size<<=1;
 	FS_TRACE_ERROR_ON(new_size<0,"Can't Alloc Memory For Resize Hash Object");
@@ -148,7 +148,7 @@ void FsDict::resize(FsLong minisize)
 }
 bool FsDict::remove(FsObject* key)
 {
-	FsLong code=key->getHashCode();
+	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
 		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
@@ -175,7 +175,7 @@ bool FsDict::remove(FsObject* key)
 
 FsObject* FsDict::lookup(FsObject* key)
 {
-	FsLong code=key->getHashCode();
+	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
 		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
@@ -190,7 +190,7 @@ FsObject* FsDict::lookup(FsObject* key)
 	p->m_value->addRef();
 	return p->m_value;
 }
-FsObject* FsDict::lookup(const FsChar* key)
+FsObject* FsDict::lookup(const char* key)
 {
 	FsObject* ob=new FsString(key);
 	FsObject* ret=lookup(ob);
@@ -201,13 +201,13 @@ FsObject* FsDict::lookup(const FsChar* key)
 
 bool FsDict::insert(FsObject* key,FsObject* value)
 {
-	FsLong code=key->getHashCode();
+	long code=key->getHashCode();
 	if(code==FS_INVALID_HASH_CODE)
 	{
 		FS_TRACE_WARN("Can't Hash %s Object",key->getName());
 		return false;
 	}
-	FsLong used=m_used;
+	long used=m_used;
 	DictEntry* p=lookupEntry(key,code);
 
 	key->addRef();
@@ -242,7 +242,7 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 	p->m_code=code;
 
 	/* check space, make sure 1/3 free slot */
-	if(used<m_used && (FsUlong)m_fill*3>m_mask*2)
+	if(used<m_used && (ulong)m_fill*3>m_mask*2)
 	{
 		resize((m_used>50000?2:4)*m_used);
 	}
@@ -251,7 +251,7 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 FsDict::~FsDict()
 {
 	DictEntry* p;
-	FsLong i=m_fill;
+	long i=m_fill;
 	for(p=m_table;i>0;p++)
 	{
 		if(p->m_key!=NULL)

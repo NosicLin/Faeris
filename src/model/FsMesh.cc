@@ -4,8 +4,8 @@
 #include "math/FsVector3.h"
 
 NS_FS_BEGIN 
-static const FsChar* s_MeshName="MeshObject";
-const FsChar* Mesh::getName()
+static const char* s_MeshName="MeshObject";
+const char* Mesh::getName()
 {
 	return s_MeshName;
 }
@@ -31,7 +31,7 @@ Mesh::~Mesh()
 }
 
 
-void Mesh::draw(Render* r,FsInt frame,FsFloat subFrame)
+void Mesh::draw(Render* r,int frame,float subFrame)
 {
 	if(m_material==NULL||m_geometry==NULL)
 	{
@@ -41,7 +41,7 @@ void Mesh::draw(Render* r,FsInt frame,FsFloat subFrame)
 	r->setMaterial(m_material);
 	r->disableAllAttrArray();
 
-	FsUint face_nu=m_geometry->getFaceNu();
+	uint face_nu=m_geometry->getFaceNu();
 
 	Face3* face_pointer=m_geometry->fFacesPointer();
 	Geometry::Attribute* attr=NULL;

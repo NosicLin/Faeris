@@ -14,7 +14,7 @@ extern "C"
 #include "FsLuaEngine.h"
 #include "FsLuaFaeris.h"
 #include "util/FsLog.h"
-#include "fsys/FsVFS.h"
+#include "io/FsVFS.h"
 
 
 

@@ -1,8 +1,0 @@
-$#include "loader/FsGeometryLoader.h"
-class GeometryLoader
-{
-	public:
-//		static ResourceMgr* getMgr();
-		static Geometry* loadFromMgr(const char* name);
-};
-

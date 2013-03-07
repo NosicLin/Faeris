@@ -1,14 +1,14 @@
-#include "zlib.h"
-#include "support/FsDeflate.h"
+#include "zlib/zlib.h"
+#include "encrypt/FsDeflate.h"
 
-FsUint FsDeflate_CompressBound(FsUint value)
+uint FsDeflate_CompressBound(uint value)
 {
 	return compressBound(value);
 }
 
-FsInt FsDeflate_Compress(FsUint8* src_buf,FsUint src_length,
-		FsUint* dst_buf,FsUint* dst_length)
+int FsDeflate_Compress(uint8_t* src_buf,uint src_length,
+		uint8_t* dst_buf,uint* dst_length)
 {
-
+	return 0;
 }
 

@@ -3,7 +3,7 @@
 
 NS_FS_BEGIN
 
-void Program::addUniform(const FsChar* name)
+void Program::addUniform(const char* name)
 {
 	if(m_uniforms==NULL)
 	{
@@ -19,7 +19,7 @@ void Program::addUniform(const FsChar* name)
 	l->decRef();
 }
 
-void Program::addAttribute(const FsChar* name)
+void Program::addAttribute(const char* name)
 {
 
 	if(m_attrs==NULL)
@@ -41,8 +41,8 @@ Program::Location::~Location()
 	name->decRef();
 }
 
-const FsChar* s_LocationName="Program::Location";
-const FsChar* Program::Location::getName()
+const char* s_LocationName="Program::Location";
+const char* Program::Location::getName()
 {
 	return s_LocationName;
 }

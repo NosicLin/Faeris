@@ -1,7 +1,7 @@
 #ifndef _FAERY_XIR_SCRIPT_FILE_H_
 #define _FAERY_XIR_SCRIPT_FILE_H_ 
 
-#include "fsys/FsFile.h"
+#include "io/FsFile.h"
 
 class XirFile
 {

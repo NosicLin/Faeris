@@ -24,16 +24,16 @@ class FsFile:public FsObject
 			FS_IO_TRUNC=0x32
 		};
 	public:
-		virtual FsLong read(FsVoid* buf,FsLong length)=0;
-		virtual FsLong write(const FsVoid* buf,FsLong length)=0;
-		virtual FsLong seek(FsLong offset,FsInt where)=0;
-		virtual FsInt  close()=0;
-		virtual FsLong tell()=0;
-		virtual FsLong getLength();
+		virtual long read(void* buf,long length)=0;
+		virtual long write(const void* buf,long length)=0;
+		virtual long seek(long offset,int where)=0;
+		virtual int  close()=0;
+		virtual long tell()=0;
+		virtual long getLength();
 		virtual ~FsFile(){}
-		virtual const FsChar* getName();
+		virtual const char* getName();
 	public:
-		FsLong writeStr(const char* fmt,...);
+		long writeStr(const char* fmt,...);
 };
 
 NS_FS_END

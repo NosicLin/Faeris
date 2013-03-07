@@ -21,7 +21,7 @@ class Timer
 	public:
 		Timer();
 		void reset();
-		FsLong now() const ;
+		long now() const ;
 	private:
 		PlatformTimeVal m_begin;
 };

@@ -101,102 +101,102 @@ class Render
 
 	public:
 		static Render* shareRender();
-		static FsVoid purgeShareRender();
-		static FsInt sizeofUniformType(FsInt type);
-		static FsInt uniformTypeComponent(FsInt type);
+		static void purgeShareRender();
+		static int sizeofUniformType(int type);
+		static int uniformTypeComponent(int type);
 	public:
-		FsVoid setMaterial(Material* m,FsBool force=false);
-		FsVoid setProgram(Program* prog);
-		FsVoid setRenderTarget(RenderTarget* target);
-		FsVoid swapBuffers();
+		void setMaterial(Material* m,bool force=false);
+		void setProgram(Program* prog);
+		void setRenderTarget(RenderTarget* target);
+		void swapBuffers();
 
 
 		/* color */
-		FsVoid setClearColor(Color c);
+		void setClearColor(Color c);
 		Color getClearColor(){return m_clearColor;}
-		FsVoid clear(FsBool color=true,FsBool depth=true,FsBool stencil=false);
+		void clear(bool color=true,bool depth=true,bool stencil=false);
 
 		/* transform */
-		FsVoid setProjectionMatrix(const Matrix4& mat);
-		FsVoid pushMatrix();
-		FsVoid popMatrix();
-		FsVoid loadIdentity();
-		FsVoid mulMatrix(const Matrix4& m);
-		FsVoid setMatrix(const Matrix4& m);
-		FsVoid translate(const Vector3& t);
-		FsVoid scale(const Vector3& s);
-		FsVoid rotate(const Vector3& v,FsFloat angle);
+		void setProjectionMatrix(const Matrix4& mat);
+		void pushMatrix();
+		void popMatrix();
+		void loadIdentity();
+		void mulMatrix(const Matrix4& m);
+		void setMatrix(const Matrix4& m);
+		void translate(const Vector3& t);
+		void scale(const Vector3& s);
+		void rotate(const Vector3& v,float angle);
 
 
 
 		/* vertex pointer */
-		FsVoid setVVertexPointer(Vector3* v,FsUint num);
-		FsVoid setVColorPointer(Color* c,FsUint num);
-		FsVoid setVNormalPointer(Vector3* n,FsUint num);
-		FsVoid setVTexCoordPointer(TexCoord2* t,FsUint num);
+		void setVVertexPointer(Vector3* v,uint num);
+		void setVColorPointer(Color* c,uint num);
+		void setVNormalPointer(Vector3* n,uint num);
+		void setVTexCoordPointer(TexCoord2* t,uint num);
 
 		/* enable/disable client vertex array */
-		FsVoid enableClientArray(FsUlong flags);
-		FsVoid disableClientArray(FsUlong flags);
-		FsVoid disableAllClientArray();
+		void enableClientArray(ulong flags);
+		void disableClientArray(ulong flags);
+		void disableAllClientArray();
 
 
 
 		/* vertex attribute pointer */
 
-		FsVoid setVertexAttrPointer( 
-				FsString* name, FsInt size,FsInt type,
-				FsInt count,FsInt stride,FsVoid* pointer);
-		FsVoid setVertexAttrPointer(
-				const FsChar* name,FsInt size,FsInt type,
-				FsInt count,FsInt stride,FsVoid* pointer);
+		void setVertexAttrPointer( 
+				FsString* name, int size,int type,
+				int count,int stride,void* pointer);
+		void setVertexAttrPointer(
+				const char* name,int size,int type,
+				int count,int stride,void* pointer);
 
-		FsVoid setAndEnableVertexAttrPointer( 
-				FsString* name, FsInt size, FsInt type, 
-				FsInt count, FsInt stride, FsVoid* pointer);
+		void setAndEnableVertexAttrPointer( 
+				FsString* name, int size, int type, 
+				int count, int stride, void* pointer);
 
-		FsVoid setAndEnableVertexAttrPointer( 
-				const FsChar* name, FsInt size, FsInt type, 
-				FsInt count, FsInt stride, FsVoid* pointer);
+		void setAndEnableVertexAttrPointer( 
+				const char* name, int size, int type, 
+				int count, int stride, void* pointer);
 
 
 		/* disable/enable vertex attribute */
-		FsVoid disableAllAttrArray();
-		FsVoid enableAttrArray(const FsChar* name);
-		FsVoid enableAttrArray(FsString* name);
+		void disableAllAttrArray();
+		void enableAttrArray(const char* name);
+		void enableAttrArray(FsString* name);
 
-		FsVoid disableAttrArray(const FsChar* name);
-		FsVoid disableAttrArray(FsString* name);
+		void disableAttrArray(const char* name);
+		void disableAttrArray(FsString* name);
 
 
 		/* draw triangle*/
-		FsVoid drawFace3(Face3* f,FsUint num);
+		void drawFace3(Face3* f,uint num);
 
 		/* set uniform value for current program */
-		FsVoid setUniform(FsString* name,FsInt type,FsInt count,FsVoid* value);
-		FsVoid setUniform(const FsChar* name,FsInt type,FsInt count,FsVoid* value);
-		FsVoid setUniform(FsInt loc,FsInt type,FsInt count,FsVoid* value);
+		void setUniform(FsString* name,int type,int count,void* value);
+		void setUniform(const char* name,int type,int count,void* value);
+		void setUniform(int loc,int type,int count,void* value);
 
 
 
 		/* set opengl state */
-		FsVoid setViewport(FsInt x,FsInt y,FsInt width,FsInt height);
-		FsVoid setScissor(FsInt x,FsInt y,FsInt width,FsInt height);
-		FsVoid enableScissorTest(FsBool enable);
-		FsVoid enableDepthTest(FsBool enable);
-		FsVoid setDepthMask(FsBool enable);
-		FsVoid setLineWidth(FsFloat width);
-		FsVoid enableFog(FsBool enable);
+		void setViewport(int x,int y,int width,int height);
+		void setScissor(int x,int y,int width,int height);
+		void enableScissorTest(bool enable);
+		void enableDepthTest(bool enable);
+		void setDepthMask(bool enable);
+		void setLineWidth(float width);
+		void enableFog(bool enable);
 
-		FsVoid setShadeMode(FsInt mode);
-		FsVoid setOpacity(FsFloat value);
+		void setShadeMode(int mode);
+		void setOpacity(float value);
 
 		/* blend */
-		FsVoid setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
+		void setBlend(int blend_eq,int factor_src,int factor_dst);
 
 
 		/* aux draw quick function*/
-		FsVoid drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c);
+		void drawLine(const Vector3 start,const Vector3 end,float width,Color c);
 
 	private:
 		Render();
@@ -208,33 +208,33 @@ class Render
 
 		/* cache GL State */
 		Color m_clearColor;
-		FsBool m_scissorEnable;
+		bool m_scissorEnable;
 
 		/* depth */
-		FsBool m_depthTest;
-		FsBool m_depthMask;
+		bool m_depthTest;
+		bool m_depthMask;
 
-		FsFloat m_lineWidth;
-		FsBool m_fogEnable;
+		float m_lineWidth;
+		bool m_fogEnable;
 
 		/* blend */
-		FsInt m_blendEquation;
-		FsInt m_blendSrc;
-		FsInt m_blendDst;
+		int m_blendEquation;
+		int m_blendSrc;
+		int m_blendDst;
 
 		/* face */
-		FsInt m_frontFace;
-		FsInt m_cullFace;
+		int m_frontFace;
+		int m_cullFace;
 
 
 		/* client array */
-		FsUlong m_arrayFlags;
+		ulong m_arrayFlags;
 
 
 		/* vertex attr array flags []*/
-		FsBool* m_vertexAttrFlags;
-		FsInt m_vertexAttrEnableNu;
-		FsInt m_vertexAttrMaxNu;
+		bool* m_vertexAttrFlags;
+		int m_vertexAttrEnableNu;
+		int m_vertexAttrMaxNu;
 
 
 };

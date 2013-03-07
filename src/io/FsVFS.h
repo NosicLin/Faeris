@@ -23,17 +23,17 @@ enum
 	FS_SEEK_END=FsFile::FS_SEEK_END,
 };
 
-FsBool moduleInit();
-FsBool moduleExit();
+bool moduleInit();
+bool moduleExit();
 
-FsFile* open(const FsChar* name,FsUint mode=FS_IO_RDONLY);
-FsFile* create(const FsChar* name);
-FsInt remove(const FsChar* name);
-FsInt copy(const FsChar* src,const FsChar* dst);
-FsBool exist(const FsChar* name);
-FsDir* openDir(const FsChar* name);
-FsBool isDir(const FsChar* name);
-FsBool mapPackage(const FsChar* name);
+FsFile* open(const char* name,uint mode=FS_IO_RDONLY);
+FsFile* create(const char* name);
+int remove(const char* name);
+int copy(const char* src,const char* dst);
+bool exist(const char* name);
+FsDir* openDir(const char* name);
+bool isDir(const char* name);
+bool mapPackage(const char* name);
 
 FsFile* getStdout(); 
 FsFile* getStdin(); 

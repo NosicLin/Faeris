@@ -8,8 +8,8 @@
 
 NS_FS_BEGIN
 
-static const FsChar* s_SysFileName="SysFileObject";
-const FsChar* SysFile::getFileName()
+static const char* s_SysFileName="SysFileObject";
+const char* SysFile::getFileName()
 {
 	return s_SysFileName;
 }

@@ -8,7 +8,7 @@ NS_FS_BEGIN
 class Sprite2D:public SceneNode
 {
 	public:
-		Sprite2D(const FsChar* sp_data);
+		Sprite2D(const char* sp_data);
 		~Sprite2D();
 	public:
 

@@ -1,5 +1,5 @@
-#include "fsys/FsWindow.h"
-#include "fsys/FsFrame.h"
+#include "sys/FsWindow.h"
+#include "sys/FsFrame.h"
 #include "graphics/FsRender.h"
 #include "loader/FsMeshLoader.h"
 #include "FsLuaEngine.h"

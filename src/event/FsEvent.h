@@ -19,23 +19,23 @@ class Event
 		};
 
 	public:
-		Event(FsInt _type)
+		Event(int _type)
 			:type(_type)
 		{ }
 
 	public:
-		FsInt type;
+		int type;
 };
 class FocusEvent:public Event 
 {
 	public:
-		FocusEvent(FsBool _focus)
+		FocusEvent(bool _focus)
 			:Event(FOCUS_EVENT)
 		{
 			focus=_focus;
 		}
 	public:
-		FsBool focus;
+		bool focus;
 };
 class QuitEvent:public Event 
 {
@@ -48,7 +48,7 @@ class QuitEvent:public Event
 class MouseEvent:public Event 
 {
 	public:
-		MouseEvent(FsInt _button,FsInt _state,FsUint _mask,FsInt _x,FsInt _y)
+		MouseEvent(int _button,int _state,uint _mask,int _x,int _y)
 			:Event(MOUSE_EVENT)
 		{
 			button=_button;
@@ -59,20 +59,20 @@ class MouseEvent:public Event
 		}
 
 	public:
-		FsInt button;
-		FsInt state;
-		FsUint mask;
-		FsInt x;
-		FsInt y;
+		int button;
+		int state;
+		uint mask;
+		int x;
+		int y;
 
 		/* used  for mouse move */
-		FsInt dx;
-		FsInt dy;
+		int dx;
+		int dy;
 };
 class MotionEvent:public Event 
 {
 	public:
-		MotionEvent(FsUint _mask,FsInt _x,FsInt _y,FsInt _dx,FsInt _dy)
+		MotionEvent(uint _mask,int _x,int _y,int _dx,int _dy)
 			:Event(MOTION_EVENT)
 		{
 			mask=_mask;
@@ -82,27 +82,27 @@ class MotionEvent:public Event
 			dy=_dy;
 		}
 	public:
-		FsUint mask;
-		FsInt x,y,dx,dy;
+		uint mask;
+		int x,y,dx,dy;
 };
 class ResizeEvent:public Event
 {
 	public:
-		ResizeEvent(FsInt _width,FsInt _height)
+		ResizeEvent(int _width,int _height)
 			:Event(RESIZE_EVENT)
 		{
 			width=_width;
 			height=_height;
 		}
 	public:
-		FsInt width;
-		FsInt height;
+		int width;
+		int height;
 };
 
 class KeyEvent:public Event 
 {
 	public:
-		KeyEvent(FsInt _keycode,FsInt _state,FsUint _mask)
+		KeyEvent(int _keycode,int _state,uint _mask)
 			:Event(KEY_EVENT)
 		{
 			keycode=_keycode;
@@ -110,15 +110,15 @@ class KeyEvent:public Event
 			mask=_mask;
 		}
 	public:
-		FsInt keycode;
-		FsInt state;
-		FsUint mask;
+		int keycode;
+		int state;
+		uint mask;
 };
 
 class TouchEvent:public Event 
 {
 	public:
-		TouchEvent(FsInt _x,FsInt _y)
+		TouchEvent(int _x,int _y)
 			:Event(TOUCH_EVENT)
 		{
 			x=_x;
@@ -126,8 +126,8 @@ class TouchEvent:public Event
 		}
 
 	public:
-		FsInt x;
-		FsInt y;
+		int x;
+		int y;
 
 };
 NS_FS_END
