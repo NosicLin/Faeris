@@ -106,10 +106,18 @@ class Render
 		static int sizeofUniformType(int type);
 		static int uniformTypeComponent(int type);
 	public:
+		/* material and program */
 		void setMaterial(Material* m,bool force=false);
 		void setProgram(Program* prog);
+
+		/* texture */
+		void setActiveTexture(int nu);
+		void bindTexture(Texture2D* tex,int slot);
+
+
+		/* render target */
 		void setRenderTarget(RenderTarget* target);
-		void bindTexture(Texture2D* tex);
+
 		void swapBuffers();
 
 
@@ -231,6 +239,9 @@ class Render
 
 		/* client array */
 		ulong m_arrayFlags;
+
+		/* texture */
+		int m_activeTexures;
 
 
 		/* vertex attr array flags []*/

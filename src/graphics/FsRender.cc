@@ -127,10 +127,6 @@ void Render::setOpacity(float value)
 {
 	/*TODO*/
 }
-void Render::bindTexture(Texture2D* tex)
-{
-	tex->bind();
-}
 
 
 NS_FS_END

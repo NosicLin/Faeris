@@ -37,6 +37,7 @@
 
 #include<stdio.h>
 #define FsStdout_Write printf
+#define FsStd_Flush fflush
 
 #define FS_CONDTION_ON(tag,cnd,fmt,...) \
 	do{\
@@ -46,7 +47,8 @@
 			FsStdout_Write("%s:%s:%d:",__FILE__,__FUNCTION__,__LINE__); \
 			FsStdout_Write("%s:",#cnd); \
 			FsStdout_Write(fmt,##__VA_ARGS__); \
-			FsStdout_Write("\n"); \
+            FsStdout_Write("\n"); \
+            FsStd_Flush(stdout); \
 		}\
 	} while(0)
 
@@ -56,7 +58,8 @@
 		FsStdout_Write("%s:%s:%d:",__FILE__,__FUNCTION__,__LINE__); \
 		FsStdout_Write(fmt,##__VA_ARGS__); \
 		FsStdout_Write("\n"); \
-	} while(0)
+        FsStd_Flush(stdout); \
+    } while(0)
 
 #define FS_TRACE_WARN_ON(cnd,fmt,...) \
 	FS_CONDTION_ON(WARN_ON,cnd,fmt,##__VA_ARGS__) 

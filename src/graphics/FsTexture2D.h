@@ -85,8 +85,8 @@ class Texture2D:public Resource
 
 		/* mipmap */
 		bool enableMipmap();
+		PlatformTexture getPlatformTexture(){return m_platformTexture;}
 
-		void bind();
 	public:
 		virtual const char* className();
 	

@@ -2,16 +2,9 @@
 
 #include "graphics/FsTexture2D.h"
 
-static GLuint s_curBindTexture=0;
-
 static void s_bindTexture2D(GLuint texture)
 {
-	if(s_curBindTexture==texture)
-	{
-		return;
-	}
 	glBindTexture(GL_TEXTURE_2D,texture);
-	s_curBindTexture=texture;
 }
 
 
@@ -338,21 +331,12 @@ void Texture2D::setWrap(int wraps,int wrapt)
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,gl_wrapt);
 }
 
-void Texture2D::bind()
-{
-	s_bindTexture2D(m_platformTexture);
-}
-
 
 Texture2D::~Texture2D()
 {
 	if(!m_platformTexture)
 	{
 		glDeleteTextures(1,&m_platformTexture);
-		if(s_curBindTexture==m_platformTexture)
-		{
-			s_curBindTexture=0;
-		}
 	}
 }
 

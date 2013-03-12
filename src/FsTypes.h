@@ -2,11 +2,14 @@
 #define _FAERY_TYPES_H_
 
 #include "FsConfig.h"
-#if FS_PLATFORM_OS(FS_OS_WIN32) 
+
+//#if FS_PLATFORM_OS(FS_OS_WIN32)
+#ifdef FS_OS_WIN32
 	#include "c99/stdint.h"
 #else 
 	#include <stdint.h>
-#endif 
+#endif
+
 typedef unsigned long ulong;
 typedef unsigned int uint;
 

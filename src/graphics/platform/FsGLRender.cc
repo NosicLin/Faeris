@@ -139,6 +139,7 @@ Render::Render()
 
 	/* texture */
 	glEnable(GL_TEXTURE_2D);
+	m_activeTexures=1;
 
 	glMatrixMode(GL_MODELVIEW_MATRIX);
 }
@@ -310,7 +311,10 @@ void Render::setMaterial(Material* mat,bool force)
 		m_material->unload(this);
 		m_material->decRef();
 	}
-	if(mat) mat->load(this);
+	if(mat) 
+	{
+		mat->load(this);
+	}
 	m_material=mat;
 }
 void Render::setProgram(Program* prog)
@@ -338,6 +342,39 @@ void Render::setProgram(Program* prog)
 		glUseProgram(0);
 	}
 	m_program=prog;
+}
+
+void Render::setActiveTexture(int nu)
+{
+	if(nu>1)
+	{
+		FS_TRACE_WARN("Render Now Not Support Mul Texture");
+		nu=1;
+	}
+	if(m_activeTexures==nu)
+	{
+		return ;
+	}
+	if(nu==0)
+	{
+		glDisable(GL_TEXTURE_2D);
+	}
+	else 
+	{
+		glEnable(GL_TEXTURE_2D);
+	}
+	m_activeTexures=nu;
+}
+void Render::bindTexture(Texture2D* tex,int /*slot*/)
+{
+	if(tex)
+	{
+		glBindTexture(GL_TEXTURE_2D,tex->getPlatformTexture());
+	}
+	else 
+	{
+		glBindTexture(GL_TEXTURE_2D,0);
+	}
 }
 
 void Render::setRenderTarget(RenderTarget* target)
@@ -744,6 +781,10 @@ void Render::setUniform(int loc,int type,int count,void* value)
 /* aux func for quick draw */
 void Render::drawLine(const Vector3 start,const Vector3 end,float width,Color c)
 {
+	setActiveTexture(0);
+	setMaterial(NULL);
+	setProgram(NULL);
+
 	glColor3ub(c.r,c.g,c.b);
 	glLineWidth(width);
 	glBegin(GL_LINES);
@@ -752,4 +793,5 @@ void Render::drawLine(const Vector3 start,const Vector3 end,float width,Color c)
 	glEnd();
 }
 NS_FS_END
+
 
