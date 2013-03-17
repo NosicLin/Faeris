@@ -31,7 +31,7 @@ class Image2D:public FsObject
 
 	public:
 		uint getWidth()const{return m_width;} 
-		uint getHeight()const{return m_height;};
+        uint getHeight()const{return m_height;}
 		void* getPixelData()const{return m_buffer;}
 		PixelFormat getPixelFormat()const{return m_format;}
 		Color getColor(uint x,uint y)const;

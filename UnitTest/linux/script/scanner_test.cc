@@ -1,6 +1,6 @@
-#include "script/xir_scanner.h"
-#include "script/xir_token.h"
-#include "script/sl_state.h"
+#include "support/felis/xir_scanner.h"
+#include "support/felis/xir_token.h"
+#include "support/felis/sl_state.h"
 #include "fsys/FsVFS.h"
 #include "fsys/FsSysFile.h"
 #include <stdio.h>

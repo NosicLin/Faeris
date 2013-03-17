@@ -47,7 +47,7 @@ void xir_parse_err(const char* msg,void* parm)
 	XirScanner* l=pm->m_lex;
 
 	int line=l->curLine();
-	printf("yyerror:At Line(%d)\n",line);
+	FS_TRACE_WARN("yyerror:At Line(%d)\n",line);
 
 }
 

@@ -395,6 +395,7 @@ Image2D* FsUtil_PngReader(const char* filename)
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't Open File(%s) For Image2D",filename);
+		return NULL;
 	}
 	Image2D* ret=FsUtil_PngReader(file);
 	file->decRef();
