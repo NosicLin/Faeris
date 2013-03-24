@@ -31,7 +31,7 @@ class ColorQuad2DMaterial:public Material
 
 	private:
 		float m_opacity;
-		int m_opacityLoction;
+		int m_opacityLocation;
 		Program* m_progam;
 };
 

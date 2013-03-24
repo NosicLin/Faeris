@@ -149,7 +149,6 @@ void MaterialLoader::setMaterial(Material* mat,FsDict* dict)
 
 	mat->setBlend(blend_equation,src_factor,dst_factor);
 	mat->setShadeMode(shade_mode);
-	mat->setOpacity(opacity);
 	mat->setDepthTest(depth_test);
 	mat->setDepthMask(depth_mask);
 	mat->setFrontSide(front_side);
@@ -384,7 +383,6 @@ void MaterialLoader::saveShaderMaterialWithScript(ShaderMaterial* mat,FsFile* fi
 	{
 		file->writeStr("depthTest:false\n");
 	}
-	file->writeStr("opacity:%.10g\n",mat->getOpacity());
 
 	FsString* shader_name=mat->getProgramSourceName();
 	if(shader_name) 

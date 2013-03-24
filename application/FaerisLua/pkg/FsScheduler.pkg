@@ -1,0 +1,34 @@
+$#include "scheduler/FsScheduler.h"
+
+class Scheduler :public FsObject
+{
+	public:
+		enum
+		{
+			HIGHEST,
+			HIGH,
+			MIDDLE,
+			LOW,
+			LOWEST,
+			PRIORITY_NU,
+		};
+
+	public:
+		static Scheduler* create();
+
+	public:
+		/* inherit FsObject */
+		const char* className() ;
+
+	public:
+		void start();
+		void stop();
+		void setFps(int fps);
+		void mainLoop();
+
+	public:
+		void add(SchedulerTarget* s,int priority);
+		void remove(SchedulerTarget* s,int priority);
+};
+
+

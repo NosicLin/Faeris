@@ -1,6 +1,6 @@
 #ifndef _FS_TOUCH_DISPATCHER_H_
 #define _FS_TOUCH_DISPATCHER_H_
-
+#include <vector>
 
 #include "FsMacros.h"
 #include "core/FsObject.h"
@@ -9,7 +9,7 @@
 #include "util/FsSlowArray.h"
 
 NS_FS_BEGIN
-
+class TouchEventListener;
 class TouchDispatcher:public  SchedulerTarget
 {
 	public:
@@ -27,15 +27,15 @@ class TouchDispatcher:public  SchedulerTarget
 		class TouchEvent 
 		{
 			public:
-				TouchEvent(int type,int x,int y);
+				TouchEvent(int type,float x,float y);
 				TouchEvent(int type,Vector2* points,int num);
 			public:
 				int m_type;
 				union{
 					struct 
 					{
-						int m_x;
-						int m_y;
+						float m_x;
+						float m_y;
 					};
 					struct 
 					{
@@ -48,14 +48,14 @@ class TouchDispatcher:public  SchedulerTarget
 	public:
 		typedef  std::vector<TouchEvent*> EventQueue;
 	public:
-		TouchDispatcher* create();
+		static TouchDispatcher* create();
 
 	public:
 		/* inherit SchedulerTarget */
 		virtual void update(int priority,float dt);
 
 		/* inherit FsObject */
-		const char* className() const ;
+		const char* className() ;
 
 	public:
 		void dispathTouchEvent(int type,float x,float y);
@@ -76,7 +76,7 @@ class TouchDispatcher:public  SchedulerTarget
 		EventQueue* m_eventPending;
 		EventQueue* m_eventHandling;
 
-		FsSlowArray* m_listenArray;
+		FsSlowArray* m_listenerArray;
 };
 NS_FS_END
 #endif /*_FS_TOUCH_DISPATCHER_H_*/

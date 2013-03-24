@@ -4,8 +4,10 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 #include "util/FsSlowArray.h"
+#include "sys/FsTimer.h"
 
 NS_FS_BEGIN
+class SchedulerTarget;
 class Scheduler :public FsObject
 {
 	public:
@@ -24,7 +26,7 @@ class Scheduler :public FsObject
 
 	public:
 		/* inherit FsObject */
-		const char* className()const ;
+		const char* className() ;
 
 	public:
 		void start();
@@ -35,6 +37,9 @@ class Scheduler :public FsObject
 	public:
 		void add(SchedulerTarget* s,int priority);
 		void remove(SchedulerTarget* s,int priority);
+		void remove(SchedulerTarget* s);
+		bool hasTarget(SchedulerTarget* target,int priority);
+		bool hasTarget(SchedulerTarget* target);
 
 	protected:
 		Scheduler();

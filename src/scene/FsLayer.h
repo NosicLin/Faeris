@@ -8,6 +8,7 @@ class Entity;
 class Scene;
 class Render;
 class FsDict;
+class Vector2;
 
 class Layer:public FsObject
 {
@@ -34,9 +35,16 @@ class Layer:public FsObject
 		/* event hook */
 		virtual void update(float dt);
 		virtual void draw(Render* render);
+
+		/* touch event */
 		virtual bool touchBegin(float x,float y);
 		virtual bool touchMove(float x,float y);
 		virtual bool touchEnd(float x,float y);
+
+		/* touches event */
+		virtual bool touchesBegin(Vector2* points,int num);
+		virtual bool touchesMove(Vector2* points,int num);
+		virtual bool touchesEnd(Vector2* points,int num);
 
 		/* inherit FsObject */
 		virtual const char* className();
@@ -50,7 +58,6 @@ class Layer:public FsObject
 
 
 	protected:
-		Scene* m_scene;
 		FsDict* m_entity;  /* direct add to layer */
 		FsDict* m_ownerEntity; /* all sub chirld */
 		bool m_visible;

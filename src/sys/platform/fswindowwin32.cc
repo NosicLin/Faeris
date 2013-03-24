@@ -2,6 +2,10 @@
 #include "GL/glew.h"
 #include "sys/FsWindow.h"
 #include "util/FsLog.h"
+#include "common/FsGlobal.h"
+#include "scheduler/FsSchedulerTarget.h"
+#include "scheduler/FsScheduler.h"
+#include "event/FsTouchDispatcher.h"
 
 
 #define FS_DEFAULT_WINDOW_WIDTH 640 
@@ -25,6 +29,17 @@ class EventGraper:public SchedulerTarget
 		PlatformWindow* m_window;
 };
 
+EventGraper::EventGraper()
+{
+	m_window=NULL;
+}
+
+EventGraper* EventGraper::create(PlatformWindow* win)
+{
+	EventGraper* ret=new EventGraper;
+	ret->m_window=win;
+	return ret;
+}
 
 void EventGraper::update(int priority,float dt)
 {
@@ -52,7 +67,7 @@ LRESULT CALLBACK s_winproc(
 			{
 				int x=(int)LOWORD(lparam);
 				int y=(int)HIWORD(lparam);
-				Global::touchDispatcher()->addEvent(TouchDispatcher::TouchBegin,x,y);
+				Global::touchDispatcher()->dispathTouchEvent(TouchDispatcher::TOUCH_BEGIN,(float)x,(float)y);
 			}
 
 			break;
@@ -171,7 +186,7 @@ PlatformWindow::~PlatformWindow()
 		DestroyWindow(hwnd);
 	}
 	UnregisterClass("FaerisWindow",hinstance);
-	Global::scheduler()->remove(m_eventGrap);
+	Global::scheduler()->remove(m_eventGrap,Scheduler::HIGHEST);
 	m_eventGrap->decRef();
 }
 
@@ -182,7 +197,7 @@ PlatformWindow::PlatformWindow()
 	hdc=0;
 	hinstance=0;
 	m_eventGrap=EventGraper::create(this);
-	Global::scheduler()->add(m_eventGrap);
+	Global::scheduler()->add(m_eventGrap,Scheduler::HIGHEST);
 }
 
 
@@ -262,6 +277,18 @@ bool PlatformWindow::initGL()
 
 }
 
+
+Window* Window::create()
+{
+	PlatformWindow* plt_window=PlatformWindow::create();
+	if(plt_window==NULL)
+	{
+		return NULL;
+	}
+	Window* ret=new Window;
+	ret->m_window=plt_window;
+	return ret;
+}
 
 void Window::makeCurrent(Render* r)
 {

@@ -2,7 +2,7 @@ $#include "material/FsMaterial.h"
 class Material:public FsObject
 {
 	public:
-		const FsChar* getName();
+		const FsChar* className();
 	public:
 		/* blend */
 		void setBlend(FsInt equation,FsInt src,FsInt dst);
@@ -14,9 +14,6 @@ class Material:public FsObject
 		void setShadeMode(FsInt mode);
 		FsInt getShadeMode();
 
-		/* opacity */
-		void setOpacity(FsFloat opacity);
-		FsFloat getOpacity();
 
 		/* depth test */
 		void setDepthTest(FsBool enable);

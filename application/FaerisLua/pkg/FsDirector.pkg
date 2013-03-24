@@ -1,0 +1,16 @@
+$#include "scene/FsDirector.h"
+
+class Director:public FsObject
+{
+	public:
+		void push();
+		void pop();
+
+		void run(Scene*  scene);
+
+		void pause();
+		void start();
+		bool isRunning();
+};
+
+

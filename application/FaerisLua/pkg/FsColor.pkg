@@ -1,4 +1,4 @@
-#include "graphics/FsColor.h"
+$#include "graphics/FsColor.h"
 class Color 
 {
 	public:
@@ -14,13 +14,13 @@ class Color
 		unsigned char b;
 		unsigned char a;
 	public:
-		Color(FsUchar red,FsUchar green,FsUchar blue,FsUchar alpha);
+		Color(unsigned char red,unsigned char green,unsigned char blue,unsigned char alpha);
 		Color();
-		Color(FsUchar red,FsUchar green,FsUchar blue);
+		Color(unsigned char red,unsigned char green,unsigned char blue);
 
 		Color operator+(Color right);
 		Color operator-(Color right);
-		Color operator*(FsFloat s);
+		Color operator*(float s);
 		bool operator==(Color right);
 };
 

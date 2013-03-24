@@ -23,6 +23,11 @@ const char* FsDict::className()
 	return s_FsDict_Name;
 }
 
+FsDict* FsDict::create()
+{
+	FsDict* ret=new FsDict();
+	return ret;
+}
 FsDict::FsDict()
 {
 	m_fill=0;

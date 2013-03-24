@@ -75,6 +75,18 @@ void FsArray::enlarge(ulong new_size)
 	m_obs=new_obs;
 	m_cap=minsize;
 }
+
+int FsArray::itemPos(FsObject* ob)
+{
+	for(ulong i=0;i<m_size;i++)
+	{
+		if(m_obs[i]==ob)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
 void FsArray::push(FsObject* item)
 {
 	if(m_size>=m_cap)
@@ -185,7 +197,24 @@ bool FsArray::remove(ulong index)
 	m_size--;
 	return true;
 }
+bool FsArray::remove(FsObject* ob)
+{
+	int pos=itemPos(ob);
+	if(pos==-1)
+	{
+		return false;
+	}
+	return remove(pos);
 	
+}
+void FsArray::clear()
+{
+	for(ulong i=0;i<m_size;i++)
+	{
+		m_obs[i]->decRef();
+	}
+	m_size=0;
+}
 
 
 NS_FS_END 

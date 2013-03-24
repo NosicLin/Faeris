@@ -4,6 +4,8 @@
 
 
 NS_FS_BEGIN
+
+
 Window::Window()
 {
 	m_render=NULL;

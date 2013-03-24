@@ -23,14 +23,21 @@ class FsObject
 				delete this;
 			}
 		}
+		void forceDestroy(){delete this;}
 
 	public:
-		FsObject():m_refNu(1){}
+		FsObject():m_refNu(1),m_data(-1){}
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
+
+#if FS_CONFIG(FS_SCRIPT_SUPPORT)
+	public:
+		int m_data; /* script data */
+#endif 
 };
 NS_FS_END
+
 #endif 
 

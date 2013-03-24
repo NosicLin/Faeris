@@ -1,17 +1,18 @@
 #ifndef _FS_LUA_ENGINE_H_
 #define _FS_LUA_ENGINE_H_
 
+#include "common/FsScriptEngine.h"
+
+
 
 struct lua_State;
-
 typedef int (*CFunction)(struct lua_State*);
-class LuaEngine
-{
+
+NS_FS_BEGIN
+class LuaEngine:public ScriptEngine
+{	
 	public:
-		static LuaEngine* shareEngine();
-		static void purgeShareEngine();
-
-
+		static LuaEngine* create();
 	public:
 		int executeFile(const char* file);
 		int executeString(const char* str);
@@ -20,24 +21,52 @@ class LuaEngine
 		void pushInteger(int value);
 		void pushNumber(double value);
 		void pushString(const char* str);
+		void pushFsObject(FsObject* ob);
 		void pushUserType(void* value,const char* type);
 		void pushCFunction(CFunction func);
+		void pushBoolean(bool value);
 
 		void setGlobalCFunction(const char* name,CFunction func);
 		void setGlobalUserType(const char* name,void* data,const char* type);
 
-		/* ref function */
-		void removeRefFunction(int refid);
-		void pushRefFunction(int refid);
+
+		/* fmt -----
+		 * f: FsObject  
+		 * i: Integer 
+		 * s: String
+		 * n: Number  
+		 * b: bool 
+		 * u<usertype>: usertype
+	 	 */
+		bool callFunctionInTable(int lua_table,const char* func_name,int argnu,int retnu,const char* fmt,...);
+
+		/* no args */
+		bool callFunctionInTable(int lua_table,const char* func_name,int retnu);
+		bool callFunction(int lua_function,const char* name,const char* fmt,...);
+
+		/* lua function*/
+		void removeLuaFunction(int refid);
+		void pushLuaFunction(int refid);
+
+		/* lua table */
+		void pushLuaTable(int refid);
+		void removeLuaTable(int refid);
 
 		/* call function */
-		void call(int argnu,int retnu);
+		bool call(int argnu,int retnu);
 
 		void cleanStack();
 
 		struct lua_State* getLuaState(){return m_state;}
 
 	public:
+		/* inherit ScriptEngine */
+		virtual void releaseData(int data);
+
+		/* inherit FsObject */
+		virtual const char* className();
+
+	protected:
 		LuaEngine();
 		~LuaEngine();
 
@@ -45,6 +74,5 @@ class LuaEngine
 		struct lua_State* m_state;
 
 };
-
-
+NS_FS_END
 #endif /*_FS_LUA_ENGINE_H_*/

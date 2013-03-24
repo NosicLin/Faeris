@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\..\platform\thirdparty\win32\;&quot;..\..\..\..\platform\thirdparty\win32\tolua++&quot;;..\..\..\..\src\support;..\..\..\..\src;..\..\..\..\platform\thirdparty\win32\lua"
+				AdditionalIncludeDirectories="..\..\..\..\platform\thirdparty\win32\;&quot;..\..\..\..\platform\thirdparty\win32\tolua++&quot;;..\..\src;..\..\..\..\src\support;..\..\..\..\src;..\..\..\..\platform\thirdparty\win32\lua"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -194,11 +194,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\FsLuaFrameListener.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\FsLuaFrameListener.h"
+				RelativePath="..\..\src\FsLuaMacros.h"
 				>
 			</File>
 			<File
@@ -206,13 +202,25 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\tolua_hack.cc"
+				RelativePath="..\..\src\tolua_ext.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\tolua_hack.h"
+				RelativePath="..\..\src\tolua_ext.h"
 				>
 			</File>
+			<Filter
+				Name="luaext"
+				>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaScene.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaScene.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

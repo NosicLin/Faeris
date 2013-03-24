@@ -2,6 +2,8 @@
 #define _FS_TOUCH_EVENT_LISTENER_H_
 
 #include "core/FsObject.h"
+NS_FS_BEGIN
+class Vector2;
 class TouchEventListener:public FsObject
 {
 	public:
@@ -23,8 +25,9 @@ class TouchEventListener:public FsObject
 		virtual void touchesCancel(Vector2* points,int num);
 
 		/* inherit FsObject */
-		virtual const char* className()const ;
+		virtual const char* className();
 };
+NS_FS_END
 
 #endif /*_FS_TOUCH_EVENT_LISTENER_H_*/
 

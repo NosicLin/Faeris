@@ -1,6 +1,7 @@
 #include "event/FsTouchEventListener.h"
 
-const char* TouchEventListener::className()const 
+NS_FS_BEGIN
+const char* TouchEventListener::className() 
 {
 	return FS_TOUCH_EVENT_LISTENER_CLASS_NAME;
 }
@@ -59,3 +60,4 @@ void TouchEventListener::touchesCancel(Vector2* /* points */,int /* num */)
 }
 
 
+NS_FS_END

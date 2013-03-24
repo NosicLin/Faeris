@@ -52,8 +52,11 @@ class FsArray:public FsObject
 		FsObject* get(ulong index);
 		bool insert(ulong index,FsObject* item);
 		bool remove(ulong index);
+		bool remove(FsObject* ob);
+		void clear();
 		void resize(ulong new_size);
 		ulong size() { return m_size; }
+
 	public:
 		FsArray();
 		FsArray(ulong size);
@@ -63,6 +66,7 @@ class FsArray:public FsObject
 
 	protected:
 		void enlarge(ulong new_size);
+		int itemPos(FsObject* ob);
 	private:
 		ulong m_size;
 		ulong m_cap;

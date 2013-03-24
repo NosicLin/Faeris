@@ -262,6 +262,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\math\FsRect2D.cc"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\math\FsRect2D.h"
 					>
 				</File>
@@ -462,6 +466,14 @@
 				Name="scene"
 				>
 				<File
+					RelativePath="..\..\..\src\scene\FsDirector.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsDirector.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\scene\FsLayer.cc"
 					>
 				</File>
@@ -547,6 +559,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\util\FsScriptUtil.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\util\FsSlowArray.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\util\FsSlowArray.h"
 					>
 				</File>
 				<File
@@ -731,6 +751,66 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\entity\FsEntity.inl"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="common"
+				>
+				<File
+					RelativePath="..\..\..\src\common\FsGlobal.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\common\FsGlobal.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\common\FsScriptEngine.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\common\FsScriptEngine.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="event"
+				>
+				<File
+					RelativePath="..\..\..\src\event\FsTouchDispatcher.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsTouchDispatcher.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsTouchEventListener.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsTouchEventListener.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="scheduler"
+				>
+				<File
+					RelativePath="..\..\..\src\scheduler\FsScheduler.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scheduler\FsScheduler.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scheduler\FsSchedulerTarget.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scheduler\FsSchedulerTarget.h"
 					>
 				</File>
 			</Filter>

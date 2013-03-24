@@ -1,3 +1,5 @@
+#include <stdarg.h>
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -6,7 +8,7 @@ extern "C"
 #include "lualib.h"
 #include "lauxlib.h"
 #include "tolua_event.h"
-#include "tolua_hack.h"
+#include "tolua_ext.h"
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
@@ -17,32 +19,25 @@ extern "C"
 #include "io/FsVFS.h"
 
 
+#define FS_LUA_ENGINE_CLASS_NAME "LuaEngine"
 
-NS_FS_USE
 
-static LuaEngine* s_shareEngine=NULL;
+NS_FS_BEGIN
 
-LuaEngine* LuaEngine::shareEngine()
+LuaEngine* LuaEngine::create()
 {
-	if(s_shareEngine==NULL)
-	{
-		s_shareEngine=new LuaEngine;
-	}
-	return s_shareEngine;
+	LuaEngine* ret=new LuaEngine();
+	return ret;
 }
 
-void LuaEngine::purgeShareEngine()
-{
-	delete s_shareEngine;
-	s_shareEngine=NULL;
-}
+
 
 LuaEngine::LuaEngine()
 {
 	m_state=lua_open();
 	luaL_openlibs(m_state);
 	tolua_FsFaeris_open(m_state);
-	tolua_fs_open(m_state);
+	toluaext_open(m_state);
 }
 
 
@@ -115,6 +110,15 @@ void LuaEngine::pushString(const char* str)
 {
 	lua_pushstring(m_state,str);
 }
+void LuaEngine::pushBoolean(bool value)
+{
+	lua_pushboolean(m_state,value);
+}
+void LuaEngine::pushFsObject(FsObject* ob)
+{
+	toluaext_pushfsobject(m_state,ob);
+}
+
 void LuaEngine::pushUserType(void* value,const char* type)
 {
 	tolua_pushusertype(m_state,value,type);
@@ -140,28 +144,161 @@ void LuaEngine::setGlobalUserType(const char* name,void* data,const char* type)
 }
 
 
-void LuaEngine::removeRefFunction(int refid)
+
+/* call back */
+bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argnu,int retnu,const char* fmt,...)
 {
-	tolua_fs_remove_reffunction(m_state,refid);
+
+	int top=lua_gettop(m_state);
+
+	if(lua_table==-1)
+	{
+		return false;
+	}
+	toluaext_push_luatable(m_state,lua_table);  /* statck:table */
+	if(!lua_istable(m_state,-1))
+	{
+		lua_remove(m_state,-1);
+		return false;
+	}
+	lua_pushstring(m_state,func_name); /*stack:table fname */
+	lua_rawget(m_state,-2);  /* statck: table func */
+	lua_remove(m_state,-2);  /* statck: table */
+	if(!lua_isfunction(m_state,-1))
+	{
+		lua_remove(m_state,-1);
+		return false;
+	}
+
+
+	va_list ap;
+	va_start(ap,fmt);
+
+	int rel_arg=0;
+	char pstr;
+	const char* src=fmt;
+	while(pstr=*(src++))
+	{
+		switch(pstr)
+		{
+			case 'n':
+				{
+					float value=(float)va_arg(ap,double);
+					pushNumber(value);
+					rel_arg++;
+				}
+				break;
+			case 'i':
+				{
+					int value=va_arg(ap,int);
+					pushInteger(value);
+					rel_arg++;
+				}
+				break;
+			case 'f':
+				{
+					FsObject* value=va_arg(ap,FsObject*);
+					pushFsObject(value);
+					rel_arg++;
+				}
+				break;
+			case 's':
+				{
+					const char* value=va_arg(ap,const char*);
+					pushString(value);
+					rel_arg++;
+				}
+				break;
+			case 'b':
+				{
+					bool value=(bool)va_arg(ap,int);
+					pushBoolean(value);
+					rel_arg++;
+				}
+				break;
+			default:
+				{
+					FS_TRACE_WARN("Unkown Format Type");
+				}
+		}
+	}
+	va_end(ap);
+
+	if(argnu!=rel_arg)
+	{
+		FS_TRACE_WARN("Some Error For Args");
+		lua_settop(m_state,top);
+		return false;
+	}
+	if(lua_pcall(m_state,argnu,retnu,0))
+	{
+		FsUtil_Log("[LUA_ERROR] %s",lua_tostring(m_state,-1));
+		lua_remove(m_state,-1);
+		return false;
+	}
+	return true;
 }
 
-void LuaEngine::pushRefFunction(int refid)
+/* no args */
+bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int retnu)
 {
-	tolua_fs_push_reffunction(m_state,refid);
+	return callFunctionInTable(lua_table,func_name,0,retnu,"");
+}
+bool LuaEngine::callFunction(int lua_function,const char* name,const char* fmt,...)
+{
+	return true;
+
 }
 
-void LuaEngine::call(int argu,int retnu)
+
+
+/* lua function */
+void LuaEngine::removeLuaFunction(int refid)
+{
+	toluaext_remove_luafunction(m_state,refid);
+}
+
+void LuaEngine::pushLuaFunction(int refid)
+{
+	toluaext_push_luafunction(m_state,refid);
+}
+
+/* lua table */
+void LuaEngine::removeLuaTable(int refid)
+{
+	toluaext_remove_luatable(m_state,refid);
+}
+
+void LuaEngine::pushLuaTable(int refid)
+{
+	toluaext_push_luatable(m_state,refid);
+}
+
+
+bool LuaEngine::call(int argu,int retnu)
 {
 	if(lua_pcall(m_state,argu,retnu,0))
 	{
 		FsUtil_Log("[LUA_ERROR] %s",lua_tostring(m_state,-1));
+		lua_remove(m_state,-1);
+		return false;
 	}
+	return true;
 }
 
 
+void LuaEngine::releaseData(int data)
+{
+	toluaext_remove_luatable(m_state,data);
+}
+
+const char*  LuaEngine::className()
+{
+	return FS_LUA_ENGINE_CLASS_NAME;
+}
 
 
-
+NS_FS_END
 
 
 

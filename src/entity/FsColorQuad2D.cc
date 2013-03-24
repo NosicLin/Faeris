@@ -1,11 +1,39 @@
 #include "entity/FsColorQuad2D.h"
 #include "material/FsColorQuad2DMaterial.h"
+#include "graphics/FsRender.h"
 
 NS_FS_BEGIN
+
+static ColorQuad2DMaterial* m_shareMaterial=NULL;
+
+
+static ColorQuad2DMaterial* useShareMaterial()
+{
+	if(m_shareMaterial==NULL)
+	{
+		m_shareMaterial=ColorQuad2DMaterial::create();
+		return m_shareMaterial;
+	}
+	m_shareMaterial->addRef();
+	return m_shareMaterial;
+}
+static void unuseShareMaterial()
+{
+	if(m_shareMaterial->refCnt()==1)
+	{
+		m_shareMaterial->decRef();
+		m_shareMaterial=NULL;
+	}
+	else 
+	{
+		m_shareMaterial->decRef();
+	}
+}
 ColorQuad2D* ColorQuad2D::create(const Rect2D& rect,Color c)
 {
 	ColorQuad2D* quad=new ColorQuad2D();
 	quad->init(rect,c);
+	return quad;
 }
 
 void ColorQuad2D::update(float /*dt*/)
@@ -13,9 +41,12 @@ void ColorQuad2D::update(float /*dt*/)
 	/* do nothing */
 }
 
-void ColorQuad2D::draw(Render* render)
+void ColorQuad2D::draw(Render* render,bool updateMatrix)
 {
-	updateWorldMatrix();
+	if(updateMatrix)
+	{
+		updateWorldMatrix();
+	}
 	render->pushMatrix();
 	render->mulMatrix(m_worldMatrix);
 
@@ -27,13 +58,13 @@ void ColorQuad2D::draw(Render* render)
 
 	Vector3 vv[4]=
 	{
-		Vector3(m_rect.x,m_rect.y,0),
-		Vector3(m_rect.x+m_rect.width,m_rect.y,0),
-		Vector3(m_rect.x+m_rect.width,m_rect.y+m_rect.height,0);
-		Vector3(m_rect.x,m_rect.y+m_rect.height,0);
+		Vector3(m_rect.x,m_rect.y,0.0f),
+		Vector3(m_rect.x+m_rect.width,m_rect.y,0.0f),
+		Vector3(m_rect.x+m_rect.width,m_rect.y+m_rect.height,0.0f),
+		Vector3(m_rect.x,m_rect.y+m_rect.height,0.0f),
 	};
 
-	Color vc[4]
+	Color vc[4]=
 	{
 		m_va,
 		m_vb,
@@ -41,15 +72,15 @@ void ColorQuad2D::draw(Render* render)
 		m_vd,
 	};
 
-	Face3 faces
+	Face3 faces[2]=
 	{
-		Faces(0,1,2);
-		Faces(2,3,0);
+		Face3(0,1,2),
+		Face3(2,3,0),
 	};
 
-	render->setVVertexPointer(&vv,4);
-	render->setVColorPointer(&vc,4);
-	render->drawFace3(&faces,2);
+	render->setVVertexPointer(vv,4);
+	render->setVColorPointer(vc,4);
+	render->drawFace3(faces,2);
 
 	render->popMatrix();
 }
@@ -86,16 +117,37 @@ void ColorQuad2D::setRect(const Rect2D& rect)
 {
 	m_rect=rect;
 }
+void ColorQuad2D::setOpacity(float opacity)
+{
+	m_opacity=opacity;
+}
+float ColorQuad2D::getOpacity()
+{
+	return m_opacity;
+}
 
 ColorQuad2D::ColorQuad2D()
 {
-	useShareMaterial();
 }
 
 ColorQuad2D::~ColorQuad2D()
 {
 	destroy();
-	unuseShareMaterail();
+}
+
+void ColorQuad2D::init(const Rect2D& rect,Color c)
+{
+	m_va=c;
+	m_vb=c;
+	m_vc=c;
+	m_vd=c;
+	m_rect=rect;
+	m_opacity=1.0;
+	m_material=useShareMaterial();
+}
+void ColorQuad2D::destroy()
+{
+	unuseShareMaterial();
 }
 
 

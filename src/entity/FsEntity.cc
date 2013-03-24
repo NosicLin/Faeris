@@ -1,5 +1,6 @@
-#include "scene/FsEntity.h"
+#include "entity/FsEntity.h"
 #include "graphics/FsRender.h"
+#include "scene/FsLayer.h"
 
 NS_FS_BEGIN
 
@@ -8,6 +9,11 @@ NS_FS_BEGIN
 	return FS_ENTITY_CLASS_NAME;
 }
 
+Entity* Entity::create()
+{
+	Entity* ret=new Entity;
+	return ret;
+}
 Entity::Entity()
 {
 	init();
@@ -22,8 +28,12 @@ void Entity::update(float /*dt*/)
 {
 }
 
-void Entity::draw(Render* r)
+void Entity::draw(Render* r,bool updateMatrix)
 {
+	if(updateMatrix)
+	{
+		updateWorldMatrix();
+	}
 	r->pushMatrix();
 	r->mulMatrix(m_worldMatrix);
 
@@ -89,6 +99,19 @@ void Entity::init()
 	m_chirdren=new FsArray();
 }
 
+void Entity::destroy()
+{
+	assert(m_parent==NULL);
+	assert(m_layer==NULL);
+	int child_nu=m_chirdren->size();
+	for(int i=0;i<child_nu;i++)
+	{
+		Entity* entity=(Entity*) m_chirdren->get(i);
+		entity->setParent(NULL);
+		entity->decRef();
+	}
+	m_chirdren->decRef();
+}
 
 
 bool Entity::updateLocalMatrix()
@@ -102,7 +125,7 @@ bool Entity::updateLocalMatrix()
 	return false;
 }
 
-void Entity::updateWorldMatrix()
+bool Entity::updateWorldMatrix()
 {
 	updateLocalMatrix();
 	if(!m_parent)
@@ -192,6 +215,15 @@ void Entity::addChild(Entity* n)
 	{
 		n->m_parent->remove(n);
 	}
+	else 
+	{
+		if(n->m_layer)
+		{
+			n->m_layer->remove(n);
+		}
+	}
+	assert(n->m_parent==NULL);
+	assert(n->m_layer==NULL);
 
 	if(m_layer)
 	{
@@ -205,7 +237,7 @@ void Entity::addChild(Entity* n)
 FsArray* Entity::allChild()
 {
 	FsArray* ret=FsArray::create();
-	takeChild(ret);
+	getAllChild(ret);
 	return ret;
 }
 int Entity::childNu()
@@ -213,14 +245,14 @@ int Entity::childNu()
 	return m_chirdren->size();
 }
 
-void Entity::getAllChild(ret)
+void Entity::getAllChild(FsArray* ret)
 {
 	int child_nu=m_chirdren->size();
 	for(int i=0;i<child_nu;i++)
 	{
-		FsEntity* ob=(FsEntity*)m_chirdren->get(i);
+		Entity* ob=(Entity*)m_chirdren->get(i);
 		ret->push(ob);
-		ob->getAddChild(ret);
+		ob->getAllChild(ret);
 		ob->decRef();
 	}
 }
@@ -240,9 +272,10 @@ void Entity::remove(Entity* n)
 
 			/* if node is manger by a layer, then 
 			 * drop the owner ship */
-			if(node->layer)
+			if(node->m_layer)
 			{
-				node->layer->dropOwnership(node);
+				node->m_layer->dropOwnership(node);
+				assert(node->m_layer==NULL);
 			}
 			node->decRef();
 			return;

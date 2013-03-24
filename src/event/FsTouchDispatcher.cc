@@ -1,7 +1,9 @@
 #include "event/FsTouchDispatcher.h"
+#include "event/FsTouchEventListener.h"
 #include "common/FsGlobal.h"
 
-const char* TouchDispatcher::className() const 
+NS_FS_BEGIN
+const char* TouchDispatcher::className()  
 {
 	return FS_TOUCH_DISPATCHER_CLASS_NAME;
 }
@@ -9,7 +11,6 @@ const char* TouchDispatcher::className() const
 TouchDispatcher* TouchDispatcher::create()
 {
 	TouchDispatcher* ret=new TouchDispatcher;
-	Global::scheduler()->registerTarget(Scheduler::HIGH,ret);
 	return ret;
 }
 void TouchDispatcher::update(int /*priority*/,float /*dt*/)
@@ -20,13 +21,13 @@ void TouchDispatcher::update(int /*priority*/,float /*dt*/)
 	m_listenerArray->lock();
 	for(int i=0;i<event_nu;i++)
 	{
-		TouchEvent* event=m_eventHandling[i];
+		TouchEvent* event=m_eventHandling->at(i);
 		int listen_nu=m_listenerArray->size();
 
 		for(int j=0;j<listen_nu;j++)
 		{
 			TouchEventListener* listen=(TouchEventListener*)m_listenerArray->get(j);
-			switch(event->type)
+			switch(event->m_type)
 			{
 				case TOUCH_BEGIN:
 					listen->touchBegin(event->m_x,event->m_y);
@@ -80,6 +81,19 @@ void TouchDispatcher::removeEventListener(TouchEventListener* l)
 	m_listenerArray->remove(l);
 }
 
+
+
+TouchDispatcher::TouchDispatcher()
+{
+	init();
+}
+TouchDispatcher::~TouchDispatcher()
+{
+	destroy();
+}
+
+
+
 void TouchDispatcher::init()
 {
 	m_eventHandling=new EventQueue;
@@ -97,7 +111,7 @@ void TouchDispatcher::destroy()
 
 void TouchDispatcher::swapEventQueue()
 {
-	std::vector<TouchEvent*> event_queue=m_eventHandling;
+	std::vector<TouchEvent*>* event_queue=m_eventHandling;
 	m_eventHandling=m_eventPending;
 	m_eventPending=event_queue;
 }
@@ -113,25 +127,25 @@ void TouchDispatcher::clearEvent(EventQueue* queue)
 }
 
 
-TouchDispatcher::TouchEvent::TouchEvent(int type,int x,int y)
+TouchDispatcher::TouchEvent::TouchEvent(int type,float x,float y)
 {
 	m_type=type;
-	m_x=x;
-	m_y=y;
+	m_x=(float)x;
+	m_y=(float)y;
 }
 
-TouchDispatcher::TouchEvent::~TouchEvent(int type,Vector2* points,int num)
+TouchDispatcher::TouchEvent::TouchEvent(int type,Vector2* points,int num)
 {
 	m_type=type;
 	m_points=new Vector2[num];
-	for(int i=0;i<num;++)
+	for(int i=0;i<num;i++)
 	{
 		m_points[i]=points[i];
 	}
 }
 
 
-
+NS_FS_END
 
 
 

@@ -14,16 +14,17 @@ NS_FS_BEGIN
  */
 
 class ColorQuad2DMaterial;
-class ColorQuad2D:Entity
+class ColorQuad2D:public Entity
 {
-	enum 
-	{
-		VERTEX_A=0x1,
-		VERTEX_B=0x2,
-		VERTEX_C=0x4,
-		VERTEX_D=0x8,
-		VERTEX_ALL=VERTEX_A|VERTEX_B|VERTEX_C|VERTEX_D,
-	};
+	public:
+		enum 
+		{
+			VERTEX_A=0x1,
+			VERTEX_B=0x2,
+			VERTEX_C=0x4,
+			VERTEX_D=0x8,
+			VERTEX_ALL=VERTEX_A|VERTEX_B|VERTEX_C|VERTEX_D,
+		};
 
 	public:
 		static ColorQuad2D* create(const Rect2D& rect,Color c);
@@ -31,7 +32,7 @@ class ColorQuad2D:Entity
 	public:
 		/* inherit Entity */
 		virtual void update(float dt);
-		virtual void draw(Render* render);
+		virtual void draw(Render* render,bool updateMatrix=true);
 
 		/* inherit FsObject */
 		virtual const char* className()const;
@@ -40,6 +41,7 @@ class ColorQuad2D:Entity
 		void setColor(Color c,int vertex=VERTEX_ALL);
 		void setRect(const Rect2D& rect);
 		void setOpacity(float opacity);
+		float getOpacity();
 
 	protected:
 		ColorQuad2D();
@@ -54,11 +56,7 @@ class ColorQuad2D:Entity
 		Color m_vd;
 		Rect2D m_rect;
 		float m_opacity;
-
-	private:
-		static void unuseShareMaterial();
-		static ColorQuad2DMaterial* useShareMaterial();
-		static ColorQuad2DMaterial* m_shareMaterial;
+		ColorQuad2DMaterial* m_material;
 };
 
 NS_FS_END

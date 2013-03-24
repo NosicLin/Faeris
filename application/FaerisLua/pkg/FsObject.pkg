@@ -1,5 +1,7 @@
-$#include "core/FsObject.h"
 class FsObject 
 {
+	public:
+		LUA_TABLE m_data@data;
 };
+
 

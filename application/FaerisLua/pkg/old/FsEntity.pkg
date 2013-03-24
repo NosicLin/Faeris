@@ -1,0 +1,86 @@
+$#include "entity/FsEntity.h"
+
+class Entity:public FsObject
+{
+	public:
+		Entity* create();
+
+	public:
+		virtual void update(float dt);
+		virtual void draw(Render* r);
+
+		/* inherit FsObject */
+		virtual const char* className();
+
+	public:
+
+		Vector3 localToWorld(const Vector3& v);
+		Vector3 worldToLocal(const Vector3& v);
+
+		/* relation ship*/
+		void addChild(Entity* n);
+		void remove(Entity* n);
+		void detach();
+		FsArray* allChild();
+		int childNu();
+
+		/*
+		Entity* getChildByName(FsString* name,bool recusive=0);
+		Entity* getChildByName(const char* name,bool recusive=0);
+		*/
+
+		bool updateLocalMatrix();
+		bool updateWorldMatrix();
+		void updateAllWorldMatrix();
+
+	public: /* get transform info */
+		Vector3 getPosition(){return m_translate;}
+		Vector3 getScale(){return m_scale;}
+		Vector3 getRotate(){return m_rotate;}
+
+	public: /* transform */
+		void rotate(float rx,float ry,float rz);
+		void rotateX(float r);
+		void rotateY(float r);
+		void rotateZ(float r);
+
+		void scale(float sx,float sy,float sz);
+		void scaleX(float s);
+		void scaleY(float s);
+		void scaleZ(float s);
+
+		void move(float tx,float ty,float tz);
+		void moveX(float t);
+		void moveY(float t);
+		void moveZ(float t);
+
+	public:/* set transform */
+		void setRotate(float rx,float ry,float rz);
+		void setRotateX(float r);
+		void setRotateY(float r);
+		void setRotateZ(float r);
+
+		void setScale(float sx,float sy,float sz);
+		void setScaleX(float s);
+		void setScaleY(float s);
+		void setScaleZ(float s);
+
+		void setPosition(float tx,float ty,float tz);
+		void setPositionX(float t);
+		void setPositionY(float t);
+		void setPositionZ(float t);
+
+
+		/* 
+		void setPositionInWorld(float tx,float ty,float tz);
+		void setPositionXInWorld(float t);
+		void setPositionYInWorld(float t);
+		void setPositionZInWorld(float t);
+		*/
+
+	public:
+		void setVisible(bool visible){m_visible=visible;}
+		bool visible(){return m_visible;}
+
+};
+

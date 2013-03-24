@@ -78,6 +78,8 @@ class  FsDict:public FsObject
 				FsObject* m_value;
 			public:
 		};
+	public:
+		static FsDict* create();
 
 	public:
 		FsDict();

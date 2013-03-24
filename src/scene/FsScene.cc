@@ -29,6 +29,11 @@ void Scene::replace(int pos,Layer* layer)
 	m_layers->set(pos,layer);
 }
 
+void Scene::remove(Layer* layer)
+{
+	m_layers->remove(layer);
+}
+
 /* event */
 
 void Scene::enter()
@@ -121,6 +126,62 @@ void Scene::touchEnd(float x,float y)
 		}
 	}
 }
+
+void Scene::touchesBegin(Vector2* points,int num)
+{
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		bool handle=false;
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(layer->touchEnabled()&&layer->visible())
+		{
+			handle=layer->touchesBegin(points,num);
+		}
+		layer->decRef();
+		if(handle)
+		{
+			break;
+		}
+	}
+}
+void Scene::touchesMove(Vector2* points,int num)
+{
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		bool handle=false;
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(layer->touchEnabled()&&layer->visible())
+		{
+			handle=layer->touchesMove(points,num);
+		}
+		layer->decRef();
+		if(handle)
+		{
+			break;
+		}
+	}
+}
+void Scene::touchesEnd(Vector2* points,int num)
+{
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		bool handle=false;
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(layer->touchEnabled()&&layer->visible())
+		{
+			handle=layer->touchesEnd(points,num);
+		}
+		layer->decRef();
+		if(handle)
+		{
+			break;
+		}
+	}
+}
+
 
 
 const char* Scene::className()

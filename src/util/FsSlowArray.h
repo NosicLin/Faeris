@@ -12,7 +12,7 @@ class FsSlowArray:public FsObject
 		static FsSlowArray* create();
 
 	public:
-		virtual const char* className()const ;
+		virtual const char* className() ;
 
 	public:
 		void lock();
@@ -20,6 +20,7 @@ class FsSlowArray:public FsObject
 		void flush();
 		void push(FsObject* object);
 		void remove(FsObject* object);
+		FsObject* get(ulong index);
 		int size();
 
 	protected:

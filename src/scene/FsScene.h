@@ -10,6 +10,7 @@ NS_FS_BEGIN
 class Render;
 class Layer;
 class FsArray;
+class Vector2;
 class Scene:public FsObject
 {
 	public:
@@ -20,6 +21,7 @@ class Scene:public FsObject
 		void pop();
 		void insert(int pos,Layer*  layer);
 		void replace(int pos,Layer* layer);
+		void remove(Layer* layer);
 
 	public:
 		/* event hook */
@@ -30,6 +32,9 @@ class Scene:public FsObject
 		virtual void touchBegin(float x,float y);
 		virtual void touchMove(float x,float y);
 		virtual void touchEnd(float x,float y);
+		virtual void touchesBegin(Vector2* points,int num);
+		virtual void touchesMove(Vector2* points,int num);
+		virtual void touchesEnd(Vector2* points,int num);
 
 		/*  inherit FsObject */
 		virtual const char* className();

@@ -14,7 +14,8 @@ void Timer::reset()
 
 long Timer::now() const 
 {
-	return  GetTickCount()-m_begin;
+	DWORD current=GetTickCount();
+	return  current-m_begin;
 }
 
 NS_FS_END 

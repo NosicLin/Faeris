@@ -6,7 +6,7 @@ FsSlowArray* FsSlowArray::create()
 	return new FsSlowArray();
 }
 
-const char* FsSlowArray::className() const 
+const char* FsSlowArray::className()  
 {
 	return FS_SLOW_ARRAY_CLASS_NAME;
 }
@@ -63,6 +63,10 @@ void FsSlowArray::remove(FsObject* object)
 	{
 		m_items->remove(object);
 	}
+}
+FsObject* FsSlowArray::get(ulong index)
+{
+	return m_items->get(index);
 }
 int FsSlowArray::size()
 {

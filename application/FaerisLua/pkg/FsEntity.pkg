@@ -1,7 +1,0 @@
-$#include "scene/FsEntity.h"
-class Entity:public SceneNode
-{
-	Entity(Mesh* m);
-	Entity();
-	void setMesh(Mesh* m);
-};

@@ -1,6 +1,7 @@
 #ifndef _FS_RENDER_H_
 #define _FS_RENDER_H_
 #include "FsMacros.h"
+#include "core/FsObject.h"
 #include "graphics/FsColor.h"
 #include "graphics/FsRenderTarget.h"
 #include "math/FsMatrix4.h"
@@ -14,7 +15,7 @@ class FsString;
 class Program;
 class Texture2D;
 
-class Render 
+class Render:public FsObject
 {
 	public:
 		enum 
@@ -101,10 +102,12 @@ class Render
 		};
 
 	public:
-		static Render* shareRender();
-		static void purgeShareRender();
+		static Render* create();
 		static int sizeofUniformType(int type);
 		static int uniformTypeComponent(int type);
+
+	public:
+		virtual const char* className();
 	public:
 		/* material and program */
 		void setMaterial(Material* m,bool force=false);

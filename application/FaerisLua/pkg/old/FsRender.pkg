@@ -1,0 +1,164 @@
+$#include "graphics/FsRender.h"
+
+class Render 
+{
+	public:
+		enum 
+		{
+			VERTEX_ARRAY,
+			COLOR_ARRAY,
+			NORMAL_ARRAY,
+			TEXTURE_COORD_ARRAY,
+			ALL_ARRAY,
+		};
+		enum 
+		{
+			/* float vec2 vec3 vec4 */
+			U_F_1=0,
+			U_F_2,
+			U_F_3,
+			U_F_4,
+
+			/* int ivec2 ivec3 ivec4 */
+			U_I_1,
+			U_I_2,
+			U_I_3,
+			U_I_4,
+
+			/* unsigned int uvec2 uvec3 uvec4 */
+			U_UI_1,
+			U_UI_2,
+			U_UI_3,
+			U_UI_4,
+
+			/* mat2 mat3 mat4 */
+			U_M_2,
+			U_M_3,
+			U_M_4,
+
+			/* sampler */
+			U_S_1D,         /* sampler1D,sampler2D,sampler3D */
+			U_S_2D,
+			U_S_3D,
+			U_S_CUBE,       /* samplerCube */
+			U_S_1D_SHADOW,  /* sampler1DShadow, sampler2DShadow */
+			U_S_2D_SHADOW,
+
+			U_MAX_NU,
+		};
+		enum 
+		{
+			/* front side */
+			FRONT_CCW,
+			FRONT_CW,
+
+			/* shader mode */
+			SHADE_MODE_SMOOTH,
+			SHADE_MODE_FLAT,
+
+			/* front and back */
+			SIDE_FRONT,
+			SIDE_BACK,
+			SIDE_FRONT_AND_BACK,
+			SIDE_NONE,
+
+			/* blend equation */
+			EQUATION_NONE,
+			EQUATION_ADD,
+			EQUATION_SUBTRACT,
+			EQUATION_REVERSE_SUBTRACT,
+			EQUATION_MIN,
+			EQUATION_MAX,
+			EQUATION_LOGIC_OP,
+
+			/* blend factor */
+			FACTOR_ZERO,
+			FACTOR_ONE,
+			FACTOR_SRC_COLOR,
+			FACTOR_ONE_MINUS_SRC_COLOR,
+			FACTOR_DST_COLOR,
+			FACTOR_ONE_MINUS_DST_COLOR,
+			FACTOR_SRC_ALPHA,
+			FACTOR_ONE_MINUS_SRC_ALPHA,
+			FACTOR_DST_ALPHA,
+			FACTOR_ONE_MINUS_DST_ALPHA,
+			FACTOR_SRC_ALPHA_SATURATE,
+
+		};
+
+	public:
+		void setMaterial(Material* m,FsBool force=false);
+		void setProgram(Program* prog);
+		void setRenderTarget(RenderTarget* target);
+		void swapBuffers();
+
+		/* color */
+		void setClearColor(Color c);
+		Color getClearColor(){return m_clearColor;}
+		void clear(FsBool color=true,FsBool depth=true,FsBool stencil=false);
+
+		/* transform */
+		void pushMatrix();
+		void popMatrix();
+		void loadIdentity();
+		void setProjectionMatrix(const Matrix4& m);
+		void mulMatrix(const Matrix4& m);
+		void setMatrix(const Matrix4& m);
+		void translate(const Vector3& t);
+		void scale(const Vector3& s);
+		void rotate(const Vector3& v,FsFloat angle);
+
+
+
+		/* vertex pointer */
+		void setVVertexPointer(Vector3* v,FsUint num);
+		void setVColorPointer(Color* c,FsUint num);
+		void setVNormalPointer(Vector3* n,FsUint num);
+		void setVTexCoordPointer(TexCoord2* t,FsUint num);
+
+		/* enable/disable client vertex array */
+		void enableClientArray(FsUlong flags);
+		void disableClientArray(FsUlong flags);
+		void disableAllClientArray();
+
+
+
+
+
+		/* disable/enable vertex attribute */
+		void disableAllAttrArray();
+		void enableAttrArray(const char* name);
+		void enableAttrArray(FsString* name);
+
+		void disableAttrArray(const char* name);
+		void disableAttrArray(FsString* name);
+
+
+		/* draw triangle*/
+		void drawFace3(Face3* f,FsUint num);
+		
+
+
+
+		/* set opengl state */
+		void setViewport(FsInt x,FsInt y,FsInt width,FsInt height);
+		void setScissor(FsInt x,FsInt y,FsInt width,FsInt height);
+		void enableScissorTest(FsBool enable);
+		void enableDepthTest(FsBool enable);
+		void setDepthMask(FsBool enable);
+		void setLineWidth(FsFloat width);
+		void enableFog(FsBool enable);
+
+		void setShadeMode(FsInt mode);
+		void setOpacity(FsFloat value);
+
+		/* blend */
+		void setBlend(FsInt blend_eq,FsInt factor_src,FsInt factor_dst);
+
+
+		/* aux for quick draw */
+		FsVoid drawLine(const Vector3 start,const Vector3 end,FsFloat width,Color c);
+
+};
+
+

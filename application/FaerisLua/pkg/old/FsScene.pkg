@@ -1,0 +1,15 @@
+$#include "scene/FsScene.h"
+class Scene:public FsObject
+{
+	public:
+		static Scene* create();
+	public:
+		/* layer operation */
+		void push(Layer* layer);
+		void pop();
+		void insert(int pos,Layer*  layer);
+		void replace(int pos,Layer* layer);
+		void remove(Layer* layer);
+};
+
+

@@ -1,5 +1,0 @@
-$#include "io/FsResource.h"
-class Resource:public FsObject
-{
-};
-

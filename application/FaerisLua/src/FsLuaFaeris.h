@@ -9,7 +9,7 @@ extern "C"
 #include "lualib.h"
 #include "lauxlib.h"
 #include "tolua_event.h"
-#include "tolua_hack.h"
+#include "tolua_ext.h"
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
@@ -23,6 +23,7 @@ extern "C"
 NS_FS_USE
 
 typedef int LUA_FUNCTION;
+typedef int LUA_TABLE;
 
 TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 

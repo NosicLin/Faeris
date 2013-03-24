@@ -13,5 +13,9 @@
 /* render */
 #define FS_GL_RENDER
 
+/* script support */
+
+#define FS_SCRIPT_SUPPORT
+
 #endif 
 

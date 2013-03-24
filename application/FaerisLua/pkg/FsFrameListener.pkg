@@ -1,9 +1,0 @@
-$#include "FsLuaFrameListener.h"
-class LuaFrameListener@FrameListener
-{
-	public:
-		void registerUpdateFunc(LUA_FUNCTION refid );
-		void registerBeginFunc(LUA_FUNCTION refid );
-		void registerEndFunc(LUA_FUNCTION refid);
-		LuaFrameListener();
-};

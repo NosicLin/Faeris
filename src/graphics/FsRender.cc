@@ -4,24 +4,17 @@
 
 
 NS_FS_BEGIN
-static Render* s_share_render=NULL;
-Render* Render::shareRender()
+
+const char* Render::className()
 {
-	if(s_share_render==NULL)
-	{
-		s_share_render=new Render;
-	}
-	return s_share_render;
+	return FS_RENDER_CLASS_NAME;
+}
+Render* Render::create()
+{
+	Render* ret=new Render;
+	return ret;
 }
 
-void Render::purgeShareRender()
-{
-	if(s_share_render)
-	{
-		delete s_share_render;
-		s_share_render=NULL;
-	}
-}
 int Render::sizeofUniformType(int type)
 {
 	int size;

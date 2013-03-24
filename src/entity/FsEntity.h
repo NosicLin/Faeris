@@ -19,8 +19,8 @@ class Entity :public FsObject
 		Entity* create();
 
 	public:
-		virtual void update(long dt);
-		virtual void draw(Render* r);
+		virtual void update(float dt);
+		virtual void draw(Render* r,bool updateMatrix=true);
 
 
 		/* inherit FsObject */
@@ -38,11 +38,11 @@ class Entity :public FsObject
 		FsArray* allChild();
 		int childNu();
 
-		Entity* getChildByName(FsString* name,bool recusive=0);
-		Entity* getChildByName(const char* name,bool recusive=0);
+		//Entity* getChildByName(FsString* name,bool recusive=0);
+		//Entity* getChildByName(const char* name,bool recusive=0);
 
-		void updateLocalMatrix();
-		void updateWorldMatrix();
+		bool updateLocalMatrix();
+		bool updateWorldMatrix();
 		void updateAllWorldMatrix();
 
 	public: /* get transform info */
@@ -88,7 +88,7 @@ class Entity :public FsObject
 		void setPositionZInWorld(float t);
 
 	public:
-		bool setVisible(bool visible){m_visible=visible;}
+		void setVisible(bool visible){m_visible=visible;}
 		bool visible(){return m_visible;}
 
 	protected:

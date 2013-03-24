@@ -216,15 +216,39 @@ enum
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
 #define FS_TEXTURE2D_CLASS_NAME "Texture2D"
 #define FS_SYSFILE_CLASS_NAME "SysFile"
-#define FS_SCENE_CLASS_NAME "Scene"
+
+
+/* entity */
 #define FS_ENTITY_CLASS_NAME "Entity"
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
 
+/* scene */
+#define FS_DIRECTOR_CLASS_NAME "Director"
+#define FS_SCENE_CLASS_NAME "Scene"
+#define FS_LAYER_CLASS_NAME "Layer"
+
+
+/* util */
+#define FS_ARRAY_CLASS_NAME "FsArray"
+#define FS_SLOW_ARRAY_CLASS_NAME "FsSlowArray"
 
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
+
 /* sys */
 #define FS_WINDOW_CLASS_NAME "Window"
+
+/* event */
+#define FS_TOUCH_EVENT_LISTENER_CLASS_NAME "TouchEventListener"
+#define FS_TOUCH_DISPATCHER_CLASS_NAME "TouchDispatcher"
+
+/* scheduler */
+#define FS_SCHEDULER_CLASS_NAME "Scheduler"
+#define FS_SCHEDULER_TARGET_CLASS_NAME "SchedulerTarget"
+
+
+/* graphics */
+#define FS_RENDER_CLASS_NAME "Render"
 
 
 
