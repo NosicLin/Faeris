@@ -11,14 +11,13 @@ Window::Window()
 	m_caption=FS_DEFAULT_WINDOW_NAME;
 }
 
-static const char* s_window_name="WindowObject";
 const char* Window::className()
 {
-	return s_window_name;
+	return FS_WINDOW_CLASS_NAME;
 }
 
-
 NS_FS_END
+
 
 #if FS_PLATFORM_OS(FS_OS_LINUX)
 	#include "platform/FsWindowLinux.cc"

@@ -43,6 +43,8 @@ class FsArray:public FsObject
 				ulong m_curPos;
 		};
 	public:
+		static FsArray* create();
+	public:
 		void push(FsObject* item);
 		void pop();
 

@@ -5,7 +5,7 @@
 #define FS_ARRAY_MIN_SIZE 8
 NS_FS_BEGIN
 
-static const char* s_FsArrayName="FsArrayObject";
+static const char* s_FsArrayName=FS_ARRAY_CLASS_NAME;
 const char* FsArray::className()
 {
 	return s_FsArrayName;
@@ -22,6 +22,13 @@ FsArray::FsArray()
 	memset(m_obs,0,sizeof(FsObject*)*FS_ARRAY_MIN_SIZE);
 	m_size=0;
 }
+FsArray* FsArray::create()
+{
+	FsArray* ret=new FsArray();
+	return ret;
+}
+
+
 FsArray::FsArray(ulong size)
 {
 	if(size<FS_ARRAY_MIN_SIZE)

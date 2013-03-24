@@ -8,7 +8,6 @@
 #include "FsConfig.h"
 
 
-#define FS_DEFAULT_WINDOW_NAME "FaerisEngine"
 
 NS_FS_BEGIN
 class PlatformWindow;
@@ -21,44 +20,45 @@ class Window:public RenderTarget
 			STYLE_MINBOX=0x2,
 			STYLE_CLOSEBOX=0x4,
 		};
-	public:
-			static Window* shareWindow();
-			static void purgeShareWindow();
 
 	public:
-			virtual void makeCurrent(Render* r);
-			virtual void loseCurrent(Render* r);
-			virtual void swapBuffers();
+		static Window* create();
 	public:
-			void setCaption(const char* name);
-			std::string getCaption(){return m_caption;}
-			void setPosition(int x,int y);
-			void setSize(uint width,uint height);
-			void show();
-			void hide();
-			void setStyle(long flags);
-
-			void setFullScreen(bool full);
-
-			int getWidth();
-			int getHeight();
-			int getPosX();
-			int getPosY();
-			void setCenter();
+		/* inherit RenderTarget */
+		virtual void makeCurrent(Render* r);
+		virtual void loseCurrent(Render* r);
+		virtual void swapBuffers();
 	public:
-			virtual const char* className();
+		void setCaption(const char* name);
+		std::string getCaption(){return m_caption;}
+		void setPosition(int x,int y);
+		void setSize(uint width,uint height);
+		void show();
+		void hide();
+		void setStyle(long flags);
+
+		void setFullScreen(bool full);
+
+		int getWidth();
+		int getHeight();
+		int getPosX();
+		int getPosY();
+		void setCenter();
+
+	public:
+		virtual const char* className();
 
 	protected:
-			Window();
-			virtual ~Window();
+		Window();
+		virtual ~Window();
 
 	public:
-			PlatformWindow* getPlatformWindow(){return m_window;}
+		PlatformWindow* getPlatformWindow(){return m_window;}
 
 	private:
-			Render* m_render;
-			std::string m_caption;
-			PlatformWindow* m_window;
+		Render* m_render;
+		std::string m_caption;
+		PlatformWindow* m_window;
 };
 
 NS_FS_END

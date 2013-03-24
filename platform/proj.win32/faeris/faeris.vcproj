@@ -258,7 +258,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\math\fsquaternion.h"
+					RelativePath="..\..\..\src\math\FsQuaternion.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\math\FsRect2D.h"
 					>
 				</File>
 				<File
@@ -406,6 +410,14 @@
 				Name="material"
 				>
 				<File
+					RelativePath="..\..\..\src\material\FsColorQuad2DMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsColorQuad2DMaterial.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\material\FsMaterial.cc"
 					>
 				</File>
@@ -450,15 +462,11 @@
 				Name="scene"
 				>
 				<File
-					RelativePath="..\..\..\src\scene\FsAnimation.h"
+					RelativePath="..\..\..\src\scene\FsLayer.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\scene\FsEntity.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\scene\FsEntity.h"
+					RelativePath="..\..\..\src\scene\FsLayer.h"
 					>
 				</File>
 				<File
@@ -466,37 +474,17 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\scene\FsScene.cc"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\scene\FsScene.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\scene\FsSceneNode.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\scene\FsSceneNode.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\scene\FsSceneNode.inl"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\scene\FsSprite2D.h"
 					>
 				</File>
 			</Filter>
 			<Filter
 				Name="sys"
 				>
-				<File
-					RelativePath="..\..\..\src\sys\FsFrame.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\sys\FsFrame.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\..\src\sys\FsKeyCode.h"
 					>
@@ -721,6 +709,30 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="entity"
+				>
+				<File
+					RelativePath="..\..\..\src\entity\FsColorQuad2D.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsColorQuad2D.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsEntity.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsEntity.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsEntity.inl"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

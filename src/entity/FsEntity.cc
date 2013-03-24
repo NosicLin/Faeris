@@ -1,53 +1,32 @@
-#include "scene/FsSceneNode.h"
+#include "scene/FsEntity.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
-const char* s_SceneNodeName="SceneNodeObject";
 
- const char* SceneNode::className()
+ const char* Entity::className()
 {
-	return s_SceneNodeName;
-}
-
-SceneNode::SceneNode(FsString* name)
-{
-	name->addRef();
-	initData();
-	m_name=name;
-}
-SceneNode::SceneNode()
-{
-	initData();
-}
-SceneNode::~SceneNode()
-{
-	FS_SAFE_DEC_REF(m_name);
-	FS_SAFE_DEC_REF(m_chirdren);
+	return FS_ENTITY_CLASS_NAME;
 }
 
-void SceneNode::update(long msec)
+Entity::Entity()
 {
-	updateSelf(msec);
+	init();
+}
 
-	FsArray::Iterator iter(m_chirdren);
-	while(!iter.done())
-	{
-		SceneNode* node=(SceneNode*)iter.getValue();
-		node->update(msec);
-		node->decRef();
-		iter.next();
-	}
+Entity::~Entity()
+{
+	destroy();
 }
-void SceneNode::updateSelf(long mesc)
+
+void Entity::update(float /*dt*/)
 {
 }
-void SceneNode::draw(Render* r)
+
+void Entity::draw(Render* r)
 {
-	updateLocalMatrix();
 	r->pushMatrix();
-	r->mulMatrix(m_localMatrix);
+	r->mulMatrix(m_worldMatrix);
 
-	drawSelf(r);
 //#define FS_SCENE_COORD_DEBUG
 #ifdef FS_SCENE_COORD_DEBUG
 	r->setMaterial(NULL);
@@ -91,25 +70,9 @@ void SceneNode::draw(Render* r)
 	r->drawLine(Vector3(0,0.05f,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
 	r->drawLine(Vector3(0,-0.05f,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
 #endif 
-
-
-
-	FsArray::Iterator iter(m_chirdren);
-	while(!iter.done())
-	{
-		SceneNode* node=(SceneNode*)iter.getValue();
-		node->draw(r);
-		node->decRef();
-		iter.next();
-	}
 	r->popMatrix();
 }
-
-void SceneNode::drawSelf(Render* r)
-{
-}
-
-void SceneNode::initData()
+void Entity::init()
 {
 	m_name=NULL;
 	m_translate.set(0,0,0);
@@ -128,16 +91,18 @@ void SceneNode::initData()
 
 
 
-void SceneNode::updateLocalMatrix()
+bool Entity::updateLocalMatrix()
 {
 	if(m_localMatrixDirty)
 	{
 		m_localMatrix.makeCompose(m_translate,m_rotate,FS_EULER_XYZ,m_scale);
 		m_localMatrixDirty=0;
-		m_worldMatrixDirty=1;
+		return true;
 	}
+	return false;
 }
-void SceneNode::updateWorldMatrix()
+
+void Entity::updateWorldMatrix()
 {
 	updateLocalMatrix();
 	if(!m_parent)
@@ -146,106 +111,67 @@ void SceneNode::updateWorldMatrix()
 		{
 			m_worldMatrix=m_localMatrix;
 			m_worldMatrixDirty=0;
-			notifyChirdWorldMatrixDirty();
+			return true;
 		}
 	}
 	else 
 	{
-		m_parent->updateWorldMatrix();
-		if(m_worldMatrixDirty)
+		bool dirty=m_parent->updateWorldMatrix();
+		if(m_worldMatrixDirty||dirty)
 		{
 			m_worldMatrix=m_parent->m_worldMatrix;
 			m_worldMatrix.mul(m_localMatrix);
 			m_worldMatrixDirty=0;
-			notifyChirdWorldMatrixDirty();
+			return true;
 		}
 	}
-
+	return false;
 }
 
-void SceneNode::updateAllWorldMatrix()
+void Entity::updateAllWorldMatrix()
 {
-	bool force=false;
-	updateLocalMatrix();
-	if(!m_parent)
-	{
-		if(m_worldMatrixDirty)
-		{
-			m_worldMatrix=m_localMatrix;
-			force=true;
-		}
-	}
-	else 
-	{
-		m_parent->updateWorldMatrix();
-		if(m_worldMatrixDirty)
-		{
-			m_worldMatrix=m_parent->m_worldMatrix;
-			m_worldMatrix.mul(m_localMatrix);
-			m_worldMatrixDirty=0;
-			force=true;
-		}
-	}
+	bool dirty=updateWorldMatrix();
 
 	FsArray::Iterator iter(m_chirdren);
 	while(!iter.done())
 	{
-		SceneNode* node=(SceneNode*)iter.getValue();
-		node->updateAllWorldMatrixInternal(force);
+		Entity* node=(Entity*)iter.getValue();
+		node->updateChildWorldMatrix(dirty);
 		node->decRef();
 		iter.next();
 	}
 }
 
-void SceneNode::updateAllWorldMatrixInternal(bool force)
+void Entity::updateChildWorldMatrix(bool force)
 {
 	updateLocalMatrix();
-	if(force)
+	bool dirty=force||m_worldMatrixDirty;
+
+	if(dirty)
 	{
 		m_worldMatrix=m_parent->m_worldMatrix;
 		m_worldMatrix.mul(m_localMatrix);
 		m_worldMatrixDirty=0;
 	}
-	else 
-	{
-		if(m_worldMatrixDirty)
-		{
-			m_worldMatrix=m_parent->m_worldMatrix;
-			m_worldMatrix.mul(m_localMatrix);
-			m_worldMatrixDirty=0;
-			force=true;
-		}
-	}
-
 
 	FsArray::Iterator iter(m_chirdren);
 	while(!iter.done())
 	{
-		SceneNode* node=(SceneNode*)iter.getValue();
-		node->updateAllWorldMatrixInternal(force);
-		node->decRef();
-		iter.next();
-	}
-}
-void SceneNode::notifyChirdWorldMatrixDirty()
-{
-	FsArray::Iterator iter(m_chirdren);
-	while(!iter.done())
-	{
-		SceneNode* node=(SceneNode*)iter.getValue();
-		node->m_worldMatrixDirty=1;
+		Entity* node=(Entity*)iter.getValue();
+		node->updateChildWorldMatrix(dirty);
 		node->decRef();
 		iter.next();
 	}
 }
 
-Vector3 SceneNode::localToWorld(const Vector3& v)
+
+Vector3 Entity::localToWorld(const Vector3& v)
 {
 	updateWorldMatrix();
 	return m_worldMatrix.mulVector3(v);
 }
 
-Vector3 SceneNode::worldToLocal(const Vector3& v)
+Vector3 Entity::worldToLocal(const Vector3& v)
 {
 	updateWorldMatrix();
 
@@ -255,44 +181,91 @@ Vector3 SceneNode::worldToLocal(const Vector3& v)
 	return inverse.mulVector3(v);
 }
 
-void SceneNode::addChild(SceneNode* n)
+void Entity::addChild(Entity* n)
 {
 	if(n->m_parent==this)
 	{
 		return;
 	}
+
 	if(n->m_parent)
 	{
 		n->m_parent->remove(n);
-		n->m_parent=NULL;
+	}
+
+	if(m_layer)
+	{
+		m_layer->takeOwnership(n);
 	}
 	m_chirdren->push(n);
 	n->m_parent=this;
-
 }
-void SceneNode::remove(SceneNode* n)
+
+
+FsArray* Entity::allChild()
+{
+	FsArray* ret=FsArray::create();
+	takeChild(ret);
+	return ret;
+}
+int Entity::childNu()
+{
+	return m_chirdren->size();
+}
+
+void Entity::getAllChild(ret)
+{
+	int child_nu=m_chirdren->size();
+	for(int i=0;i<child_nu;i++)
+	{
+		FsEntity* ob=(FsEntity*)m_chirdren->get(i);
+		ret->push(ob);
+		ob->getAddChild(ret);
+		ob->decRef();
+	}
+}
+
+
+
+void Entity::remove(Entity* n)
 {
 	int length=m_chirdren->size();
 	for(int i=0;i<length;i++)
 	{
-		SceneNode* node=(SceneNode*)m_chirdren->get(i);
+		Entity* node=(Entity*)m_chirdren->get(i);
 		if(n==node)
 		{
 			m_chirdren->remove(i);
 			node->m_parent=NULL;
+
+			/* if node is manger by a layer, then 
+			 * drop the owner ship */
+			if(node->layer)
+			{
+				node->layer->dropOwnership(node);
+			}
 			node->decRef();
 			return;
-		
 		}
 		node->decRef();
 	}
-
-	FS_TRACE_WARN("SceneNode Not Found");
+	FS_TRACE_WARN("Entity Not Found");
 }
 
-
-
+void Entity::detach()
+{
+	if(m_parent)
+	{
+		m_parent->remove(this);
+	}
+}
 
 NS_FS_END
+
+
+
+
+
+
 
 

@@ -6,46 +6,44 @@
 #include "core/FsObject.h"
 #include "math/FsVector3.h"
 #include "math/FsMatrix4.h"
-//#include "math/FsBoundSphere.h"
-//#include "math/FsBoundBox.h"
+#include "math/FsRect2D.h"
 #include "util/FsString.h"
 #include "util/FsArray.h"
 
-
 NS_FS_BEGIN
 class Render;
-class SceneNode :public FsObject
+class Layer;
+class Entity :public FsObject
 {
 	public:
-		SceneNode(FsString* name);
-		SceneNode();
-		virtual ~SceneNode();
-		virtual const char* className();
+		Entity* create();
 
 	public:
-		virtual void update(long msec);
-		virtual void updateSelf(long mesc);
+		virtual void update(long dt);
 		virtual void draw(Render* r);
-		virtual void drawSelf(Render* r);
 
+
+		/* inherit FsObject */
+		virtual const char* className();
 
 	public:
 
 		Vector3 localToWorld(const Vector3& v);
 		Vector3 worldToLocal(const Vector3& v);
 
-
 		/* relation ship*/
-		void addChild(SceneNode* n);
-		void remove(SceneNode* n);
+		void addChild(Entity* n);
+		void remove(Entity* n);
+		void detach();
+		FsArray* allChild();
+		int childNu();
 
-		SceneNode* getChildByName(FsString* name,bool recusive=0);
-		SceneNode* getChildByName(const char* name,bool recusive=0);
+		Entity* getChildByName(FsString* name,bool recusive=0);
+		Entity* getChildByName(const char* name,bool recusive=0);
 
 		void updateLocalMatrix();
 		void updateWorldMatrix();
 		void updateAllWorldMatrix();
-
 
 	public: /* get transform info */
 		Vector3 getPosition(){return m_translate;}
@@ -88,19 +86,25 @@ class SceneNode :public FsObject
 		void setPositionXInWorld(float t);
 		void setPositionYInWorld(float t);
 		void setPositionZInWorld(float t);
-	public:
-		void hide(){m_visible=0;}
-		void show(){m_visible=1;}
-		bool getVisible(){return m_visible;}
 
 	public:
-	//	virtual bool hit(const Ray& r,int bound_type);
-		
+		bool setVisible(bool visible){m_visible=visible;}
+		bool visible(){return m_visible;}
 
-	private:
-		void initData();
-		void updateAllWorldMatrixInternal(bool force);
-		void notifyChirdWorldMatrixDirty();
+	protected:
+		Entity();
+		virtual ~Entity();
+
+		void init();
+		void init(FsString* name);
+		void destroy();
+		void updateChildWorldMatrix(bool force);
+		void getAllChild(FsArray* array);
+	
+		Entity* parent(){return m_parent;}
+		void setParent(Entity* parent){m_parent=parent;}
+		void setLayer(Layer* layer){m_layer=layer;}
+		Layer* layer(){return m_layer;}
 
 	protected:  
 		/* flags */
@@ -110,12 +114,13 @@ class SceneNode :public FsObject
 				ulong m_localMatrixDirty:1;
 				ulong m_worldMatrixDirty:1;
 				ulong m_hasBoundSphere:1;
+				ulong m_hasBoundSphere2D:1;
 				ulong m_hasBoundBox:1;
+				ulong m_hasBoundBox2D:1;
 				ulong m_visible:1;
 			};
 			ulong m_flags;
 		};
-
 
 		FsString* m_name;
 
@@ -128,22 +133,23 @@ class SceneNode :public FsObject
 		Matrix4 m_localMatrix;
 		Matrix4 m_worldMatrix;
 
-		/* bool bounding  volume */
-	//	BoundSphere m_boundSphere;
-	//	BoundBox m_boundBox;
-
 
 		/* relation ship*/
-		SceneNode* m_parent;
+		Layer* m_layer;
+		Entity* m_parent;
 		FsArray* m_chirdren;
 
+		/* bound box */
+		Rect2D m_boundBox2D;
+
+
+		friend Layer;
 };
 
-
-#include "scene/FsSceneNode.inl"
+#include "entity/FsEntity.inl"
 NS_FS_END
-
 #endif 
+
 
 
 

@@ -208,10 +208,23 @@ enum
 	FS_BOUND_SPHERE
 };
 
+/* window name */
+#define FS_DEFAULT_WINDOW_NAME "FaerisEngine"
 
+
+/* class name */
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
 #define FS_TEXTURE2D_CLASS_NAME "Texture2D"
 #define FS_SYSFILE_CLASS_NAME "SysFile"
+#define FS_SCENE_CLASS_NAME "Scene"
+#define FS_ENTITY_CLASS_NAME "Entity"
+#define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
+
+
+/* material */
+#define FS_MATERIAL_CLASS_NAME "Material"
+/* sys */
+#define FS_WINDOW_CLASS_NAME "Window"
 
 
 

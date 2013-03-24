@@ -2,8 +2,10 @@
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
-static const char* s_MaterialName="MaterialObject";
-const char* Material::className(){return s_MaterialName;}
+const char* Material::className()
+{
+	return FS_MATERIAL_CLASS_NAME;
+}
 
 Material::~Material(){}
 
@@ -13,7 +15,6 @@ void Material::configRender(Render* r)
 	r->setDepthMask(m_depthMask);
 	r->enableDepthTest(m_depthTest);
 	r->setShadeMode(m_shadeMode);
-	r->setOpacity(m_opacity);
 }
 NS_FS_END
 

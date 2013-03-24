@@ -1,22 +1,40 @@
 #include <Windows.h>
 #include "GL/glew.h"
 #include "sys/FsWindow.h"
-#include "sys/FsFrame.h"
 #include "util/FsLog.h"
 
-//#include "fsys/FsEventDispatch.h"
 
 #define FS_DEFAULT_WINDOW_WIDTH 640 
 #define FS_DEFAULT_WINDOW_HEIGHT 480
 #define FS_DEFAULT_WINDOW_BITS 32
 
 NS_FS_BEGIN
-class WindowFrameListener;
+
+class PlatformWindow;
+class EventGraper:public SchedulerTarget
+{
+	public:
+		static EventGraper* create(PlatformWindow* win);
+
+	public:
+		void update(int priority,float dt);
+
+	protected:
+		EventGraper();
+	private:
+		PlatformWindow* m_window;
+};
 
 
-static Window* s_shareWindow=NULL;
-static WindowFrameListener* s_frameListener=NULL;
-
+void EventGraper::update(int priority,float dt)
+{
+	MSG msg;
+	while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+}
 
 
 
@@ -31,13 +49,18 @@ LRESULT CALLBACK s_winproc(
 	switch(umsg)
 	{
 		case WM_LBUTTONDOWN:
-		{
-			int x=(int)LOWORD(lparam);
-			int y=(int)HIWORD(lparam);
-			break;
-		}
+			{
+				int x=(int)LOWORD(lparam);
+				int y=(int)HIWORD(lparam);
+				Global::touchDispatcher()->addEvent(TouchDispatcher::TouchBegin,x,y);
+			}
 
+			break;
 		case WM_MOUSEMOVE:
+			{
+
+			}
+
 			break;
 		case WM_LBUTTONUP:
 			break;
@@ -60,12 +83,10 @@ LRESULT CALLBACK s_winproc(
 			}
 			break;
 
-
 		default:
 			return DefWindowProc(hwnd,umsg,wparam,lparam);
 	}
 	return 0;
-	
 }
 
 
@@ -73,32 +94,32 @@ LRESULT CALLBACK s_winproc(
 
 static void SetupPixelFormat(HDC hDC)
 {
-    int pixelFormat;
+	int pixelFormat;
 
-    PIXELFORMATDESCRIPTOR pfd =
-    {
-        sizeof(PIXELFORMATDESCRIPTOR),  // size
-        1,                          // version
-        PFD_SUPPORT_OPENGL |        // OpenGL window
-        PFD_DRAW_TO_WINDOW |        // render to window
-        PFD_DOUBLEBUFFER,           // support double-buffering
-        PFD_TYPE_RGBA,              // color type
-        32,                         // prefered color depth
-        0, 0, 0, 0, 0, 0,           // color bits (ignored)
-        0,                          // no alpha buffer
-        0,                          // alpha bits (ignored)
-        0,                          // no accumulation buffer
-        0, 0, 0, 0,                 // accum bits (ignored)
-        16,                         // depth buffer
-        0,                          // no stencil buffer
-        0,                          // no auxiliary buffers
-        PFD_MAIN_PLANE,             // main layer
-        0,                          // reserved
-        0, 0, 0,                    // no layer, visible, damage masks
-    };
+	PIXELFORMATDESCRIPTOR pfd =
+	{
+		sizeof(PIXELFORMATDESCRIPTOR),  // size
+		1,                          // version
+		PFD_SUPPORT_OPENGL |        // OpenGL window
+			PFD_DRAW_TO_WINDOW |        // render to window
+			PFD_DOUBLEBUFFER,           // support double-buffering
+		PFD_TYPE_RGBA,              // color type
+		32,                         // prefered color depth
+		0, 0, 0, 0, 0, 0,           // color bits (ignored)
+		0,                          // no alpha buffer
+		0,                          // alpha bits (ignored)
+		0,                          // no accumulation buffer
+		0, 0, 0, 0,                 // accum bits (ignored)
+		16,                         // depth buffer
+		0,                          // no stencil buffer
+		0,                          // no auxiliary buffers
+		PFD_MAIN_PLANE,             // main layer
+		0,                          // reserved
+		0, 0, 0,                    // no layer, visible, damage masks
+	};
 
-    pixelFormat = ChoosePixelFormat(hDC, &pfd);
-    SetPixelFormat(hDC, pixelFormat, &pfd);
+	pixelFormat = ChoosePixelFormat(hDC, &pfd);
+	SetPixelFormat(hDC, pixelFormat, &pfd);
 }
 
 
@@ -110,6 +131,7 @@ class PlatformWindow
 		HDC hdc;
 		HWND hwnd;
 		HINSTANCE hinstance;
+		EventGraper* m_eventGrap;
 	protected:
 		bool initWin();
 		bool initGL();
@@ -118,7 +140,7 @@ class PlatformWindow
 		static PlatformWindow* create();
 		PlatformWindow();
 		~PlatformWindow();
-		
+
 };
 
 
@@ -135,28 +157,36 @@ PlatformWindow* PlatformWindow::create()
 }
 PlatformWindow::~PlatformWindow()
 {
-			if(hrc)
-			{
-				wglMakeCurrent(NULL,NULL);
-				wglDeleteContext(hrc);
-			}
-			if(hdc)
-			{
-				ReleaseDC(hwnd,hdc);
-			}
-			if(hwnd)
-			{
-				DestroyWindow(hwnd);
-			}
-			UnregisterClass("FaerisWindow",hinstance);
+	if(hrc)
+	{
+		wglMakeCurrent(NULL,NULL);
+		wglDeleteContext(hrc);
+	}
+	if(hdc)
+	{
+		ReleaseDC(hwnd,hdc);
+	}
+	if(hwnd)
+	{
+		DestroyWindow(hwnd);
+	}
+	UnregisterClass("FaerisWindow",hinstance);
+	Global::scheduler()->remove(m_eventGrap);
+	m_eventGrap->decRef();
 }
+
 PlatformWindow::PlatformWindow()
 {
 	hwnd=0;
 	hrc=0;
 	hdc=0;
 	hinstance=0;
+	m_eventGrap=EventGraper::create(this);
+	Global::scheduler()->add(m_eventGrap);
 }
+
+
+
 bool PlatformWindow::initWin()
 {
 
@@ -233,59 +263,6 @@ bool PlatformWindow::initGL()
 }
 
 
-class WindowFrameListener:public FrameListener 
-{
-	public:
-		virtual void frameBegin(long diff)
-		{
-			if(s_shareWindow)
-			{
-				PlatformWindow* plt_window=s_shareWindow->getPlatformWindow();
-				if(plt_window)
-				{
-					MSG msg;
-					while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
-					{
-						TranslateMessage(&msg);
-						DispatchMessage(&msg);
-					}
-				}
-			}
-		}
-};
-
-
-Window* Window::shareWindow()
-{
-	if(s_shareWindow==NULL)
-	{
-		PlatformWindow* platform_window=PlatformWindow::create();
-		if(!platform_window)
-		{
-			return NULL;
-		}
-		Window* ret=new Window;
-		ret->m_window=platform_window;
-		s_shareWindow =ret;
-
-		s_frameListener=new WindowFrameListener;
-		Frame::shareFrame()->addListener(s_frameListener);
-	}
-	return s_shareWindow;
-}
-void Window::purgeShareWindow()
-{
-	if(s_shareWindow)
-	{
-		Frame::shareFrame()->removeListener(s_frameListener);
-		delete s_frameListener;
-		s_frameListener=NULL;
-		delete s_shareWindow;
-		s_shareWindow=NULL;
-	}
-
-}
-
 void Window::makeCurrent(Render* r)
 {
 	if(m_window)
@@ -294,6 +271,7 @@ void Window::makeCurrent(Render* r)
 	}
 	m_render=r;
 }
+
 void Window::loseCurrent(Render* r)
 {
 	if(m_window)
@@ -302,6 +280,7 @@ void Window::loseCurrent(Render* r)
 	}
 	m_render=NULL;
 }
+
 void Window::swapBuffers()
 {
 	if(m_window)
@@ -319,6 +298,7 @@ void Window::setCaption(const char* name)
 		m_caption=name;
 	}
 }
+
 void Window::setPosition(int x,int y)
 {
 	if(m_window)
@@ -326,6 +306,7 @@ void Window::setPosition(int x,int y)
 		SetWindowPos(m_window->hwnd, 0, x, y, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 	}
 }
+
 void Window::setSize(uint width,uint height)
 {
 	if(!m_window)
@@ -353,6 +334,7 @@ void Window::setSize(uint width,uint height)
 			SWP_NOCOPYBITS|SWP_NOMOVE|SWP_NOOWNERZORDER|SWP_NOZORDER
 			);
 }
+
 void Window::show()
 {
 	if(m_window)
@@ -361,6 +343,7 @@ void Window::show()
 	}
 
 }
+
 void Window::hide()
 {
 	if(m_window)
@@ -368,12 +351,15 @@ void Window::hide()
 		ShowWindow(m_window->hwnd,SW_HIDE);
 	}
 }
+
 void Window::setStyle(long flags)
 {
 }
+
 void Window::setFullScreen(bool full)
 {
 }
+
 int Window::getWidth() 
 {
 	if(m_window)
@@ -384,6 +370,7 @@ int Window::getWidth()
 	}
 	return 0;
 }
+
 int Window::getHeight()
 {
 	if(m_window)
@@ -394,6 +381,7 @@ int Window::getHeight()
 	}
 	return 0;
 }
+
 int Window::getPosX()
 {
 	if(m_window)
@@ -404,6 +392,7 @@ int Window::getPosX()
 	}
 	return 0;
 }
+
 int Window::getPosY() 
 {
 	if(m_window)
@@ -427,11 +416,6 @@ Window::~Window()
 	m_window=NULL;
 
 }
-
-
-
-
-
 
 NS_FS_END 
 

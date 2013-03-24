@@ -14,8 +14,6 @@ class Material:public FsObject
 		int m_blendSrc;
 		int m_blendDst;
 
-		float m_opacity;
-
 		/* shade mode */
 		int m_shadeMode;
 
@@ -32,7 +30,6 @@ class Material:public FsObject
 			:m_blendEquation(Render::EQUATION_ADD),
 			m_blendSrc(Render::FACTOR_SRC_ALPHA),
 			m_blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
-			m_opacity(1.0f),
 			m_shadeMode(Render::SHADE_MODE_SMOOTH),
 			m_frontSide(Render::FRONT_CCW),
 			m_depthTest(true),
@@ -70,15 +67,6 @@ class Material:public FsObject
 			return m_shadeMode;
 		}
 
-		/* opacity */
-		void setOpacity(float opacity)
-		{
-			m_opacity=opacity;
-		}
-		float getOpacity()
-		{
-			return m_opacity;
-		}
 
 		/* depth test */
 		void setDepthTest(bool enable)
