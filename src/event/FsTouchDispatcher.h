@@ -58,8 +58,8 @@ class TouchDispatcher:public  SchedulerTarget
 		const char* className() ;
 
 	public:
-		void dispathTouchEvent(int type,float x,float y);
-		void dispathTouchesEvent(int type,Vector2* points,int num);
+		void dispatchTouchEvent(int type,float x,float y);
+		void dispatchTouchesEvent(int type,Vector2* points,int num);
 
 		void addEventListener(TouchEventListener* l);
 		void removeEventListener(TouchEventListener* l);

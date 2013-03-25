@@ -62,12 +62,12 @@ void TouchDispatcher::update(int /*priority*/,float /*dt*/)
 	clearEvent(m_eventHandling);
 }
 
-void TouchDispatcher::dispathTouchEvent(int type,float x,float y)
+void TouchDispatcher::dispatchTouchEvent(int type,float x,float y)
 {
 	m_eventPending->push_back(new TouchEvent(type,x,y));
 }
 
-void TouchDispatcher::dispathTouchesEvent(int type,Vector2* points,int num)
+void TouchDispatcher::dispatchTouchesEvent(int type,Vector2* points,int num)
 {
 	m_eventPending->push_back(new TouchEvent(type,points,num));
 }
@@ -105,7 +105,11 @@ void TouchDispatcher::init()
 void TouchDispatcher::destroy()
 {
 	clearEvent(m_eventHandling);
-	clearEvent(m_eventHandling);
+	clearEvent(m_eventPending);
+
+	delete m_eventHandling;
+	delete m_eventPending;
+
 	m_listenerArray->decRef();
 }
 

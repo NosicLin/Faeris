@@ -1,0 +1,13 @@
+$#include "luaext/FsLuaTouchEventListener.h"
+
+class TouchEventListener@__TouchEventListener:public FsObject 
+{
+}
+
+class LuaTouchEventListener@TouchEventListener:public TouchEventListener 
+{
+	public:
+		static LuaTouchEventListener* create();
+}
+
+

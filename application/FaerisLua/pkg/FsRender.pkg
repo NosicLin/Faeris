@@ -2,6 +2,7 @@ $#include "graphics/FsRender.h"
 
 class Render:public FsObject 
 {
+	void setViewport(int x,int y,int width,int height);
 	void setClearColor(Color c);
 	void setProjectionMatrix(const Matrix4& mat);
 	void pushMatrix();

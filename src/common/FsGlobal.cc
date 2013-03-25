@@ -5,6 +5,7 @@ Scheduler* Global::m_scheduler=NULL;
 Director* Global::m_director=NULL;
 Render* Global::m_render=NULL;
 TouchDispatcher* Global::m_touchDispatcher=NULL;
+SysDispatcher* Global::m_sysDispatcher=NULL;
 Window* Global::m_window=NULL;
 ScriptEngine* Global::m_scriptEngine=NULL;
 
@@ -14,6 +15,7 @@ bool  Global::moduleInit()
 	/* init global value */
 	m_scheduler=Scheduler::create();
 	m_touchDispatcher=TouchDispatcher::create();
+	m_sysDispatcher=SysDispatcher::create();
 	m_director=Director::create();
 	m_window=Window::create();
 	m_render=Render::create();
@@ -21,6 +23,8 @@ bool  Global::moduleInit()
 	/* register scheduler target */
 
 	m_scheduler->add(m_touchDispatcher,Scheduler::HIGH);
+	m_scheduler->add(m_sysDispatcher,Scheduler::HIGH);
+
 	m_scheduler->add(m_director,Scheduler::MIDDLE);
 	m_scheduler->add(m_director,Scheduler::LOW);
 
@@ -30,7 +34,9 @@ bool  Global::moduleInit()
 void Global::moduleExit()
 {
 	/* remove scheduler target */
+	m_scheduler->remove(m_sysDispatcher,Scheduler::HIGH);
 	m_scheduler->remove(m_touchDispatcher,Scheduler::HIGH);
+
 	m_scheduler->remove(m_director,Scheduler::MIDDLE);
 	m_scheduler->remove(m_director,Scheduler::LOW);
 
@@ -63,6 +69,11 @@ TouchDispatcher* Global::touchDispatcher()
 {
 	FS_SAFE_ADD_REF(m_touchDispatcher);
 	return m_touchDispatcher;
+}
+SysDispatcher* Global::sysDispatcher()
+{
+	FS_SAFE_ADD_REF(m_sysDispatcher);
+	return m_sysDispatcher;
 }
 
 Window* Global::window()

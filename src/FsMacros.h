@@ -241,7 +241,8 @@ enum
 /* event */
 #define FS_TOUCH_EVENT_LISTENER_CLASS_NAME "TouchEventListener"
 #define FS_TOUCH_DISPATCHER_CLASS_NAME "TouchDispatcher"
-
+#define FS_SYS_DISPATCHER_CLASS_NAME "SysDispatcher"
+#define FS_SYS_EVENT_LISTENER_CLASS_NAME "SysEventListener"
 /* scheduler */
 #define FS_SCHEDULER_CLASS_NAME "Scheduler"
 #define FS_SCHEDULER_TARGET_CLASS_NAME "SchedulerTarget"

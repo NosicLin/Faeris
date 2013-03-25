@@ -11,11 +11,16 @@ $pfile "FsGlobal.pkg"
 $pfile "FsObject.pkg"
 
 
+/* event */
+$pfile "FsLuaTouchEventListener.pkg"
+$pfile "FsLuaSysEventListener.pkg"
+$pfile "FsTouchDispatcher.pkg"
+$pfile "FsSysDispatcher.pkg"
 
 
 /* scheduler */
-
 $pfile "FsScheduler.pkg"
+
 
 
 /* scene */
@@ -34,3 +39,6 @@ $pfile "FsVector3.pkg"
 $pfile "FsVector4.pkg"
 $pfile "FsMatrix4.pkg"
 
+
+/* sys */
+$pfile "FsWindow.pkg"

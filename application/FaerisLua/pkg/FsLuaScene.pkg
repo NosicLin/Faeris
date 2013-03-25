@@ -1,7 +1,7 @@
 $#include "luaext/FsLuaScene.h"
-class Scene:public FsObject 
+class Scene@__Scene:public FsObject 
 {
-}
+};
 class LuaScene@Scene:public Scene
 {
 	public:

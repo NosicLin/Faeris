@@ -53,6 +53,28 @@ void EventGraper::update(int priority,float dt)
 
 
 
+static bool pointInView(int x,int y)
+{
+	int width=Global::window()->getWidth();
+	int height=Global::window()->getHeight();
+	if(x>=0&&x<=width)
+	{
+		if(y>=0&&y<=height)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+static void transformViewPoint(int* x,int* y)
+{
+	//int width=Global::window()->getWidth();
+	int height=Global::window()->getHeight();
+	*y=height-*y;
+
+}
+static bool s_mouse_capture=false;
+
 LRESULT CALLBACK s_winproc(
 		HWND hwnd,
 		UINT umsg,
@@ -67,21 +89,57 @@ LRESULT CALLBACK s_winproc(
 			{
 				int x=(int)LOWORD(lparam);
 				int y=(int)HIWORD(lparam);
-				Global::touchDispatcher()->dispathTouchEvent(TouchDispatcher::TOUCH_BEGIN,(float)x,(float)y);
-			}
+				transformViewPoint(&x,&y);
+				if(pointInView(x,y))
+				{
+					Global::touchDispatcher()->dispatchTouchEvent(
+							TouchDispatcher::TOUCH_BEGIN,(float)x,(float)y);
+					s_mouse_capture=true;
+					SetCapture(hwnd);
+				}
 
+
+			}
 			break;
 		case WM_MOUSEMOVE:
 			{
-
+				if(wparam==MK_LBUTTON&&s_mouse_capture)
+				{
+					int x=(int)LOWORD(lparam);
+					int y=(int)HIWORD(lparam);
+					transformViewPoint(&x,&y);
+					if(pointInView(x,y))
+					{
+						Global::touchDispatcher()->dispatchTouchEvent(
+								TouchDispatcher::TOUCH_MOVE,(float)x,(float)y);
+					}
+				}
 			}
-
 			break;
 		case WM_LBUTTONUP:
+			{
+				if(s_mouse_capture)
+				{
+					int x=(int)LOWORD(lparam);
+					int y=(int)HIWORD(lparam);
+					transformViewPoint(&x,&y);
+					if(pointInView(x,y))
+					{
+						Global::touchDispatcher()->dispatchTouchEvent(
+								TouchDispatcher::TOUCH_END,(float)x,(float)y);
+						ReleaseCapture();
+						s_mouse_capture=false;
+					}
+				}
+			}
 			break;
 
-
 		case WM_CLOSE:
+			Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::QUIT);
+			break;
+
+		case WM_DESTROY:
+			Global::scheduler()->stop();
 			break;
 
 		case WM_KEYDOWN:
@@ -92,12 +150,13 @@ LRESULT CALLBACK s_winproc(
 			switch(wparam)
 			{
 				case SIZE_RESTORED:
+					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
 					break;
 				case SIZE_MINIMIZED:
+					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
 					break;
 			}
 			break;
-
 		default:
 			return DefWindowProc(hwnd,umsg,wparam,lparam);
 	}

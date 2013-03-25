@@ -220,6 +220,22 @@
 					RelativePath="..\..\src\luaext\FsLuaScene.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaSysEventListener.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaSysEventListener.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaTouchEventListener.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsLuaTouchEventListener.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

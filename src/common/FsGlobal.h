@@ -6,6 +6,7 @@
 #include "scene/FsDirector.h"
 #include "graphics/FsRender.h"
 #include "event/FsTouchDispatcher.h"
+#include "event/FsSysDispatcher.h"
 #include "sys/FsWindow.h"
 #include "common/FsScriptEngine.h"
 
@@ -20,6 +21,7 @@ class Global
 	public:
 		static Scheduler* scheduler();
 		static TouchDispatcher* touchDispatcher();
+		static SysDispatcher* sysDispatcher();
 		static Director* director();
 
 		static Window* window();
@@ -33,6 +35,7 @@ class Global
 		static Director* m_director;
 		static Render* m_render;
 		static TouchDispatcher* m_touchDispatcher;
+		static SysDispatcher* m_sysDispatcher;
 		static Window* m_window;
 		static ScriptEngine* m_scriptEngine;
 

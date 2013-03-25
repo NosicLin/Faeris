@@ -6,6 +6,7 @@ class Global@share
 		static Scheduler* scheduler();
 		static TouchDispatcher* touchDispatcher();
 		static Director* director();
+		static SysDispatcher* sysDispatcher();
 
 		static Window* window();
 		static Render* render();

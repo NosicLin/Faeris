@@ -31,7 +31,7 @@ int main(int argc,char** argv)
 
 	/* default init */
 	win->show();
-	win->setSize(1204,800);
+	win->setSize(1024,800);
 	win->setPosition(100,100);
 	render->setRenderTarget(win);
 
@@ -49,6 +49,10 @@ int main(int argc,char** argv)
 
 	/* check where script stop running */
 	Global::scheduler()->mainLoop();
+	Global::sysDispatcher()->clearPending();
+	Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::EXIT);
+	Global::sysDispatcher()->update(0,0);
+
 
 	/* relese resource */
 	engine->decRef();

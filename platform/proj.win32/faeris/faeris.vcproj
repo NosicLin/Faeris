@@ -778,6 +778,22 @@
 				Name="event"
 				>
 				<File
+					RelativePath="..\..\..\src\event\FsSysDispatcher.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsSysDispatcher.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsSysEventListener.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\event\FsSysEventListener.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\event\FsTouchDispatcher.cc"
 					>
 				</File>
