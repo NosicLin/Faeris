@@ -26,6 +26,19 @@ class LuaEngine:public ScriptEngine
 		void pushCFunction(CFunction func);
 		void pushBoolean(bool value);
 
+		/* pop value */
+		void pop();
+
+		/* cast value */
+		int toInteger(int index);
+		float toNumber(int index);
+		bool toBoolean(int index);
+		const char* toString(int index);
+
+
+
+
+
 		void setGlobalCFunction(const char* name,CFunction func);
 		void setGlobalUserType(const char* name,void* data,const char* type);
 

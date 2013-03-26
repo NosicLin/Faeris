@@ -109,16 +109,7 @@ void Layer::update(float dt)
 
 void Layer::draw(Render* render)
 {
-	FsDict::Iterator iter_entity(m_entity);
-
-	while(!iter_entity.done())
-	{
-		Entity* entity=(Entity*) iter_entity.getValue();
-		entity->updateAllWorldMatrix();
-		entity->decRef();
-		iter_entity.next();
-	}
-
+	updateAllWorldMatrix();
 	FsDict::Iterator iter(m_ownerEntity);
 	while(!iter.done())
 	{
@@ -180,6 +171,18 @@ void Layer::destroy()
 	m_ownerEntity->decRef();
 }
 
+void Layer::updateAllWorldMatrix()
+{
+	FsDict::Iterator iter_entity(m_entity);
+
+	while(!iter_entity.done())
+	{
+		Entity* entity=(Entity*) iter_entity.getValue();
+		entity->updateAllWorldMatrix();
+		entity->decRef();
+		iter_entity.next();
+	}
+}
 
 
 

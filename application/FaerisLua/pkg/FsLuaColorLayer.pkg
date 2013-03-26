@@ -1,0 +1,28 @@
+$#include "luaext/FsLuaColorLayer.h"
+
+class LuaColorLayer@ColorLayer:public Layer
+{
+	public:
+		static LuaColorLayer* create();
+
+	public:
+		void setColor(Color c);
+		Color getColor();
+
+	public:
+		/* inherit ColorLayer */
+		void onUpdate(float dt);
+		//void onDraw(Render* render);
+		bool onTouchBegin(float x,float y);
+		bool onTouchEnd(float x,float y);
+		bool onTouchMove(float x,float y);
+
+		/*
+		bool onTouchesBegin(Vector2* points,int num);
+		bool onTouchesMove(Vector2* points,int num);
+		bool onTouchesEnd(Vector2* points,int num);
+		*/
+
+
+};
+

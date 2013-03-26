@@ -55,6 +55,7 @@ class Layer:public FsObject
 		virtual ~Layer();
 		void init();
 		void destroy();
+		void updateAllWorldMatrix();
 
 
 	protected:

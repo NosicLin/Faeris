@@ -1,0 +1,22 @@
+$#include "luaext/FsLuaLayer2D.h"
+
+class LuaLayer2D@Layer2D:public Layer2D
+{
+	public:
+		static Layer2D* create();
+
+	public:
+		/* inherit ColorLayer */
+		void onUpdate(float dt);
+		//void onDraw(Render* render);
+		bool onTouchBegin(float x,float y);
+		bool onTouchEnd(float x,float y);
+		bool onTouchMove(float x,float y);
+
+		/*
+		bool onTouchesBegin(Vector2* points,int num);
+		bool onTouchesMove(Vector2* points,int num);
+		bool onTouchesEnd(Vector2* points,int num);
+		*/
+};
+

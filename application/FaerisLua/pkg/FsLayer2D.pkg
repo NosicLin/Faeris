@@ -1,0 +1,39 @@
+$#include "scene/FsLayer2D.h"
+
+class Layer2D@__Layer2D:public Layer
+{
+	public:
+		enum 
+		{
+			SORT_NONE,
+			SORT_Z,
+			SORT_Y,
+			SORT_X,
+		};
+		enum 
+		{
+			DOWN_OLDER,
+			UP_OLDER,
+		};
+
+	public:
+		Matrix4 getProjectMatrix()const ;
+		Rect2D getViewArea()const;
+
+		void toLayerCoord(float* x,float* y)const ;
+		Vector2 toLayerCoord(const Vector2& v)const ;
+
+		void setViewArea(float x,float y,float width,float height);
+		void setViewArea(const Rect2D& area);
+
+		void setSortMode(int mode);
+		int getSortMode();
+
+		void setOlderMode(int older);
+		int getOlderMode();
+
+		/* eliminate */
+		void setEliminate(bool eliminate);
+		bool getEliminate();
+};
+

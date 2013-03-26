@@ -226,6 +226,8 @@ enum
 #define FS_DIRECTOR_CLASS_NAME "Director"
 #define FS_SCENE_CLASS_NAME "Scene"
 #define FS_LAYER_CLASS_NAME "Layer"
+#define FS_COLOR_LAYER_CLASS_NAME "ColorLayer"
+#define FS_LAYER_2D_CLASS_NAME "Layer2D"
 
 
 /* util */
@@ -243,6 +245,7 @@ enum
 #define FS_TOUCH_DISPATCHER_CLASS_NAME "TouchDispatcher"
 #define FS_SYS_DISPATCHER_CLASS_NAME "SysDispatcher"
 #define FS_SYS_EVENT_LISTENER_CLASS_NAME "SysEventListener"
+
 /* scheduler */
 #define FS_SCHEDULER_CLASS_NAME "Scheduler"
 #define FS_SCHEDULER_TARGET_CLASS_NAME "SchedulerTarget"

@@ -16,6 +16,13 @@ Rect2D::Rect2D(const Vector2& _start,float _width,float _height)
 	width=_width;
 	height=_height;
 }
+void Rect2D::set(float _x,float _y,float _width,float _height)
+{
+	x=_x;
+	y=_y;
+	width=_width;
+	height=_height;
+}
 
 Rect2D::Rect2D()
 {

@@ -20,5 +20,6 @@ class Vector3
 		float length() const;
 		float length2() const;
 		bool equal(const Vector3& v) const;
+		void set(float x,float y,float z);
 };
 

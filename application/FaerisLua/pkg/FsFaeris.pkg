@@ -27,6 +27,11 @@ $pfile "FsScheduler.pkg"
 $pfile "FsLuaScene.pkg"
 $pfile "FsDirector.pkg"
 
+$pfile "FsLayer.pkg"
+$pfile "FsLuaColorLayer.pkg"
+$pfile "FsLayer2D.pkg"
+$pfile "FsLuaLayer2D.pkg"
+
 
 
 /* graphics */

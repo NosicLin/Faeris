@@ -466,6 +466,14 @@
 				Name="scene"
 				>
 				<File
+					RelativePath="..\..\..\src\scene\FsColorLayer.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsColorLayer.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\scene\FsDirector.cc"
 					>
 				</File>
@@ -479,6 +487,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\scene\FsLayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\scene\FsLayer2D.cc"
 					>
 				</File>
 				<File

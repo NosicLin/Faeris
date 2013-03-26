@@ -28,6 +28,7 @@ class LuaScene:public Scene
 		void onExit(){Scene::exit();}
 		void onUpdate(float dt){Scene::update(dt);}
 		void onDraw(Render* render){Scene::draw(render);}
+
 		void onTouchBegin(float x,float y){Scene::touchBegin(x,y);}
 		void onTouchEnd(float x,float y){Scene::touchEnd(x,y);}
 		void onTouchMove(float x,float y){Scene::touchMove(x,y);}

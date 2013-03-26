@@ -130,6 +130,28 @@ void LuaEngine::pushCFunction(CFunction func)
 	lua_pushcfunction(m_state,func);
 }
 
+void LuaEngine::pop()
+{
+	lua_pop(m_state,1);
+}
+int LuaEngine::toInteger(int index)
+{
+	return lua_tointeger(m_state,index);
+}
+float LuaEngine::toNumber(int index)
+{
+	return (float)lua_tonumber(m_state,index);
+}
+bool LuaEngine::toBoolean(int index)
+{
+	return lua_toboolean(m_state,index);
+}
+
+const char* LuaEngine::toString(int index)
+{
+	return lua_tostring(m_state,index);
+}
+
 
 void LuaEngine::setGlobalCFunction(const char* name,CFunction func)
 {

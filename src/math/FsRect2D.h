@@ -10,6 +10,8 @@ class Rect2D
 		Rect2D(float _x,float _y,float _width,float _height);
 		Rect2D(const Vector2& _start,float _width,float _height);
 		Rect2D();
+	public:
+		void set(float _x,float _y,float _width,float _height);
 
 	public:
 		float x;

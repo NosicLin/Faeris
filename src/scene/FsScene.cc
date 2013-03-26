@@ -61,7 +61,7 @@ void Scene::update(float dt)
 void Scene::draw(Render* render)
 {
 	int layer_nu=m_layers->size();
-	for(int i=layer_nu-1;i>=0;i--)
+	for(int i=0;i<layer_nu;i++)
 	{
 		Layer* layer=(Layer*)m_layers->get(i);
 		if(layer->visible())

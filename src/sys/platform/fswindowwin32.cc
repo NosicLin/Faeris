@@ -53,25 +53,24 @@ void EventGraper::update(int priority,float dt)
 
 
 
-static bool pointInView(int x,int y)
+static bool pointInView(float x,float y)
 {
-	int width=Global::window()->getWidth();
-	int height=Global::window()->getHeight();
-	if(x>=0&&x<=width)
+	if(x>=0&&x<=1.0f)
 	{
-		if(y>=0&&y<=height)
+		if(y>=0&&y<=1.0f)
 		{
 			return true;
 		}
 	}
 	return false;
 }
-static void transformViewPoint(int* x,int* y)
+static void transformViewPoint(float* x,float* y)
 {
-	//int width=Global::window()->getWidth();
+	int width=Global::window()->getWidth();
 	int height=Global::window()->getHeight();
-	*y=height-*y;
-
+	*x=*x/width;
+	*y=*y/height;
+	*y=1.0f-*y;
 }
 static bool s_mouse_capture=false;
 
@@ -87,13 +86,13 @@ LRESULT CALLBACK s_winproc(
 	{
 		case WM_LBUTTONDOWN:
 			{
-				int x=(int)LOWORD(lparam);
-				int y=(int)HIWORD(lparam);
+				float x=(float)LOWORD(lparam);
+				float y=(float)HIWORD(lparam);
 				transformViewPoint(&x,&y);
 				if(pointInView(x,y))
 				{
 					Global::touchDispatcher()->dispatchTouchEvent(
-							TouchDispatcher::TOUCH_BEGIN,(float)x,(float)y);
+							TouchDispatcher::TOUCH_BEGIN,x,y);
 					s_mouse_capture=true;
 					SetCapture(hwnd);
 				}
@@ -105,13 +104,13 @@ LRESULT CALLBACK s_winproc(
 			{
 				if(wparam==MK_LBUTTON&&s_mouse_capture)
 				{
-					int x=(int)LOWORD(lparam);
-					int y=(int)HIWORD(lparam);
+					float x=(float)LOWORD(lparam);
+					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
 					if(pointInView(x,y))
 					{
 						Global::touchDispatcher()->dispatchTouchEvent(
-								TouchDispatcher::TOUCH_MOVE,(float)x,(float)y);
+								TouchDispatcher::TOUCH_MOVE,x,y);
 					}
 				}
 			}
@@ -120,13 +119,13 @@ LRESULT CALLBACK s_winproc(
 			{
 				if(s_mouse_capture)
 				{
-					int x=(int)LOWORD(lparam);
-					int y=(int)HIWORD(lparam);
+					float x=(float)LOWORD(lparam);
+					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
 					if(pointInView(x,y))
 					{
 						Global::touchDispatcher()->dispatchTouchEvent(
-								TouchDispatcher::TOUCH_END,(float)x,(float)y);
+								TouchDispatcher::TOUCH_END,x,y);
 						ReleaseCapture();
 						s_mouse_capture=false;
 					}
