@@ -5,7 +5,7 @@
 #include "FsLuaEngine.h"
 
 NS_FS_BEGIN
-template<typename T_F,typename T_NAME>
+template<typename T_F>
 class  TLuaLayer:public T_F 
 {
 	public:
@@ -41,9 +41,8 @@ class  TLuaLayer:public T_F
 		virtual bool touchMove(float x,float y)
 		{
 
-
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onTouchBegin",3,1,"fnn",this,x,y))
+			if(!se->callFunctionInTable(m_data,"onTouchMove",3,1,"fnn",this,x,y))
 			{
 				return T_F::touchBegin(x,y);
 			}
@@ -86,6 +85,10 @@ class  TLuaLayer:public T_F
 		{
 			return T_F::touchMove(x,y);
 		}
+		void onDraw(Render* r)
+		{
+			T_F::draw(r);
+		}
 
 		/* 
 		   bool onTouchesBegin(Vector2* points,int num);
@@ -93,11 +96,6 @@ class  TLuaLayer:public T_F
 		   bool onTouchesEnd(Vector2* points,int num);
 		   */
 
-		/* inherit FsObject */
-		virtual const char* className()
-		{
-			return T_NAME::className();
-		}
 };
 
 NS_FS_END

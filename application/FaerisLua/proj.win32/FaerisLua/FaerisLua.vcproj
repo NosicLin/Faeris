@@ -213,11 +213,7 @@
 				Name="luaext"
 				>
 				<File
-					RelativePath="..\..\src\luaext\FsLuaColorLayer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\luaext\FsLuaLayer2D.h"
+					RelativePath="..\..\src\luaext\FsLuaLayer.h"
 					>
 				</File>
 				<File

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 03/26/13 22:40:06.
+** Generated automatically by tolua++-1.0.92 on 03/26/13 23:57:55.
 */
 
 #ifndef __cplusplus
@@ -17,14 +17,15 @@ TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 #include "common/FsGlobal.h"
 #include "luaext/FsLuaTouchEventListener.h"
 #include "luaext/FsLuaSysEventListener.h"
-#include "luaext/FsLuaLayer.h"
 #include "event/FsTouchDispatcher.h"
 #include "event/FsSysDispatcher.h"
 #include "scheduler/FsScheduler.h"
 #include "luaext/FsLuaScene.h"
 #include "scene/FsDirector.h"
 #include "scene/FsLayer.h"
+#include "luaext/FsLuaLayer.h"
 #include "scene/FsLayer2D.h"
+#include "luaext/FsLuaLayer.h"
 #include "graphics/FsRender.h"
 #include "graphics/FsColor.h"
 #include "math/FsVector2.h"
@@ -1704,6 +1705,39 @@ static int tolua_FsFaeris_ColorLayer_onUpdate00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: onDraw of class  LuaColorLayer */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_ColorLayer_onDraw00
+static int tolua_FsFaeris_ColorLayer_onDraw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaColorLayer",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaColorLayer* self = (LuaColorLayer*)  tolua_tousertype(tolua_S,1,0);
+  Render* render = ((Render*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
+#endif
+  {
+   self->onDraw(render);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onDraw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: onTouchBegin of class  LuaColorLayer */
 #ifndef TOLUA_DISABLE_tolua_FsFaeris_ColorLayer_onTouchBegin00
 static int tolua_FsFaeris_ColorLayer_onTouchBegin00(lua_State* tolua_S)
@@ -2290,6 +2324,39 @@ static int tolua_FsFaeris_Layer2D_onUpdate00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'onUpdate'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onDraw of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_Layer2D_onDraw00
+static int tolua_FsFaeris_Layer2D_onDraw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  Render* render = ((Render*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
+#endif
+  {
+   self->onDraw(render);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onDraw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -7702,6 +7769,7 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setColor",tolua_FsFaeris_ColorLayer_setColor00);
    tolua_function(tolua_S,"getColor",tolua_FsFaeris_ColorLayer_getColor00);
    tolua_function(tolua_S,"onUpdate",tolua_FsFaeris_ColorLayer_onUpdate00);
+   tolua_function(tolua_S,"onDraw",tolua_FsFaeris_ColorLayer_onDraw00);
    tolua_function(tolua_S,"onTouchBegin",tolua_FsFaeris_ColorLayer_onTouchBegin00);
    tolua_function(tolua_S,"onTouchEnd",tolua_FsFaeris_ColorLayer_onTouchEnd00);
    tolua_function(tolua_S,"onTouchMove",tolua_FsFaeris_ColorLayer_onTouchMove00);
@@ -7731,6 +7799,7 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"Layer2D");
    tolua_function(tolua_S,"create",tolua_FsFaeris_Layer2D_create00);
    tolua_function(tolua_S,"onUpdate",tolua_FsFaeris_Layer2D_onUpdate00);
+   tolua_function(tolua_S,"onDraw",tolua_FsFaeris_Layer2D_onDraw00);
    tolua_function(tolua_S,"onTouchBegin",tolua_FsFaeris_Layer2D_onTouchBegin00);
    tolua_function(tolua_S,"onTouchEnd",tolua_FsFaeris_Layer2D_onTouchEnd00);
    tolua_function(tolua_S,"onTouchMove",tolua_FsFaeris_Layer2D_onTouchMove00);

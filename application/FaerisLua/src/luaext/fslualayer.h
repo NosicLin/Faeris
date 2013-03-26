@@ -10,29 +10,43 @@
 
 NS_FS_BEGIN
 
-/* layer2d */
-class LuaLayer2DName
+
+class LuaLayer2D:public TLuaLayer<Layer2D>
 {
 	public:
-		static const char* className()
+		static LuaLayer2D* create()
+		{
+			return new LuaLayer2D;
+		}
+	public:
+		virtual const char* className()
 		{
 			return FS_LUA_LAYER2D_CLASS_NAME;
 		}
+	protected:
+		LuaLayer2D(){}
+		~LuaLayer2D(){}
 };
-typedef TLuaLayer<Layer2D,LuaLayer2DName> LuaLayer2D;
 
 
-/* color layer */
-class  ColorLayerName 
+
+class LuaColorLayer:public TLuaLayer<ColorLayer>
 {
 	public:
-		static const char* className()
+		static LuaColorLayer* create()
 		{
-			return FS_COLOR_LAYER_CLASS_NAME;
+			return new LuaColorLayer;
 		}
-};
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_COLOR_LAYER_CLASS_NAME;
+		}
 
-typedef  TLuaLayer<ColorLayer,ColorLayerName> LuaColorLayer;
+	protected:
+		LuaColorLayer(){}
+		~LuaColorLayer(){}
+};
 NS_FS_END 
 
 

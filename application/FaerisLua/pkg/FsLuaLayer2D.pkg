@@ -1,4 +1,4 @@
-$#include "luaext/FsLuaLayer2D.h"
+$#include "luaext/FsLuaLayer.h"
 
 class LuaLayer2D@Layer2D:public Layer2D
 {
@@ -8,7 +8,7 @@ class LuaLayer2D@Layer2D:public Layer2D
 	public:
 		/* inherit ColorLayer */
 		void onUpdate(float dt);
-		//void onDraw(Render* render);
+		void onDraw(Render* render);
 		bool onTouchBegin(float x,float y);
 		bool onTouchEnd(float x,float y);
 		bool onTouchMove(float x,float y);

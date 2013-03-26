@@ -82,6 +82,10 @@ layer2.data={
 	line={},
 	line_nu=0,
 	onDraw=function(self,render)
+
+		proj_matrix:makeOrthographic(0,1,0,1,0,100)
+		render:setProjectionMatrix(proj_matrix)
+
 		local lines=self.data.line
 		v1=Vector3();
 		v2=Vector3();
@@ -93,10 +97,12 @@ layer2.data={
 			render:drawLine(v1,v2,6,Color.RED)
 		end
 	end,
+
 	onTouchBegin=function(self,x,y)
 		self.data.line_nu=0
 		self.data.line={}
 	end,
+
 	onTouchMove=function(self,x,y)
 		local line_nu=self.data.line_nu
 		self.data.line[line_nu+1]={x,y}

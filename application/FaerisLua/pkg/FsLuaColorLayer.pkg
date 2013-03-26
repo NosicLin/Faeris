@@ -1,4 +1,4 @@
-$#include "luaext/FsLuaColorLayer.h"
+$#include "luaext/FsLuaLayer.h"
 
 class LuaColorLayer@ColorLayer:public Layer
 {
@@ -12,7 +12,7 @@ class LuaColorLayer@ColorLayer:public Layer
 	public:
 		/* inherit ColorLayer */
 		void onUpdate(float dt);
-		//void onDraw(Render* render);
+		void onDraw(Render* render);
 		bool onTouchBegin(float x,float y);
 		bool onTouchEnd(float x,float y);
 		bool onTouchMove(float x,float y);
