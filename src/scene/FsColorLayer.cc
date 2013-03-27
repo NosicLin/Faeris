@@ -30,7 +30,7 @@ void ColorLayer::draw(Render*  r)
 	r->setMaterial(NULL);
 	r->setProgram(NULL);
 	Matrix4 mat;
-	mat.makeOrthographic(0,1,0,1,0,1);
+	mat.makeOrthographic(0,1,0,1,0,100);
 	r->setProjectionMatrix(mat);
 
 	r->setActiveTexture(0);

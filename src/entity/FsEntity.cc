@@ -97,6 +97,7 @@ void Entity::init()
 
 	m_parent=NULL;
 	m_chirdren=new FsArray();
+	m_layer=NULL;
 }
 
 void Entity::destroy()

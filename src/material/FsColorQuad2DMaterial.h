@@ -32,7 +32,7 @@ class ColorQuad2DMaterial:public Material
 	private:
 		float m_opacity;
 		int m_opacityLocation;
-		Program* m_progam;
+		Program* m_program;
 };
 
 NS_FS_END

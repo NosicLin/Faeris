@@ -18,6 +18,11 @@ $pfile "FsTouchDispatcher.pkg"
 $pfile "FsSysDispatcher.pkg"
 
 
+/* entity */
+$pfile "FsEntity.pkg"
+$pfile "FsLuaColorQuad2D.pkg"
+
+
 /* scheduler */
 $pfile "FsScheduler.pkg"
 
@@ -43,6 +48,7 @@ $pfile "FsVector2.pkg"
 $pfile "FsVector3.pkg"
 $pfile "FsVector4.pkg"
 $pfile "FsMatrix4.pkg"
+$pfile "FsRect2D.pkg"
 
 
 /* sys */

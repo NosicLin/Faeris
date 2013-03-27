@@ -52,16 +52,16 @@ scene1.data= {
 	line_nu=0,
 
 	onUpdate=function(scene,dt)
-		--print("time:"..dt)
+		print("time:"..dt)
 		scene:update(dt)
 	end,
 }
 
 
-layer1=ColorLayer:create()
-layer2=ColorLayer:create()
+fade_layer=ColorLayer:create()
+touch_layer=ColorLayer:create()
 
-layer1.data={
+fade_layer.data={
 	color=0;
 	onUpdate=function(self,dt)
 		self.data.color=self.data.color+dt/1000*60
@@ -69,15 +69,15 @@ layer1.data={
 			self.data.color =0
 		end 
 		c=self.data.color;
-		layer1:setColor(Color(0,0,0,c));
+		fade_layer:setColor(Color(0,0,0,c));
 	end,
 }
 
-layer1:setTouchEnabled(true);
---layer1:setVisible(false);
+fade_layer:setTouchEnabled(true);
+--fade_layer:setVisible(false);
 
 
-layer2.data={
+touch_layer.data={
 	name="first Scene",
 	line={},
 	line_nu=0,
@@ -109,10 +109,60 @@ layer2.data={
 		self.data.line_nu=line_nu+1
 	end,
 }
-layer2:setTouchEnabled(true);
+touch_layer:setTouchEnabled(true);
 
-scene1:push(layer2);
-scene1:push(layer1);
+
+entity_layer=Layer2D:create();
+entity_layer:setViewArea(0,0,width,height);
+
+cquad=ColorQuad2D:create(Rect2D(0,0,20,20),Color(255,255,0,255));
+cquad2=ColorQuad2D:create(Rect2D(-200,-200,400,400),Color(0,255,255,30));
+cquad2:setColor(Color(255,255,0),ColorQuad2D.VERTEX_A)
+cquad2:setColor(Color(255,0,255),ColorQuad2D.VERTEX_B)
+cquad2:setColor(Color(0,255,255),ColorQuad2D.VERTEX_C)
+cquad2:setColor(Color(255,255,255),ColorQuad2D.VERTEX_D)
+
+cquad:setOpacity(0.1)
+cquad2:setOpacity(1.0);
+cquad2.data={
+	speed=0.1,
+	onUpdate=function(self,dt) 
+		self:rotateZ(self.data.speed)
+	end
+}
+--cquad2:setPosition(0,300,0)
+
+group=Entity:create();
+
+group:addChild(cquad2);
+group:addChild(cquad);
+
+entity_layer.data={
+	speed=0.1,
+	onTouchBegin=function(self,x,y)
+		group:setPosition(x*width,y*height,0)
+		self.data.speed=0.1
+		return false;
+	end,
+	onTouchMove=function(self,x,y)
+		group:setPosition(x*width,y*height,0)
+		self.data.speed=self.data.speed+0.1
+		cquad2.data.speed=self.data.speed
+
+		return false;
+	end
+}
+entity_layer:setTouchEnabled(true);
+--cquad2:setPosition(120,200,0);
+
+entity_layer:add(group);
+
+
+print ("push");
+
+scene1:push(touch_layer);
+scene1:push(entity_layer);
+--scene1:push(fade_layer);
 
 
 director:run(scene1);

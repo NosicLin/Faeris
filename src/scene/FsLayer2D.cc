@@ -99,6 +99,7 @@ void Layer2D::draw(Render* r)
 			0,
 			100);
 	r->setProjectionMatrix(mat);
+	r->pushMatrix();
 	r->loadIdentity();
 
 	/* update all child matrix4 */
@@ -116,6 +117,7 @@ void Layer2D::draw(Render* r)
 		ob->decRef();
 	}
 	entity->decRef();
+	r->popMatrix();
 }
 
 
@@ -130,6 +132,7 @@ FsArray* Layer2D::getEntityInView()
 		FsObject* ob=iter.getValue();
 		ret->push(ob);
 		ob->decRef();
+		iter.next();
 	}
 	return ret;
 }

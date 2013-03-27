@@ -1,6 +1,8 @@
 class FsObject 
 {
 	public:
+		const char* className();
+	public:
 		LUA_TABLE m_data@data;
 };
 

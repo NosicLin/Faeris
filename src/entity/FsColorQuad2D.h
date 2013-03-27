@@ -27,6 +27,7 @@ class ColorQuad2D:public Entity
 		};
 
 	public:
+		static ColorQuad2D* create();
 		static ColorQuad2D* create(const Rect2D& rect,Color c);
 
 	public:

@@ -10,6 +10,10 @@
 #define FS_LUA_COLOR_LAYER_CLASS_NAME 			"LuaColorLayer"
 #define FS_LUA_LAYER2D_CLASS_NAME 				"LuaLayer2D"
 
+#define FS_LUA_ENTITY_CLASS_NAME				"LuaEntity"
+#define FS_LUA_COLOR_LAYER_CLASS_NAME			"LuaColorLayer"
+#define FS_LUA_COLOR_QUAD_CLASS_NAME			"LuaColorQuad2D"
+
 
 #endif /*_FS_LUA_MACROS_H_*/
 

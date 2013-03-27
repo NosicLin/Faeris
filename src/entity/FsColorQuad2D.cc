@@ -51,10 +51,12 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 	render->mulMatrix(m_worldMatrix);
 
 	m_shareMaterial->setOpacity(m_opacity);
-	render->setMaterial(m_shareMaterial);
+	render->setMaterial(m_shareMaterial,true);
 	render->setActiveTexture(0);
 	render->disableAllClientArray();
 	render->enableClientArray(Render::VERTEX_ARRAY|Render::COLOR_ARRAY);
+	//render->enableClientArray(Render::VERTEX_ARRAY);
+
 
 	Vector3 vv[4]=
 	{
@@ -64,6 +66,7 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 		Vector3(m_rect.x,m_rect.y+m_rect.height,0.0f),
 	};
 
+	
 	Color vc[4]=
 	{
 		m_va,
@@ -71,6 +74,7 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 		m_vc,
 		m_vd,
 	};
+	
 
 	Face3 faces[2]=
 	{
@@ -128,6 +132,9 @@ float ColorQuad2D::getOpacity()
 
 ColorQuad2D::ColorQuad2D()
 {
+	m_rect.set(0,0,0,0);
+	setColor(Color::WHITE);
+	m_material=useShareMaterial();
 }
 
 ColorQuad2D::~ColorQuad2D()
@@ -142,8 +149,8 @@ void ColorQuad2D::init(const Rect2D& rect,Color c)
 	m_vc=c;
 	m_vd=c;
 	m_rect=rect;
-	m_opacity=1.0;
-	m_material=useShareMaterial();
+	m_opacity=1.0f;
+
 }
 void ColorQuad2D::destroy()
 {

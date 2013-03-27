@@ -213,6 +213,10 @@
 				Name="luaext"
 				>
 				<File
+					RelativePath="..\..\src\luaext\FsLuaEntity.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\luaext\FsLuaLayer.h"
 					>
 				</File>
@@ -238,6 +242,14 @@
 				</File>
 				<File
 					RelativePath="..\..\src\luaext\FsLuaTouchEventListener.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsSysEventListener.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\luaext\FsTEntity.h"
 					>
 				</File>
 				<File
