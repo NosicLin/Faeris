@@ -1,0 +1,10 @@
+$#include "mgr/FsTextureMgr.h"
+
+class TextureMgr:public ResourceMgr 
+{
+
+}
+
+
+
+

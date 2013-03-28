@@ -9,6 +9,8 @@ SysDispatcher* Global::m_sysDispatcher=NULL;
 Window* Global::m_window=NULL;
 ScriptEngine* Global::m_scriptEngine=NULL;
 
+TextureMgr* Global::m_textureMgr=NULL;
+
 
 bool  Global::moduleInit()
 {
@@ -19,6 +21,9 @@ bool  Global::moduleInit()
 	m_director=Director::create();
 	m_window=Window::create();
 	m_render=Render::create();
+
+	/* mgr */
+	m_textureMgr=TextureMgr::create();
 
 	/* register scheduler target */
 
@@ -46,6 +51,9 @@ void Global::moduleExit()
 	m_director->forceDestroy();
 	m_touchDispatcher->forceDestroy();
 	m_scheduler->forceDestroy();
+
+	/* mgr */
+	m_textureMgr->forceDestroy();
 }
 Scheduler* Global::scheduler()
 {
@@ -92,6 +100,12 @@ void Global::setScriptEngine(ScriptEngine* se)
 	FS_SAFE_DEC_REF(m_scriptEngine);
 	FS_SAFE_ADD_REF(se);
 	m_scriptEngine=se;
+}
+
+TextureMgr* Global::textureMgr()
+{
+	FS_SAFE_ADD_REF(m_textureMgr);
+	return m_textureMgr;
 }
 
 

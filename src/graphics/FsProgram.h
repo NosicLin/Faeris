@@ -5,7 +5,7 @@
 #include "io/FsFile.h"
 #include "FsConfig.h"
 #include "core/FsObject.h"
-#include "io/FsResource.h"
+#include "mgr/FsResource.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"
 

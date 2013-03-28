@@ -6,6 +6,15 @@ static const char* s_FsStringName="FsStringObject";
 
 NS_FS_BEGIN
 
+FsString* FsString::create()
+{
+	return new FsString;
+}
+FsString* FsString::create(const char* str)
+{
+	return new FsString(str);
+}
+
 FsString::FsString(int value)
 {
 	char buf[128];

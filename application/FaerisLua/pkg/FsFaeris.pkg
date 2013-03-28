@@ -53,3 +53,8 @@ $pfile "FsRect2D.pkg"
 
 /* sys */
 $pfile "FsWindow.pkg"
+
+/* mgr */
+$pfile "FsTextureMgr.pkg"
+
+

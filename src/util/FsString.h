@@ -12,6 +12,8 @@ class FsString:public FsObject
 		std::string m_string;
 		long m_hash_code;
 	public:
+		static FsString* create();
+		static FsString* create(const char* str);
 		static bool checkType(FsObject* ob);
 
 	public: 

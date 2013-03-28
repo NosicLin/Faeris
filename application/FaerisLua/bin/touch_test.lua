@@ -48,6 +48,7 @@ sys_dipatcher:addEventListener(sys_listener)
 
 
 l=TouchEventListener:create();
+
 l.data={
 	onTouchBegin=function(listener,x,y)
 		print ("listener begin :".."x:"..x.." y:"..y)

@@ -182,22 +182,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\io\FsResource.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\io\FsResource.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\io\FsResourceMgr.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\io\FsResourceMgr.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\io\FsResPackage.cc"
 					>
 				</File>
@@ -359,58 +343,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="loader"
-				>
-				<File
-					RelativePath="..\..\..\src\loader\FsGeometryLoader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsGeometryLoader.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsLoaderUtil.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsLoaderUtil.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMaterialLoader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMaterialLoader.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMd2Loader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMd2Loader.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMeshLoader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsMeshLoader.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsProgramLoader.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\loader\FsProgramLoader.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="material"
 				>
 				<File
@@ -563,6 +495,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\util\FsLog.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\util\FsPathUtil.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\util\FsPathUtil.h"
 					>
 				</File>
 				<File
@@ -839,6 +779,34 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\scheduler\FsSchedulerTarget.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="mgr"
+				>
+				<File
+					RelativePath="..\..\..\src\mgr\FsResource.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsResource.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsResourceMgr.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsResourceMgr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsTextureMgr.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsTextureMgr.h"
 					>
 				</File>
 			</Filter>

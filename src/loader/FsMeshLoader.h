@@ -1,7 +1,7 @@
 #ifndef _FS_MESH_UTIL_H_
 #define _FS_MESH_UTIL_H_
 #include "FsMacros.h"
-#include "io/FsResourceMgr.h"
+#include "mgr/FsResourceMgr.h"
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 #include "util/FsString.h"

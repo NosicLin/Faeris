@@ -1,7 +1,7 @@
 #ifndef _FS_MESH_H_
 #define _FS_MESH_H_
 #include "FsMacros.h"
-#include "io/FsResource.h"
+#include "mgr/FsResource.h"
 #include "util/FsArray.h"
 #include "model/FsGeometry.h"
 #include "material/FsMaterial.h"

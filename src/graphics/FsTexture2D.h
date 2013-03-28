@@ -3,8 +3,8 @@
 
 #include "FsMacros.h"
 #include "FsConfig.h"
-#include "io/FsResourceMgr.h"
-#include "io/FsResource.h"
+#include "mgr/FsResourceMgr.h"
+#include "mgr/FsResource.h"
 #include "io/FsFile.h"
 #include "graphics/FsImage2D.h"
 

@@ -9,6 +9,7 @@
 #include "event/FsSysDispatcher.h"
 #include "sys/FsWindow.h"
 #include "common/FsScriptEngine.h"
+#include "mgr/FsTextureMgr.h"
 
 
 NS_FS_BEGIN
@@ -30,6 +31,10 @@ class Global
 		static ScriptEngine* scriptEngine();
 		static void setScriptEngine(ScriptEngine* se);
 
+
+		/* mgr */
+		static TextureMgr* textureMgr();
+
 	private:
 		static Scheduler* m_scheduler;
 		static Director* m_director;
@@ -38,6 +43,7 @@ class Global
 		static SysDispatcher* m_sysDispatcher;
 		static Window* m_window;
 		static ScriptEngine* m_scriptEngine;
+		static TextureMgr* m_textureMgr;
 
 
 };

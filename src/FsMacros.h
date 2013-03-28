@@ -214,7 +214,6 @@ enum
 
 /* class name */
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
-#define FS_TEXTURE2D_CLASS_NAME "Texture2D"
 #define FS_SYSFILE_CLASS_NAME "SysFile"
 
 
@@ -253,6 +252,10 @@ enum
 
 /* graphics */
 #define FS_RENDER_CLASS_NAME "Render"
+#define FS_TEXTURE2D_CLASS_NAME "Texture2D"
+
+/* mgr */
+#define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"
 
 
 

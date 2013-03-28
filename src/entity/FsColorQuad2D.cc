@@ -132,6 +132,7 @@ float ColorQuad2D::getOpacity()
 
 ColorQuad2D::ColorQuad2D()
 {
+	m_opacity=1.0f;
 	m_rect.set(0,0,0,0);
 	setColor(Color::WHITE);
 	m_material=useShareMaterial();

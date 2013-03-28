@@ -1,3 +1,4 @@
+
 local scheduler=share:scheduler();
 local director=share:director();
 local render=share:render();
@@ -51,7 +52,7 @@ scene1.data= {
 	line_nu=0,
 
 	onUpdate=function(scene,dt)
-		--print("time:"..dt)
+		print("time:"..dt)
 		scene:update(dt)
 	end,
 }
@@ -112,126 +113,29 @@ touch_layer:setTouchEnabled(true);
 
 
 entity_layer=Layer2D:create();
-entity_layer:setViewArea(-200,-200,width,height);
+entity_layer:setViewArea(1000,1000,width,height);
 
-cquad=ColorQuad2D:create(Rect2D(-10,-10,20,20),Color(255,255,0,255));
-cquad2=ColorQuad2D:create(Rect2D(-150,-150,300,300),Color(0,255,255,30));
---cquad2:setPosition(300,300,0);
-
-cquad_c1=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(255,255,255))
-cquad_c1.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*130)
-	end
-
-}
-cquad_c1:setPosition(200,200,0)
-
-cquad_c2=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(255,0,255))
-cquad_c2:setPosition(200,-200,0)
-cquad_c2.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*255)
-	end
-
-}
-
-cquad_c3=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(0,255,255))
-cquad_c3:setPosition(-200,-200,0)
-cquad_c3.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*200)
-	end
-
-}
-
-cquad_c4=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(255,255,0))
-cquad_c4:setPosition(-200,200,0)
-cquad_c4.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*105)
-	end
-
-}
-
-cquad_c5=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(255,0,0))
-cquad_c5:setPosition(0,200,0)
-cquad_c5.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*105)
-	end
-
-}
-
-cquad_c6=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(0,255,0))
-cquad_c6:setPosition(0,-200,0)
-cquad_c6.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*105)
-	end
-
-}
-
-cquad_c7=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(0,0,255))
-cquad_c7:setPosition(200,0,0)
-cquad_c7.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*105)
-	end
-
-}
-
-
-cquad_c8=ColorQuad2D:create(Rect2D(-20,-20,40,40),Color(0,255,0))
-cquad_c8:setPosition(-200,0,0)
-cquad_c8.data=
-{
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*105)
-	end
-
-}
-cquad2:addChild(cquad_c1)
-cquad2:addChild(cquad_c2)
-cquad2:addChild(cquad_c3)
-cquad2:addChild(cquad_c4)
-cquad2:addChild(cquad_c5)
-cquad2:addChild(cquad_c6)
-cquad2:addChild(cquad_c7)
-cquad2:addChild(cquad_c8)
-
-
-
-
-
+cquad=ColorQuad2D:create(Rect2D(0,0,20,20),Color(255,255,0,255));
+cquad2=ColorQuad2D:create(Rect2D(-200,-200,400,400),Color(0,255,255,30));
 cquad2:setColor(Color(255,255,0),ColorQuad2D.VERTEX_A)
 cquad2:setColor(Color(255,0,255),ColorQuad2D.VERTEX_B)
 cquad2:setColor(Color(0,255,255),ColorQuad2D.VERTEX_C)
 cquad2:setColor(Color(255,255,255),ColorQuad2D.VERTEX_D)
 
---cquad:setOpacity(0.1)
+cquad:setOpacity(0.1)
 cquad2:setOpacity(1.0);
 cquad2.data={
-	speed=0.5,
+	speed=0.1,
 	onUpdate=function(self,dt) 
 		self:rotateZ(self.data.speed)
 	end
 }
-
 --cquad2:setPosition(0,300,0)
 
 group=Entity:create();
 
 group:addChild(cquad2);
---group:addChild(cquad);
---group:addChild(cquad_c1);
+group:addChild(cquad);
 
 entity_layer.data={
 	speed=0.1,
@@ -244,12 +148,13 @@ entity_layer.data={
 	onTouchMove=function(self,x,y)
 		x,y=self:toLayerCoord(x,y)
 		print ("x:"..x.." y:"..y)
+
 		group:setPosition(x,y,0)
 		self.data.speed=self.data.speed+0.1
-		--cquad2.data.speed=self.data.speed
+		cquad2.data.speed=self.data.speed
 
 		return false;
-	end
+	end,
 }
 entity_layer:setTouchEnabled(true);
 --cquad2:setPosition(120,200,0);

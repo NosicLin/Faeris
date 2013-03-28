@@ -30,57 +30,7 @@ void Entity::update(float /*dt*/)
 
 void Entity::draw(Render* r,bool updateMatrix)
 {
-	if(updateMatrix)
-	{
-		updateWorldMatrix();
-	}
-	r->pushMatrix();
-	r->mulMatrix(m_worldMatrix);
 
-//#define FS_SCENE_COORD_DEBUG
-#ifdef FS_SCENE_COORD_DEBUG
-	r->setMaterial(NULL);
-	r->setProgram(NULL);
-	r->drawLine(Vector3(-1.0,0,0),Vector3(1.0,0,0),2,Color(255,0,0));
-
-	r->drawLine(Vector3(0.95f,0.05f,0),Vector3(1.0,0,0),1,Color(255,0,0));
-	r->drawLine(Vector3(0.95f,-0.05f,0),Vector3(1.0,0,0),1,Color(255,0,0));
-
-	r->drawLine(Vector3(0.95f,0,0.05f),Vector3(1.0,0,0),1,Color(255,0,0));
-	r->drawLine(Vector3(0.95f,0,-0.05f),Vector3(1.0,0,0),1,Color(255,0,0));
-
-//	--label X
-	r->drawLine(Vector3(1.0,0.05f,0),Vector3(1.06f,-0.05f,0),1,Color(255,0,0));
-	r->drawLine(Vector3(1.0,-0.05f,0),Vector3(1.06f,0.05f,0),1,Color(255,0,0));
-
-
-
-//	--axis Y
-	r->drawLine(Vector3(0,1,0),Vector3(0,-1.0,0),2,Color(0,255,0));
-
-//	--arrow >
-	r->drawLine(Vector3(-0.05f,0.95f,0),Vector3(0,1.0,0),1,Color(0,255,0));
-	r->drawLine(Vector3(0.05f,0.95f,0),Vector3(0,1.0,0),1,Color(0,255,0));
-
-	r->drawLine(Vector3(0,0.95f,-0.05f),Vector3(0,1.0,0),1,Color(0,255,0));
-	r->drawLine(Vector3(0,0.95f,0.05f),Vector3(0,1.0,0),1,Color(0,255,0));
-
-//	--label Y
-	r->drawLine(Vector3(0,1.01f,0),Vector3(0,1.07f,0),1,Color(0,255,0));
-	r->drawLine(Vector3(-0.03f,1.12f,0),Vector3(0,1.07f,0),1,Color(0,255,0));
-	r->drawLine(Vector3(0.03f,1.12f,0),Vector3(0,1.07f,0),1,Color(0,255,0));
-
-
-//	--axis Z
-	r->drawLine(Vector3(0,0,-1.0),Vector3(0,0,1.0),2,Color(0,0,255));
-
-//	--arrow >
-	r->drawLine(Vector3(0.05f,0,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
-	r->drawLine(Vector3(-0.05f,0,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
-	r->drawLine(Vector3(0,0.05f,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
-	r->drawLine(Vector3(0,-0.05f,0.95f),Vector3(0,0,1.0),1,Color(0,0,255));
-#endif 
-	r->popMatrix();
 }
 void Entity::init()
 {

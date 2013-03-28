@@ -2,7 +2,7 @@
 #define _FS_GEOMETRY_LOADER_H_
 
 #include "FsMacros.h"
-#include "io/FsResourceMgr.h"
+#include "mgr/FsResourceMgr.h"
 
 
 NS_FS_BEGIN

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 03/27/13 22:30:17.
+** Generated automatically by tolua++-1.0.92 on 03/28/13 21:57:15.
 */
 
 #ifndef __cplusplus
@@ -37,6 +37,7 @@ TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
 #include "sys/FsWindow.h"
+#include "mgr/FsTextureMgr.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -89,7 +90,9 @@ static int tolua_collect_Vector3 (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"LuaColorQuad2D");
+ tolua_usertype(tolua_S,"TextureMgr");
  tolua_usertype(tolua_S,"SysDispatcher");
+ tolua_usertype(tolua_S,"ResourceMgr");
  tolua_usertype(tolua_S,"Color");
  tolua_usertype(tolua_S,"Window");
  tolua_usertype(tolua_S,"TouchDispatcher");
@@ -283,6 +286,34 @@ static int tolua_FsFaeris_share_render00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'render'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: textureMgr of class  Global */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_share_textureMgr00
+static int tolua_FsFaeris_share_textureMgr00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Global",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   TextureMgr* tolua_ret = (TextureMgr*)  Global::textureMgr();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"TextureMgr");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'textureMgr'.",&tolua_err);
  return 0;
 #endif
 }
@@ -9661,6 +9692,7 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"sysDispatcher",tolua_FsFaeris_share_sysDispatcher00);
    tolua_function(tolua_S,"window",tolua_FsFaeris_share_window00);
    tolua_function(tolua_S,"render",tolua_FsFaeris_share_render00);
+   tolua_function(tolua_S,"textureMgr",tolua_FsFaeris_share_textureMgr00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"FsObject","FsObject","",NULL);
   tolua_beginmodule(tolua_S,"FsObject");
@@ -10073,6 +10105,9 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getHeight",tolua_FsFaeris_Window_getHeight00);
    tolua_function(tolua_S,"getPosX",tolua_FsFaeris_Window_getPosX00);
    tolua_function(tolua_S,"getPosY",tolua_FsFaeris_Window_getPosY00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"TextureMgr","TextureMgr","ResourceMgr",NULL);
+  tolua_beginmodule(tolua_S,"TextureMgr");
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

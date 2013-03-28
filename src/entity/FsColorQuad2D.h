@@ -48,6 +48,7 @@ class ColorQuad2D:public Entity
 		ColorQuad2D();
 		~ColorQuad2D();
 		void init(const Rect2D& rect,Color c);
+		void init();
 		void destroy();
 
 	private:

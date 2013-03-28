@@ -46,7 +46,7 @@ Image2D::ImageType FsUtil_ImageType(const char* name)
 	return Image2D::IMAGE_UNKWON;
 }
 
-Image2D* FsUtil_ImageReader(FsFile* file,int image_type)
+Image2D* FsUtil_ImageReader(FsFile* file,Image2D::ImageType image_type)
 {
 	switch(image_type)
 	{

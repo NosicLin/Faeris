@@ -1,5 +1,0 @@
-type: "mesh.static"
-version:"v1.0"
-name:"head"
-geometry:"cube.gry"
-material:"cube.mat"

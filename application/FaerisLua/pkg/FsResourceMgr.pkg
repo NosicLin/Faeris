@@ -1,0 +1,15 @@
+$#include "mgr/FsResourceMgr.h"
+class ResourceMgr:public FsObject
+{
+	public:
+		void addSearchPath(const char* path);
+		bool existSearchPath(const char* path);
+		void removeSearchPath(const char* path);
+
+		Resource* load(const char* path);
+		void remove(Resource* res);
+		void add(const char* name,Resource* res);
+};
+
+
+
