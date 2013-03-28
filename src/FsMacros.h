@@ -220,6 +220,7 @@ enum
 /* entity */
 #define FS_ENTITY_CLASS_NAME "Entity"
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
+#define FS_QUAD2D_CLASS_NAME   "Quad2D"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"
@@ -235,6 +236,7 @@ enum
 
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
+#define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"
 
 /* sys */
 #define FS_WINDOW_CLASS_NAME "Window"

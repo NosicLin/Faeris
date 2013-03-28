@@ -20,7 +20,7 @@ class ResourceMgr:public FsObject
 				bool operator()(FsString* left,FsString* right)
 				{
 					int cmp=left->compare(*right);
-					if(cmp<=0)
+					if(cmp<0)
 					{
 						return true;
 					}
@@ -48,7 +48,6 @@ class ResourceMgr:public FsObject
 		Resource* loadFromSearchPath(const char* path);
 
 		void removeCache(const char* name);
-		Resource* getFromCache(const char* name);
 		Resource* loadFromPath(const char* path);
 		Resource* findFromCache(FsString* name);
 

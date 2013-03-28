@@ -58,9 +58,9 @@ scene1.data= {
 }
 
 
-fade_layer=ColorLayer:create()
 touch_layer=ColorLayer:create()
 
+fade_layer=ColorLayer:create()
 fade_layer.data={
 	color=0;
 	onUpdate=function(self,dt)

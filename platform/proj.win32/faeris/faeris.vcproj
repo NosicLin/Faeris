@@ -362,6 +362,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\material\FsQuad2DMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsQuad2DMaterial.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\material\FsShaderMaterial.cc"
 					>
 				</File>
@@ -703,6 +711,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\entity\FsEntity.inl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsQuad2D.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsQuad2D.h"
 					>
 				</File>
 			</Filter>

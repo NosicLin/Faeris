@@ -21,6 +21,7 @@ $pfile "FsSysDispatcher.pkg"
 /* entity */
 $pfile "FsEntity.pkg"
 $pfile "FsLuaColorQuad2D.pkg"
+$pfile "FsQuad2D.pkg"
 
 
 /* scheduler */

@@ -1,0 +1,30 @@
+$#include "entity/FsQuad2D.h"
+class Quad2D:public Entity 
+{
+	public:
+		static Quad2D* create(const char* tex);
+
+	public:
+
+		/* color */
+		void setColor(Color c);
+		Color getColor();
+
+		/* opacity */
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		/* texture */
+		void setTexture(Texture2D* tex);
+		Texture2D* getTexture();
+
+		/* texture coord */
+		void setTextureCoord(const Rect2D& coord);
+		Rect2D getTextureCoord();
+
+
+		/* Rect2D */
+		void setRect2D(const Rect2D& rect);
+		Rect2D getRect2D();
+};
+

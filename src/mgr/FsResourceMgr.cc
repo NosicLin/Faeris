@@ -49,7 +49,7 @@ Resource* ResourceMgr::load(const char* file_name)
 	}
 
 	/* direct load */
-	ret=loadFromSearchPath(file_name);
+	ret=loadFromPath(file_name);
 
 	if(ret==NULL)
 	{
