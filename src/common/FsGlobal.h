@@ -10,6 +10,7 @@
 #include "sys/FsWindow.h"
 #include "common/FsScriptEngine.h"
 #include "mgr/FsTextureMgr.h"
+#include "mgr/FsFontTTFDataMgr.h"
 
 
 NS_FS_BEGIN
@@ -34,6 +35,7 @@ class Global
 
 		/* mgr */
 		static TextureMgr* textureMgr();
+		static FontTTFDataMgr* fontTTFDataMgr();
 
 	private:
 		static Scheduler* m_scheduler;
@@ -44,6 +46,7 @@ class Global
 		static Window* m_window;
 		static ScriptEngine* m_scriptEngine;
 		static TextureMgr* m_textureMgr;
+		static FontTTFDataMgr* m_fontTTFDataMgr;
 
 
 };

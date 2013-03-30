@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="lua.lib tolua++.lib faeris.lib opengl32.lib glew32.lib libpng.lib zlib.lib"
+				AdditionalDependencies="lua.lib tolua++.lib faeris.lib opengl32.lib glew32.lib libpng.lib zlib.lib freetype.lib"
 				OutputFile="../../bin/Lua_Faeris.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../../build/win32/prebuild/debug"

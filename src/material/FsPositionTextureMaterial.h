@@ -1,13 +1,14 @@
-#ifndef _FS_QUAD_2D_MATERIAL_H_
-#define _FS_QUAD_2D_MATERIAL_H_
+#ifndef _FS_POSITION_TEXTURE_MATERIAL_H_
+#define _FS_POSITION_TEXTURE_MATERIAL_H_
 #include "FsMacros.h"
 #include "material/FsMaterial.h"
 
 NS_FS_BEGIN
-class Quad2DMaterial: public Material
+class PositionTextureMaterial: public Material
 {
 	public:
-		static Quad2DMaterial* create();
+		static PositionTextureMaterial* create();
+		static PositionTextureMaterial* shareMaterial();
 
 	public:
 		void setColor(Color c);
@@ -23,8 +24,8 @@ class Quad2DMaterial: public Material
 		virtual void unload(Render* );
 		virtual const char* className();
 	protected:
-		Quad2DMaterial();
-		~Quad2DMaterial();
+		PositionTextureMaterial();
+		~PositionTextureMaterial();
 
 
 
@@ -45,5 +46,5 @@ class Quad2DMaterial: public Material
 
 NS_FS_END
 
-#endif /*_FS_QUAD_2D_MATERIAL_H_*/
+#endif /*_FS_POSITION_TEXTURE_MATERIAL_H_*/
 

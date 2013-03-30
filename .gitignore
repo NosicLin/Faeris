@@ -18,7 +18,8 @@ grammar.tab.c
 *.dvi
 *.out
 *~
-
+*.ttf
+*.ttc
 *.jpg
 *.tga
 *.lib

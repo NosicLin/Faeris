@@ -221,6 +221,7 @@ enum
 #define FS_ENTITY_CLASS_NAME "Entity"
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
 #define FS_QUAD2D_CLASS_NAME   "Quad2D"
+#define FS_LABEL_TTF_CLASS_NAME "LabelTTF"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"
@@ -255,9 +256,13 @@ enum
 /* graphics */
 #define FS_RENDER_CLASS_NAME "Render"
 #define FS_TEXTURE2D_CLASS_NAME "Texture2D"
+#define FS_GLYPH_CLASS_NAME  "Glyph"
+#define FS_FONT_TTF_DATA_CLASS_NAME "FontTTFData"
+#define FS_FONT_TTF_CLASS_NAME "FontTTF"
 
 /* mgr */
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"
+#define FS_FONT_TTF_DATA_MGR_CLASS_NAME  "FontTTFDataMgr"
 
 
 
