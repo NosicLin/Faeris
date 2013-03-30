@@ -48,7 +48,7 @@ sys_dipatcher:addEventListener(sys_listener)
 scene=Scene:create();
 
 layer=Layer2D:create();
-layer:setViewArea(0,0,width,height);
+layer:setViewArea(-200,-200,width,height);
 
 layer2=Layer2D:create();
 layer2:setViewArea(0,0,width,height);
@@ -58,14 +58,48 @@ ground:setPosition(width/2,height/2,0);
 
 tr1=Quad2D:create("tree.png");
 tr1:setPosition(100,100,0);
+tr1:setColor(Color(255,0,0));
+
+tr1:setRect2D(Rect2D(-50,-50,100,100));
+
+
 tr2=Quad2D:create("tree.png");
 tr2:setPosition(200,200,0)
+tr2:setColor(Color(0,255,0))
+tr2.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(0.5)
+	end
+}
+rect=tr2:getRect2D();
+rect.x=0;
+rect.y=0;
+tr2:setRect2D(rect);
+
+
+
 tr3=Quad2D:create("tree.png");
 tr3:setPosition(300,200,0)
+tr3:setColor(Color(0,0,255));
+tr3.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(1)
+	end
+}
+
+
 tr4=Quad2D:create("tree.png");
 tr4:setPosition(500,100,0);
+tr4:setOpacity(0.5)
+tr4.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(0.2)
+	end
+}
+
 tr5=Quad2D:create("tree.png");
 tr5:setPosition(400,400,0)
+tr5:setColor(Color(255,0,255,100));
 
 
 layer2:add(ground);

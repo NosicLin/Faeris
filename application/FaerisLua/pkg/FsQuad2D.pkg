@@ -1,5 +1,5 @@
 $#include "entity/FsQuad2D.h"
-class Quad2D:public Entity 
+class Quad2D@__Quad2D:public Entity 
 {
 	public:
 		static Quad2D* create(const char* tex);

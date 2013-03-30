@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 03/28/13 23:55:02.
+** Generated automatically by tolua++-1.0.92 on 03/29/13 20:55:20.
 */
 
 #ifndef __cplusplus
@@ -23,6 +23,7 @@ TOLUA_API int  tolua_FsFaeris_open (lua_State* tolua_S);
 #include "luaext/FsLuaEntity.h"
 #include "luaext/FsLuaEntity.h"
 #include "entity/FsQuad2D.h"
+#include "luaext/FsLuaEntity.h"
 #include "scheduler/FsScheduler.h"
 #include "luaext/FsLuaScene.h"
 #include "scene/FsDirector.h"
@@ -118,12 +119,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"FsArray");
  tolua_usertype(tolua_S,"Vector4");
  tolua_usertype(tolua_S,"LuaSysEventListener");
+ tolua_usertype(tolua_S,"LuaColorQuad2D");
  tolua_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
- tolua_usertype(tolua_S,"LuaColorQuad2D");
  tolua_usertype(tolua_S,"Rect2D");
  tolua_usertype(tolua_S,"LuaTouchEventListener");
  tolua_usertype(tolua_S,"Global");
+ tolua_usertype(tolua_S,"LuaQuad2D");
 }
 
 /* method: scheduler of class  Global */
@@ -2178,8 +2180,8 @@ static int tolua_FsFaeris_ColorQuad2D_getOpacity00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: create of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_create00
-static int tolua_FsFaeris_Quad2D_create00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_create00
+static int tolua_FsFaeris___Quad2D_create00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2208,8 +2210,8 @@ static int tolua_FsFaeris_Quad2D_create00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setColor of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_setColor00
-static int tolua_FsFaeris_Quad2D_setColor00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_setColor00
+static int tolua_FsFaeris___Quad2D_setColor00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2241,8 +2243,8 @@ static int tolua_FsFaeris_Quad2D_setColor00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getColor of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_getColor00
-static int tolua_FsFaeris_Quad2D_getColor00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_getColor00
+static int tolua_FsFaeris___Quad2D_getColor00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2283,8 +2285,8 @@ static int tolua_FsFaeris_Quad2D_getColor00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setOpacity of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_setOpacity00
-static int tolua_FsFaeris_Quad2D_setOpacity00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_setOpacity00
+static int tolua_FsFaeris___Quad2D_setOpacity00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2316,8 +2318,8 @@ static int tolua_FsFaeris_Quad2D_setOpacity00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getOpacity of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_getOpacity00
-static int tolua_FsFaeris_Quad2D_getOpacity00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_getOpacity00
+static int tolua_FsFaeris___Quad2D_getOpacity00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2348,8 +2350,8 @@ static int tolua_FsFaeris_Quad2D_getOpacity00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setTexture of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_setTexture00
-static int tolua_FsFaeris_Quad2D_setTexture00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_setTexture00
+static int tolua_FsFaeris___Quad2D_setTexture00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2381,8 +2383,8 @@ static int tolua_FsFaeris_Quad2D_setTexture00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getTexture of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_getTexture00
-static int tolua_FsFaeris_Quad2D_getTexture00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_getTexture00
+static int tolua_FsFaeris___Quad2D_getTexture00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2413,8 +2415,8 @@ static int tolua_FsFaeris_Quad2D_getTexture00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setTextureCoord of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_setTextureCoord00
-static int tolua_FsFaeris_Quad2D_setTextureCoord00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_setTextureCoord00
+static int tolua_FsFaeris___Quad2D_setTextureCoord00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2446,8 +2448,8 @@ static int tolua_FsFaeris_Quad2D_setTextureCoord00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getTextureCoord of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_getTextureCoord00
-static int tolua_FsFaeris_Quad2D_getTextureCoord00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_getTextureCoord00
+static int tolua_FsFaeris___Quad2D_getTextureCoord00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2488,8 +2490,8 @@ static int tolua_FsFaeris_Quad2D_getTextureCoord00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setRect2D of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_setRect2D00
-static int tolua_FsFaeris_Quad2D_setRect2D00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_setRect2D00
+static int tolua_FsFaeris___Quad2D_setRect2D00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2521,8 +2523,8 @@ static int tolua_FsFaeris_Quad2D_setRect2D00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getRect2D of class  Quad2D */
-#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_getRect2D00
-static int tolua_FsFaeris_Quad2D_getRect2D00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Quad2D_getRect2D00
+static int tolua_FsFaeris___Quad2D_getRect2D00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2557,6 +2559,36 @@ static int tolua_FsFaeris_Quad2D_getRect2D00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getRect2D'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaQuad2D */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_Quad2D_create00
+static int tolua_FsFaeris_Quad2D_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaQuad2D",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* tex = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   LuaQuad2D* tolua_ret = (LuaQuad2D*)  LuaQuad2D::create(tex);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"LuaQuad2D");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
  return 0;
 #endif
 }
@@ -10172,19 +10204,23 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setOpacity",tolua_FsFaeris_ColorQuad2D_setOpacity00);
    tolua_function(tolua_S,"getOpacity",tolua_FsFaeris_ColorQuad2D_getOpacity00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"Quad2D","Quad2D","Entity",NULL);
+  tolua_cclass(tolua_S,"__Quad2D","Quad2D","Entity",NULL);
+  tolua_beginmodule(tolua_S,"__Quad2D");
+   tolua_function(tolua_S,"create",tolua_FsFaeris___Quad2D_create00);
+   tolua_function(tolua_S,"setColor",tolua_FsFaeris___Quad2D_setColor00);
+   tolua_function(tolua_S,"getColor",tolua_FsFaeris___Quad2D_getColor00);
+   tolua_function(tolua_S,"setOpacity",tolua_FsFaeris___Quad2D_setOpacity00);
+   tolua_function(tolua_S,"getOpacity",tolua_FsFaeris___Quad2D_getOpacity00);
+   tolua_function(tolua_S,"setTexture",tolua_FsFaeris___Quad2D_setTexture00);
+   tolua_function(tolua_S,"getTexture",tolua_FsFaeris___Quad2D_getTexture00);
+   tolua_function(tolua_S,"setTextureCoord",tolua_FsFaeris___Quad2D_setTextureCoord00);
+   tolua_function(tolua_S,"getTextureCoord",tolua_FsFaeris___Quad2D_getTextureCoord00);
+   tolua_function(tolua_S,"setRect2D",tolua_FsFaeris___Quad2D_setRect2D00);
+   tolua_function(tolua_S,"getRect2D",tolua_FsFaeris___Quad2D_getRect2D00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"Quad2D","LuaQuad2D","Quad2D",NULL);
   tolua_beginmodule(tolua_S,"Quad2D");
    tolua_function(tolua_S,"create",tolua_FsFaeris_Quad2D_create00);
-   tolua_function(tolua_S,"setColor",tolua_FsFaeris_Quad2D_setColor00);
-   tolua_function(tolua_S,"getColor",tolua_FsFaeris_Quad2D_getColor00);
-   tolua_function(tolua_S,"setOpacity",tolua_FsFaeris_Quad2D_setOpacity00);
-   tolua_function(tolua_S,"getOpacity",tolua_FsFaeris_Quad2D_getOpacity00);
-   tolua_function(tolua_S,"setTexture",tolua_FsFaeris_Quad2D_setTexture00);
-   tolua_function(tolua_S,"getTexture",tolua_FsFaeris_Quad2D_getTexture00);
-   tolua_function(tolua_S,"setTextureCoord",tolua_FsFaeris_Quad2D_setTextureCoord00);
-   tolua_function(tolua_S,"getTextureCoord",tolua_FsFaeris_Quad2D_getTextureCoord00);
-   tolua_function(tolua_S,"setRect2D",tolua_FsFaeris_Quad2D_setRect2D00);
-   tolua_function(tolua_S,"getRect2D",tolua_FsFaeris_Quad2D_getRect2D00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Scheduler","Scheduler","FsObject",NULL);
   tolua_beginmodule(tolua_S,"Scheduler");

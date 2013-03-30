@@ -6,6 +6,7 @@
 #include "luaext/FsTEntity.h"
 #include "entity/FsEntity.h"
 #include "entity/FsColorQuad2D.h"
+#include "entity/FsQuad2D.h"
 
 NS_FS_BEGIN
 class LuaEntity:public TEntity<Entity>
@@ -43,14 +44,46 @@ class LuaColorQuad2D:public TEntity<ColorQuad2D>
 	public:
 		virtual const char* className()
 		{
-			return FS_LUA_COLOR_QUAD_CLASS_NAME;
+			return FS_LUA_COLOR_QUAD2D_CLASS_NAME;
 		}
 	protected:
 		LuaColorQuad2D(){}
 		~LuaColorQuad2D(){}
 };
+class LuaQuad2D:public TEntity<Quad2D>
+{
+	public:
+		static LuaQuad2D* create(const char* name)
+		{
+			LuaQuad2D* ret=new LuaQuad2D();
+			if(!ret->init(name))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_QUAD2D_CLASS_NAME;
+		}
+	protected:
+		LuaQuad2D(){}
+		~LuaQuad2D(){}
+};
 
 NS_FS_END
 
 #endif /*_FS_LUA_ENTITY_H_*/
+
+
+
+
+
+
+
+
+
+
 
