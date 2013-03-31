@@ -8,7 +8,7 @@
 
 NS_FS_BEGIN
 class Texture2D;
-class Quad2DMaterial;
+class PositionTextureMaterial;
 class Quad2D:public Entity 
 {
 	public:
@@ -55,7 +55,7 @@ class Quad2D:public Entity
 		Color m_color;
 		float m_opacity;
 
-		Quad2DMaterial* m_material;
+		PositionTextureMaterial* m_material;
 };
 
 

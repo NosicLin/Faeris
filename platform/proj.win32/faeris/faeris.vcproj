@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../src/support;../../../src;../../../platform/thirdparty/win32"
+				AdditionalIncludeDirectories="../../../src/support;../../../src;../../../platform/thirdparty/win32/freetype;../../../platform/thirdparty/win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -294,6 +294,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\graphics\FsFontTTF.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\graphics\FsFontTTF.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\graphics\FsImage2D.cc"
 					>
 				</File>
@@ -362,11 +370,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\material\FsQuad2DMaterial.cc"
+					RelativePath="..\..\..\src\material\FsPositionTextureMaterial.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\material\FsQuad2DMaterial.h"
+					RelativePath="..\..\..\src\material\FsPositionTextureMaterial.h"
 					>
 				</File>
 				<File
@@ -662,30 +670,38 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="encrypt"
+					Name="data"
 					>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsBase64.cc"
+						RelativePath="..\..\..\src\support\data\FsBase64.cc"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsBase64.h"
+						RelativePath="..\..\..\src\support\data\FsBase64.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsDeflate.cc"
+						RelativePath="..\..\..\src\support\data\FsDeflate.cc"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsDeflate.h"
+						RelativePath="..\..\..\src\support\data\FsDeflate.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsHash.cc"
+						RelativePath="..\..\..\src\support\data\FsHash.cc"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\encrypt\FsHash.h"
+						RelativePath="..\..\..\src\support\data\FsHash.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\support\data\FsIconv.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\support\data\FsIconv.h"
 						>
 					</File>
 				</Filter>
@@ -711,6 +727,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\entity\FsEntity.inl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsLabelTTF.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsLabelTTF.h"
 					>
 				</File>
 				<File
@@ -801,6 +825,14 @@
 			<Filter
 				Name="mgr"
 				>
+				<File
+					RelativePath="..\..\..\src\mgr\FsFontTTFDataMgr.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsFontTTFDataMgr.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\src\mgr\FsResource.cc"
 					>

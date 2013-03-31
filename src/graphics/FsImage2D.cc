@@ -17,6 +17,9 @@ uint Image2D::PixelFormatSize(PixelFormat f)
 		case PIXEL_RGBA8888:
 			pixel_bytes=4;
 			break;
+		case PIXEL_GRAY8:
+			pixel_bytes=1;
+			break;
 		default:
 			pixel_bytes=0;
 			break;

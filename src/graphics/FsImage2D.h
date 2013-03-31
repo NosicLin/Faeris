@@ -12,6 +12,7 @@ class Image2D:public FsObject
 			PIXEL_UNKOWN=0,
 			PIXEL_RGB888,
 			PIXEL_RGBA8888,
+			PIXEL_GRAY8,
 		};
 
 		enum ImageType

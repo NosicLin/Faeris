@@ -1,4 +1,4 @@
-#include "material/FsQuad2DMaterial.h"
+#include "material/FsPositionTextureMaterial.h"
 #include "graphics/FsProgram.h"
 
 NS_FS_BEGIN
@@ -27,43 +27,56 @@ void main()							\n\
 }														\n\
 ";
 
+PositionTextureMaterial* s_shareMatrial=NULL;
 
-Quad2DMaterial* Quad2DMaterial::create()
+PositionTextureMaterial* PositionTextureMaterial::shareMaterial()
 {
-	return new Quad2DMaterial();
+	if(s_shareMatrial==NULL)
+	{
+		s_shareMatrial=PositionTextureMaterial::create();
+		return s_shareMatrial;
+	}
+	s_shareMatrial->addRef();
+	return s_shareMatrial;
 }
-void Quad2DMaterial::setColor(Color c)
+
+
+PositionTextureMaterial* PositionTextureMaterial::create()
+{
+	return new PositionTextureMaterial();
+}
+void PositionTextureMaterial::setColor(Color c)
 {
 	m_color=c;
 }
-Color Quad2DMaterial::getColor()
+Color PositionTextureMaterial::getColor()
 {
 	return m_color;
 }
 
 
-void Quad2DMaterial::setOpacity(float opacity)
+void PositionTextureMaterial::setOpacity(float opacity)
 {
 	m_opacity=opacity;
 }
 
-float Quad2DMaterial::getOpacity()
+float PositionTextureMaterial::getOpacity()
 {
 	return m_opacity;
 }
 
 
-int Quad2DMaterial::getPostionLocaition()
+int PositionTextureMaterial::getPostionLocaition()
 {
 	return m_positionAttribute;
 }
-int Quad2DMaterial::getTexCoordLocation()
+int PositionTextureMaterial::getTexCoordLocation()
 {
 	return m_textcoordAttribute;
 }
 
 
-void Quad2DMaterial::load(Render* r)
+void PositionTextureMaterial::load(Render* r)
 {
 	float color[4]=
 	{
@@ -81,11 +94,11 @@ void Quad2DMaterial::load(Render* r)
 	r->setUniform(m_colorUniform,Render::U_F_4,1,color);
 	r->setUniform(m_textureUniform,Render::U_I_1,1,&texture0);
 }
-void Quad2DMaterial::unload(Render* )
+void PositionTextureMaterial::unload(Render* )
 {
 
 }
-const char* Quad2DMaterial::className()
+const char* PositionTextureMaterial::className()
 {
 	return FS_QUAD_2D_MATERIAL_CLASS_NAME;
 }
@@ -93,7 +106,7 @@ const char* Quad2DMaterial::className()
 
 
 
-Quad2DMaterial::Quad2DMaterial()
+PositionTextureMaterial::PositionTextureMaterial()
 {
 	m_program=Program::create(quad_material_vert_str,sizeof(quad_material_vert_str),
 							  quad_material_frag_str,sizeof(quad_material_frag_str));
@@ -130,7 +143,7 @@ Quad2DMaterial::Quad2DMaterial()
 	m_opacity=1.0f;
 }
 
-Quad2DMaterial::~Quad2DMaterial()
+PositionTextureMaterial::~PositionTextureMaterial()
 {
 	m_program->decRef();
 }

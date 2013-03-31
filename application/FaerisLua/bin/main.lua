@@ -1,3 +1,4 @@
+
 local scheduler=share:scheduler();
 local director=share:director();
 local render=share:render();
@@ -5,6 +6,14 @@ local window=share:window();
 local width=window:getWidth()
 local height=window:getHeight()
 
+font=FontTTF:create("simsun.ttc",50)
+--font=FontTTF:create("STXIHEI.TTF",50)
+--font=FontTTF:create("CARTAZ.TTF",18)
+label1=LabelTTF:create("这是一个美丽的世界，向少年一样飞驰。",font);
+label1:setPosition(20,300,0);
+--label1:setAlign(LabelTTF.ALIGN_H_CENTER,LabelTTF.ALIGN_V_BOTTOM)
+label1:setColor(Color(255,0,0))
+--label1:setOpacity(0.5)
 
 render:setViewport(0,0,width,height);
 local proj_matrix=Matrix4()
@@ -17,6 +26,8 @@ render:setProjectionMatrix(proj_matrix)
 
 render:setClearColor(Color.BLACK)
 
+scene2=Scene:create()
+scene1=Scene:create();
 
 touch_dispatcher=share:touchDispatcher();
 sys_dipatcher=share:sysDispatcher();
@@ -42,72 +53,28 @@ sys_listener.data={
 }
 sys_dipatcher:addEventListener(sys_listener)
 
+time=0;
 
+str=0
+scene1.data= {
+	name="first Scene",
+	line={},
+	line_nu=0,
 
-
-scene=Scene:create();
-
-layer=Layer2D:create();
-layer:setViewArea(-200,-200,width,height);
-
-layer2=Layer2D:create();
-layer2:setViewArea(0,0,width,height);
-
-ground=Quad2D:create("bg.png");
-ground:setPosition(width/2,height/2,0);
-
-tr1=Quad2D:create("tree.png");
-tr1:setPosition(100,100,0);
-tr1:setColor(Color(255,0,0));
-
-tr1:setRect2D(Rect2D(-50,-50,100,100));
-
-
-tr2=Quad2D:create("tree.png");
-tr2:setPosition(200,200,0)
-tr2:setColor(Color(0,255,0))
-tr2.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(0.5)
-	end
-}
-rect=tr2:getRect2D();
-rect.x=0;
-rect.y=0;
-tr2:setRect2D(rect);
-
-
-
-tr3=Quad2D:create("tree.png");
-tr3:setPosition(300,200,0)
-tr3:setColor(Color(0,0,255));
-tr3.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(1)
-	end
+	onUpdate=function(scene,dt)
+		--print("time:"..dt)
+		scene:update(dt)
+		time=time+1
+		if time > 60 then 
+			str=str+1
+			--label1:setString(10);
+			time=0
+		end
+	end,
 }
 
 
-tr4=Quad2D:create("tree.png");
-tr4:setPosition(500,100,0);
-tr4:setOpacity(0.5)
-tr4.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(0.2)
-	end
-}
-
-tr5=Quad2D:create("tree.png");
-tr5:setPosition(400,400,0)
-tr5:setColor(Color(255,0,255,100));
-
-
-layer2:add(ground);
-layer:add(tr1);
-layer:add(tr2);
-layer:add(tr3);
-layer:add(tr4);
-layer:add(tr5);
+touch_layer=ColorLayer:create()
 
 fade_layer=ColorLayer:create()
 fade_layer.data={
@@ -122,12 +89,106 @@ fade_layer.data={
 	end,
 }
 
+fade_layer:setTouchEnabled(true);
+--fade_layer:setVisible(false);
 
-scene:push(layer2);
-scene:push(layer);
-scene:push(fade_layer);
 
-director:run(scene);
+touch_layer.data={
+	name="first Scene",
+	line={},
+	line_nu=0,
+	onDraw=function(self,render)
+
+		proj_matrix:makeOrthographic(0,1,0,1,0,100)
+		render:setProjectionMatrix(proj_matrix)
+
+		local lines=self.data.line
+		v1=Vector3();
+		v2=Vector3();
+		for i=1,self.data.line_nu-1 do 
+			local v_start=lines[i];
+			local v_end=lines[i+1];
+			v1:set(v_start[1],v_start[2],0);
+			v2:set(v_end[1],v_end[2],0);
+			render:drawLine(v1,v2,6,Color.RED)
+		end
+	end,
+
+	onTouchBegin=function(self,x,y)
+		self.data.line_nu=0
+		self.data.line={}
+	end,
+
+	onTouchMove=function(self,x,y)
+		local line_nu=self.data.line_nu
+		self.data.line[line_nu+1]={x,y}
+		self.data.line_nu=line_nu+1
+	end,
+}
+touch_layer:setTouchEnabled(true);
+
+
+entity_layer=Layer2D:create();
+entity_layer:setViewArea(0,0,width,height);
+
+cquad=ColorQuad2D:create(Rect2D(0,0,20,20),Color(255,255,0,255));
+cquad2=ColorQuad2D:create(Rect2D(-200,-200,400,400),Color(0,255,255,30));
+cquad2:setColor(Color(255,255,0),ColorQuad2D.VERTEX_A)
+cquad2:setColor(Color(255,0,255),ColorQuad2D.VERTEX_B)
+cquad2:setColor(Color(0,255,255),ColorQuad2D.VERTEX_C)
+cquad2:setColor(Color(255,255,255),ColorQuad2D.VERTEX_D)
+
+cquad:setOpacity(0.1)
+cquad2:setOpacity(1.0);
+cquad2.data={
+	speed=0.1,
+	onUpdate=function(self,dt) 
+		self:rotateZ(self.data.speed)
+	end
+}
+--cquad2:setPosition(0,300,0)
+
+group=Entity:create();
+
+group:addChild(cquad2);
+group:addChild(cquad);
+
+
+entity_layer.data={
+	speed=0.1,
+	onTouchBegin=function(self,x,y)
+		x,y=self:toLayerCoord(x,y)
+		group:setPosition(x,y,0)
+		self.data.speed=0.1
+		return false;
+	end,
+	onTouchMove=function(self,x,y)
+		x,y=self:toLayerCoord(x,y)
+		print ("x:"..x.." y:"..y)
+
+		group:setPosition(x,y,0)
+		self.data.speed=self.data.speed+0.1
+		cquad2.data.speed=self.data.speed
+
+		return false;
+	end,
+}
+entity_layer:setTouchEnabled(true);
+--cquad2:setPosition(120,200,0);
+
+entity_layer:add(group);
+entity_layer:add(label1);
+
+
+
+print ("push");
+
+scene1:push(touch_layer);
+scene1:push(entity_layer);
+--scene1:push(fade_layer);
+
+
+director:run(scene1);
 
 
 

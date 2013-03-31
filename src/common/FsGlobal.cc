@@ -10,6 +10,7 @@ Window* Global::m_window=NULL;
 ScriptEngine* Global::m_scriptEngine=NULL;
 
 TextureMgr* Global::m_textureMgr=NULL;
+FontTTFDataMgr* Global::m_fontTTFDataMgr=NULL;
 
 
 bool  Global::moduleInit()
@@ -24,6 +25,7 @@ bool  Global::moduleInit()
 
 	/* mgr */
 	m_textureMgr=TextureMgr::create();
+	m_fontTTFDataMgr=FontTTFDataMgr::create();
 
 	/* register scheduler target */
 
@@ -54,6 +56,7 @@ void Global::moduleExit()
 
 	/* mgr */
 	m_textureMgr->forceDestroy();
+	m_fontTTFDataMgr->forceDestroy();
 }
 Scheduler* Global::scheduler()
 {
@@ -108,6 +111,11 @@ TextureMgr* Global::textureMgr()
 	return m_textureMgr;
 }
 
+FontTTFDataMgr* Global::fontTTFDataMgr()
+{
+	FS_SAFE_ADD_REF(m_fontTTFDataMgr);
+	return m_fontTTFDataMgr;
+}
 
 
 NS_FS_END

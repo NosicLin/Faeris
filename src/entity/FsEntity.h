@@ -1,5 +1,5 @@
-#ifndef _FAERIS_SCENE_NODE_H_
-#define _FAERIS_SCENE_NODE_H_
+#ifndef _FAERIS_ENTITY_H_
+#define _FAERIS_ENTITY_H_
 
 
 #include "FsMacros.h"
@@ -148,6 +148,7 @@ class Entity :public FsObject
 
 #include "entity/FsEntity.inl"
 NS_FS_END
+
 #endif 
 
 

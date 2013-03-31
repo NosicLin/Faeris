@@ -23,6 +23,8 @@ $pfile "FsEntity.pkg"
 $pfile "FsLuaColorQuad2D.pkg"
 $pfile "FsQuad2D.pkg"
 $pfile "FsLuaQuad2D.pkg"
+$pfile "FsLabelTTF.pkg"
+
 
 
 /* scheduler */
@@ -44,6 +46,7 @@ $pfile "FsLuaLayer2D.pkg"
 /* graphics */
 $pfile "FsRender.pkg"
 $pfile "FsColor.pkg"
+$pfile "FsFontTTF.pkg"
 
 /* math */
 $pfile "FsVector2.pkg"

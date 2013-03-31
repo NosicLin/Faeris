@@ -1,5 +1,5 @@
 #include "zlib/zlib.h"
-#include "encrypt/FsDeflate.h"
+#include "data/FsDeflate.h"
 
 uint FsDeflate_CompressBound(uint value)
 {

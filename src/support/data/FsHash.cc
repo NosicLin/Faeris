@@ -1,4 +1,4 @@
-#include "encrypt/FsHash.h"
+#include "data/FsHash.h"
 ulong FsHash_JCode(const char* str)
 {
 	ulong hash = 1315423911;

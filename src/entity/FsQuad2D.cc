@@ -1,34 +1,11 @@
 #include "entity/FsQuad2D.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsRender.h"
-#include "material/FsQuad2DMaterial.h"
+#include "material/FsPositionTextureMaterial.h"
 #include "common/FsGlobal.h"
 #include "mgr/FsTextureMgr.h"
 
 NS_FS_BEGIN
-static Quad2DMaterial* m_shareMaterial=NULL;
-
-static Quad2DMaterial* useShareMaterial()
-{
-	if(m_shareMaterial==NULL)
-	{
-		m_shareMaterial=Quad2DMaterial::create();
-		return m_shareMaterial;
-	}
-	m_shareMaterial->addRef();
-	return m_shareMaterial;
-}
-
-static void unuseShareMaterial()
-{
-	if(m_shareMaterial->refCnt()==1)
-	{
-		m_shareMaterial->decRef();
-		m_shareMaterial=NULL;
-		return ;
-	}
-	m_shareMaterial->decRef();
-}
 
 
 Quad2D* Quad2D::create(const char* tex)
@@ -104,9 +81,9 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 	render->pushMatrix();
 	render->mulMatrix(m_worldMatrix);
 
-	m_shareMaterial->setOpacity(m_opacity);
-	m_shareMaterial->setColor(m_color);
-	render->setMaterial(m_shareMaterial,true);
+	m_material->setOpacity(m_opacity);
+	m_material->setColor(m_color);
+	render->setMaterial(m_material,true);
 
 	render->setActiveTexture(1);
 	render->disableAllClientArray();
@@ -188,7 +165,7 @@ bool Quad2D::init(Texture2D* tex)
 
 	tex->addRef();
 	m_texture=tex;
-	m_material=useShareMaterial();
+	m_material=PositionTextureMaterial::shareMaterial();
 	m_color=Color::WHITE;
 	m_opacity=1.0f;
 	return true;
@@ -196,10 +173,7 @@ bool Quad2D::init(Texture2D* tex)
 void Quad2D::destory()
 {
 	FS_SAFE_DEC_REF(m_texture);
-	if(m_material)
-	{
-		unuseShareMaterial();
-	}
+	FS_SAFE_DEC_REF(m_material);
 }
 
 
