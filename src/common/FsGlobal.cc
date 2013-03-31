@@ -73,6 +73,7 @@ Director* Global::director()
 
 Render* Global::render()
 {
+	FS_SAFE_ADD_REF(m_render);
 	return m_render;
 }
 

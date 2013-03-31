@@ -1,5 +1,5 @@
-#ifndef _TOLUA_HACK_H_
-#define _TOLUA_HACK_H_
+#ifndef _TOLUA_EXT_H_
+#define _TOLUA_EXT_H_
 
 #include "tolua++.h"
 
@@ -17,10 +17,11 @@ TOLUA_API void toluaext_fsobject(lua_State* l,const char* name);
 
 TOLUA_API void toluaext_pushfsobject(lua_State* l,Faeris::FsObject* ob);
 
-TOLUA_API void toluaext_pushfsobject2(lua_State* l,void* ob,const char* name)
+TOLUA_API inline void toluaext_pushfsobject2(lua_State* l,void* ob,const char* name)
 {
 	return toluaext_pushfsobject(l,(Faeris::FsObject*)ob);
 }
+
 
 /* lua function */
 TOLUA_API int toluaext_is_luafunction(lua_State* L,
@@ -47,7 +48,9 @@ TOLUA_API void toluaext_remove_luatable(lua_State* L,int refid);
 TOLUA_API void toluaext_push_luatable(lua_State* L,int refid);
 
 
+TOLUA_API int toluaext_fscollector(lua_State* L);
 
 
 #endif /*_TOLUA_HACK_H_*/
+
 

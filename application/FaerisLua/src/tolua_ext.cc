@@ -22,34 +22,6 @@ extern "C"
 NS_FS_USE
 
 
-static int fs_class_gc_event(lua_State* L)
-{
-	FsObject* u=(FsObject*)lua_touserdata(L,1);
-	u->decRef();
-	return 0;
-}
-
-
-static int toluaext_newmetatable(lua_State* L,const char* name)
-{
-	int r=luaL_newmetatable(L,name);
-#ifdef LUA_VERSION_NUM
-	if(r)
-	{
-		lua_pushvalue(L,-1);
-		lua_pushstring(L,name);
-		lua_settable(L,LUA_REGISTRYINDEX);
-	};
-#endif 
-	if(r)
-	{
-		tolua_classevents(L);
-		lua_pushstring(L,"__gc");
-		lua_pushcfunction(L,fs_class_gc_event);
-	}
-	lua_pop(L,1);
-	return r;
-}
 TOLUA_API void toluaext_open(lua_State* L)
 {
 	/* register function table */
@@ -64,20 +36,77 @@ TOLUA_API void toluaext_open(lua_State* L)
 }
 
 
-TOLUA_API void toluaext_fsobject(lua_State* L,const char* type)
-{
-	char ctype[128]="const";
-	strncat(ctype,type,120);
-	if(toluaext_newmetatable(L,ctype)&&toluaext_newmetatable(L,type))
-	{
-		tolua_mapsuper(L,type,ctype);
-	}
-}
 
-TOLUA_API void toluaext_pushfsobject(lua_State* l,Faeris::FsObject* ob)
+TOLUA_API void toluaext_pushfsobject(lua_State* L,Faeris::FsObject* value)
 {
-	const char* name=ob->className();
-	tolua_pushusertype(l,ob,name);
+	if (value == NULL)
+	{
+		lua_pushnil(L);
+	}
+	else
+	{
+		const char* type=value->className();
+		luaL_getmetatable(L, type);
+		lua_pushstring(L,"tolua_ubox");
+		lua_rawget(L,-2);        /* stack: mt ubox */
+		if (lua_isnil(L, -1)) {
+			lua_pop(L, 1);
+			lua_pushstring(L, "tolua_ubox");
+			lua_rawget(L, LUA_REGISTRYINDEX);
+		};
+		lua_pushlightuserdata(L,value);
+		lua_rawget(L,-2);                       /* stack: mt ubox ubox[u] */
+
+		if (lua_isnil(L,-1))
+		{
+			lua_pop(L,1);                          /* stack: mt ubox */
+			lua_pushlightuserdata(L,value);
+			*(void**)lua_newuserdata(L,sizeof(void *)) = value;   /* stack: mt ubox u newud */
+			lua_pushvalue(L,-1);                   /* stack: mt ubox u newud newud */
+			lua_insert(L,-4);                      /* stack: mt newud ubox u newud */
+			lua_rawset(L,-3);                      /* stack: mt newud ubox */
+			lua_pop(L,1);                          /* stack: mt newud */
+			/*luaL_getmetatable(L,type);*/
+			lua_pushvalue(L, -2);			/* stack: mt newud mt */
+			lua_setmetatable(L,-2);			/* stack: mt newud */
+
+
+#ifdef LUA_VERSION_NUM
+			lua_pushvalue(L, TOLUA_NOPEER);
+			lua_setfenv(L, -2);
+#endif
+			tolua_register_gc(L,lua_gettop(L));
+		}
+		else
+		{
+			/* check the need of updating the metatable to a more specialized class */
+			lua_insert(L,-2);                       /* stack: mt ubox[u] ubox */
+			lua_pop(L,1);                           /* stack: mt ubox[u] */
+			lua_pushstring(L,"tolua_super");
+			lua_rawget(L,LUA_REGISTRYINDEX);        /* stack: mt ubox[u] super */
+			lua_getmetatable(L,-2);                 /* stack: mt ubox[u] super mt */
+			lua_rawget(L,-2);                       /* stack: mt ubox[u] super super[mt] */
+			if (lua_istable(L,-1))
+			{
+				lua_pushstring(L,type);                 /* stack: mt ubox[u] super super[mt] type */
+				lua_rawget(L,-2);                       /* stack: mt ubox[u] super super[mt] flag */
+				if (lua_toboolean(L,-1) == 1)   /* if true */
+				{
+					lua_pop(L,3);	/* mt ubox[u]*/
+					lua_remove(L, -2);
+					return;
+				}
+			}
+			/* type represents a more specilized type */
+			/*luaL_getmetatable(L,type);             // stack: mt ubox[u] super super[mt] flag mt */
+			lua_pushvalue(L, -5);					/* stack: mt ubox[u] super super[mt] flag mt */
+			lua_setmetatable(L,-5);                /* stack: mt ubox[u] super super[mt] flag */
+			lua_pop(L,3);                          /* stack: mt ubox[u] */
+			value->decRef();
+
+		}
+		lua_remove(L, -2);	/* stack: ubox[u]*/
+	}
 }
 
 TOLUA_API int toluaext_to_luafunction(lua_State* L,int lo,int def)
@@ -177,4 +206,13 @@ TOLUA_API int toluaext_to_luatable(lua_State* L,int lo,int def)
 	lua_pop(L,1);
 	return s_table_ref_id;
 }
+
+
+TOLUA_API int toluaext_fscollector(lua_State* L)
+{
+	FsObject* ob=(FsObject*) tolua_tousertype(L,1,0);
+	ob->decRef();
+	return 0;
+}
+
 

@@ -4,6 +4,7 @@ _to_functions = _to_functions or {}
 _push_functions = _push_functions or {}
 
 local fsobject= {
+	"FsObject",
 	"TextureMgr",
 	"TouchEventListener",
 	"FontTTF",
@@ -91,6 +92,7 @@ function post_output_hook(package)
 	end
 
 
+
 	replace([[toluaext_push_luatable(tolua_S,(void*)&self->m_data,"LUA_TABLE");]],
 	[[toluaext_push_luatable(tolua_S,self->m_data);]]);
 
@@ -100,16 +102,25 @@ function post_output_hook(package)
 
 	replace([[tolua_usertype(tolua_S,"LUA_TABLE");]], [[]])
 
-	for i=1,#fsobject do 
-		cur_object=fsobject[i];
-		replace("tolua_usertype(tolua_S,\""..cur_object.."\");",
-				"toluaext_fsobject(tolua_S,\""..cur_object.."\");")
-	end
 
+	for i=1,#fsobject do 
+		result =string.gsub(result,
+		"tolua_cclass%(tolua_S,\"([%w_]*)\",\"("..fsobject[i]..")\",\"([%w_]*)\",NULL",
+		"tolua_cclass%(tolua_S,\"%1\",\""..fsobject[i].."\",\"%3\",toluaext_fscollector")
+	end 
 
 
 	WRITE(result)
+
 end
+
+
+
+
+
+
+
+
 
 
 
