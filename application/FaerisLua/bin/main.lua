@@ -11,11 +11,14 @@ end
 entity=nil
 entity2=nil
 layer=nil
-collectgarbage("collect")
-collectgarbage("collect")
-collectgarbage("collect")
-collectgarbage("collect")
-collectgarbage("collect")
-collectgarbage("collect")
+_G={}
+for i=1,100 do 
+	collectgarbage("collect")
+	collectgarbage("collect")
+	collectgarbage("collect")
+	collectgarbage("collect")
+	collectgarbage("collect")
+	collectgarbage("collect")
 
+end 
 

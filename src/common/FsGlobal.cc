@@ -52,6 +52,8 @@ void Global::moduleExit()
 	m_window->forceDestroy();
 	m_director->forceDestroy();
 	m_touchDispatcher->forceDestroy();
+	m_sysDispatcher->forceDestroy();
+
 	m_scheduler->forceDestroy();
 
 	/* mgr */

@@ -79,6 +79,7 @@ SysDispatcher::SysDispatcher()
 {
 	init();
 }
+
 SysDispatcher::~SysDispatcher()
 {
 	destroy();
@@ -97,6 +98,7 @@ void SysDispatcher::destroy()
 	clearEvent(m_eventHandling);
 	delete m_eventPending;
 	delete m_eventHandling;
+
 	m_listenerArray->decRef();
 }
 

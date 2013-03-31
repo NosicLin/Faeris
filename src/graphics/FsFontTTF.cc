@@ -34,6 +34,8 @@ static int s_initFreetype()
 	return 0;
 }
 
+
+
 static unsigned long  s_fileRead(FT_Stream stream,
 		unsigned long offset,
 		unsigned char* buffer,
@@ -142,17 +144,18 @@ PlatfromFontTTFData::PlatfromFontTTFData()
 }
 PlatfromFontTTFData::~PlatfromFontTTFData()
 {
+	if(m_face)
+	{
+		FT_Done_Face(m_face);
+	}
 	if(m_source)
 	{
 		m_source->decRef();
 	}
+
 	if(m_stream)
 	{
 		free(m_stream);
-	}
-	if(m_face)
-	{
-		FT_Done_Face(m_face);
 	}
 }
 
