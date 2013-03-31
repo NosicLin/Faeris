@@ -31,7 +31,7 @@ void Scheduler::mainLoop()
 {
 	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
 
-	long begin_time=m_timer.now();
+	//long begin_time=m_timer.now();
 	long last_time=m_timer.now();
 
 	long diff_time,cur_time,frame_used,sleep_time;

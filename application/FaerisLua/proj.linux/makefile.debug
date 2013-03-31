@@ -15,50 +15,34 @@ BIN_DIR=../bin
 SRC_DIR=../src
 
 INCLUDE_DIR= -I./  \
+			 -I../src \
+			 -I../src/luaext \
 			 -I../../../platform/thirdparty/linux/lua \
 			 -I../../../platform/thirdparty/linux/tolua++ \
 			 -I../../../src \
+			 -I../../../src/support  \
 
 LINK_DIR= -L../../../build/linux/prebuild/debug \
-		  -L../../../build/linux/lib 
 
-LINK_LIB= -lscript \
-		  -lcore \
-		  -lutil \
-		  -lfsys \
-		  -lloader \
-		  -lmodel \
-		  -lmaterial \
-		  -lmath \
-		  -lgraphics \
+LINK_LIB= -lfaeris \
 	      -lGL  \
 		  -lGLEW \
 		  -lX11  \
 		  -llua  \
 		  -ltolua++ \
+		  -llibpng \
+		  -lzlib \
+		  -lfreetype \
 
 
 #Source File 
 SRC=FsLuaEngine.cc \
 	FsLuaFaeris.cc \
-	FsLuaFrameListener.cc \
-	tolua_hack.cc \
-	main.cc 
-
-	
-
-
-
-
-
-#full src name 
-SRC_NAME_WITH_PATH=$(addprefix $(SRC_DIR)/,$(SRC))
-
-#obj name 
-OBJ_NAME=$(SRC:%.$(FILE_EXT)=%.o) 
-OBJ_NAME_WITH_PATH=$(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
-
-
+	tolua_ext.cc \
+	main.cc  \
+	luaext/FsLuaScene.cc  \
+	luaext/FsLuaSysEventListener.cc \
+	luaext/FsLuaTouchEventListener.cc \
 
 
 main:$(BIN_DIR)/$(PROJECT).exe
@@ -66,10 +50,38 @@ main:$(BIN_DIR)/$(PROJECT).exe
 $(BIN_DIR)/$(PROJECT).exe: $(LIB_DIR)/lib$(PROJECT).a
 	$(CC) -o $(BIN_DIR)/$(PROJECT).exe -Xlinker "-(" $(LINK_DIR) -L$(LIB_DIR) -l$(PROJECT) $(LINK_LIB)  -Xlinker "-)" 
 
-$(LIB_DIR)/lib$(PROJECT).a: $(OBJ_NAME_WITH_PATH) 
+#full src name 
+
+SRC_NAME_WITH_PATH=$(addprefix $(SRC_DIR)/,$(SRC))
+
+#obj name 
+OBJ_NAME=$(SRC:%.cc=%.o) 
+#OBJ_NAME_WITH_PATH=$(addprefix $(OBJ_DIR)/,$(notdir $(OBJ_NAME)))
+OBJ_NAME_WITH_PATH=$(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
+
+ALL_OBJ_DIR=$(sort $(dir $(OBJ_NAME_WITH_PATH)))
+
+
+
+main:$(LIB_DIR)/lib$(PROJECT).a
+
+$(LIB_DIR)/lib$(PROJECT).a: $(ALL_OBJ_DIR) $(OBJ_NAME_WITH_PATH) 
+	echo $(ALL_OBJ_DIR)
 	ar cr $@ $(OBJ_NAME_WITH_PATH)
+
+$(ALL_OBJ_DIR):
+	mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(FILE_EXT)
 	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE_DIR) 
+
+
+clean:
+	rm -rf $(OBJ_DIR)/*
+
+
+
+
+
 
 

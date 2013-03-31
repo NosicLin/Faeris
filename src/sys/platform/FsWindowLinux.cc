@@ -9,9 +9,12 @@
 #include <stdlib.h>
 
 #include "util/FsLog.h"
-#include "fsys/FsWindow.h"
-#include "fsys/FsFrame.h"
-#include "fsys/FsEventDispatcher.h"
+#include "sys/FsWindow.h"
+
+#include "common/FsGlobal.h"
+#include "scheduler/FsSchedulerTarget.h"
+#include "scheduler/FsScheduler.h"
+#include "event/FsTouchDispatcher.h"
 
 #define FS_XWINDOW_EVENT_MASK ( \
 		ExposureMask \
@@ -26,7 +29,6 @@
 
 NS_FS_BEGIN
 typedef ::Window XWindow;
-static void s_sendEventToWindow(Window* win,XEvent* src_event);
 
 #if 0
 static const char *event_names[] = {
@@ -69,10 +71,25 @@ static const char *event_names[] = {
 #endif 
 
 
-class WindowFrameListener;
+class EventGraper;
+class PlatformWindow;
+class EventGraper:public SchedulerTarget 
+{
+	public:
+		static EventGraper* create(PlatformWindow* win);
+	public:
+		/* inherit SchedulerTarget */
+		virtual void update(int priority,float dt);
+	protected:
+		EventGraper();
+		bool pointInView(float x,float y);
+		void transformViewPoint(float* x,float* y);
+		void handleEvent(XEvent* event);
 
-static Window* s_shareWindow=NULL;
-static WindowFrameListener* s_frameListener=NULL;
+	private:
+		PlatformWindow* m_window;
+};
+
 
 class PlatformWindow
 {
@@ -84,12 +101,14 @@ class PlatformWindow
 		XVisualInfo* m_vi;
 		
 	protected:
-		FsBool initWin();
-		FsBool initGL();
+		bool initWin();
+		bool initGL();
 	public:
 		static PlatformWindow* create();
 		PlatformWindow();
 		~PlatformWindow();
+	private:
+		EventGraper* m_eventGrap;
 };
 
 PlatformWindow::PlatformWindow()
@@ -98,6 +117,8 @@ PlatformWindow::PlatformWindow()
 	m_dpy=NULL;
 	m_contex=NULL;
 	m_delete_msg=0;
+	m_eventGrap=EventGraper::create(this);
+	Global::scheduler()->add(m_eventGrap,Scheduler::HIGHEST);
 }
 PlatformWindow::~PlatformWindow()
 {
@@ -105,7 +126,10 @@ PlatformWindow::~PlatformWindow()
 	XDestroyWindow(m_dpy,m_X11Window);
 	XCloseDisplay(m_dpy);
 	XFree(m_vi);
+	Global::scheduler()->remove(m_eventGrap,Scheduler::HIGHEST);
+	m_eventGrap->decRef();
 }
+
 PlatformWindow* PlatformWindow::create()
 {
 	PlatformWindow* ret=new PlatformWindow();
@@ -117,7 +141,7 @@ PlatformWindow* PlatformWindow::create()
 	return ret;
 }
 
-FsBool PlatformWindow::initWin()
+bool PlatformWindow::initWin()
 {
 	m_dpy=XOpenDisplay(NULL);
 	if(!m_dpy)
@@ -160,16 +184,18 @@ FsBool PlatformWindow::initWin()
 	}
 
 	XSync(m_dpy,false);
+	
 	return true;
 }
-FsBool PlatformWindow::initGL()
+
+bool PlatformWindow::initGL()
 {
 	m_contex=glXCreateContext(m_dpy,m_vi,NULL,GL_TRUE);
 	glXMakeCurrent(m_dpy,m_X11Window,m_contex);
 	const GLubyte* gl_version=glGetString(GL_VERSION);
 	GLenum ret=glewInit();
 	FsUtil_Log("OpenGL Version=%s",gl_version);
-	if(atof((FsChar*)gl_version)<1.5)
+	if(atof((char*)gl_version)<1.5)
 	{
 		char str_compain[256]={0};
 		sprintf(str_compain,"OpenGL 1.5 or higher is required(your version is %s), \
@@ -186,42 +212,72 @@ FsBool PlatformWindow::initGL()
 }
 
 
-
-class WindowFrameListener:public FrameListener
+EventGraper::EventGraper()
 {
-	public:
-		virtual void frameBegin(FsLong diff)
+	m_window=NULL;
+}
+
+EventGraper* EventGraper::create(PlatformWindow* win)
+{
+	EventGraper* ret=new EventGraper;
+	ret->m_window=win;
+	return ret;
+}
+
+void EventGraper::update(int priority,float dt)
+{
+
+	if(!m_window)
+	{
+		return ;
+	}
+	Display* dpy=m_window->m_dpy;
+	XEvent event;
+	XSync(dpy,False);
+	while(XEventsQueued(dpy,QueuedAfterReading))
+	{
+		XNextEvent(dpy,&event);
+		handleEvent(&event);
+	}
+}
+
+
+bool EventGraper::pointInView(float x,float y)
+{
+	if(x>=0&&x<=1.0f)
+	{
+		if(y>=0&&y<=1.0f)
 		{
-			if(!s_shareWindow)
-			{
-				return ;
-			}
-			PlatformWindow* plt_window=s_shareWindow->getPlatformWindow();
-			if(!plt_window)
-			{
-				return ;
-			}
-			Display* dpy=plt_window->m_dpy;
-			XEvent event;
-			XSync(dpy,false);
-			while(XEventsQueued(dpy,QueuedAfterReading))
-			{
-				XNextEvent(dpy,&event);
-				s_sendEventToWindow(s_shareWindow,&event);
-			}
+			return true;
 		}
-};
+	}
+	return false;
+}
 
-
-static void s_sendEventToWindow(Window* win,XEvent* src_event)
+void EventGraper::transformViewPoint(float* x,float* y)
 {
-	PlatformWindow* plt_window=win->getPlatformWindow();
-	EventDispatcher* dispatcher=EventDispatcher::shareEventDispatcher();
+	int vx,vy;
+	uint width,height;
+	uint border;
+	uint depth;
+	::Window w;
+	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
+			&vx,&vy,&width,&height,&border,&depth);
 
+	*x=*x/width;
+	*y=*y/height;
+	*y=1.0f-*y;
+}
+
+
+void EventGraper::handleEvent(XEvent* src_event)
+{
+	PlatformWindow* plt_window=m_window;
 	if(!plt_window)
 	{
 		return ;
 	}
+
 
 	switch(src_event->type)
 	{
@@ -229,105 +285,82 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 			{
 				if((Atom)(src_event->xclient.data.l[0])==plt_window->m_delete_msg)
 				{
-					QuitEvent event;
-					dispatcher->dispatchEvent(&event);
+					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::QUIT);
 				}
 				break;
 			}
 		case ConfigureNotify:
 			{
-				FsUint width,height;
+				uint width,height;
 				width=src_event->xconfigure.width;
 				height=src_event->xconfigure.height;
-				ResizeEvent event(width,height); 
-				dispatcher->dispatchEvent(&event);
+				Render* render=Global::render();
+				if(render)
+				{
+					render->setViewport(0,0,width,height);
+				}
+				FS_TRACE_WARN("Resize: width=%d,height=%d",width,height);
 				break;
 			}
 		case ButtonPress:
 			{
 				XButtonEvent* e=(XButtonEvent*) src_event;
-				FsInt button;
-				switch(e->button)
+				if(e->button==Button1)
 				{
-					case  Button1:
-						button=FS_LBUTTON;
-						break;
-					case Button2:
-						button=FS_MBUTTON;
-						break;
-					case Button3:
-						button=FS_RBUTTON;
-						break;
-					default:
-						/*FIXME if middle button rool,it will used button4 or button5*/
-						button=0;
-						FS_TRACE_WARN("Unkown Button Type");
-						break;
+					float x=e->x;
+					float y=e->y;
+					transformViewPoint(&x,&y);
+					if(pointInView(x,y))
+					{
+						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_BEGIN,x,y);
+					}
 				}
-				FsUint mask=0;
-				FsUint xmask=e->state;
-				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
-				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
-				MouseEvent event(button,FS_DOWN,mask,e->x,e->y);
-				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case ButtonRelease:
 			{
 				XButtonEvent* e=(XButtonEvent*) src_event;
-				FsInt button;
-				switch(e->button)
+				if(e->button==Button1)
 				{
-					case  Button1:
-						button=FS_LBUTTON;
-						break;
-					case Button2:
-						button=FS_MBUTTON;
-						break;
-					case Button3:
-						button=FS_RBUTTON;
-						break;
-					default:
-						button=0;
-						FS_TRACE_WARN("Unkown Button Type");
-						break;
+					float x=e->x;
+					float y=e->y;
+					transformViewPoint(&x,&y);
+					if(pointInView(x,y))
+					{
+						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_END,x,y);
+					}
 				}
-				FsUint mask=0;
-				FsUint xmask=e->state;
-				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
-				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
-				MouseEvent event(button,FS_UP,mask,e->x,e->y);
-				dispatcher->dispatchEvent(&event);
 				break;
 			}
 		case MotionNotify:
 			{
 				XMotionEvent* e=(XMotionEvent*) src_event;
-				FsUint mask=0;
-				FsUint xmask=e->state;
-				if(xmask&Button1Mask) mask|=FS_MASK_LBUTTON;
-				if(xmask&Button2Mask) mask|=FS_MASK_MBUTTON;
-				if(xmask&Button3Mask) mask|=FS_MASK_RBUTTON;
-				if(xmask&ControlMask) mask|=FS_MASK_CTRL;
-				if(xmask&ShiftMask) mask|=FS_MASK_SHIFT;
-				MotionEvent event(mask,e->x,e->y,0,0);
-				dispatcher->dispatchEvent(&event);
+				uint xmask=e->state;
+				if(xmask&Button1Mask) 
+				{
+					float x=e->x;
+					float y=e->y;
+					transformViewPoint(&x,&y);
+					if(pointInView(x,y))
+					{
+						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_MOVE,x,y);
+					}
+				}
 				break;
 			}
 		case FocusIn:
 			{
-				FocusEvent event(true);
-				dispatcher->dispatchEvent(&event);
+				Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
 				break;
 			}
 		case FocusOut:
 			{
-				FocusEvent event(false);
-				dispatcher->dispatchEvent(&event);
+				Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
 				break;
 			}
 		case DestroyNotify:
 			{
+				Global::scheduler()->stop();
 				break;
 			}
 
@@ -342,39 +375,21 @@ static void s_sendEventToWindow(Window* win,XEvent* src_event)
 
 
 
-Window* Window::shareWindow()
+Window* Window::create()
 {
-	if(s_shareWindow==NULL)
+	PlatformWindow* plt_window=PlatformWindow::create();
+	if(!plt_window)
 	{
-		PlatformWindow* plt_window=PlatformWindow::create();
-		if(!plt_window)
-		{
-			FS_TRACE_WARN("Create PlatformWindow Failed");
-			return NULL;
-		}
-		s_shareWindow=new Window;
-		s_shareWindow->m_window=plt_window;
-		s_frameListener=new WindowFrameListener;
-		Frame::shareFrame()->addListener(s_frameListener);
-		FS_ASSERT(s_shareWindow);
+		FS_TRACE_WARN("Create PlatformWindow Failed");
+		return NULL;
 	}
-	return s_shareWindow;
-}
-
-void Window::purgeShareWindow()
-{
-	if(s_shareWindow)
-	{
-		Frame::shareFrame()->removeListener(s_frameListener);
-		delete s_frameListener;
-		s_frameListener=NULL;
-		delete s_shareWindow;
-		s_shareWindow=NULL;
-	}
+	Window* ret=new Window;
+	ret->m_window=plt_window;
+	return ret;
 }
 
 
-void Window::setCaption(const FsChar* name)
+void Window::setCaption(const char* name)
 {
 	if(!m_window)
 	{
@@ -386,7 +401,7 @@ void Window::setCaption(const FsChar* name)
 	XSync(m_window->m_dpy,False);
 }
 
-void Window::setPosition(FsInt x,FsInt y)
+void Window::setPosition(int x,int y)
 {
 	if(!m_window)
 	{
@@ -397,7 +412,7 @@ void Window::setPosition(FsInt x,FsInt y)
 	XSync(m_window->m_dpy,False);
 }
 
-void Window::setSize(FsUint width,FsUint height)
+void Window::setSize(uint width,uint height)
 {
 	if(!m_window)
 	{
@@ -430,65 +445,72 @@ void Window::hide()
 	XSync(m_window->m_dpy,False);
 }
 
-FsInt Window::getWidth()
+void Window::setStyle(long flags)
+{
+}
+void Window::setFullScreen(bool full)
+{
+}
+
+int Window::getWidth()
 {
 	if(!m_window)
 	{
 		FS_TRACE_WARN("X11 Window Already Destroy");
 		return 0;
 	}
-	FsInt x,y;
-	FsUint width,height;
-	FsUint border;
-	FsUint depth;
+	int x,y;
+	uint width,height;
+	uint border;
+	uint depth;
 	::Window w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);
 	return width;
 }
-FsInt Window::getHeight()
+int Window::getHeight()
 {
 	if(!m_window)
 	{
 		FS_TRACE_WARN("X11 Window Already Destroy");
 		return 0;
 	}
-	FsInt x,y;
-	FsUint width,height;
-	FsUint border;
-	FsUint depth;
+	int x,y;
+	uint width,height;
+	uint border;
+	uint depth;
 	XWindow w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);
 	return width;
 }
-FsInt Window::getPosX()
+int Window::getPosX()
 {
 	if(!m_window)
 	{
 		FS_TRACE_WARN("X11 Window Already Destroy");
 		return 0;
 	}
-	FsInt x,y;
-	FsUint width,height;
-	FsUint border;
-	FsUint depth;
+	int x,y;
+	uint width,height;
+	uint border;
+	uint depth;
 	XWindow w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);
 	return x;
 }
-FsInt Window::getPosY()
+int Window::getPosY()
 {
 	if(!m_window)
 	{
 		FS_TRACE_WARN("X11 Window Already Destroy");
 		return 0;
 	}
-	FsInt x,y;
-	FsUint width,height;
-	FsUint border;
-	FsUint depth;
+	int x,y;
+	uint width,height;
+	uint border;
+	uint depth;
 	XWindow w;
 	XGetGeometry(m_window->m_dpy,m_window->m_X11Window,&w,
 			&x,&y,&width,&height,&border,&depth);

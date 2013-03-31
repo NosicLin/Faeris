@@ -21,7 +21,8 @@ class EventGraper:public SchedulerTarget
 		static EventGraper* create(PlatformWindow* win);
 
 	public:
-		void update(int priority,float dt);
+		/* inherit SchedulerTarget */
+		virtual void update(int priority,float dt);
 
 	protected:
 		EventGraper();

@@ -199,7 +199,7 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 	int rel_arg=0;
 	char pstr;
 	const char* src=fmt;
-	while(pstr=*(src++))
+	while((pstr=*(src++)))
 	{
 		switch(pstr)
 		{

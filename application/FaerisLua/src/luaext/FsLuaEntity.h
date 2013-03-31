@@ -1,7 +1,9 @@
 #ifndef _FS_LUA_ENTITY_H_
 #define _FS_LUA_ENTITY_H_
+
 #include "FsMacros.h"
 #include "FsLuaMacros.h"
+#include "core/FsObject.h"
 #include "luaext/FsLuaEntity.h"
 #include "luaext/FsTEntity.h"
 #include "entity/FsEntity.h"

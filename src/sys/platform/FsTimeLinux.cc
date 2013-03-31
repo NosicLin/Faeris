@@ -1,4 +1,4 @@
-#include "fsys/FsTimer.h"
+#include "sys/FsTimer.h"
 #include <sys/time.h>
 
 NS_FS_BEGIN
@@ -10,7 +10,7 @@ void Timer::reset()
 {
 	gettimeofday(&m_begin,NULL);
 }
-FsLong Timer::now() const
+long Timer::now() const
 {
 	struct timeval cur;
 	gettimeofday(&cur,NULL);

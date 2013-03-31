@@ -3,14 +3,20 @@ local scheduler=share:scheduler();
 local director=share:director();
 local render=share:render();
 local window=share:window();
-local width=window:getWidth()
-local height=window:getHeight()
+
+--local width=window:getWidth()
+--local height=window:getHeight()
+width=1025
+height=800
+
 
 --font=FontTTF:create("simsun.ttc",50)
 --font=FontTTF:create("STXIHEI.TTF",50)
-font=FontTTF:create("CARTAZ.TTF",18)
+font=FontTTF:create("UbuntuMono-RI.ttf",18)
 label1=LabelTTF:create("this is a good world",font);
 label1:setPosition(200,300,0);
+label1:rotateZ(30);
+--label1:rotateX(90);
 label1:setColor(Color(255,0,0))
 --label1:setOpacity(0.5)
 
@@ -19,9 +25,9 @@ local proj_matrix=Matrix4()
 
 
 print ("width:"..window:getWidth().." height:"..window:getHeight())
-proj_matrix:makeOrthographic(0,1,0,1,0,100)
+--proj_matrix:makeOrthographic(0,1,0,1,0,100)
 --proj_matrix:makeOrthographic(0,1024,0,800,0,100)
-render:setProjectionMatrix(proj_matrix)
+--render:setProjectionMatrix(proj_matrix)
 
 render:setClearColor(Color.BLACK)
 
@@ -130,7 +136,7 @@ touch_layer:setTouchEnabled(true);
 entity_layer=Layer2D:create();
 entity_layer:setViewArea(0,0,width,height);
 
-cquad=ColorQuad2D:create(Rect2D(0,0,20,20),Color(255,255,0,255));
+cquad=ColorQuad2D:create(Rect2D(-10,-10,20,20),Color(255,255,0,255));
 cquad2=ColorQuad2D:create(Rect2D(-200,-200,400,400),Color(0,255,255,30));
 cquad2:setColor(Color(255,255,0),ColorQuad2D.VERTEX_A)
 cquad2:setColor(Color(255,0,255),ColorQuad2D.VERTEX_B)
@@ -184,7 +190,7 @@ print ("push");
 
 scene1:push(touch_layer);
 scene1:push(entity_layer);
---scene1:push(fade_layer);
+scene1:push(fade_layer);
 
 
 director:run(scene1);
