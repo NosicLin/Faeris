@@ -99,7 +99,7 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 	uint8_t* dst_buffer=(uint8_t*)dst_image->getPixelData();
 	memset(dst_buffer,0,width*height*4);
 
-	int startx=0;
+	int startx=-minx;
 
 	for(int i=0;i<glyphs_nu;i++)
 	{
@@ -122,9 +122,9 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 		{
 			for(int z=0;z<glyph_width;z++)
 			{
-				assert(z+startx<width);
+				assert(z+startx+g->m_minx<width);
 				uint8_t gray=src_buffer[j*glyph_width+z];
-				uint8_t* cur_dst_buffer=dst_buffer+((j+y_offset)*width+z+startx)*4;
+				uint8_t* cur_dst_buffer=dst_buffer+((j+y_offset)*width+z+startx+g->m_minx)*4;
 				*cur_dst_buffer=255;
 				*(cur_dst_buffer+1)=255;
 				*(cur_dst_buffer+2)=255;
@@ -270,7 +270,7 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 			x=0;
 			break;
 		case ALIGN_H_CENTER:
-			x=width/2;
+			x=-width/2;
 			break;
 		case ALIGN_H_RIGHT:
 			x=width;

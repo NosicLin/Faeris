@@ -6,11 +6,12 @@ local window=share:window();
 local width=window:getWidth()
 local height=window:getHeight()
 
---font=FontTTF:create("simsun.ttc",50)
+font=FontTTF:create("simsun.ttc",50)
 --font=FontTTF:create("STXIHEI.TTF",50)
-font=FontTTF:create("CARTAZ.TTF",18)
-label1=LabelTTF:create("this is a good world",font);
-label1:setPosition(200,300,0);
+--font=FontTTF:create("CARTAZ.TTF",18)
+label1=LabelTTF:create("这是一个美丽的世界，向少年一样飞驰。",font);
+label1:setPosition(20,300,0);
+--label1:setAlign(LabelTTF.ALIGN_H_CENTER,LabelTTF.ALIGN_V_BOTTOM)
 label1:setColor(Color(255,0,0))
 --label1:setOpacity(0.5)
 
