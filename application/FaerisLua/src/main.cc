@@ -4,7 +4,6 @@
 
 NS_FS_USE
 
-static int s_quit_flags=0;
 static int s_quit(lua_State* L)
 {
 	Global::scheduler()->stop();
@@ -30,9 +29,9 @@ int main(int argc,char** argv)
 
 
 	/* default init */
-	win->show();
 	win->setSize(1024,800);
 	win->setPosition(100,100);
+	win->show();
 	render->setRenderTarget(win);
 
 	render->setClearColor(Color(255,255,0));

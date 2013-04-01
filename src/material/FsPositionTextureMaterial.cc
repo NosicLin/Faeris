@@ -2,7 +2,6 @@
 #include "graphics/FsProgram.h"
 
 NS_FS_BEGIN
-static Program* m_shareProgram=NULL;
 
 static const char quad_material_vert_str[]=
 "attribute vec4 a_position; 	    \n\

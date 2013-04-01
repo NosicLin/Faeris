@@ -131,6 +131,7 @@ Texture2D* Texture2D::create(
 	GLuint texture;
 	glGenTextures(1,&texture);
 
+
 	/* bind texture */
 	s_bindTexture2D(texture);
 
@@ -334,18 +335,32 @@ void Texture2D::setWrap(int wraps,int wrapt)
 
 Texture2D::~Texture2D()
 {
-	if(!m_platformTexture)
+	if(m_platformTexture)
 	{
 		glDeleteTextures(1,&m_platformTexture);
 	}
 }
 
+Texture2D::Texture2D()
+{
+	m_useMipmap=false;
+	m_width=0;
+	m_height=0;
+	m_format=0;
+	m_filterMin=0;
+	m_filterMag=0;
+	m_filterMipmap=0;
+	m_wrapS=0;
+	m_wrapT=0;
+	m_platformTexture=0;
+}
 
 
 const char* Texture2D::className()
 {
 	return FS_TEXTURE2D_CLASS_NAME;
 }
+
 
 
 

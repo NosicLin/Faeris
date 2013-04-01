@@ -52,6 +52,8 @@ void Global::moduleExit()
 	m_window->forceDestroy();
 	m_director->forceDestroy();
 	m_touchDispatcher->forceDestroy();
+	m_sysDispatcher->forceDestroy();
+
 	m_scheduler->forceDestroy();
 
 	/* mgr */
@@ -73,6 +75,7 @@ Director* Global::director()
 
 Render* Global::render()
 {
+	FS_SAFE_ADD_REF(m_render);
 	return m_render;
 }
 

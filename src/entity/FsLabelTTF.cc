@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "data/FsIconv.h"
 #include "entity/FsLabelTTF.h"
 #include "material/FsPositionTextureMaterial.h"
@@ -23,7 +25,7 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 	
 	FsArray* glyphs=FsArray::create();
 
-	while(ch=*cur++)
+	while((ch=(*cur++)))
 	{
 		if(ch=='\n') /* just ignore  new line */
 		{
@@ -135,7 +137,7 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 		startx+=g->m_advance;
 	}
 	glyphs->decRef();
-	delete unicode;
+	delete[] unicode;
 	return dst_image;
 }
 
