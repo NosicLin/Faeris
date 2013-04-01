@@ -1,4 +1,4 @@
-#include "fsys/FsSys.h"
+#include "sys/FsSys.h"
 
 #include <unistd.h>
 #include <errno.h>
@@ -12,11 +12,11 @@ FsLong Sys::getTime()
 
 }
 */
-void Sys::usleep(FsLong time)
+void Sys::usleep(long time)
 {
 	struct timespec req= { time/1000, (time%1000)*1000000 };
 	struct timespec rem;
-	FsInt ret=0;
+	int ret=0;
 	while(1)
 	{
 		ret=nanosleep(&req,&rem);
@@ -33,3 +33,4 @@ void Sys::usleep(FsLong time)
 	}
 }
 NS_FS_END
+

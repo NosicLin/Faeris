@@ -43,6 +43,7 @@ LuaEngine::LuaEngine()
 
 LuaEngine::~LuaEngine()
 {
+	lua_gc(m_state,LUA_GCCOLLECT,0);
 	lua_close(m_state);
 	m_state=NULL;
 }
@@ -116,6 +117,8 @@ void LuaEngine::pushBoolean(bool value)
 }
 void LuaEngine::pushFsObject(FsObject* ob)
 {
+	if(ob) ob->addRef();
+
 	toluaext_pushfsobject(m_state,ob);
 }
 
@@ -199,7 +202,7 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 	int rel_arg=0;
 	char pstr;
 	const char* src=fmt;
-	while(pstr=*(src++))
+	while((pstr=*(src++)))
 	{
 		switch(pstr)
 		{

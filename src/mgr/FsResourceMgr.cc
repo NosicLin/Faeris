@@ -70,6 +70,8 @@ void ResourceMgr::remove(Resource* res)
 	FsString* key=res->getResourceName();
 	assert(key);
 	removeCache(key->cstr());
+	key->decRef();
+
 }
 
 void ResourceMgr::add(const char* name,Resource* res)

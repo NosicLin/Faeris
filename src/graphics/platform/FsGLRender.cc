@@ -118,6 +118,7 @@ Render::Render()
 	/* depth */
 	glEnable(GL_DEPTH);
 	m_depthTest=true;
+	m_depthMask=false;
 
 	/* face */
 	glFrontFace(GL_CCW);

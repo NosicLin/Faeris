@@ -92,8 +92,8 @@ class Texture2D:public Resource
 	
 
 	private:
-		Texture2D(){}
-		~Texture2D();
+		Texture2D();
+		virtual ~Texture2D();
 	private:
 		bool m_useMipmap;
 
@@ -116,4 +116,7 @@ class Texture2D:public Resource
 NS_FS_END 
 
 #endif /*_FS_TEXTURE_2D_H_*/
+
+
+
 

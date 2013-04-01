@@ -2,7 +2,8 @@
 #define _FS_T_ENTITY_H_
 
 #include "FsMacros.h"
-#include "Entity/FsEntity.h"
+
+#include "entity/FsEntity.h"
 #include "common/FsGlobal.h"
 #include "FsLuaEngine.h"
 
@@ -15,7 +16,7 @@ class TEntity:public T_F
 		virtual void update(float dt)
 		{
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onUpdate",2,0,"fn",this,dt))
+			if(!se->callFunctionInTable(T_F::m_data,"onUpdate",2,0,"fn",this,dt))
 			{
 				T_F::update(dt);
 			}
@@ -24,7 +25,7 @@ class TEntity:public T_F
 		virtual void draw(Render* r,bool updateMatrix=true)
 		{
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onDraw",2,0,"ff",this,r))
+			if(!se->callFunctionInTable(T_F::m_data,"onDraw",2,0,"ff",this,r))
 			{
 				T_F::draw(r,updateMatrix);
 			}

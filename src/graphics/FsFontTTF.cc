@@ -1,4 +1,4 @@
-#include "freetype/ft2build.h"
+#include "ft2build.h"
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
@@ -33,6 +33,8 @@ static int s_initFreetype()
 
 	return 0;
 }
+
+
 
 static unsigned long  s_fileRead(FT_Stream stream,
 		unsigned long offset,
@@ -142,17 +144,18 @@ PlatfromFontTTFData::PlatfromFontTTFData()
 }
 PlatfromFontTTFData::~PlatfromFontTTFData()
 {
+	if(m_face)
+	{
+		FT_Done_Face(m_face);
+	}
 	if(m_source)
 	{
 		m_source->decRef();
 	}
+
 	if(m_stream)
 	{
 		free(m_stream);
-	}
-	if(m_face)
-	{
-		FT_Done_Face(m_face);
 	}
 }
 
@@ -242,6 +245,12 @@ const char* Glyph::className()
 
 Glyph::Glyph()
 {
+	m_char=-1;
+	m_minx=0;
+	m_miny=0;
+	m_maxx=0;
+	m_maxy=0;
+	m_advance=0;
 	m_bitmap=NULL;
 }
 
@@ -352,7 +361,10 @@ FontTTF::FontTTF()
 {
 	m_data=NULL;
 	m_size=-1;
-	memset(m_caches,0,(FS_FONT_GLYPH_CACHE_NU-1)*sizeof(Glyph*));
+	for(int i=0;i<FS_FONT_GLYPH_CACHE_NU-1;i++)
+	{
+		m_caches[i]=NULL;
+	}
 }
 
 FontTTF::~FontTTF()

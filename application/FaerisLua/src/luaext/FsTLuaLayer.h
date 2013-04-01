@@ -12,7 +12,7 @@ class  TLuaLayer:public T_F
 		virtual void update(float dt)
 		{
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onUpdate",2,0,"fn",this,dt))
+			if(!se->callFunctionInTable(T_F::m_data,"onUpdate",2,0,"fn",this,dt))
 			{
 				T_F::update(dt);
 			}
@@ -21,7 +21,7 @@ class  TLuaLayer:public T_F
 		{
 			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
 
-			if(!se->callFunctionInTable(m_data,"onDraw",2,0,"ff",this,render))
+			if(!se->callFunctionInTable(T_F::m_data,"onDraw",2,0,"ff",this,render))
 			{
 				T_F::draw(render);
 			}
@@ -30,7 +30,7 @@ class  TLuaLayer:public T_F
 		virtual bool touchBegin(float x,float y)
 		{
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onTouchBegin",3,1,"fnn",this,x,y))
+			if(!se->callFunctionInTable(T_F::m_data,"onTouchBegin",3,1,"fnn",this,x,y))
 			{
 				return T_F::touchBegin(x,y);
 			}
@@ -42,7 +42,7 @@ class  TLuaLayer:public T_F
 		{
 
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onTouchMove",3,1,"fnn",this,x,y))
+			if(!se->callFunctionInTable(T_F::m_data,"onTouchMove",3,1,"fnn",this,x,y))
 			{
 				return T_F::touchBegin(x,y);
 			}
@@ -54,7 +54,7 @@ class  TLuaLayer:public T_F
 		virtual bool touchEnd(float x,float y)
 		{
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-			if(!se->callFunctionInTable(m_data,"onTouchEnd",3,1,"fnn",this,x,y))
+			if(!se->callFunctionInTable(T_F::m_data,"onTouchEnd",3,1,"fnn",this,x,y))
 			{
 				return  T_F::touchEnd(x,y);
 			}

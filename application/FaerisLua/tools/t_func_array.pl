@@ -14,6 +14,7 @@
 #  or 
 #  		unsigned int* v = (unsigned int*) malloc(count)*sizeof(int);
 #
+
 while($line=<STDIN>){
 	if( $line=~ /unsigned int\* v = Mtolua_new_dim\(int/)
 	{

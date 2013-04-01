@@ -369,9 +369,9 @@ void Matrix4::setScale(float sx,float sy,float sz)
 	float rsy=sy/Math::sqrt(m01*m01+m11*m11+m21*m21);
 	float rsz=sz/Math::sqrt(m02*m02+m12*m12+m22*m22);
 
-	m00*=sx; m01*=sy; m02*=sz;
-	m10*=sx; m11*=sy; m12*=sz;
-	m20*=sx; m21*=sy; m22*=sz;
+	m00*=rsx; m01*=rsy; m02*=rsz;
+	m10*=rsx; m11*=rsy; m12*=rsz;
+	m20*=rsx; m21*=rsy; m22*=rsz;
 }
 
 
