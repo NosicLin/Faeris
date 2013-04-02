@@ -13,6 +13,7 @@ class Quad2D:public Entity
 {
 	public:
 		static Quad2D* create(const char* tex);
+		static Quad2D* create(const char* tex,const Rect2D& rect);
 
 	public:
 
@@ -37,7 +38,11 @@ class Quad2D:public Entity
 		void setRect2D(const Rect2D& rect);
 		Rect2D getRect2D();
 	public:
+		/* inherit Entity */
 		virtual void draw(Render* r,bool updateMatrix);
+		virtual bool hit2D(float x,float y);
+
+		/* inherit FsObject */
 		virtual const char* className();
 
 

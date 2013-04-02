@@ -61,6 +61,7 @@ class Entity@__Entity:public FsObject
 	public:
 		void setVisible(bool visible){m_visible=visible;}
 		bool visible(){return m_visible;}
+		bool hit2D(float x,float y);
 };
 
 class LuaEntity@Entity:public Entity 

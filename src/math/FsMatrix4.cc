@@ -1,5 +1,6 @@
 #include "math/FsMatrix4.h"
 #include "math/FsMathUtil.h"
+#include "math/FsVector2.h"
 
 NS_FS_BEGIN
 
@@ -50,6 +51,16 @@ void Matrix4::mulScaler(float s)
 	m10*=s; m11*=s; m12*=s; m13*=s;
 	m20*=s; m21*=s; m22*=s; m23*=s;
 	m30*=s; m31*=s; m32*=s; m33*=s;
+}
+
+Vector2 Matrix4::mulVector2(const Vector2& v)
+{
+	float vx=v.x,vy=v.y;
+	float d=1/(m30 * vx + m31 * vy +  m33);
+	float rx,ry;
+	rx = ( m00 * vx + m01 * vy  + m03 ) * d;
+	ry = ( m10 * vx + m11 * vy  + m13 ) * d;
+	return Vector2(rx,ry);
 }
 
 Vector3 Matrix4::mulVector3(const Vector3& v)

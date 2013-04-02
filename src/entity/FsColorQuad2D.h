@@ -34,9 +34,11 @@ class ColorQuad2D:public Entity
 		/* inherit Entity */
 		virtual void update(float dt);
 		virtual void draw(Render* render,bool updateMatrix=true);
+		virtual bool hit2D(float x,float y);
 
 		/* inherit FsObject */
 		virtual const char* className()const;
+
 
 	public:
 		void setColor(Color c,int vertex=VERTEX_ALL);

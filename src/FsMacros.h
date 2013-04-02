@@ -222,6 +222,8 @@ enum
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
 #define FS_QUAD2D_CLASS_NAME   "Quad2D"
 #define FS_LABEL_TTF_CLASS_NAME "LabelTTF"
+#define FS_SPRITE_2D_ANIMATION_CLASS_NAME "Sprite2DAnimation"
+#define FS_SPRITE2D_DATA_CLASS_NAME "Sprite2DData"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"

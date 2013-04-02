@@ -96,6 +96,26 @@ const char* ColorQuad2D::className()const
 	return FS_COLOR_QUAD2D_CLASS_NAME;
 }
 
+bool ColorQuad2D::hit2D(float x,float y)
+{
+	Vector2 point(x,y);
+	updateWorldMatrix();
+	Vector2 a=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y));
+	Vector2 b=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y));
+	Vector2 c=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y+m_rect.height));
+	Vector2 d=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y+m_rect.height));
+
+	if(Math::pointInTriangle2D(point,a,b,c))
+	{
+		return true;
+	}
+	if(Math::pointInTriangle2D(point,c,d,a))
+	{
+		return true;
+	}
+	return false;
+}
+
 
 void ColorQuad2D::setColor(Color c,int vertex)
 {

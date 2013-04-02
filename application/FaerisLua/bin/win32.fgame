@@ -1,0 +1,20 @@
+win:{
+	height:1024
+	width:800
+}
+
+script:{
+	entry:"main.lua"
+}
+
+mgr:{
+	textureMgr:{
+		searchPath:[ ]
+	}
+}
+
+
+vfs:{
+
+}
+

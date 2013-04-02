@@ -70,6 +70,9 @@ Rect2D Quad2D::getRect2D()
 	return m_rect;
 }
 
+
+
+
 void Quad2D::draw(Render* render,bool updateMatrix)
 {
 
@@ -124,6 +127,28 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 	render->drawFace3(faces,2);
 	render->popMatrix();
 }
+
+
+bool Quad2D::hit2D(float x,float y)
+{
+	Vector2 point(x,y);
+	updateWorldMatrix();
+	Vector2 a=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y));
+	Vector2 b=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y));
+	Vector2 c=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y+m_rect.height));
+	Vector2 d=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y+m_rect.height));
+
+	if(Math::pointInTriangle2D(point,a,b,c))
+	{
+		return true;
+	}
+	if(Math::pointInTriangle2D(point,c,d,a))
+	{
+		return true;
+	}
+	return false;
+}
+
 
 const char* Quad2D::className()
 {

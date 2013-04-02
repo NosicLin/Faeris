@@ -221,6 +221,51 @@ float LabelTTF::getOpacity()
 }
 
 
+Rect2D LabelTTF::getRect2D()
+{
+	if(m_dirty)
+	{
+		generateTexture();
+		m_dirty=false;
+	}
+	if(!m_texture)
+	{
+		return Rect2D(0,0,0,0);
+	}
+
+	float x,y,width,height;
+
+	width=(float)m_texture->getWidth();
+	height=(float)m_texture->getHeight();
+
+	switch(m_alignv)
+	{
+		case ALIGN_V_CENTER:
+			y=-height/2;
+			break;
+		case ALIGN_V_TOP:
+			y=-height;
+			break;
+		case ALIGN_V_BOTTOM:
+			y=0;
+			break;
+	}
+
+	switch(m_alignh)
+	{
+		case ALIGN_H_LEFT:
+			x=0;
+			break;
+		case ALIGN_H_CENTER:
+			x=-width/2;
+			break;
+		case ALIGN_H_RIGHT:
+			x=width;
+			break;
+	}
+	return Rect2D(x,y,width,height);
+}
+
 void LabelTTF::draw(Render* render,bool updateMatrix)
 {
 	if(m_dirty)
@@ -249,42 +294,16 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 	render->disableAllAttrArray();
 	render->bindTexture(m_texture,0);
 
-	float x,y,width,height;
 
-	width=(float)m_texture->getWidth();
-	height=(float)m_texture->getHeight();
+	Rect2D rect=getRect2D();
 
-	switch(m_alignv)
-	{
-		case ALIGN_V_CENTER:
-			y=-height/2;
-			break;
-		case ALIGN_V_TOP:
-			y=-height;
-			break;
-		case ALIGN_V_BOTTOM:
-			y=0;
-			break;
-	}
-	switch(m_alignh)
-	{
-		case ALIGN_H_LEFT:
-			x=0;
-			break;
-		case ALIGN_H_CENTER:
-			x=-width/2;
-			break;
-		case ALIGN_H_RIGHT:
-			x=width;
-			break;
-	}
 
 	Vector3 vv[4]=
 	{
-		Vector3(x,y,0.0f),
-		Vector3(x+width,y,0.0f),
-		Vector3(x+width,y+height,0.0f),
-		Vector3(x,y+height,0.0f),
+		Vector3(rect.x,rect.y,0.0f),
+		Vector3(rect.x+rect.width,rect.y,0.0f),
+		Vector3(rect.x+rect.width,rect.y+rect.height,0.0f),
+		Vector3(rect.x,rect.y+rect.height,0.0f),
 	};
 
 	TexCoord2 vc[4]=
@@ -307,6 +326,33 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 	render->drawFace3(faces,2);
 	render->popMatrix();
 }
+
+bool LabelTTF::hit2D(float x,float y)
+{
+	Rect2D rect=getRect2D();
+
+	Vector2 point(x,y);
+	updateWorldMatrix();
+	Vector2 a=m_worldMatrix.mulVector2(Vector2(rect.x,rect.y));
+	Vector2 b=m_worldMatrix.mulVector2(Vector2(rect.x+rect.width,rect.y));
+	Vector2 c=m_worldMatrix.mulVector2(Vector2(rect.x+rect.width,rect.y+rect.height));
+	Vector2 d=m_worldMatrix.mulVector2(Vector2(rect.x,rect.y+rect.height));
+
+	if(Math::pointInTriangle2D(point,a,b,c))
+	{
+		return true;
+	}
+
+	if(Math::pointInTriangle2D(point,c,d,a))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+
 
 void LabelTTF::init(const char* text,FontTTF* font)
 {

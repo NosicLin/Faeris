@@ -91,6 +91,9 @@ class Entity :public FsObject
 		void setVisible(bool visible){m_visible=visible;}
 		bool visible(){return m_visible;}
 
+		/* for hiting */
+		virtual bool hit2D(float x,float y);
+
 	protected:
 		Entity();
 		virtual ~Entity();
@@ -105,6 +108,7 @@ class Entity :public FsObject
 		void setParent(Entity* parent){m_parent=parent;}
 		void setLayer(Layer* layer){m_layer=layer;}
 		Layer* layer(){return m_layer;}
+
 
 	protected:  
 		/* flags */

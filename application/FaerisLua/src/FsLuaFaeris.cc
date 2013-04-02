@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on Sun Mar 31 21:36:58 2013.
+** Generated automatically by tolua++-1.0.92 on 04/02/13 00:36:18.
 */
 
 #ifndef __cplusplus
@@ -1830,6 +1830,42 @@ static int tolua_FsFaeris___Entity_visible00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'visible'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: hit2D of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Entity_hit2D00
+static int tolua_FsFaeris___Entity_hit2D00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'hit2D'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->hit2D(x,y);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'hit2D'.",&tolua_err);
  return 0;
 #endif
 }
@@ -10687,6 +10723,7 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setPositionZ",tolua_FsFaeris___Entity_setPositionZ00);
    tolua_function(tolua_S,"setVisible",tolua_FsFaeris___Entity_setVisible00);
    tolua_function(tolua_S,"visible",tolua_FsFaeris___Entity_visible00);
+   tolua_function(tolua_S,"hit2D",tolua_FsFaeris___Entity_hit2D00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Entity","LuaEntity","Entity",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Entity");

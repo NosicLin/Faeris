@@ -745,6 +745,14 @@
 					RelativePath="..\..\..\src\entity\FsQuad2D.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsSprite2DData.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsSprite2DData.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="common"

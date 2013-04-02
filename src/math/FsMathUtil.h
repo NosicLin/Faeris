@@ -5,6 +5,8 @@
 #include "FsMacros.h"
 
 NS_FS_BEGIN
+
+class Vector2;
 FS_BEGIN_NAMESPACE(Math)
 
 #ifndef FS_PI 
@@ -70,6 +72,13 @@ inline int floatEqual(float a,float b)
 {
 	return abs(a-b)<0.0001?1:0;
 }
+
+
+bool pointInTriangle2D(const Vector2& point,const Vector2& a,const Vector2& b,const Vector2& c);
+
+
+
+
 
 FS_END_NAMESPACE(Math)
 

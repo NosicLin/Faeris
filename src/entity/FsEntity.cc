@@ -155,6 +155,12 @@ Vector3 Entity::worldToLocal(const Vector3& v)
 	return inverse.mulVector3(v);
 }
 
+
+bool Entity::hit2D(float x,float y)
+{
+	return false;
+}
+
 void Entity::addChild(Entity* n)
 {
 	if(n->m_parent==this)

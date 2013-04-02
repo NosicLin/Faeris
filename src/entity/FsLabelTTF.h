@@ -51,9 +51,12 @@ class LabelTTF:public Entity
 		void setOpacity(float opacity);
 		float getOpacity();
 
+		Rect2D getRect2D();
+
 	public:
 		/* inherit Entity */
 		virtual void draw(Render* render,bool updateMatrix);
+		virtual bool hit2D(float x,float y);
 
 		/* inherit FsObject */
 		virtual const char* className();
