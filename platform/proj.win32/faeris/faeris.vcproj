@@ -370,6 +370,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\material\FsPositionAlphaTextureMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsPositionAlphaTextureMaterial.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\material\FsPositionTextureMaterial.cc"
 					>
 				</File>
@@ -746,6 +754,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\entity\FsSprite2D.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\entity\FsSprite2D.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\entity\FsSprite2DData.cc"
 					>
 				</File>
@@ -855,6 +871,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\mgr\FsResourceMgr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsSprite2DDataMgr.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\mgr\FsSprite2DDataMgr.h"
 					>
 				</File>
 				<File

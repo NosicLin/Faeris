@@ -12,7 +12,7 @@ varying vec2 v_texCoord;					\n\
 varying float v_alpha;						\n\
 void main() 								\n\
 { 											\n\
-	gl_Position=gl_ModelViewProjectionMatrix*vec4(a_position,0,0);		\n\
+	gl_Position=gl_ModelViewProjectionMatrix*vec4(a_position,0,1);		\n\
 	v_texCoord=a_texCoord;					\n\
 	v_alpha=a_alpha;						\n\
 };											\n\

@@ -123,9 +123,9 @@ Render::Render()
 	/* face */
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 
-	m_cullFace=SIDE_BACK;
+	m_cullFace=SIDE_NONE;
 	m_frontFace=FRONT_CCW;
 
 

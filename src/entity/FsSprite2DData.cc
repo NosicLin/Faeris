@@ -380,6 +380,8 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 	}
 
 	ret->setName(name);
+	if(fps<=0) fps=1;
+	ret->setFps(fps);
 
 error:
 	FS_SAFE_DEC_REF(name);

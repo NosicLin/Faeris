@@ -73,7 +73,7 @@ class Sprite2D :public Entity
 		float m_opacity;
 
 		int m_curFrame;
-		int m_elapseTime;
+		float m_elapseTime;
 
 		int m_mode;
 		int m_stop;

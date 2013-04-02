@@ -186,8 +186,8 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 
 	Face3 faces[2]=
 	{
-		Face3(0,1,2),
-		Face3(2,3,0),
+		Face3(0,3,2),
+		Face3(2,1,0),
 	};
 
 	for(int i=0;i<frame->getQuadNu();i++)
