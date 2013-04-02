@@ -4,11 +4,13 @@
 #include "material/FsMaterial.h"
 
 NS_FS_BEGIN
+class Program;
 class PositionTextureMaterial: public Material
 {
 	public:
 		static PositionTextureMaterial* create();
 		static PositionTextureMaterial* shareMaterial();
+		static void purgeShareMaterial();
 
 	public:
 		void setColor(Color c);

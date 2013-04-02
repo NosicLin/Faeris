@@ -25,6 +25,8 @@ SRC=  common/FsGlobal.cc \
 	  entity/FsEntity.cc \
 	  entity/FsLabelTTF.cc \
 	  entity/FsQuad2D.cc \
+	  entity/FsSprite2DData.cc \
+	  entity/FsSprite2D.cc \
 	  event/FsSysDispatcher.cc \
 	  event/FsSysEventListener.cc \
 	  event/FsTouchDispatcher.cc \
@@ -42,6 +44,7 @@ SRC=  common/FsGlobal.cc \
 	  material/FsMaterial.cc \
 	  material/FsPositionTextureMaterial.cc \
 	  material/FsShaderMaterial.cc \
+	  material/FsPositionAlphaTextureMaterial.cc \
 	  math/FsMathUtil.cc \
 	  math/FsMatrix4.cc \
 	  math/FsRect2D.cc \
@@ -49,6 +52,7 @@ SRC=  common/FsGlobal.cc \
 	  mgr/FsResource.cc \
 	  mgr/FsResourceMgr.cc \
 	  mgr/FsTextureMgr.cc \
+	  mgr/FsSprite2DDataMgr.cc \
 	  scene/FsColorLayer.cc \
 	  scene/FsDirector.cc \
 	  scene/FsLayer.cc \

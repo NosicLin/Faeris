@@ -222,8 +222,9 @@ enum
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
 #define FS_QUAD2D_CLASS_NAME   "Quad2D"
 #define FS_LABEL_TTF_CLASS_NAME "LabelTTF"
-#define FS_SPRITE_2D_ANIMATION_CLASS_NAME "Sprite2DAnimation"
+#define FS_SPRITE2D_ANIMATION_CLASS_NAME "Sprite2DAnimation"
 #define FS_SPRITE2D_DATA_CLASS_NAME "Sprite2DData"
+#define FS_SPRITE2D_CLASS_NAME "Sprite2D"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"
@@ -240,6 +241,8 @@ enum
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
 #define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"
+#define FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME "PositionAlphaTextureMaterial"
+#define FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME "PositionTextureMaterial"
 
 /* sys */
 #define FS_WINDOW_CLASS_NAME "Window"
@@ -265,6 +268,7 @@ enum
 /* mgr */
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"
 #define FS_FONT_TTF_DATA_MGR_CLASS_NAME  "FontTTFDataMgr"
+#define FS_SPRITE_2D_DATA_MGR_CLASS_NAME "Sprite2DDataMgr"
 
 
 

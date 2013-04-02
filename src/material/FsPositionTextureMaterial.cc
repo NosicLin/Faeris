@@ -26,17 +26,23 @@ void main()							\n\
 }														\n\
 ";
 
-PositionTextureMaterial* s_shareMatrial=NULL;
+static PositionTextureMaterial* s_shareMatrial=NULL;
 
 PositionTextureMaterial* PositionTextureMaterial::shareMaterial()
 {
 	if(s_shareMatrial==NULL)
 	{
 		s_shareMatrial=PositionTextureMaterial::create();
-		return s_shareMatrial;
 	}
+
 	s_shareMatrial->addRef();
 	return s_shareMatrial;
+}
+
+void PositionTextureMaterial::purgeShareMaterial()
+{
+	s_shareMatrial->forceDestroy();
+	s_shareMatrial=NULL;
 }
 
 
@@ -99,7 +105,7 @@ void PositionTextureMaterial::unload(Render* )
 }
 const char* PositionTextureMaterial::className()
 {
-	return FS_QUAD_2D_MATERIAL_CLASS_NAME;
+	return FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME;
 }
 
 
@@ -108,7 +114,7 @@ const char* PositionTextureMaterial::className()
 PositionTextureMaterial::PositionTextureMaterial()
 {
 	m_program=Program::create(quad_material_vert_str,sizeof(quad_material_vert_str),
-							  quad_material_frag_str,sizeof(quad_material_frag_str));
+			quad_material_frag_str,sizeof(quad_material_frag_str));
 	if(m_program)
 	{
 		m_program->addAttribute("a_position");
@@ -121,7 +127,7 @@ PositionTextureMaterial::PositionTextureMaterial()
 		m_opacityUniform=m_program->getUniformLocation("u_opacity");
 		m_colorUniform=m_program->getUniformLocation("u_color");
 		m_textureUniform=m_program->getUniformLocation("u_texture0");
-		
+
 		m_positionAttribute=m_program->getAttributeLocation("a_position");
 		m_textcoordAttribute=m_program->getAttributeLocation("a_texCoord");
 

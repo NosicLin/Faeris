@@ -69,3 +69,6 @@ Faeris::FsDict* XirParser::parse(Faeris::FsFile* file)
 	delete parm;
 	return root;
 }
+
+
+

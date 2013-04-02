@@ -78,7 +78,7 @@ class Sprite2DAnimation:public FsObject
 class Sprite2DData:public Resource 
 {
 	public:
-		Sprite2DData* create(FsFile* file);
+		static Sprite2DData* create(FsFile* file);
 
 	public:
 		/* animation */

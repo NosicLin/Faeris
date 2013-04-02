@@ -432,10 +432,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    20,    20,    28,    37,    43,    55,    56,    57,    60,
-      64,    68,    73,    79,    85,    92,    92,    92,    92,    96,
-     101,   108,   113,   122,   126,   138,   143,   149,   155,   162,
-     166
+       0,    20,    20,    27,    34,    40,    50,    51,    52,    55,
+      59,    63,    68,    74,    80,    87,    87,    87,    87,    91,
+      96,   103,   108,   115,   119,   129,   134,   140,   146,   152,
+     156
 };
 #endif
 
@@ -1395,27 +1395,24 @@ yyreduce:
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 		CAST_PARAM->setRoot((Faeris::FsDict*)(yyvsp[(1) - (1)]));
-		((yyvsp[(1) - (1)]))->decRef();
 	}
     break;
 
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 29 "xir_grammer.y"
+#line 28 "xir_grammer.y"
     {
 		Faeris::FsDict* dict= CAST_PARAM->newDictObject();
 		(yyval)=dict;
 		dict->insert((yyvsp[(1) - (4)]),(yyvsp[(3) - (4)]));
-		((yyvsp[(1) - (4)]))->decRef();
-		((yyvsp[(3) - (4)]))->decRef();
 	}
     break;
 
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 38 "xir_grammer.y"
+#line 35 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newDictObject();
 	}
@@ -1424,41 +1421,39 @@ yyreduce:
   case 5:
 
 /* Line 1806 of yacc.c  */
-#line 44 "xir_grammer.y"
+#line 41 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (5)]);
 		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
 		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->decRef();
-		((yyvsp[(4) - (5)]))->decRef();
 }
     break;
 
   case 6:
 
 /* Line 1806 of yacc.c  */
-#line 55 "xir_grammer.y"
+#line 50 "xir_grammer.y"
     {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 7:
 
 /* Line 1806 of yacc.c  */
-#line 56 "xir_grammer.y"
+#line 51 "xir_grammer.y"
     {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 8:
 
 /* Line 1806 of yacc.c  */
-#line 57 "xir_grammer.y"
+#line 52 "xir_grammer.y"
     {(yyval)=(yyvsp[(1) - (1)]);}
     break;
 
   case 9:
 
 /* Line 1806 of yacc.c  */
-#line 61 "xir_grammer.y"
+#line 56 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1467,7 +1462,7 @@ yyreduce:
   case 10:
 
 /* Line 1806 of yacc.c  */
-#line 65 "xir_grammer.y"
+#line 60 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1476,7 +1471,7 @@ yyreduce:
   case 11:
 
 /* Line 1806 of yacc.c  */
-#line 69 "xir_grammer.y"
+#line 64 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1485,7 +1480,7 @@ yyreduce:
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 74 "xir_grammer.y"
+#line 69 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newStringObject();
 	}
@@ -1494,7 +1489,7 @@ yyreduce:
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 80 "xir_grammer.y"
+#line 75 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newStringObject();
 	}
@@ -1503,7 +1498,7 @@ yyreduce:
   case 14:
 
 /* Line 1806 of yacc.c  */
-#line 86 "xir_grammer.y"
+#line 81 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newStringObject();
 	}
@@ -1512,7 +1507,7 @@ yyreduce:
   case 19:
 
 /* Line 1806 of yacc.c  */
-#line 97 "xir_grammer.y"
+#line 92 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newDictObject();
 	}
@@ -1521,7 +1516,7 @@ yyreduce:
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 102 "xir_grammer.y"
+#line 97 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newDictObject();
 	}
@@ -1530,7 +1525,7 @@ yyreduce:
   case 21:
 
 /* Line 1806 of yacc.c  */
-#line 109 "xir_grammer.y"
+#line 104 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1539,20 +1534,18 @@ yyreduce:
   case 22:
 
 /* Line 1806 of yacc.c  */
-#line 114 "xir_grammer.y"
+#line 109 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (5)]);
 		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
 		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->decRef();
-		((yyvsp[(4) - (5)]))->decRef();
 	}
     break;
 
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 123 "xir_grammer.y"
+#line 116 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (2)]);
 	}
@@ -1561,20 +1554,18 @@ yyreduce:
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 127 "xir_grammer.y"
+#line 120 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (5)]);
 		Faeris::FsDict* dict=(Faeris::FsDict*)((yyvsp[(1) - (5)]));
 		dict->insert((yyvsp[(2) - (5)]),(yyvsp[(4) - (5)]));
-		((yyvsp[(2) - (5)]))->decRef();
-		((yyvsp[(4) - (5)]))->decRef();
 	}
     break;
 
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 139 "xir_grammer.y"
+#line 130 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newArrayObject();
 	}
@@ -1583,7 +1574,7 @@ yyreduce:
   case 26:
 
 /* Line 1806 of yacc.c  */
-#line 144 "xir_grammer.y"
+#line 135 "xir_grammer.y"
     {
 		(yyval)=CAST_PARAM->newArrayObject();
 	}
@@ -1592,7 +1583,7 @@ yyreduce:
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 150 "xir_grammer.y"
+#line 141 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (1)]);
 	}
@@ -1601,18 +1592,17 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 156 "xir_grammer.y"
+#line 147 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (3)]);
 		((Faeris::FsArray*)((yyvsp[(1) - (3)])))->push((yyvsp[(2) - (3)]));
-		(yyvsp[(2) - (3)])->decRef();
 	}
     break;
 
   case 29:
 
 /* Line 1806 of yacc.c  */
-#line 163 "xir_grammer.y"
+#line 153 "xir_grammer.y"
     {
 		(yyval)=(yyvsp[(1) - (2)]);
 	}
@@ -1621,18 +1611,17 @@ yyreduce:
   case 30:
 
 /* Line 1806 of yacc.c  */
-#line 167 "xir_grammer.y"
+#line 157 "xir_grammer.y"
     {
 		((Faeris::FsArray*)((yyvsp[(1) - (3)])))->push((yyvsp[(2) - (3)]));
 		(yyval)=(yyvsp[(1) - (3)]);
-		((yyvsp[(2) - (3)]))->decRef();
 	}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1636 "xir_grammer.cc"
+#line 1625 "xir_grammer.cc"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

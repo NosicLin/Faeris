@@ -24,7 +24,7 @@ $pfile "FsLuaColorQuad2D.pkg"
 $pfile "FsQuad2D.pkg"
 $pfile "FsLuaQuad2D.pkg"
 $pfile "FsLabelTTF.pkg"
-
+$pfile "FsSprite2D.pkg"
 
 
 /* scheduler */

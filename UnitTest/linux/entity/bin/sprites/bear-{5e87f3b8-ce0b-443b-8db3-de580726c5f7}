@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FSpriteDesigner version="v1.0" type="FSpriteMorph" name="bear" id="{5e87f3b8-ce0b-443b-8db3-de580726c5f7}">
+    <animation name="roar">
+        <frame id="0" type="key">
+            <frameimage>
+                <url>textures/bear_roar (1).png</url>
+                <posx>39.0627</posx>
+                <posy>48.8702</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="5" type="key">
+            <frameimage>
+                <url>textures/bear_roar (2).png</url>
+                <posx>38.9153</posx>
+                <posy>41.9533</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="10" type="key">
+            <frameimage>
+                <url>textures/bear_roar (3).png</url>
+                <posx>38.9153</posx>
+                <posy>41.1964</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="15" type="key">
+            <frameimage>
+                <url>textures/bear_roar (4).png</url>
+                <posx>33.9955</posx>
+                <posy>49.9007</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="20" type="key">
+            <frameimage>
+                <url>textures/bear_roar (5).png</url>
+                <posx>38.9153</posx>
+                <posy>48.0085</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="25" type="key">
+            <frameimage>
+                <url>textures/bear_roar (6).png</url>
+                <posx>37.0231</posx>
+                <posy>49.5223</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="30" type="key">
+            <frameimage>
+                <url>textures/bear_roar (7).png</url>
+                <posx>38.9153</posx>
+                <posy>49.9007</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="35" type="key">
+            <frameimage>
+                <url>textures/bear_roar (8).png</url>
+                <posx>38.9153</posx>
+                <posy>49.9007</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="40" type="key">
+            <frameimage>
+                <url>textures/bear_roar (8).png</url>
+                <posx>38.9153</posx>
+                <posy>49.9007</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+    </animation>
+    <animation name="laugh">
+        <frame id="0" type="key">
+            <frameimage>
+                <url>textures/bear_laugh (1).png</url>
+                <posx>38.7687</posx>
+                <posy>49.1554</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="5" type="key">
+            <frameimage>
+                <url>textures/bear_laugh (2).png</url>
+                <posx>38.7687</posx>
+                <posy>50.2472</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="10" type="key">
+            <frameimage>
+                <url>textures/bear_laugh (3).png</url>
+                <posx>38.7687</posx>
+                <posy>49.1554</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="15" type="key">
+            <frameimage>
+                <url>textures/bear_laugh (4).png</url>
+                <posx>38.7687</posx>
+                <posy>49.1554</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+        <frame id="20" type="key">
+            <frameimage>
+                <url>textures/bear_laugh (4).png</url>
+                <posx>38.7687</posx>
+                <posy>49.1554</posy>
+                <scalex>1</scalex>
+                <scaley>1</scaley>
+                <angle>0</angle>
+                <areax0>0</areax0>
+                <areay0>0</areay0>
+                <areax1>1</areax1>
+                <areay1>1</areay1>
+                <offsetx>0</offsetx>
+                <offsety>0</offsety>
+                <alpha>1</alpha>
+            </frameimage>
+        </frame>
+    </animation>
+</FSpriteDesigner>

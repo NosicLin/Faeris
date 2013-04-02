@@ -21,7 +21,6 @@ xir_start:xir_body
 	{
 		$$=$1;
 		CAST_PARAM->setRoot((Faeris::FsDict*)$1);
-		($1)->decRef();
 	}
 ;
 
@@ -30,8 +29,6 @@ xir_body: sim_str tCOLON primity delimiter
 		Faeris::FsDict* dict= CAST_PARAM->newDictObject();
 		$$=dict;
 		dict->insert($1,$3);
-		($1)->decRef();
-		($3)->decRef();
 	}
 ;
 xir_body:tNEWLINE
@@ -45,8 +42,6 @@ xir_body:xir_body sim_str tCOLON primity  delimiter
 		$$=$1;
 		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
 		dict->insert($2,$4);
-		($2)->decRef();
-		($4)->decRef();
 }
 ;
 
@@ -115,8 +110,6 @@ dict_body:dict_body sim_str tCOLON primity  delimiter
 		$$=$1;
 		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
 		dict->insert($2,$4);
-		($2)->decRef();
-		($4)->decRef();
 	}
 ;
 dict:dict_body tR_RB 
@@ -128,8 +121,6 @@ dict:dict_body tR_RB
 		$$=$1;
 		Faeris::FsDict* dict=(Faeris::FsDict*)($1);
 		dict->insert($2,$4);
-		($2)->decRef();
-		($4)->decRef();
 	}
 ;
 
@@ -156,7 +147,6 @@ array_body:array_body primity delimiter
 	{
 		$$=$1;
 		((Faeris::FsArray*)($1))->push($2);
-		$2->decRef();
 	}
 ;
 array:array_body tR_SB
@@ -167,7 +157,6 @@ array:array_body tR_SB
 	{
 		((Faeris::FsArray*)($1))->push($2);
 		$$=$1;
-		($2)->decRef();
 	}
 ;
 

@@ -1,4 +1,6 @@
 #include "common/FsGlobal.h"
+#include "material/FsPositionAlphaTextureMaterial.h"
+#include "material/FsPositionTextureMaterial.h"
 
 NS_FS_BEGIN
 Scheduler* Global::m_scheduler=NULL;
@@ -11,6 +13,10 @@ ScriptEngine* Global::m_scriptEngine=NULL;
 
 TextureMgr* Global::m_textureMgr=NULL;
 FontTTFDataMgr* Global::m_fontTTFDataMgr=NULL;
+Sprite2DDataMgr* Global::m_sprite2DDataMgr=NULL;
+
+
+
 
 
 bool  Global::moduleInit()
@@ -26,6 +32,7 @@ bool  Global::moduleInit()
 	/* mgr */
 	m_textureMgr=TextureMgr::create();
 	m_fontTTFDataMgr=FontTTFDataMgr::create();
+	m_sprite2DDataMgr=Sprite2DDataMgr::create();
 
 	/* register scheduler target */
 
@@ -34,6 +41,7 @@ bool  Global::moduleInit()
 
 	m_scheduler->add(m_director,Scheduler::MIDDLE);
 	m_scheduler->add(m_director,Scheduler::LOW);
+
 
 	return true;
 
@@ -59,6 +67,11 @@ void Global::moduleExit()
 	/* mgr */
 	m_textureMgr->forceDestroy();
 	m_fontTTFDataMgr->forceDestroy();
+	m_sprite2DDataMgr->forceDestroy();
+
+	/* material */
+	PositionAlphaTextureMaterial::purgeShareMaterial();
+	PositionTextureMaterial::purgeShareMaterial();
 }
 Scheduler* Global::scheduler()
 {
@@ -118,6 +131,12 @@ FontTTFDataMgr* Global::fontTTFDataMgr()
 {
 	FS_SAFE_ADD_REF(m_fontTTFDataMgr);
 	return m_fontTTFDataMgr;
+}
+
+Sprite2DDataMgr* Global::sprite2DDataMgr()
+{
+	FS_SAFE_ADD_REF(m_sprite2DDataMgr);
+	return m_sprite2DDataMgr;
 }
 
 

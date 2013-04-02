@@ -50,14 +50,15 @@ class YYParserParm
 				ob=new Faeris::FsString(esc_str);
 				delete[] esc_str;
 			}
-
 			m_pending_obs->push(ob);
+			ob->decRef();
 			return ob;
 		}
 		Faeris::FsDict* newDictObject()
 		{
 			Faeris::FsDict* ob=new Faeris::FsDict();
 			m_pending_obs->push(ob);
+			ob->decRef();
 			return ob;
 		}
 
@@ -65,6 +66,7 @@ class YYParserParm
 		{
 			Faeris::FsArray* ob=new Faeris::FsArray;
 			m_pending_obs->push(ob);
+			ob->decRef();
 			return ob;
 		}
 
