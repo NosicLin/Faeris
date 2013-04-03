@@ -40,6 +40,9 @@ SRC=  common/FsGlobal.cc \
 	  io/FsFile.cc \
 	  io/FsSysFile.cc \
 	  io/FsVFS.cc \
+	  io/FsPackage.cc \
+	  io/FsZipPackage.cc \
+	  io/FsMemFile.cc \
 	  material/FsColorQuad2DMaterial.cc \
 	  material/FsMaterial.cc \
 	  material/FsPositionTextureMaterial.cc \

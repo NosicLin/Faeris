@@ -7,7 +7,6 @@ NS_FS_BEGIN
 class FsDir;
 
 FS_BEGIN_NAMESPACE(VFS)
-
 enum
 {
 	FS_IO_RDONLY=FsFile::FS_IO_RDONLY,
@@ -17,7 +16,6 @@ enum
 	FS_IO_CREATE=FsFile::FS_IO_CREATE,
 	FS_IO_TRUNC=FsFile::FS_IO_TRUNC,
 };
-
 enum
 {
 	FS_SEEK_SET=FsFile::FS_SEEK_SET,
@@ -28,19 +26,14 @@ enum
 bool moduleInit();
 bool moduleExit();
 
-
 FsFile* open(const char* name,uint mode=FS_IO_RDONLY);
 FsFile* create(const char* name);
-
 int remove(const char* name);
 int copy(const char* src,const char* dst);
 bool exist(const char* name);
 FsDir* openDir(const char* name);
 bool isDir(const char* name);
-
-
-bool mapPackage(const char* name,Package* package);
-bool unmapPackage(const char* name);
+bool mapPackage(const char* name);
 
 FsFile* getStdout(); 
 FsFile* getStdin(); 
@@ -50,18 +43,4 @@ FS_END_NAMESPACE(VFS)
 NS_FS_END
 
 #endif 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

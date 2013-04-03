@@ -1,33 +1,48 @@
 #ifndef _FAERY_MEM_FILE_H_
 #define _FAERY_MEM_FILE_H_
 
-#include"FsIFile.h"
+#include "io/FsFile.h"
 
-FAERY_NAMESPACE_BEGIN
-class FsMemFile:public FsIFile
+NS_FS_BEGIN
+class MemFile:public FsFile
 {
 	public:
-		FsMemFile(const void* mem,ulong len);
-		FsMemFile();
+		static MemFile* create();
+		static MemFile* create(ulong len);
+		static MemFile* create(const void* mem,ulong len);
 	public:
+		/* inherit FsFile */
 		virtual long read(void* buf,long len);
 		virtual long write(const void* buf,long len);
 		virtual long seek(long offset,int where);
 		virtual long tell();
 		virtual int close();
-		virtual ~FsMemFile();
+
+		/* inherit FsObject */
+		virtual const char* className();
 	public:
-		int save(const char* name);
+		void* getInternalBuffer();
+
 	protected:
-		void ensureMore(uint len);
+		MemFile();
+		virtual ~MemFile();
+
+		virtual bool init();
+		virtual bool init(ulong len);
+		virtual bool init(const void* mem,ulong len);
+
+		void ensureMore(ulong len);
 	private:
-		char* m_mem;
+		uint8_t* m_mem;
 		ulong m_length;
 		ulong m_cap;
 		ulong m_pos;
 };
-
-FAERY_NAMESPACE_END
+NS_FS_END
 
 #endif /*_FAERY_MEM_FILE_H_*/
+
+
+
+
 

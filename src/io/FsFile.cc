@@ -2,10 +2,9 @@
 #include "stdarg.h"
 #include "stdio.h"
 NS_FS_BEGIN
-static const char* s_FsFileName="FsFileObject";
 const char* FsFile::className()
 {
-	return s_FsFileName;
+	return FS_FILE_CLASS_NAME;
 }
 
 long FsFile::writeStr(const char* fmt,...)

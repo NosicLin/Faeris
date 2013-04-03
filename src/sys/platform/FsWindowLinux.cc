@@ -299,7 +299,7 @@ void EventGraper::handleEvent(XEvent* src_event)
 				{
 					render->setViewport(0,0,width,height);
 				}
-				FS_TRACE_WARN("Resize: width=%d,height=%d",width,height);
+			//	FS_TRACE_WARN("Resize: width=%d,height=%d",width,height);
 				break;
 			}
 		case ButtonPress:

@@ -1,8 +1,9 @@
 local director=share:director();
 local render=share:render();
 local wind=share:window();
-wind:setSize(480,800)
-render:setViewport(0,0,480,800);
+
+wind:setSize(1025,800)
+render:setViewport(0,0,1024,800);
 
 
 local render=share:render();
@@ -15,11 +16,11 @@ layer=Layer2D:create();
 layer:setViewArea(-400,-400,1024,800)
 
 
-
 sprite=Sprite2D:create("interface.fst");
 sprite:setPosition(100,100,0);
 sprite:setAnimation("anim0");
 sprite:playAnimation();
+
 
 layer:add(sprite);
 
@@ -35,7 +36,7 @@ sprite3:playAnimation();
 --sprite3:setColor(Color(255,0,255));
 --sprite3:setOpacity(0.5);
 --
-sprite3:setScale(0.5,0.5,1);
+--sprite3:setScale(0.5,0.5,1);
 
 --sprite3:setRotateZ(90);
 layer:add(sprite3);

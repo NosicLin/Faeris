@@ -213,9 +213,6 @@ enum
 
 
 /* class name */
-#define FS_IMAGE2D_CLASS_NAME "Image2D"
-#define FS_SYSFILE_CLASS_NAME "SysFile"
-
 
 /* entity */
 #define FS_ENTITY_CLASS_NAME "Entity"
@@ -264,6 +261,7 @@ enum
 #define FS_GLYPH_CLASS_NAME  "Glyph"
 #define FS_FONT_TTF_DATA_CLASS_NAME "FontTTFData"
 #define FS_FONT_TTF_CLASS_NAME "FontTTF"
+#define FS_IMAGE2D_CLASS_NAME "Image2D"
 
 /* mgr */
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"
@@ -271,6 +269,14 @@ enum
 #define FS_SPRITE_2D_DATA_MGR_CLASS_NAME "Sprite2DDataMgr"
 
 
+
+/* io */
+#define FS_FILE_CLASS_NAME "FsFile"
+#define FS_MEM_FILE_CLASS_NAME "MemFile"
+#define FS_SYS_FILE_CLASS_NAME "SysFile"
+#define FS_PACKAGE_CLASS_NAME "Package"
+#define FS_RES_PACKAGE_CLASS_NAME "ResPackage"
+#define FS_ZIP_PACKAGE_CLASS_NAME "ZipPackage"
 
 #include "FsTypes.h"
 

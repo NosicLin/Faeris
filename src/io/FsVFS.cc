@@ -23,5 +23,10 @@ FsFile* getStderr()
 	return SysFile::getStderr();
 }
 
+
+
+
+
 FS_END_NAMESPACE(VFS)
 NS_FS_END
+

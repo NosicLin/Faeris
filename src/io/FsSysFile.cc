@@ -10,7 +10,7 @@ NS_FS_BEGIN
 
 const char* SysFile::getFileName()
 {
-	return FS_SYSFILE_CLASS_NAME;
+	return FS_SYS_FILE_CLASS_NAME;
 }
 
 NS_FS_END
