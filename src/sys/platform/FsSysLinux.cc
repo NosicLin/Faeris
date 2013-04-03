@@ -32,5 +32,12 @@ void Sys::usleep(long time)
 		break;
 	}
 }
+
+std::string Sys::currentDir()
+{
+	char buf[2048];
+	getcwd(buf,sizeof(buf));
+	return buf;
+}
 NS_FS_END
 

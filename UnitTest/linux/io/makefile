@@ -5,7 +5,7 @@ SRC=
 
 DEBUG=
 
-BIN= uzip_test.cc
+BIN= uzip_test.cc vfs_test.cc
 	 
 	
 

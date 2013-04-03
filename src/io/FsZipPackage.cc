@@ -109,7 +109,7 @@ FsFile* ZipPackageInternal::getBlock(const char* file_name)
 {
 	if(unzLocateFile(m_unzfile,file_name,true)!=UNZ_OK)
 	{
-		FS_TRACE_WARN("File Not Found Int Zip Package");
+		FS_TRACE_WARN("File(%s) Not Found Int Zip Package",file_name);
 		return NULL;
 	}
 

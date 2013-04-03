@@ -1,6 +1,7 @@
 #include "common/FsGlobal.h"
 #include "material/FsPositionAlphaTextureMaterial.h"
 #include "material/FsPositionTextureMaterial.h"
+#include "io/FsVFS.h"
 
 NS_FS_BEGIN
 Scheduler* Global::m_scheduler=NULL;
@@ -22,6 +23,7 @@ Sprite2DDataMgr* Global::m_sprite2DDataMgr=NULL;
 bool  Global::moduleInit()
 {
 	/* init global value */
+	VFS::moduleInit();
 	m_scheduler=Scheduler::create();
 	m_touchDispatcher=TouchDispatcher::create();
 	m_sysDispatcher=SysDispatcher::create();
@@ -72,6 +74,7 @@ void Global::moduleExit()
 	/* material */
 	PositionAlphaTextureMaterial::purgeShareMaterial();
 	PositionTextureMaterial::purgeShareMaterial();
+	VFS::moduleExit();
 }
 Scheduler* Global::scheduler()
 {

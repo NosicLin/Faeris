@@ -1,12 +1,58 @@
 #ifndef _FAERY_VFS_H_
 #define _FAERY_VFS_H_
 
+#include <string>
 #include "FsFile.h" 
 #include "FsMacros.h"
+#include "core/FsObject.h"
 NS_FS_BEGIN
+
 class FsDir;
+class Package;
 
 FS_BEGIN_NAMESPACE(VFS)
+class NameFilter:public FsObject
+{
+	public:
+		virtual std::string apply(const char* name)=0;
+		virtual const char* className();
+	protected:
+		virtual ~NameFilter();
+};
+
+class PrefixNameFilter:public NameFilter 
+{
+	public:
+		static PrefixNameFilter* create(const char* prefix);
+	public:
+		std::string apply(const char* name);
+		const char* className();
+	protected:
+		PrefixNameFilter(const char* prefix);
+		virtual ~PrefixNameFilter();
+	private:
+		std::string m_prefix;
+};
+
+
+class MapPackage:public FsObject
+{
+	public:
+		static MapPackage* create(const char* path,Package* package);
+
+	public:
+		FsFile* getFile(const char* path);
+	public:
+		virtual const char* className();
+
+	protected:
+		MapPackage();
+		~MapPackage();
+		bool init(const char* path,Package* package);
+	private:
+		std::string m_path;
+		Package* m_package;
+};
 
 enum
 {
@@ -28,9 +74,11 @@ enum
 bool moduleInit();
 bool moduleExit();
 
+void setRoot(const char* path);
 
 FsFile* open(const char* name,uint mode=FS_IO_RDONLY);
 FsFile* create(const char* name);
+
 
 int remove(const char* name);
 int copy(const char* src,const char* dst);
@@ -39,15 +87,17 @@ FsDir* openDir(const char* name);
 bool isDir(const char* name);
 
 
-bool mapPackage(const char* name,Package* package);
-bool unmapPackage(const char* name);
+bool addFilter(NameFilter* filter);
+bool removeFilter(NameFilter* filter);
+bool mapPackage(const char* path,Package* package);
+bool unmapPackage(const char* path);
 
 FsFile* getStdout(); 
 FsFile* getStdin(); 
 FsFile* getStderr(); 
 
 FS_END_NAMESPACE(VFS)
-NS_FS_END
+	NS_FS_END
 
 #endif 
 
