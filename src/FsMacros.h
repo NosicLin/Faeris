@@ -14,8 +14,10 @@
 
 #if defined(WIN32)
 	#define FS_OS_WIN32
+
 #elif defined(LINUX)
 	#define FS_OS_LINUX
+
 #elif defined(ANDROID)
 	#define FS_OS_ANDROID
 #else

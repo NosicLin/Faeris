@@ -9,7 +9,6 @@ LOCAL_SRC_FILES := ../adler32.c \
 				   ../crc32.c \
 				   ../deflate.c \
 				   ../gzclose.c \
-				   ../gzclose.c \
 				   ../gzlib.c \
 				   ../gzread.c \
 				   ../gzwrite.c \

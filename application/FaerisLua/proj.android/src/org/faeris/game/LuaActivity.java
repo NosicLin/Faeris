@@ -9,5 +9,9 @@ public class LuaActivity  extends FsActivity
 	{
 		super.onCreate(save_state);
 	}
+	
+	static {
+        System.loadLibrary("faeis");
+    }
 
 }

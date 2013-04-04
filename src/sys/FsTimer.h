@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "FsConfig.h"
 
-#if FS_PLATFORM_OS(FS_OS_LINUX)
+#if FS_PLATFORM_OS(FS_OS_LINUX) || FS_PLATFORM_OS(FS_OS_ANDROID)
 	#include <sys/time.h>
 	typedef struct timeval PlatformTimeVal;
 #elif FS_PLATFORM_OS(FS_OS_WIN32)

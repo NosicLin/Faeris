@@ -37,5 +37,9 @@ LOCAL_SRC_FILES := ../lapi.c  \
 
 LOCAL_C_INCLUDES := ../ 
 
+LOCAL_CFLAGS += -Wno-psabi
+LOCAL_EXPORT_CFLAGS += -Wno-psabi
+
+
 include $(BUILD_STATIC_LIBRARY)
 

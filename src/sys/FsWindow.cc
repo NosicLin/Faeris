@@ -26,6 +26,6 @@ NS_FS_END
 #elif FS_PLATFORM_OS(FS_OS_WIN32)
 	#include "platform/FsWindowWin32.cc"
 #else 
-	#error "Unsupport Platform OS"
+//	#error "Unsupport Platform OS"
 #endif 
 

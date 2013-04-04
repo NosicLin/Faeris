@@ -47,12 +47,16 @@ static GLint s_blendToGLenum(int value)
 		case Render::EQUATION_REVERSE_SUBTRACT:
 			return GL_REVERSE_SUBTRACT;
 			*/
+
+		/* opengles not support 
 		case Render::EQUATION_MIN:
 			return GL_MIN;
 		case Render::EQUATION_MAX:
 			return GL_MAX;
+
 		case Render::EQUATION_LOGIC_OP:
 			return GL_LOGIC_OP; 
+		*/
 
 		case Render::FACTOR_ZERO:
 			return GL_ZERO;
@@ -116,8 +120,9 @@ Render::Render()
 	glClearStencil(0);
 
 	/* depth */
-	glEnable(GL_DEPTH);
-	m_depthTest=true;
+	glDisable(GL_DEPTH_TEST);
+	m_depthTest=false;
+
 	m_depthMask=false;
 
 	/* face */
@@ -169,7 +174,7 @@ Render::~Render()
 void Render::setProjectionMatrix(const Matrix4& mat)
 {
 	glMatrixMode(GL_PROJECTION);
-	glLoadTransposeMatrixf(mat.v);
+	//glLoadTransposeMatrixf(mat.v);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -188,11 +193,11 @@ void Render::loadIdentity()
 }
 void Render::setMatrix(const Matrix4& m)
 {
-	glLoadTransposeMatrixf(m.v);
+//	glLoadTransposeMatrixf(m.v);
 }
 void Render::mulMatrix(const Matrix4& m)
 {
-	glMultTransposeMatrixf(m.v);
+//	glMultTransposeMatrixf(m.v);
 }
 void Render::translate(const Vector3& v)
 {
@@ -724,6 +729,7 @@ void Render::setUniform(int loc,int type,int count,void* value)
 			break;
 
 		/* unsigned int vec */
+			/*  opengles not support 
 		case U_UI_1:
 			glUniform1uiv(loc,count,(GLuint*) value);
 			break;
@@ -736,6 +742,7 @@ void Render::setUniform(int loc,int type,int count,void* value)
 		case U_UI_4:
 			glUniform4uiv(loc,count,(GLuint*) value);
 			break;
+			*/
 
 
 		/* matrix vec */
@@ -786,12 +793,14 @@ void Render::drawLine(const Vector3 start,const Vector3 end,float width,Color c)
 	setMaterial(NULL);
 	setProgram(NULL);
 
+	/*
 	glColor3ub(c.r,c.g,c.b);
 	glLineWidth(width);
 	glBegin(GL_LINES);
 	glVertex3fv(start.v);
 	glVertex3fv(end.v);
 	glEnd();
+	*/
 }
 NS_FS_END
 

@@ -50,7 +50,7 @@ class Director :public SchedulerTarget
 		bool m_stop;
 		DirectorTouchEventListener* m_touchEventListener;
 
-		friend DirectorTouchEventListener;
+		friend class DirectorTouchEventListener;
 };
 
 

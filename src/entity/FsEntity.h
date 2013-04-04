@@ -147,7 +147,7 @@ class Entity :public FsObject
 		Rect2D m_boundBox2D;
 
 
-		friend Layer;
+		friend class Layer;
 };
 
 #include "entity/FsEntity.inl"
