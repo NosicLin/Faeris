@@ -117,7 +117,7 @@ Render::Render()
 	m_clearColor=Color::BLACK;
 
 	glClearDepth(1);
-	glClearStencil(0);
+//	glClearStencil(0);
 
 	/* depth */
 	glDisable(GL_DEPTH_TEST);
@@ -136,7 +136,11 @@ Render::Render()
 
 	/* blend */
 	glEnable(GL_BLEND);
+
+	/*  opengles not support 
 	glBlendEquation(GL_FUNC_ADD);
+	*/
+
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 	m_blendEquation=EQUATION_ADD;
@@ -171,10 +175,18 @@ Render::~Render()
 
 
 
-void Render::setProjectionMatrix(const Matrix4& mat)
+void Render::setProjectionMatrix(const Matrix4& m)
 {
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
 	glMatrixMode(GL_PROJECTION);
-	//glLoadTransposeMatrixf(mat.v);
+	glLoadMatrixf(matrix);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -193,11 +205,27 @@ void Render::loadIdentity()
 }
 void Render::setMatrix(const Matrix4& m)
 {
-//	glLoadTransposeMatrixf(m.v);
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
+	glLoadMatrixf(matrix);
 }
 void Render::mulMatrix(const Matrix4& m)
 {
-//	glMultTransposeMatrixf(m.v);
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
+	glMultMatrixf(matrix);
 }
 void Render::translate(const Vector3& v)
 {

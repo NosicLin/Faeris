@@ -4,7 +4,9 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE :=faeris_static
 
-LOCAL_SRC_FILES :=  ../../../../src/common/FsGlobal.cc \
+LOCAL_SRC_FILES :=  src/org_faeris_lib_FsEngine.cc \
+					src/org_faeris_lib_FsAndroidInfo.cc \
+					../../../../src/common/FsGlobal.cc \
 					../../../../src/common/FsScriptEngine.cc \
 					../../../../src/core/FsObject.cc \
 					../../../../src/entity/FsColorQuad2D.cc \
@@ -72,6 +74,7 @@ LOCAL_SRC_FILES :=  ../../../../src/common/FsGlobal.cc \
 					../../../../src/sys/FsSys.cc \
 					../../../../src/sys/FsTimer.cc \
 					../../../../src/sys/FsWindow.cc \
+					../../../../src/sys/platform/FsAndroidInfo.cc \
 					../../../../src/util/FsArray.cc \
 					../../../../src/util/FsDict.cc \
 					../../../../src/util/FsLog.cc \
@@ -87,14 +90,6 @@ LOCAL_C_INCLUDES := ../src  \
 					../../../platform/thirdparty/android \
 
 
-LOCAL_LDLIBS := -lGLESv2 \
-                -lEGL \
-                -llog \
-                -lz
-
-LOCAL_EXPORT_LDLIBS := -llog\
-                       -lz \
-                       -lGLESv
 
 include $(BUILD_STATIC_LIBRARY)
 

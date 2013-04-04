@@ -11,7 +11,7 @@ public class LuaActivity  extends FsActivity
 	}
 	
 	static {
-        System.loadLibrary("faeis");
+        System.loadLibrary("faeris");
     }
 
 }

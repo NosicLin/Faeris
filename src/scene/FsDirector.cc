@@ -158,6 +158,13 @@ bool Director::isRunning()
 {
 	return !m_stop;
 }
+void Director::setAutoSwapBuffers(bool swap)
+{
+	m_autoSwapBuffers=swap;
+}
+
+
+
 Director::Director()
 {
 	init();
@@ -172,6 +179,8 @@ void Director::init()
 	m_current=NULL;
 	m_secenQueue=FsArray::create();
 	m_stop=false;
+	m_autoSwapBuffers=false;
+
 	m_touchEventListener=DirectorTouchEventListener::create(this);
 	Global::touchDispatcher()->addEventListener(m_touchEventListener);
 
@@ -208,14 +217,20 @@ void Director::repace(Scene* scene)
 void Director::draw()
 {
 
+
 	Render* render=Global::render();
+	if(!render) return;
+
 	render->clear();
 
 	if(m_current)
 	{
 		m_current->draw(render);
 	}
-	render->swapBuffers();
+	if(m_autoSwapBuffers)
+	{
+		render->swapBuffers();
+	}
 }
 
 void Director::update(float dt)

@@ -20,7 +20,7 @@ LOCAL_SRC_FILES := ../adler32.c \
 				   ../uncompr.c \
 				   ../zutil.c \
 
-LOCAL_C_INCLUDES := ../ 
+LOCAL_C_INCLUDES := -I../ 
 
 include $(BUILD_STATIC_LIBRARY)
 

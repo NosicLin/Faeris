@@ -12,6 +12,7 @@ public abstract class FsActivity extends Activity
 	/* attibute */
 	private FsGLSurfaceView m_view;
 
+
 	
 	/* method */
 
@@ -40,12 +41,14 @@ public abstract class FsActivity extends Activity
 	protected void init()
 	{
 
-		FsEngine.moduleInit();
+
 		m_view=new FsGLSurfaceView(this);
 		FsGLRender r=new FsGLRender();
 		
 		m_view.setFsGLRender(r);
 		this.setContentView(m_view);
+		FsAndroidInfo.init(this);
+
 
 
 	}

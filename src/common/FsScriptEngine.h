@@ -8,6 +8,8 @@ NS_FS_BEGIN
 class ScriptEngine:public FsObject
 {
 	public:
+		virtual int executeFile(const char* filename)=0;
+		virtual int executeString(const char* string)=0;
 		virtual void releaseData(int data)=0;
 		virtual ~ScriptEngine();
 };

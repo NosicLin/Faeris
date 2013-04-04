@@ -41,35 +41,6 @@ static void FsLog_FormatLogTagBuffer(char* buf,ulong size,
 
 }
 
-
-
-
-
-void FsUtil_TagLog(const char* tag,const char* fmt,...)
-{
-	init_global_log();
-
-	char buf[FS_MAX_LOG_BUF];
-	va_list args;
-	va_start(args,fmt);
-	FsLog_FormatLogTagBuffer(buf,FS_MAX_LOG_BUF,tag,fmt,args);
-	va_end(args);
-
-	s_global_log->log("%s",buf);
-}
-void FsUtil_Log(const char* fmt,...)
-{
-	init_global_log();
-	char buf[FS_MAX_LOG_BUF];
-
-	va_list args;
-	va_start(args,fmt);
-	FsLog_FormatLogBuffer(buf,FS_MAX_LOG_BUF,fmt,args);
-	va_end(args);
-
-	s_global_log->log("%s",buf);
-}
-
 void FsLog::tagLog(const char* tag,const char* fmt,...)
 {
 	char buf[FS_MAX_LOG_BUF];
@@ -130,5 +101,34 @@ FileLog::~FileLog()
 {
 	delete m_file;
 }
+
+
+void FsUtil_TagLog(const char* tag,const char* fmt,...)
+{
+	init_global_log();
+
+	char buf[FS_MAX_LOG_BUF];
+	va_list args;
+	va_start(args,fmt);
+	FsLog_FormatLogTagBuffer(buf,FS_MAX_LOG_BUF,tag,fmt,args);
+	va_end(args);
+
+	s_global_log->log("%s",buf);
+}
+
+void FsUtil_Log(const char* fmt,...)
+{
+	init_global_log();
+	char buf[FS_MAX_LOG_BUF];
+
+	va_list args;
+	va_start(args,fmt);
+	FsLog_FormatLogBuffer(buf,FS_MAX_LOG_BUF,fmt,args);
+	va_end(args);
+
+	s_global_log->log("%s",buf);
+}
+
+
 
 NS_FS_END

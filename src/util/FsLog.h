@@ -33,8 +33,10 @@ class FileLog:public FsLog
 		FsFile* m_file;
 };
 
+
 void FsUtil_TagLog(const char* tag,const char* msg,...);
 void FsUtil_Log(const char* fmt,...);
+
 
 
 NS_FS_END
