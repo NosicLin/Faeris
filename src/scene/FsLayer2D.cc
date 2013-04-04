@@ -26,7 +26,7 @@ Matrix4 Layer2D::getProjectMatrix()const
 			m_viewArea.y,
 			m_viewArea.y+m_viewArea.height,
 			0,
-			100);
+			10000);
 	return mat;
 }
 
@@ -97,10 +97,11 @@ void Layer2D::draw(Render* r)
 			m_viewArea.y,
 			m_viewArea.y+m_viewArea.height,
 			0,
-			100);
+			10000);
 	r->setProjectionMatrix(mat);
 	r->pushMatrix();
 	r->loadIdentity();
+	r->translate(Vector3(0,0,-5000));
 
 	/* update all child matrix4 */
 	updateAllWorldMatrix();

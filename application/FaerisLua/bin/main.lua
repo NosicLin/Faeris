@@ -21,6 +21,7 @@ sprite:setPosition(100,100,0);
 sprite:setAnimation("anim0");
 sprite:playAnimation();
 
+--sprite:setRotateX(180)
 
 layer:add(sprite);
 
@@ -33,6 +34,7 @@ sprite3=Sprite2D:create("dragon.fst");
 sprite3:setPosition(-300,-400,0);
 sprite3:setAnimation("default");
 sprite3:playAnimation();
+sprite3:setRotateY(180);
 --sprite3:setColor(Color(255,0,255));
 --sprite3:setOpacity(0.5);
 --

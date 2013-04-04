@@ -9,10 +9,18 @@ import android.view.MotionEvent;
 
 public class FsGLSurfaceView  extends GLSurfaceView 
 {
+	private FsGLRender m_render;
+	
 	public  FsGLSurfaceView(final Context context)
 	{
 		super(context);
 		//this.init();
+	}
+	
+	public void setFsGLRender(FsGLRender r) 
+	{
+		this.m_render=r;
+		this.setRenderer(this.m_render);
 	}
 
 
@@ -23,7 +31,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable() {
 			@Override 
 			public void run(){
-				FsEventDispatcher.onForeground();
+				FsEngine.onForeground();
 			}
 		});
 	}
@@ -35,7 +43,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable(){
 			@Override
 			public void run(){
-				FsEventDispatcher.onBackground();
+				FsEngine.onBackground();
 			}
 		});
 	}
@@ -63,7 +71,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable(){
 			@Override
 			public void run(){
-				FsEventDispatcher.onResize(new_width,new_height);
+				FsEngine.onResize(new_width,new_height);
 			}
 		});
 	}
