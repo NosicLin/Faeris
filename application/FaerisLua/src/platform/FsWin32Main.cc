@@ -24,6 +24,14 @@ int main(int argc,char** argv)
 	Global::setScriptEngine(engine);
 
 	Package* package=Package::create("faeris.so.apk",Package::PACKAGE_ZIP);
+	if(package==NULL)
+	{
+		FS_TRACE_WARN("create package failed");
+	}
+	else 
+	{
+		FS_TRACE_WARN("create package success");
+	}
 	VFS::mapPackage("",package);
 
 	VFS::PrefixNameFilter* filter=VFS::PrefixNameFilter::create("assets/");
