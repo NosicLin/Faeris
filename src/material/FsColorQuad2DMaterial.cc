@@ -3,7 +3,10 @@
 
 NS_FS_BEGIN
 static const char color_program_vert_str[]=
-"uniform float u_opacity; 			\n\
+"#ifdef GL_ES						\n\
+precision lowp float;				\n\
+#endif								\n\
+uniform float u_opacity; 			\n\
 varying vec4 v_fragmentColor;       \n\
 void main()   						\n\
 {									\n\
@@ -79,7 +82,14 @@ ColorQuad2DMaterial::ColorQuad2DMaterial()
 	m_opacity=1.0f;
 	m_opacityLocation=-1;
 	m_program=useColorQuad2DProgram();
-	m_opacityLocation=m_program->getUniformLocation("u_opacity");
+	if(m_program==NULL)
+	{
+		FS_TRACE_WARN("Create Program Failed");
+	}
+	else 
+	{
+		m_opacityLocation=m_program->getUniformLocation("u_opacity");
+	}
 	setDepthTest(false);
 
 }

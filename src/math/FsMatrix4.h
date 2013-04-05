@@ -50,9 +50,9 @@ class  Matrix4
 		void mul(const Matrix4& n);
 
 		void mulScaler(float s);
-		Vector2 mulVector2(const Vector2& v);
-		Vector3 mulVector3(const Vector3& v);
-		Vector4 mulVector4(const Vector4& v);
+		Vector2 mulVector2(const Vector2& v) const ;
+		Vector3 mulVector3(const Vector3& v) const ;
+		Vector4 mulVector4(const Vector4& v) const ;
 
 
 

@@ -11,7 +11,7 @@ void main() 						\n\
 { 									\n\
 	gl_Position=gl_ModelViewProjectionMatrix*a_position;		\n\
 	v_texCoord=a_texCoord;			\n\
-};									\n\
+}									\n\
 ";
 
 static const char quad_material_frag_str[]=

@@ -18,6 +18,17 @@ Quad2D* Quad2D::create(const char* tex)
 	}
 	return ret;
 }
+Quad2D* Quad2D::create(const char* tex,const Rect2D&  rect)
+{
+	Quad2D* ret=new Quad2D;
+	if(!ret->init(tex))
+	{
+		delete ret;
+		return NULL;
+	}
+	ret->setRect2D(rect);
+	return ret;
+}
 
 void Quad2D::setColor(Color c)
 {
@@ -133,20 +144,8 @@ bool Quad2D::hit2D(float x,float y)
 {
 	Vector2 point(x,y);
 	updateWorldMatrix();
-	Vector2 a=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y));
-	Vector2 b=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y));
-	Vector2 c=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y+m_rect.height));
-	Vector2 d=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y+m_rect.height));
-
-	if(Math::pointInTriangle2D(point,a,b,c))
-	{
-		return true;
-	}
-	if(Math::pointInTriangle2D(point,c,d,a))
-	{
-		return true;
-	}
-	return false;
+	
+	return Math::pointInRect2D(point,m_worldMatrix,m_rect);
 }
 
 

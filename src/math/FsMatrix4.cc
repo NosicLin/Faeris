@@ -53,7 +53,7 @@ void Matrix4::mulScaler(float s)
 	m30*=s; m31*=s; m32*=s; m33*=s;
 }
 
-Vector2 Matrix4::mulVector2(const Vector2& v)
+Vector2 Matrix4::mulVector2(const Vector2& v) const
 {
 	float vx=v.x,vy=v.y;
 	float d=1/(m30 * vx + m31 * vy +  m33);
@@ -63,7 +63,7 @@ Vector2 Matrix4::mulVector2(const Vector2& v)
 	return Vector2(rx,ry);
 }
 
-Vector3 Matrix4::mulVector3(const Vector3& v)
+Vector3 Matrix4::mulVector3(const Vector3& v) const
 {
 	float vx = v.x, vy = v.y, vz = v.z;
 	float d = 1 / ( m30 * vx + m31 * vy + m32 * vz + m33 );
@@ -74,7 +74,7 @@ Vector3 Matrix4::mulVector3(const Vector3& v)
 	return Vector3(rx,ry,rz);
 }
 
-Vector4 Matrix4::mulVector4(const Vector4& v)
+Vector4 Matrix4::mulVector4(const Vector4& v) const
 {
 	float vx=v.x, vy=v.y, vz=v.z, vw=v.w;
 	float rx,ry,rz,rw;

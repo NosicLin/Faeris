@@ -7,10 +7,12 @@
 NS_FS_BEGIN
 
 class Vector2;
+class Rect2D;
+class Matrix4;
 FS_BEGIN_NAMESPACE(Math)
 
 #ifndef FS_PI 
-#define FS_PI 3.1415926f
+#define FS_PI 3.14159265358979323846f
 #endif 
 
 inline float radianToAngle(float radian)
@@ -75,6 +77,8 @@ inline int floatEqual(float a,float b)
 
 
 bool pointInTriangle2D(const Vector2& point,const Vector2& a,const Vector2& b,const Vector2& c);
+
+bool pointInRect2D(const Vector2& point,const Matrix4& mat,const Rect2D& rect);
 
 
 

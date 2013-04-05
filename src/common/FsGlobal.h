@@ -15,6 +15,7 @@
 
 
 NS_FS_BEGIN
+class FsDict;
 class Global
 {
 	public:
@@ -38,6 +39,26 @@ class Global
 		static TextureMgr* textureMgr();
 		static FontTTFDataMgr* fontTTFDataMgr();
 		static Sprite2DDataMgr* sprite2DDataMgr();
+
+	public: /* config */
+		static void loadConfig(FsDict* dict);
+
+		/* config mgr */
+		static void configManager(FsDict* dict);
+
+		/* config vfs */
+		static void configVFS(FsDict* dict);
+
+		/* config win */
+		static void configWin(FsDict* dict);
+
+		/* config env */
+		static void configENV(FsDict* dict);
+
+	protected:
+		static void configResourceMgr(ResourceMgr* mgr,FsDict* dict);
+
+
 
 	private:
 		static Scheduler* m_scheduler;
