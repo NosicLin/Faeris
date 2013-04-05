@@ -37,6 +37,9 @@ int main(int argc,char** argv)
 	render->setRenderTarget(win);
 	render->setClearColor(Color(0,0,0));
 
+	/* check where script stop running */
+	Global::director()->setAutoSwapBuffers(true);
+
 
 
 	std::string dir_name=PathUtil::getDirName(config);
@@ -89,8 +92,7 @@ int main(int argc,char** argv)
 
 
 
-	/* check where script stop running */
-	Global::director()->setAutoSwapBuffers(true);
+
 	Global::scheduler()->mainLoop();
 
 	/* exit */

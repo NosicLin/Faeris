@@ -11,6 +11,7 @@ class ScriptEngine:public FsObject
 		virtual int executeFile(const char* filename)=0;
 		virtual int executeString(const char* string)=0;
 		virtual void releaseData(int data)=0;
+		virtual int collectGarbage()=0;
 		virtual ~ScriptEngine();
 };
 

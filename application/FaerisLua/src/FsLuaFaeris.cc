@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 04/05/13 21:03:10.
+** Generated automatically by tolua++-1.0.92 on 04/05/13 22:54:00.
 */
 
 #ifndef __cplusplus
@@ -4404,6 +4404,39 @@ static int tolua_FsFaeris_Director_isRunning00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isRunning'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAutoSwapBuffers of class  Director */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris_Director_setAutoSwapBuffers00
+static int tolua_FsFaeris_Director_setAutoSwapBuffers00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Director",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Director* self = (Director*)  tolua_tousertype(tolua_S,1,0);
+  bool swap = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAutoSwapBuffers'", NULL);
+#endif
+  {
+   self->setAutoSwapBuffers(swap);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAutoSwapBuffers'.",&tolua_err);
  return 0;
 #endif
 }
@@ -11379,6 +11412,7 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"pause",tolua_FsFaeris_Director_pause00);
    tolua_function(tolua_S,"start",tolua_FsFaeris_Director_start00);
    tolua_function(tolua_S,"isRunning",tolua_FsFaeris_Director_isRunning00);
+   tolua_function(tolua_S,"setAutoSwapBuffers",tolua_FsFaeris_Director_setAutoSwapBuffers00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Layer","Layer","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Layer");

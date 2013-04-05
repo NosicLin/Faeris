@@ -1,6 +1,8 @@
 #include "scheduler/FsScheduler.h"
 #include "scheduler/FsSchedulerTarget.h"
 #include "sys/FsSys.h"
+#include "common/FsScriptEngine.h"
+#include "common/FsGlobal.h"
 
 NS_FS_BEGIN
 const char* Scheduler::className() 
@@ -49,8 +51,7 @@ void Scheduler::mainLoop()
 		{
 			long sleep_begin=m_timer.now();
 			Sys::usleep(sleep_time);
-			long sleep_end=m_timer.now();
-			FS_TRACE_WARN("sleep %d,rel sleep %d",sleep_time,sleep_end-sleep_begin);
+
 		}
 		last_time=cur_time;
 	
@@ -151,6 +152,12 @@ void Scheduler::update(float dt)
 		}
 		m_target[i]->unlock();
 		m_target[i]->flush();
+	}
+
+	ScriptEngine* sc=Global::scriptEngine();
+	if(sc)
+	{
+		sc->collectGarbage();
 	}
 }
 

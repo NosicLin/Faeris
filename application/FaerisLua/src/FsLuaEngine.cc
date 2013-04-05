@@ -316,6 +316,11 @@ void LuaEngine::releaseData(int data)
 {
 	toluaext_remove_luatable(m_state,data);
 }
+int LuaEngine::collectGarbage()
+{
+	lua_gc(m_state,LUA_GCCOLLECT,0);
+	return 0;
+}
 
 const char*  LuaEngine::className()
 {
