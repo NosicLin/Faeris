@@ -134,6 +134,8 @@ Render::Render()
 	m_frontFace=FRONT_CCW;
 
 
+
+
 	/* blend */
 	glEnable(GL_BLEND);
 
@@ -187,6 +189,7 @@ void Render::setProjectionMatrix(const Matrix4& m)
 	};
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(matrix);
+
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -451,6 +454,7 @@ void Render::drawFace3(Face3* f,uint num)
 
 void Render::enableClientArray(ulong flags)
 {
+	
 	if(flags&VERTEX_ARRAY)
 	{
 		if(!(m_arrayFlags&VERTEX_ARRAY))
@@ -545,7 +549,10 @@ void Render::setBlend(int blend_eq,int factor_src,int factor_dst)
 		{
 			glEnable(GL_BLEND);
 		}
+		/* opengl es not support 
 		glBlendEquation(s_blendToGLenum(blend_eq));
+		*/
+
 		glBlendFunc(s_blendToGLenum(factor_src),
 				s_blendToGLenum(factor_dst));
 	}

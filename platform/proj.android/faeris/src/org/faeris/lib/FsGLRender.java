@@ -17,7 +17,7 @@ public class FsGLRender implements GLSurfaceView.Renderer
 	{
 		FsEngine.onResize(width, height);
 		
-	}
+	} 
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) 

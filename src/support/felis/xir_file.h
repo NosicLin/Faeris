@@ -1,6 +1,7 @@
 #ifndef _FAERY_XIR_SCRIPT_FILE_H_
 #define _FAERY_XIR_SCRIPT_FILE_H_ 
 
+#define FS_EOF (-1)
 #include "io/FsFile.h"
 
 class XirFile
@@ -20,7 +21,7 @@ class XirFile
 		int loadData();
 
 	public:
-		char nextChar();
+		int nextChar();
 		void mark()
 		{
 			m_mark=m_buf_pos;

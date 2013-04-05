@@ -217,6 +217,7 @@ void Director::repace(Scene* scene)
 void Director::draw()
 {
 
+	//FS_TRACE_INFO("Draw");
 
 	Render* render=Global::render();
 	if(!render) return;

@@ -36,13 +36,18 @@ MemFile* MemFile::create(const void* mem,ulong len)
 
 long MemFile::read(void* buf,long len)
 {
+	assert(m_pos<=m_length);
 	if(m_pos+len>=m_length)
 	{
 		len=m_length-m_pos;
 	}
-	if(len==0) return 0;
+	if(len==0)
+	{
+		return 0;
+	}
 	memcpy(buf,m_mem+m_pos,len);
 	m_pos+=len;
+
 	return len;
 }
 

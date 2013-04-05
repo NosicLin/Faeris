@@ -85,7 +85,7 @@ void Sprite2D::updateAnimation(float dt)
 				m_stop=true;
 				break;
 			case ANIM_END:
-				m_curFrame=total_frame;
+				m_curFrame=total_frame-1;
 				m_stop=true;
 				break;
 		}

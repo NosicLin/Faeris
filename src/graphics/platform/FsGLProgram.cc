@@ -28,7 +28,7 @@ GLint s_create_shader_object(const char* source,int length,GLint type)
 				FS_MAX_GL_SHADER_LOG_LENGTH,
 				&log_length,log_info);
 		log_info[FS_MAX_GL_SHADER_LOG_LENGTH-1]='\0';
-		FsUtil_Log("Compile %s Shader(%s)",
+		FS_TRACE_WARN("Compile %s Shader(%s)",
 				type==GL_VERTEX_SHADER?"Vertex":"Fragment",
 				log_info);
 		glDeleteShader(shader);
@@ -101,7 +101,7 @@ Program* Program::create(
 	{
 		glGetProgramInfoLog(program,FS_MAX_GL_PROGRAM_LOG_LENGTH,&log_length,log_info);
 		log_info[FS_MAX_GL_PROGRAM_LOG_LENGTH-1]='\0';
-		FsUtil_Log("Program Result(%s)",log_info);
+		FS_TRACE_WARN("Program Result(%s)",log_info);
 		goto error;
 	}
 

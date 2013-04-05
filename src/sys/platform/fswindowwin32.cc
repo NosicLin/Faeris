@@ -147,16 +147,24 @@ LRESULT CALLBACK s_winproc(
 		case WM_KEYUP:
 			break;
 		case WM_SIZE:
-			switch(wparam)
 			{
-				case SIZE_RESTORED:
-					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
-					break;
-				case SIZE_MINIMIZED:
-					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
-					break;
+				switch(wparam)
+				{
+					case SIZE_RESTORED:
+						Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
+						break;
+					case SIZE_MINIMIZED:
+						Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
+						break;
+				}
+				int height = HIWORD( lparam );
+				int width = LOWORD( lparam );
+			//	FS_TRACE_WARN("width=%d,height=%d",width,height);
+				Render* render=Global::render();
+				render->setViewport(0,0,width,height);
+				break;
 			}
-			break;
+
 		default:
 			return DefWindowProc(hwnd,umsg,wparam,lparam);
 	}
@@ -175,8 +183,9 @@ static void SetupPixelFormat(HDC hDC)
 		sizeof(PIXELFORMATDESCRIPTOR),  // size
 		1,                          // version
 		PFD_SUPPORT_OPENGL |        // OpenGL window
-			PFD_DRAW_TO_WINDOW |        // render to window
-			PFD_DOUBLEBUFFER,           // support double-buffering
+		PFD_DRAW_TO_WINDOW |        // render to window
+		PFD_DOUBLEBUFFER,           // support double-buffering
+
 		PFD_TYPE_RGBA,              // color type
 		32,                         // prefered color depth
 		0, 0, 0, 0, 0, 0,           // color bits (ignored)

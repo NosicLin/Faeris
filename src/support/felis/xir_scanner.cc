@@ -44,9 +44,11 @@ int XirScanner::nextToken()
 
 	while(1)
 	{
-		char event=file->nextChar();
+		int event=file->nextChar();
+
+		//("event=%d",event);
 		if(event==13) continue;  /* window use \n\r for newline, it is too boring here,i just ingore it  */
-		if(event==EOF)
+		if(event==(int) FS_EOF)
 		{
 			if(!m_eof)
 			{
@@ -57,6 +59,7 @@ int XirScanner::nextToken()
 			{
 				if(token_size==0)
 				{
+				//	FS_TRACE_WARN("Toke EOF");
 					m_cur_token=XT_EOF;
 					break;
 				}

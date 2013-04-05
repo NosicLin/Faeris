@@ -59,9 +59,10 @@ class Entity@__Entity:public FsObject
 		*/
 
 	public:
-		void setVisible(bool visible){m_visible=visible;}
-		bool visible(){return m_visible;}
+		void setVisible(bool visible);
+		bool visible();
 		bool hit2D(float x,float y);
+		void draw(Render* render,bool update_matrix=true);
 };
 
 class LuaEntity@Entity:public Entity 

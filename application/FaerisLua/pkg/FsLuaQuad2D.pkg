@@ -3,5 +3,6 @@ class LuaQuad2D@Quad2D:public Quad2D
 {
 	public:
 		static LuaQuad2D* create(const char* tex);
+		static Quad2D* create(const char* tex,Rect2D);
 };
 

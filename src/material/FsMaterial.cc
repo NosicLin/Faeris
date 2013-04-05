@@ -11,10 +11,12 @@ Material::~Material(){}
 
 void Material::configRender(Render* r)
 {
+	/*
 	r->setBlend(m_blendEquation,m_blendSrc,m_blendDst);
 	r->setDepthMask(m_depthMask);
 	r->enableDepthTest(m_depthTest);
 	r->setShadeMode(m_shadeMode);
+	*/
 }
 NS_FS_END
 

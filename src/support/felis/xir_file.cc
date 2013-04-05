@@ -5,6 +5,7 @@
 #include "xir_file.h"
 #define LEX_FILE_DEFAULT_SIZE 64
 
+
 XirFile::XirFile(Faeris::FsFile* f)
 {
 
@@ -26,13 +27,13 @@ XirFile::~XirFile()
 	}
 	m_file->decRef();
 }
-char XirFile::nextChar()
+int XirFile::nextChar()
 {
 	if(m_buf_pos>=m_buf_size)
 	{
 		if(loadData()==0)
 		{
-			return EOF;
+			return FS_EOF;
 		}
 	}
 	return m_buf[m_buf_pos++];

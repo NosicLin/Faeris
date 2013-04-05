@@ -12,6 +12,10 @@ static ColorQuad2DMaterial* useShareMaterial()
 	if(m_shareMaterial==NULL)
 	{
 		m_shareMaterial=ColorQuad2DMaterial::create();
+		if(m_shareMaterial==NULL)
+		{
+			FS_TRACE_WARN("create ColorQuad2DMaterial Share Failed");
+		}
 		return m_shareMaterial;
 	}
 	m_shareMaterial->addRef();
@@ -50,12 +54,17 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 	render->pushMatrix();
 	render->mulMatrix(m_worldMatrix);
 
+
 	m_shareMaterial->setOpacity(m_opacity);
 	render->setMaterial(m_shareMaterial,true);
+
 	render->setActiveTexture(0);
 	render->disableAllClientArray();
+	
 	render->enableClientArray(Render::VERTEX_ARRAY|Render::COLOR_ARRAY);
-	//render->enableClientArray(Render::VERTEX_ARRAY);
+
+
+	
 
 
 	Vector3 vv[4]=
@@ -100,20 +109,8 @@ bool ColorQuad2D::hit2D(float x,float y)
 {
 	Vector2 point(x,y);
 	updateWorldMatrix();
-	Vector2 a=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y));
-	Vector2 b=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y));
-	Vector2 c=m_worldMatrix.mulVector2(Vector2(m_rect.x+m_rect.width,m_rect.y+m_rect.height));
-	Vector2 d=m_worldMatrix.mulVector2(Vector2(m_rect.x,m_rect.y+m_rect.height));
 
-	if(Math::pointInTriangle2D(point,a,b,c))
-	{
-		return true;
-	}
-	if(Math::pointInTriangle2D(point,c,d,a))
-	{
-		return true;
-	}
-	return false;
+	return Math::pointInRect2D(point,m_worldMatrix,m_rect);
 }
 
 

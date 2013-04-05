@@ -1,64 +1,109 @@
-local director=share:director();
-local render=share:render();
-local wind=share:window();
-
---wind:setSize(1025,800)
---render:setViewport(0,0,1024,800);
+local director =share:director();
+local render=share:render()
 
 
-local render=share:render();
-render:setClearColor(Color.BLACK)
-
-scene= Scene:create();
-
-layer=Layer2D:create();
-
-layer:setViewArea(-400,-400,1024,800)
+-- create layer */
+local layer= Layer2D:create();
+layer:setViewArea(0,0,1024,800)
 
 
-sprite=Sprite2D:create("interface.fst");
-sprite:setPosition(100,100,0);
-sprite:setAnimation("anim0");
-sprite:playAnimation();
+local quad2d= Quad2D:create("grass.png",Rect2D(-100,-100,200,200))
+quad2d:setPosition(500,400,0)
+quad2d.data={
+	onUpdate=function(self,dt)
+		print("update:"..dt)
+		self:rotateZ(1.5)
+		collectgarbage()	
+	end 
+}
 
---sprite:setRotateX(180)
+local c_quad=ColorQuad2D:create(Rect2D(-100,-100,200,200),Color.RED)
+c_quad:setPosition(300,-300,0);
 
-layer:add(sprite);
 
-sprite2=Sprite2D:create("Boy.fst");
-sprite2:setPosition(200,100,0);
-sprite2:setAnimation("run");
-sprite2:playAnimation();
 
-sprite3=Sprite2D:create("dragon.fst");
-sprite3:setPosition(-300,-400,0);
-sprite3:setAnimation("default");
-sprite3:playAnimation();
-sprite3:setRotateY(180);
---sprite3:setColor(Color(255,0,255));
---sprite3:setOpacity(0.5);
---
---sprite3:setScale(0.5,0.5,1);
 
---sprite3:setRotateZ(90);
-layer:add(sprite3);
+local tree1 =Quad2D:create("tree.png")
+tree1.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(1)
+	end 
+}
+tree1:setPosition(200,200,0)
 
-sprite3:addChild(sprite2);
+local tree2 =Quad2D:create("tree2.png")
+tree2.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(0.5)
+	end 
+}
+tree2:setPosition(200,200,0)
 
-layer:setTouchEnabled(true);
+local font=FontTTF:create("simsun.ttc",30)
+
+
+local label=LabelTTF:create("This Is A Font",font);
+label:setPosition(-300,300,0)
+label.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(1)
+	end 
+	
+}
+
+quad2d:addChild(tree1)
+quad2d:addChild(c_quad)
+quad2d:addChild(label)
+
+tree1:addChild(tree2)
+
+
+
+entity={ quad2d, tree1,tree2 ,c_quad,label}
+
+layer:add(quad2d)
+layer:setTouchEnabled(true)
+
+mat=Matrix4()
+
+mat:makeOrthographic(-512,512,-400,400,0,1000)
+
+render:setProjectionMatrix(mat);
+render:loadIdentity()
+
 layer.data={
-	onTouchMove=function (self,x,y)
-		x,y=self:toLayerCoord(x,y);
-		sprite3:setPosition(x,y,0);
+	onTouchBegin=function (self,x,y)
+		local c=Color(math.random(50,255),math.random(60,255),math.random(80,255))
+		x,y=self:toLayerCoord(x,y)
+		print("x:"..x.." y:"..y)
+		for i=1,#entity do 
+			e=entity[i]
+			if e:hit2D(x,y) then 
+				print("hit")
+				e:setColor(c)
+				break
+			end
+		end
 	end,
+
+	onDraw1=function (self,r)
+		render:setProjectionMatrix(mat);
+		render:rotate(Vector3(0,0,1),3)
+		c_quad:draw(r,true)
+	end
+
+
 }
 
 
-scene:push(layer);
+
+
+local scene=Scene:create()
+
+
+scene:push(layer)
+
 director:run(scene);
-
-
-
 
 
 

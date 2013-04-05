@@ -244,23 +244,23 @@ Rect2D LabelTTF::getRect2D()
 			y=-height/2;
 			break;
 		case ALIGN_V_TOP:
-			y=-height;
+			y=0;
 			break;
 		case ALIGN_V_BOTTOM:
-			y=0;
+			y=-height;
 			break;
 	}
 
 	switch(m_alignh)
 	{
 		case ALIGN_H_LEFT:
-			x=0;
+			x=-width;
 			break;
 		case ALIGN_H_CENTER:
 			x=-width/2;
 			break;
 		case ALIGN_H_RIGHT:
-			x=width;
+			x=0;
 			break;
 	}
 	return Rect2D(x,y,width,height);
@@ -333,22 +333,8 @@ bool LabelTTF::hit2D(float x,float y)
 
 	Vector2 point(x,y);
 	updateWorldMatrix();
-	Vector2 a=m_worldMatrix.mulVector2(Vector2(rect.x,rect.y));
-	Vector2 b=m_worldMatrix.mulVector2(Vector2(rect.x+rect.width,rect.y));
-	Vector2 c=m_worldMatrix.mulVector2(Vector2(rect.x+rect.width,rect.y+rect.height));
-	Vector2 d=m_worldMatrix.mulVector2(Vector2(rect.x,rect.y+rect.height));
 
-	if(Math::pointInTriangle2D(point,a,b,c))
-	{
-		return true;
-	}
-
-	if(Math::pointInTriangle2D(point,c,d,a))
-	{
-		return true;
-	}
-
-	return false;
+	return Math::pointInRect2D(point,m_worldMatrix,rect);
 }
 
 
@@ -393,7 +379,7 @@ LabelTTF::LabelTTF()
 	m_material=PositionTextureMaterial::shareMaterial();
 	m_font=NULL;
 	m_alignv=ALIGN_V_BOTTOM;
-	m_alignh=ALIGN_H_LEFT;
+	m_alignh=ALIGN_H_RIGHT;
 }
 
 LabelTTF::~LabelTTF()
