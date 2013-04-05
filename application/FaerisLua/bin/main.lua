@@ -1,5 +1,9 @@
 local director =share:director();
 local render=share:render()
+local scheduler=share:scheduler()
+scheduler:setFps(60)
+
+--director:setAutoSwapBuffers(false);
 
 
 -- create layer */
@@ -12,8 +16,7 @@ quad2d:setPosition(500,400,0)
 quad2d.data={
 	onUpdate=function(self,dt)
 		print("update:"..dt)
-		self:rotateZ(1.5)
-		collectgarbage()	
+		self:rotateZ(dt/1000*30)
 	end 
 }
 
@@ -26,7 +29,7 @@ c_quad:setPosition(300,-300,0);
 local tree1 =Quad2D:create("tree.png")
 tree1.data={
 	onUpdate=function(self,dt)
-		self:rotateZ(1)
+		self:rotateZ(dt/1000*30)
 	end 
 }
 tree1:setPosition(200,200,0)
@@ -34,19 +37,19 @@ tree1:setPosition(200,200,0)
 local tree2 =Quad2D:create("tree2.png")
 tree2.data={
 	onUpdate=function(self,dt)
-		self:rotateZ(0.5)
+		self:rotateZ(dt/1000*10)
 	end 
 }
 tree2:setPosition(200,200,0)
 
-local font=FontTTF:create("simsun.ttc",30)
+local font=FontTTF:create("UbuntuMono-RI.ttf",30)
 
 
 local label=LabelTTF:create("This Is A Font",font);
 label:setPosition(-300,300,0)
 label.data={
 	onUpdate=function(self,dt)
-		self:rotateZ(1)
+		self:rotateZ(dt/1000*80)
 	end 
 	
 }
@@ -64,13 +67,6 @@ entity={ quad2d, tree1,tree2 ,c_quad,label}
 layer:add(quad2d)
 layer:setTouchEnabled(true)
 
-mat=Matrix4()
-
-mat:makeOrthographic(-512,512,-400,400,0,1000)
-
-render:setProjectionMatrix(mat);
-render:loadIdentity()
-
 layer.data={
 	onTouchBegin=function (self,x,y)
 		local c=Color(math.random(50,255),math.random(60,255),math.random(80,255))
@@ -85,13 +81,6 @@ layer.data={
 			end
 		end
 	end,
-
-	onDraw1=function (self,r)
-		render:setProjectionMatrix(mat);
-		render:rotate(Vector3(0,0,1),3)
-		c_quad:draw(r,true)
-	end
-
 
 }
 
