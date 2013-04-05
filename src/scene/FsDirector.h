@@ -31,6 +31,7 @@ class Director :public SchedulerTarget
 		void start();
 
 		bool isRunning();
+		void setAutoSwapBuffers(bool swap);
 
 	protected:
 		Director();
@@ -48,9 +49,10 @@ class Director :public SchedulerTarget
 		Scene* m_current;
 		FsArray* m_secenQueue;
 		bool m_stop;
+		bool m_autoSwapBuffers;
 		DirectorTouchEventListener* m_touchEventListener;
 
-		friend DirectorTouchEventListener;
+		friend class DirectorTouchEventListener;
 };
 
 

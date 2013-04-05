@@ -41,6 +41,8 @@ void Scheduler::mainLoop()
 		cur_time=m_timer.now();
 		diff_time=cur_time-last_time;
 		update((float)diff_time);
+
+
 		frame_used=m_timer.now()-cur_time;
 		sleep_time=perframe_time-frame_used;
 		if(sleep_time>0)
@@ -48,6 +50,8 @@ void Scheduler::mainLoop()
 			Sys::usleep(sleep_time);
 		}
 		last_time=cur_time;
+	
+
 	}
 }
 

@@ -14,8 +14,6 @@ class LuaEngine:public ScriptEngine
 	public:
 		static LuaEngine* create();
 	public:
-		int executeFile(const char* file);
-		int executeString(const char* str);
 
 		/* push value */
 		void pushInteger(int value);
@@ -74,6 +72,8 @@ class LuaEngine:public ScriptEngine
 
 	public:
 		/* inherit ScriptEngine */
+		virtual int executeFile(const char* file);
+		virtual int executeString(const char* str);
 		virtual void releaseData(int data);
 
 		/* inherit FsObject */

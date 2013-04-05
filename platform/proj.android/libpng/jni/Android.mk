@@ -14,14 +14,13 @@ LOCAL_SRC_FILES := ../png.c \
 				   ../pngrtran.c \
 				   ../pngrutil.c \
 				   ../pngset.c \
-				   ../pngtest.c \
 				   ../pngtrans.c \
 				   ../pngwio.c \
 				   ../pngwrite.c \
 				   ../pngwtran.c \
 				   ../pngwutil.c \
 
-LOCAL_C_INCLUDES := ../ 
+LOCAL_C_INCLUDES := -I../ 
 include $(BUILD_STATIC_LIBRARY)
 
 

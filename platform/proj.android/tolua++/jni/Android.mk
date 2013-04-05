@@ -11,6 +11,8 @@ LOCAL_SRC_FILES := ../tolua_event.c \
 				   ../tolua_to.c \
 
 
-LOCAL_C_INCLUDES := ../ 
+LOCAL_C_INCLUDES := ../  \
+					../../../platform/thirdparty/android/lua \
+
 include $(BUILD_STATIC_LIBRARY)
 

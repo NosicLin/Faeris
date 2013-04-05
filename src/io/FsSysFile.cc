@@ -1,6 +1,6 @@
 #include"FsSysFile.h"
 
-#if FS_PLATFORM_OS(FS_OS_WIN32)|| FS_PLATFORM_OS(FS_OS_LINUX)
+#if FS_PLATFORM_OS(FS_OS_WIN32)|| FS_PLATFORM_OS(FS_OS_LINUX) ||FS_PLATFORM_OS(FS_OS_ANDROID)
 	#include "platform/FsSysStdFile.cc"
 #else
 	#error "Error Platform For SysFile"

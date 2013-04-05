@@ -4,6 +4,12 @@ tags
 *.kate-swp
 *.exe
 *.o
+*.o.d
+*.dex
+*.apk
+*.zip
+*.jar
+*.cache
 *.a
 *.dat
 *~

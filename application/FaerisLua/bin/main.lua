@@ -2,8 +2,8 @@ local director=share:director();
 local render=share:render();
 local wind=share:window();
 
-wind:setSize(1025,800)
-render:setViewport(0,0,1024,800);
+--wind:setSize(1025,800)
+--render:setViewport(0,0,1024,800);
 
 
 local render=share:render();

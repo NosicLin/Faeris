@@ -57,14 +57,19 @@ static inline GLint s_wrapToGlEnum(int wrap)
 {
 	switch(wrap)
 	{
+		/* opengl es not support 
 		case Texture2D::WRAP_CLAMP:
 			return GL_CLAMP;
+		*/
 		case Texture2D::WRAP_REPEAT:
 			return GL_REPEAT;
 		case Texture2D::WRAP_CLAMP_TO_EDGE:
 			return GL_CLAMP_TO_EDGE;
+
+		/* opengl es not support 
 		case Texture2D::WRAP_CLAMP_TO_BORDER:
 			return GL_CLAMP_TO_BORDER;
+		*/
 		default:
 			return GL_CLAMP_TO_EDGE;
 	}
@@ -75,19 +80,27 @@ static inline GLint s_fomatToGLEnum(int format)
 	switch(format)
 	{
 		case Texture2D::FORMAT_RGBA:
-			return GL_RGBA8;
+			return GL_RGBA;
+
 		case Texture2D::FORMAT_ALPHA:
 			return GL_ALPHA;
+
 		case Texture2D::FORMAT_LUMINANCE:
 			return GL_LUMINANCE;
+
 		case Texture2D::FORMAT_LUMINANCE_ALPHA:
 			return GL_LUMINANCE_ALPHA;
+
+		/*  opengl es not support 
 		case Texture2D::FORMAT_INTENSITY:
 			return GL_INTENSITY;
+		*/
+
 		case Texture2D::FORMAT_RGB:
-			return GL_RGB8;
+			return GL_RGB;
+
 		default:
-			return GL_RGBA8;
+			return GL_RGBA;
 	}
 }
 

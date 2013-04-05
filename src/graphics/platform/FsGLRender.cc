@@ -47,12 +47,16 @@ static GLint s_blendToGLenum(int value)
 		case Render::EQUATION_REVERSE_SUBTRACT:
 			return GL_REVERSE_SUBTRACT;
 			*/
+
+		/* opengles not support 
 		case Render::EQUATION_MIN:
 			return GL_MIN;
 		case Render::EQUATION_MAX:
 			return GL_MAX;
+
 		case Render::EQUATION_LOGIC_OP:
 			return GL_LOGIC_OP; 
+		*/
 
 		case Render::FACTOR_ZERO:
 			return GL_ZERO;
@@ -113,11 +117,12 @@ Render::Render()
 	m_clearColor=Color::BLACK;
 
 	glClearDepth(1);
-	glClearStencil(0);
+//	glClearStencil(0);
 
 	/* depth */
-	glEnable(GL_DEPTH);
-	m_depthTest=true;
+	glDisable(GL_DEPTH_TEST);
+	m_depthTest=false;
+
 	m_depthMask=false;
 
 	/* face */
@@ -131,7 +136,11 @@ Render::Render()
 
 	/* blend */
 	glEnable(GL_BLEND);
+
+	/*  opengles not support 
 	glBlendEquation(GL_FUNC_ADD);
+	*/
+
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 	m_blendEquation=EQUATION_ADD;
@@ -166,10 +175,18 @@ Render::~Render()
 
 
 
-void Render::setProjectionMatrix(const Matrix4& mat)
+void Render::setProjectionMatrix(const Matrix4& m)
 {
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
 	glMatrixMode(GL_PROJECTION);
-	glLoadTransposeMatrixf(mat.v);
+	glLoadMatrixf(matrix);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -188,11 +205,27 @@ void Render::loadIdentity()
 }
 void Render::setMatrix(const Matrix4& m)
 {
-	glLoadTransposeMatrixf(m.v);
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
+	glLoadMatrixf(matrix);
 }
 void Render::mulMatrix(const Matrix4& m)
 {
-	glMultTransposeMatrixf(m.v);
+	float matrix[16]=
+	{
+		m.m00,m.m10,m.m20,m.m30,
+		m.m01,m.m11,m.m21,m.m31,
+		m.m02,m.m12,m.m22,m.m32,
+		m.m03,m.m13,m.m23,m.m33,
+		
+	};
+	glMultMatrixf(matrix);
 }
 void Render::translate(const Vector3& v)
 {
@@ -724,6 +757,7 @@ void Render::setUniform(int loc,int type,int count,void* value)
 			break;
 
 		/* unsigned int vec */
+			/*  opengles not support 
 		case U_UI_1:
 			glUniform1uiv(loc,count,(GLuint*) value);
 			break;
@@ -736,6 +770,7 @@ void Render::setUniform(int loc,int type,int count,void* value)
 		case U_UI_4:
 			glUniform4uiv(loc,count,(GLuint*) value);
 			break;
+			*/
 
 
 		/* matrix vec */
@@ -786,12 +821,14 @@ void Render::drawLine(const Vector3 start,const Vector3 end,float width,Color c)
 	setMaterial(NULL);
 	setProgram(NULL);
 
+	/*
 	glColor3ub(c.r,c.g,c.b);
 	glLineWidth(width);
 	glBegin(GL_LINES);
 	glVertex3fv(start.v);
 	glVertex3fv(end.v);
 	glEnd();
+	*/
 }
 NS_FS_END
 

@@ -22,7 +22,7 @@ public class FsGLRender implements GLSurfaceView.Renderer
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) 
 	{
-		FsEngine.onViewCreated();
+		FsEngine.moduleInit();
 	}
 
 }
