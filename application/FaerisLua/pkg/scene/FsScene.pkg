@@ -1,18 +1,18 @@
 $#include "luaext/FsLuaScene.h"
 class Scene@__Scene:public FsObject 
 {
-};
-class LuaScene@Scene:public Scene
-{
-	public:
-		static LuaScene* create();
-
 	public:
 		void push(Layer* layer);
 		void pop();
 		void insert(int pos,Layer*  layer);
 		void replace(int pos,Layer* layer);
 		void remove(Layer* layer);
+};
+
+class LuaScene@Scene:public Scene
+{
+	public:
+		static LuaScene* create();
 
 	public:
 		void onEnter@enter();

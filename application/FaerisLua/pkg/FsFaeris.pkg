@@ -5,61 +5,72 @@ $#include "FsLuaFaeris.h"
 $pfile  "FsTypes.pkg"
 
 /* common */
-$pfile "FsGlobal.pkg"
+$pfile "common/FsGlobal.pkg"
 
 /* core */
-$pfile "FsObject.pkg"
+$pfile "core/FsObject.pkg"
 
 
 /* event */
-$pfile "FsLuaTouchEventListener.pkg"
-$pfile "FsLuaSysEventListener.pkg"
-$pfile "FsTouchDispatcher.pkg"
-$pfile "FsSysDispatcher.pkg"
+$pfile "event/FsTouchEventListener.pkg"
+$pfile "event/FsSysEventListener.pkg"
+$pfile "event/FsTouchDispatcher.pkg"
+$pfile "event/FsSysDispatcher.pkg"
 
 
 /* entity */
-$pfile "FsEntity.pkg"
-$pfile "FsLuaColorQuad2D.pkg"
-$pfile "FsQuad2D.pkg"
-$pfile "FsLuaQuad2D.pkg"
-$pfile "FsLabelTTF.pkg"
-$pfile "FsSprite2D.pkg"
+$pfile "entity/FsEntity.pkg"
+$pfile "entity/FsColorQuad2D.pkg"
+$pfile "entity/FsQuad2D.pkg"
+$pfile "entity/FsLabelTTF.pkg"
+$pfile "entity/FsSprite2D.pkg"
 
 
 /* scheduler */
-$pfile "FsScheduler.pkg"
+$pfile "scheduler/FsScheduler.pkg"
 
 
 
 /* scene */
-$pfile "FsLuaScene.pkg"
-$pfile "FsDirector.pkg"
-
-$pfile "FsLayer.pkg"
-$pfile "FsLuaColorLayer.pkg"
-$pfile "FsLayer2D.pkg"
-$pfile "FsLuaLayer2D.pkg"
+$pfile "scene/FsScene.pkg"
+$pfile "scene/FsDirector.pkg"
+$pfile "scene/FsLayer.pkg"
+$pfile "scene/FsColorLayer.pkg"
+$pfile "scene/FsLayer2D.pkg"
 
 
 
 /* graphics */
-$pfile "FsRender.pkg"
-$pfile "FsColor.pkg"
-$pfile "FsFontTTF.pkg"
+$pfile "graphics/FsRender.pkg"
+$pfile "graphics/FsColor.pkg"
+$pfile "graphics/FsFontTTF.pkg"
 
 /* math */
-$pfile "FsVector2.pkg"
-$pfile "FsVector3.pkg"
-$pfile "FsVector4.pkg"
-$pfile "FsMatrix4.pkg"
-$pfile "FsRect2D.pkg"
+$pfile "math/FsVector2.pkg"
+$pfile "math/FsVector3.pkg"
+$pfile "math/FsVector4.pkg"
+$pfile "math/FsMatrix4.pkg"
+$pfile "math/FsRect2D.pkg"
 
 
 /* sys */
-$pfile "FsWindow.pkg"
+$pfile "sys/FsWindow.pkg"
 
 /* mgr */
-$pfile "FsTextureMgr.pkg"
+$pfile "mgr/FsTextureMgr.pkg"
+$pfile "mgr/FsResourceMgr.pkg"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

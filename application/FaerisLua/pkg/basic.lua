@@ -93,12 +93,12 @@ function post_output_hook(package)
 
 
 
-	replace([[toluaext_push_luatable(tolua_S,(void*)&self->m_data,"LUA_TABLE");]],
-	[[toluaext_push_luatable(tolua_S,self->m_data);]]);
+	replace([[toluaext_push_luatable(tolua_S,(void*)&self->m_scriptData,"LUA_TABLE");]],
+	[[toluaext_push_luatable(tolua_S,self->m_scriptData);]]);
 
-	replace([[self->m_data = *((LUA_TABLE*)  toluaext_to_luatable(tolua_S,2,0))]],
-	[[if(self->m_data!=-1) toluaext_remove_luatable(tolua_S,self->m_data); 
-	self->m_data=toluaext_to_luatable(tolua_S,2,0)]])
+	replace([[self->m_scriptData = *((LUA_TABLE*)  toluaext_to_luatable(tolua_S,2,0))]],
+	[[if(self->m_scriptData!=-1) toluaext_remove_luatable(tolua_S,self->m_scriptData); 
+	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0)]])
 
 	replace([[tolua_usertype(tolua_S,"LUA_TABLE");]], [[]])
 

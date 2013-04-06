@@ -6,12 +6,12 @@ NS_FS_BEGIN
 
 FsObject::~FsObject()
 {
-	if(m_data!=-1)
+	if(m_scriptData!=-1)
 	{
 		ScriptEngine* se=Global::scriptEngine();
 		if(se!=NULL)
 		{
-			se->releaseData(m_data);
+			se->releaseData(m_scriptData);
 		}
 	}
 }

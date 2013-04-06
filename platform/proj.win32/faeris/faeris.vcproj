@@ -609,10 +609,6 @@
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\src\support\felis\type_map.cc"
-						>
-					</File>
-					<File
 						RelativePath="..\..\..\src\support\felis\xir_file.cc"
 						>
 					</File>

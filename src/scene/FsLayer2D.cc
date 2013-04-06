@@ -114,7 +114,10 @@ void Layer2D::draw(Render* r)
 	for(int i=0;i<entity_nu;i++)
 	{
 		Entity* ob=(Entity*) entity->get(i);
-		ob->draw(r,false);
+		if(ob->visible())
+		{
+			ob->draw(r,false);
+		}
 		ob->decRef();
 	}
 	entity->decRef();

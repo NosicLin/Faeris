@@ -8,6 +8,8 @@ class Director:public FsObject
 
 		void run(Scene*  scene);
 
+		Scene* current();
+
 		void pause();
 		void start();
 		bool isRunning();

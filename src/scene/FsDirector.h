@@ -27,6 +27,8 @@ class Director :public SchedulerTarget
 
 		void run(Scene*  scene);
 
+		Scene* current();
+
 		void pause();
 		void start();
 

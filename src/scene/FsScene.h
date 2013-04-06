@@ -9,7 +9,7 @@
 NS_FS_BEGIN
 class Render;
 class Layer;
-class FsArray;
+class FsSlowArray;
 class Vector2;
 class Scene:public FsObject
 {
@@ -45,7 +45,7 @@ class Scene:public FsObject
 		void destroy();
 
 	private:
-		FsArray* m_layers;
+		FsSlowArray* m_layers;
 };
 NS_FS_END
 #endif /*_FS_SCENE_H_ */

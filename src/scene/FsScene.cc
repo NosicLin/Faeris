@@ -1,6 +1,6 @@
 #include "scene/FsScene.h"
 #include "scene/FsLayer.h"
-#include "util/FsArray.h"
+#include "util/FsSlowArray.h"
 NS_FS_BEGIN
 
 Scene* Scene::create()
@@ -47,6 +47,7 @@ void Scene::exit()
 
 void Scene::update(float dt)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -57,9 +58,12 @@ void Scene::update(float dt)
 		}
 		layer->decRef();
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 void Scene::draw(Render* render)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=0;i<layer_nu;i++)
 	{
@@ -70,9 +74,12 @@ void Scene::draw(Render* render)
 		}
 		layer->decRef();
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 void Scene::touchBegin(float x,float y)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -88,9 +95,12 @@ void Scene::touchBegin(float x,float y)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 void Scene::touchMove(float x,float y)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -106,10 +116,13 @@ void Scene::touchMove(float x,float y)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 
 void Scene::touchEnd(float x,float y)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -125,10 +138,13 @@ void Scene::touchEnd(float x,float y)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 
 void Scene::touchesBegin(Vector2* points,int num)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -144,9 +160,12 @@ void Scene::touchesBegin(Vector2* points,int num)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 void Scene::touchesMove(Vector2* points,int num)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -162,9 +181,12 @@ void Scene::touchesMove(Vector2* points,int num)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 void Scene::touchesEnd(Vector2* points,int num)
 {
+	m_layers->lock();
 	int layer_nu=m_layers->size();
 	for(int i=layer_nu-1;i>=0;i--)
 	{
@@ -180,6 +202,8 @@ void Scene::touchesEnd(Vector2* points,int num)
 			break;
 		}
 	}
+	m_layers->unlock();
+	m_layers->flush();
 }
 
 
@@ -200,7 +224,7 @@ Scene::~Scene()
 
 void Scene::init()
 {
-	m_layers=FsArray::create();
+	m_layers=FsSlowArray::create();
 }
 
 void Scene::destroy()

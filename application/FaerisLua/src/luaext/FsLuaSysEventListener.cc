@@ -21,25 +21,25 @@ void LuaSysEventListener::foreground()
 {
 
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
-	se->callFunctionInTable(m_data,"onForeground",1,0,"f",this);
+	se->callFunctionInTable(m_scriptData,"onForeground",1,0,"f",this);
 }
 
 void LuaSysEventListener::background()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
-	se->callFunctionInTable(m_data,"onBackground",1,0,"f",this);
+	se->callFunctionInTable(m_scriptData,"onBackground",1,0,"f",this);
 }
 
 void LuaSysEventListener::exit()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
-	se->callFunctionInTable(m_data,"onExit",1,0,"f",this);
+	se->callFunctionInTable(m_scriptData,"onExit",1,0,"f",this);
 }
 
 void LuaSysEventListener::quit()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
-	se->callFunctionInTable(m_data,"onQuit",1,0,"f",this);
+	se->callFunctionInTable(m_scriptData,"onQuit",1,0,"f",this);
 }
 
 LuaSysEventListener::LuaSysEventListener()

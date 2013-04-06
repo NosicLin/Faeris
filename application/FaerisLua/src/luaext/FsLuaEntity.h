@@ -9,6 +9,8 @@
 #include "entity/FsEntity.h"
 #include "entity/FsColorQuad2D.h"
 #include "entity/FsQuad2D.h"
+#include "entity/FsSprite2D.h"
+#include "entity/FsLabelTTF.h"
 
 NS_FS_BEGIN
 class LuaEntity:public TEntity<Entity>
@@ -77,6 +79,11 @@ class LuaQuad2D:public TEntity<Quad2D>
 			return ret;
 
 		}
+		static LuaQuad2D* create(const char* name,float width,float height)
+		{
+			return create(name,Rect2D(-width/2,-height/2,width,height));
+		}
+
 	public:
 		virtual const char* className()
 		{
@@ -87,6 +94,37 @@ class LuaQuad2D:public TEntity<Quad2D>
 		~LuaQuad2D(){}
 };
 
+class LuaLabelTTF:public TEntity<LabelTTF>
+{
+	public:
+		static LuaLabelTTF* create(const char* text,FontTTF* font)
+		{
+			LuaLabelTTF* ret=new LuaLabelTTF();
+			ret->init(text,font);
+			return ret;
+		}
+	protected:
+		LuaLabelTTF(){}
+		~LuaLabelTTF(){}
+};
+
+class LuaSprite2D:public TEntity<Sprite2D>
+{
+	public:
+		static LuaSprite2D* create(const char* name)
+		{
+			LuaSprite2D* ret=new LuaSprite2D();
+			if(!ret->init(name))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+	protected:
+		LuaSprite2D(){}
+		~LuaSprite2D(){}
+};
 NS_FS_END
 
 #endif /*_FS_LUA_ENTITY_H_*/

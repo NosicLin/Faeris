@@ -37,6 +37,12 @@ class LuaColorLayer:public TLuaLayer<ColorLayer>
 		{
 			return new LuaColorLayer;
 		}
+		static LuaColorLayer* create(Color c)
+		{
+			LuaColorLayer* layer=new LuaColorLayer;
+			layer->setColor(c);
+			return layer;
+		}
 	public:
 		virtual const char* className()
 		{

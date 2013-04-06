@@ -63,7 +63,7 @@ class Sprite2D :public Entity
 		virtual const char* className();
 
 	protected:
-		bool init(Sprite2DData* data);
+		bool init(const char* name);
 		void setAnimation(Sprite2DAnimation* anim);
 		Sprite2D();
 		~Sprite2D();

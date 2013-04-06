@@ -1,19 +1,9 @@
 $#include "entity/FsEntity.h"
+$#include "luaext/FsLuaEntity.h"
 
-class Entity:public FsObject
+class Entity@__Entity:public FsObject
 {
 	public:
-		Entity* create();
-
-	public:
-		virtual void update(float dt);
-		virtual void draw(Render* r);
-
-		/* inherit FsObject */
-		virtual const char* className();
-
-	public:
-
 		Vector3 localToWorld(const Vector3& v);
 		Vector3 worldToLocal(const Vector3& v);
 
@@ -24,19 +14,25 @@ class Entity:public FsObject
 		FsArray* allChild();
 		int childNu();
 
-		/*
-		Entity* getChildByName(FsString* name,bool recusive=0);
-		Entity* getChildByName(const char* name,bool recusive=0);
-		*/
-
-		bool updateLocalMatrix();
-		bool updateWorldMatrix();
-		void updateAllWorldMatrix();
-
 	public: /* get transform info */
-		Vector3 getPosition(){return m_translate;}
-		Vector3 getScale(){return m_scale;}
-		Vector3 getRotate(){return m_rotate;}
+		Vector3 getPosition();
+		void getPosition(float* x=NULL, float* y=NULL,float* z=NULL);
+		float getPositionX();
+		float getPositionY();
+		float getPositionZ();
+
+		/* scale information */
+		Vector3 getScale();
+		float getScaleX();
+		float getScaleY();
+		float getScaleZ();
+
+		/* rotate information */
+		Vector3 getRotate();
+		float getRotateX();
+		float getRotateY();
+		float getRotateZ();
+
 
 	public: /* transform */
 		void rotate(float rx,float ry,float rz);
@@ -65,13 +61,12 @@ class Entity:public FsObject
 		void setScaleY(float s);
 		void setScaleZ(float s);
 
-		void setPosition(float tx,float ty,float tz);
+		void setPosition(float tx,float ty,float z=0);
 		void setPositionX(float t);
 		void setPositionY(float t);
 		void setPositionZ(float t);
 
-
-		/* 
+		/*
 		void setPositionInWorld(float tx,float ty,float tz);
 		void setPositionXInWorld(float t);
 		void setPositionYInWorld(float t);
@@ -79,8 +74,23 @@ class Entity:public FsObject
 		*/
 
 	public:
-		void setVisible(bool visible){m_visible=visible;}
-		bool visible(){return m_visible;}
-
+		void setVisible(bool visible);
+		bool visible();
+		bool hit2D(float x,float y);
+		void draw(Render* render,bool update_matrix=true);
 };
+
+class LuaEntity@Entity:public Entity 
+{
+	public:
+		static LuaEntity* create();
+	public:
+		void onUpdate@update(float dt);
+		void onDraw@draw(Render* r);
+};
+
+
+
+
+
 

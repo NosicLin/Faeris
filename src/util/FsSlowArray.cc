@@ -23,47 +23,99 @@ void FsSlowArray::unlock()
 
 void FsSlowArray::flush()
 {
-	int delete_nu=m_deletes->size();
-	int add_nu=m_adds->size();
+	int pend_nu=m_pendingCommand.size();
 
-	for(int i=0;i<delete_nu;i++)
+	for( int i=0;i<pend_nu;i++)
 	{
-		FsObject* cur=m_deletes->get(i);
-		m_items->remove(cur);
-		cur->decRef();
+		PendingCommand* cm=m_pendingCommand[i];
+		switch(cm->m_type)
+		{
+			case CM_POP:
+				m_items->pop();
+				break;
+			case CM_PUSH:
+				m_items->push(cm->m_object);
+				break;
+			case CM_REMOVE:
+				m_items->remove(cm->m_object);
+				break;
+			case CM_SET:
+				m_items->set(cm->m_pos,cm->m_object);
+				break;
+			case CM_INSERT:
+				m_items->insert(cm->m_pos,cm->m_object);
+				break;
+		}
+		delete cm;
 	}
-	for(int i=0;i<add_nu;i++)
-	{
-		FsObject* cur=m_adds->get(i);
-		m_items->push(cur);
-		cur->decRef();
-	}
-	m_deletes->clear();
-	m_adds->clear();
+	m_pendingCommand.clear();
+
+
 }
 
 void FsSlowArray::push(FsObject* object)
 {
 	if(m_lock)
 	{
-		m_adds->push(object);
+		PendingCommand* cm=new PendingCommand(CM_PUSH,0,object);
+		m_pendingCommand.push_back(cm);
 	}
 	else 
 	{
 		m_items->push(object);
 	}
 }
+
+void FsSlowArray::pop()
+{
+	if(m_lock)
+	{
+		PendingCommand* cm=new PendingCommand(CM_POP,0,NULL);
+		m_pendingCommand.push_back(cm);
+	}
+	else 
+	{
+		m_items->pop();
+	}
+}
+
 void FsSlowArray::remove(FsObject* object)
 {
 	if(m_lock)
 	{
-		m_deletes->push(object);
+		PendingCommand* cm=new PendingCommand(CM_REMOVE,0,object);
+		m_pendingCommand.push_back(cm);
 	}
 	else 
 	{
 		m_items->remove(object);
 	}
 }
+void FsSlowArray::set(int pos,FsObject* object)
+{
+	if(m_lock)
+	{
+		PendingCommand* cm=new PendingCommand(CM_SET,pos,object);
+		m_pendingCommand.push_back(cm);
+	}
+	else 
+	{
+		m_items->set(pos,object);
+	}
+}
+void FsSlowArray::insert(int pos,FsObject* object)
+{
+	if(m_lock)
+	{
+		PendingCommand* cm=new PendingCommand(CM_INSERT,pos,object);
+		m_pendingCommand.push_back(cm);
+	}
+	else 
+	{
+		m_items->insert(pos,object);
+	}
+}
+
 FsObject* FsSlowArray::get(ulong index)
 {
 	return m_items->get(index);
@@ -86,15 +138,20 @@ void FsSlowArray::init()
 {
 	m_lock=false;
 	m_items=FsArray::create();
-	m_deletes=FsArray::create();
-	m_adds=FsArray::create();
+
 }
 
 void FsSlowArray::destroy()
 {
 	m_items->decRef();
-	m_deletes->decRef();
-	m_adds->decRef();
+
+	int pending_nu=m_pendingCommand.size();
+	for( int i=0;i<pending_nu;i++)
+	{
+		PendingCommand* cm=m_pendingCommand[i];
+		delete cm;
+	}
+	m_pendingCommand.clear();
 }
 
 NS_FS_END

@@ -29,6 +29,10 @@ Quad2D* Quad2D::create(const char* tex,const Rect2D&  rect)
 	ret->setRect2D(rect);
 	return ret;
 }
+Quad2D* Quad2D::create(const char* tex,float width,float height)
+{
+	return create(tex,Rect2D(-width/2.0f,-height/2.0f,width,height));
+}
 
 void Quad2D::setColor(Color c)
 {

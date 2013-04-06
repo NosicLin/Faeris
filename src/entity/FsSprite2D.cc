@@ -9,21 +9,14 @@ NS_FS_BEGIN
 
 Sprite2D* Sprite2D::create(const char* name)
 {
-	Sprite2DData* data=Global::sprite2DDataMgr()->loadSprite2DData(name);
-	if(data==NULL)
-	{
-		FS_TRACE_WARN("Can't Find Sprite2DData(%s)",name);
-		return NULL;
-	}
 
 	Sprite2D* ret=new Sprite2D;
-	if(!ret->init(data))
+	if(!ret->init(name))
 	{
 		FS_TRACE_WARN("init Sprite Data Failed");
 		delete ret;
 		ret=NULL;
 	}
-	data->decRef();
 
 	return ret;
 }
@@ -209,17 +202,16 @@ const char* Sprite2D::className()
 	return FS_SPRITE2D_CLASS_NAME;
 }
 
-bool Sprite2D::init(Sprite2DData* data)
+bool Sprite2D::init(const char* name)
 {
-	if(!data)
+	Sprite2DData* data=Global::sprite2DDataMgr()->loadSprite2DData(name);
+	if(data==NULL)
 	{
+		FS_TRACE_WARN("Can't Find Sprite2DData(%s)",name);
 		return false;
 	}
-
-	data->addRef();
 	m_data=data;
 	m_textures=data->getTextures();
-
 	return true;
 
 }

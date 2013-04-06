@@ -8,6 +8,5 @@ class LuaSysEventListener@SysEventListener:public SysEventListener
 {
 	public:
 		static LuaSysEventListener* create();
-
 };
 

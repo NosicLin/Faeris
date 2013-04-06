@@ -1,6 +1,6 @@
 $#include "scene/FsLayer.h"
 
-class Layer:public FsObject
+class Layer@__layer:public FsObject
 {
 	public:
 		/* visible */
