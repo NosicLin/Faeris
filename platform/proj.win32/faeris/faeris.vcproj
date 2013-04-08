@@ -366,14 +366,6 @@
 				Name="material"
 				>
 				<File
-					RelativePath="..\..\..\src\material\FsColorQuad2DMaterial.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\material\FsColorQuad2DMaterial.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\material\FsMaterial.cc"
 					>
 				</File>
@@ -390,43 +382,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\material\FsPositionColorMaterial.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\material\FsPositionColorMaterial.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\material\FsPositionTextureMaterial.cc"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\src\material\FsPositionTextureMaterial.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\material\FsShaderMaterial.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\material\FsShaderMaterial.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="model"
-				>
-				<File
-					RelativePath="..\..\..\src\model\FsGeometry.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsGeometry.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsMesh.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsMesh.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\model\FsMeshAnimation.h"
 					>
 				</File>
 			</Filter>

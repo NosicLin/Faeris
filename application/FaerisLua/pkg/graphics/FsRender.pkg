@@ -4,14 +4,13 @@ class Render:public FsObject
 {
 	void setViewport(int x,int y,int width,int height);
 	void setClearColor(Color c);
-	void setProjectionMatrix(const Matrix4& mat);
+	void setProjectionMatrix(const Matrix4* mat);
 	void pushMatrix();
 	void popMatrix();
 	void loadIdentity();
-	void mulMatrix(const Matrix4& m);
-	void setMatrix(const Matrix4& m);
+	void mulMatrix(const Matrix4* m);
+	void setMatrix(const Matrix4* m);
 	void translate(const Vector3& t);
 	void scale(const Vector3& s);
 	void rotate(const Vector3& v,float angle);
-	void drawLine(const Vector3 start,const Vector3 end,float width,Color c);
 }

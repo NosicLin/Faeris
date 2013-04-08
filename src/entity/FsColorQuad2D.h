@@ -13,7 +13,7 @@ NS_FS_BEGIN
  *   A ------ B
  */
 
-class ColorQuad2DMaterial;
+class PositionColorMaterial;
 class ColorQuad2D:public Entity
 {
 	public:
@@ -60,7 +60,7 @@ class ColorQuad2D:public Entity
 		Color m_vd;
 		Rect2D m_rect;
 		float m_opacity;
-		ColorQuad2DMaterial* m_material;
+		PositionColorMaterial* m_material;
 };
 
 NS_FS_END

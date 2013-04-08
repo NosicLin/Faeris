@@ -15,7 +15,6 @@ local quad2d= Quad2D:create("grass.png",Rect2D(-100,-100,200,200))
 quad2d:setPosition(500,400,0)
 quad2d.data={
 	onUpdate=function(self,dt)
-		print("update:"..dt)
 		self:rotateZ(dt/1000*10)
 	end 
 }

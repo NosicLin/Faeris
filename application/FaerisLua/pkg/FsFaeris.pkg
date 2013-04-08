@@ -6,6 +6,7 @@ $pfile  "FsTypes.pkg"
 
 /* common */
 $pfile "common/FsGlobal.pkg"
+$pfile "common/FsLuaEngine.pkg"
 
 /* core */
 $pfile "core/FsObject.pkg"

@@ -33,6 +33,7 @@ local fsobject= {
 	"SysEventListener",
 	"LuaTouchEventListener",
 	"LabelTTF",
+	"LuaLabelTTF",
 	"LuaSysEventListener",
 	"LuaQuad2D",
 }

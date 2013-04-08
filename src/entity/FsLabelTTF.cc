@@ -284,13 +284,12 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 		updateWorldMatrix();
 	}
 	render->pushMatrix();
-	render->mulMatrix(m_worldMatrix);
+	render->mulMatrix(&m_worldMatrix);
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
-	render->setMaterial(m_material,true);
+	render->setMaterial(m_material);
 
 	render->setActiveTexture(1);
-	render->disableAllClientArray();
 	render->disableAllAttrArray();
 	render->bindTexture(m_texture,0);
 
@@ -320,8 +319,11 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	render->setAndEnableVertexAttrPointer("a_position",3,FS_FLOAT,4,0,vv);
-	render->setAndEnableVertexAttrPointer("a_texCoord",2,FS_FLOAT,4,0,vc);
+	int pos_loc=m_material->getPostionLocaition();
+	int pos_tex=m_material->getTexCoordLocation();
+
+	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
+	render->setAndEnableVertexAttrPointer(pos_tex,2,FS_FLOAT,4,0,vc);
 
 	render->drawFace3(faces,2);
 	render->popMatrix();

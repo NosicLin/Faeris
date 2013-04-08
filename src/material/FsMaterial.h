@@ -6,6 +6,7 @@
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
+class Program;
 class Material:public FsObject
 {
 	protected:
@@ -13,27 +14,14 @@ class Material:public FsObject
 		int m_blendEquation;
 		int m_blendSrc;
 		int m_blendDst;
-
-		/* shade mode */
-		int m_shadeMode;
-
-		/* front side */
-		int m_frontSide;
-
-		/* depth */
 		bool m_depthTest;
-		bool m_depthMask;
-
-
 	public:
 		Material()
 			:m_blendEquation(Render::EQUATION_ADD),
 			m_blendSrc(Render::FACTOR_SRC_ALPHA),
 			m_blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
-			m_shadeMode(Render::SHADE_MODE_SMOOTH),
-			m_frontSide(Render::FRONT_CCW),
-			m_depthTest(true),
-			m_depthMask(true) {}
+			m_depthTest(false) {}
+
 		virtual ~Material();
 		virtual const char* className();
 	public:
@@ -57,16 +45,6 @@ class Material:public FsObject
 			return m_blendDst;
 		}
 
-		/* shader mode */
-		void setShadeMode(int mode)
-		{
-			m_shadeMode=mode;
-		}
-		int getShadeMode()
-		{
-			return m_shadeMode;
-		}
-
 
 		/* depth test */
 		void setDepthTest(bool enable)
@@ -77,30 +55,8 @@ class Material:public FsObject
 		{
 			return m_depthTest;
 		}
-
-		/* depth mask */
-		void setDepthMask(bool enable)
-		{
-			m_depthMask=enable;
-		}
-		bool getDepthMask()
-		{
-			return m_depthMask;
-		}
-
-		void setFrontSide(int type)
-		{
-			m_frontSide=type;
-		}
-		int getFrontSide()
-		{
-			return m_frontSide;
-		}
-	protected:
-		void configRender(Render* r);
 	public:
-		virtual void load(Render* r)=0;
-		virtual void unload(Render* r)=0;
+		virtual void onUse(Render* r);
 };
 NS_FS_END 
 #endif /*_FS_MATTERIAL_H_*/

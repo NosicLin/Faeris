@@ -132,86 +132,15 @@ error:
 int Program::getAttributeLocation(const char* name)
 {
 
-	FsString* fs_name=new FsString(name);
-	int loc=getAttributeLocation(fs_name);
-	fs_name->decRef();
+	int loc=glGetAttribLocation(m_program,name);
+
 	return loc;
 }
 int Program::getUniformLocation(const char* name)
 {
-	FsString* fs_name=new FsString(name);
-	int loc=getUniformLocation(fs_name);
-	fs_name->decRef();
+	int loc=glGetUniformLocation(m_program,name);
 	return loc;
 }
-
-int Program::getAttributeLocation(FsString* name)
-{
-	int loc=-1;
-	if(!m_attrs)
-	{
-		return -1;
-	}
-
-	Location* attr=(Location*) m_attrs->lookup(name);
-	if(!attr)
-	{
-		return -1;
-	}
-	if(!attr->used)
-	{
-		loc=-1;
-	}
-	else 
-	{
-		if(attr->location==-1)
-		{
-			attr->location=glGetAttribLocation(m_program,name->cstr());
-			if(attr->location==-1)
-			{
-				attr->used=false;
-			}
-		}
-		loc=attr->location;
-	}
-	attr->decRef();
-	return loc;
-}
-
-
-int Program::getUniformLocation(FsString* name)
-{
-	int loc=-1;
-	if(!m_uniforms)
-	{
-		return -1;
-	}
-
-	Location* u=(Location*) m_uniforms->lookup(name);
-	if(!u)
-	{
-		return -1;
-	}
-	if(!u->used)
-	{
-		loc=-1;
-	}
-	else 
-	{
-		if(u->location==-1)
-		{
-			u->location=glGetUniformLocation(m_program,name->cstr());
-			if(u->location==-1)
-			{
-				u->used=false;
-			}
-		}
-		loc=u->location;
-	}
-	u->decRef();
-	return loc;
-}
-
 
 
 
@@ -219,8 +148,6 @@ int Program::getUniformLocation(FsString* name)
 Program::Program()
 {
 	m_program=0;
-	m_uniforms=NULL;
-	m_attrs=NULL;
 }
 Program::~Program()
 {
@@ -228,20 +155,11 @@ Program::~Program()
 	{
 		glDeleteProgram(m_program);
 	}
-	if(m_uniforms)
-	{
-		m_uniforms->decRef();
-	}
-	if(m_attrs)
-	{
-		m_attrs->decRef();
-	}
 }
 
-const char* s_programName="ProgramObject";
 const char* Program::className()
 {
-	return s_programName;
+	return FS_PROGRAM_CLASS_NAME;
 }
 
 NS_FS_END 

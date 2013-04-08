@@ -267,8 +267,8 @@ Texture2D* Texture2D::create(
 	 * if used glGenerateMipmap, we can't set level 2 or higher 
 	 * bitmap, so here use glTexParameteri instead 
 	 */
-	//glGenerateMipmap(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
 
 	for(uint i=0;i<imageCnt;++i)
 	{

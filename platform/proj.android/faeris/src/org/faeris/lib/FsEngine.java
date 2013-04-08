@@ -13,10 +13,10 @@ public class FsEngine {
 	public static native void onBackground();
 	
 	/* touch event */
-	public static native void onTouchBegin(int x,int y);
-	public static native void onTouchMove(int x,int y);
-	public static native void onTouchEnd(int x,int y);
-	public static native void onTouchCancel(int x,int y);
+	public static native void onTouchBegin(float x,float y);
+	public static native void onTouchMove(float x,float y);
+	public static native void onTouchEnd(float x,float y);
+	public static native void onTouchCancel(float x,float y);
 	
 	
 	/* surface event */

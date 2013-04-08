@@ -166,13 +166,12 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		updateWorldMatrix();
 	}
 	render->pushMatrix();
-	render->mulMatrix(m_worldMatrix);
+	render->mulMatrix(&m_worldMatrix);
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
 
-	render->setMaterial(m_material,true);
+	render->setMaterial(m_material);
 	render->setActiveTexture(1);
-	render->disableAllClientArray();
 	render->disableAllAttrArray();
 
 	Sprite2DKeyFrame* frame=m_curAnimation->getKeyFrame(m_curFrame);
@@ -182,15 +181,18 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		Face3(0,3,2),
 		Face3(2,1,0),
 	};
+	int pos_loc=m_material->getPostionLocaition();
+	int alpha_loc=m_material->getAlphaLocation();
+	int tex_loc=m_material->getTexCoordLocation();
 
 	for(int i=0;i<frame->getQuadNu();i++)
 	{
 		Sprite2DQuad* quad=frame->getQuad(i);
 		Texture2D* tex=(Texture2D*)m_textures->get(quad->texture);
 		render->bindTexture(tex,0);
-		render->setAndEnableVertexAttrPointer("a_position",2,FS_FLOAT,4,0,quad->vertex);
-		render->setAndEnableVertexAttrPointer("a_texCoord",2,FS_FLOAT,4,0,quad->texcoord);
-		render->setAndEnableVertexAttrPointer("a_alpha",1,FS_FLOAT,4,0,quad->alpha);
+		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,quad->vertex);
+		render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,quad->texcoord);
+		render->setAndEnableVertexAttrPointer(alpha_loc,1,FS_FLOAT,4,0,quad->alpha);
 		render->drawFace3(faces,2);
 		tex->decRef();
 	}

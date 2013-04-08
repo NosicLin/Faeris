@@ -13,10 +13,8 @@
 #endif
 
 
-#include <GLES/gl.h>
-#include <GLES/glext.h>
 #include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+//#include <GLES2/gl2ext.h>
 
 
 #endif // _FS_GLEW_H_
