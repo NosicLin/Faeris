@@ -107,6 +107,7 @@ Image2D* FsUtil_PngReader(FsFile* file)
 			free(row_pointers);
 			image_data=NULL;
 		}
+		FS_TRACE_WARN("Load Png Error");
 		return NULL;
 	}
 
@@ -182,6 +183,7 @@ Image2D* FsUtil_PngReader(FsFile* file)
 	else 
 	{
 		channels=0;
+		FS_TRACE_WARN("Channels Unkowns");
 		png_error(png_ptr,"Channels Unkowns");
 	}
 	
@@ -194,12 +196,15 @@ Image2D* FsUtil_PngReader(FsFile* file)
 	image_data=(png_bytep) malloc(row_bytes*height*sizeof(png_byte));
 	if(image_data==NULL)
 	{
+		FS_TRACE_WARN("Can't Alloc Memory For Image Data");
 		png_error(png_ptr,"Can't Alloc Memory For image_data");
+
 	}
 
 	row_pointers=(png_bytepp) malloc(height* sizeof(png_bytep));
 	if(row_pointers==NULL)
 	{
+		FS_TRACE_WARN("Can't Alloc Memory For Row Pointers");
 		png_error(png_ptr,"Can't Alloc Memory For row_pointers");
 	}
 
@@ -232,6 +237,7 @@ Image2D* FsUtil_PngReader(FsFile* file)
 		img=Image2D::create(width,height,Image2D::PIXEL_RGBA8888);
 	}
 
+	//FS_TRACE_WARN("width=%d,height=%d,channels=%d",width,height,channels);
 
 	png_bytep src=image_data;
 

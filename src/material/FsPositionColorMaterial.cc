@@ -5,9 +5,13 @@ NS_FS_BEGIN
 static const char color_program_vert_str[]=
 "uniform mat4 u_mvp;					\n\
 uniform float u_opacity; 				\n\
-varying vec4 v_fragmentColor;			\n\
 attribute vec4 a_position;				\n\
 attribute vec4 a_color;					\n\
+#ifdef GL_ES							\n\
+varying lowp vec4 v_fragmentColor;		\n\
+#else									\n\
+varying vec4 v_fragmentColor;			\n\
+#endif									\n\
 void main()   							\n\
 {										\n\
 	gl_Position=u_mvp*a_position;		\n\
@@ -16,7 +20,10 @@ void main()   							\n\
 ";
 
 static const char color_program_frag_str[]=
-"varying vec4 v_fragmentColor; 			\n\
+"#ifdef GL_ES                           \n\
+precision lowp float;                   \n\
+#endif                                  \n\
+varying vec4 v_fragmentColor; 			\n\
 void main() 					        \n\
 {										\n\
 	gl_FragColor=v_fragmentColor;		\n\

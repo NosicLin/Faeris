@@ -8,19 +8,27 @@ static const char quad_material_vert_str[]=
 "attribute vec2 a_position; 	    		\n\
 attribute vec2  a_texCoord;					\n\
 attribute float a_alpha;					\n\
+uniform mat4 u_mvp;							\n\
+#ifdef GL_ES								\n\
+varying mediump vec2 v_texCoord;			\n\
+varying mediump float v_alpha;				\n\
+#else										\n\
 varying vec2 v_texCoord;					\n\
 varying float v_alpha;						\n\
-uniform mat4 u_mvp;							\n\
+#endif										\n\
 void main() 								\n\
 { 											\n\
-	gl_Position=u_mvp*vec4(a_position,0,1);		\n\
+	gl_Position=u_mvp*vec4(a_position,0,1);	\n\
 	v_texCoord=a_texCoord;					\n\
 	v_alpha=a_alpha;						\n\
 }											\n\
 ";
 
 static const char quad_material_frag_str[]=
-"varying vec2 v_texCoord; 			\n\
+"#ifdef GL_ES                       \n\
+precision lowp float;               \n\
+#endif                              \n\
+varying vec2 v_texCoord; 			\n\
 varying  float v_alpha;				\n\
 uniform sampler2D u_texture0;       \n\
 uniform vec4 	 u_color;			\n\

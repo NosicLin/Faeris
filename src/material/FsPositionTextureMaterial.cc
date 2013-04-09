@@ -6,8 +6,12 @@ NS_FS_BEGIN
 static const char quad_material_vert_str[]=
 "attribute vec4 a_position; 	    \n\
 attribute vec2 a_texCoord;			\n\
+uniform mat4 u_mvp;					\n\
+#ifdef GL_ES						\n\
+varying mediump vec2 v_texCoord;	\n\
+#else								\n\
 varying vec2 v_texCoord;			\n\
-uniform mat4 u_mvp;						\n\
+#endif								\n\
 void main() 						\n\
 { 									\n\
 	gl_Position=u_mvp*a_position;	\n\
@@ -16,7 +20,10 @@ void main() 						\n\
 ";
 
 static const char quad_material_frag_str[]=
-"varying vec2 v_texCoord; 			\n\
+"#ifdef GL_ES                       \n\
+precision lowp float;               \n\
+#endif								\n\
+varying vec2 v_texCoord; 			\n\
 uniform sampler2D u_texture0;       \n\
 uniform vec4 	 u_color;			\n\
 uniform float 	 u_opacity;			\n\

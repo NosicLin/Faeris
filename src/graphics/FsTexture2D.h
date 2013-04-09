@@ -48,18 +48,7 @@ class Texture2D:public Resource
 				int filter_mag,
 				int filter_min,
 				int wraps,
-				int wrapt,
-				int internal_format);
-
-		static Texture2D* create(
-				Image2D** images,
-				uint imageCnt,
-				int filter_mag,
-				int fileter_min,
-				int filter_mipmap,
-				int wraps,
-				int wrapt,
-				int internal_format);
+				int wrapt);
 
 		/* for quick create texture from image */
 		static Texture2D* create(Image2D* image);

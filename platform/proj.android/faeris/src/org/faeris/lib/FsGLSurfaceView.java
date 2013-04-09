@@ -142,7 +142,6 @@ public class FsGLSurfaceView  extends GLSurfaceView
 	}
 
 	@Override
-
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    	// exit program when key back is entered
 			Log.v("key","onKeyEvent");

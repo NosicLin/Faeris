@@ -9,7 +9,7 @@ static void s_bindTexture2D(GLuint texture)
 
 
 
-static inline GLint s_filterToGlEnum(int filter)
+static inline GLint FsFilter_ToGLEnum(int filter)
 {
 	switch(filter)
 	{
@@ -21,7 +21,7 @@ static inline GLint s_filterToGlEnum(int filter)
 			return GL_LINEAR;
 	}
 }
-static inline GLint s_filterToGlEnum(int filter_min,int filter_mipmap)
+static inline GLint  FsFilter_ToGLEnum(int filter_min,int filter_mipmap)
 {
 	if(filter_min==Texture2D::FILTER_LINEAR)
 	{
@@ -53,7 +53,7 @@ static inline GLint s_filterToGlEnum(int filter_min,int filter_mipmap)
 	return GL_LINEAR_MIPMAP_LINEAR;
 }
 
-static inline GLint s_wrapToGlEnum(int wrap)
+static inline GLint FsWrap_ToGLEnum(int wrap)
 {
 	switch(wrap)
 	{
@@ -75,7 +75,7 @@ static inline GLint s_wrapToGlEnum(int wrap)
 	}
 }
 
-static inline GLint s_fomatToGLEnum(int format)
+static inline GLint  FsTextureFomat_ToGLEnum(int format)
 {
 	switch(format)
 	{
@@ -104,6 +104,18 @@ static inline GLint s_fomatToGLEnum(int format)
 	}
 }
 
+static inline GLint FsImageFormat_ToGLEnum(int format)
+{
+	switch(format)
+	{
+		case Image2D::PIXEL_RGBA8888: return GL_RGBA;
+		case Image2D::PIXEL_RGB888:   return GL_RGB;
+		default:
+			FS_TRACE_WARN("Unsupport Pixel Format To Texture2D");
+			return 0;
+	}
+}
+
 
 
 Texture2D* Texture2D::create(
@@ -111,32 +123,18 @@ Texture2D* Texture2D::create(
 		int filter_mag,
 		int filter_min,
 		int wraps,
-		int wrapt,
-		int internal_format
-		)
+		int wrapt)
 		
 {
 
 	GLint format_gl;
 	GLint filter_mag_gl,filter_min_gl;
 	GLint wraps_gl,wrapt_gl;
-	GLint internal_format_gl;
 	GLint width,height;
 	GLvoid* pixels;
 
 	/* pixel format */
-	switch(image->getPixelFormat())
-	{
-		case Image2D::PIXEL_RGBA8888:
-			format_gl=GL_RGBA;
-			break;
-		case Image2D::PIXEL_RGB888:
-			format_gl=GL_RGB;
-			break;
-		default:
-			FS_TRACE_WARN("Unsupport Pixel Format To Texture2D");
-			return NULL;
-	}
+	format_gl =FsImageFormat_ToGLEnum(image->getPixelFormat());
 
 	/* env mode */
 
@@ -149,14 +147,14 @@ Texture2D* Texture2D::create(
 	s_bindTexture2D(texture);
 
 	/* filter */
-	filter_mag_gl=s_filterToGlEnum(filter_mag);
-	filter_min_gl=s_filterToGlEnum(filter_min);
+	filter_mag_gl=FsFilter_ToGLEnum(filter_mag);
+	filter_min_gl=FsFilter_ToGLEnum(filter_min);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter_mag_gl);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter_min_gl);
 
 	/* wrap */
-	wraps_gl=s_wrapToGlEnum(wraps);
-	wrapt_gl=s_wrapToGlEnum(wrapt);
+	wraps_gl=FsWrap_ToGLEnum(wraps);
+	wrapt_gl=FsWrap_ToGLEnum(wrapt);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,wraps_gl);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,wrapt_gl);
 
@@ -164,8 +162,6 @@ Texture2D* Texture2D::create(
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 
-	/* internal_format */
-	internal_format_gl=s_fomatToGLEnum(internal_format);
 
 
 	/* set texture data */
@@ -176,7 +172,7 @@ Texture2D* Texture2D::create(
 	glTexImage2D(
 			GL_TEXTURE_2D,
 			0,
-			internal_format_gl,
+			format_gl,
 			width,
 			height,
 			0,
@@ -188,7 +184,7 @@ Texture2D* Texture2D::create(
 	Texture2D* ret=new Texture2D();
 	ret->m_width=width;
 	ret->m_height=height;
-	ret->m_format=internal_format;
+	ret->m_format=format_gl;
 	ret->m_filterMin=filter_min;
 	ret->m_filterMag=filter_mag;
 	ret->m_filterMipmap=FILTER_LINEAR;
@@ -200,112 +196,6 @@ Texture2D* Texture2D::create(
 }
 
 
-Texture2D* Texture2D::create(
-		Image2D** images,
-		uint imageCnt,
-		int filter_mag,
-		int filter_min,
-		int filter_mipmap,
-		int wraps,
-		int wrapt,
-		int internal_format)
-{
-	GLint* formats_gl;
-	GLint filter_mag_gl,filter_min_gl;
-	GLint wraps_gl,wrapt_gl;
-	GLint internal_format_gl;
-	GLint width,height;
-	GLvoid* pixels;
-
-	formats_gl=new GLint[imageCnt];
-
-	/* pixel format */
-	for(uint i=0;i<imageCnt;++i)
-	{
-		switch(images[i]->getPixelFormat())
-		{
-			case Image2D::PIXEL_RGBA8888:
-				formats_gl[i]=GL_RGBA;
-				break;
-			case Image2D::PIXEL_RGB888:
-				formats_gl[i]=GL_RGB;
-				break;
-			default:
-				delete[]  formats_gl;
-				FS_TRACE_WARN("Unsupport Pixel Format To Texture2D");
-				return NULL;
-		}
-	}
-
-	/* env mode */
-
-	/* gen texture */
-	GLuint texture;
-	glGenTextures(1,&texture);
-
-	/* bind texture */
-	s_bindTexture2D(texture);
-
-	/* filter */
-	filter_mag_gl=s_filterToGlEnum(filter_mag);
-	filter_min_gl=s_filterToGlEnum(filter_min,filter_mipmap);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter_mag_gl);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter_min_gl);
-
-	/* wrap */
-	wraps_gl=s_wrapToGlEnum(wraps);
-	wrapt_gl=s_wrapToGlEnum(wrapt);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,wraps_gl);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,wrapt_gl);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-
-	/* internal_format */
-	internal_format_gl=s_fomatToGLEnum(internal_format);
-
-	/* FIXME:
-	 * if used glGenerateMipmap, we can't set level 2 or higher 
-	 * bitmap, so here use glTexParameteri instead 
-	 */
-	glGenerateMipmap(GL_TEXTURE_2D);
-	//glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
-
-	for(uint i=0;i<imageCnt;++i)
-	{
-		width=images[i]->getWidth();
-		height=images[i]->getHeight();
-		pixels=images[i]->getPixelData();
-		
-		glTexImage2D(
-				GL_TEXTURE_2D, 
-				i,
-				internal_format_gl,
-				width,height,
-				0,
-				formats_gl[i],
-				GL_UNSIGNED_BYTE,
-				pixels);
-	}
-
-
-	width=images[0]->getWidth();
-	height=images[0]->getHeight();
-
-	Texture2D* ret=new Texture2D();
-	ret->m_width=width;
-	ret->m_height=height;
-	ret->m_format=internal_format;
-	ret->m_filterMin=filter_min;
-	ret->m_filterMag=filter_mag;
-	ret->m_filterMipmap=filter_mipmap;
-	ret->m_useMipmap=true;
-	ret->m_wrapS=wraps;
-	ret->m_wrapT=wrapt;
-	ret->m_platformTexture=texture;
-	delete[] formats_gl;
-	return ret;
-}
-
 Texture2D* Texture2D::create(Image2D* image)
 {
 	return create(
@@ -313,22 +203,21 @@ Texture2D* Texture2D::create(Image2D* image)
 			FILTER_LINEAR,
 			FILTER_LINEAR,
 			WRAP_CLAMP_TO_EDGE,
-			WRAP_CLAMP_TO_EDGE,
-			FORMAT_RGBA);
+			WRAP_CLAMP_TO_EDGE);
 }
 
 void Texture2D::setFilter(int mag,int min,int mipmap)
 {
 	s_bindTexture2D(m_platformTexture);
 	GLint filter_min_gl,filter_mag_gl;
-	filter_mag_gl=s_filterToGlEnum(mag);
+	filter_mag_gl=FsFilter_ToGLEnum(mag);
 	if(m_useMipmap)
 	{
-		filter_min_gl=s_filterToGlEnum(min,mipmap);
+		filter_min_gl=FsFilter_ToGLEnum(min,mipmap);
 	}
 	else 
 	{
-		filter_min_gl=s_filterToGlEnum(min);
+		filter_min_gl=FsFilter_ToGLEnum(min);
 	}
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter_mag_gl);
@@ -338,8 +227,8 @@ void Texture2D::setFilter(int mag,int min,int mipmap)
 void Texture2D::setWrap(int wraps,int wrapt)
 {
 	s_bindTexture2D(m_platformTexture);
-	GLint gl_wraps=s_wrapToGlEnum(wraps);
-	GLint gl_wrapt=s_wrapToGlEnum(wrapt);
+	GLint gl_wraps=FsWrap_ToGLEnum(wraps);
+	GLint gl_wrapt=FsWrap_ToGLEnum(wrapt);
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,gl_wraps);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,gl_wrapt);
