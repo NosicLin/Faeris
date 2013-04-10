@@ -1,0 +1,41 @@
+$#include "entity/FsQuad2D.h"
+$#include "luaext/FsLuaEntity.h"
+class Quad2D@__Quad2D:public Entity 
+{
+	public:
+
+		/* color */
+		void setColor(Color c);
+		Color getColor();
+
+		/* opacity */
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		/* texture */
+		void setTexture(Texture2D* tex);
+		Texture2D* getTexture();
+
+		/* texture coord */
+		void setTextureCoord(const Rect2D& coord);
+		Rect2D getTextureCoord();
+
+
+		/* Rect2D */
+		void setRect2D(const Rect2D& rect);
+		Rect2D getRect2D();
+};
+
+class LuaQuad2D@Quad2D:public Quad2D
+{
+	public:
+		static LuaQuad2D* create(const char* tex);
+		static LuaQuad2D* create(const char* tex,Rect2D);
+		static LuaQuad2D* create(const char* text,float width,float height);
+
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+};
+
+

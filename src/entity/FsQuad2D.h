@@ -14,6 +14,7 @@ class Quad2D:public Entity
 	public:
 		static Quad2D* create(const char* tex);
 		static Quad2D* create(const char* tex,const Rect2D& rect);
+		static Quad2D* create(const char* tex,float width,float height);
 
 	public:
 

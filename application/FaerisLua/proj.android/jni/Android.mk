@@ -33,7 +33,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += lua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += tolua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 
-LOCAL_LDLIBS    += -llog -lGLESv2 -lGLESv1_CM 
+LOCAL_LDLIBS    += -llog -lGLESv2  -lEGL
 
 
 include $(BUILD_SHARED_LIBRARY)

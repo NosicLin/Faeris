@@ -6,6 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.opengl.GLSurfaceView;
 public class FsGLRender implements GLSurfaceView.Renderer
 {
+	private boolean m_init=false;
 	@Override 
 	public void onDrawFrame(final GL10 gl)
 	{
@@ -22,7 +23,11 @@ public class FsGLRender implements GLSurfaceView.Renderer
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) 
 	{
-		FsEngine.moduleInit();
+		if(!m_init)
+		{
+			FsEngine.moduleInit();
+			m_init=true;
+		}
 	}
 
 }

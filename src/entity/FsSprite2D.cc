@@ -9,21 +9,14 @@ NS_FS_BEGIN
 
 Sprite2D* Sprite2D::create(const char* name)
 {
-	Sprite2DData* data=Global::sprite2DDataMgr()->loadSprite2DData(name);
-	if(data==NULL)
-	{
-		FS_TRACE_WARN("Can't Find Sprite2DData(%s)",name);
-		return NULL;
-	}
 
 	Sprite2D* ret=new Sprite2D;
-	if(!ret->init(data))
+	if(!ret->init(name))
 	{
 		FS_TRACE_WARN("init Sprite Data Failed");
 		delete ret;
 		ret=NULL;
 	}
-	data->decRef();
 
 	return ret;
 }
@@ -173,13 +166,12 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		updateWorldMatrix();
 	}
 	render->pushMatrix();
-	render->mulMatrix(m_worldMatrix);
+	render->mulMatrix(&m_worldMatrix);
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
 
-	render->setMaterial(m_material,true);
+	render->setMaterial(m_material);
 	render->setActiveTexture(1);
-	render->disableAllClientArray();
 	render->disableAllAttrArray();
 
 	Sprite2DKeyFrame* frame=m_curAnimation->getKeyFrame(m_curFrame);
@@ -189,15 +181,18 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		Face3(0,3,2),
 		Face3(2,1,0),
 	};
+	int pos_loc=m_material->getPostionLocaition();
+	int alpha_loc=m_material->getAlphaLocation();
+	int tex_loc=m_material->getTexCoordLocation();
 
 	for(int i=0;i<frame->getQuadNu();i++)
 	{
 		Sprite2DQuad* quad=frame->getQuad(i);
 		Texture2D* tex=(Texture2D*)m_textures->get(quad->texture);
 		render->bindTexture(tex,0);
-		render->setAndEnableVertexAttrPointer("a_position",2,FS_FLOAT,4,0,quad->vertex);
-		render->setAndEnableVertexAttrPointer("a_texCoord",2,FS_FLOAT,4,0,quad->texcoord);
-		render->setAndEnableVertexAttrPointer("a_alpha",1,FS_FLOAT,4,0,quad->alpha);
+		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,quad->vertex);
+		render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,quad->texcoord);
+		render->setAndEnableVertexAttrPointer(alpha_loc,1,FS_FLOAT,4,0,quad->alpha);
 		render->drawFace3(faces,2);
 		tex->decRef();
 	}
@@ -209,17 +204,16 @@ const char* Sprite2D::className()
 	return FS_SPRITE2D_CLASS_NAME;
 }
 
-bool Sprite2D::init(Sprite2DData* data)
+bool Sprite2D::init(const char* name)
 {
-	if(!data)
+	Sprite2DData* data=Global::sprite2DDataMgr()->loadSprite2DData(name);
+	if(data==NULL)
 	{
+		FS_TRACE_WARN("Can't Find Sprite2DData(%s)",name);
 		return false;
 	}
-
-	data->addRef();
 	m_data=data;
 	m_textures=data->getTextures();
-
 	return true;
 
 }

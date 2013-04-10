@@ -114,7 +114,7 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onBackground
  * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchBegin
-  (JNIEnv *, jclass, jint x, jint y)
+  (JNIEnv *, jclass, float x, float y)
 {
 	TouchDispatcher* dispatcher=Global::touchDispatcher();
 	if(dispatcher)
@@ -130,7 +130,7 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchBegin
  * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchMove
-  (JNIEnv *, jclass, jint x, jint y)
+  (JNIEnv *, jclass, float x, float y)
 {
 	TouchDispatcher* dispatcher=Global::touchDispatcher();
 	if(dispatcher)
@@ -145,7 +145,7 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchMove
  * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchEnd
-  (JNIEnv *, jclass, jint x, jint y)
+  (JNIEnv *, jclass, float x, float y)
 {
 	TouchDispatcher* dispatcher=Global::touchDispatcher();
 	if(dispatcher)
@@ -160,7 +160,7 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchEnd
  * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchCancel
-  (JNIEnv *, jclass, jint x, jint y)
+  (JNIEnv *, jclass, float x, float y)
 {
 	TouchDispatcher* dispatcher=Global::touchDispatcher();
 	if(dispatcher)

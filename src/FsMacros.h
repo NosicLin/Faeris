@@ -269,6 +269,7 @@ enum
 #define FS_FONT_TTF_DATA_CLASS_NAME "FontTTFData"
 #define FS_FONT_TTF_CLASS_NAME "FontTTF"
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
+#define FS_PROGRAM_CLASS_NAME "Program"
 
 /* mgr */
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"

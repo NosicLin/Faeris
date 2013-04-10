@@ -42,34 +42,34 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onBackground
 /*
  * Class:     org_faeris_lib_FsEngine
  * Method:    onTouchBegin
- * Signature: (II)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchBegin
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jfloat, jfloat);
 
 /*
  * Class:     org_faeris_lib_FsEngine
  * Method:    onTouchMove
- * Signature: (II)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchMove
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jfloat, jfloat);
 
 /*
  * Class:     org_faeris_lib_FsEngine
  * Method:    onTouchEnd
- * Signature: (II)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchEnd
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jfloat, jfloat);
 
 /*
  * Class:     org_faeris_lib_FsEngine
  * Method:    onTouchCancel
- * Signature: (II)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchCancel
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jfloat, jfloat);
 
 /*
  * Class:     org_faeris_lib_FsEngine

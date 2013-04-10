@@ -1,0 +1,60 @@
+$#include "entity/FsSprite2D.h"
+$#include "luaext/FsLuaEntity.h"
+
+class Sprite2D@__Sprite2D:public Entity 
+{
+	public:
+		enum
+		{
+			ANIM_LOOP,
+			ANIM_START,
+			ANIM_END,
+		};
+	public:
+
+		/* color */
+		void setColor(Color color);
+		Color getColor();
+
+		/* opacity */
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		/* animation */
+		void setAnimation(const char* name);
+		void updateAnimation(float dt);
+
+		void playAnimation(int mode=Sprite2D::ANIM_LOOP);
+		void startAnimation(int mode=Sprite2D::ANIM_LOOP);
+		void stopAnimation();
+
+		bool isAnimationPlaying();
+
+
+		/* frame */
+		void setCurFrame(int frame);
+		int getCurFrame();
+		int getTotalFrame();
+
+		/* fps */
+		int getFps();
+};
+
+class LuaSprite2D@Sprite2D:public  Sprite2D 
+{
+	public:
+		enum
+		{
+			ANIM_LOOP,
+			ANIM_START,
+			ANIM_END,
+		};
+	public:
+		static LuaSprite2D* create(const char* name);
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+};
+
+
+

@@ -11,7 +11,8 @@
 
 
 /* render */
-#define FS_GL_RENDER
+#define FS_GLES_RENDER
+#define FS_MAX_RENDER_STACK_NU 10
 
 /* script support */
 

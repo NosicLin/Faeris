@@ -98,7 +98,8 @@ void Layer2D::draw(Render* r)
 			m_viewArea.y+m_viewArea.height,
 			0,
 			10000);
-	r->setProjectionMatrix(mat);
+	r->setProjectionMatrix(&mat);
+
 	r->pushMatrix();
 	r->loadIdentity();
 	r->translate(Vector3(0,0,-5000));
@@ -114,7 +115,10 @@ void Layer2D::draw(Render* r)
 	for(int i=0;i<entity_nu;i++)
 	{
 		Entity* ob=(Entity*) entity->get(i);
-		ob->draw(r,false);
+		if(ob->visible())
+		{
+			ob->draw(r,false);
+		}
 		ob->decRef();
 	}
 	entity->decRef();

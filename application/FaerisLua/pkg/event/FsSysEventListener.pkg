@@ -1,0 +1,12 @@
+$#include "luaext/FsLuaSysEventListener.h"
+
+class SysEventListener@__SysEventListener:public FsObject
+{
+};
+
+class LuaSysEventListener@SysEventListener:public SysEventListener
+{
+	public:
+		static LuaSysEventListener* create();
+};
+

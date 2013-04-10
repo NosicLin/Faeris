@@ -8,7 +8,7 @@
 #include "io/FsFile.h"
 #include "graphics/FsImage2D.h"
 
-#if FS_CONFIG(FS_GL_RENDER)
+#if FS_CONFIG(FS_GL_RENDER) ||FS_CONFIG(FS_GLES_RENDER)
 	typedef uint PlatformTexture;
 #else 
 	#error "Unsupport PlatformTexture"
@@ -48,18 +48,7 @@ class Texture2D:public Resource
 				int filter_mag,
 				int filter_min,
 				int wraps,
-				int wrapt,
-				int internal_format);
-
-		static Texture2D* create(
-				Image2D** images,
-				uint imageCnt,
-				int filter_mag,
-				int fileter_min,
-				int filter_mipmap,
-				int wraps,
-				int wrapt,
-				int internal_format);
+				int wrapt);
 
 		/* for quick create texture from image */
 		static Texture2D* create(Image2D* image);

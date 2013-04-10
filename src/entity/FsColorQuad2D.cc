@@ -1,38 +1,10 @@
 #include "entity/FsColorQuad2D.h"
-#include "material/FsColorQuad2DMaterial.h"
+#include "material/FsPositionColorMaterial.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
 
-static ColorQuad2DMaterial* m_shareMaterial=NULL;
 
-
-static ColorQuad2DMaterial* useShareMaterial()
-{
-	if(m_shareMaterial==NULL)
-	{
-		m_shareMaterial=ColorQuad2DMaterial::create();
-		if(m_shareMaterial==NULL)
-		{
-			FS_TRACE_WARN("create ColorQuad2DMaterial Share Failed");
-		}
-		return m_shareMaterial;
-	}
-	m_shareMaterial->addRef();
-	return m_shareMaterial;
-}
-static void unuseShareMaterial()
-{
-	if(m_shareMaterial->refCnt()==1)
-	{
-		m_shareMaterial->decRef();
-		m_shareMaterial=NULL;
-	}
-	else 
-	{
-		m_shareMaterial->decRef();
-	}
-}
 ColorQuad2D* ColorQuad2D::create(const Rect2D& rect,Color c)
 {
 	ColorQuad2D* quad=new ColorQuad2D();
@@ -52,20 +24,18 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 		updateWorldMatrix();
 	}
 	render->pushMatrix();
-	render->mulMatrix(m_worldMatrix);
+	render->mulMatrix(&m_worldMatrix);
 
 
-	m_shareMaterial->setOpacity(m_opacity);
-	render->setMaterial(m_shareMaterial,true);
+	m_material->setOpacity(m_opacity);
+	render->setMaterial(m_material);
 
 	render->setActiveTexture(0);
-	render->disableAllClientArray();
-	
-	render->enableClientArray(Render::VERTEX_ARRAY|Render::COLOR_ARRAY);
-
+	render->disableAllAttrArray();
 
 	
-
+	int pos_loc=m_material->getPostionLocation();
+	int color_loc=m_material->getColorLocation();
 
 	Vector3 vv[4]=
 	{
@@ -76,12 +46,13 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 	};
 
 	
-	Color vc[4]=
+	
+	float vc[16]=
 	{
-		m_va,
-		m_vb,
-		m_vc,
-		m_vd,
+		m_va.r/255.0f,m_va.g/255.0f,m_va.b/255.0f,m_va.a/255.0f,
+		m_vb.r/255.0f,m_vb.g/255.0f,m_vb.b/255.0f,m_vb.a/255.0f,
+		m_vc.r/255.0f,m_vc.g/255.0f,m_vc.b/255.0f,m_vc.a/255.0f,
+		m_vd.r/255.0f,m_vd.g/255.0f,m_vd.b/255.0f,m_vd.a/255.0f,
 	};
 	
 
@@ -91,8 +62,10 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	render->setVVertexPointer(vv,4);
-	render->setVColorPointer(vc,4);
+	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
+	render->setAndEnableVertexAttrPointer(color_loc,4,FS_FLOAT,4,0,vc);
+
+
 	render->drawFace3(faces,2);
 
 	render->popMatrix();
@@ -152,7 +125,7 @@ ColorQuad2D::ColorQuad2D()
 	m_opacity=1.0f;
 	m_rect.set(0,0,0,0);
 	setColor(Color::WHITE);
-	m_material=useShareMaterial();
+	m_material=PositionColorMaterial::shareMaterial();
 }
 
 ColorQuad2D::~ColorQuad2D()
@@ -172,7 +145,7 @@ void ColorQuad2D::init(const Rect2D& rect,Color c)
 }
 void ColorQuad2D::destroy()
 {
-	unuseShareMaterial();
+	FS_SAFE_DEC_REF(m_material);
 }
 
 

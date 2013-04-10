@@ -15,7 +15,7 @@ env:{
 
 
 script:{
-	entry:"main.lua"
+	entry:"color_quad.lua"
 }
 
 

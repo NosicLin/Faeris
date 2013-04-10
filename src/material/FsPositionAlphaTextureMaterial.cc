@@ -8,18 +8,27 @@ static const char quad_material_vert_str[]=
 "attribute vec2 a_position; 	    		\n\
 attribute vec2  a_texCoord;					\n\
 attribute float a_alpha;					\n\
+uniform mat4 u_mvp;							\n\
+#ifdef GL_ES								\n\
+varying mediump vec2 v_texCoord;			\n\
+varying mediump float v_alpha;				\n\
+#else										\n\
 varying vec2 v_texCoord;					\n\
 varying float v_alpha;						\n\
+#endif										\n\
 void main() 								\n\
 { 											\n\
-	gl_Position=gl_ModelViewProjectionMatrix*vec4(a_position,0,1);		\n\
+	gl_Position=u_mvp*vec4(a_position,0,1);	\n\
 	v_texCoord=a_texCoord;					\n\
 	v_alpha=a_alpha;						\n\
 }											\n\
 ";
 
 static const char quad_material_frag_str[]=
-"varying vec2 v_texCoord; 			\n\
+"#ifdef GL_ES                       \n\
+precision lowp float;               \n\
+#endif                              \n\
+varying vec2 v_texCoord; 			\n\
 varying  float v_alpha;				\n\
 uniform sampler2D u_texture0;       \n\
 uniform vec4 	 u_color;			\n\
@@ -92,7 +101,7 @@ int PositionAlphaTextureMaterial::getAlphaLocation()
 }
 
 
-void PositionAlphaTextureMaterial::load(Render* r)
+void PositionAlphaTextureMaterial::onUse(Render* r)
 {
 	float color[4]=
 	{
@@ -104,16 +113,18 @@ void PositionAlphaTextureMaterial::load(Render* r)
 
 	int texture0=0;
 
-	configRender(r);
+	Material::onUse(r);
 	r->setProgram(m_program);
+
+	Matrix4* mat=r->getMVPMatrix();
+	r->setUniform(m_mvpUniform,Render::U_M_4,1,mat);
+
 	r->setUniform(m_opacityUniform,Render::U_F_1,1,&this->m_opacity);
 	r->setUniform(m_colorUniform,Render::U_F_4,1,color);
 	r->setUniform(m_textureUniform,Render::U_I_1,1,&texture0);
 }
-void PositionAlphaTextureMaterial::unload(Render* )
-{
 
-}
+
 const char* PositionAlphaTextureMaterial::className()
 {
 	return FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME;
@@ -128,17 +139,11 @@ PositionAlphaTextureMaterial::PositionAlphaTextureMaterial()
 							  quad_material_frag_str,sizeof(quad_material_frag_str));
 	if(m_program)
 	{
-		m_program->addAttribute("a_position");
-		m_program->addAttribute("a_texCoord");
-		m_program->addAttribute("a_alpha");
-
-		m_program->addUniform("u_opacity");
-		m_program->addUniform("u_color");
-		m_program->addUniform("u_texture0");
 
 		m_opacityUniform=m_program->getUniformLocation("u_opacity");
 		m_colorUniform=m_program->getUniformLocation("u_color");
 		m_textureUniform=m_program->getUniformLocation("u_texture0");
+		m_mvpUniform=m_program->getUniformLocation("u_mvp");
 		
 		m_positionAttribute=m_program->getAttributeLocation("a_position");
 		m_textcoordAttribute=m_program->getAttributeLocation("a_texCoord");
@@ -155,11 +160,10 @@ PositionAlphaTextureMaterial::PositionAlphaTextureMaterial()
 		m_textcoordAttribute=-1;
 		m_alphaAttribute=-1;
 	}
-
-
 	setDepthTest(false);
 	m_color=Color::WHITE;
 	m_opacity=1.0f;
+
 }
 
 PositionAlphaTextureMaterial::~PositionAlphaTextureMaterial()

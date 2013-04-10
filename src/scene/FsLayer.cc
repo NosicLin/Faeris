@@ -122,28 +122,28 @@ void Layer::draw(Render* render)
 }
 bool Layer::touchBegin(float x,float y)
 {
-	return false;
+	return m_touchEnabled;
 }
 bool Layer::touchMove(float x,float y)
 {
-	return false;
+	return m_touchEnabled;
 }
 bool Layer::touchEnd(float x,float y)
 {
-	return false;
+	return m_touchEnabled; 
 }
 /* touches event */
 bool Layer::touchesBegin(Vector2* points,int num)
 {
-	return false;
+	return m_touchEnabled;
 }
 bool Layer::touchesMove(Vector2* points,int num)
 {
-	return false;
+	return m_touchEnabled;
 }
 bool Layer::touchesEnd(Vector2* points,int num)
 {
-	return false;
+	return m_touchEnabled;
 }
 
 

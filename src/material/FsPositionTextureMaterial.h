@@ -22,8 +22,7 @@ class PositionTextureMaterial: public Material
 		int getTexCoordLocation();
 
 	public:
-		virtual void load(Render* r);
-		virtual void unload(Render* );
+		virtual void onUse(Render* r);
 		virtual const char* className();
 	protected:
 		PositionTextureMaterial();
@@ -40,6 +39,7 @@ class PositionTextureMaterial: public Material
 		int m_opacityUniform;
 		int m_colorUniform;
 		int m_textureUniform;
+		int m_mvpUniform;
 
 		/* attribute */
 		int m_positionAttribute;

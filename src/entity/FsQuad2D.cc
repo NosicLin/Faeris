@@ -29,6 +29,10 @@ Quad2D* Quad2D::create(const char* tex,const Rect2D&  rect)
 	ret->setRect2D(rect);
 	return ret;
 }
+Quad2D* Quad2D::create(const char* tex,float width,float height)
+{
+	return create(tex,Rect2D(-width/2.0f,-height/2.0f,width,height));
+}
 
 void Quad2D::setColor(Color c)
 {
@@ -93,14 +97,14 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 	}
 
 	render->pushMatrix();
-	render->mulMatrix(m_worldMatrix);
+	render->mulMatrix(&m_worldMatrix);
 
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
-	render->setMaterial(m_material,true);
+
+	render->setMaterial(m_material);
 
 	render->setActiveTexture(1);
-	render->disableAllClientArray();
 	render->disableAllAttrArray();
 	render->bindTexture(m_texture,0);
 
@@ -132,10 +136,12 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	render->setAndEnableVertexAttrPointer("a_position",3,FS_FLOAT,4,0,vv);
-	render->setAndEnableVertexAttrPointer("a_texCoord",2,FS_FLOAT,4,0,vc);
-
+	int pos_loc=m_material->getPostionLocaition();
+	int tex_loc=m_material->getTexCoordLocation();
+	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
+	render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,vc);
 	render->drawFace3(faces,2);
+
 	render->popMatrix();
 }
 

@@ -1,0 +1,20 @@
+$#include "scene/FsLayer.h"
+
+class Layer@__layer:public FsObject
+{
+	public:
+		/* visible */
+		bool visible();
+		void setVisible(bool visible);
+
+		/* touch enable */
+		bool touchEnabled();
+		void setTouchEnabled(bool enable);
+
+		/* entity */
+		void add(Entity* entity);
+		void remove(Entity* entity);
+};
+
+
+

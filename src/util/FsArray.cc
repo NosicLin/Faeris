@@ -123,7 +123,7 @@ void FsArray::resize(ulong new_size)
 }
 void FsArray::pop()
 {
-	FS_TRACE_ERROR_ON(m_size>0,"This Is Now Item To Drop");
+	FS_TRACE_ERROR_ON(m_size<=0,"No Item To Drop");
 	if(m_obs[m_size-1])
 	{
 		m_obs[m_size-1]->decRef();

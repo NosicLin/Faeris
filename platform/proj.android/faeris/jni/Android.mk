@@ -22,8 +22,8 @@ LOCAL_SRC_FILES :=  src/org_faeris_lib_FsEngine.cc \
 					../../../../src/graphics/FsColor.cc \
 					../../../../src/graphics/FsFontTTF.cc \
 					../../../../src/graphics/FsImage2D.cc \
-					../../../../src/graphics/FsProgram.cc \
 					../../../../src/graphics/FsRender.cc \
+					../../../../src/graphics/FsProgram.cc \
 					../../../../src/graphics/FsTexture2D.cc \
 					../../../../src/io/FsFile.cc \
 					../../../../src/io/FsSysFile.cc \
@@ -31,10 +31,9 @@ LOCAL_SRC_FILES :=  src/org_faeris_lib_FsEngine.cc \
 					../../../../src/io/FsPackage.cc \
 					../../../../src/io/FsZipPackage.cc \
 					../../../../src/io/FsMemFile.cc \
-					../../../../src/material/FsColorQuad2DMaterial.cc \
+					../../../../src/material/FsPositionColorMaterial.cc \
 					../../../../src/material/FsMaterial.cc \
 					../../../../src/material/FsPositionTextureMaterial.cc \
-					../../../../src/material/FsShaderMaterial.cc \
 					../../../../src/material/FsPositionAlphaTextureMaterial.cc \
 					../../../../src/math/FsMathUtil.cc \
 					../../../../src/math/FsMatrix4.cc \

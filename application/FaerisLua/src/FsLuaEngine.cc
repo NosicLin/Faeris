@@ -15,6 +15,7 @@ extern "C"
 
 #include "FsLuaEngine.h"
 #include "FsLuaFaeris.h"
+#include "common/FsGlobal.h"
 #include "util/FsLog.h"
 #include "io/FsVFS.h"
 
@@ -23,6 +24,20 @@ extern "C"
 
 
 NS_FS_BEGIN
+
+bool FsLuaEngine_LoadFile(const char* file)
+{
+	LuaEngine* engine=(LuaEngine*)Global::scriptEngine();
+	if(engine==NULL)
+	{
+		return false;
+	}
+	if(engine->executeFile(file)==0)
+	{
+		return true;
+	}
+	return false;
+}
 
 LuaEngine* LuaEngine::create()
 {

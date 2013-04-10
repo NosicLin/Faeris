@@ -25,8 +25,7 @@ class PositionAlphaTextureMaterial:public Material
 		int getAlphaLocation();
 
 	public:
-		virtual void load(Render* r);
-		virtual void unload(Render* r);
+		virtual void onUse(Render* r);
 		virtual const char* className();
 
 	protected:
@@ -43,6 +42,7 @@ class PositionAlphaTextureMaterial:public Material
 		int m_opacityUniform;
 		int m_colorUniform;
 		int m_textureUniform;
+		int m_mvpUniform;
 
 		int m_positionAttribute;
 		int m_textcoordAttribute;

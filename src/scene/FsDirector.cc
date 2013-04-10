@@ -145,6 +145,11 @@ void Director::run(Scene* scene)
 {
 	repace(scene);
 }
+Scene* Director::current()
+{
+	FS_SAFE_ADD_REF(m_current);
+	return m_current;
+}
 
 void Director::pause()
 {

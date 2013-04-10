@@ -47,8 +47,28 @@ class Entity :public FsObject
 
 	public: /* get transform info */
 		Vector3 getPosition(){return m_translate;}
+		void getPosition(float* x,float* y,float* z)
+		{
+			*x=m_translate.x;
+			*y=m_translate.y;
+			*z=m_translate.z;
+		}
+		float getPositionX(){return m_translate.x;}
+		float getPositionY(){return m_translate.y;}
+		float getPositionZ(){return m_translate.z;}
+
+		/* scale information */
 		Vector3 getScale(){return m_scale;}
+		float getScaleX(){return m_scale.x;}
+		float getScaleY(){return m_scale.y;}
+		float getScaleZ(){return m_scale.z;}
+
+
+		/* rotate information */
 		Vector3 getRotate(){return m_rotate;}
+		float getRotateX(){return m_rotate.x;}
+		float getRotateY(){return m_rotate.y;}
+		float getRotateZ(){return m_rotate.z;}
 
 	public: /* transform */
 		void rotate(float rx,float ry,float rz);
