@@ -1,6 +1,8 @@
 #include "scheduler/FsScheduler.h"
 #include "scheduler/FsSchedulerTarget.h"
 #include "sys/FsSys.h"
+#include "common/FsScriptEngine.h"
+#include "common/FsGlobal.h"
 
 NS_FS_BEGIN
 const char* Scheduler::className() 
@@ -148,6 +150,12 @@ void Scheduler::update(float dt)
 		}
 		m_target[i]->unlock();
 		m_target[i]->flush();
+	}
+
+	ScriptEngine* sc=Global::scriptEngine();
+	if(sc)
+	{
+		sc->collectGarbage();
 	}
 }
 

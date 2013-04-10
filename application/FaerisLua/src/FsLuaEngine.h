@@ -75,7 +75,7 @@ class LuaEngine:public ScriptEngine
 		virtual int executeFile(const char* file);
 		virtual int executeString(const char* str);
 		virtual void releaseData(int data);
-
+		virtual int collectGarbage();
 		/* inherit FsObject */
 		virtual const char* className();
 

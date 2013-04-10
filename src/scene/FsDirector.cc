@@ -232,6 +232,7 @@ void Director::draw()
 	{
 		render->swapBuffers();
 	}
+
 }
 
 void Director::update(float dt)

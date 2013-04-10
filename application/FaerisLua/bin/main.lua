@@ -16,12 +16,17 @@ quad2d:setPosition(500,400,0)
 quad2d.data={
 	onUpdate=function(self,dt)
 		print("update:"..dt)
-		self:rotateZ(dt/1000*30)
+		self:rotateZ(dt/1000*10)
 	end 
 }
 
 local c_quad=ColorQuad2D:create(Rect2D(-100,-100,200,200),Color.RED)
 c_quad:setPosition(300,-300,0);
+c_quad.data={
+	onUpdate=function(self,dt)
+		self:rotateZ(dt/1000*30)
+	end
+}
 
 
 
