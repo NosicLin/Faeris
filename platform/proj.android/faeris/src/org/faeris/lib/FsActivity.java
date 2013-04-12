@@ -21,13 +21,15 @@ public abstract class FsActivity extends Activity
 	@Override 
 	protected void onCreate(final Bundle save_state)
 	{
+		Log.v("activie","create");
 		super.onCreate(save_state);
-		this.init();
+		this.initView();
 	}
 	
 	@Override 
 	protected void onResume()
 	{
+		Log.v("activie","onResume");
 		super.onResume();
 		this.m_view.onResume();
 	}
@@ -35,11 +37,27 @@ public abstract class FsActivity extends Activity
 	@Override
 	protected void onPause()
 	{
+		Log.v("activie","onPause");
 		super.onPause();
 		this.m_view.onPause();
 	}
 	
-	protected void init()
+	@Override 
+	protected void onStop()
+	{
+		Log.v("activie","onStop");
+		super.onStop();
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		Log.v("activie","onDestroy");
+		super.onDestroy();
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+	
+	protected void initView()
 	{
 
 		m_view=new FsGLSurfaceView(this);

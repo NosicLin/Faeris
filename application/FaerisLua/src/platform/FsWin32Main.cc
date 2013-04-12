@@ -19,10 +19,13 @@ NS_FS_USE
 
 int main(int argc,char** argv)
 {
-	FsString* entry=NULL;
-	FsDict* script=NULL;
-	LuaEngine* engine=NULL;
 	FsDict* dict=NULL;
+	FsDict* script=NULL;
+	FsString* entry=NULL;
+	LuaEngine* engine=NULL;
+	FsFile* file=NULL;
+
+
 	const char* config=FS_CONFIGURE_FILE;
 	if(argc==2)
 	{
@@ -49,7 +52,7 @@ int main(int argc,char** argv)
 
 	std::string file_name=PathUtil::getFileName(config);
 
-	FsFile* file=VFS::open(file_name.c_str());
+	file=VFS::open(file_name.c_str());
 	if(file==NULL)
 	{
 		goto error;
