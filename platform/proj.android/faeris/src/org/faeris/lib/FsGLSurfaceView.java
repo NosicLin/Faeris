@@ -1,7 +1,9 @@
 package org.faeris.lib;
 
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 import android.content.Context;
-import android.opengl.GLSurfaceView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.util.Log;
@@ -33,7 +35,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 	@Override 
 	public void onResume()
 	{
-		//super.onResume();
+		super.onResume();
 		this.queueEvent(new Runnable() {
 			@Override 
 			public void run(){

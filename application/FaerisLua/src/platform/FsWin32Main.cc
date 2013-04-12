@@ -19,6 +19,12 @@ NS_FS_USE
 
 int main(int argc,char** argv)
 {
+	FsDict* dict=NULL;
+	FsDict* script=NULL;
+	FsString* entry=NULL;
+	LuaEngine* engine=NULL;
+	FsFile* file=NULL;
+
 
 	const char* config=FS_CONFIGURE_FILE;
 	if(argc==2)
@@ -47,14 +53,14 @@ int main(int argc,char** argv)
 
 	std::string file_name=PathUtil::getFileName(config);
 
-	FsFile* file=VFS::open(file_name.c_str());
+	file=VFS::open(file_name.c_str());
 	if(file==NULL)
 	{
 		goto error;
 	}
 
 
-	FsDict* dict=ScriptUtil::parseScript(file);
+	dict=ScriptUtil::parseScript(file);
 	file->decRef();
 
 
@@ -67,7 +73,7 @@ int main(int argc,char** argv)
 
 	Global::loadConfig(dict);
 
-	FsDict* script=ScriptUtil::getDict(dict,"script");
+	script=ScriptUtil::getDict(dict,"script");
 	if(!script)
 	{
 		dict->decRef();
@@ -75,7 +81,7 @@ int main(int argc,char** argv)
 	}
 
 
-	FsString* entry=ScriptUtil::getString(script,"entry");
+	entry=ScriptUtil::getString(script,"entry");
 	if(!entry)
 	{
 		FS_TRACE_WARN("Can't Find Script Entry");
@@ -84,7 +90,7 @@ int main(int argc,char** argv)
 		goto error;
 	}
 
-	LuaEngine* engine=LuaEngine::create();
+	engine=LuaEngine::create();
 	Global::setScriptEngine(engine);
 	engine->executeFile(entry->cstr());
 

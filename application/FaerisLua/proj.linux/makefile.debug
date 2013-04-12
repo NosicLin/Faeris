@@ -33,13 +33,14 @@ LINK_LIB= -lfaeris \
 		  -llibpng \
 		  -lzlib \
 		  -lfreetype \
+		  -lminizip \
 
 
 #Source File 
 SRC=FsLuaEngine.cc \
 	FsLuaFaeris.cc \
 	tolua_ext.cc \
-	main.cc  \
+	platform/FsWin32Main.cc  \
 	luaext/FsLuaScene.cc  \
 	luaext/FsLuaSysEventListener.cc \
 	luaext/FsLuaTouchEventListener.cc \

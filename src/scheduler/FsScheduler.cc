@@ -49,9 +49,7 @@ void Scheduler::mainLoop()
 		sleep_time=perframe_time-frame_used;
 		if(sleep_time>0)
 		{
-			long sleep_begin=m_timer.now();
 			Sys::usleep(sleep_time);
-
 		}
 		last_time=cur_time;
 	

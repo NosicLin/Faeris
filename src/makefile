@@ -43,10 +43,9 @@ SRC=  common/FsGlobal.cc \
 	  io/FsPackage.cc \
 	  io/FsZipPackage.cc \
 	  io/FsMemFile.cc \
-	  material/FsColorQuad2DMaterial.cc \
+	  material/FsPositionColorMaterial.cc \
 	  material/FsMaterial.cc \
 	  material/FsPositionTextureMaterial.cc \
-	  material/FsShaderMaterial.cc \
 	  material/FsPositionAlphaTextureMaterial.cc \
 	  math/FsMathUtil.cc \
 	  math/FsMatrix4.cc \

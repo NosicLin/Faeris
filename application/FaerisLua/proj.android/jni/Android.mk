@@ -15,13 +15,14 @@ LOCAL_SRC_FILES :=  ../../src/tolua_ext.cc \
 					../../src/platform/FsAndroidMain.cc \
 
 
-LOCAL_C_INCLUDES :=  -I../../../  \
-					 -I../../../src \
-					 -I../../../src/luaext \
-					 -I../../../../../platform/thirdparty/linux/lua \
-					 -I../../../../../platform/thirdparty/linux/tolua++ \
-					 -I../../../../../src \
-					 -I../../../../../src/support  \
+LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../  \
+					 -I$(LOCAL_PATH)/../../src \
+					 -I$(LOCAL_PATH)/../../src/luaext \
+					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/linux/lua \
+					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/linux/tolua++ \
+					 -I$(LOCAL_PATH)/../../../../src \
+					 -I$(LOCAL_PATH)/../../../../src/support  \
+
 					 
 
 
