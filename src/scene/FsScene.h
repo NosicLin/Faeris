@@ -22,6 +22,9 @@ class Scene:public FsObject
 		void insert(int pos,Layer*  layer);
 		void replace(int pos,Layer* layer);
 		void remove(Layer* layer);
+		int layerNu();
+		Layer* top();
+		Layer* getLayer(int index);
 
 	public:
 		/* event hook */

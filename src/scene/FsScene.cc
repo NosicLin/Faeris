@@ -34,6 +34,22 @@ void Scene::remove(Layer* layer)
 	m_layers->remove(layer);
 }
 
+Layer* Scene::top()
+{
+	return (Layer*)m_layers->top();
+}
+
+int Scene::layerNu()
+{
+	return m_layers->size();
+}
+
+Layer* Scene::getLayer(int index)
+{
+	return (Layer*)m_layers->get(index);
+}
+
+
 /* event */
 
 void Scene::enter()

@@ -50,6 +50,7 @@ class FsArray:public FsObject
 
 		bool set(ulong index,FsObject*  item);
 		FsObject* get(ulong index);
+		FsObject* top();
 		bool insert(ulong index,FsObject* item);
 		bool remove(ulong index);
 		bool remove(FsObject* ob);

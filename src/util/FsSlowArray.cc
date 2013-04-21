@@ -120,6 +120,10 @@ FsObject* FsSlowArray::get(ulong index)
 {
 	return m_items->get(index);
 }
+FsObject* FsSlowArray::top()
+{
+	return m_items->top();
+}
 int FsSlowArray::size()
 {
 	return m_items->size();

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsFaeris
-** Generated automatically by tolua++-1.0.92 on 04/08/13 22:29:48.
+** Generated automatically by tolua++-1.0.92 on 04/21/13 23:30:26.
 */
 
 #ifndef __cplusplus
@@ -4518,6 +4518,104 @@ static int tolua_FsFaeris___Scene_remove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'remove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: layerNu of class  Scene */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Scene_layerNu00
+static int tolua_FsFaeris___Scene_layerNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Scene",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Scene* self = (Scene*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'layerNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->layerNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'layerNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: top of class  Scene */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Scene_top00
+static int tolua_FsFaeris___Scene_top00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Scene",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Scene* self = (Scene*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'top'", NULL);
+#endif
+  {
+   Layer* tolua_ret = (Layer*)  self->top();
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Layer");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'top'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLayer of class  Scene */
+#ifndef TOLUA_DISABLE_tolua_FsFaeris___Scene_getLayer00
+static int tolua_FsFaeris___Scene_getLayer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Scene",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Scene* self = (Scene*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLayer'", NULL);
+#endif
+  {
+   Layer* tolua_ret = (Layer*)  self->getLayer(index);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Layer");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLayer'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12210,6 +12308,9 @@ TOLUA_API int tolua_FsFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"insert",tolua_FsFaeris___Scene_insert00);
    tolua_function(tolua_S,"replace",tolua_FsFaeris___Scene_replace00);
    tolua_function(tolua_S,"remove",tolua_FsFaeris___Scene_remove00);
+   tolua_function(tolua_S,"layerNu",tolua_FsFaeris___Scene_layerNu00);
+   tolua_function(tolua_S,"top",tolua_FsFaeris___Scene_top00);
+   tolua_function(tolua_S,"getLayer",tolua_FsFaeris___Scene_getLayer00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Scene","LuaScene","Scene",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Scene");

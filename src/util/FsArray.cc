@@ -155,6 +155,16 @@ FsObject* FsArray::get(ulong index)
 	if(m_obs[index]) m_obs[index]->addRef();
 	return m_obs[index];
 }
+FsObject* FsArray::top()
+{
+	if(m_size==0)
+	{
+		FS_TRACE_WARN("Access Out Of Range");
+		return NULL;
+	}
+	FS_SAFE_ADD_REF(m_obs[m_size-1]);
+	return m_obs[m_size-1];
+}
 
 bool FsArray::insert(ulong index,FsObject* item)
 {

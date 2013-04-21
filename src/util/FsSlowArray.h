@@ -27,7 +27,9 @@ class FsSlowArray:public FsObject
 		void set(int pos,FsObject* object);
 		void insert(int pos,FsObject* object);
 		FsObject* get(ulong index);
+		FsObject* top();
 		int size();
+		
 
 	protected:
 		FsSlowArray();
