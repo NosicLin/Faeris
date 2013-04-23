@@ -1,102 +1,154 @@
-local director =share:director();
-local render=share:render()
-local scheduler=share:scheduler()
-scheduler:setFps(60)
-
---director:setAutoSwapBuffers(false);
+audioplayer=AudioEngine:create()
 
 
--- create layer */
-local layer= Layer2D:create();
-layer:setViewArea(0,0,1024,800)
+audioplayer:loadSound("mainmenu.ogg")
+audioplayer:playSound("mainmenu.ogg",-1)
 
-
-local quad2d= Quad2D:create("grass.png",Rect2D(-100,-100,200,200))
-quad2d:setPosition(500,400,0)
-quad2d.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*10)
-	end 
+audios={
+	{
+		src="Burp07.wav",
+		icon="Music-icon.png",
+		x=48*1,
+		y=48*1,
+		width=48,
+		height=48,
+	},
+	{
+		src="Cartoon_Sneeze.wav",
+		icon="Music-icon.png",
+		x=48*2,
+		y=48*1,
+		width=48,
+		height=48,
+	},
+	{
+		src="Male_Attack_Grunt01.wav",
+		icon="Music-icon.png",
+		x=48*3,
+		y=48*1,
+		width=48,
+		height=48,
+	},
+	{
+		src="Wind_Loop01.wav",
+		icon="Music-icon.png",
+		x=48*4,
+		y=48*1,
+		width=48,
+		height=48,
+	},
+	{
+		src="Wind_LowLoop1.wav",
+		icon="Music-icon.png",
+		x=48*5,
+		y=48*1,
+		width=48,
+		height=48,
+	},
 }
 
-local c_quad=ColorQuad2D:create(Rect2D(-100,-100,200,200),Color.RED)
-c_quad:setPosition(300,-300,0);
-c_quad.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*30)
-	end
-}
 
 
 
 
-local tree1 =Quad2D:create("tree.png")
-tree1.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*30)
-	end 
-}
-tree1:setPosition(200,200,0)
+quad_add=Quad2D:create("add.png",48,48)
+quad_dec=Quad2D:create("dec.png",48,48)
+quad_add:setPosition(50,200)
+quad_dec:setPosition(50,300)
 
-local tree2 =Quad2D:create("tree2.png")
-tree2.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*10)
-	end 
-}
-tree2:setPosition(200,200,0)
+font = FontTTF:create("font.ttf",20)
+label= LabelTTF:create("Volume:1.0",font)
+label:setPosition(50,350)
+label:setColor(Color(255,255,255))
 
-local font=FontTTF:create("UbuntuMono-RI.ttf",30)
+layer=Layer2D:create()
+layer:add(quad_add)
+layer:add(quad_dec)
+layer:add(label)
 
 
-local label=LabelTTF:create("This Is A Font",font);
-label:setPosition(-300,300,0)
-label.data={
-	onUpdate=function(self,dt)
-		self:rotateZ(dt/1000*80)
-	end 
-	
-}
-
-quad2d:addChild(tree1)
-quad2d:addChild(c_quad)
-quad2d:addChild(label)
-
-tree1:addChild(tree2)
-
-
-
-entity={ quad2d, tree1,tree2 ,c_quad,label}
-
-layer:add(quad2d)
-layer:setTouchEnabled(true)
-
+volume=1.0
 layer.data={
-	onTouchBegin=function (self,x,y)
-		local c=Color(math.random(50,255),math.random(60,255),math.random(80,255))
-		x,y=self:toLayerCoord(x,y)
-		print("x:"..x.." y:"..y)
-		for i=1,#entity do 
-			e=entity[i]
-			if e:hit2D(x,y) then 
-				print("hit")
-				e:setColor(c)
+	quads={},
+	onTouchBegin=function(layer,x,y)
+		local data=layer.data
+		local x,y=layer:toLayerCoord(x,y)
+
+		if quad_add:hit2D(x,y) then 
+			volume=volume + 0.1
+			if volume > 1.0 then volume=1.0 end
+			audioplayer:setVolume(volume)
+			label:setString("Volume:"..volume)
+			return true
+		end
+
+		if quad_dec:hit2D(x,y) then 
+			volume = volume - 0.1
+			if volume < 0.0 then volume = 0.0 end 
+			audioplayer:setVolume(volume)
+			label:setString("Volume:"..volume)
+			return true 
+		end
+
+
+
+
+		for _,v in pairs(data.quads) do 
+			if v:hit2D(x,y) then 
+				audioplayer:playSound(v.data.sound)
 				break
 			end
 		end
-	end,
-
+	end
 }
 
+for  _,v in pairs(audios) do 
+	local quad=Quad2D:create(v.icon,v.width,v.height)
+	layer.data.quads[quad]=quad
+
+	quad:setPosition(v.x,v.y)
+	local sound=audioplayer:loadSound(v.src)
+
+	quad.data={
+		sound=v.src
+	}
+
+	layer:add(quad)
+
+end 
+
+layer:setTouchEnabled(true)
 
 
 
-local scene=Scene:create()
 
+scene=Scene:create()
 
 scene:push(layer)
+layer:setViewArea(0,0,960,640)
 
-director:run(scene);
+share:director():run(scene)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

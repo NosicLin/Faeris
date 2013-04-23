@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="luaexport"
-	ProjectGUID="{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}"
-	RootNamespace="luaexport"
+	Name="libaudio"
+	ProjectGUID="{4F864FCF-E55B-4250-A12E-52784D9439E4}"
+	RootNamespace="libaudio"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../src;../../../libfaeris/src/support;../../libaudio/src;../../../libfaeris/src;../../../platform/thirdparty/win32/;&quot;../../../platform/thirdparty/win32/tolua++&quot;;../../../platform/thirdparty/win32/lua"
+				AdditionalIncludeDirectories="../src;../../../libfaeris/src;../../../platform/thirdparty/win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -150,89 +150,21 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\FsLuaEngine.cc"
+				RelativePath="..\src\FsAudioEngine.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\src\FsLuaEngine.h"
+				RelativePath="..\src\FsAudioEngine.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\FsLuaMacros.h"
+				RelativePath="..\src\FsAudioPlayer.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\src\tolua_ext.cc"
+				RelativePath="..\src\FsAudioPlayer.h"
 				>
 			</File>
-			<File
-				RelativePath="..\src\tolua_ext.h"
-				>
-			</File>
-			<Filter
-				Name="luaext"
-				>
-				<File
-					RelativePath="..\src\luaext\FsLuaEntity.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaLayer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaScene.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaScene.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaSysEventListener.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaSysEventListener.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaTouchEventListener.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsLuaTouchEventListener.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsSysEventListener.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsTEntity.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaext\FsTLuaLayer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="luaexport"
-				>
-				<File
-					RelativePath="..\src\luaexport\FsLibAudioExport.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaexport\FsLibFaerisExport.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaexport\FsLuaExport.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

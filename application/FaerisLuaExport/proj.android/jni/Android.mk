@@ -12,8 +12,8 @@ LOCAL_SRC_FILES :=  ../../src/FsAndroidMain.cc \
 LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../  \
 					 -I$(LOCAL_PATH)/../../src \
 					 -I$(LOCAL_PATH)/../../src/luaext \
-					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/linux/lua \
-					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/linux/tolua++ \
+					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/android/lua \
+					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/android/tolua++ \
 					 -I$(LOCAL_PATH)/../../../../libfaeris/src \
 					 -I$(LOCAL_PATH)/../../../../libfaeris/src/support  \
 					 -I$(LOCAL_PATH)/../../../../libextends/libluaexport/src \
@@ -29,6 +29,11 @@ LOCAL_WHOLE_STATIC_LIBRARIES += lua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += tolua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
+LOCAL_WHOLE_STATIC_LIBRARIES += audio_static
+LOCAL_SHARED_LIBRARIES := fmodex
+
+
+
 
 LOCAL_LDLIBS    += -llog -lGLESv2  -lEGL
 
@@ -43,7 +48,9 @@ $(call import-module,../../../../platform/proj.android/zlib/jni)
 $(call import-module,../../../../platform/proj.android/minizip/jni)
 $(call import-module,../../../../platform/proj.android/lua/jni)
 $(call import-module,../../../../platform/proj.android/tolua++/jni)
+$(call import-module,../../../../platform/proj.android/fmod/jni)
 $(call import-module,../../../../libextends/libluaexport/proj.android)
+$(call import-module,../../../../libextends/libaudio/proj.android)
 
 
 

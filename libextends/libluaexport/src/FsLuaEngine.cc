@@ -12,8 +12,10 @@ extern "C"
 #endif
 
 
+
+#include "FsLuaMacros.h"
 #include "FsLuaEngine.h"
-#include "FsLuaFaeris.h"
+#include "luaexport/FsLuaExport.h"
 #include "common/FsGlobal.h"
 #include "util/FsLog.h"
 #include "io/FsVFS.h"
@@ -50,7 +52,14 @@ LuaEngine::LuaEngine()
 {
 	m_state=lua_open();
 	luaL_openlibs(m_state);
-	tolua_FsFaeris_open(m_state);
+#if FS_CONFIG(FS_EXPORT_LIB_FAERIS)
+	tolua_FsLibFaeris_open(m_state);
+#endif 
+
+#if FS_CONFIG(FS_EXPORT_LIB_AUDIO)
+	tolua_FsLibAudio_open(m_state);
+#endif 
+
 	toluaext_open(m_state);
 }
 

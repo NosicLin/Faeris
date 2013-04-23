@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="faeris.lib freetype.lib glew32.lib libpng.lib lua.lib minizip.lib tolua++.lib zlib.lib luaexport.lib opengl32.lib"
+				AdditionalDependencies="faeris.lib freetype.lib glew32.lib libpng.lib lua.lib minizip.lib tolua++.lib zlib.lib luaexport.lib opengl32.lib libaudio.lib fmodex.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../../build/win32/prebuild/debug"
 				GenerateDebugInformation="true"

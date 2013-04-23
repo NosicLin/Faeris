@@ -10,8 +10,10 @@ LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../src \
 					 -I$(LOCAL_PATH)/../src/luaext \
 					 -I$(LOCAL_PATH)/../../../platform/thirdparty/linux/lua \
 					 -I$(LOCAL_PATH)/../../../platform/thirdparty/linux/tolua++ \
+					 -I$(LOCAL_PATH)/../../../platform/thirdparty/linux/fmod \
 					 -I$(LOCAL_PATH)/../../../libfaeris/src \
-					 -I$(LOCAL_PATH)/../../../libfaeris//src/support  \
+					 -I$(LOCAL_PATH)/../../../libfaeris/src/support  \
+					 -I$(LOCAL_PATH)/../../libaudio/src
 
 
 LOCAL_SRC_FILES :=  ../src/tolua_ext.cc \
@@ -19,7 +21,8 @@ LOCAL_SRC_FILES :=  ../src/tolua_ext.cc \
 					../src/luaext/FsLuaSysEventListener.cc \
 					../src/luaext/FsLuaTouchEventListener.cc \
 					../src/FsLuaEngine.cc \
-					../src/FsLuaFaeris.cc \
+					../src/luaexport/FsLibAudioExport.cc \
+					../src/luaexport/FsLibFaerisExport.cc \
 
 
 

@@ -16,6 +16,10 @@
 #define FS_LUA_QUAD2D_CLASS_NAME				"LuaQuad2D"
 
 
+
+#define FS_EXPORT_LIB_FAERIS
+#define FS_EXPORT_LIB_AUDIO 
+
 #endif /*_FS_LUA_MACROS_H_*/
 
 

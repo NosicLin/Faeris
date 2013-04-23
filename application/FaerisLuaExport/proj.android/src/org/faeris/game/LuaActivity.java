@@ -14,7 +14,9 @@ public class LuaActivity  extends FsActivity
 	}
 	
 	static {
+        System.loadLibrary("fmodex");
         System.loadLibrary("faeris");
+
     }
 
 }

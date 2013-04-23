@@ -36,6 +36,9 @@ local fsobject= {
 	"LuaLabelTTF",
 	"LuaSysEventListener",
 	"LuaQuad2D",
+
+	-- extend 
+	"AudioEngine",
 }
 
 
