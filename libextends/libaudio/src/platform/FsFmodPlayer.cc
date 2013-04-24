@@ -137,7 +137,7 @@ void FmodPlayer::resumeChannel(Channel* c)
 	channel->setPaused(false);
 }
 
-void FmodPlayer::stopChannnel(Channel* c)
+void FmodPlayer::stopChannel(Channel* c)
 {
 	m_system->update();
 	FMOD::Channel* channel=(FMOD::Channel*) c;

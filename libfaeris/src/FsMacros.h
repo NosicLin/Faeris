@@ -58,7 +58,7 @@ namespace Faeris
 	do{\
 		if(cnd) \
 		{ \
-			FS_LOG_TAG(#tag,"%s:%s:%d:%s"#cnd#fmt,__FILE__,__FUNCTION__,__LINE__,#cnd,##__VA_ARGS__); \
+			FS_LOG_TAG(#tag,"%s:%s:%d:%s:"#fmt,__FILE__,__FUNCTION__,__LINE__,#cnd,##__VA_ARGS__); \
 		}\
 	} while(0)
 

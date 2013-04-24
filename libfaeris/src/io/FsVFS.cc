@@ -8,6 +8,7 @@
 #include "util/FsPathUtil.h"
 
 NS_FS_BEGIN
+#define FS_ROOT_PATH_SIZE  1024
 
 FS_BEGIN_NAMESPACE(VFS)
 
@@ -123,16 +124,17 @@ bool MapPackage::init(const char* path,Package* package)
 
 static FsArray* s_mapPackage=NULL;
 static FsArray* s_nameFilter=NULL;
-static std::string* s_root=NULL;
+static char s_root[FS_ROOT_PATH_SIZE];
 
 
 bool moduleInit()
 {
 	s_mapPackage=FsArray::create();
 	s_nameFilter=FsArray::create();
-	s_root=new std::string(Sys::currentDir()+"/");
+	//s_root=new std::string(Sys::currentDir())+"/";
+	sprintf(s_root,"%s/",Sys::currentDir());
 
-	FS_TRACE_WARN("pwd=%s",s_root->c_str());
+	FS_TRACE_WARN("pwd=%s",s_root);
 
 
 	return true;
@@ -146,8 +148,6 @@ bool moduleExit()
 	FS_SAFE_DEC_REF(s_nameFilter);
 	s_nameFilter=NULL;
 
-	if(s_root) delete s_root;
-	s_root=NULL;
 	return true;
 }
 
@@ -159,7 +159,7 @@ bool moduleExit()
 
 void setRoot(const char* path)
 {
-	*s_root=path;
+	strncmp(s_root,path,FS_ROOT_PATH_SIZE);
 }
 
 
@@ -178,7 +178,7 @@ FsFile* rawOpen(const char* name,uint mode)
 		return ret;
 	}
 
-	std::string rel_path=*s_root+std::string(name);
+	std::string rel_path=std::string(s_root)+std::string(name);
 
 	/* look with root dir */
 	ret=SysFile::open(rel_path.c_str(),mode);

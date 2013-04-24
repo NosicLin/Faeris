@@ -104,6 +104,21 @@ const char* Director::className()
 
 void Director::update(int priority,float dt)
 {
+	if(m_sceneChange)
+	{
+		if(m_current)
+		{
+			m_current->exit();
+			m_current->decRef();
+		}
+		if(m_next)
+		{
+			m_next->enter();
+			m_next->addRef();
+		}
+		m_current=m_next;
+		m_sceneChange=false;
+	}
 	if(m_stop)
 	{
 		return ;
@@ -182,6 +197,8 @@ Director::~Director()
 void Director::init()
 {
 	m_current=NULL;
+	m_next=NULL;
+	m_sceneChange=false;
 	m_secenQueue=FsArray::create();
 	m_stop=false;
 	m_autoSwapBuffers=false;
@@ -206,17 +223,9 @@ void Director::destroy()
 
 void Director::repace(Scene* scene)
 {
-	if(m_current)
-	{
-		m_current->exit();
-		m_current->decRef();
-	}
-	if(scene)
-	{
-		scene->enter();
-		scene->addRef();
-	}
-	m_current=scene;
+	FS_SAFE_ASSIGN(m_next,scene);
+	m_sceneChange=true;
+
 }
 
 void Director::draw()

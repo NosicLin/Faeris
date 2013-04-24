@@ -43,7 +43,7 @@ class AudioEngine:public FsObject
 		/* single channel */
 		void pauseChannel(Channel* c);
 		void resumeChannel(Channel* c);
-		void stopChannnel(Channel* c);
+		void stopChannel(Channel* c);
 		void setChannelVolume(Channel* c,float value);
 		float getChannelVolume(Channel* c);
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibAudio
-** Generated automatically by tolua++-1.0.92 on 04/23/13 22:14:18.
+** Generated automatically by tolua++-1.0.92 on 04/24/13 23:37:58.
 */
 
 #ifndef __cplusplus
@@ -281,9 +281,9 @@ static int tolua_FsLibAudio_AudioEngine_resumeChannel00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: stopChannnel of class  AudioEngine */
-#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_stopChannnel00
-static int tolua_FsLibAudio_AudioEngine_stopChannnel00(lua_State* tolua_S)
+/* method: stopChannel of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_stopChannel00
+static int tolua_FsLibAudio_AudioEngine_stopChannel00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -299,16 +299,16 @@ static int tolua_FsLibAudio_AudioEngine_stopChannnel00(lua_State* tolua_S)
   AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
   Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopChannnel'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopChannel'", NULL);
 #endif
   {
-   self->stopChannnel(c);
+   self->stopChannel(c);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'stopChannnel'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'stopChannel'.",&tolua_err);
  return 0;
 #endif
 }
@@ -526,7 +526,7 @@ TOLUA_API int tolua_FsLibAudio_open (lua_State* tolua_S)
    tolua_function(tolua_S,"playSound",tolua_FsLibAudio_AudioEngine_playSound00);
    tolua_function(tolua_S,"pauseChannel",tolua_FsLibAudio_AudioEngine_pauseChannel00);
    tolua_function(tolua_S,"resumeChannel",tolua_FsLibAudio_AudioEngine_resumeChannel00);
-   tolua_function(tolua_S,"stopChannnel",tolua_FsLibAudio_AudioEngine_stopChannnel00);
+   tolua_function(tolua_S,"stopChannel",tolua_FsLibAudio_AudioEngine_stopChannel00);
    tolua_function(tolua_S,"setChannelVolume",tolua_FsLibAudio_AudioEngine_setChannelVolume00);
    tolua_function(tolua_S,"getChannelVolume",tolua_FsLibAudio_AudioEngine_getChannelVolume00);
    tolua_function(tolua_S,"pauseChannels",tolua_FsLibAudio_AudioEngine_pauseChannels00);

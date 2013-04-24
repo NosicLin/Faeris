@@ -49,6 +49,10 @@ class Director :public SchedulerTarget
 
 	private:
 		Scene* m_current;
+
+		Scene* m_next;
+		bool m_sceneChange;
+
 		FsArray* m_secenQueue;
 		bool m_stop;
 		bool m_autoSwapBuffers;

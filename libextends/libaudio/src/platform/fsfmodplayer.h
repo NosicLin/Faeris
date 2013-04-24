@@ -24,7 +24,7 @@ class FmodPlayer:public AudioPlayer
 	public:
 		virtual void pauseChannel(Channel* c);
 		virtual void resumeChannel(Channel* c);
-		virtual void stopChannnel(Channel* c);
+		virtual void stopChannel(Channel* c);
 		virtual void setChannelVolume(Channel* c,float value);
 		virtual float getChannelVolume(Channel* c);
 

@@ -12,17 +12,17 @@ import android.widget.FrameLayout;
 public abstract class FsActivity extends Activity
 {
 	/* attibute */
+	
 	private FsGLSurfaceView m_view;
 
-
-	
 	/* method */
-
+	
 	@Override 
 	protected void onCreate(final Bundle save_state)
 	{
 		Log.v("activie","create");
 		super.onCreate(save_state);
+		FsGlobal.setContext(this);
 		this.initView();
 	}
 	
@@ -65,7 +65,6 @@ public abstract class FsActivity extends Activity
 		
 		m_view.setFsGLRender(r);
 		this.setContentView(m_view);
-		FsAndroidInfo.init(this);
 	}
 	
 	

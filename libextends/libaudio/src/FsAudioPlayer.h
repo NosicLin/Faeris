@@ -27,7 +27,7 @@ class AudioPlayer
 	public:
 		virtual void pauseChannel(Channel* c)=0;
 		virtual void resumeChannel(Channel* c)=0;
-		virtual void stopChannnel(Channel* c)=0;
+		virtual void stopChannel(Channel* c)=0;
 		virtual void setChannelVolume(Channel* c,float value)=0;
 		virtual float getChannelVolume(Channel* c)=0;
 

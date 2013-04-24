@@ -85,9 +85,9 @@ void AudioEngine::resumeChannel(Channel* c)
 {
 	m_player->resumeChannel(c);
 }
-void AudioEngine::stopChannnel(Channel* c)
+void AudioEngine::stopChannel(Channel* c)
 {
-	m_player->stopChannnel(c);
+	m_player->stopChannel(c);
 }
 
 void AudioEngine::setChannelVolume(Channel* c,float value)

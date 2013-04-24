@@ -5,7 +5,8 @@
 #include "io/FsVFS.h"
 #include "io/FsPackage.h"
 
-#include "sys/platform/FsAndroidInfo.h"
+#include "sys/FsSys.h"
+
 
 NS_FS_USE
 
@@ -22,22 +23,16 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_moduleInit
   {
 	  FsFaeris_ModuleInit();
 
-	  int width=AndroidInfo::getViewWidth();
-	  int height=AndroidInfo::getViewHeight();
-
-
 	  /* configure vfs */
 
 	  /* map apk to vfs */
-	  std::string apk_path=AndroidInfo::getApkPath();
-	  std::string apk_name=AndroidInfo::getApkName();
+	  std::string apk_path(Sys::apkPath());
 
 	  //VFS::setRoot(apk_path.c_str());
 
 	  Package* package=Package::create(apk_path.c_str(),Package::PACKAGE_ZIP);
 
 	  FS_TRACE_INFO("apk path=%s",apk_path.c_str());
-	  FS_TRACE_INFO("apk name=%s",apk_name.c_str());
 
 
 	  if(package==NULL)
@@ -56,9 +51,6 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_moduleInit
 	  VFS::addFilter(filter);
 	  filter->decRef();
 
-	  /* set render viewport */
-	  Render* render=Global::render();
-	  render->setViewport(0,0,width,height);
 
 	  /* run main.lua script */
 	  ScriptEngine* sc=Global::scriptEngine();
@@ -178,7 +170,6 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onTouchCancel
 JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onResize
   (JNIEnv *, jclass, jint width, jint height)
 {
-	AndroidInfo::setViewSize(width,height);
 	Render* render=Global::render();
 	if(render)
 	{

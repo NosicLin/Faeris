@@ -30,8 +30,6 @@ LOCAL_WHOLE_STATIC_LIBRARIES += tolua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
 LOCAL_WHOLE_STATIC_LIBRARIES += audio_static
-LOCAL_SHARED_LIBRARIES := fmodex
-
 
 
 
@@ -48,7 +46,6 @@ $(call import-module,../../../../platform/proj.android/zlib/jni)
 $(call import-module,../../../../platform/proj.android/minizip/jni)
 $(call import-module,../../../../platform/proj.android/lua/jni)
 $(call import-module,../../../../platform/proj.android/tolua++/jni)
-$(call import-module,../../../../platform/proj.android/fmod/jni)
 $(call import-module,../../../../libextends/libluaexport/proj.android)
 $(call import-module,../../../../libextends/libaudio/proj.android)
 

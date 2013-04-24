@@ -2,8 +2,9 @@
 #include <jni.h>
 
 #include "FsMacros.h"
-#include "sys/platform/FsAndroidInfo.h"
 #include "FsLuaEngine.h"
+
+#include "sys/FsSys.h"
 #include "common/FsGlobal.h"
 
 NS_FS_USE
@@ -15,7 +16,7 @@ extern "C"
 		Global::setScriptEngine(engine);
 		engine->decRef();
 
-		AndroidInfo::setJavaVM(vm);
+		Sys::setJavaVM(vm);
 
 		return JNI_VERSION_1_4;
 	}

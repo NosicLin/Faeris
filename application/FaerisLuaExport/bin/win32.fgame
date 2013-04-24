@@ -1,7 +1,7 @@
 win:{
-	width:960
-	height:640
-	caption:"FontTest"
+	width:480
+	height:800
+	caption:"SpriteTest"
 }
 
 game:{
@@ -15,15 +15,10 @@ env:{
 
 
 script:{
-	entry:"main.lua"
+	entry:"script/main.lua"
 }
 
 
-mgr:{
-	textureMgr:{
-		searchPath:["sss","fsfsf"]
-	}
-}
 
 
 

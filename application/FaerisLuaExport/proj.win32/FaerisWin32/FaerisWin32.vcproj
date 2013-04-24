@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../libfaeris/support;../../../../libfaeris;../../../../libextends/libluaexport/src;../../../../platform/thirdparty/win32"
+				AdditionalIncludeDirectories="../../../../libfaeris/src/support;../../../../libfaeris/src/;../../../../libextends/libluaexport/src;../../../../platform/thirdparty/win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

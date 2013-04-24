@@ -13,10 +13,9 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../src \
 
 
 LOCAL_SRC_FILES :=  \
-					../../src/common/FsGlobal.cc \
 					src/org_faeris_lib_FsEngine.cc \
-					src/org_faeris_lib_FsAndroidInfo.cc \
 					../../src/common/FsScriptEngine.cc \
+					../../src/common/FsGlobal.cc \
 					../../src/core/FsObject.cc \
 					../../src/entity/FsColorQuad2D.cc \
 					../../src/entity/FsEntity.cc \
@@ -80,9 +79,9 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/image/FsImageJpeg.cc \
 					../../src/support/image/FsImagePng.cc \
 					../../src/sys/FsSys.cc \
+					../../src/sys/platform/android/FsJniUtil.cc \
 					../../src/sys/FsTimer.cc \
 					../../src/sys/FsWindow.cc \
-					../../src/sys/platform/FsAndroidInfo.cc \
 					../../src/util/FsArray.cc \
 					../../src/util/FsDict.cc \
 					../../src/util/FsLog.cc \
