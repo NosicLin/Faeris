@@ -16,7 +16,7 @@ class Entity@__Entity:public FsObject
 
 	public: /* get transform info */
 		Vector3 getPosition();
-		void getPosition(float* x=NULL, float* y=NULL,float* z=NULL);
+		void getPosition(float* x=0, float* y=0,float* z=0);
 		float getPositionX();
 		float getPositionY();
 		float getPositionZ();
@@ -72,6 +72,12 @@ class Entity@__Entity:public FsObject
 		void setPositionYInWorld(float t);
 		void setPositionZInWorld(float t);
 		*/
+		Vector3 getPositionInWorld();
+		void getPositionInWorld(float* x=0,float* y=0,float* z=0);
+
+	public:
+		float getZorder();
+		void setZorder(float z);
 
 	public:
 		void setVisible(bool visible);

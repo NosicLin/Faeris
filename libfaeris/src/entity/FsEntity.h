@@ -45,6 +45,11 @@ class Entity :public FsObject
 		bool updateWorldMatrix();
 		void updateAllWorldMatrix();
 
+	public: /* zorlder */
+		float getZorder(){return m_zorlder;}
+		void setZorder(float z){m_zorlder=z;}
+
+
 	public: /* get transform info */
 		Vector3 getPosition(){return m_translate;}
 		void getPosition(float* x,float* y,float* z)
@@ -102,10 +107,12 @@ class Entity :public FsObject
 		void setPositionY(float t);
 		void setPositionZ(float t);
 
+	public: /* world transform */
 		void setPositionInWorld(float tx,float ty,float tz);
-		void setPositionXInWorld(float t);
-		void setPositionYInWorld(float t);
-		void setPositionZInWorld(float t);
+		void setPositionInWorld(const Vector3& v);
+
+		Vector3 getPositionInWorld();
+		void getPositionInWorld(float* x,float* y,float* z);
 
 	public:
 		void setVisible(bool visible){m_visible=visible;}
@@ -153,6 +160,9 @@ class Entity :public FsObject
 		Vector3 m_rotate;
 		Vector3 m_scale;
 
+		/* zorlder */
+		float m_zorlder;
+
 		/* matrix */
 		Matrix4 m_localMatrix;
 		Matrix4 m_worldMatrix;
@@ -165,6 +175,8 @@ class Entity :public FsObject
 
 		/* bound box */
 		Rect2D m_boundBox2D;
+
+
 
 
 		friend class Layer;

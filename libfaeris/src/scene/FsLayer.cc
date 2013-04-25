@@ -184,10 +184,6 @@ void Layer::updateAllWorldMatrix()
 	}
 }
 
-
-
-
-
 NS_FS_END
 
 

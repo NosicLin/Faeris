@@ -3,18 +3,6 @@ $#include "scene/FsLayer2D.h"
 class Layer2D@__Layer2D:public Layer
 {
 	public:
-		enum 
-		{
-			SORT_NONE,
-			SORT_Z,
-			SORT_Y,
-			SORT_X,
-		};
-		enum 
-		{
-			DOWN_OLDER,
-			UP_OLDER,
-		};
 
 	public:
 		Matrix4 getProjectMatrix()const ;
@@ -29,9 +17,6 @@ class Layer2D@__Layer2D:public Layer
 		void setSortMode(int mode);
 		int getSortMode();
 
-		void setOlderMode(int older);
-		int getOlderMode();
-
 		/* eliminate */
 		void setEliminate(bool eliminate);
 		bool getEliminate();
@@ -39,6 +24,14 @@ class Layer2D@__Layer2D:public Layer
 
 class LuaLayer2D@Layer2D:public Layer2D
 {
+	public:
+		enum 
+		{
+			SORT_NONE,
+			SORT_ORDER_Z,
+			SORT_Y,
+		};
+
 	public:
 		static LuaLayer2D* create();
 

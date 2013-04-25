@@ -1,6 +1,8 @@
 #ifndef _FS_LAYER_2D_
 #define _FS_LAYER_2D_
 
+#include <vector>
+
 #include "FsMacros.h"
 #include "scene/FsLayer.h"
 #include "math/FsMatrix4.h"
@@ -14,16 +16,9 @@ public:
 	enum 
 	{
 		SORT_NONE,
-		SORT_Z,
+		SORT_ORDER_Z,
 		SORT_Y,
-		SORT_X,
 	};
-	enum 
-	{
-		DOWN_OLDER,
-		UP_OLDER,
-	};
-
 	public:
 		static Layer2D* create();
 
@@ -40,9 +35,6 @@ public:
 		void setSortMode(int mode);
 		int getSortMode();
 
-		void setOlderMode(int older);
-		int getOlderMode();
-
 		/* eliminate */
 		void setEliminate(bool eliminate);
 		bool getEliminate();
@@ -57,14 +49,15 @@ public:
 		virtual const char* className();
 
 	protected:
-		FsArray* getEntityInView();
-		void sortEntity(FsArray* array);
-		void init();
+		void getEntityInView(std::vector<Entity*>* entitys);
+		void sortEntity(std::vector<Entity*>* entitys);
+
+		Layer2D();
+		~Layer2D();
 
 	protected:
 		Rect2D m_viewArea;
 		int m_sortMode;
-		int m_older;
 		bool m_eliminate;
 };
 
