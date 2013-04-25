@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 04/24/13 23:37:59.
+** Generated automatically by tolua++-1.0.92 on 04/25/13 20:43:21.
 */
 
 #ifndef __cplusplus
@@ -925,9 +925,9 @@ static int tolua_FsLibFaeris___Entity_getPosition01(lua_State* tolua_S)
  else
  {
   Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
-  float x = ((float)  tolua_tonumber(tolua_S,2,NULL));
-  float y = ((float)  tolua_tonumber(tolua_S,3,NULL));
-  float z = ((float)  tolua_tonumber(tolua_S,4,NULL));
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float z = ((float)  tolua_tonumber(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPosition'", NULL);
 #endif
@@ -2127,6 +2127,148 @@ static int tolua_FsLibFaeris___Entity_setPositionZ00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setPositionZ'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPositionInWorld of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getPositionInWorld00
+static int tolua_FsLibFaeris___Entity_getPositionInWorld00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPositionInWorld'", NULL);
+#endif
+  {
+   Vector3 tolua_ret = (Vector3)  self->getPositionInWorld();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((Vector3)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"Vector3");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(Vector3));
+     tolua_pushusertype(tolua_S,tolua_obj,"Vector3");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPositionInWorld'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPositionInWorld of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getPositionInWorld01
+static int tolua_FsLibFaeris___Entity_getPositionInWorld01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float z = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPositionInWorld'", NULL);
+#endif
+  {
+   self->getPositionInWorld(&x,&y,&z);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+   tolua_pushnumber(tolua_S,(lua_Number)z);
+  }
+ }
+ return 3;
+tolua_lerror:
+ return tolua_FsLibFaeris___Entity_getPositionInWorld00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getZorder of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getZorder00
+static int tolua_FsLibFaeris___Entity_getZorder00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getZorder'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getZorder();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getZorder'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setZorder of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_setZorder00
+static int tolua_FsLibFaeris___Entity_setZorder00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  float z = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setZorder'", NULL);
+#endif
+  {
+   self->setZorder(z);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setZorder'.",&tolua_err);
  return 0;
 #endif
 }
@@ -5921,71 +6063,6 @@ static int tolua_FsLibFaeris___Layer2D_getSortMode00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getSortMode'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setOlderMode of class  Layer2D */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Layer2D_setOlderMode00
-static int tolua_FsLibFaeris___Layer2D_setOlderMode00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Layer2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Layer2D* self = (Layer2D*)  tolua_tousertype(tolua_S,1,0);
-  int older = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOlderMode'", NULL);
-#endif
-  {
-   self->setOlderMode(older);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setOlderMode'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getOlderMode of class  Layer2D */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Layer2D_getOlderMode00
-static int tolua_FsLibFaeris___Layer2D_getOlderMode00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Layer2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Layer2D* self = (Layer2D*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOlderMode'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getOlderMode();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getOlderMode'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12175,6 +12252,10 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setPositionX",tolua_FsLibFaeris___Entity_setPositionX00);
    tolua_function(tolua_S,"setPositionY",tolua_FsLibFaeris___Entity_setPositionY00);
    tolua_function(tolua_S,"setPositionZ",tolua_FsLibFaeris___Entity_setPositionZ00);
+   tolua_function(tolua_S,"getPositionInWorld",tolua_FsLibFaeris___Entity_getPositionInWorld00);
+   tolua_function(tolua_S,"getPositionInWorld",tolua_FsLibFaeris___Entity_getPositionInWorld01);
+   tolua_function(tolua_S,"getZorder",tolua_FsLibFaeris___Entity_getZorder00);
+   tolua_function(tolua_S,"setZorder",tolua_FsLibFaeris___Entity_setZorder00);
    tolua_function(tolua_S,"setVisible",tolua_FsLibFaeris___Entity_setVisible00);
    tolua_function(tolua_S,"visible",tolua_FsLibFaeris___Entity_visible00);
    tolua_function(tolua_S,"hit2D",tolua_FsLibFaeris___Entity_hit2D00);
@@ -12360,12 +12441,6 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"__Layer2D","Layer2D","Layer",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"__Layer2D");
-   tolua_constant(tolua_S,"SORT_NONE",Layer2D::SORT_NONE);
-   tolua_constant(tolua_S,"SORT_Z",Layer2D::SORT_Z);
-   tolua_constant(tolua_S,"SORT_Y",Layer2D::SORT_Y);
-   tolua_constant(tolua_S,"SORT_X",Layer2D::SORT_X);
-   tolua_constant(tolua_S,"DOWN_OLDER",Layer2D::DOWN_OLDER);
-   tolua_constant(tolua_S,"UP_OLDER",Layer2D::UP_OLDER);
    tolua_function(tolua_S,"getProjectMatrix",tolua_FsLibFaeris___Layer2D_getProjectMatrix00);
    tolua_function(tolua_S,"getViewArea",tolua_FsLibFaeris___Layer2D_getViewArea00);
    tolua_function(tolua_S,"toLayerCoord",tolua_FsLibFaeris___Layer2D_toLayerCoord00);
@@ -12374,13 +12449,14 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setViewArea",tolua_FsLibFaeris___Layer2D_setViewArea01);
    tolua_function(tolua_S,"setSortMode",tolua_FsLibFaeris___Layer2D_setSortMode00);
    tolua_function(tolua_S,"getSortMode",tolua_FsLibFaeris___Layer2D_getSortMode00);
-   tolua_function(tolua_S,"setOlderMode",tolua_FsLibFaeris___Layer2D_setOlderMode00);
-   tolua_function(tolua_S,"getOlderMode",tolua_FsLibFaeris___Layer2D_getOlderMode00);
    tolua_function(tolua_S,"setEliminate",tolua_FsLibFaeris___Layer2D_setEliminate00);
    tolua_function(tolua_S,"getEliminate",tolua_FsLibFaeris___Layer2D_getEliminate00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Layer2D","LuaLayer2D","Layer2D",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Layer2D");
+   tolua_constant(tolua_S,"SORT_NONE",LuaLayer2D::SORT_NONE);
+   tolua_constant(tolua_S,"SORT_ORDER_Z",LuaLayer2D::SORT_ORDER_Z);
+   tolua_constant(tolua_S,"SORT_Y",LuaLayer2D::SORT_Y);
    tolua_function(tolua_S,"create",tolua_FsLibFaeris_Layer2D_create00);
    tolua_function(tolua_S,"update",tolua_FsLibFaeris_Layer2D_update00);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris_Layer2D_draw00);

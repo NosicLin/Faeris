@@ -44,6 +44,7 @@ void Entity::init()
 	m_hasBoundSphere=0;
 	m_hasBoundBox=0;
 	m_visible=1;
+	m_zorlder=0.0f;
 
 	m_parent=NULL;
 	m_chirdren=new FsArray();

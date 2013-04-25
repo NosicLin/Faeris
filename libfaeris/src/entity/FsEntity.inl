@@ -158,5 +158,46 @@ inline void Entity::setPositionZ(float t)
 	m_worldMatrixDirty=1;
 }
 
+
+/* world transform */
+
+inline Vector3  Entity::getPositionInWorld()
+{
+	if(m_parent==NULL)
+	{
+		return m_translate;
+	}
+	else 
+	{
+		updateWorldMatrix();
+		return Vector3(m_worldMatrix.m03,m_worldMatrix.m13,m_worldMatrix.m23);
+	}
+}
+
+inline void Entity::getPositionInWorld(float* x,float* y,float* z)
+{
+	Vector3 ret=getPositionInWorld();
+	*x=ret.x;
+	*y=ret.y;
+	*z=ret.z;
+}
+
+
 #endif /*_FS_SCENE_NODE_INL_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

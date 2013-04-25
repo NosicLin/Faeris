@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "scene/FsLayer2D.h"
 #include "util/FsArray.h"
 #include "util/FsDict.h"
@@ -5,6 +6,16 @@
 #include "entity/FsEntity.h"
 
 NS_FS_BEGIN
+
+static bool FsFuncEntity_SortZolder(Entity* left,Entity* right)
+{
+	return left->getZorder()<right->getZorder();
+}
+
+static bool FsFuncEntity_SortY(Entity* left,Entity* right)
+{
+	return left->getPositionInWorld().y>right->getPositionInWorld().y;
+}
 
 const char* Layer2D::className()
 {
@@ -67,14 +78,7 @@ int Layer2D::getSortMode()
 	return m_sortMode;
 }
 
-void Layer2D::setOlderMode(int older)
-{
-	m_older=older;
-}
-int Layer2D::getOlderMode()
-{
-	return m_older;
-}
+
 
 /* eliminate */
 void Layer2D::setEliminate(bool eliminate)
@@ -107,55 +111,69 @@ void Layer2D::draw(Render* r)
 	/* update all child matrix4 */
 	updateAllWorldMatrix();
 
+	std::vector<Entity*> entitys;
 
-	FsArray* entity=getEntityInView();
-	sortEntity(entity);
+	getEntityInView(&entitys);
+	sortEntity(&entitys);
 
-	int entity_nu=entity->size();
+	int entity_nu=entitys.size();
 	for(int i=0;i<entity_nu;i++)
 	{
-		Entity* ob=(Entity*) entity->get(i);
+		Entity* ob=entitys[i];
 		if(ob->visible())
 		{
 			ob->draw(r,false);
 		}
-		ob->decRef();
 	}
-	entity->decRef();
+
 	r->popMatrix();
 }
 
 
 
-FsArray* Layer2D::getEntityInView()
+void Layer2D::getEntityInView(std::vector<Entity*>* entitys)
 {
 	/* TODO(add real eliminate here) */
-	FsArray* ret=FsArray::create();
 	FsDict::Iterator iter(m_ownerEntity);
 	while(!iter.done())
 	{
 		FsObject* ob=iter.getValue();
-		ret->push(ob);
+		entitys->push_back((Entity*)ob);
 		ob->decRef();
 		iter.next();
 	}
-	return ret;
 }
 
 
-void Layer2D::sortEntity(FsArray* array)
+void Layer2D::sortEntity(std::vector<Entity*>* entitys)
 {
-	/* TODO(add real code here) */
-	return ;
+	switch(m_sortMode)
+	{
+		case SORT_NONE:
+			break;
+		case SORT_ORDER_Z:
+			std::sort(entitys->begin(),entitys->end(),FsFuncEntity_SortZolder);
+			break;
+		case SORT_Y:
+			std::sort(entitys->begin(),entitys->end(),FsFuncEntity_SortY);
+			break;
+		default:
+			FS_TRACE_WARN("Unkown Sort Type");
+	}
 }
 
-void Layer2D::init()
+
+Layer2D::Layer2D()
 {
 	m_viewArea.set(0,0,1,1);
 	m_sortMode=SORT_NONE;
-	m_older=UP_OLDER;
+	m_eliminate=false;
+}
+Layer2D::~Layer2D()
+{
 }
 
 
 NS_FS_END
+
 
