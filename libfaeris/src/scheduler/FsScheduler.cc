@@ -31,29 +31,23 @@ void Scheduler::setFps(int fps)
 
 void Scheduler::mainLoop()
 {
-	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
-
 	//long begin_time=m_timer.now();
 	long last_time=m_timer.now();
 
-	long diff_time,cur_time,frame_used,sleep_time;
+	long diff_time,cur_time;
 
 	while(!m_stop)
 	{
 		cur_time=m_timer.now();
 		diff_time=cur_time-last_time;
-		update((float)diff_time);
 
 
-		frame_used=m_timer.now()-cur_time;
-		sleep_time=perframe_time-frame_used;
+		long sleep_time=(long)update((float)diff_time);
 		if(sleep_time>0)
 		{
 			Sys::usleep(sleep_time);
 		}
 		last_time=cur_time;
-	
-
 	}
 }
 
@@ -136,8 +130,10 @@ void Scheduler::destroy()
 	}
 }
 
-void Scheduler::update(float dt)
+float Scheduler::update(float dt)
 {
+	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
+	long update_begin=m_timer.now();
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
 		m_target[i]->lock();
@@ -152,11 +148,18 @@ void Scheduler::update(float dt)
 		m_target[i]->flush();
 	}
 
+	
 	ScriptEngine* sc=Global::scriptEngine();
 	if(sc)
 	{
+
 		sc->collectGarbage();
 	}
+	
+
+	long update_end=m_timer.now();
+
+	return (float)(perframe_time-(update_end-update_begin));
 }
 
 NS_FS_END

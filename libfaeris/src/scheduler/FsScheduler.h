@@ -33,7 +33,7 @@ class Scheduler :public FsObject
 		void stop();
 		void setFps(int fps);
 		void mainLoop();
-		void update(float dt);
+		float update(float dt);
 
 	public:
 		void add(SchedulerTarget* s,int priority);

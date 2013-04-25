@@ -1,6 +1,6 @@
 win:{
-	width:480
-	height:800
+	width:960
+	height:640
 	caption:"SpriteTest"
 }
 
@@ -15,7 +15,7 @@ env:{
 
 
 script:{
-	entry:"script/main.lua"
+	entry:"main.lua"
 }
 
 

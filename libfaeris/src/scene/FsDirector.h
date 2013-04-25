@@ -59,6 +59,7 @@ class Director :public SchedulerTarget
 		DirectorTouchEventListener* m_touchEventListener;
 
 		friend class DirectorTouchEventListener;
+
 };
 
 

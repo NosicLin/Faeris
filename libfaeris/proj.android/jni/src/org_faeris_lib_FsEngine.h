@@ -90,9 +90,9 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onViewCreated
 /*
  * Class:     org_faeris_lib_FsEngine
  * Method:    onUpdate
- * Signature: (F)V
+ * Signature: (F)F
  */
-JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_onUpdate
+JNIEXPORT jfloat JNICALL Java_org_faeris_lib_FsEngine_onUpdate
   (JNIEnv *, jclass, jfloat);
 
 #ifdef __cplusplus

@@ -24,7 +24,7 @@ public class FsEngine {
 	public static native void onViewCreated();
 	
 	
-	public static native void onUpdate(float dt);
+	public static native float onUpdate(float dt);
 	
 	
 	
