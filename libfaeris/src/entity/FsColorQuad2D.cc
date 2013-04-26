@@ -11,6 +11,12 @@ ColorQuad2D* ColorQuad2D::create(const Rect2D& rect,Color c)
 	quad->init(rect,c);
 	return quad;
 }
+ColorQuad2D* ColorQuad2D::create(float width,float height,Color c)
+{
+	ColorQuad2D* quad=new ColorQuad2D();
+	quad->init(width,height,c);
+	return quad;
+}
 
 void ColorQuad2D::update(float /*dt*/)
 {
@@ -143,6 +149,17 @@ void ColorQuad2D::init(const Rect2D& rect,Color c)
 	m_opacity=1.0f;
 
 }
+
+void ColorQuad2D::init(float width,float height,Color c)
+{
+	m_va=c;
+	m_vb=c;
+	m_vc=c;
+	m_vd=c;
+	m_rect=Rect2D(-width/2,-height/2,width,height);
+	m_opacity=1.0f;
+}
+
 void ColorQuad2D::destroy()
 {
 	FS_SAFE_DEC_REF(m_material);

@@ -37,10 +37,16 @@ class LuaColorQuad2D:public TEntity<ColorQuad2D>
 		static LuaColorQuad2D* create(const Rect2D& rect,Color c)
 		{
 			LuaColorQuad2D* ret=new LuaColorQuad2D;
-			ret->setRect(rect);
-			ret->setColor(c);
+			ret->init(rect,c);
 			return ret;
 		}
+		static LuaColorQuad2D* create(float width,float height,Color c)
+		{
+			LuaColorQuad2D* ret=new LuaColorQuad2D;
+			ret->init(width,height,c);
+			return ret;
+		}
+
 		static LuaColorQuad2D* create()
 		{
 			return new LuaColorQuad2D;

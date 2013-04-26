@@ -45,6 +45,8 @@ $pfile "scene/FsLayer2D.pkg"
 $pfile "graphics/FsRender.pkg"
 $pfile "graphics/FsColor.pkg"
 $pfile "graphics/FsFontTTF.pkg"
+$pfile "graphics/FsTexture2D.pkg"
+
 
 /* math */
 $pfile "math/FsVector2.pkg"
@@ -60,7 +62,7 @@ $pfile "sys/FsWindow.pkg"
 /* mgr */
 $pfile "mgr/FsTextureMgr.pkg"
 $pfile "mgr/FsResourceMgr.pkg"
-
+$pfile "mgr/FsResource.pkg"
 
 
 

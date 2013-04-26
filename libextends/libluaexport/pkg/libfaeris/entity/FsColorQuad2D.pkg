@@ -31,6 +31,7 @@ class LuaColorQuad2D@ColorQuad2D:public ColorQuad2D
 		};
 	public:
 		static LuaColorQuad2D* create(const Rect2D& rect,Color c);
+		static LuaColorQuad2D* create(float width,float height,Color c);
 	public:
 		void onDraw@draw(Render* r);
 		void onUpdate@update(float dt);

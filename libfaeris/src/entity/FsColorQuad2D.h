@@ -29,6 +29,7 @@ class ColorQuad2D:public Entity
 	public:
 		static ColorQuad2D* create();
 		static ColorQuad2D* create(const Rect2D& rect,Color c);
+		static ColorQuad2D* create(float width,float height,Color c);
 
 	public:
 		/* inherit Entity */
@@ -50,6 +51,7 @@ class ColorQuad2D:public Entity
 		ColorQuad2D();
 		~ColorQuad2D();
 		void init(const Rect2D& rect,Color c);
+		void init(float width,float height,Color c);
 		void init();
 		void destroy();
 

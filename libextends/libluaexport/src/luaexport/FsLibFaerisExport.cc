@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 04/25/13 20:43:21.
+** Generated automatically by tolua++-1.0.92 on 04/26/13 23:20:44.
 */
 
 #ifndef __cplusplus
@@ -38,6 +38,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "graphics/FsRender.h"
 #include "graphics/FsColor.h"
 #include "graphics/FsFontTTF.h"
+#include "graphics/FsTexture2D.h"
 #include "math/FsVector2.h"
 #include "math/FsVector3.h"
 #include "math/FsVector4.h"
@@ -46,6 +47,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "sys/FsWindow.h"
 #include "mgr/FsTextureMgr.h"
 #include "mgr/FsResourceMgr.h"
+#include "mgr/FsResource.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -107,7 +109,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Director");
  tolua_usertype(tolua_S,"Scene");
  tolua_usertype(tolua_S,"Layer");
- tolua_usertype(tolua_S,"Texture2D");
+ tolua_usertype(tolua_S,"Sprite2D");
  
  tolua_usertype(tolua_S,"LuaEntity");
  tolua_usertype(tolua_S,"LuaColorLayer");
@@ -130,15 +132,15 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Resource");
  tolua_usertype(tolua_S,"ResourceMgr");
  tolua_usertype(tolua_S,"Rect2D");
- tolua_usertype(tolua_S,"LuaTouchEventListener");
  tolua_usertype(tolua_S,"Color");
+ tolua_usertype(tolua_S,"Texture2D");
  tolua_usertype(tolua_S,"LuaSprite2D");
  tolua_usertype(tolua_S,"LuaColorQuad2D");
  tolua_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
+ tolua_usertype(tolua_S,"LuaTouchEventListener");
  tolua_usertype(tolua_S,"ColorLayer");
  tolua_usertype(tolua_S,"LuaSysEventListener");
- tolua_usertype(tolua_S,"Sprite2D");
  tolua_usertype(tolua_S,"LuaQuad2D");
 }
 
@@ -2666,6 +2668,35 @@ static int tolua_FsLibFaeris_ColorQuad2D_create00(lua_State* tolua_S)
  tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaColorQuad2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_ColorQuad2D_create01
+static int tolua_FsLibFaeris_ColorQuad2D_create01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaColorQuad2D",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"Color",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  float width = ((float)  tolua_tonumber(tolua_S,2,0));
+  float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  Color c = *((Color*)  tolua_tousertype(tolua_S,4,0));
+  {
+   LuaColorQuad2D* tolua_ret = (LuaColorQuad2D*)  LuaColorQuad2D::create(width,height,c);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"LuaColorQuad2D");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_FsLibFaeris_ColorQuad2D_create00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -7437,6 +7468,70 @@ static int tolua_FsLibFaeris_FontTTF_getDescend00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getWidth of class  Texture2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Texture2D_getWidth00
+static int tolua_FsLibFaeris_Texture2D_getWidth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Texture2D",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Texture2D* self = (Texture2D*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWidth'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->getWidth();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getWidth'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getHeight of class  Texture2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Texture2D_getHeight00
+static int tolua_FsLibFaeris_Texture2D_getHeight00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Texture2D",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Texture2D* self = (Texture2D*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeight'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->getHeight();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getHeight'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* get function: x of class  Vector2 */
 #ifndef TOLUA_DISABLE_tolua_get_Vector2_x
 static int tolua_get_Vector2_x(lua_State* tolua_S)
@@ -12079,7 +12174,7 @@ static int tolua_FsLibFaeris_ResourceMgr_load00(lua_State* tolua_S)
 #endif
   {
    Resource* tolua_ret = (Resource*)  self->load(path);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Resource");
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Resource");
   }
  }
  return 1;
@@ -12287,6 +12382,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_constant(tolua_S,"VERTEX_D",LuaColorQuad2D::VERTEX_D);
    tolua_constant(tolua_S,"VERTEX_ALL",LuaColorQuad2D::VERTEX_ALL);
    tolua_function(tolua_S,"create",tolua_FsLibFaeris_ColorQuad2D_create00);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_ColorQuad2D_create01);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris_ColorQuad2D_draw00);
    tolua_function(tolua_S,"update",tolua_FsLibFaeris_ColorQuad2D_update00);
   tolua_endmodule(tolua_S);
@@ -12515,6 +12611,11 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getAscend",tolua_FsLibFaeris_FontTTF_getAscend00);
    tolua_function(tolua_S,"getDescend",tolua_FsLibFaeris_FontTTF_getDescend00);
   tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"Texture2D","Texture2D","Resource",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"Texture2D");
+   tolua_function(tolua_S,"getWidth",tolua_FsLibFaeris_Texture2D_getWidth00);
+   tolua_function(tolua_S,"getHeight",tolua_FsLibFaeris_Texture2D_getHeight00);
+  tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"Vector2","Vector2","",tolua_collect_Vector2);
   #else
@@ -12708,6 +12809,9 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"load",tolua_FsLibFaeris_ResourceMgr_load00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris_ResourceMgr_remove00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris_ResourceMgr_add00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"Resource","Resource","FsObject",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"Resource");
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

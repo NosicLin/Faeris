@@ -15,6 +15,7 @@ local fsobject= {
 	"Scene",
 	"Layer",
 	"Texture2D",
+	"Resource",
 
 	"LuaEntity",
 	"LuaColorLayer",
