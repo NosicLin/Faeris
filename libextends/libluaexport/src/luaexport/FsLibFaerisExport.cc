@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 04/26/13 23:20:44.
+** Generated automatically by tolua++-1.0.92 on 04/27/13 21:26:54.
 */
 
 #ifndef __cplusplus
@@ -99,49 +99,49 @@ static int tolua_collect_Vector3 (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"TextureMgr");
- tolua_usertype(tolua_S,"TouchEventListener");
- tolua_usertype(tolua_S,"FontTTF");
- tolua_usertype(tolua_S,"Scheduler");
- tolua_usertype(tolua_S,"Entity");
+ toluaext_usertype(tolua_S,"TextureMgr");
+ toluaext_usertype(tolua_S,"TouchEventListener");
+ toluaext_usertype(tolua_S,"FontTTF");
+ toluaext_usertype(tolua_S,"Scheduler");
+ toluaext_usertype(tolua_S,"Entity");
  tolua_usertype(tolua_S,"Vector3");
- tolua_usertype(tolua_S,"SchedulerTarget");
- tolua_usertype(tolua_S,"Director");
- tolua_usertype(tolua_S,"Scene");
- tolua_usertype(tolua_S,"Layer");
+ toluaext_usertype(tolua_S,"SchedulerTarget");
+ toluaext_usertype(tolua_S,"Director");
+ toluaext_usertype(tolua_S,"Scene");
+ toluaext_usertype(tolua_S,"Layer");
  tolua_usertype(tolua_S,"Sprite2D");
  
- tolua_usertype(tolua_S,"LuaEntity");
- tolua_usertype(tolua_S,"LuaColorLayer");
+ toluaext_usertype(tolua_S,"LuaEntity");
+ toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
- tolua_usertype(tolua_S,"Render");
- tolua_usertype(tolua_S,"SysDispatcher");
- tolua_usertype(tolua_S,"Quad2D");
- tolua_usertype(tolua_S,"LabelTTF");
- tolua_usertype(tolua_S,"Window");
- tolua_usertype(tolua_S,"TouchDispatcher");
- tolua_usertype(tolua_S,"Layer2D");
- tolua_usertype(tolua_S,"LuaLayer2D");
- tolua_usertype(tolua_S,"FsObject");
- tolua_usertype(tolua_S,"LuaLabelTTF");
+ toluaext_usertype(tolua_S,"Render");
+ toluaext_usertype(tolua_S,"SysDispatcher");
+ toluaext_usertype(tolua_S,"Quad2D");
+ toluaext_usertype(tolua_S,"LabelTTF");
+ toluaext_usertype(tolua_S,"Window");
+ toluaext_usertype(tolua_S,"TouchDispatcher");
+ toluaext_usertype(tolua_S,"Layer2D");
+ toluaext_usertype(tolua_S,"LuaLayer2D");
+ toluaext_usertype(tolua_S,"FsObject");
+ toluaext_usertype(tolua_S,"LuaLabelTTF");
  tolua_usertype(tolua_S,"ColorQuad2D");
- tolua_usertype(tolua_S,"LuaScene");
- tolua_usertype(tolua_S,"FsArray");
+ toluaext_usertype(tolua_S,"LuaScene");
+ toluaext_usertype(tolua_S,"FsArray");
  tolua_usertype(tolua_S,"Vector4");
  tolua_usertype(tolua_S,"Global");
- tolua_usertype(tolua_S,"Resource");
- tolua_usertype(tolua_S,"ResourceMgr");
+ toluaext_usertype(tolua_S,"Resource");
+ toluaext_usertype(tolua_S,"ResourceMgr");
  tolua_usertype(tolua_S,"Rect2D");
  tolua_usertype(tolua_S,"Color");
- tolua_usertype(tolua_S,"Texture2D");
+ toluaext_usertype(tolua_S,"Texture2D");
  tolua_usertype(tolua_S,"LuaSprite2D");
- tolua_usertype(tolua_S,"LuaColorQuad2D");
- tolua_usertype(tolua_S,"SysEventListener");
+ toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
- tolua_usertype(tolua_S,"LuaTouchEventListener");
+ toluaext_usertype(tolua_S,"LuaTouchEventListener");
  tolua_usertype(tolua_S,"ColorLayer");
- tolua_usertype(tolua_S,"LuaSysEventListener");
- tolua_usertype(tolua_S,"LuaQuad2D");
+ toluaext_usertype(tolua_S,"LuaSysEventListener");
+ toluaext_usertype(tolua_S,"LuaQuad2D");
 }
 
 /* method: scheduler of class  Global */
@@ -422,11 +422,25 @@ static int tolua_set_FsObject_data(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_scriptData'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluaext_is_luatable(tolua_S,2,"LUA_TABLE",0,&tolua_err)))
+   if((!toluaext_is_luatable(tolua_S,2,"LUA_TABLE",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  if(self->m_scriptData!=-1) toluaext_remove_luatable(tolua_S,self->m_scriptData); 
-	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0)
+  if(self->m_scriptData!=-1) 
+	{
+		toluaext_remove_luatable(tolua_S,self->m_scriptData); 
+	}
+	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0);
+	if(self->m_scriptData==-1)
+	{
+		lua_pushvalue(tolua_S,TOLUA_NOPEER);
+		lua_setfenv(tolua_S,1);
+	}
+	else 
+	{
+		toluaext_push_luatable(tolua_S,self->m_scriptData);
+		lua_setfenv(tolua_S,1);
+	}
+	
 ;
  return 0;
 }

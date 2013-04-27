@@ -3,6 +3,9 @@
 
 #include "tolua++.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 namespace Faeris
 {
@@ -51,6 +54,41 @@ TOLUA_API void toluaext_push_luatable(lua_State* L,int refid);
 TOLUA_API int toluaext_fscollector(lua_State* L);
 
 
+TOLUA_API void toluaext_classevents(lua_State* L);
+TOLUA_API void toluaext_usertype(lua_State* L,const char* type);
+
+
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /*_TOLUA_HACK_H_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

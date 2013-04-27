@@ -6,7 +6,7 @@ extern "C"
 #include "lualib.h"
 #include "lauxlib.h"
 #include "tolua_event.h"
-#include "tolua_ext.h"
+#include "toluaext++.h"
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

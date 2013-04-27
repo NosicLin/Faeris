@@ -98,12 +98,29 @@ function post_output_hook(package)
 
 
 
+	replace([[if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluaext_is_luatable(tolua_S,2,"LUA_TABLE",0,&tolua_err)))]],
+			[[ if((!toluaext_is_luatable(tolua_S,2,"LUA_TABLE",0,&tolua_err)))]])
 	replace([[toluaext_push_luatable(tolua_S,(void*)&self->m_scriptData,"LUA_TABLE");]],
 	[[toluaext_push_luatable(tolua_S,self->m_scriptData);]]);
 
 	replace([[self->m_scriptData = *((LUA_TABLE*)  toluaext_to_luatable(tolua_S,2,0))]],
-	[[if(self->m_scriptData!=-1) toluaext_remove_luatable(tolua_S,self->m_scriptData); 
-	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0)]])
+	[[if(self->m_scriptData!=-1) 
+	{
+		toluaext_remove_luatable(tolua_S,self->m_scriptData); 
+	}
+	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0);
+	if(self->m_scriptData==-1)
+	{
+		lua_pushvalue(tolua_S,TOLUA_NOPEER);
+		lua_setfenv(tolua_S,1);
+	}
+	else 
+	{
+		toluaext_push_luatable(tolua_S,self->m_scriptData);
+		lua_setfenv(tolua_S,1);
+	}
+	]]
+	)
 
 	replace([[tolua_usertype(tolua_S,"LUA_TABLE");]], [[]])
 
@@ -113,6 +130,15 @@ function post_output_hook(package)
 		"tolua_cclass%(tolua_S,\"([%w_]*)\",\"("..fsobject[i]..")\",\"([%w_]*)\",NULL",
 		"tolua_cclass%(tolua_S,\"%1\",\""..fsobject[i].."\",\"%3\",toluaext_fscollector")
 	end 
+
+	for i=1,#fsobject do 
+		result=string.gsub(result,
+		"tolua_usertype%(tolua_S,\""..fsobject[i].."\"%)",
+		"toluaext_usertype(tolua_S,\""..fsobject[i].."\"%)")
+	end
+
+
+
 
 
 	WRITE(result)

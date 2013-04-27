@@ -8,7 +8,7 @@ extern "C"
 #include "lua.h"
 #include "lauxlib.h"
 #include "tolua_event.h"
-#include "tolua_ext.h"
+#include "toluaext++.h"
 
 #ifdef __cplusplus
 } /* extern "C" */
@@ -72,7 +72,14 @@ TOLUA_API void toluaext_pushfsobject(lua_State* L,Faeris::FsObject* value)
 
 
 #ifdef LUA_VERSION_NUM
-			lua_pushvalue(L, TOLUA_NOPEER);
+			if(value->m_scriptData==-1)
+			{
+				lua_pushvalue(L, TOLUA_NOPEER);
+			}
+			else
+			{
+				toluaext_push_luatable(L,value->m_scriptData);
+			}
 			lua_setfenv(L, -2);
 #endif
 			tolua_register_gc(L,lua_gettop(L));
@@ -164,6 +171,10 @@ TOLUA_API int toluaext_is_luatable(lua_State* L,int lo,const char* type,int def,
 	{
 		return 1;
 	}
+	if(lua_gettop(L)>=Math::abs(lo)&&lua_isnil(L,lo))
+	{
+		return 1;
+	}
 	err->index=lo;
 	err->array=0;
 	err->type="[table]";
@@ -214,5 +225,47 @@ TOLUA_API int toluaext_fscollector(lua_State* L)
 	ob->decRef();
 	return 0;
 }
+
+
+
+static int toluaext_newmetatable (lua_State* L, const char* name)
+{
+	int r = luaL_newmetatable(L,name);
+
+	#ifdef LUA_VERSION_NUM /* only lua 5.1 */
+	if (r) {
+		lua_pushvalue(L, -1);
+		lua_pushstring(L, name);
+		lua_settable(L, LUA_REGISTRYINDEX); /* reg[mt] = type_name */
+	};
+	#endif
+
+	if (r)
+		toluaext_classevents(L); /* set meta events */
+	lua_pop(L,1);
+	return r;
+}
+
+
+TOLUA_API void toluaext_usertype (lua_State* L, const char* type)
+{
+ char ctype[128] = "const ";
+ strncat(ctype,type,120);
+
+	/* create both metatables */
+ if (toluaext_newmetatable(L,ctype) && toluaext_newmetatable(L,type))
+	 tolua_mapsuper(L,type,ctype);             /* 'type' is also a 'const type' */
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

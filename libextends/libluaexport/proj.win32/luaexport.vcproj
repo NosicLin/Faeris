@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../src;../../../libfaeris/src/support;../../libaudio/src;../../../libfaeris/src;../../../platform/thirdparty/win32/;&quot;../../../platform/thirdparty/win32/tolua++&quot;;../../../platform/thirdparty/win32/lua"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -162,11 +162,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\tolua_ext.cc"
+				RelativePath="..\src\toluaext++.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\src\tolua_ext.h"
+				RelativePath="..\src\toluaext++.h"
 				>
 			</File>
 			<Filter

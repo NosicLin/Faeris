@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibAudio
-** Generated automatically by tolua++-1.0.92 on 04/26/13 23:20:43.
+** Generated automatically by tolua++-1.0.92 on 04/27/13 21:26:53.
 */
 
 #ifndef __cplusplus
@@ -20,8 +20,8 @@ TOLUA_API int  tolua_FsLibAudio_open (lua_State* tolua_S);
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"Channel");
- tolua_usertype(tolua_S,"FsObject");
- tolua_usertype(tolua_S,"AudioEngine");
+ toluaext_usertype(tolua_S,"FsObject");
+ toluaext_usertype(tolua_S,"AudioEngine");
 }
 
 /* method: create of class  AudioEngine */
