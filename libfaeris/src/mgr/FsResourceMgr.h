@@ -17,7 +17,7 @@ class ResourceMgr:public FsObject
 		class KeyCompare
 		{
 			public:
-				bool operator()(FsString* left,FsString* right)
+				bool operator()(FsString* left,FsString* right) const
 				{
 					int cmp=left->compare(*right);
 					if(cmp<0)

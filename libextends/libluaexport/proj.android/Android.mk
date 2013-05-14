@@ -16,7 +16,7 @@ LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../src \
 					 -I$(LOCAL_PATH)/../../libaudio/src
 
 
-LOCAL_SRC_FILES :=  ../src/tolua_ext.cc \
+LOCAL_SRC_FILES :=  ../src/toluaext++.cc \
 					../src/luaext/FsLuaScene.cc \
 					../src/luaext/FsLuaSysEventListener.cc \
 					../src/luaext/FsLuaTouchEventListener.cc \

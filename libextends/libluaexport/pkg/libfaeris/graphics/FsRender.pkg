@@ -2,6 +2,10 @@ $#include "graphics/FsRender.h"
 
 class Render:public FsObject 
 {
+
+	void setScissorArea(float x,float y,float width,float height);
+	void setScissorEnabled(bool enable);
+
 	void setViewport(int x,int y,int width,int height);
 	void setClearColor(Color c);
 	void setProjectionMatrix(const Matrix4* mat);

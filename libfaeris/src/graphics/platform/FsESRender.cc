@@ -1,4 +1,5 @@
 #include <string.h>
+#include <math.h>
 
 #include "GL/glew.h"
 #include "material/FsMaterial.h"
@@ -102,6 +103,11 @@ Render::Render()
 	m_clearColor=Color(0,0,0);
 	m_scissorEnable=false;
 	m_depthTest=false;
+	m_viewportX=0;
+	m_viewportY=0;
+	m_viewportWidth=0;
+	m_viewportHeight=0;
+	m_scissorArea.set(0,0,1,1);
 
 	/* blend */
 	m_blendEquation=EQUATION_ADD;
@@ -419,11 +425,20 @@ void Render::drawArray(int mode,int start,uint size)
 /* set opengl state */
 void Render::setViewport(int x,int y,int width,int height)
 {
+	m_viewportX=x;
+	m_viewportY=y;
+	m_viewportWidth=width;
+	m_viewportHeight=height;
 	glViewport(x,y,width,height);
 }
 
-void Render::setScissor(float x,float y,float width,float height)
+void Render::setScissorArea(float x,float y,float width,float height)
 {
+	m_scissorArea.set(x,y,width,height);
+	if(m_scissorEnable)
+	{
+		_setGLScissor(m_scissorArea);
+	}
 }
 
 
@@ -434,6 +449,7 @@ void Render::setScissorEnabled(bool enable)
 		if(enable)
 		{
 			glEnable(GL_SCISSOR_TEST);
+			_setGLScissor(m_scissorArea);
 		}
 		else
 		{
@@ -443,6 +459,14 @@ void Render::setScissorEnabled(bool enable)
 	}
 }
 
+void Render::_setGLScissor(const Rect2D& scissor_area)
+{
+	int x= (int)floor(scissor_area.x*m_viewportWidth+m_viewportX+0.5f);
+	int y= (int)floor(scissor_area.y*m_viewportHeight+m_viewportY+0.5f); 
+	int width=(int)floor(scissor_area.width*m_viewportWidth+0.5f);
+	int height=(int)floor(scissor_area.height*m_viewportHeight+0.5f);
+	glScissor(x,y,width,height);
+}
 
 void Render::setDepthTest(bool enable)
 {

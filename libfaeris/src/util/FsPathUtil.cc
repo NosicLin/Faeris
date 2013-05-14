@@ -6,6 +6,10 @@ NS_FS_BEGIN
 
 bool PathUtil::absolutePath(const char* name)
 {
+	if(name[0]=='/')
+	{
+		return true;
+	}
 	return false;
 }
 

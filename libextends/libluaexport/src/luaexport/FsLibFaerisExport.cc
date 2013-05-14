@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 04/27/13 21:26:54.
+** Generated automatically by tolua++-1.0.92 on 05/14/13 21:02:22.
 */
 
 #ifndef __cplusplus
@@ -5519,6 +5519,153 @@ static int tolua_FsLibFaeris___layer_remove00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setScissorArea of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_setScissorArea00
+static int tolua_FsLibFaeris___layer_setScissorArea00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float width = ((float)  tolua_tonumber(tolua_S,4,0));
+  float height = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setScissorArea'", NULL);
+#endif
+  {
+   self->setScissorArea(x,y,width,height);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setScissorArea'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getScissorArea of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_getScissorArea00
+static int tolua_FsLibFaeris___layer_getScissorArea00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,NULL));
+  float y = ((float)  tolua_tonumber(tolua_S,3,NULL));
+  float width = ((float)  tolua_tonumber(tolua_S,4,NULL));
+  float height = ((float)  tolua_tonumber(tolua_S,5,NULL));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getScissorArea'", NULL);
+#endif
+  {
+   self->getScissorArea(&x,&y,&width,&height);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+   tolua_pushnumber(tolua_S,(lua_Number)width);
+   tolua_pushnumber(tolua_S,(lua_Number)height);
+  }
+ }
+ return 4;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getScissorArea'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: scissorEnabled of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_scissorEnabled00
+static int tolua_FsLibFaeris___layer_scissorEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'scissorEnabled'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->scissorEnabled();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'scissorEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setScissorEnabled of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_setScissorEnabled00
+static int tolua_FsLibFaeris___layer_setScissorEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+  bool enable = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setScissorEnabled'", NULL);
+#endif
+  {
+   self->setScissorEnabled(enable);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setScissorEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setColor of class  ColorLayer */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris___ColorLayer_setColor00
 static int tolua_FsLibFaeris___ColorLayer_setColor00(lua_State* tolua_S)
@@ -6375,6 +6522,78 @@ static int tolua_FsLibFaeris_Layer2D_touchMove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'touchMove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setScissorArea of class  Render */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Render_setScissorArea00
+static int tolua_FsLibFaeris_Render_setScissorArea00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Render",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Render* self = (Render*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float width = ((float)  tolua_tonumber(tolua_S,4,0));
+  float height = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setScissorArea'", NULL);
+#endif
+  {
+   self->setScissorArea(x,y,width,height);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setScissorArea'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setScissorEnabled of class  Render */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Render_setScissorEnabled00
+static int tolua_FsLibFaeris_Render_setScissorEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Render",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Render* self = (Render*)  tolua_tousertype(tolua_S,1,0);
+  bool enable = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setScissorEnabled'", NULL);
+#endif
+  {
+   self->setScissorEnabled(enable);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setScissorEnabled'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12533,6 +12752,10 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setTouchEnabled",tolua_FsLibFaeris___layer_setTouchEnabled00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris___layer_add00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___layer_remove00);
+   tolua_function(tolua_S,"setScissorArea",tolua_FsLibFaeris___layer_setScissorArea00);
+   tolua_function(tolua_S,"getScissorArea",tolua_FsLibFaeris___layer_getScissorArea00);
+   tolua_function(tolua_S,"scissorEnabled",tolua_FsLibFaeris___layer_scissorEnabled00);
+   tolua_function(tolua_S,"setScissorEnabled",tolua_FsLibFaeris___layer_setScissorEnabled00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"__ColorLayer","ColorLayer","Layer",NULL);
   tolua_beginmodule(tolua_S,"__ColorLayer");
@@ -12576,6 +12799,8 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Render","Render","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Render");
+   tolua_function(tolua_S,"setScissorArea",tolua_FsLibFaeris_Render_setScissorArea00);
+   tolua_function(tolua_S,"setScissorEnabled",tolua_FsLibFaeris_Render_setScissorEnabled00);
    tolua_function(tolua_S,"setViewport",tolua_FsLibFaeris_Render_setViewport00);
    tolua_function(tolua_S,"setClearColor",tolua_FsLibFaeris_Render_setClearColor00);
    tolua_function(tolua_S,"setProjectionMatrix",tolua_FsLibFaeris_Render_setProjectionMatrix00);

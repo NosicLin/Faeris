@@ -108,11 +108,8 @@ LRESULT CALLBACK s_winproc(
 					float x=(float)LOWORD(lparam);
 					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
-					if(pointInView(x,y))
-					{
-						Global::touchDispatcher()->dispatchTouchEvent(
+					Global::touchDispatcher()->dispatchTouchEvent(
 								TouchDispatcher::TOUCH_MOVE,x,y);
-					}
 				}
 			}
 			break;
@@ -123,13 +120,10 @@ LRESULT CALLBACK s_winproc(
 					float x=(float)LOWORD(lparam);
 					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
-					if(pointInView(x,y))
-					{
-						Global::touchDispatcher()->dispatchTouchEvent(
+					Global::touchDispatcher()->dispatchTouchEvent(
 								TouchDispatcher::TOUCH_END,x,y);
-						ReleaseCapture();
-						s_mouse_capture=false;
-					}
+					ReleaseCapture();
+					s_mouse_capture=false;
 				}
 			}
 			break;
@@ -161,7 +155,10 @@ LRESULT CALLBACK s_winproc(
 				int width = LOWORD( lparam );
 			//	FS_TRACE_WARN("width=%d,height=%d",width,height);
 				Render* render=Global::render();
-				render->setViewport(0,0,width,height);
+				if(render)
+				{
+					render->setViewport(0,0,width,height);
+				}
 				break;
 			}
 

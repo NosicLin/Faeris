@@ -46,10 +46,20 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_moduleInit
 	  FS_SAFE_DEC_REF(package);
 
 
+	  /* add extern filter */
+	  char buf[1024];
+	  sprintf(buf,"/mnt/sdcard/fgame/%s/",Sys::packageName());
+	  FS_TRACE_INFO("extern read(%s)",buf);
+
+	  VFS::PrefixNameFilter*  sdcard_filter=VFS::PrefixNameFilter::create(buf);
+	  VFS::addFilter(sdcard_filter);
+	  sdcard_filter->decRef();
+
 	  /* add name filter */
-	  VFS::PrefixNameFilter* filter=VFS::PrefixNameFilter::create("assets/");
-	  VFS::addFilter(filter);
-	  filter->decRef();
+	  VFS::PrefixNameFilter* assets_filter=VFS::PrefixNameFilter::create("assets/");
+	  VFS::addFilter(assets_filter);
+	  assets_filter->decRef();
+
 
 
 	  /* run main.lua script */

@@ -2,6 +2,7 @@
 #define _FS_LAYER_H_
 
 #include "core/FsObject.h"
+#include "math/FsRect2D.h"
 
 NS_FS_BEGIN
 class Entity;
@@ -20,6 +21,12 @@ class Layer:public FsObject
 		/* touch enable */
 		bool touchEnabled(){return m_touchEnabled;}
 		void setTouchEnabled(bool enable){m_touchEnabled=enable;}
+
+		/* scissor */
+		void setScissorArea(float x,float y,float width,float height);
+		void getScissorArea(float* x,float* y,float* width,float* height);
+		bool scissorEnabled(){return m_scissorEnabled;}
+		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
 		/* entity */
 		void add(Entity* entity);
@@ -63,6 +70,9 @@ class Layer:public FsObject
 		FsDict* m_ownerEntity; /* all sub chirld */
 		bool m_visible;
 		bool m_touchEnabled;
+
+		Rect2D m_scissorArea;
+		bool m_scissorEnabled;
 
 };
 NS_FS_END

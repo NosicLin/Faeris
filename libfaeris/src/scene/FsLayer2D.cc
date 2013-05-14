@@ -94,6 +94,11 @@ bool Layer2D::getEliminate()
 void Layer2D::draw(Render* r)
 {
 
+	if(m_scissorEnabled)
+	{
+		r->setScissorEnabled(true);
+		r->setScissorArea(m_scissorArea.x,m_scissorArea.y,m_scissorArea.width,m_scissorArea.height);
+	}
 	Matrix4 mat;
 	mat.makeOrthographic(
 			m_viewArea.x,
@@ -127,6 +132,10 @@ void Layer2D::draw(Render* r)
 	}
 
 	r->popMatrix();
+	if(m_scissorEnabled)
+	{
+		r->setScissorEnabled(false);
+	}
 }
 
 

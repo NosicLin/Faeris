@@ -10,6 +10,7 @@
 #include "math/FsVector3.h"
 #include "math/FsTexCoord2.h"
 #include "math/FsFace3.h"
+#include "math/FsRect2D.h"
 
 
 NS_FS_BEGIN
@@ -109,6 +110,8 @@ class Render:public FsObject
 		void setActiveTexture(int nu);
 		void bindTexture(Texture2D* tex,int slot);
 
+
+
 		/* render target */
 		void setRenderTarget(RenderTarget* target);
 		void swapBuffers();
@@ -150,7 +153,7 @@ class Render:public FsObject
 
 		/* set opengl state */
 		void setViewport(int x,int y,int width,int height);
-		void setScissor(float x,float y,float width,float height);
+		void setScissorArea(float x,float y,float width,float height);
 		void setScissorEnabled(bool enable);
 		void setDepthTest(bool enable);
 
@@ -163,6 +166,7 @@ class Render:public FsObject
 	protected:
 		Render();
 		~Render();
+		void _setGLScissor(const Rect2D& scissor_area);
 
 	private:
 		RenderTarget* m_target;
@@ -172,7 +176,10 @@ class Render:public FsObject
 		/* cache GL State */
 		Color m_clearColor;
 		bool m_scissorEnable;
+		Rect2D m_scissorArea;
 		bool m_depthTest;
+		
+		int m_viewportX,m_viewportY,m_viewportWidth,m_viewportHeight;
 
 		/* blend */
 		int m_blendEquation;

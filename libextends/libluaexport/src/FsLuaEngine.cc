@@ -210,7 +210,7 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 		return false;
 	}
 	lua_pushstring(m_state,func_name); /*stack:table fname */
-	lua_rawget(m_state,-2);  /* statck: table func */
+	lua_gettable(m_state,-2);  /* statck: table func */
 	lua_remove(m_state,-2);  /* statck: table */
 	if(!lua_isfunction(m_state,-1))
 	{

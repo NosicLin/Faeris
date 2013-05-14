@@ -1,9 +1,9 @@
-package org.faeris.game;
+package org.faeris.fgame;
 import org.faeris.lib.FsActivity;
 
 import android.os.Bundle;
 import android.view.WindowManager;
-public class LuaActivity  extends FsActivity
+public class fgame  extends FsActivity
 {
 	@Override 
 	public void onCreate(final Bundle save_state)

@@ -80,10 +80,10 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\build\win32\prebuild\release"
+			OutputDirectory="..\..\build\win32\prebuild\release"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../src;../../../platform/thirdparty/win32"
+				AdditionalIncludeDirectories="../src;../src/support;../../platform/thirdparty/win32/freetype;../../platform/thirdparty/win32/zlib;../../platform/thirdparty/win32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

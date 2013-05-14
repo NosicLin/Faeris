@@ -120,6 +120,19 @@ void Layer::draw(Render* render)
 	}
 
 }
+
+/* scissor */ 
+void Layer::setScissorArea(float x,float y,float width,float height)
+{
+	m_scissorArea.set(x,y,width,height);
+}
+void Layer::getScissorArea(float* x,float* y,float* width,float* height)
+{
+	*x=m_scissorArea.x;
+	*y=m_scissorArea.y;
+	*width=m_scissorArea.width;
+	*height=m_scissorArea.height;
+}
 bool Layer::touchBegin(float x,float y)
 {
 	return m_touchEnabled;
@@ -155,6 +168,8 @@ void Layer::init()
 	m_ownerEntity=FsDict::create();
 	m_visible=true;
 	m_touchEnabled=false;
+	m_scissorEnabled=false;
+	m_scissorArea.set(0,0,1,1);
 }
 
 void Layer::destroy()
