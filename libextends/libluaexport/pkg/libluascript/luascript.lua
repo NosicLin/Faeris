@@ -1,7 +1,11 @@
 $[
 
 -- for for load and save table  
-function  f_tabletostring(t)
+function  f_tabletostring(t,prefix)
+
+	if not prefix then 
+		prefix="" 
+	end
 
 	local result=""
 	for k,v in pairs(t) do 
@@ -23,14 +27,14 @@ function  f_tabletostring(t)
 		elseif value_type == "number" or value_type == "boolean" or value_type == "nil" then  
 			value_str = tostring(v)
 		elseif value_type =="table" then 
-			value_str = f_tabletostring(v)
+			value_str = f_tabletostring(v,prefix.."\t")
 		else 
 			error(string.format("value for %s not support",value_type))
 		end
 
-		result = result.. key_str.."="..value_str..","
+		result = result.. prefix.."\t"..key_str.."="..value_str..",\n"
 	end
-	return "{"..result.."}"
+	return "{\n"..result..prefix.."}"
 
 end
 
