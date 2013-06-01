@@ -18,7 +18,7 @@ class PositionTextureMaterial: public Material
 		void setOpacity(float opacity);
 		float getOpacity();
 
-		int getPostionLocaition();
+		int getPositionLocation();
 		int getTexCoordLocation();
 
 	public:

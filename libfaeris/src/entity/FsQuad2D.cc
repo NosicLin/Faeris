@@ -136,7 +136,7 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	int pos_loc=m_material->getPostionLocaition();
+	int pos_loc=m_material->getPositionLocation();
 	int tex_loc=m_material->getTexCoordLocation();
 	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
 	render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,vc);

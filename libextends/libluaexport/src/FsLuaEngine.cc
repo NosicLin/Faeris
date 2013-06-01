@@ -26,19 +26,7 @@ extern "C"
 
 NS_FS_BEGIN
 
-bool FsLuaEngine_LoadFile(const char* file)
-{
-	LuaEngine* engine=(LuaEngine*)Global::scriptEngine();
-	if(engine==NULL)
-	{
-		return false;
-	}
-	if(engine->executeFile(file)==0)
-	{
-		return true;
-	}
-	return false;
-}
+
 
 LuaEngine* LuaEngine::create()
 {
@@ -51,16 +39,36 @@ LuaEngine* LuaEngine::create()
 LuaEngine::LuaEngine()
 {
 	m_state=lua_open();
+
+	/* init lua libs */
 	luaL_openlibs(m_state);
+
+	/* init tolua++ */
+	toluaext_open(m_state);
+
+
 #if FS_CONFIG(FS_EXPORT_LIB_FAERIS)
+	/* init faeris interface */
 	tolua_FsLibFaeris_open(m_state);
 #endif 
 
+
 #if FS_CONFIG(FS_EXPORT_LIB_AUDIO)
+	/* init audio interface */
 	tolua_FsLibAudio_open(m_state);
 #endif 
 
-	toluaext_open(m_state);
+
+#if FS_CONFIG(FS_EXPORT_LIB_LUA_FUNC)
+	tolua_FsLuaFuncExport_open(m_state);
+	tolua_FsLibLuaScript_open(m_state);
+#endif /* FS_EXPORT_LIB_LUA_FUNC */
+
+
+
+
+
+
 }
 
 

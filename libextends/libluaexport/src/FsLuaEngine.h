@@ -10,7 +10,7 @@ typedef int (*CFunction)(struct lua_State*);
 
 NS_FS_BEGIN
 
-bool FsLuaEngine_LoadFile(const char* file);
+
 class LuaEngine:public ScriptEngine
 {	
 	public:

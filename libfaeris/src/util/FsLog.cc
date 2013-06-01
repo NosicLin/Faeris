@@ -7,22 +7,9 @@
 
 
 NS_FS_BEGIN
-static FsLog* s_global_log=NULL;
+
 FileLog* FileLog::ms_stdoutFileLog=NULL;
 
-static void init_global_log()
-{
-	if(s_global_log==NULL)
-	{
-#if FS_CONFIG(FS_LOG_FILE)
-		s_global_log=FileLog::Create(FS_CONFIG(LOG_FILE_NAME));
-#elif FS_CONFIG(FS_LOG_STDIO)
-		s_global_log=FileLog::getStdoutFileLog();
-#else
-		s_global_log=FileLog::getStdoutFileLog();
-#endif
-	}
-}
 
 static void FsLog_FormatLogBuffer(char* buf,ulong size,
 								   const char* fmt,va_list ap)
@@ -103,32 +90,17 @@ FileLog::~FileLog()
 }
 
 
-void FsUtil_TagLog(const char* tag,const char* fmt,...)
-{
-	init_global_log();
 
-	char buf[FS_MAX_LOG_BUF];
-	va_list args;
-	va_start(args,fmt);
-	FsLog_FormatLogTagBuffer(buf,FS_MAX_LOG_BUF,tag,fmt,args);
-	va_end(args);
 
-	s_global_log->log("%s",buf);
-}
 
-void FsUtil_Log(const char* fmt,...)
-{
-	init_global_log();
-	char buf[FS_MAX_LOG_BUF];
-
-	va_list args;
-	va_start(args,fmt);
-	FsLog_FormatLogBuffer(buf,FS_MAX_LOG_BUF,fmt,args);
-	va_end(args);
-
-	s_global_log->log("%s",buf);
-}
 
 
 
 NS_FS_END
+
+#if FS_PLATFORM_OS(FS_OS_WIN32) || FS_PLATFORM_OS (FS_OS_LINUX)
+	#include "platform/FsLogDefault.cc"
+
+#elif FS_PLATFORM_OS(FS_OS_ANDROID) 
+	#include "platform/FsLogAndroid.cc"
+#endif 

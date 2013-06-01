@@ -42,14 +42,9 @@ namespace Faeris
 	void FsUtil_TagLog(const char* tag,const char* msg,...);
 	void FsUtil_Log(const char* fmt,...);
 }
-#if FS_PLATFORM_OS(FS_OS_WIN32) ||FS_PLATFORM_OS(FS_OS_LINUX) 
-	#define FS_LOG_TAG Faeris::FsUtil_TagLog
-	#define FS_LOG Faeris::FsUtil_Log
-#else 
-	#include <android/log.h>
-	#define FS_LOG_TAG(tag,fmt,...) __android_log_print(ANDROID_LOG_DEBUG,tag,fmt,##__VA_ARGS__)
-	#define FS_LOG(fmt,...) __android_log_print(ANDROID_LOG_DEBUG,"INFO",fmt,##__VA_ARGS__)
-#endif 
+
+#define FS_LOG_TAG Faeris::FsUtil_TagLog
+#define FS_LOG Faeris::FsUtil_Log
 
 
 

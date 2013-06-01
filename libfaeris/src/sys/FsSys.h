@@ -26,6 +26,10 @@ class Sys
 		static const char* getEnv(const char* key);
 		static void setEnv(const char* key,const char* value); 
 
+		/* io function */
+		static int mkdir(const char* name);
+		static bool isDir(const char* name);
+
 
 	private:
 		static FsDict* m_env;

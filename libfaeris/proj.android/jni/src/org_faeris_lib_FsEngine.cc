@@ -25,11 +25,16 @@ JNIEXPORT void JNICALL Java_org_faeris_lib_FsEngine_moduleInit
 
 	  /* configure vfs */
 
+
+	  /* set root dir */
+	  std::string data_dir(Sys::currentDir());
+	  VFS::setRoot(data_dir.c_str());
+	  FS_TRACE_INFO("root dir(%s)",data_dir.c_str());
+
+
+
 	  /* map apk to vfs */
 	  std::string apk_path(Sys::apkPath());
-
-	  //VFS::setRoot(apk_path.c_str());
-
 	  Package* package=Package::create(apk_path.c_str(),Package::PACKAGE_ZIP);
 
 	  FS_TRACE_INFO("apk path=%s",apk_path.c_str());

@@ -79,7 +79,7 @@ float PositionTextureMaterial::getOpacity()
 }
 
 
-int PositionTextureMaterial::getPostionLocaition()
+int PositionTextureMaterial::getPositionLocation()
 {
 	return m_positionAttribute;
 }

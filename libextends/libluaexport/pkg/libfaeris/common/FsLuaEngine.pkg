@@ -1,4 +1,0 @@
-$#include "FsLuaEngine.h"
-bool FsLuaEngine_LoadFile@import(const char* name);
-
-

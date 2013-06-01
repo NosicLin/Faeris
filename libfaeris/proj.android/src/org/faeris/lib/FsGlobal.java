@@ -7,7 +7,7 @@ public class FsGlobal
 {
 	private static String m_packageName;
 	private static String m_apkPath;
-	private static String m_homeDirectoy;
+	private static String m_dataDir;
 	private static Context m_context=null;
 	
 	
@@ -23,17 +23,17 @@ public class FsGlobal
 		FsGlobal.m_context=context;
 		m_packageName=app_info.packageName;
 		m_apkPath=app_info.sourceDir;
+		m_dataDir=context.getFilesDir().getAbsolutePath();
 	}
 	
 	/* home Directory */
-	public static String getHomeDirectory()
+	public static String getDataDir()
 	{
-		return FsGlobal.m_homeDirectoy;
+		return FsGlobal.m_dataDir;
 	}
-	public static void setHomeDirectory(String path)
+	public static void setDataDir(String path)
 	{
-		FsGlobal.m_homeDirectoy=path;
-		nativeSetHomeDirectory(path);
+		FsGlobal.m_dataDir=path;
 	}
 	
 	/* package name */
@@ -49,12 +49,6 @@ public class FsGlobal
 	public static void setPackageName(String name)
 	{
 		FsGlobal.m_packageName=name;
-		nativeSetPackageName(name);
 	}
-	
-	
-	/* native */
-	public static native void nativeSetPackageName(String name);
-	public static native void nativeSetHomeDirectory(String name);
 	
 }

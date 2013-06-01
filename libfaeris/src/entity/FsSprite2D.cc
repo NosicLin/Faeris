@@ -181,7 +181,7 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		Face3(0,3,2),
 		Face3(2,1,0),
 	};
-	int pos_loc=m_material->getPostionLocaition();
+	int pos_loc=m_material->getPositionLocaition();
 	int alpha_loc=m_material->getAlphaLocation();
 	int tex_loc=m_material->getTexCoordLocation();
 

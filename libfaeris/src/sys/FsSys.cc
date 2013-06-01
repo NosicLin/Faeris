@@ -14,7 +14,6 @@ NS_FS_END
 	#include "platform/linux/FsSysLinux.cc"
 
 #elif FS_PLATFORM_OS(FS_OS_ANDROID)
-	#include "platform/linux/FsSysLinux.cc"
 	#include "platform/android/FsSysAndroid.cc"
 
 #elif FS_PLATFORM_OS(FS_OS_WIN32) 

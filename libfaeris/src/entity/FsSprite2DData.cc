@@ -411,6 +411,7 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 
 		if(!ScriptUtil::getInteger(quad,"texture",&q->texture))
 		{
+			FS_TRACE_WARN("Can't Get Texture ID");
 			error=true;
 		}
 
@@ -428,6 +429,7 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 				{
 					if(!ScriptUtil::getFloat(tex_coord,j,&q->texcoord[j]))
 					{
+						FS_TRACE_WARN("Can't Get Texture Coord  data At %d ",j); 
 						error=true;
 						break;
 					}
@@ -450,6 +452,7 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 				{
 					if(!ScriptUtil::getFloat(vertex,j,&q->vertex[j]))
 					{
+						FS_TRACE_WARN("Can't Get Vertex data At %d",j);
 						error=true;
 						break;
 					}
@@ -472,6 +475,7 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 				{
 					if(!ScriptUtil::getFloat(alpha,j,&q->alpha[j]))
 					{
+						FS_TRACE_WARN("Can't Get alpha data ");
 						error=true;
 						break;
 					}

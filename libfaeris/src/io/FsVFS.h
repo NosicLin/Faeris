@@ -75,16 +75,9 @@ bool moduleInit();
 bool moduleExit();
 
 void setRoot(const char* path);
+const char* getRoot();
 
 FsFile* open(const char* name,uint mode=FS_IO_RDONLY);
-FsFile* create(const char* name);
-
-
-int remove(const char* name);
-int copy(const char* src,const char* dst);
-bool exist(const char* name);
-FsDir* openDir(const char* name);
-bool isDir(const char* name);
 
 
 bool addFilter(NameFilter* filter);
@@ -96,8 +89,32 @@ FsFile* getStdout();
 FsFile* getStdin(); 
 FsFile* getStderr(); 
 
+
+/* aux interface for easy read and write */
+int saveFile(const char* filename,const uint8_t* buff,int32_t len);
+int loadFile(const char* filename,uint8_t** buff,uint* len);
+
+
+
+
+/* platform independ api */
+
+/* directory */
+int mkdir(const char* name);
+bool isDir(const char* name);
+FsDir* openDir(const char* name);
+
+
+/* normal file */
+int create(const char* name);
+int remove(const char* name);
+int copy(const char* src,const char* dst);
+bool exist(const char* name);
+
+
 FS_END_NAMESPACE(VFS)
-	NS_FS_END
+
+NS_FS_END
 
 #endif 
 

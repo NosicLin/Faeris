@@ -23,6 +23,8 @@ LOCAL_SRC_FILES :=  ../src/toluaext++.cc \
 					../src/FsLuaEngine.cc \
 					../src/luaexport/FsLibAudioExport.cc \
 					../src/luaexport/FsLibFaerisExport.cc \
+					../src/luaexport/FsLibLuaScript.cc \
+					../src/luaexport/FsLuaFuncExport.cc \
 
 
 

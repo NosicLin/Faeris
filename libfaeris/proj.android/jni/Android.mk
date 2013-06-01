@@ -62,6 +62,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/data/FsDeflate.cc \
 					../../src/support/data/FsHash.cc \
 					../../src/support/data/FsIconv.cc \
+					../../src/support/data/FsEncrypt.cc \
 					../../src/support/felis/sl_comment.cc \
 					../../src/support/felis/sl_double_quote_str.cc \
 					../../src/support/felis/sl_simple_str.cc \

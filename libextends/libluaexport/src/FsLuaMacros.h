@@ -19,6 +19,8 @@
 
 #define FS_EXPORT_LIB_FAERIS
 #define FS_EXPORT_LIB_AUDIO 
+#define FS_EXPORT_LIB_LUA_FUNC 
+
 
 #endif /*_FS_LUA_MACROS_H_*/
 

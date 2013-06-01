@@ -230,7 +230,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\luaexport\FsLibLuaScript.cc"
+					>
+				</File>
+				<File
 					RelativePath="..\src\luaexport\FsLuaExport.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\luaexport\FsLuaFuncExport.cc"
 					>
 				</File>
 			</Filter>

@@ -161,6 +161,11 @@ void setRoot(const char* path)
 {
 	strncmp(s_root,path,FS_ROOT_PATH_SIZE);
 }
+const char* getRoot()
+{
+	return s_root;
+}
+
 
 
 
@@ -242,6 +247,9 @@ FsFile* open(const char* name,uint mode)
 	return NULL;
 }
 
+
+
+
 bool addFilter(NameFilter* filter)
 {
 	s_nameFilter->push(filter);
@@ -288,9 +296,87 @@ FsFile* getStderr()
 
 
 
+int saveFile(const char* filename,const uint8_t* buff,int32_t len)
+{
+	std::string dir_name=PathUtil::getDirName(filename);
+	if(dir_name!="")
+	{
+		if(!VFS::isDir(dir_name.c_str()))
+		{
+			if(VFS::mkdir(dir_name.c_str())==-1)
+			{
+				FS_TRACE_WARN("Can't Create Dir(%s) For File(%s)",dir_name.c_str(),filename);
+				return -1;
+			}
+		}
+	}
+	
+	FsFile* file=VFS::open(filename,VFS::FS_IO_CREATE|VFS::FS_IO_TRUNC);
+	if(file==NULL)
+	{
+		FS_TRACE_WARN("Can't Open File(%s) For Write",filename);
+		return -1;
+	}
+
+	file->write(buff,len);
+	file->decRef();
+	return 0;
+}
+
+int loadFile(const char* filename,uint8_t** buf_out,uint* len_out)
+{
+	FsFile* file=VFS::open(filename);
+	if(file==NULL)
+	{
+		FS_TRACE_WARN("Can't Open File(%s) For Read",filename);
+		return -1;
+	}
+	int32_t length=file->getLength();
+
+	uint8_t* buf=new uint8_t[length];
+	file->read(buf,length);
+	*buf_out=buf;
+	*len_out=length;
+
+	return 0;
+}
+
+
+
+
+int mkdir(const char* name)
+{
+	std::string dir_name;
+	if(PathUtil::absolutePath(name))
+	{
+		dir_name=std::string(name);
+	}
+	else 
+	{
+		dir_name=std::string(getRoot())+std::string(name);
+	}
+	return Sys::mkdir(dir_name.c_str());
+
+}
+
+bool isDir(const char* name)
+{
+	std::string dir_name;
+	if(PathUtil::absolutePath(name))
+	{
+		dir_name=std::string(name);
+	}
+	else 
+	{
+		dir_name=std::string(getRoot())+std::string(name);
+	}
+
+	return Sys::isDir(dir_name.c_str());
+}
+
+
 FS_END_NAMESPACE(VFS)
 NS_FS_END
-
 
 
 

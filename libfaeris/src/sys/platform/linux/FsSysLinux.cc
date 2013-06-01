@@ -1,8 +1,10 @@
-#include "sys/FsSys.h"
+#include <sys/stat.h>
 
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
+
+#include "sys/FsSys.h"
 
 NS_FS_BEGIN
 /*
@@ -38,6 +40,31 @@ const char* Sys::currentDir()
 	getcwd(m_tempBuf,FS_SYS_TEMP_BUF_SIZE);
 	return m_tempBuf;
 }
+
+
+
+int Sys::mkdir(const char* dir_name)
+{
+	int ret=::mkdir(dir_name,0775);
+	return ret;
+}
+
+
+bool Sys::isDir(const char* dir_name)
+{
+	struct stat st;
+	if (stat(dir_name, &st) != 0)
+    {
+		return false;
+    }
+    else if (!S_ISDIR(st.st_mode))
+    {
+		return false;
+    }
+	return true;
+
+}
+
 
 NS_FS_END
 

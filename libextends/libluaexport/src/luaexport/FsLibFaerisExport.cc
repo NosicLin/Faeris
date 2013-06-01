@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 05/14/13 21:02:22.
+** Generated automatically by tolua++-1.0.92 on 06/02/13 01:22:59.
 */
 
 #ifndef __cplusplus
@@ -15,7 +15,6 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 
 #include "FsLuaExport.h"
 #include "common/FsGlobal.h"
-#include "FsLuaEngine.h"
 #include "luaext/FsLuaTouchEventListener.h"
 #include "luaext/FsLuaSysEventListener.h"
 #include "event/FsTouchDispatcher.h"
@@ -335,35 +334,6 @@ static int tolua_FsLibFaeris_share_textureMgr00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'textureMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: FsLuaEngine_LoadFile */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_import00
-static int tolua_FsLibFaeris_import00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
-  {
-   bool tolua_ret = (bool)  FsLuaEngine_LoadFile(name);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'import'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12504,7 +12474,6 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"render",tolua_FsLibFaeris_share_render00);
    tolua_function(tolua_S,"textureMgr",tolua_FsLibFaeris_share_textureMgr00);
   tolua_endmodule(tolua_S);
-  tolua_function(tolua_S,"import",tolua_FsLibFaeris_import00);
   tolua_cclass(tolua_S,"FsObject","FsObject","",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"FsObject");
    tolua_function(tolua_S,"className",tolua_FsLibFaeris_FsObject_className00);

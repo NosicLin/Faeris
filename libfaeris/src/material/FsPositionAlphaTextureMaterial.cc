@@ -86,7 +86,7 @@ float PositionAlphaTextureMaterial::getOpacity()
 }
 
 
-int PositionAlphaTextureMaterial::getPostionLocaition()
+int PositionAlphaTextureMaterial::getPositionLocaition()
 {
 	return m_positionAttribute;
 }

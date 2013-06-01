@@ -20,7 +20,7 @@ class PositionAlphaTextureMaterial:public Material
 		void setOpacity(float opacity);
 		float getOpacity();
 
-		int getPostionLocaition();
+		int getPositionLocaition();
 		int getTexCoordLocation();
 		int getAlphaLocation();
 

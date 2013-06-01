@@ -689,6 +689,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\support\data\FsEncrypt.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\data\FsEncrypt.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\support\data\FsHash.cc"
 						>
 					</File>
