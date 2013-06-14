@@ -37,8 +37,6 @@ class LuaEngine:public ScriptEngine
 
 
 
-
-
 		void setGlobalCFunction(const char* name,CFunction func);
 		void setGlobalUserType(const char* name,void* data,const char* type);
 
@@ -51,6 +49,7 @@ class LuaEngine:public ScriptEngine
 		 * b: bool 
 		 * u<usertype>: usertype
 	 	 */
+
 		bool callFunctionInTable(int lua_table,const char* func_name,int argnu,int retnu,const char* fmt,...);
 
 		/* no args */

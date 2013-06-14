@@ -4,16 +4,47 @@
 #include <vector>
 
 #include "FsMacros.h"
-#include "scheduler/FsSchedulerTarget.h"
+#include "event/FsTEventDispatcher.h"
 
 NS_FS_BEGIN
 
-class SysEventListener;
-class FsSlowArray;
-class SysDispatcher: public SchedulerTarget
+class SysEvent 
 {
 	public:
+		SysEvent(int _type)
+		{
+			type=_type;
+		}
+	public:
+		int type;
+};
 
+class SysEventListener:public FsObject 
+{
+	public:
+		SysEventListener* create();
+
+	protected:
+		SysEventListener();
+		virtual ~SysEventListener();
+
+	public:
+		void handleEvent(SysEvent* event);
+
+	public:
+		virtual void foreground();
+		virtual void background();
+		virtual void quit();
+		virtual void exit();
+
+	public:
+		/* inherit FsObject */
+		virtual const char* className();
+};
+
+
+class SysDispatcher: public TEventDispatcher<SysEvent,SysEventListener>
+{
 	public:
 		enum 
 		{
@@ -22,48 +53,11 @@ class SysDispatcher: public SchedulerTarget
 			QUIT,
 			EXIT,
 		};
-
-		class SysEvent 
-		{
-			public:
-				SysEvent(int type)
-				{
-					m_type=type;
-				}
-			public:
-				int m_type;
-		};
-
-		typedef std::vector<SysEvent*> EventQueue;
-
-	public:
-		void dispatchSysEvent(int type);
-		void addEventListener(SysEventListener* l);
-		void removeEventListener(SysEventListener* l);
-		void clearPending();
-
-	public:
-		/* inherit SchedulerTarget*/
-		virtual void update(int priority,float dt);
-
 		/* inherit FsObject */
 		virtual const char* className();
 
 	public:
 		static SysDispatcher* create();
-
-	protected:
-		SysDispatcher();
-		virtual ~SysDispatcher();
-		void init();
-		void destroy();
-		void swapEventQueue();
-		void clearEvent(EventQueue* queue);
-
-	private:
-		EventQueue* m_eventPending;
-		EventQueue* m_eventHandling;
-		FsSlowArray* m_listenerArray;
 };
 NS_FS_END 
 

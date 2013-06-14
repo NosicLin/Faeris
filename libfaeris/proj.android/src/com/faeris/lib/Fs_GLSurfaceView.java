@@ -1,6 +1,9 @@
-package org.faeris.lib;
+package com.faeris.lib;
 
 
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.view.KeyEvent;
@@ -9,19 +12,21 @@ import android.util.Log;
 
 
 
-public class FsGLSurfaceView  extends GLSurfaceView 
+public class Fs_GLSurfaceView  extends GLSurfaceView 
 {
-	private FsGLRender m_render;
+
+	
+	private Fs_GLRender m_render;
 	private float m_width;
 	private float m_height;
 	
-	public  FsGLSurfaceView(final Context context)
+	public  Fs_GLSurfaceView(final Context context)
 	{
 		super(context);
 		setEGLContextClientVersion(2);
 	}
 	
-	public void setFsGLRender(FsGLRender r) 
+	public void setFsGLRender(Fs_GLRender r) 
 	{
 
 		this.m_render=r;
@@ -38,7 +43,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable() {
 			@Override 
 			public void run(){
-				FsEngine.onForeground();
+				Fs_Jni.onForeground();
 			}
 		});
 	}
@@ -50,7 +55,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable(){
 			@Override
 			public void run(){
-				FsEngine.onBackground();
+				Fs_Jni.onBackground();
 			}
 		});
 	}
@@ -92,7 +97,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 						@Override
 						public void run()
 						{
-							FsEngine.onTouchBegin(x0,y0);
+							Fs_Jni.onTouchBegin(x0,y0);
 						}
 					});
 
@@ -102,7 +107,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 						@Override
 						public void run()
 						{
-							FsEngine.onTouchMove(x0,y0);
+							Fs_Jni.onTouchMove(x0,y0);
 						}
 					});
 					break;
@@ -111,7 +116,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 						@Override
 						public void run()
 						{
-							FsEngine.onTouchEnd(x0,y0);
+							Fs_Jni.onTouchEnd(x0,y0);
 						}
 					});
 					break;
@@ -120,7 +125,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 						@Override
 						public void run()
 						{
-							FsEngine.onTouchCancel(x0,y0);
+							Fs_Jni.onTouchCancel(x0,y0);
 						}
 					});
 					break;
@@ -137,7 +142,7 @@ public class FsGLSurfaceView  extends GLSurfaceView
 		this.queueEvent(new Runnable(){
 			@Override
 			public void run(){
-				FsEngine.onResize(new_width,new_height);
+				Fs_Jni.onResize(new_width,new_height);
 			}
 		});
 	}

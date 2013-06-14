@@ -794,6 +794,14 @@
 				Name="event"
 				>
 				<File
+					RelativePath="..\src\event\FsKeypadDispatcher.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\event\FsKeypadDispatcher.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\event\FsSysDispatcher.cc"
 					>
 				</File>
@@ -802,11 +810,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\event\FsSysEventListener.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\event\FsSysEventListener.h"
+					RelativePath="..\src\event\FsTEventDispatcher.h"
 					>
 				</File>
 				<File
@@ -815,14 +819,6 @@
 				</File>
 				<File
 					RelativePath="..\src\event\FsTouchDispatcher.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\event\FsTouchEventListener.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\event\FsTouchEventListener.h"
 					>
 				</File>
 			</Filter>

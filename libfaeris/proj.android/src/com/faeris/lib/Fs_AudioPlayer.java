@@ -1,4 +1,5 @@
-package org.faeris.lib;
+package com.faeris.lib;
+
 
 
 
@@ -7,7 +8,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
 
-public class FsAudioPlayer 
+public class Fs_AudioPlayer 
 {
 	/* class scope attribute */
 	private static final int ERR_SOUND_ID=-1;
@@ -22,9 +23,9 @@ public class FsAudioPlayer
 
 
 	/* public method */
-	public FsAudioPlayer(int channel_nu)
+	public Fs_AudioPlayer(int channel_nu)
 	{
-		this.m_context=FsGlobal.getContext();
+		this.m_context=Fs_Application.getContext();
 		this.init(channel_nu);
 	}
 	
@@ -38,7 +39,7 @@ public class FsAudioPlayer
 	/* create and release sound */
 	public int createSound(final String path)
 	{
-		int id=FsAudioPlayer.ERR_SOUND_ID;
+		int id=Fs_AudioPlayer.ERR_SOUND_ID;
 		try
 		{
 			if(path.startsWith("/"))
@@ -52,12 +53,12 @@ public class FsAudioPlayer
 		}
 		catch(final Exception e)
 		{
-			id=FsAudioPlayer.ERR_SOUND_ID;
-			Log.v(FsAudioPlayer.TAG,"error:"+e.getMessage(),e);
+			id=Fs_AudioPlayer.ERR_SOUND_ID;
+			Log.v(Fs_AudioPlayer.TAG,"error:"+e.getMessage(),e);
 		}
 		if(id==0)
 		{
-			id=FsAudioPlayer.ERR_SOUND_ID;
+			id=Fs_AudioPlayer.ERR_SOUND_ID;
 		}
 		return id;
 
@@ -70,7 +71,7 @@ public class FsAudioPlayer
 	/* play sound */
 	public int playSound(int sound,int loop,int priority)
 	{
-		int channel=FsAudioPlayer.ERR_CHANNEL_ID;
+		int channel=Fs_AudioPlayer.ERR_CHANNEL_ID;
 		channel=m_soundPool.play(sound,this.m_volume,this.m_volume,priority,loop==-1?-1:0, 1.0f);
 		return channel;
 
@@ -99,7 +100,7 @@ public class FsAudioPlayer
 	
 	public float getChannelVolume(int channel)
 	{
-		Log.v(FsAudioPlayer.TAG,"StopChannels Not Impliment");
+		Log.v(Fs_AudioPlayer.TAG,"StopChannels Not Impliment");
 		return this.m_volume;
 	}
 
@@ -115,11 +116,11 @@ public class FsAudioPlayer
 	}
 	public void stopChannels()
 	{
-		Log.v(FsAudioPlayer.TAG,"StopChannels Not Impliment");
+		Log.v(Fs_AudioPlayer.TAG,"StopChannels Not Impliment");
 	}	
 	public void setVolume(float value) 
 	{
-		Log.v(FsAudioPlayer.TAG,"SetVolume Not Impliment");
+		Log.v(Fs_AudioPlayer.TAG,"SetVolume Not Impliment");
 		this.m_volume=value;
 	}
 

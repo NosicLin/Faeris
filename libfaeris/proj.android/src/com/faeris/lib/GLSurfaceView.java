@@ -1,4 +1,4 @@
-package org.faeris.lib;
+package com.faeris.lib;
 
 /*
  * Copyright (C) 2008 The Android Open Source Project

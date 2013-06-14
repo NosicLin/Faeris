@@ -1,86 +1,80 @@
 #ifndef _FS_TOUCH_DISPATCHER_H_
 #define _FS_TOUCH_DISPATCHER_H_
-#include <vector>
-
 #include "FsMacros.h"
-#include "core/FsObject.h"
-#include "scheduler/FsSchedulerTarget.h"
-#include "math/FsVector2.h"
-#include "util/FsSlowArray.h"
+#include "event/FsTEventDispatcher.h"
+
 
 NS_FS_BEGIN
-class TouchEventListener;
-class TouchDispatcher:public  SchedulerTarget
+
+class TouchPoint
+{
+	public:
+		int id;
+		float x;
+		float y;
+};
+
+class TouchEvent 
+{
+	public:
+		TouchEvent(int type,int point_nu,TouchPoint* points);
+		~TouchEvent();
+	public:
+		const TouchPoint* getPoints(){return m_points;}
+		int getPointsNu(){return m_count;}
+		int getType(){return m_type;}
+
+	private:
+		int m_type;
+		int m_count;
+		TouchPoint* m_points;
+};
+
+class TouchEventListener:public FsObject
+{
+	public:
+		TouchEventListener* create();
+
+	protected:
+		TouchEventListener();
+		virtual ~TouchEventListener();
+
+	public:
+		void handleEvent(TouchEvent* event)
+		{
+			onTouchEvent(event);
+		}
+
+	public:
+		virtual void onTouchEvent(TouchEvent* event);
+
+		/* inherit FsObject */
+		virtual const char* className();
+};
+
+
+class TouchDispatcher:public TEventDispatcher<TouchEvent,TouchEventListener>
 {
 	public:
 		enum 
 		{
-			TOUCH_BEGIN,
-			TOUCH_MOVE,
-			TOUCH_END,
-			TOUCH_CANCEL,
 			TOUCHES_BEGIN,
+			TOUCHES_POINTER_UP,
 			TOUCHES_MOVE,
+			TOUCHES_POINTER_DOWN,
 			TOUCHES_END,
 			TOUCHES_CANCEL,
 		};
-		class TouchEvent 
-		{
-			public:
-				TouchEvent(int type,float x,float y);
-				TouchEvent(int type,Vector2* points,int num);
-			public:
-				int m_type;
-				union{
-					struct 
-					{
-						float m_x;
-						float m_y;
-					};
-					struct 
-					{
-						int m_num;
-						Vector2* m_points;
-					};
-				};
-		};
 
-	public:
-		typedef  std::vector<TouchEvent*> EventQueue;
 	public:
 		static TouchDispatcher* create();
-
-	public:
-		/* inherit SchedulerTarget */
-		virtual void update(int priority,float dt);
 
 		/* inherit FsObject */
 		const char* className() ;
 
-	public:
-		void dispatchTouchEvent(int type,float x,float y);
-		void dispatchTouchesEvent(int type,Vector2* points,int num);
-
-		void addEventListener(TouchEventListener* l);
-		void removeEventListener(TouchEventListener* l);
-
-	protected:
-		TouchDispatcher();
-		~TouchDispatcher();
-		void init();
-		void destroy();
-		void swapEventQueue();
-		void clearEvent(EventQueue* queue);
-
-	private:
-		EventQueue* m_eventPending;
-		EventQueue* m_eventHandling;
-
-		FsSlowArray* m_listenerArray;
 };
 NS_FS_END
 #endif /*_FS_TOUCH_DISPATCHER_H_*/
-
 
 
 
