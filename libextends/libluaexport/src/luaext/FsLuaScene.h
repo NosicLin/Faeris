@@ -14,17 +14,23 @@ class LuaScene:public Scene
 		virtual void exit();
 		virtual void update(float dt);
 		virtual void draw(Render* render);
+
 		virtual void touchBegin(float x,float y);
 		virtual void touchMove(float x,float y);
 		virtual void touchEnd(float x,float y);
-		/*
-		virtual void touchesBegin(Vector2* points,int num);
-		virtual void touchesMove(Vector2* points,int num);
-		virtual void touchesEnd(Vector2* points,int num);
-		*/
+
+
+		virtual void touchesBegin(TouchEvent* event);
+		virtual void touchesPointerDown(TouchEvent* event);
+		virtual void touchesMove(TouchEvent* event);
+		virtual void touchesPointerUp(TouchEvent* event);
+		virtual void touchesEnd(TouchEvent* event);
+
+
 
 	public:
-		void onEnter(){Scene::enter();}
+		void onEnter() { Scene::enter(); }
+
 		void onExit(){Scene::exit();}
 		void onUpdate(float dt){Scene::update(dt);}
 		void onDraw(Render* render){Scene::draw(render);}
@@ -32,6 +38,23 @@ class LuaScene:public Scene
 		void onTouchBegin(float x,float y){Scene::touchBegin(x,y);}
 		void onTouchEnd(float x,float y){Scene::touchEnd(x,y);}
 		void onTouchMove(float x,float y){Scene::touchMove(x,y);}
+		void onTouchesBegin(TouchEvent* event){Scene::touchesBegin(event);}
+		void onTouchesPointerDown(TouchEvent* event)
+		{
+			Scene::touchesPointerDown(event);
+		}
+		void onTouchesMove(TouchEvent* event)
+		{
+			Scene::touchesMove(event);
+		}
+		void onTouchesPointerUp(TouchEvent* event)
+		{
+			Scene::touchesPointerUp( event);
+		}
+		void onTouchesEnd(TouchEvent* event)
+		{
+			Scene::touchesEnd(event);
+		}
 
 		/* inherit FsObject */
 		virtual const char* className();

@@ -8,6 +8,7 @@
 #include "util/FsLog.h"
 #include "FsLuaEngine.h"
 #include "common/FsGlobal.h"
+#include "Sys/FsSys.h"
 
 
 /* all function */
@@ -155,6 +156,36 @@ int luaf_import(lua_State* l)
 	return 1;
 }
 
+int luaf_exit(lua_State* l)
+{
+	Scheduler* s=Global::scheduler();
+	s->stop();
+	return 0;
+}
+
+int luaf_setenv(lua_State* l)
+{
+	const char* key=luaL_checkstring(l,1);
+	const char* value=luaL_checkstring(l,2);
+
+	Sys::setEnv(key,value);
+	return 0;
+}
+int luaf_getenv(lua_State* l)
+{
+	const char* key=luaL_checkstring(l,1);
+
+	const char* value=Sys::getEnv(key);
+	if(value==NULL)
+	{
+		lua_pushnil(l);
+	}
+	else
+	{
+		lua_pushstring(l,value);
+	}
+	return 1;
+}
 
 static const struct luaL_reg luafuncs[]=
 {
@@ -165,6 +196,9 @@ static const struct luaL_reg luafuncs[]=
 	{"f_log",luaf_log},
 	{"f_logtag",luaf_logtag},
 	{"f_import",luaf_import},
+	{"f_exit",luaf_exit},
+	{"f_getenv",luaf_getenv},
+	{"f_setenv",luaf_setenv},
 	{NULL,NULL},
 };
 

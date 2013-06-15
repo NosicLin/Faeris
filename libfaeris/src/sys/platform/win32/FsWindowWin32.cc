@@ -92,8 +92,10 @@ LRESULT CALLBACK s_winproc(
 				transformViewPoint(&x,&y);
 				if(pointInView(x,y))
 				{
-					Global::touchDispatcher()->dispatchTouchEvent(
-							TouchDispatcher::TOUCH_BEGIN,x,y);
+					TouchPoint p(0,x,y);
+
+					Global::touchDispatcher()->dispatchEvent(
+											new TouchEvent(TouchDispatcher::TOUCHES_BEGIN,1,&p));
 					s_mouse_capture=true;
 					SetCapture(hwnd);
 				}
@@ -108,8 +110,11 @@ LRESULT CALLBACK s_winproc(
 					float x=(float)LOWORD(lparam);
 					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
-					Global::touchDispatcher()->dispatchTouchEvent(
-								TouchDispatcher::TOUCH_MOVE,x,y);
+
+					TouchPoint p(0,x,y);
+
+					Global::touchDispatcher()->dispatchEvent(
+											new TouchEvent(TouchDispatcher::TOUCHES_MOVE,1,&p));
 				}
 			}
 			break;
@@ -120,8 +125,10 @@ LRESULT CALLBACK s_winproc(
 					float x=(float)LOWORD(lparam);
 					float y=(float)HIWORD(lparam);
 					transformViewPoint(&x,&y);
-					Global::touchDispatcher()->dispatchTouchEvent(
-								TouchDispatcher::TOUCH_END,x,y);
+
+					TouchPoint p(0,x,y);
+					Global::touchDispatcher()->dispatchEvent(
+											new TouchEvent(TouchDispatcher::TOUCHES_END,1,&p));
 					ReleaseCapture();
 					s_mouse_capture=false;
 				}
@@ -129,7 +136,7 @@ LRESULT CALLBACK s_winproc(
 			break;
 
 		case WM_CLOSE:
-			Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::QUIT);
+			Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::QUIT));
 			break;
 
 		case WM_DESTROY:
@@ -145,10 +152,10 @@ LRESULT CALLBACK s_winproc(
 				switch(wparam)
 				{
 					case SIZE_RESTORED:
-						Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
+						Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::FOREGROUND));
 						break;
 					case SIZE_MINIMIZED:
-						Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
+						Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::BACKGROUND));
 						break;
 				}
 				int height = HIWORD( lparam );

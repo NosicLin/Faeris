@@ -62,11 +62,64 @@ class  TLuaLayer:public T_F
 			se->pop();
 			return ret;
 		}
-		/*
-		virtual void touchesBegin(Vector2* points,int num);
-		virtual void touchesMove(Vector2* points,int num);
-		virtual void touchesEnd(Vector2* points,int num);
-		*/
+
+		virtual bool touchesBegin(TouchEvent* event)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchesBegin",3,1,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+			{
+				return  T_F::touchesBegin(event);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+
+		virtual bool touchesPointerDown(TouchEvent* event)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchesPointerDown",3,1,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+			{
+				return  T_F::touchesPointerDown(event);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+		virtual bool touchesMove(TouchEvent* event)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchesMove",3,1,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+			{
+				return  T_F::touchesMove(event);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+		virtual bool touchesPointerUp(TouchEvent* event)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchesPointerUp",3,1,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+			{
+				return  T_F::touchesPointerUp(event);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+		virtual bool touchesEnd(TouchEvent* event)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchesEnd",3,1,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+			{
+				return  T_F::touchesEnd(event);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+
 	public:
 		/* inherit T_F */
 		void onUpdate(float dt)
@@ -90,11 +143,30 @@ class  TLuaLayer:public T_F
 			T_F::draw(r);
 		}
 
-		/* 
-		   bool onTouchesBegin(Vector2* points,int num);
-		   bool onTouchesMove(Vector2* points,int num);
-		   bool onTouchesEnd(Vector2* points,int num);
-		   */
+		bool onTouchesBegin(TouchEvent* event)
+		{
+			return T_F::touchesBegin(event);
+		}
+
+		bool onTouchesPointerDown(TouchEvent* event)
+		{
+			return T_F::touchesPointerDown(event);
+		}
+
+		bool onTouchesMove(TouchEvent* event)
+		{
+			return T_F::touchesMove(event);
+		}
+
+		bool onTouchesPointerUp(TouchEvent* event)
+		{
+			return T_F::touchesPointerUp(event);
+		}
+
+		bool onTouchesEnd(TouchEvent* event)
+		{
+			return T_F::touchesEnd(event);
+		}
 
 };
 

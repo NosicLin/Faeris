@@ -10,7 +10,7 @@ class Scene;
 class Render;
 class FsDict;
 class Vector2;
-
+class TouchEvent;
 class Layer:public FsObject
 {
 	public:
@@ -49,9 +49,11 @@ class Layer:public FsObject
 		virtual bool touchEnd(float x,float y);
 
 		/* touches event */
-		virtual bool touchesBegin(Vector2* points,int num);
-		virtual bool touchesMove(Vector2* points,int num);
-		virtual bool touchesEnd(Vector2* points,int num);
+		virtual bool touchesBegin(TouchEvent* event);
+		virtual bool touchesPointerDown(TouchEvent* event);
+		virtual bool touchesMove(TouchEvent* event);
+		virtual bool touchesPointerUp(TouchEvent* event);
+		virtual bool touchesEnd(TouchEvent* event);
 
 		/* inherit FsObject */
 		virtual const char* className();

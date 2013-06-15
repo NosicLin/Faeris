@@ -146,15 +146,27 @@ bool Layer::touchEnd(float x,float y)
 	return m_touchEnabled; 
 }
 /* touches event */
-bool Layer::touchesBegin(Vector2* points,int num)
+bool Layer::touchesBegin(TouchEvent* event)
 {
 	return m_touchEnabled;
 }
-bool Layer::touchesMove(Vector2* points,int num)
+
+bool Layer::touchesPointerDown(TouchEvent* event)
 {
 	return m_touchEnabled;
 }
-bool Layer::touchesEnd(Vector2* points,int num)
+
+bool Layer::touchesMove(TouchEvent* event)
+{
+	return m_touchEnabled;
+}
+
+bool Layer::touchesPointerUp(TouchEvent* event)
+{
+	return m_touchEnabled;
+}
+
+bool Layer::touchesEnd(TouchEvent* event)
 {
 	return m_touchEnabled;
 }

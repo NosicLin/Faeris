@@ -1,6 +1,5 @@
 #include "scene/FsDirector.h"
 #include "event/FsTouchDispatcher.h"
-#include "event/FsTouchEventListener.h"
 #include "common/FsGlobal.h"
 #include "util/FsArray.h"
 #include "math/FsVector2.h"
@@ -17,12 +16,13 @@ class DirectorTouchEventListener:public TouchEventListener
 		virtual void touchBegin(float x,float y);
 		virtual void touchMove(float x,float y);
 		virtual void touchEnd(float x,float y);
-		virtual void touchCancel(float x,float y);
 
-		virtual void touchesBegin(Vector2* points,int num);
-		virtual void touchesMove(Vector2* points,int num);
-		virtual void touchesEnd(Vector2* points,int num);
-		virtual void touchesCancel(Vector2* points,int num);
+		virtual void touchesBegin(TouchEvent* event);
+		virtual void touchesPointerDown(TouchEvent* event);
+		virtual void touchesMove(TouchEvent* event);
+		virtual void touchesPointerUp(TouchEvent* event);
+		virtual void touchesEnd(TouchEvent* event);
+
 
 	protected:
 		DirectorTouchEventListener(Director* director);
@@ -40,47 +40,46 @@ DirectorTouchEventListener* DirectorTouchEventListener::create(Director* directo
 
 void DirectorTouchEventListener::touchBegin(float x,float y)
 {
-	m_director->touchEvent(TouchDispatcher::TOUCH_BEGIN,x,y);
+	m_director->touchBegin(x,y);
 }
 
 void DirectorTouchEventListener::touchMove(float x,float y)
 {
-	m_director->touchEvent(TouchDispatcher::TOUCH_MOVE,x,y);
+	m_director->touchMove(x,y);
 }
 
 void DirectorTouchEventListener::touchEnd(float x,float y)
 {
-	m_director->touchEvent(TouchDispatcher::TOUCH_END,x,y);
+	m_director->touchEnd(x,y);
 }
 
-void DirectorTouchEventListener::touchCancel(float x,float y)
+
+void DirectorTouchEventListener::touchesBegin(TouchEvent* event)
 {
-	m_director->touchEvent(TouchDispatcher::TOUCH_CANCEL,x,y);
+	m_director->touchesBegin(event);
 }
 
-
-
-void DirectorTouchEventListener::touchesBegin(Vector2* points,int num)
+void DirectorTouchEventListener::touchesPointerDown(TouchEvent* event)
 {
-	m_director->touchesEvent(TouchDispatcher::TOUCHES_BEGIN,points,num);
+	m_director->touchesPointerDown(event);
 }
 
 
-void DirectorTouchEventListener::touchesMove(Vector2* points,int num)
+void DirectorTouchEventListener::touchesMove(TouchEvent* event)
 {
-	m_director->touchesEvent(TouchDispatcher::TOUCHES_MOVE,points,num);
+	m_director->touchesMove(event);
 }
-
-
-void DirectorTouchEventListener::touchesEnd(Vector2* points,int num)
+void DirectorTouchEventListener::touchesPointerUp(TouchEvent* event)
 {
-	m_director->touchesEvent(TouchDispatcher::TOUCHES_END,points,num);
+	m_director->touchesPointerUp(event);
 }
 
-void DirectorTouchEventListener::touchesCancel(Vector2* points,int num)
+
+void DirectorTouchEventListener::touchesEnd(TouchEvent* event)
 {
-	m_director->touchesEvent(TouchDispatcher::TOUCHES_CANCEL,points,num);
+	m_director->touchesEnd(event);
 }
+
 
 DirectorTouchEventListener::DirectorTouchEventListener(Director* director)
 {
@@ -204,7 +203,7 @@ void Director::init()
 	m_autoSwapBuffers=false;
 
 	m_touchEventListener=DirectorTouchEventListener::create(this);
-	Global::touchDispatcher()->addEventListener(m_touchEventListener);
+	Global::touchDispatcher()->addListener(m_touchEventListener);
 
 }
 void Director::destroy()
@@ -217,7 +216,7 @@ void Director::destroy()
 	}
 	m_secenQueue->decRef();
 
-	Global::touchDispatcher()->removeEventListener(m_touchEventListener);
+	Global::touchDispatcher()->removeListener(m_touchEventListener);
 	m_touchEventListener->decRef();
 }
 
@@ -257,41 +256,71 @@ void Director::update(float dt)
 	}
 }
 
-void Director::touchEvent(int type,float x,float y)
+void Director::touchBegin(float x,float y)
 {
 	if(m_stop) return;
 	if(!m_current) return;
-	switch(type)
-	{
-		case TouchDispatcher::TOUCH_BEGIN:
-			m_current->touchBegin(x,y);
-			break;
-		case TouchDispatcher::TOUCH_MOVE:
-			m_current->touchMove(x,y);
-			break;
-		case TouchDispatcher::TOUCH_END:
-			m_current->touchEnd(x,y);
-			break;
-	}
+
+	m_current->touchBegin(x,y);
 }
-void Director::touchesEvent(int type,Vector2* points,int num)
+
+void Director::touchMove(float x,float y)
 {
 	if(m_stop) return;
-	if(!m_current) return ;
+	if(!m_current) return;
 
-	switch(type)
-	{
-		case TouchDispatcher::TOUCHES_BEGIN:
-			m_current->touchesBegin(points,num);
-			break;
-		case TouchDispatcher::TOUCHES_MOVE:
-			m_current->touchesMove(points,num);
-			break;
-		case TouchDispatcher::TOUCHES_END:
-			m_current->touchesEnd(points,num);
-			break;
-	}
+	m_current->touchMove(x,y);
 }
+
+void Director::touchEnd(float x,float y)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+
+	m_current->touchEnd(x,y);
+}
+
+void Director::touchesBegin(TouchEvent* event)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+
+	m_current->touchesBegin(event);
+}
+
+void Director::touchesPointerDown(TouchEvent* event)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+
+	m_current->touchesPointerDown(event);
+}
+void Director::touchesMove(TouchEvent* event)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+
+	m_current->touchesMove(event);
+}
+void Director::touchesPointerUp(TouchEvent* event)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+
+	m_current->touchesPointerUp(event);
+}
+
+void Director::touchesEnd(TouchEvent* event)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+	m_current->touchesEnd(event);
+}
+
+
+
+
+
 
 
 

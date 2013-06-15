@@ -29,7 +29,7 @@ const char* Sys::packageName()
 {
 	JNIEnv* env=JniUtil::getEnv();
 	jobject ob_ret;
-	FS_JNI_CALL_STATIC_METHOD("org/faeris/lib/FsGlobal",
+	FS_JNI_CALL_STATIC_METHOD("com/faeris/lib/Fs_Application",
 							  "getPackageName",
 							  "()Ljava/lang/String;",
 							  Object,
@@ -45,7 +45,7 @@ const char* Sys::apkPath()
 {
 	JNIEnv* env=JniUtil::getEnv();
 	jobject ob_ret;
-	FS_JNI_CALL_STATIC_METHOD("org/faeris/lib/FsGlobal",
+	FS_JNI_CALL_STATIC_METHOD("com/faeris/lib/Fs_Application",
 							  "getApkPath",
 							  "()Ljava/lang/String;",
 							  Object,
@@ -62,7 +62,7 @@ const char* Sys::currentDir()
 {
 	JNIEnv* env=JniUtil::getEnv();
 	jobject ob_ret;
-	FS_JNI_CALL_STATIC_METHOD("org/faeris/lib/FsGlobal",
+	FS_JNI_CALL_STATIC_METHOD("com/faeris/lib/Fs_Application",
 							  "getDataDir",
 							  "()Ljava/lang/String;",
 							  Object,

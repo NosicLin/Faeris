@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 06/02/13 03:18:44.
+** Generated automatically by tolua++-1.0.92 on 06/15/13 15:42:15.
 */
 
 #ifndef __cplusplus
@@ -99,9 +99,9 @@ static int tolua_collect_Vector3 (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  toluaext_usertype(tolua_S,"TextureMgr");
- toluaext_usertype(tolua_S,"TouchEventListener");
+ toluaext_usertype(tolua_S,"LuaTouchEventListener");
  toluaext_usertype(tolua_S,"FontTTF");
- toluaext_usertype(tolua_S,"Scheduler");
+ tolua_usertype(tolua_S,"TouchEvent");
  toluaext_usertype(tolua_S,"Entity");
  tolua_usertype(tolua_S,"Vector3");
  toluaext_usertype(tolua_S,"SchedulerTarget");
@@ -113,7 +113,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"LuaEntity");
  toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
- toluaext_usertype(tolua_S,"Render");
+ toluaext_usertype(tolua_S,"LuaColorQuad2D");
  toluaext_usertype(tolua_S,"SysDispatcher");
  toluaext_usertype(tolua_S,"Quad2D");
  toluaext_usertype(tolua_S,"LabelTTF");
@@ -127,19 +127,21 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"LuaScene");
  toluaext_usertype(tolua_S,"FsArray");
  tolua_usertype(tolua_S,"Vector4");
- tolua_usertype(tolua_S,"Global");
  toluaext_usertype(tolua_S,"Resource");
  toluaext_usertype(tolua_S,"ResourceMgr");
+ tolua_usertype(tolua_S,"Global");
  tolua_usertype(tolua_S,"Rect2D");
- tolua_usertype(tolua_S,"Color");
+ tolua_usertype(tolua_S,"ColorLayer");
  toluaext_usertype(tolua_S,"Texture2D");
+ tolua_usertype(tolua_S,"Color");
+ toluaext_usertype(tolua_S,"Render");
  tolua_usertype(tolua_S,"LuaSprite2D");
- toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"TouchEventListener");
  toluaext_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
- toluaext_usertype(tolua_S,"LuaTouchEventListener");
- tolua_usertype(tolua_S,"ColorLayer");
  toluaext_usertype(tolua_S,"LuaSysEventListener");
+ tolua_usertype(tolua_S,"TouchPoint");
+ toluaext_usertype(tolua_S,"Scheduler");
  toluaext_usertype(tolua_S,"LuaQuad2D");
 }
 
@@ -472,75 +474,199 @@ static int tolua_FsLibFaeris_SysEventListener_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: addEventListener of class  SysDispatcher */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SysDispatcher_addEventListener00
-static int tolua_FsLibFaeris_SysDispatcher_addEventListener00(lua_State* tolua_S)
+/* get function: id of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_get_TouchPoint_id
+static int tolua_get_TouchPoint_id(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'id'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->id);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: id of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_set_TouchPoint_id
+static int tolua_set_TouchPoint_id(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'id'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->id = ((int)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: x of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_get_TouchPoint_x
+static int tolua_get_TouchPoint_x(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->x);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: x of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_set_TouchPoint_x
+static int tolua_set_TouchPoint_x(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->x = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: y of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_get_TouchPoint_y
+static int tolua_get_TouchPoint_y(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->y);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: y of class  TouchPoint */
+#ifndef TOLUA_DISABLE_tolua_set_TouchPoint_y
+static int tolua_set_TouchPoint_y(lua_State* tolua_S)
+{
+  TouchPoint* self = (TouchPoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->y = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPoints of class  TouchEvent */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchEvent_getPoints00
+static int tolua_FsLibFaeris_TouchEvent_getPoints00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"SysDispatcher",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"SysEventListener",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  TouchEvent* self = (TouchEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPoints'", NULL);
+#endif
+  {
+   const TouchPoint* tolua_ret = (const TouchPoint*)  self->getPoints();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const TouchPoint");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPoints'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPoint of class  TouchEvent */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchEvent_getPoint00
+static int tolua_FsLibFaeris_TouchEvent_getPoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  SysDispatcher* self = (SysDispatcher*)  tolua_tousertype(tolua_S,1,0);
-  SysEventListener* l = ((SysEventListener*)  tolua_tousertype(tolua_S,2,0));
+  TouchEvent* self = (TouchEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addEventListener'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPoint'", NULL);
 #endif
   {
-   self->addEventListener(l);
+   const TouchPoint* tolua_ret = (const TouchPoint*)  self->getPoint(index);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const TouchPoint");
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getPoint'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: removeEventListener of class  SysDispatcher */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SysDispatcher_removeEventListener00
-static int tolua_FsLibFaeris_SysDispatcher_removeEventListener00(lua_State* tolua_S)
+/* method: operator[] of class  TouchEvent */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchEvent__geti00
+static int tolua_FsLibFaeris_TouchEvent__geti00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"SysDispatcher",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"SysEventListener",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  SysDispatcher* self = (SysDispatcher*)  tolua_tousertype(tolua_S,1,0);
-  SysEventListener* l = ((SysEventListener*)  tolua_tousertype(tolua_S,2,0));
+  TouchEvent* self = (TouchEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeEventListener'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'operator[]'", NULL);
 #endif
   {
-   self->removeEventListener(l);
+   const TouchPoint* tolua_ret = (const TouchPoint*)  self->operator[](index);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const TouchPoint");
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function '.geti'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: addEventListener of class  TouchDispatcher */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchDispatcher_addEventListener00
-static int tolua_FsLibFaeris_TouchDispatcher_addEventListener00(lua_State* tolua_S)
+/* method: addListener of class  TouchDispatcher */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchDispatcher_addListener00
+static int tolua_FsLibFaeris_TouchDispatcher_addListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -556,24 +682,24 @@ static int tolua_FsLibFaeris_TouchDispatcher_addEventListener00(lua_State* tolua
   TouchDispatcher* self = (TouchDispatcher*)  tolua_tousertype(tolua_S,1,0);
   TouchEventListener* l = ((TouchEventListener*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addEventListener'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addListener'", NULL);
 #endif
   {
-   self->addEventListener(l);
+   self->addListener(l);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: removeEventListener of class  TouchDispatcher */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchDispatcher_removeEventListener00
-static int tolua_FsLibFaeris_TouchDispatcher_removeEventListener00(lua_State* tolua_S)
+/* method: removeListener of class  TouchDispatcher */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchDispatcher_removeListener00
+static int tolua_FsLibFaeris_TouchDispatcher_removeListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -589,16 +715,82 @@ static int tolua_FsLibFaeris_TouchDispatcher_removeEventListener00(lua_State* to
   TouchDispatcher* self = (TouchDispatcher*)  tolua_tousertype(tolua_S,1,0);
   TouchEventListener* l = ((TouchEventListener*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeEventListener'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeListener'", NULL);
 #endif
   {
-   self->removeEventListener(l);
+   self->removeListener(l);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addListener of class  SysDispatcher */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SysDispatcher_addListener00
+static int tolua_FsLibFaeris_SysDispatcher_addListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"SysDispatcher",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"SysEventListener",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  SysDispatcher* self = (SysDispatcher*)  tolua_tousertype(tolua_S,1,0);
+  SysEventListener* l = ((SysEventListener*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addListener'", NULL);
+#endif
+  {
+   self->addListener(l);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeListener of class  SysDispatcher */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SysDispatcher_removeListener00
+static int tolua_FsLibFaeris_SysDispatcher_removeListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"SysDispatcher",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"SysEventListener",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  SysDispatcher* self = (SysDispatcher*)  tolua_tousertype(tolua_S,1,0);
+  SysEventListener* l = ((SysEventListener*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeListener'", NULL);
+#endif
+  {
+   self->removeListener(l);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -5039,6 +5231,171 @@ static int tolua_FsLibFaeris_Scene_touchMove00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: onTouchesBegin of class  LuaScene */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scene_touchesBegin00
+static int tolua_FsLibFaeris_Scene_touchesBegin00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaScene",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaScene* self = (LuaScene*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesBegin'", NULL);
+#endif
+  {
+   self->onTouchesBegin(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesBegin'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesPointerDown of class  LuaScene */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scene_touchesPointerDown00
+static int tolua_FsLibFaeris_Scene_touchesPointerDown00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaScene",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaScene* self = (LuaScene*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesPointerDown'", NULL);
+#endif
+  {
+   self->onTouchesPointerDown(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesPointerDown'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesMove of class  LuaScene */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scene_touchesMove00
+static int tolua_FsLibFaeris_Scene_touchesMove00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaScene",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaScene* self = (LuaScene*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesMove'", NULL);
+#endif
+  {
+   self->onTouchesMove(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesMove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesPointerUp of class  LuaScene */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scene_touchesPointerUp00
+static int tolua_FsLibFaeris_Scene_touchesPointerUp00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaScene",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaScene* self = (LuaScene*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesPointerUp'", NULL);
+#endif
+  {
+   self->onTouchesPointerUp(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesPointerUp'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesEnd of class  LuaScene */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scene_touchesEnd00
+static int tolua_FsLibFaeris_Scene_touchesEnd00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaScene",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaScene* self = (LuaScene*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesEnd'", NULL);
+#endif
+  {
+   self->onTouchesEnd(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesEnd'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: push of class  Director */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Director_push00
 static int tolua_FsLibFaeris_Director_push00(lua_State* tolua_S)
@@ -6492,6 +6849,171 @@ static int tolua_FsLibFaeris_Layer2D_touchMove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'touchMove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesBegin of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Layer2D_touchesBegin00
+static int tolua_FsLibFaeris_Layer2D_touchesBegin00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesBegin'", NULL);
+#endif
+  {
+   self->onTouchesBegin(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesBegin'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesPointerDown of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Layer2D_touchesPointerDown00
+static int tolua_FsLibFaeris_Layer2D_touchesPointerDown00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesPointerDown'", NULL);
+#endif
+  {
+   self->onTouchesPointerDown(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesPointerDown'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesMove of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Layer2D_touchesMove00
+static int tolua_FsLibFaeris_Layer2D_touchesMove00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesMove'", NULL);
+#endif
+  {
+   self->onTouchesMove(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesMove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesPointerUp of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Layer2D_touchesPointerUp00
+static int tolua_FsLibFaeris_Layer2D_touchesPointerUp00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesPointerUp'", NULL);
+#endif
+  {
+   self->onTouchesPointerUp(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesPointerUp'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchesEnd of class  LuaLayer2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Layer2D_touchesEnd00
+static int tolua_FsLibFaeris_Layer2D_touchesEnd00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLayer2D",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"TouchEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLayer2D* self = (LuaLayer2D*)  tolua_tousertype(tolua_S,1,0);
+  TouchEvent* event = ((TouchEvent*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchesEnd'", NULL);
+#endif
+  {
+   self->onTouchesEnd(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchesEnd'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12493,15 +13015,27 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"SysEventListener");
    tolua_function(tolua_S,"create",tolua_FsLibFaeris_SysEventListener_create00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"SysDispatcher","SysDispatcher","FsObject",toluaext_fscollector);
-  tolua_beginmodule(tolua_S,"SysDispatcher");
-   tolua_function(tolua_S,"addEventListener",tolua_FsLibFaeris_SysDispatcher_addEventListener00);
-   tolua_function(tolua_S,"removeEventListener",tolua_FsLibFaeris_SysDispatcher_removeEventListener00);
+  tolua_cclass(tolua_S,"TouchPoint","TouchPoint","",NULL);
+  tolua_beginmodule(tolua_S,"TouchPoint");
+   tolua_variable(tolua_S,"id",tolua_get_TouchPoint_id,tolua_set_TouchPoint_id);
+   tolua_variable(tolua_S,"x",tolua_get_TouchPoint_x,tolua_set_TouchPoint_x);
+   tolua_variable(tolua_S,"y",tolua_get_TouchPoint_y,tolua_set_TouchPoint_y);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"TouchEvent","TouchEvent","",NULL);
+  tolua_beginmodule(tolua_S,"TouchEvent");
+   tolua_function(tolua_S,"getPoints",tolua_FsLibFaeris_TouchEvent_getPoints00);
+   tolua_function(tolua_S,"getPoint",tolua_FsLibFaeris_TouchEvent_getPoint00);
+   tolua_function(tolua_S,".geti",tolua_FsLibFaeris_TouchEvent__geti00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"TouchDispatcher","TouchDispatcher","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"TouchDispatcher");
-   tolua_function(tolua_S,"addEventListener",tolua_FsLibFaeris_TouchDispatcher_addEventListener00);
-   tolua_function(tolua_S,"removeEventListener",tolua_FsLibFaeris_TouchDispatcher_removeEventListener00);
+   tolua_function(tolua_S,"addListener",tolua_FsLibFaeris_TouchDispatcher_addListener00);
+   tolua_function(tolua_S,"removeListener",tolua_FsLibFaeris_TouchDispatcher_removeListener00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"SysDispatcher","SysDispatcher","FsObject",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"SysDispatcher");
+   tolua_function(tolua_S,"addListener",tolua_FsLibFaeris_SysDispatcher_addListener00);
+   tolua_function(tolua_S,"removeListener",tolua_FsLibFaeris_SysDispatcher_removeListener00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"__Entity","Entity","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"__Entity");
@@ -12701,6 +13235,11 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"touchBegin",tolua_FsLibFaeris_Scene_touchBegin00);
    tolua_function(tolua_S,"touchEnd",tolua_FsLibFaeris_Scene_touchEnd00);
    tolua_function(tolua_S,"touchMove",tolua_FsLibFaeris_Scene_touchMove00);
+   tolua_function(tolua_S,"touchesBegin",tolua_FsLibFaeris_Scene_touchesBegin00);
+   tolua_function(tolua_S,"touchesPointerDown",tolua_FsLibFaeris_Scene_touchesPointerDown00);
+   tolua_function(tolua_S,"touchesMove",tolua_FsLibFaeris_Scene_touchesMove00);
+   tolua_function(tolua_S,"touchesPointerUp",tolua_FsLibFaeris_Scene_touchesPointerUp00);
+   tolua_function(tolua_S,"touchesEnd",tolua_FsLibFaeris_Scene_touchesEnd00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Director","Director","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Director");
@@ -12765,6 +13304,11 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"touchBegin",tolua_FsLibFaeris_Layer2D_touchBegin00);
    tolua_function(tolua_S,"touchEnd",tolua_FsLibFaeris_Layer2D_touchEnd00);
    tolua_function(tolua_S,"touchMove",tolua_FsLibFaeris_Layer2D_touchMove00);
+   tolua_function(tolua_S,"touchesBegin",tolua_FsLibFaeris_Layer2D_touchesBegin00);
+   tolua_function(tolua_S,"touchesPointerDown",tolua_FsLibFaeris_Layer2D_touchesPointerDown00);
+   tolua_function(tolua_S,"touchesMove",tolua_FsLibFaeris_Layer2D_touchesMove00);
+   tolua_function(tolua_S,"touchesPointerUp",tolua_FsLibFaeris_Layer2D_touchesPointerUp00);
+   tolua_function(tolua_S,"touchesEnd",tolua_FsLibFaeris_Layer2D_touchesEnd00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Render","Render","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Render");

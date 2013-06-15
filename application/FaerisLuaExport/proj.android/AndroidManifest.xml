@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.faeris.fgame"
+    package="com.faeris.fgame"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -11,15 +11,16 @@
 	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
 	<uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/faeris_logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity 
-            android:name="org.faeris.fgame.fgame"
+            android:name="com.faeris.fgame.fgame"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation" >
            	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

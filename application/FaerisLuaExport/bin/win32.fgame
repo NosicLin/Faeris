@@ -1,7 +1,7 @@
 win:{
-	width:320
-	height:480
-	caption:"Jigsaw"
+	width:960
+	height:640
+	caption:"FontTest"
 }
 
 game:{
@@ -15,8 +15,16 @@ env:{
 
 
 script:{
-	entry:"main.lua"
+	entry:"script/main.lua"
 }
+
+
+mgr:{
+	textureMgr:{
+		searchPath:["sss","fsfsf"]
+	}
+}
+
 
 
 

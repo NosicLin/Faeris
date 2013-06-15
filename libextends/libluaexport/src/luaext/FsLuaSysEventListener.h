@@ -1,7 +1,7 @@
 #ifndef _FS_LUA_SYS_EVENT_LISTENER_H_
 #define _FS_LUA_SYS_EVENT_LISTENER_H_
 #include "FsMacros.h"
-#include "event/FsSysEventListener.h"
+
 
 NS_FS_BEGIN
 class LuaSysEventListener:public  SysEventListener 

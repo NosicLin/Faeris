@@ -18,7 +18,35 @@ LuaTouchEventListener* LuaTouchEventListener::create()
 	return ret;
 }
 
+
 /* override supper */
+
+void LuaTouchEventListener::touchesBegin(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	se->callFunctionInTable(m_scriptData,"onTouchesBegin",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event);
+}
+void LuaTouchEventListener::touchesPointerDown(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	se->callFunctionInTable(m_scriptData,"onTouchesPointerDown",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event);
+}
+void LuaTouchEventListener::touchesMove(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	se->callFunctionInTable(m_scriptData,"onTouchesMove",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event);
+}
+void LuaTouchEventListener::touchesPointerUp(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	se->callFunctionInTable(m_scriptData,"onTouchesPointerUp",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event);
+}
+void LuaTouchEventListener::touchesEnd(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	se->callFunctionInTable(m_scriptData,"onTouchesEnd",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event);
+}
+
 
 void LuaTouchEventListener::touchBegin(float x,float y)
 {
@@ -38,11 +66,6 @@ void LuaTouchEventListener::touchEnd(float x,float y)
 	se->callFunctionInTable(m_scriptData,"onTouchEnd",3,0,"fnn",this,x,y);
 }
 
-void LuaTouchEventListener::touchCancel(float x,float y)
-{
-	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
-	se->callFunctionInTable(m_scriptData,"onCancel",3,0,"fnn",this,x,y);
-}
 
 NS_FS_END 
 

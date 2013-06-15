@@ -34,6 +34,10 @@ class Scheduler :public FsObject
 		void setFps(int fps);
 		void mainLoop();
 		float update(float dt);
+		bool isRunning()
+		{
+			return !m_stop;
+		}
 
 	public:
 		void add(SchedulerTarget* s,int priority);

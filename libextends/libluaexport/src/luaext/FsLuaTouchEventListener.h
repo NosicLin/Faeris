@@ -10,8 +10,7 @@ class LuaTouchEventListener:public TouchEventListener
 	public:
 		static LuaTouchEventListener* create();
 
-	public:
-		virtual void onTouchEvent(TouchEvent* event);
+
 	public:
 		/* multi touch */
 		void touchesBegin(TouchEvent* event);
@@ -21,9 +20,9 @@ class LuaTouchEventListener:public TouchEventListener
 		void touchesEnd(TouchEvent* event);
 
 		/*  single touch */
-		void touchBegin(TouchEvent* event);
-		void touchMove(TouchEvent* event);
-		void touchEnd(TouchEvent* event);
+		void touchBegin(float x,float y);
+		void touchMove(float x,float y);
+		void touchEnd(float x,float y);
 
 	public:
 		virtual const char* className();

@@ -11,6 +11,7 @@ class Render;
 class Layer;
 class FsSlowArray;
 class Vector2;
+class TouchEvent;
 class Scene:public FsObject
 {
 	public:
@@ -32,12 +33,16 @@ class Scene:public FsObject
 		virtual void exit();
 		virtual void update(float dt);
 		virtual void draw(Render* render);
+
 		virtual void touchBegin(float x,float y);
 		virtual void touchMove(float x,float y);
 		virtual void touchEnd(float x,float y);
-		virtual void touchesBegin(Vector2* points,int num);
-		virtual void touchesMove(Vector2* points,int num);
-		virtual void touchesEnd(Vector2* points,int num);
+
+		virtual void touchesBegin(TouchEvent* event);
+		virtual void touchesPointerDown(TouchEvent* event);
+		virtual void touchesMove(TouchEvent* event);
+		virtual void touchesPointerUp(TouchEvent* event);
+		virtual void touchesEnd(TouchEvent* event);
 
 		/*  inherit FsObject */
 		virtual const char* className();

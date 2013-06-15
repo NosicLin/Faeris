@@ -9,6 +9,7 @@ class DirectorTouchEventListener;
 class FsArray;
 class Vector2;
 class Render;
+class TouchEvent;
 class Director :public SchedulerTarget
 {
 	public:
@@ -44,8 +45,15 @@ class Director :public SchedulerTarget
 
 		void draw();
 		void update(float dt);
-		void touchEvent(int type,float x,float y);
-		void touchesEvent(int type,Vector2* points,int num);
+
+		void touchBegin(float x,float y);
+		void touchMove(float x,float y);
+		void touchEnd(float x,float y);
+		void touchesBegin(TouchEvent* event);
+		void touchesPointerDown(TouchEvent* event);
+		void touchesMove(TouchEvent* event);
+		void touchesPointerUp(TouchEvent* event);
+		void touchesEnd(TouchEvent* event);
 
 	private:
 		Scene* m_current;

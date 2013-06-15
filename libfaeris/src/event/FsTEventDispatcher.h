@@ -51,6 +51,10 @@ class TEventDispatcher:public SchedulerTarget
 			m_listenerArray->flush();
 			clearEventQueue(m_eventHandling);
 		}
+		void clearPending()
+		{
+			clearEventQueue(m_eventPending);
+		}
 
 	public:
 		void addListener(T_Listener* l)
@@ -97,7 +101,7 @@ class TEventDispatcher:public SchedulerTarget
 
 		void clearEventQueue(EventQueue* queue)
 		{
-			EventQueue::iterator iter=queue->begin();
+			typename EventQueue::iterator iter=queue->begin();
 			for(;iter!=queue->end();++iter)
 			{
 				delete *iter;

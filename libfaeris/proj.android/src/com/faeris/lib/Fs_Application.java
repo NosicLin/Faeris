@@ -20,9 +20,6 @@ public class Fs_Application
 	private static String m_IMEI="0000000000"; 
 	private static String m_IMSI="0000000000";
 	
-	
-	
-	
 	/* context */
 	public static Fs_Activity getContext()
 	{
@@ -39,8 +36,12 @@ public class Fs_Application
 		m_eventHandler=new Fs_UiEvent();
 		
 		/* imei and imsi */
-		TelephonyManager tm=(TelephonyManager) m_context.getSystemService(m_context.TELEPHONY_SERVICE);
-		m_IMEI= tm.getDeviceId();
+		TelephonyManager tm=(TelephonyManager) m_context.getSystemService(Context.TELEPHONY_SERVICE);
+		String imei= tm.getDeviceId();
+		if(imei!=null)
+		{
+			m_IMEI=imei;
+		}
 		
 		if (tm.getSimState()==TelephonyManager.SIM_STATE_READY) 
 		{

@@ -94,17 +94,14 @@ int main(int argc,char** argv)
 	Global::setScriptEngine(engine);
 	engine->executeFile(entry->cstr());
 
-	
-
-
 
 
 	Global::scheduler()->mainLoop();
 
 	/* exit */
 	Global::sysDispatcher()->clearPending();
-	Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::EXIT);
-	Global::sysDispatcher()->update(0,0);
+	Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::EXIT));
+	Global::sysDispatcher()->flush();
 
 
 	/* relese resource */

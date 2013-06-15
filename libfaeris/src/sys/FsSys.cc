@@ -1,10 +1,40 @@
-#include "sys/FsSys.h"
 #include "FsConfig.h"
+#include "sys/FsSys.h"
+
+#include "util/FsString.h"
+#include "util/FsDict.h"
 
 NS_FS_BEGIN
 
 FsDict* Sys::m_env=NULL;
 char Sys::m_tempBuf[FS_SYS_TEMP_BUF_SIZE];
+const char* Sys::getEnv(const char* key)
+{
+	if(m_env==NULL) return NULL;
+
+	FsString* ret=(FsString*)m_env->lookup(key);
+	if(ret)
+	{
+		ret->decRef();
+		return ret->cstr();
+	}
+	return NULL;
+
+}
+void Sys::setEnv(const char* key,const char* value)
+{
+	if(key==NULL||value==NULL) return ;
+	if(m_env==NULL)
+	{
+		m_env=FsDict::create();
+	}
+	FsString* t_key=FsString::create(key);
+	FsString* t_value=FsString::create(value);
+	m_env->insert(t_key,t_value);
+
+	t_key->decRef();
+	t_value->decRef();
+}
 
 NS_FS_END 
 

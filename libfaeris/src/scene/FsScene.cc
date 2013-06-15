@@ -158,7 +158,7 @@ void Scene::touchEnd(float x,float y)
 	m_layers->flush();
 }
 
-void Scene::touchesBegin(Vector2* points,int num)
+void Scene::touchesBegin(TouchEvent* event)
 {
 	m_layers->lock();
 	int layer_nu=m_layers->size();
@@ -168,7 +168,7 @@ void Scene::touchesBegin(Vector2* points,int num)
 		Layer* layer=(Layer*)m_layers->get(i);
 		if(layer->touchEnabled()&&layer->visible())
 		{
-			handle=layer->touchesBegin(points,num);
+			handle=layer->touchesBegin(event);
 		}
 		layer->decRef();
 		if(handle)
@@ -179,7 +179,8 @@ void Scene::touchesBegin(Vector2* points,int num)
 	m_layers->unlock();
 	m_layers->flush();
 }
-void Scene::touchesMove(Vector2* points,int num)
+
+void Scene::touchesPointerDown(TouchEvent* event)
 {
 	m_layers->lock();
 	int layer_nu=m_layers->size();
@@ -189,7 +190,7 @@ void Scene::touchesMove(Vector2* points,int num)
 		Layer* layer=(Layer*)m_layers->get(i);
 		if(layer->touchEnabled()&&layer->visible())
 		{
-			handle=layer->touchesMove(points,num);
+			handle=layer->touchesPointerDown(event);
 		}
 		layer->decRef();
 		if(handle)
@@ -200,7 +201,7 @@ void Scene::touchesMove(Vector2* points,int num)
 	m_layers->unlock();
 	m_layers->flush();
 }
-void Scene::touchesEnd(Vector2* points,int num)
+void Scene::touchesMove(TouchEvent* event)
 {
 	m_layers->lock();
 	int layer_nu=m_layers->size();
@@ -210,7 +211,51 @@ void Scene::touchesEnd(Vector2* points,int num)
 		Layer* layer=(Layer*)m_layers->get(i);
 		if(layer->touchEnabled()&&layer->visible())
 		{
-			handle=layer->touchesEnd(points,num);
+			handle=layer->touchesMove(event);
+		}
+		layer->decRef();
+		if(handle)
+		{
+			break;
+		}
+	}
+	m_layers->unlock();
+	m_layers->flush();
+}
+
+void Scene::touchesPointerUp(TouchEvent* event)
+{
+	m_layers->lock();
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		bool handle=false;
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(layer->touchEnabled()&&layer->visible())
+		{
+			handle=layer->touchesPointerUp(event);
+		}
+		layer->decRef();
+		if(handle)
+		{
+			break;
+		}
+	}
+	m_layers->unlock();
+	m_layers->flush();
+}
+
+void Scene::touchesEnd(TouchEvent* event)
+{
+	m_layers->lock();
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		bool handle=false;
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(layer->touchEnabled()&&layer->visible())
+		{
+			handle=layer->touchesEnd(event);
 		}
 		layer->decRef();
 		if(handle)

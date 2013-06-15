@@ -19,7 +19,7 @@ extern "C"
 #include "common/FsGlobal.h"
 #include "util/FsLog.h"
 #include "io/FsVFS.h"
-
+#include "event/FsTouchDispatcher.h"
 
 #define FS_LUA_ENGINE_CLASS_NAME "LuaEngine"
 
@@ -272,6 +272,20 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 					rel_arg++;
 				}
 				break;
+			case 'u':
+				{
+					void* value=va_arg(ap,void*);
+					src++;        					 /* skip '<' */
+					char t_pchar;
+					std::string t_name;
+					while((t_pchar=*(src++))!='>')   /* get type name */
+					{
+						t_name.append(1,t_pchar);
+					}
+					pushUserType(value,t_name.c_str());
+					rel_arg++;
+					break;
+				}
 			default:
 				{
 					FS_TRACE_WARN("Unkown Format Type");
@@ -282,7 +296,7 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 
 	if(argnu!=rel_arg)
 	{
-		FS_TRACE_WARN("Some Error For Args");
+		FS_TRACE_WARN("Some Error For Args(needarg=%d,realarg=%d)",argnu,rel_arg);
 		lua_settop(m_state,top);
 		return false;
 	}
@@ -295,15 +309,19 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 	return true;
 }
 
+
+
+
 /* no args */
 bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int retnu)
 {
 	return callFunctionInTable(lua_table,func_name,0,retnu,"");
 }
+
+
 bool LuaEngine::callFunction(int lua_function,const char* name,const char* fmt,...)
 {
 	return true;
-
 }
 
 

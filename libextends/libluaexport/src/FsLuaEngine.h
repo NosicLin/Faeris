@@ -11,6 +11,7 @@ typedef int (*CFunction)(struct lua_State*);
 NS_FS_BEGIN
 
 
+class TouchEvent;
 class LuaEngine:public ScriptEngine
 {	
 	public:

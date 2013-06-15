@@ -13,7 +13,7 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../src \
 
 
 LOCAL_SRC_FILES :=  \
-					src/org_faeris_lib_FsEngine.cc \
+					src/com_faeris_lib_Fs_Jni.cc \
 					../../src/common/FsScriptEngine.cc \
 					../../src/common/FsGlobal.cc \
 					../../src/core/FsObject.cc \
@@ -24,9 +24,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/entity/FsSprite2DData.cc \
 					../../src/entity/FsSprite2D.cc \
 					../../src/event/FsSysDispatcher.cc \
-					../../src/event/FsSysEventListener.cc \
 					../../src/event/FsTouchDispatcher.cc \
-					../../src/event/FsTouchEventListener.cc \
 					../../src/graphics/FsColor.cc \
 					../../src/graphics/FsFontTTF.cc \
 					../../src/graphics/FsImage2D.cc \

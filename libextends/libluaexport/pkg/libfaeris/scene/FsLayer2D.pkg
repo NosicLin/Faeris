@@ -42,6 +42,12 @@ class LuaLayer2D@Layer2D:public Layer2D
 		bool onTouchBegin@touchBegin(float x,float y);
 		bool onTouchEnd@touchEnd(float x,float y);
 		bool onTouchMove@touchMove(float x,float y);
+
+		void onTouchesBegin@touchesBegin(TouchEvent* event);
+		void onTouchesPointerDown@touchesPointerDown(TouchEvent* event);
+		void onTouchesMove@touchesMove(TouchEvent* event);
+		void onTouchesPointerUp@touchesPointerUp(TouchEvent* event);
+		void onTouchesEnd@touchesEnd(TouchEvent* event);
 };
 
 

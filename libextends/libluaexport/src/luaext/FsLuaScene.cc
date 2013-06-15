@@ -60,8 +60,8 @@ void LuaScene::touchMove(float x,float y)
 	{
 		Scene::touchMove(x,y);
 	}
-
 }
+
 
 void LuaScene::touchEnd(float x,float y)
 {
@@ -71,6 +71,51 @@ void LuaScene::touchEnd(float x,float y)
 		Scene::touchEnd(x,y);
 	}
 }
+
+void LuaScene::touchesBegin(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onTouchesBegin",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+	{
+		Scene::touchesBegin(event);
+	}
+}
+
+void LuaScene::touchesPointerDown(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onTouchesPointerDown",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+	{
+		Scene::touchesPointerDown(event);
+	}
+
+}
+void LuaScene::touchesMove(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onTouchesMove",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+	{
+		Scene::touchesMove(event);
+	}
+}
+void LuaScene::touchesPointerUp(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onTouchesPointerUp",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+	{
+		Scene::touchesPointerUp(event);
+	}
+
+}
+void LuaScene::touchesEnd(TouchEvent* event)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onTouchesEnd",3,0,"fiu<TouchEvent>",this,event->getPointsNu(),event))
+	{
+		Scene::touchesEnd(event);
+	}
+}
+
 
 const char*  LuaScene::className()
 {

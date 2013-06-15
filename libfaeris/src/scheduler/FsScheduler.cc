@@ -149,12 +149,16 @@ float Scheduler::update(float dt)
 	}
 
 	
+	/*
+	
 	ScriptEngine* sc=Global::scriptEngine();
 	if(sc)
 	{
 
 		sc->collectGarbage();
 	}
+	*/
+	
 	
 
 	long update_end=m_timer.now();

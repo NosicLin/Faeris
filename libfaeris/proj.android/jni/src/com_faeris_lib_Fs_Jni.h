@@ -41,6 +41,46 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onBackground
 
 /*
  * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onTouchesBegin
+ * Signature: (IFF)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesBegin
+  (JNIEnv *, jclass, jint, jfloat, jfloat);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onTouchesPointerDown
+ * Signature: (IFF)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesPointerDown
+  (JNIEnv *, jclass, jint, jfloat, jfloat);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onTouchesMove
+ * Signature: (I[I[F[F)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesMove
+  (JNIEnv *, jclass, jint, jintArray, jfloatArray, jfloatArray);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onTouchesPointerUp
+ * Signature: (IFF)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesPointerUp
+  (JNIEnv *, jclass, jint, jfloat, jfloat);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onTouchesEnd
+ * Signature: (IFF)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesEnd
+  (JNIEnv *, jclass, jint, jfloat, jfloat);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
  * Method:    onKeyEventBack
  * Signature: ()V
  */
@@ -53,38 +93,6 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onKeyEventBack
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onKeyEventMenu
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_faeris_lib_Fs_Jni
- * Method:    onTouchesBegin
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesBegin
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_faeris_lib_Fs_Jni
- * Method:    onTouchesPointerUp
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesPointerUp
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_faeris_lib_Fs_Jni
- * Method:    onTouchesPointerDonw
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesPointerDonw
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_faeris_lib_Fs_Jni
- * Method:    onTouchesEnd
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesEnd
   (JNIEnv *, jclass);
 
 /*
@@ -118,6 +126,14 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onDestroy
  */
 JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_setEnv
   (JNIEnv *, jclass, jstring, jstring);
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
+ * Method:    schedulerStop
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_faeris_lib_Fs_1Jni_schedulerStop
+  (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }
