@@ -1,4 +1,4 @@
-#include "material/FsPositionColorMaterial.h"
+#include "material/FsMat_V4F_C4F.h"
 #include "graphics/FsProgram.h"
 
 NS_FS_BEGIN
@@ -32,27 +32,27 @@ void main() 					        \n\
 
 	
 
-static PositionColorMaterial* s_share_material=NULL;
+static Mat_V4F_C4F* s_share_material=NULL;
 
-PositionColorMaterial* PositionColorMaterial::shareMaterial()
+Mat_V4F_C4F* Mat_V4F_C4F::shareMaterial()
 {
 	if(s_share_material==NULL)
 	{
-		s_share_material = PositionColorMaterial::create();
+		s_share_material = Mat_V4F_C4F::create();
 	}
 
 	FS_SAFE_ADD_REF(s_share_material);
 	return s_share_material;
 }
 
-PositionColorMaterial* PositionColorMaterial::create()
+Mat_V4F_C4F* Mat_V4F_C4F::create()
 {
-	PositionColorMaterial* ret=new PositionColorMaterial;
+	Mat_V4F_C4F* ret=new Mat_V4F_C4F;
 	return ret;
 }
 
 
-void PositionColorMaterial::onUse(Render* r)
+void Mat_V4F_C4F::onUse(Render* r)
 {
 	Material::onUse(r);
 	r->setProgram(m_program);
@@ -63,7 +63,7 @@ void PositionColorMaterial::onUse(Render* r)
 }
 
 
-PositionColorMaterial::PositionColorMaterial()
+Mat_V4F_C4F::Mat_V4F_C4F()
 {
 	m_opacity=1.0f;
 	m_opacityUniform=-1;
@@ -89,7 +89,7 @@ PositionColorMaterial::PositionColorMaterial()
 	setDepthTest(false);
 }
 
-PositionColorMaterial::~PositionColorMaterial()
+Mat_V4F_C4F::~Mat_V4F_C4F()
 {
 	FS_SAFE_DEC_REF(m_program);
 }

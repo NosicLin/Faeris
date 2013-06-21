@@ -45,6 +45,7 @@ $pfile "graphics/FsRender.pkg"
 $pfile "graphics/FsColor.pkg"
 $pfile "graphics/FsFontTTF.pkg"
 $pfile "graphics/FsTexture2D.pkg"
+$pfile "graphics/FsFontBitmap.pkg"
 
 
 /* math */

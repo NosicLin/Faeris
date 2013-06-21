@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 06/15/13 15:42:15.
+** Generated automatically by tolua++-1.0.92 on 06/21/13 23:14:44.
 */
 
 #ifndef __cplusplus
@@ -38,6 +38,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "graphics/FsColor.h"
 #include "graphics/FsFontTTF.h"
 #include "graphics/FsTexture2D.h"
+#include "graphics/FsFontBitmap.h"
 #include "math/FsVector2.h"
 #include "math/FsVector3.h"
 #include "math/FsVector4.h"
@@ -119,6 +120,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"LabelTTF");
  toluaext_usertype(tolua_S,"Window");
  toluaext_usertype(tolua_S,"TouchDispatcher");
+ toluaext_usertype(tolua_S,"Resource");
  toluaext_usertype(tolua_S,"Layer2D");
  toluaext_usertype(tolua_S,"LuaLayer2D");
  toluaext_usertype(tolua_S,"FsObject");
@@ -126,11 +128,11 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"ColorQuad2D");
  toluaext_usertype(tolua_S,"LuaScene");
  toluaext_usertype(tolua_S,"FsArray");
- tolua_usertype(tolua_S,"Vector4");
- toluaext_usertype(tolua_S,"Resource");
+ toluaext_usertype(tolua_S,"FontBitmap");
  toluaext_usertype(tolua_S,"ResourceMgr");
- tolua_usertype(tolua_S,"Global");
  tolua_usertype(tolua_S,"Rect2D");
+ tolua_usertype(tolua_S,"Global");
+ tolua_usertype(tolua_S,"Vector4");
  tolua_usertype(tolua_S,"ColorLayer");
  toluaext_usertype(tolua_S,"Texture2D");
  tolua_usertype(tolua_S,"Color");
@@ -8257,6 +8259,293 @@ static int tolua_FsLibFaeris_Texture2D_getHeight00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: create of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_create00
+static int tolua_FsLibFaeris_FontBitmap_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* fnt = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   FontBitmap* tolua_ret = (FontBitmap*)  FontBitmap::create(fnt);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"FontBitmap");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLineGap of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getLineGap00
+static int tolua_FsLibFaeris_FontBitmap_getLineGap00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLineGap'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getLineGap();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLineGap'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLineGap of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_setLineGap00
+static int tolua_FsLibFaeris_FontBitmap_setLineGap00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+  int line_gap = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLineGap'", NULL);
+#endif
+  {
+   self->setLineGap(line_gap);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLineGap'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getHeight of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getHeight00
+static int tolua_FsLibFaeris_FontBitmap_getHeight00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeight'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getHeight();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getHeight'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAscent of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getAscent00
+static int tolua_FsLibFaeris_FontBitmap_getAscent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAscent'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getAscent();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAscent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDescent of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getDescent00
+static int tolua_FsLibFaeris_FontBitmap_getDescent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDescent'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getDescent();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDescent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getBaseline of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getBaseline00
+static int tolua_FsLibFaeris_FontBitmap_getBaseline00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBaseline'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getBaseline();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getBaseline'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTextureWidth of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getTextureWidth00
+static int tolua_FsLibFaeris_FontBitmap_getTextureWidth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTextureWidth'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTextureWidth();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTextureWidth'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTextureHeight of class  FontBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getTextureHeight00
+static int tolua_FsLibFaeris_FontBitmap_getTextureHeight00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTextureHeight'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTextureHeight();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTextureHeight'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* get function: x of class  Vector2 */
 #ifndef TOLUA_DISABLE_tolua_get_Vector2_x
 static int tolua_get_Vector2_x(lua_State* tolua_S)
@@ -13367,6 +13656,18 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"Texture2D");
    tolua_function(tolua_S,"getWidth",tolua_FsLibFaeris_Texture2D_getWidth00);
    tolua_function(tolua_S,"getHeight",tolua_FsLibFaeris_Texture2D_getHeight00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"FontBitmap","FontBitmap","Resource",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"FontBitmap");
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_FontBitmap_create00);
+   tolua_function(tolua_S,"getLineGap",tolua_FsLibFaeris_FontBitmap_getLineGap00);
+   tolua_function(tolua_S,"setLineGap",tolua_FsLibFaeris_FontBitmap_setLineGap00);
+   tolua_function(tolua_S,"getHeight",tolua_FsLibFaeris_FontBitmap_getHeight00);
+   tolua_function(tolua_S,"getAscent",tolua_FsLibFaeris_FontBitmap_getAscent00);
+   tolua_function(tolua_S,"getDescent",tolua_FsLibFaeris_FontBitmap_getDescent00);
+   tolua_function(tolua_S,"getBaseline",tolua_FsLibFaeris_FontBitmap_getBaseline00);
+   tolua_function(tolua_S,"getTextureWidth",tolua_FsLibFaeris_FontBitmap_getTextureWidth00);
+   tolua_function(tolua_S,"getTextureHeight",tolua_FsLibFaeris_FontBitmap_getTextureHeight00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"Vector2","Vector2","",tolua_collect_Vector2);

@@ -11,8 +11,8 @@
 #include "mgr/FsFontTTFDataMgr.h"
 #include "mgr/FsSprite2DDataMgr.h"
 
-#include "material/FsPositionAlphaTextureMaterial.h"
-#include "material/FsPositionTextureMaterial.h"
+#include "material/FsMat_V4F_T2F_A1F.h"
+#include "material/FsMat_V4F_T2F.h"
 #include "io/FsVFS.h"
 #include "io/FsPackage.h"
 #include "util/FsDict.h"
@@ -120,8 +120,8 @@ int FsFaeris_ModuleExit()
 	sprite_mgr->forceDestroy();
 
 	/* material */
-	PositionAlphaTextureMaterial::purgeShareMaterial();
-	PositionTextureMaterial::purgeShareMaterial();
+	Mat_V4F_T2F_A1F::purgeShareMaterial();
+	Mat_V4F_T2F::purgeShareMaterial();
 	VFS::moduleExit();
 
 

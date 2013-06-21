@@ -2,7 +2,7 @@
 #include <string.h>
 #include "data/FsIconv.h"
 #include "entity/FsLabelTTF.h"
-#include "material/FsPositionTextureMaterial.h"
+#include "material/FsMat_V4F_T2F.h"
 #include "graphics/FsImage2D.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsFontTTF.h"
@@ -319,8 +319,8 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	int pos_loc=m_material->getPositionLocation();
-	int pos_tex=m_material->getTexCoordLocation();
+	int pos_loc=m_material->getV4FLocation();
+	int pos_tex=m_material->getT2FLocation();
 
 	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
 	render->setAndEnableVertexAttrPointer(pos_tex,2,FS_FLOAT,4,0,vc);
@@ -378,7 +378,7 @@ LabelTTF::LabelTTF()
 	m_color=Color::WHITE;
 	m_opacity=1.0f;
 	m_texture=NULL;
-	m_material=PositionTextureMaterial::shareMaterial();
+	m_material=Mat_V4F_T2F::shareMaterial();
 	m_font=NULL;
 	m_alignv=ALIGN_V_BOTTOM;
 	m_alignh=ALIGN_H_RIGHT;

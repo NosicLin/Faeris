@@ -244,12 +244,15 @@ enum
 /* util */
 #define FS_ARRAY_CLASS_NAME "FsArray"
 #define FS_SLOW_ARRAY_CLASS_NAME "FsSlowArray"
+#define FS_STRING_CLASS_NAME "FsString"
+#define FS_INTEGER_CLASS_NAME "FsInteger"
+#define FS_DICT_CLASS_NAME "FsDict"
 
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
 #define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"
-#define FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME "PositionAlphaTextureMaterial"
-#define FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME "PositionTextureMaterial"
+#define FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME "Mat_V4F_T2F_A1F"
+#define FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME "Mat_V4F_T2F"
 
 /* sys */
 #define FS_WINDOW_CLASS_NAME "Window"
@@ -275,6 +278,8 @@ enum
 #define FS_FONT_TTF_CLASS_NAME "FontTTF"
 #define FS_IMAGE2D_CLASS_NAME "Image2D"
 #define FS_PROGRAM_CLASS_NAME "Program"
+#define FS_GLYPH_BITMAP_CLASS_NAME "GlyphBitmap"
+#define FS_FONT_BITMAP_CLASS_NAME "FontBitmap"
 
 /* mgr */
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"

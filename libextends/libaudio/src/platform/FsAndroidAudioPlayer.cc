@@ -2,7 +2,7 @@
 #include "sys/platform/android/FsJniUtil.h"
 #include "FsAndroidAudioPlayer.h"
 
-static const char* class_name="org/faeris/lib/FsAudioPlayer";
+static const char* class_name="com/faeris/lib/Fs_AudioPlayer";
 
 NS_FS_BEGIN
 

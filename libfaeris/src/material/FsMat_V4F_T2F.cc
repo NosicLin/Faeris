@@ -1,4 +1,4 @@
-#include "material/FsPositionTextureMaterial.h"
+#include "material/FsMat_V4F_T2F.h"
 #include "graphics/FsProgram.h"
 
 NS_FS_BEGIN
@@ -34,62 +34,62 @@ void main()							\n\
 }														\n\
 ";
 
-static PositionTextureMaterial* s_shareMatrial=NULL;
+static Mat_V4F_T2F* s_shareMatrial=NULL;
 
-PositionTextureMaterial* PositionTextureMaterial::shareMaterial()
+Mat_V4F_T2F* Mat_V4F_T2F::shareMaterial()
 {
 	if(s_shareMatrial==NULL)
 	{
-		s_shareMatrial=PositionTextureMaterial::create();
+		s_shareMatrial=Mat_V4F_T2F::create();
 	}
 
 	s_shareMatrial->addRef();
 	return s_shareMatrial;
 }
 
-void PositionTextureMaterial::purgeShareMaterial()
+void Mat_V4F_T2F::purgeShareMaterial()
 {
 	s_shareMatrial->forceDestroy();
 	s_shareMatrial=NULL;
 }
 
 
-PositionTextureMaterial* PositionTextureMaterial::create()
+Mat_V4F_T2F* Mat_V4F_T2F::create()
 {
-	return new PositionTextureMaterial();
+	return new Mat_V4F_T2F();
 }
-void PositionTextureMaterial::setColor(Color c)
+void Mat_V4F_T2F::setColor(Color c)
 {
 	m_color=c;
 }
-Color PositionTextureMaterial::getColor()
+Color Mat_V4F_T2F::getColor()
 {
 	return m_color;
 }
 
 
-void PositionTextureMaterial::setOpacity(float opacity)
+void Mat_V4F_T2F::setOpacity(float opacity)
 {
 	m_opacity=opacity;
 }
 
-float PositionTextureMaterial::getOpacity()
+float Mat_V4F_T2F::getOpacity()
 {
 	return m_opacity;
 }
 
 
-int PositionTextureMaterial::getPositionLocation()
+int Mat_V4F_T2F::getV4FLocation()
 {
 	return m_positionAttribute;
 }
-int PositionTextureMaterial::getTexCoordLocation()
+int Mat_V4F_T2F::getT2FLocation()
 {
 	return m_textcoordAttribute;
 }
 
 
-void PositionTextureMaterial::onUse(Render* r)
+void Mat_V4F_T2F::onUse(Render* r)
 {
 	float color[4]=
 	{
@@ -111,7 +111,7 @@ void PositionTextureMaterial::onUse(Render* r)
 	r->setUniform(m_colorUniform,  Render::U_F_4,1, color);
 	r->setUniform(m_textureUniform,Render::U_I_1,1, &texture0);
 }
-const char* PositionTextureMaterial::className()
+const char* Mat_V4F_T2F::className()
 {
 	return FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME;
 }
@@ -119,7 +119,7 @@ const char* PositionTextureMaterial::className()
 
 
 
-PositionTextureMaterial::PositionTextureMaterial()
+Mat_V4F_T2F::Mat_V4F_T2F()
 {
 	m_program=Program::create(quad_material_vert_str,sizeof(quad_material_vert_str),
 			quad_material_frag_str,sizeof(quad_material_frag_str));
@@ -149,7 +149,7 @@ PositionTextureMaterial::PositionTextureMaterial()
 	m_opacity=1.0f;
 }
 
-PositionTextureMaterial::~PositionTextureMaterial()
+Mat_V4F_T2F::~Mat_V4F_T2F()
 {
 	m_program->decRef();
 }

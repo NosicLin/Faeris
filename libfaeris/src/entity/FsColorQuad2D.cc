@@ -1,5 +1,5 @@
 #include "entity/FsColorQuad2D.h"
-#include "material/FsPositionColorMaterial.h"
+#include "material/FsMat_V4F_C4F.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN
@@ -40,8 +40,8 @@ void ColorQuad2D::draw(Render* render,bool updateMatrix)
 	render->disableAllAttrArray();
 
 	
-	int pos_loc=m_material->getPostionLocation();
-	int color_loc=m_material->getColorLocation();
+	int pos_loc=m_material->getV4FLocation();
+	int color_loc=m_material->getC4FLocation();
 
 	Vector3 vv[4]=
 	{
@@ -131,7 +131,7 @@ ColorQuad2D::ColorQuad2D()
 	m_opacity=1.0f;
 	m_rect.set(0,0,0,0);
 	setColor(Color::WHITE);
-	m_material=PositionColorMaterial::shareMaterial();
+	m_material=Mat_V4F_C4F::shareMaterial();
 }
 
 ColorQuad2D::~ColorQuad2D()

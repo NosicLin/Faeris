@@ -10,7 +10,7 @@
 NS_FS_BEGIN
 class Image2D;
 class Texture2D;
-class PositionTextureMaterial;
+class Mat_V4F_T2F;
 class FontTTF;
 class LineTypography
 {
@@ -80,7 +80,7 @@ class LabelTTF:public Entity
 		FontTTF* m_font;
 		Texture2D* m_texture;
 
-		PositionTextureMaterial* m_material;
+		Mat_V4F_T2F* m_material;
 };
 NS_FS_END
 

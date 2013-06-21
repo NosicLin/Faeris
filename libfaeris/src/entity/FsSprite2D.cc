@@ -3,7 +3,7 @@
 #include "entity/FsSprite2DData.h"
 #include "graphics/FsTexture2D.h"
 #include "util/FsArray.h"
-#include "material/FsPositionAlphaTextureMaterial.h"
+#include "material/FsMat_V4F_T2F_A1F.h"
 
 NS_FS_BEGIN
 
@@ -181,9 +181,9 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		Face3(0,3,2),
 		Face3(2,1,0),
 	};
-	int pos_loc=m_material->getPositionLocaition();
-	int alpha_loc=m_material->getAlphaLocation();
-	int tex_loc=m_material->getTexCoordLocation();
+	int pos_loc=m_material->getV4FLocation();
+	int alpha_loc=m_material->getA1FLocation();
+	int tex_loc=m_material->getT2FLocation();
 
 	for(int i=0;i<frame->getQuadNu();i++)
 	{
@@ -246,7 +246,7 @@ Sprite2D::Sprite2D()
 	m_data=NULL;
 	m_curAnimation=NULL;
 	m_textures=NULL;
-	m_material=PositionAlphaTextureMaterial::shareMaterial();
+	m_material=Mat_V4F_T2F_A1F::shareMaterial();
 }
 
 Sprite2D::~Sprite2D()

@@ -3,7 +3,7 @@
 
 #include "util/FsString.h"
 
-static const char* s_FsStringName="FsStringObject";
+static const char* s_FsStringName=FS_STRING_CLASS_NAME;
 
 NS_FS_BEGIN
 

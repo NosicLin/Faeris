@@ -5,11 +5,11 @@
 #include "material/FsMaterial.h"
 
 NS_FS_BEGIN
-class PositionColorMaterial:public Material
+class Mat_V4F_C4F:public Material
 {
 	public:
-		static PositionColorMaterial* create();
-		static PositionColorMaterial* shareMaterial();
+		static Mat_V4F_C4F* create();
+		static Mat_V4F_C4F* shareMaterial();
 
 	public:
 		virtual void onUse(Render* r);
@@ -25,12 +25,12 @@ class PositionColorMaterial:public Material
 			return m_opacity;
 		}
 	public:
-		int getPostionLocation(){return m_positionLocation;}
-		int getColorLocation(){return m_colorLocation;}
+		int getV4FLocation(){return m_positionLocation;}
+		int getC4FLocation(){return m_colorLocation;}
 
 	protected:
-		PositionColorMaterial();
-		~PositionColorMaterial();
+		Mat_V4F_C4F();
+		~Mat_V4F_C4F();
 
 	private:
 		float m_opacity;

@@ -5,7 +5,7 @@
 #include "graphics/FsFontTTF.h"
 #include "graphics/FsImage2D.h"
 #include "graphics/FsTexture2D.h"
-#include "material/FsPositionTextureMaterial.h"
+#include "material/FsMat_V4F_C4F.h"
 #include "common/FsGlobal.h"
 #include "io/FsFile.h"
 

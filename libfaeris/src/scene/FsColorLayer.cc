@@ -1,6 +1,6 @@
 #include "scene/FsColorLayer.h"
 #include "graphics/FsRender.h"
-#include "material/FsPositionColorMaterial.h"
+#include "material/FsMat_V4F_C4F.h"
 
 NS_FS_BEGIN
 ColorLayer* ColorLayer::create()
@@ -30,7 +30,7 @@ void ColorLayer::draw(Render*  r)
 {
 
 	
-	PositionColorMaterial* material=PositionColorMaterial::shareMaterial();
+	Mat_V4F_C4F* material=Mat_V4F_C4F::shareMaterial();
 	material->setOpacity(1.0);
 
 	Matrix4 mat;
@@ -42,8 +42,8 @@ void ColorLayer::draw(Render*  r)
 	r->setActiveTexture(0);
 	r->disableAllAttrArray();
 
-	int pos_loc=material->getPostionLocation();
-	int color_loc=material->getColorLocation();
+	int pos_loc=material->getV4FLocation();
+	int color_loc=material->getC4FLocation();
 
 	Vector3 vv[4]=
 	{

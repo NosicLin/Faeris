@@ -81,7 +81,7 @@ class FontTTF:public FsObject
 
 	protected:
 		FontTTF();
-		~FontTTF();
+		virtual ~FontTTF();
 
 		void purgeCache();
 		void addCache(Glyph* glyph);

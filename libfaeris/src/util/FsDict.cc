@@ -9,7 +9,7 @@
 NS_FS_BEGIN
 
 
-static const char s_FsDict_Name[]="DictObject";
+static const char* s_FsDict_Name=FS_DICT_CLASS_NAME;
 static int s_dummy_int=0; /* only for get an unique address value */
 FsObject* s_dict_dummy_entry=(FsObject*)&s_dummy_int;
 

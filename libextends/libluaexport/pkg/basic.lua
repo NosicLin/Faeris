@@ -8,6 +8,7 @@ local fsobject= {
 	"TextureMgr",
 	"TouchEventListener",
 	"FontTTF",
+	"FontBitmap",
 	"Scheduler",
 	"Entity",
 	"SchedulerTarget",

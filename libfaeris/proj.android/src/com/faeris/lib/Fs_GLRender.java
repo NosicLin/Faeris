@@ -31,6 +31,7 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 	}
 	public void setIsDraw(boolean draw)
 	{
+		
 	}
 	public boolean getIsDraw()
 	{

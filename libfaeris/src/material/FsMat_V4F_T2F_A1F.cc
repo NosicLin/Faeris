@@ -1,11 +1,11 @@
-#include "material/FsPositionAlphaTextureMaterial.h"
+#include "material/FsMat_V4F_T2F_A1F.h"
 #include "graphics/FsProgram.h"
 
 
 NS_FS_BEGIN
 
 static const char quad_material_vert_str[]=
-"attribute vec2 a_position; 	    		\n\
+"attribute vec4 a_position; 	    		\n\
 attribute vec2  a_texCoord;					\n\
 attribute float a_alpha;					\n\
 uniform mat4 u_mvp;							\n\
@@ -18,7 +18,7 @@ varying float v_alpha;						\n\
 #endif										\n\
 void main() 								\n\
 { 											\n\
-	gl_Position=u_mvp*vec4(a_position,0,1);	\n\
+	gl_Position=u_mvp*a_position;	\n\
 	v_texCoord=a_texCoord;					\n\
 	v_alpha=a_alpha;						\n\
 }											\n\
@@ -40,68 +40,68 @@ void main()							\n\
 }														\n\
 ";
 
-static PositionAlphaTextureMaterial* s_shareMatrial=NULL;
-PositionAlphaTextureMaterial* PositionAlphaTextureMaterial::shareMaterial()
+static Mat_V4F_T2F_A1F* s_shareMatrial=NULL;
+Mat_V4F_T2F_A1F* Mat_V4F_T2F_A1F::shareMaterial()
 {
 	if(s_shareMatrial==NULL)
 	{
-		s_shareMatrial=PositionAlphaTextureMaterial::create();
+		s_shareMatrial=Mat_V4F_T2F_A1F::create();
 	}
 
 	s_shareMatrial->addRef();
 	return s_shareMatrial;
 }
 
-void PositionAlphaTextureMaterial::purgeShareMaterial()
+void Mat_V4F_T2F_A1F::purgeShareMaterial()
 {
 	s_shareMatrial->forceDestroy();
 	s_shareMatrial=NULL;
 }
 
 
-PositionAlphaTextureMaterial* PositionAlphaTextureMaterial::create()
+Mat_V4F_T2F_A1F* Mat_V4F_T2F_A1F::create()
 {
-	return new PositionAlphaTextureMaterial();
+	return new Mat_V4F_T2F_A1F();
 }
 
-void PositionAlphaTextureMaterial::setColor(Color c)
+void Mat_V4F_T2F_A1F::setColor(Color c)
 {
 	m_color=c;
 }
 
-Color PositionAlphaTextureMaterial::getColor()
+Color Mat_V4F_T2F_A1F::getColor()
 {
 	return m_color;
 }
 
 
-void PositionAlphaTextureMaterial::setOpacity(float opacity)
+void Mat_V4F_T2F_A1F::setOpacity(float opacity)
 {
 	m_opacity=opacity;
 }
 
-float PositionAlphaTextureMaterial::getOpacity()
+float Mat_V4F_T2F_A1F::getOpacity()
 {
 	return m_opacity;
 }
 
 
-int PositionAlphaTextureMaterial::getPositionLocaition()
+int Mat_V4F_T2F_A1F::getV4FLocation()
 {
 	return m_positionAttribute;
 }
 
-int PositionAlphaTextureMaterial::getTexCoordLocation()
+int Mat_V4F_T2F_A1F::getT2FLocation()
 {
 	return m_textcoordAttribute;
 }
-int PositionAlphaTextureMaterial::getAlphaLocation()
+int Mat_V4F_T2F_A1F::getA1FLocation()
 {
 	return m_alphaAttribute;
 }
 
 
-void PositionAlphaTextureMaterial::onUse(Render* r)
+void Mat_V4F_T2F_A1F::onUse(Render* r)
 {
 	float color[4]=
 	{
@@ -125,7 +125,7 @@ void PositionAlphaTextureMaterial::onUse(Render* r)
 }
 
 
-const char* PositionAlphaTextureMaterial::className()
+const char* Mat_V4F_T2F_A1F::className()
 {
 	return FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME;
 }
@@ -133,7 +133,7 @@ const char* PositionAlphaTextureMaterial::className()
 
 
 
-PositionAlphaTextureMaterial::PositionAlphaTextureMaterial()
+Mat_V4F_T2F_A1F::Mat_V4F_T2F_A1F()
 {
 	m_program=Program::create(quad_material_vert_str,sizeof(quad_material_vert_str),
 							  quad_material_frag_str,sizeof(quad_material_frag_str));
@@ -166,7 +166,7 @@ PositionAlphaTextureMaterial::PositionAlphaTextureMaterial()
 
 }
 
-PositionAlphaTextureMaterial::~PositionAlphaTextureMaterial()
+Mat_V4F_T2F_A1F::~Mat_V4F_T2F_A1F()
 {
 	m_program->decRef();
 }

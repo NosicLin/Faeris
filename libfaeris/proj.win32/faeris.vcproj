@@ -314,6 +314,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\graphics\FsFontBitmap.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\graphics\FsFontBitmap.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\graphics\FsFontTTF.cc"
 					>
 				</File>
@@ -374,35 +382,35 @@
 				Name="material"
 				>
 				<File
+					RelativePath="..\src\material\FsMat_V4F_C4F.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\material\FsMat_V4F_C4F.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\material\FsMat_V4F_T2F.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\material\FsMat_V4F_T2F.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\material\FsMat_V4F_T2F_A1F.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\material\FsMat_V4F_T2F_A1F.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\material\FsMaterial.cc"
 					>
 				</File>
 				<File
 					RelativePath="..\src\material\FsMaterial.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionAlphaTextureMaterial.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionAlphaTextureMaterial.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionColorMaterial.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionColorMaterial.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionTextureMaterial.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\material\FsPositionTextureMaterial.h"
 					>
 				</File>
 			</Filter>
@@ -499,6 +507,14 @@
 				</File>
 				<File
 					RelativePath="..\src\util\FsDict.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\util\FsInteger.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\util\FsInteger.h"
 					>
 				</File>
 				<File

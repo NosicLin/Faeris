@@ -1,0 +1,20 @@
+$#include "graphics/FsFontBitmap.h"
+
+class FontBitmap:public Resource
+{
+	public:
+		static FontBitmap* create(const char* fnt);
+
+		int getLineGap(){return m_linegap;}
+		void  setLineGap(int line_gap){m_linegap=line_gap;}
+
+		int getHeight(){return m_height;}
+		int getAscent(){return m_ascent;}
+		int getDescent(){return m_descent;}
+		int getBaseline(){return m_baseline;}
+
+		int getTextureWidth(){return m_textureWidth;}
+		int getTextureHeight(){return m_textureHeight;}
+
+};
+

@@ -7,11 +7,11 @@
 
 
 NS_FS_BEGIN
-class PositionAlphaTextureMaterial:public Material
+class Mat_V4F_T2F_A1F:public Material
 {
 	public:
-		static PositionAlphaTextureMaterial* create();
-		static PositionAlphaTextureMaterial* shareMaterial();
+		static Mat_V4F_T2F_A1F* create();
+		static Mat_V4F_T2F_A1F* shareMaterial();
 		static void purgeShareMaterial();
 	public:
 		void setColor(Color c);
@@ -20,17 +20,17 @@ class PositionAlphaTextureMaterial:public Material
 		void setOpacity(float opacity);
 		float getOpacity();
 
-		int getPositionLocaition();
-		int getTexCoordLocation();
-		int getAlphaLocation();
+		int getV4FLocation();
+		int getT2FLocation();
+		int getA1FLocation();
 
 	public:
 		virtual void onUse(Render* r);
 		virtual const char* className();
 
 	protected:
-		PositionAlphaTextureMaterial();
-		~PositionAlphaTextureMaterial();
+		Mat_V4F_T2F_A1F();
+		~Mat_V4F_T2F_A1F();
 
 	private:
 		Color m_color;

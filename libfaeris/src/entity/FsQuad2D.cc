@@ -1,7 +1,7 @@
 #include "entity/FsQuad2D.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsRender.h"
-#include "material/FsPositionTextureMaterial.h"
+#include "material/FsMat_V4F_T2F.h"
 #include "common/FsGlobal.h"
 #include "mgr/FsTextureMgr.h"
 
@@ -136,8 +136,8 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 		Face3(2,3,0),
 	};
 
-	int pos_loc=m_material->getPositionLocation();
-	int tex_loc=m_material->getTexCoordLocation();
+	int pos_loc=m_material->getV4FLocation();
+	int tex_loc=m_material->getT2FLocation();
 	render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
 	render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,vc);
 	render->drawFace3(faces,2);
@@ -195,7 +195,7 @@ bool Quad2D::init(Texture2D* tex)
 
 	tex->addRef();
 	m_texture=tex;
-	m_material=PositionTextureMaterial::shareMaterial();
+	m_material=Mat_V4F_T2F::shareMaterial();
 	m_color=Color::WHITE;
 	m_opacity=1.0f;
 	return true;

@@ -5,11 +5,11 @@
 
 NS_FS_BEGIN
 class Program;
-class PositionTextureMaterial: public Material
+class Mat_V4F_T2F: public Material
 {
 	public:
-		static PositionTextureMaterial* create();
-		static PositionTextureMaterial* shareMaterial();
+		static Mat_V4F_T2F* create();
+		static Mat_V4F_T2F* shareMaterial();
 		static void purgeShareMaterial();
 
 	public:
@@ -18,15 +18,15 @@ class PositionTextureMaterial: public Material
 		void setOpacity(float opacity);
 		float getOpacity();
 
-		int getPositionLocation();
-		int getTexCoordLocation();
+		int getV4FLocation();
+		int getT2FLocation();
 
 	public:
 		virtual void onUse(Render* r);
 		virtual const char* className();
 	protected:
-		PositionTextureMaterial();
-		~PositionTextureMaterial();
+		Mat_V4F_T2F();
+		~Mat_V4F_T2F();
 
 
 

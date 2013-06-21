@@ -11,7 +11,7 @@ class Sprite2DData;
 class Texture2D;
 class FsArray;
 class Sprite2DAnimation;
-class PositionAlphaTextureMaterial;
+class Mat_V4F_T2F_A1F;
 
 class Sprite2D :public Entity 
 {
@@ -84,7 +84,7 @@ class Sprite2D :public Entity
 
 		/* material */
 
-		PositionAlphaTextureMaterial* m_material;
+		Mat_V4F_T2F_A1F* m_material;
 };
 
 
