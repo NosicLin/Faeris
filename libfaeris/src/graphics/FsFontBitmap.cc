@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 
 #include "graphics/FsFontBitmap.h"
 #include "graphics/FsTexture2D.h"
@@ -17,7 +18,7 @@ static const char* s_char_token[FS_CHAR_TOKEN_NUM]=
 };
 static int s_char_token_len[FS_CHAR_TOKEN_NUM]=
 {
-	 3,2,2,6,7,7,8,9,5,
+	 3,2,2,6,7,8,8,9,5,
 };
 
 GlyphBitmap* GlyphBitmap::create()
@@ -39,6 +40,46 @@ const char* GlyphBitmap::className()
 const char* FontBitmap::className()
 {
 	return FS_FONT_BITMAP_CLASS_NAME;
+}
+
+FontBitmap::GlyphSet::GlyphSet()
+{
+}
+FontBitmap::GlyphSet::~GlyphSet()
+{
+	std::map<int,GlyphBitmap*>::iterator iter;
+
+	for(iter=m_values.begin();iter!=m_values.end();++iter)
+	{
+		iter->second->decRef();
+	}
+	m_values.clear();
+}
+
+void FontBitmap::GlyphSet::insert(int key,GlyphBitmap* g)
+{
+	g->addRef();
+
+	std::map<int,GlyphBitmap*>::iterator iter=m_values.find(key);
+	if(iter!=m_values.end())
+	{
+		iter->second->decRef();  /* key has insert, so just remove it */
+	}
+	m_values[key]=g;
+}
+
+GlyphBitmap* FontBitmap::GlyphSet::find(int key)
+{
+	std::map<int,GlyphBitmap*>::iterator iter=m_values.find(key);
+	if(iter!=m_values.end())
+	{
+		iter->second->addRef();
+		return iter->second;
+	}
+	else 
+	{
+		return NULL;
+	}
 }
 
 
@@ -75,7 +116,6 @@ FontBitmap::FontBitmap()
 	m_textureHeight=0;
 	m_descent=0;
 	m_ascent=0;
-	m_baseline=0;
 	m_height=0;
 	m_textures=NULL;
 }
@@ -87,11 +127,28 @@ FontBitmap::~FontBitmap()
 
 void FontBitmap::destroy()
 {
-	FS_SAFE_DEC_REF(m_glyphs);
+	FS_SAFE_DELETE(m_glyphs);
 	m_glyphs=NULL;
 
 	FS_SAFE_DEC_REF(m_textures);
 	m_textures=NULL;
+}
+
+
+GlyphBitmap* FontBitmap::loadGlyph(uint16_t index)
+{
+	return m_glyphs->find(index);
+
+}
+
+Texture2D* FontBitmap::getTexture(int index)
+{
+	if((unsigned int)index>=m_textures->size())
+	{
+		return NULL;
+	}
+
+	return (Texture2D*) m_textures->get(index);
 }
 
 
@@ -116,8 +173,15 @@ bool FontBitmap::init(FsFile* file)
 	int scale_w;
 	int scale_h;
 
+	int max_y=0;
+	int min_y=0;
+	int max_xadvance=0;
+
 	std::string texture_file;
-	FsDict* glyphs=FsDict::create();
+	GlyphSet* glyphs=new GlyphSet;
+
+	Texture2D* texture=NULL;
+	GlyphBitmap* g=NULL;
 
 	int line_num=1;
 
@@ -145,8 +209,10 @@ bool FontBitmap::init(FsFile* file)
 		}
 		else if(strncmp(line.c_str(),"common",6)==0)
 		{
+			int height_pos,base_pos,scale_w_pos,scale_h_pos;
+
 			/* lineHeight */
-			int height_pos=line.find("lineHeight=");
+			height_pos=line.find("lineHeight=");
 			if(height_pos==std::string::npos)
 			{
 				FS_TRACE_WARN("Can't Find \"lineHeight\" In Font Bitmap");
@@ -155,18 +221,19 @@ bool FontBitmap::init(FsFile* file)
 			line_height=atoi(line.c_str()+height_pos+11);  /* strlen("lineHeight=") is 11 */
 
 
-			/* baseLine */
-			int baseline_pos=line.find("base=");
-			if(baseline_pos==std::string::npos)
+			/* baseline */
+			base_pos=line.find("base=");
+			if(base_pos==std::string::npos)
 			{
-				FS_TRACE_WARN("Can't Find \"base\" In Font Bitmap");
+				FS_TRACE_WARN("Can't Find \"lineHeight\" In Font Bitmap");
 				goto error;
 			}
-			base_line=atoi(line.c_str()+baseline_pos+5); /* strlen("base=") is 5 */
+			base_line=atoi(line.c_str()+base_pos+5);  /* strlen("base=") is 5 */
+
 
 
 			/* scaleW */
-			int scale_w_pos=line.find("scaleW=");
+			scale_w_pos=line.find("scaleW=");
 			if(scale_w_pos==std::string::npos)
 			{
 				FS_TRACE_WARN("Can't Find \"scaleW\" in FontBitmap");
@@ -175,7 +242,7 @@ bool FontBitmap::init(FsFile* file)
 			scale_w=atoi(line.c_str()+scale_w_pos+7); /* strlen("scaleW") is 7 */
 
 			/* scaleH */
-			int scale_h_pos=line.find("scaleH=");
+			scale_h_pos=line.find("scaleH=");
 			if(scale_w_pos==std::string::npos)
 			{
 				FS_TRACE_WARN("Can't Find \"scaleH\" in FontBitmap");
@@ -186,14 +253,19 @@ bool FontBitmap::init(FsFile* file)
 		}
 		else if (strncmp(line.c_str(),"page",4)==0)
 		{
-			int file_name_begin_pos=line.find("file=\"");
+			int file_name_begin_pos,file_name_end_pos;
+
+
+			/* begin pos */
+			file_name_begin_pos=line.find("file=\"");
 			if(file_name_begin_pos==std::string::npos)
 			{
 				FS_TRACE_WARN("Can't Find file name in FontBitmap");
 				goto error;
 			}
 
-			int file_name_end_pos=  line.find("\"",file_name_begin_pos+6);
+			/* end pos */
+			file_name_end_pos=  line.find("\"",file_name_begin_pos+6);
 			if(file_name_end_pos==std::string::npos)
 			{
 				FS_TRACE_WARN("Can't Find file name in FontBitmap");
@@ -231,10 +303,43 @@ bool FontBitmap::init(FsFile* file)
 			glyph->m_xadvance=v_xadvance;
 			glyph->m_page=v_page;
 
-			FsInteger* key=FsInteger::create(v_id);
+			/* cache info for typography */
+			glyph->m_minx=v_xoffset;
+			glyph->m_maxx=v_xoffset+v_width;
+			glyph->m_miny=v_yoffset;
+			glyph->m_maxy=v_yoffset+v_height;
 
-			glyphs->insert(key,glyph);
-			key->decRef();
+			glyph->m_ulb=(float)v_x/(float)scale_w;
+			glyph->m_vlb=(float)(v_y+v_height)/(float)scale_h;
+
+			glyph->m_urb=(float)(v_x+v_width)/(float)scale_w;
+			glyph->m_vrb=glyph->m_vlb;
+
+			glyph->m_urt=glyph->m_urb;
+			glyph->m_vrt=(float)v_y/(float)scale_h;
+
+			glyph->m_ult=glyph->m_ulb;
+			glyph->m_vlt=glyph->m_vrt;
+
+
+
+
+
+			if(glyph->m_maxy>max_y)
+			{
+				max_y=glyph->m_maxy;
+			}
+			if(v_yoffset<min_y)
+			{
+				min_y=v_yoffset;
+			}
+			if(max_xadvance<v_xadvance)
+			{
+				max_xadvance=v_xadvance;
+			}
+
+			glyphs->insert(v_id,glyph);
+
 			glyph->decRef();
 		}
 		else
@@ -248,24 +353,61 @@ next_line:
 		prev_pos=cur_pos;
 	}
 
-	Texture2D* texture=Global::textureMgr()->loadTexture(texture_file.c_str());
+
+	texture=Global::textureMgr()->loadTexture(texture_file.c_str());
+
 	if(texture==NULL)
 	{
-		FS_TRACE_WARN("Can't Load Texture(%s) For Bitmap".texture_file.c_str());
+		FS_TRACE_WARN("Can't Load Texture(%s) For Bitmap",texture_file.c_str());
 		goto error;
 	}
+	//texture->setFilter(Texture2D::FILTER_NEAREST,Texture2D::FILTER_NEAREST);
+
+
+	/* find space */
+	g=glyphs->find(' '); 
+	if(g==NULL)
+	{
+		g=new GlyphBitmap();
+		g->m_char=' ';
+		g->m_xadvance=max_xadvance;
+		glyphs->insert(' ',g);
+	}
+	FS_SAFE_DEC_REF(g);
+
+	/* find tab */
+	g=glyphs->find('\t');
+	if(g==NULL)
+	{
+		g=new GlyphBitmap();
+		g->m_char='\t';
+		g->m_xadvance=max_xadvance;
+		glyphs->insert('\t',g);
+	}
+	FS_SAFE_DEC_REF(g);
+
+
+	/* find line */
+	g=glyphs->find('\n');
+	if(g==NULL)
+	{
+		g=new GlyphBitmap();
+		g->m_char='\n';
+		glyphs->insert('\n',g);
+	}
+	FS_SAFE_DEC_REF(g);
+
+
 
 	m_glyphs=glyphs;
 	m_textureWidth=scale_w;
 	m_textureHeight=scale_h;
 
-	m_baseline=base_line;
+
+	m_ascent=line_height-base_line;
+	m_descent=m_ascent-line_height;
+
 	m_height=line_height;
-
-	m_ascent=m_height-m_baseline;
-	m_descent=m_ascent-m_height;
-
-	m_linegap=0;
 
 	m_textures=FsArray::create();
 	m_textures->push(texture);
@@ -273,7 +415,7 @@ next_line:
 	return true;
 
 error:
-	FS_SAFE_DEC_REF(glyphs);
+	delete glyphs;
 	return false;
 
 };

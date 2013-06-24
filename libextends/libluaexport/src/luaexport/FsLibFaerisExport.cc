@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 06/21/13 23:14:44.
+** Generated automatically by tolua++-1.0.92 on 06/23/13 14:38:40.
 */
 
 #ifndef __cplusplus
@@ -28,6 +28,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "luaext/FsLuaEntity.h"
 #include "entity/FsSprite2D.h"
 #include "luaext/FsLuaEntity.h"
+#include "entity/FsLabelBitmap.h"
 #include "scheduler/FsScheduler.h"
 #include "luaext/FsLuaScene.h"
 #include "scene/FsDirector.h"
@@ -114,13 +115,15 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"LuaEntity");
  toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
+ toluaext_usertype(tolua_S,"Resource");
  toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"ResourceMgr");
  toluaext_usertype(tolua_S,"SysDispatcher");
  toluaext_usertype(tolua_S,"Quad2D");
  toluaext_usertype(tolua_S,"LabelTTF");
- toluaext_usertype(tolua_S,"Window");
+ toluaext_usertype(tolua_S,"LuaLabelBitmap");
  toluaext_usertype(tolua_S,"TouchDispatcher");
- toluaext_usertype(tolua_S,"Resource");
+ toluaext_usertype(tolua_S,"Window");
  toluaext_usertype(tolua_S,"Layer2D");
  toluaext_usertype(tolua_S,"LuaLayer2D");
  toluaext_usertype(tolua_S,"FsObject");
@@ -129,21 +132,21 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"LuaScene");
  toluaext_usertype(tolua_S,"FsArray");
  toluaext_usertype(tolua_S,"FontBitmap");
- toluaext_usertype(tolua_S,"ResourceMgr");
  tolua_usertype(tolua_S,"Rect2D");
- tolua_usertype(tolua_S,"Global");
  tolua_usertype(tolua_S,"Vector4");
- tolua_usertype(tolua_S,"ColorLayer");
+ tolua_usertype(tolua_S,"Global");
+ toluaext_usertype(tolua_S,"TouchEventListener");
  toluaext_usertype(tolua_S,"Texture2D");
  tolua_usertype(tolua_S,"Color");
  toluaext_usertype(tolua_S,"Render");
+ toluaext_usertype(tolua_S,"LuaSysEventListener");
  tolua_usertype(tolua_S,"LuaSprite2D");
- toluaext_usertype(tolua_S,"TouchEventListener");
+ tolua_usertype(tolua_S,"ColorLayer");
  toluaext_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
- toluaext_usertype(tolua_S,"LuaSysEventListener");
- tolua_usertype(tolua_S,"TouchPoint");
  toluaext_usertype(tolua_S,"Scheduler");
+ tolua_usertype(tolua_S,"TouchPoint");
+ tolua_usertype(tolua_S,"LabelBitmap");
  toluaext_usertype(tolua_S,"LuaQuad2D");
 }
 
@@ -4451,6 +4454,744 @@ static int tolua_FsLibFaeris_Sprite2D_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setString of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setString00
+static int tolua_FsLibFaeris___LabelBitmap_setString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  const char* utf8_str = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->setString(utf8_str);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setString of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setString01
+static int tolua_FsLibFaeris___LabelBitmap_setString01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  const char* utf8_str = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int start = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->setString(utf8_str,start);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_FsLibFaeris___LabelBitmap_setString00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setString of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setString02
+static int tolua_FsLibFaeris___LabelBitmap_setString02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  const char* utf8_str = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int start = ((int)  tolua_tonumber(tolua_S,3,0));
+  int num = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->setString(utf8_str,start,num);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_FsLibFaeris___LabelBitmap_setString01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getString of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getString00
+static int tolua_FsLibFaeris___LabelBitmap_getString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getString'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->getString();
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setColor of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setColor00
+static int tolua_FsLibFaeris___LabelBitmap_setColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Color",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  Color c = *((Color*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
+#endif
+  {
+   self->setColor(c);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getColor of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getColor00
+static int tolua_FsLibFaeris___LabelBitmap_getColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getColor'", NULL);
+#endif
+  {
+   Color tolua_ret = (Color)  self->getColor();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((Color)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"Color");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(Color));
+     tolua_pushusertype(tolua_S,tolua_obj,"Color");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOpacity of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setOpacity00
+static int tolua_FsLibFaeris___LabelBitmap_setOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float opacity = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOpacity'", NULL);
+#endif
+  {
+   self->setOpacity(opacity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOpacity of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getOpacity00
+static int tolua_FsLibFaeris___LabelBitmap_getOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOpacity'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getOpacity();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAlign of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setAlign00
+static int tolua_FsLibFaeris___LabelBitmap_setAlign00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  int alignh = ((int)  tolua_tonumber(tolua_S,2,0));
+  int alignv = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAlign'", NULL);
+#endif
+  {
+   self->setAlign(alignh,alignv);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAlign'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAlignOffset of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setAlignOffset00
+static int tolua_FsLibFaeris___LabelBitmap_setAlignOffset00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAlignOffset'", NULL);
+#endif
+  {
+   self->setAlignOffset(x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAlignOffset'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAlign of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getAlign00
+static int tolua_FsLibFaeris___LabelBitmap_getAlign00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  int alignh = ((int)  tolua_tonumber(tolua_S,2,0));
+  int alignv = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAlign'", NULL);
+#endif
+  {
+   self->getAlign(&alignh,&alignv);
+   tolua_pushnumber(tolua_S,(lua_Number)alignh);
+   tolua_pushnumber(tolua_S,(lua_Number)alignv);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAlign'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAlignOffset of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getAlignOffset00
+static int tolua_FsLibFaeris___LabelBitmap_getAlignOffset00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAlignOffset'", NULL);
+#endif
+  {
+   self->getAlignOffset(&x,&y);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAlignOffset'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getWidth of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getWidth00
+static int tolua_FsLibFaeris___LabelBitmap_getWidth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWidth'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getWidth();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getWidth'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getHeight of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getHeight00
+static int tolua_FsLibFaeris___LabelBitmap_getHeight00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeight'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getHeight();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getHeight'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setTextAlign of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setTextAlign00
+static int tolua_FsLibFaeris___LabelBitmap_setTextAlign00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  int mode = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTextAlign'", NULL);
+#endif
+  {
+   self->setTextAlign(mode);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setTextAlign'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setBounds of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_setBounds00
+static int tolua_FsLibFaeris___LabelBitmap_setBounds00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBounds'", NULL);
+#endif
+  {
+   self->setBounds(x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setBounds'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTextAlign of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getTextAlign00
+static int tolua_FsLibFaeris___LabelBitmap_getTextAlign00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTextAlign'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTextAlign();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTextAlign'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getBounds of class  LabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___LabelBitmap_getBounds00
+static int tolua_FsLibFaeris___LabelBitmap_getBounds00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LabelBitmap* self = (LabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBounds'", NULL);
+#endif
+  {
+   self->getBounds(&x,&y);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getBounds'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaLabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_LabelBitmap_create00
+static int tolua_FsLibFaeris_LabelBitmap_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaLabelBitmap",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* text = ((const char*)  tolua_tostring(tolua_S,2,0));
+  FontBitmap* font = ((FontBitmap*)  tolua_tousertype(tolua_S,3,0));
+  {
+   LuaLabelBitmap* tolua_ret = (LuaLabelBitmap*)  LuaLabelBitmap::create(text,font);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"LuaLabelBitmap");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaLabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_LabelBitmap_create01
+static int tolua_FsLibFaeris_LabelBitmap_create01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaLabelBitmap",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"FontBitmap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  FontBitmap* font = ((FontBitmap*)  tolua_tousertype(tolua_S,2,0));
+  {
+   LuaLabelBitmap* tolua_ret = (LuaLabelBitmap*)  LuaLabelBitmap::create(font);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"LuaLabelBitmap");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_FsLibFaeris_LabelBitmap_create00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onDraw of class  LuaLabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_LabelBitmap_draw00
+static int tolua_FsLibFaeris_LabelBitmap_draw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLabelBitmap",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLabelBitmap* self = (LuaLabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  Render* r = ((Render*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
+#endif
+  {
+   self->onDraw(r);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onUpdate of class  LuaLabelBitmap */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_LabelBitmap_update00
+static int tolua_FsLibFaeris_LabelBitmap_update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaLabelBitmap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaLabelBitmap* self = (LuaLabelBitmap*)  tolua_tousertype(tolua_S,1,0);
+  float dt = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onUpdate'", NULL);
+#endif
+  {
+   self->onUpdate(dt);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: create of class  Scheduler */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Scheduler_create00
 static int tolua_FsLibFaeris_Scheduler_create00(lua_State* tolua_S)
@@ -8289,71 +9030,6 @@ static int tolua_FsLibFaeris_FontBitmap_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getLineGap of class  FontBitmap */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getLineGap00
-static int tolua_FsLibFaeris_FontBitmap_getLineGap00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLineGap'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getLineGap();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getLineGap'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setLineGap of class  FontBitmap */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_setLineGap00
-static int tolua_FsLibFaeris_FontBitmap_setLineGap00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
-  int line_gap = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLineGap'", NULL);
-#endif
-  {
-   self->setLineGap(line_gap);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setLineGap'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getHeight of class  FontBitmap */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getHeight00
 static int tolua_FsLibFaeris_FontBitmap_getHeight00(lua_State* tolua_S)
@@ -8445,38 +9121,6 @@ static int tolua_FsLibFaeris_FontBitmap_getDescent00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getDescent'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getBaseline of class  FontBitmap */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FontBitmap_getBaseline00
-static int tolua_FsLibFaeris_FontBitmap_getBaseline00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"FontBitmap",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  FontBitmap* self = (FontBitmap*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBaseline'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getBaseline();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getBaseline'.",&tolua_err);
  return 0;
 #endif
 }
@@ -13486,6 +14130,45 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris_Sprite2D_draw00);
    tolua_function(tolua_S,"update",tolua_FsLibFaeris_Sprite2D_update00);
   tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"__LabelBitmap","LabelBitmap","Entity",NULL);
+  tolua_beginmodule(tolua_S,"__LabelBitmap");
+   tolua_function(tolua_S,"setString",tolua_FsLibFaeris___LabelBitmap_setString00);
+   tolua_function(tolua_S,"setString",tolua_FsLibFaeris___LabelBitmap_setString01);
+   tolua_function(tolua_S,"setString",tolua_FsLibFaeris___LabelBitmap_setString02);
+   tolua_function(tolua_S,"getString",tolua_FsLibFaeris___LabelBitmap_getString00);
+   tolua_function(tolua_S,"setColor",tolua_FsLibFaeris___LabelBitmap_setColor00);
+   tolua_function(tolua_S,"getColor",tolua_FsLibFaeris___LabelBitmap_getColor00);
+   tolua_function(tolua_S,"setOpacity",tolua_FsLibFaeris___LabelBitmap_setOpacity00);
+   tolua_function(tolua_S,"getOpacity",tolua_FsLibFaeris___LabelBitmap_getOpacity00);
+   tolua_function(tolua_S,"setAlign",tolua_FsLibFaeris___LabelBitmap_setAlign00);
+   tolua_function(tolua_S,"setAlignOffset",tolua_FsLibFaeris___LabelBitmap_setAlignOffset00);
+   tolua_function(tolua_S,"getAlign",tolua_FsLibFaeris___LabelBitmap_getAlign00);
+   tolua_function(tolua_S,"getAlignOffset",tolua_FsLibFaeris___LabelBitmap_getAlignOffset00);
+   tolua_function(tolua_S,"getWidth",tolua_FsLibFaeris___LabelBitmap_getWidth00);
+   tolua_function(tolua_S,"getHeight",tolua_FsLibFaeris___LabelBitmap_getHeight00);
+   tolua_function(tolua_S,"setTextAlign",tolua_FsLibFaeris___LabelBitmap_setTextAlign00);
+   tolua_function(tolua_S,"setBounds",tolua_FsLibFaeris___LabelBitmap_setBounds00);
+   tolua_function(tolua_S,"getTextAlign",tolua_FsLibFaeris___LabelBitmap_getTextAlign00);
+   tolua_function(tolua_S,"getBounds",tolua_FsLibFaeris___LabelBitmap_getBounds00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"LabelBitmap","LuaLabelBitmap","LabelBitmap",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"LabelBitmap");
+   tolua_constant(tolua_S,"ALIGN_V_TOP",LuaLabelBitmap::ALIGN_V_TOP);
+   tolua_constant(tolua_S,"ALIGN_V_CENTER",LuaLabelBitmap::ALIGN_V_CENTER);
+   tolua_constant(tolua_S,"ALIGN_V_BOTTOM",LuaLabelBitmap::ALIGN_V_BOTTOM);
+   tolua_constant(tolua_S,"ALIGN_V_USER_DEFINE",LuaLabelBitmap::ALIGN_V_USER_DEFINE);
+   tolua_constant(tolua_S,"ALIGN_H_LEFT",LuaLabelBitmap::ALIGN_H_LEFT);
+   tolua_constant(tolua_S,"ALIGN_H_RIGHT",LuaLabelBitmap::ALIGN_H_RIGHT);
+   tolua_constant(tolua_S,"ALIGN_H_CENTER",LuaLabelBitmap::ALIGN_H_CENTER);
+   tolua_constant(tolua_S,"ALIGN_H_USER_DEFINE",LuaLabelBitmap::ALIGN_H_USER_DEFINE);
+   tolua_constant(tolua_S,"TEXT_ALIGN_LEFT",LuaLabelBitmap::TEXT_ALIGN_LEFT);
+   tolua_constant(tolua_S,"TEXT_ALIGN_CENTER",LuaLabelBitmap::TEXT_ALIGN_CENTER);
+   tolua_constant(tolua_S,"TEXT_ALIGN_RIGHT",LuaLabelBitmap::TEXT_ALIGN_RIGHT);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_LabelBitmap_create00);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_LabelBitmap_create01);
+   tolua_function(tolua_S,"draw",tolua_FsLibFaeris_LabelBitmap_draw00);
+   tolua_function(tolua_S,"update",tolua_FsLibFaeris_LabelBitmap_update00);
+  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Scheduler","Scheduler","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Scheduler");
    tolua_constant(tolua_S,"HIGHEST",Scheduler::HIGHEST);
@@ -13660,12 +14343,9 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"FontBitmap","FontBitmap","Resource",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"FontBitmap");
    tolua_function(tolua_S,"create",tolua_FsLibFaeris_FontBitmap_create00);
-   tolua_function(tolua_S,"getLineGap",tolua_FsLibFaeris_FontBitmap_getLineGap00);
-   tolua_function(tolua_S,"setLineGap",tolua_FsLibFaeris_FontBitmap_setLineGap00);
    tolua_function(tolua_S,"getHeight",tolua_FsLibFaeris_FontBitmap_getHeight00);
    tolua_function(tolua_S,"getAscent",tolua_FsLibFaeris_FontBitmap_getAscent00);
    tolua_function(tolua_S,"getDescent",tolua_FsLibFaeris_FontBitmap_getDescent00);
-   tolua_function(tolua_S,"getBaseline",tolua_FsLibFaeris_FontBitmap_getBaseline00);
    tolua_function(tolua_S,"getTextureWidth",tolua_FsLibFaeris_FontBitmap_getTextureWidth00);
    tolua_function(tolua_S,"getTextureHeight",tolua_FsLibFaeris_FontBitmap_getTextureHeight00);
   tolua_endmodule(tolua_S);

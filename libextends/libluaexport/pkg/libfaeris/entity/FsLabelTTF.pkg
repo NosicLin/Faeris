@@ -32,7 +32,6 @@ class LuaLabelTTF@LabelTTF:public LabelTTF
 			ALIGN_H_LEFT,
 			ALIGN_H_RIGHT,
 			ALIGN_H_CENTER,
-
 		};
 	public:
 		static LuaLabelTTF* create(const char* text,FontTTF* font);

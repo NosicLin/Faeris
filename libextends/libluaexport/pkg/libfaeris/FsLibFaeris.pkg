@@ -24,6 +24,7 @@ $pfile "entity/FsColorQuad2D.pkg"
 $pfile "entity/FsQuad2D.pkg"
 $pfile "entity/FsLabelTTF.pkg"
 $pfile "entity/FsSprite2D.pkg"
+$pfile "entity/FsLabelBitmap.pkg"
 
 
 /* scheduler */

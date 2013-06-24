@@ -115,6 +115,8 @@ namespace Faeris
 		d=s; \
 	}while(0)
 
+#define FS_SAFE_DELETE(v) \
+	do{ if(v){ delete v;} } while(0)
 
 
 /* global Macros For Faeris */
@@ -232,6 +234,7 @@ enum
 #define FS_SPRITE2D_ANIMATION_CLASS_NAME "Sprite2DAnimation"
 #define FS_SPRITE2D_DATA_CLASS_NAME "Sprite2DData"
 #define FS_SPRITE2D_CLASS_NAME "Sprite2D"
+#define FS_LABEL_BITMAP_CLASS_NAME "LabelBitmap"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"

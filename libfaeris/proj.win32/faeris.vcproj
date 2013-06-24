@@ -728,6 +728,14 @@
 						RelativePath="..\src\support\data\FsIconv.h"
 						>
 					</File>
+					<File
+						RelativePath="..\src\support\data\FsUnicode.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\data\FsUnicode.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -751,6 +759,14 @@
 				</File>
 				<File
 					RelativePath="..\src\entity\FsEntity.inl"
+					>
+				</File>
+				<File
+					RelativePath="..\src\entity\FsLabelBitmap.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\entity\FsLabelBitmap.h"
 					>
 				</File>
 				<File

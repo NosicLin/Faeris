@@ -4,23 +4,41 @@
 #include "FsMacros.h"
 #include "math/FsVector2.h"
 #include "math/FsVector3.h"
-#include "math/FsColor.h"
 #include "math/FsTexCoord2.h"
+#include "graphics/FsColor.h"
 
 
 NS_FS_BEGIN
 
-struct Fs_V2F_T2F
+class Fs_V2F_T2F
 {
-	Vector2 v2;
-	TexCoord t2;
+	
+	public:
+		Fs_V2F_T2F(const Vector2& v,const TexCoord2& t)
+		{
+			v2=v;
+			t2=t;
+		}
+	
+	public:
+
+		Vector2 v2;
+		TexCoord2 t2;
 };
 
 
-struct Fs_V3F_T2F
+class Fs_V3F_T2F
 {
-	Vector3 v3;
-	TexCoord t2;
+	public:
+		Fs_V3F_T2F(const Vector3& v,const TexCoord2& t)
+		{
+			v3=v;
+			t2=t;
+		}
+
+	public:
+		Vector3 v3;
+		TexCoord2 t2;
 };
 
 

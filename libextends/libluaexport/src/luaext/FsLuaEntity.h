@@ -11,6 +11,7 @@
 #include "entity/FsQuad2D.h"
 #include "entity/FsSprite2D.h"
 #include "entity/FsLabelTTF.h"
+#include "entity/FsLabelBitmap.h"
 
 NS_FS_BEGIN
 class LuaEntity:public TEntity<Entity>
@@ -109,9 +110,46 @@ class LuaLabelTTF:public TEntity<LabelTTF>
 			ret->init(text,font);
 			return ret;
 		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_LABEL_TTF_CLASS_NAME;
+		}
 	protected:
 		LuaLabelTTF(){}
 		~LuaLabelTTF(){}
+};
+class LuaLabelBitmap:public TEntity<LabelBitmap>
+{
+	public:
+		static LuaLabelBitmap* create(const char* text,FontBitmap* font)
+		{
+			LuaLabelBitmap* ret=create(font);
+			if(ret)
+			{
+				ret->setString(text);
+			}
+			return ret;
+		}
+		static LuaLabelBitmap* create(FontBitmap* font)
+		{
+			LuaLabelBitmap* ret=new LuaLabelBitmap();
+			if(!ret->init(font))
+			{
+				ret->decRef();
+				ret=NULL;
+			}
+			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_LABEL_BITMAP_CLASS_NAME;
+		}
+	protected:
+		LuaLabelBitmap(){}
+		~LuaLabelBitmap(){}
+
 };
 
 class LuaSprite2D:public TEntity<Sprite2D>
@@ -126,6 +164,11 @@ class LuaSprite2D:public TEntity<Sprite2D>
 				return NULL;
 			}
 			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_SPRITE2D_CLASS_NAME;
 		}
 	protected:
 		LuaSprite2D(){}

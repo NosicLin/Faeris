@@ -34,6 +34,7 @@ local fsobject= {
 	"LuaColorQuad2D",
 	"SysEventListener",
 	"LuaTouchEventListener",
+	"LuaLabelBitmap",
 	"LabelTTF",
 	"LuaLabelTTF",
 	"LuaSysEventListener",

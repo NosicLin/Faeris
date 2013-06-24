@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibAudio
-** Generated automatically by tolua++-1.0.92 on 06/21/13 23:14:42.
+** Generated automatically by tolua++-1.0.92 on 06/23/13 14:38:38.
 */
 
 #ifndef __cplusplus

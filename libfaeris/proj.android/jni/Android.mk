@@ -23,6 +23,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/entity/FsQuad2D.cc \
 					../../src/entity/FsSprite2DData.cc \
 					../../src/entity/FsSprite2D.cc \
+					../../src/entity/FsLabelBitmap.cc \
 					../../src/event/FsSysDispatcher.cc \
 					../../src/event/FsTouchDispatcher.cc \
 					../../src/graphics/FsColor.cc \
@@ -31,16 +32,17 @@ LOCAL_SRC_FILES :=  \
 					../../src/graphics/FsRender.cc \
 					../../src/graphics/FsProgram.cc \
 					../../src/graphics/FsTexture2D.cc \
+					../../src/graphics/FsFontBitmap.cc \
 					../../src/io/FsFile.cc \
 					../../src/io/FsSysFile.cc \
 					../../src/io/FsVFS.cc \
 					../../src/io/FsPackage.cc \
 					../../src/io/FsZipPackage.cc \
 					../../src/io/FsMemFile.cc \
-					../../src/material/FsPositionColorMaterial.cc \
+					../../src/material/FsMat_V4F_C4F.cc \
+					../../src/material/FsMat_V4F_T2F.cc \
+					../../src/material/FsMat_V4F_T2F_A1F.cc \
 					../../src/material/FsMaterial.cc \
-					../../src/material/FsPositionTextureMaterial.cc \
-					../../src/material/FsPositionAlphaTextureMaterial.cc \
 					../../src/math/FsMathUtil.cc \
 					../../src/math/FsMatrix4.cc \
 					../../src/math/FsRect2D.cc \
@@ -60,6 +62,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/data/FsDeflate.cc \
 					../../src/support/data/FsHash.cc \
 					../../src/support/data/FsIconv.cc \
+					../../src/support/data/FsUnicode.cc \
 					../../src/support/data/FsEncrypt.cc \
 					../../src/support/felis/sl_comment.cc \
 					../../src/support/felis/sl_double_quote_str.cc \

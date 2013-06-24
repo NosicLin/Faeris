@@ -3,15 +3,20 @@
 
 
 #include <string>
+#include <set>
+#include <vector>
 
 #include "FsMacros.h"
 #include "entity/FsEntity.h"
 #include "graphics/FsColor.h"
 #include "math/FsVertices.h"
+#include "math/FsFace3.h"
+#include "material/FsMat_V4F_T2F.h"
 
 
 NS_FS_BEGIN
 class FontBitmap;
+class Texture2D;
 class PositionTextureMaterial;
 
 class LabelBitmap:public Entity 
@@ -81,14 +86,16 @@ class LabelBitmap:public Entity
 
 
 	protected:
-		FontBitmap();
-		virtual ~FontBitmap();
+		LabelBitmap();
+		virtual ~LabelBitmap();
 		bool init(FontBitmap* font);
 		void destroy();
 
-		void setString(uint16_t* utf16_str,int start,int num);
+		int setString(uint16_t* utf16_str,int len);
 
 		void calRelOffset();
+		void clear();
+		void generateIndices();
 
 
 	private:
@@ -101,22 +108,21 @@ class LabelBitmap:public Entity
 		float m_opacity;
 		Color m_color;
 
-		uint8_t* m_utf8str;
-
-
 		FontBitmap* m_font;
 		Texture2D* m_texture;
 
 		Mat_V4F_T2F* m_material;
+
+		/* user setting */
+		uint8_t* m_utf8str;
 
 
 		/* auto generate */
 		float m_width,m_height;
 		float m_relOffsetx,m_relOffsety;
 
-		Fs_V2F_T2F* m_vertices;
-		int m_vertexNu;
-
+		std::vector<Fs_V2F_T2F> m_vertices;
+		std::vector<Face3> m_indics;
 };
 
 
