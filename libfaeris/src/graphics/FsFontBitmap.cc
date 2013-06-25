@@ -29,6 +29,19 @@ GlyphBitmap* GlyphBitmap::create()
 GlyphBitmap::GlyphBitmap()
 	:m_char(0),m_x(0),m_y(0),m_width(0),m_height(0),m_xoffset(0),m_yoffset(0),m_xadvance(0),m_page(0)
 {
+	m_minx=0;
+	m_miny=0;
+	m_maxx=0;
+	m_maxy=0;
+
+	m_ulb=0;
+	m_vlb=0;
+	m_urb=0;
+	m_vrb=0;
+	m_urt=0;
+	m_vrt=0;
+	m_ult=0;
+	m_vlt=0;
 }
 const char* GlyphBitmap::className()
 {
@@ -118,6 +131,8 @@ FontBitmap::FontBitmap()
 	m_ascent=0;
 	m_height=0;
 	m_textures=NULL;
+
+
 }
 
 FontBitmap::~FontBitmap()
@@ -371,6 +386,7 @@ next_line:
 		g=new GlyphBitmap();
 		g->m_char=' ';
 		g->m_xadvance=max_xadvance;
+		g->m_maxx=max_xadvance;
 		glyphs->insert(' ',g);
 	}
 	FS_SAFE_DEC_REF(g);
@@ -382,6 +398,7 @@ next_line:
 		g=new GlyphBitmap();
 		g->m_char='\t';
 		g->m_xadvance=max_xadvance;
+		g->m_maxx=max_xadvance;
 		glyphs->insert('\t',g);
 	}
 	FS_SAFE_DEC_REF(g);
