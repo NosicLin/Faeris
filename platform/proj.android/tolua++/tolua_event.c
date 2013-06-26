@@ -534,3 +534,4 @@ TOLUA_API void tolua_classevents (lua_State* L)
 	lua_rawset(L,-3);
 }
 
+#include "toluaext_event.inl"

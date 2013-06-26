@@ -1,8 +1,0 @@
-$#include "event/FsTouchDispatcher.h"
-
-class SysDispatcher:public FsObject 
-{
-	public:
-		void addEventListener(SysEventListener* l);
-		void removeEventListener(SysEventListener* l);
-};

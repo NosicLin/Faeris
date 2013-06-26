@@ -1,0 +1,72 @@
+$#include "entity/FsLabelBitmap.h"
+
+class LabelBitmap@__LabelBitmap:public Entity 
+{
+	public:
+		int setString(const char* utf8_str);
+		int setString(const char* utf8_str,int start);
+		int setString(const char* utf8_str,int start,int num);
+
+		const char* getString();
+
+		void setColor(Color c);
+		Color getColor();
+
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		void setAlign(int alignh,int alignv);
+		void setAlignOffset(float x,float y);
+
+		void getAlign(int* alignh,int* alignv);
+		void getAlignOffset(float* x,float* y);
+
+
+		float getWidth();
+		float getHeight();
+
+		/* NOTE: setTextAlign and setBounds will not take effect 
+		 * immediately,it will change at next setString called 
+		 */
+		void setTextAlign(int mode);
+		void setBounds(float x,float y);
+
+		int getTextAlign();
+		void getBounds(float* x,float* y);
+};
+
+class LuaLabelBitmap@LabelBitmap:public LabelBitmap
+{
+	public:
+		enum
+		{ 
+			ALIGN_V_TOP,
+			ALIGN_V_CENTER,
+			ALIGN_V_BOTTOM,
+			ALIGN_V_USER_DEFINE,
+
+			ALIGN_H_LEFT,
+			ALIGN_H_RIGHT,
+			ALIGN_H_CENTER,
+			ALIGN_H_USER_DEFINE
+		};
+		enum
+		{
+			TEXT_ALIGN_LEFT,
+			TEXT_ALIGN_CENTER,
+			TEXT_ALIGN_RIGHT
+		};
+
+	public:
+		static LuaLabelBitmap* create(const char* text,FontBitmap* font);
+		static LuaLabelBitmap* create(FontBitmap* font);
+
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+
+
+}
+
+
+

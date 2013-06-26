@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaerisWin32", "FaerisWin32\FaerisWin32.vcproj", "{3C38EA9B-4527-40D0-8194-4914648F7934}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98} = {5489D600-2CBC-4EF5-803D-FEFCCFF64F98}
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925} = {1A220C0A-1B8C-4B0D-9EF8-157B34855925}
+		{4F864FCF-E55B-4250-A12E-52784D9439E4} = {4F864FCF-E55B-4250-A12E-52784D9439E4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luaexport", "..\..\..\libextends\libluaexport\proj.win32\luaexport.vcproj", "{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaudio", "..\..\..\libextends\libaudio\proj.win32\libaudio.vcproj", "{4F864FCF-E55B-4250-A12E-52784D9439E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faeris", "..\..\..\libfaeris\proj.win32\faeris.vcproj", "{1A220C0A-1B8C-4B0D-9EF8-157B34855925}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C38EA9B-4527-40D0-8194-4914648F7934}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3C38EA9B-4527-40D0-8194-4914648F7934}.Debug|Win32.Build.0 = Debug|Win32
+		{3C38EA9B-4527-40D0-8194-4914648F7934}.Release|Win32.ActiveCfg = Release|Win32
+		{3C38EA9B-4527-40D0-8194-4914648F7934}.Release|Win32.Build.0 = Release|Win32
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Debug|Win32.Build.0 = Debug|Win32
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Release|Win32.ActiveCfg = Release|Win32
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Release|Win32.Build.0 = Release|Win32
+		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Debug|Win32.Build.0 = Debug|Win32
+		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Release|Win32.ActiveCfg = Release|Win32
+		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Release|Win32.Build.0 = Release|Win32
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Debug|Win32.Build.0 = Debug|Win32
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Release|Win32.ActiveCfg = Release|Win32
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

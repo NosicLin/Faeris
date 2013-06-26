@@ -178,6 +178,10 @@
 				RelativePath=".\src\tolua_to.c"
 				>
 			</File>
+			<File
+				RelativePath=".\src\toluaext_event.inl"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

@@ -702,8 +702,8 @@ TOLUA_API void tolua_dobuffer(lua_State* L, char* B, unsigned int size, const ch
  #endif
 };
 
-void tolua_mapsuper (lua_State* L, const char* name, const char* base)
+
+TOLUA_API void tolua_mapsuper (lua_State* L, const char* name, const char* base)
 {
 	mapsuper(L,name,base);
 }
-

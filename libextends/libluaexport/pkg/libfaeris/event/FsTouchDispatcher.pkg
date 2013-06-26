@@ -1,0 +1,25 @@
+$#include "event/FsTouchDispatcher.h"
+
+class TouchPoint
+{
+	public:
+		int id;
+		float x;
+		float y;
+};
+
+class TouchEvent 
+{
+	public:
+		const TouchPoint* getPoints(){return m_points;}
+		const TouchPoint* getPoint(int index);
+		const TouchPoint* operator[](int index);
+};
+
+class TouchDispatcher:public FsObject 
+{
+	public:
+		void addListener(TouchEventListener* l);
+		void removeListener(TouchEventListener* l);
+};
+

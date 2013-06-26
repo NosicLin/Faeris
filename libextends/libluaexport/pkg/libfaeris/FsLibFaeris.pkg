@@ -1,0 +1,80 @@
+$#include "FsLuaExport.h"
+
+/*  FsTypes.pkg it must first here */
+
+$pfile  "FsTypes.pkg"
+
+/* common */
+$pfile "common/FsGlobal.pkg"
+
+/* core */
+$pfile "core/FsObject.pkg"
+
+
+/* event */
+$pfile "event/FsTouchEventListener.pkg"
+$pfile "event/FsSysEventListener.pkg"
+$pfile "event/FsTouchDispatcher.pkg"
+$pfile "event/FsSysDispatcher.pkg"
+
+
+/* entity */
+$pfile "entity/FsEntity.pkg"
+$pfile "entity/FsColorQuad2D.pkg"
+$pfile "entity/FsQuad2D.pkg"
+$pfile "entity/FsLabelTTF.pkg"
+$pfile "entity/FsSprite2D.pkg"
+$pfile "entity/FsLabelBitmap.pkg"
+
+
+/* scheduler */
+$pfile "scheduler/FsScheduler.pkg"
+
+
+
+/* scene */
+$pfile "scene/FsScene.pkg"
+$pfile "scene/FsDirector.pkg"
+$pfile "scene/FsLayer.pkg"
+$pfile "scene/FsColorLayer.pkg"
+$pfile "scene/FsLayer2D.pkg"
+
+
+
+/* graphics */
+$pfile "graphics/FsRender.pkg"
+$pfile "graphics/FsColor.pkg"
+$pfile "graphics/FsFontTTF.pkg"
+$pfile "graphics/FsTexture2D.pkg"
+$pfile "graphics/FsFontBitmap.pkg"
+
+
+/* math */
+$pfile "math/FsVector2.pkg"
+$pfile "math/FsVector3.pkg"
+$pfile "math/FsVector4.pkg"
+$pfile "math/FsMatrix4.pkg"
+$pfile "math/FsRect2D.pkg"
+
+
+/* sys */
+$pfile "sys/FsWindow.pkg"
+
+/* mgr */
+$pfile "mgr/FsTextureMgr.pkg"
+$pfile "mgr/FsResourceMgr.pkg"
+$pfile "mgr/FsResource.pkg"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
