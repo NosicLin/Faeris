@@ -1,8 +1,4 @@
 #include <string.h>
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 #include "util/FsPathUtil.h"
 
 
