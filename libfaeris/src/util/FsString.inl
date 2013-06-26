@@ -2,7 +2,7 @@
 #define _FS_UTIL_STRING_INL_
 
 #include "FsMacros.h"
-#include "data/FsHash.h"
+#include "support/data/FsHash.h"
 
 NS_FS_BEGIN
 inline FsString::FsString():m_string("")
