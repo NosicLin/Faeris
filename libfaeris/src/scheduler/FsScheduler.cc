@@ -1,5 +1,6 @@
 #include "scheduler/FsScheduler.h"
 #include "scheduler/FsSchedulerTarget.h"
+#include "scheduler/FsTask.h"
 #include "sys/FsSys.h"
 #include "common/FsScriptEngine.h"
 #include "common/FsGlobal.h"
@@ -112,6 +113,15 @@ bool Scheduler::hasTarget(SchedulerTarget* target)
 	}
 	return false;
 }
+
+void Scheduler::runSyncTask(Task* t)
+{
+	m_taskLock->lock();
+	m_taskPending->push(t);
+	m_taskLock->unlock();
+}
+
+
 void Scheduler::init()
 {
 	for(int i=0;i<PRIORITY_NU;i++)
@@ -120,6 +130,10 @@ void Scheduler::init()
 	}
 	m_stop=false;
 	m_fps=60;
+
+	m_taskHanding=FsArray::create();
+	m_taskPending=FsArray::create();
+	m_taskLock=new Mutex();
 }
 
 void Scheduler::destroy()
@@ -127,11 +141,46 @@ void Scheduler::destroy()
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
 		m_target[i]->decRef();
+		m_target[i]=NULL;
 	}
+	m_taskPending->decRef();
+	m_taskPending=NULL;
+
+	m_taskHanding->decRef();
+	m_taskHanding->decRef();
+	delete m_taskLock;
+	m_taskLock=NULL;
+
+
 }
 
 float Scheduler::update(float dt)
 {
+
+	/* run sync task,
+	 * swap task pending queue and handing queue 
+	 * for minimize lock time 
+	 */ 
+	m_taskLock->lock();
+	if(m_taskPending->size()!=0)
+	{
+		FsArray* tmp=m_taskHanding;
+		m_taskHanding=m_taskPending;
+		m_taskPending=tmp;
+	}
+	m_taskLock->unlock();
+
+	/* running all pend task */
+	int task_nu=m_taskHanding->size();
+	for(int i=0;i<task_nu;i++)
+	{
+		Task* t=(Task*)m_taskHanding->get(i);
+		t->run();
+		t->decRef();
+	}
+	m_taskHanding->clear();
+
+
 	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
 	long update_begin=m_timer.now();
 	for(int i=0;i<PRIORITY_NU;i++)

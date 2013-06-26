@@ -159,7 +159,7 @@ bool moduleExit()
 
 void setRoot(const char* path)
 {
-	strncmp(s_root,path,FS_ROOT_PATH_SIZE);
+	strncpy(s_root,path,FS_ROOT_PATH_SIZE);
 }
 const char* getRoot()
 {

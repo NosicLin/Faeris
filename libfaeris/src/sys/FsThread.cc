@@ -1,4 +1,7 @@
+#include <string.h>
+
 #include "sys/FsThread.h"
+
 NS_FS_BEGIN
 static void* FsThread_Run(void* t)
 {
@@ -73,6 +76,23 @@ int Thread::detach()
 	{
 		ret=-1;
 		FS_TRACE_WARN("Detach Thread Failed");
+	}
+	return ret;
+}
+
+int Thread::cancel()
+{
+	if(!m_init)
+	{
+		FS_TRACE_WARN("Thread Not Init");
+		return -1;
+	}
+
+	int ret=pthread_cancel(m_tid);
+	if(ret<0)
+	{
+		ret=-1;
+		FS_TRACE_WARN("Cancel Thread Failed");
 	}
 	return ret;
 }

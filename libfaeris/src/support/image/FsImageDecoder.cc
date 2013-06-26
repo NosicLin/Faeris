@@ -1,7 +1,7 @@
 #include <string.h>
 
-#include "image/FsImageDecoder.h"
-#include "image/FsImagePng.h"
+#include "support/image/FsImageDecoder.h"
+#include "support/image/FsImagePng.h"
 #include "graphics/FsImage2D.h"
 #include "io/FsVFS.h"
 

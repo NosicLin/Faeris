@@ -110,12 +110,15 @@ void Director::update(int priority,float dt)
 			m_current->exit();
 			m_current->decRef();
 		}
+
 		if(m_next)
 		{
 			m_next->enter();
-			m_next->addRef();
+			
 		}
+
 		m_current=m_next;
+		m_next=NULL;
 		m_sceneChange=false;
 	}
 	if(m_stop)
@@ -214,6 +217,13 @@ void Director::destroy()
 		m_current->decRef();
 		m_current=NULL;
 	}
+
+	if(m_next)
+	{
+		m_next->decRef();
+		m_next=NULL;
+	}
+
 	m_secenQueue->decRef();
 
 	Global::touchDispatcher()->removeListener(m_touchEventListener);

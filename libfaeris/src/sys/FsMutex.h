@@ -14,7 +14,6 @@ class Mutex
 
 	public:
 		int lock(); 
-		int lock(bool retry); 
 		int trylock();
 		int unlock();
 	private:

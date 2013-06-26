@@ -15,9 +15,7 @@ class Semaphore
 	public:
 		int wait();
 		int wait(long ms);
-
 		int trywait();
-		int trywait(long ms);
 
 		int post();
 		int post(int count);

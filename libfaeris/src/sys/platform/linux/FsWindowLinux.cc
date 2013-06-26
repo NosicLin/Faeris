@@ -287,7 +287,7 @@ void EventGraper::handleEvent(XEvent* src_event)
 			{
 				if((Atom)(src_event->xclient.data.l[0])==plt_window->m_delete_msg)
 				{
-					Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::QUIT);
+					Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::QUIT));
 				}
 				break;
 			}
@@ -312,10 +312,9 @@ void EventGraper::handleEvent(XEvent* src_event)
 					float x=e->x;
 					float y=e->y;
 					transformViewPoint(&x,&y);
-					if(pointInView(x,y))
-					{
-						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_BEGIN,x,y);
-					}
+					TouchPoint p(0,x,y);
+					Global::touchDispatcher()->dispatchEvent(
+							new TouchEvent(TouchDispatcher::TOUCHES_BEGIN,1,&p));
 				}
 				break;
 			}
@@ -327,10 +326,9 @@ void EventGraper::handleEvent(XEvent* src_event)
 					float x=e->x;
 					float y=e->y;
 					transformViewPoint(&x,&y);
-					if(pointInView(x,y))
-					{
-						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_END,x,y);
-					}
+					TouchPoint p(0,x,y);
+					Global::touchDispatcher()->dispatchEvent(
+							new TouchEvent(TouchDispatcher::TOUCHES_END,1,&p));
 				}
 				break;
 			}
@@ -343,21 +341,20 @@ void EventGraper::handleEvent(XEvent* src_event)
 					float x=e->x;
 					float y=e->y;
 					transformViewPoint(&x,&y);
-					if(pointInView(x,y))
-					{
-						Global::touchDispatcher()->dispatchTouchEvent(TouchDispatcher::TOUCH_MOVE,x,y);
-					}
+					TouchPoint p(0,x,y);
+					Global::touchDispatcher()->dispatchEvent(
+							new TouchEvent(TouchDispatcher::TOUCHES_MOVE,1,&p));
 				}
 				break;
 			}
 		case FocusIn:
 			{
-				Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::FOREGROUND);
+				Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::FOREGROUND));
 				break;
 			}
 		case FocusOut:
 			{
-				Global::sysDispatcher()->dispatchSysEvent(SysDispatcher::BACKGROUND);
+				Global::sysDispatcher()->dispatchEvent(new SysEvent(SysDispatcher::BACKGROUND));
 				break;
 			}
 		case DestroyNotify:

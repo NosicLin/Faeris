@@ -5,9 +5,11 @@
 #include "core/FsObject.h"
 #include "util/FsSlowArray.h"
 #include "sys/FsTimer.h"
+#include "sys/FsMutex.h"
 
 NS_FS_BEGIN
 class SchedulerTarget;
+class Task;
 class Scheduler :public FsObject
 {
 	public:
@@ -46,6 +48,9 @@ class Scheduler :public FsObject
 		bool hasTarget(SchedulerTarget* target,int priority);
 		bool hasTarget(SchedulerTarget* target);
 
+	public:
+		void runSyncTask(Task* t);
+
 	protected:
 		Scheduler();
 		~Scheduler();
@@ -59,6 +64,13 @@ class Scheduler :public FsObject
 		int m_fps;
 
 		Timer m_timer;
+
+
+		/* sync task */
+		FsArray* m_taskHanding;
+		FsArray* m_taskPending;
+		Mutex* m_taskLock;
+
 
 };
 

@@ -5,13 +5,17 @@ FILE_EXT=cc
 
 #Project infor 
 PROJECT_PATH=../../build/linux/prebuild/
-PROJECT=libfaeris
+PROJECT=faeris
 
 # User Config Information 
 LIB_DIR=$(PROJECT_PATH)debug
-OBJ_DIR=$(PROJECT_PATH)obj
+OBJ_DIR=$(PROJECT_PATH)obj/$(PROJECT)
 SRC_DIR=../src
-INCLUDE_DIR=-I../src  -I./
+INCLUDE_DIR=-I../src \
+		   	-I./ \
+		   	-I../../platform/thirdparty/linux/freetype/ \
+			-I../../platform/thirdparty/linux  \
+			-I../src/support 
 
 #Source File 
 SRC= common/FsGlobal.cc \
@@ -37,7 +41,6 @@ SRC= common/FsGlobal.cc \
 	 io/FsFile.cc \
 	 io/FsMemFile.cc \
 	 io/FsPackage.cc \
-	 io/FsRenderTarget.cc \
 	 io/FsSysFile.cc \
 	 io/FsVFS.cc \
 	 io/FsZipPackage.cc \
@@ -48,8 +51,6 @@ SRC= common/FsGlobal.cc \
 	 math/FsMathUtil.cc \
 	 math/FsMatrix4.cc \
 	 math/FsQuaternion.cc \
-	 math/FsRect2D.cc \
-	 math/FsTexCoord2.cc \
 	 math/FsRect2D.cc \
 	 mgr/FsFontTTFDataMgr.cc \
 	 mgr/FsResource.cc \
@@ -84,11 +85,12 @@ SRC= common/FsGlobal.cc \
 	 support/image/FsImageDecoder.cc \
 	 support/image/FsImagePng.cc \
 	 sys/FsSys.cc \
-	 sys/FsThread.cc \
 	 sys/FsTimer.cc \
 	 sys/FsWindow.cc \
+	 sys/FsMutex.cc \
+	 sys/FsSemaphore.cc \
+	 sys/FsThread.cc \
 	 util/FsArray.cc \
-	 util/FsDirector.cc \
 	 util/FsInteger.cc \
 	 util/FsLog.cc \
 	 util/FsPathUtil.cc \
@@ -112,16 +114,48 @@ SRC= common/FsGlobal.cc \
 SRC_NAME_WITH_PATH=$(addprefix $(SRC_DIR)/,$(SRC))
 
 #obj name 
-OBJ_NAME=$(SRC:%.$(FILE_EXT)=%.o) 
+OBJ_NAME=$(SRC:%.cc=%.o) 
 OBJ_NAME_WITH_PATH=$(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
+
+ALL_OBJ_DIR=$(sort $(dir $(OBJ_NAME_WITH_PATH)))
+
 
 
 main:$(LIB_DIR)/lib$(PROJECT).a
 
-$(LIB_DIR)/lib$(PROJECT).a: $(OBJ_NAME_WITH_PATH) 
+$(LIB_DIR)/lib$(PROJECT).a: $(ALL_OBJ_DIR) $(OBJ_NAME_WITH_PATH) 
+	echo $(ALL_OBJ_DIR)
 	ar cr $@ $(OBJ_NAME_WITH_PATH)
+
+$(ALL_OBJ_DIR):
+	mkdir -p $@
+
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(FILE_EXT)
 	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE_DIR) 
+clean: 
+	rm -rf $(OBJ_NAME_WITH_PATH);\
+	rm -rf $(LIB_DIR)/lib$(PROJECT).a	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

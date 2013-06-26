@@ -1,6 +1,6 @@
 #include <string.h>
 #include "graphics/FsImage2D.h"
-#include "image/FsImageDecoder.h"
+#include "support/image/FsImageDecoder.h"
 
 NS_FS_BEGIN
 uint Image2D::PixelFormatSize(PixelFormat f)

@@ -18,7 +18,7 @@ TouchEvent::TouchEvent(int type,int point_nu,TouchPoint* points)
 }
 TouchEvent::~TouchEvent()
 {
-	delete m_points;
+	delete[] m_points;
 	m_points=NULL;
 }
 
@@ -46,7 +46,7 @@ void TouchEventListener::onTouchEvent(TouchEvent* event)
 	float x=point->x;
 	float y=point->y;
 
-	switch(event->getType())
+	switch(type)
 	{
 		case TouchDispatcher::TOUCHES_BEGIN:
 			touchesBegin(event);

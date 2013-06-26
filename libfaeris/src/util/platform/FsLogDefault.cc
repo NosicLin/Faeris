@@ -1,5 +1,5 @@
 #include "FsMacros.h"
-#include "FsLog.h"
+#include "util/FsLog.h"
 #include "FsConfig.h"
 #include "io/FsFile.h"
 #include "io/FsVFS.h"

@@ -1,5 +1,5 @@
 #include "zlib/zlib.h"
-#include "data/FsDeflate.h"
+#include "support/data/FsDeflate.h"
 
 uint FsDeflate_CompressBound(uint value)
 {

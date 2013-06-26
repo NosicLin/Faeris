@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "data/FsIconv.h"
+#include "support/data/FsIconv.h"
 #include "entity/FsLabelTTF.h"
 #include "material/FsMat_V4F_T2F.h"
 #include "graphics/FsImage2D.h"

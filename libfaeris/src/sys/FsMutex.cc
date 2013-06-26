@@ -8,13 +8,13 @@ Mutex::Mutex()
 
 Mutex::~Mutex()
 {
-	pthread_mutex_destory(&m_mutex);
+	pthread_mutex_destroy(&m_mutex);
 }
 
 
 int Mutex::lock()
 {
-	int ret=pthread_mutex_lock(m_mutex);
+	int ret=pthread_mutex_lock(&m_mutex);
 	if(ret<0)
 	{
 		FS_TRACE_WARN("Lock Mutex Failed");
@@ -23,25 +23,10 @@ int Mutex::lock()
 	return 0;
 }
 
-int Mutex::lock(bool retry)
-{
-	int ret=-1;
-	do{
-		ret=pthread_mutex_lock(m_mutex);
-
-		if((ret==-1)&&retry)
-		{
-			continue;
-		}
-		break;
-	}while(true);
-
-	return ret;
-}
 
 int Mutex::trylock()
 {
-	int ret=pthread_mutex_trylock(m_mutex);
+	int ret=pthread_mutex_trylock(&m_mutex);
 
 	if(ret<0)
 	{
@@ -52,7 +37,7 @@ int Mutex::trylock()
 
 int Mutex::unlock()
 {
-	int ret=pthread_mutex_unlock(m_mutex);
+	int ret=pthread_mutex_unlock(&m_mutex);
 	if(ret<0)
 	{
 		FS_TRACE_WARN("Unlock Mutex Failed");

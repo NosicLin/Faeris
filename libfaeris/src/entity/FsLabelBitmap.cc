@@ -311,14 +311,10 @@ int LabelBitmap::setString(uint16_t* utf16_str,int len)
 	int pen_x=0;
 	int pen_y=0;
 
-	int bound_x=0;
-	int bound_y=0;
 
 	int max_x=0;
 	int min_y=0;
 
-	int t_width=m_font->getTextureWidth();
-	int t_height=m_font->getTextureHeight();
 
 	std::vector<std::vector<Fs_V2F_T2F>*> mul_line_vertices;
 	std::vector<Fs_V2F_T2F>* curline=NULL;

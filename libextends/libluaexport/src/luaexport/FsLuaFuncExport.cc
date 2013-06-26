@@ -8,7 +8,7 @@
 #include "util/FsLog.h"
 #include "FsLuaEngine.h"
 #include "common/FsGlobal.h"
-#include "Sys/FsSys.h"
+#include "sys/FsSys.h"
 
 
 /* all function */
