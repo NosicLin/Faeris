@@ -25,7 +25,8 @@ INCLUDE_DIR= -I./  \
 			 -I../../../lib/libextends/libluaexport/src \
 
 
-LINK_DIR= -L../../../lib/library/linux
+LINK_DIR= -L../../../lib/library/linux/library \
+		  -L../../../lib/library/linux
 
 LINK_LIB= -lfaeris \
 	      -lGL  \
@@ -38,7 +39,8 @@ LINK_LIB= -lfaeris \
 		  -lfreetype \
 		  -lminizip \
 		  -lluaexport \
-		  -laudio
+		  -laudio  \
+		  -lfmodex
 
 
 #Source File 

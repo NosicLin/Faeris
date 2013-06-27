@@ -4,11 +4,11 @@ quad=ColorQuad2D:create(200,200,Color(255,255,255))
 quad:setZorder(-1)
 
 label1=LabelBitmap:create(font)
---label1:setBounds(200,100)
+label1:setBounds(400,100)
 
 label2=LabelBitmap:create(font)
 
-label2:setBounds(200,0);
+label2:setBounds(400,0);
 
 
 label1:setTextAlign(LabelBitmap.TEXT_ALIGN_LEFT)
