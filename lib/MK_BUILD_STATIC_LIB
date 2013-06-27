@@ -1,0 +1,52 @@
+ifdef MK_DEBUG 
+FLAGS= $(FLAGS_DEBUG)
+else 
+FLAGS= $(FLAGS_RELEASE)
+endif 
+
+
+LIB_DIR=$(PROJECT_PATH)
+
+ifdef MK_DEBUG 
+OBJ_DIR=$(PROJECT_PATH)obj/$(PROJECT)d
+else 
+OBJ_DIR=$(PROJECT_PATH)obj/$(PROJECT)
+endif 
+
+ifdef MK_DEBUG 
+LIB_NAME=$(PROJECT_PATH)/lib$(PROJECT)d.a 
+else 
+LIB_NAME=$(PROJECT_PATH)/lib$(PROJECT).a 
+endif 
+
+
+#full src name 
+SRC_NAME_WITH_PATH=$(addprefix $(SRC_DIR)/,$(SRC))
+
+#obj name 
+OBJ_NAME=$(SRC:%.$(FILE_EXT)=%.o) 
+OBJ_NAME_WITH_PATH=$(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
+
+ALL_OBJ_DIR=$(sort $(dir $(OBJ_NAME_WITH_PATH)))
+
+
+
+main:$(LIB_NAME)
+
+
+$(LIB_NAME): $(ALL_OBJ_DIR) $(OBJ_NAME_WITH_PATH) 
+	ar cr $@ $(OBJ_NAME_WITH_PATH)
+
+$(ALL_OBJ_DIR):
+	mkdir -p $@
+
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(FILE_EXT)
+	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE_DIR) 
+
+clean: 
+	rm -rf $(OBJ_DIR)
+	rm -rf $(LIB_NAME)
+
+
+
