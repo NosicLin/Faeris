@@ -12,18 +12,17 @@ LIB_DIR=$(PROJECT_PATH)lib
 OBJ_DIR=$(PROJECT_PATH)obj
 BIN_DIR=../../bin
 
-SRC_DIR=..
+SRC_DIR=../src
 
 INCLUDE_DIR= -I./  \
-			 -I../../../platform/thirdparty/linux/lua \
-			 -I../../../platform/thirdparty/linux/tolua++ \
-			 -I../../../src \
+			 -I../../../lib/lib3rdparty/lua/include \
+			 -I../../../lib/lib3rdparty/tolua++/include \
+			 -I../../../lib/libfaeris/src  \
 
-LINK_DIR= -L../../../build/linux/prebuild/debug \
-		  -L../../../build/linux/lib 
+LINK_DIR= -L../../../lib/library/linux/
 
-LINK_LIB=  -ltolua++ \
-		   -llua \
+LINK_LIB=  -ltolua++d \
+		   -lluad \
 		   -lm
 
 #Source File 

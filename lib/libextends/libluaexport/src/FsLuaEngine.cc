@@ -58,11 +58,15 @@ LuaEngine::LuaEngine()
 	tolua_FsLibAudio_open(m_state);
 #endif 
 
+#if FS_CONFIG(FS_EXPORT_LIB_NETWORK)
+	tolua_FsLibNetwork_open(m_state);
+#endif 
 
 #if FS_CONFIG(FS_EXPORT_LIB_LUA_FUNC)
 	tolua_FsLuaFuncExport_open(m_state);
 	tolua_FsLibLuaScript_open(m_state);
 #endif /* FS_EXPORT_LIB_LUA_FUNC */
+
 
 
 

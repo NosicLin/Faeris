@@ -32,6 +32,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 TOLUA_API int  tolua_FsLuaFuncExport_open(lua_State* l);
 TOLUA_API int  tolua_FsLibLuaScript_open (lua_State* tolua_S);
 
+TOLUA_API int  tolua_FsLibNetwork_open (lua_State* tolua_S);
 
 
 #endif /*_FS_LUA_FAERIS_H_*/

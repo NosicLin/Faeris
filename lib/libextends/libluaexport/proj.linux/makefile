@@ -15,16 +15,19 @@ INCLUDE_DIR=-I../src \
 			-I../../../lib3rdparty/tolua++/include \
 			-I../../../lib3rdparty/lua/include \
 			-I../../../libextends/libaudio/src \
+			-I../../../libextends/libnetwork/src \
 
 
 #Source File 
 SRC=  luaexport/FsLibAudioExport.cc \
+	  luaexport/FsLibNetworkExport.cc \
 	  luaexport/FsLibFaerisExport.cc \
 	  luaexport/FsLibLuaScript.cc \
 	  luaexport/FsLuaFuncExport.cc \
 	  luaext/FsLuaScene.cc \
 	  luaext/FsLuaSysEventListener.cc \
 	  luaext/FsLuaTouchEventListener.cc \
+	  luaext/FsLuaHttpRequest.cc \
 	  FsLuaEngine.cc \
 	  toluaext++.cc  \
 	

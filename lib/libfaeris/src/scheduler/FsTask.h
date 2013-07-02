@@ -8,6 +8,9 @@ class Task:public FsObject
 {
 	public:
 		virtual void run()=0;
+
+	public:
+		virtual const char* className();
 };
 NS_FS_END
 

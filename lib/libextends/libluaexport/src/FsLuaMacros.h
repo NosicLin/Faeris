@@ -18,10 +18,14 @@
 #define FS_LUA_LABEL_BITMAP_CLASS_NAME  		"LuaLabelBitmap"
 #define FS_LUA_SPRITE2D_CLASS_NAME				"LuaSprite2D"
 
+#define FS_LUA_HTTP_REQUEST_CLASS_NAME  		"LuaHttpRequest"
+
 
 
 #define FS_EXPORT_LIB_FAERIS
 #define FS_EXPORT_LIB_AUDIO 
+#define FS_EXPORT_LIB_NETWORK
+
 #define FS_EXPORT_LIB_LUA_FUNC 
 
 

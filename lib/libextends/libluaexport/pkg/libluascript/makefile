@@ -1,5 +1,5 @@
 main:
-	../tolua++.exe   -o ../../src/luaexport/FsLibLuaScript.cc FsLibLuaScript.pkg
+	../../tool/$(TOLUA)  -o ../../src/luaexport/FsLibLuaScript.cc FsLibLuaScript.pkg
 
 
 

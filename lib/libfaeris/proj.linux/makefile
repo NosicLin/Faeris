@@ -67,6 +67,7 @@ SRC= common/FsGlobal.cc \
 	 scene/FsScene.cc \
 	 scheduler/FsScheduler.cc \
 	 scheduler/FsSchedulerTarget.cc \
+	 scheduler/FsTask.cc \
 	 support/data/FsBase64.cc \
 	 support/data/FsDeflate.cc \
 	 support/data/FsEncrypt.cc \

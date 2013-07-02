@@ -271,6 +271,7 @@ enum
 /* scheduler */
 #define FS_SCHEDULER_CLASS_NAME "Scheduler"
 #define FS_SCHEDULER_TARGET_CLASS_NAME "SchedulerTarget"
+#define FS_TASK_CLASS_NAME "Task"
 
 
 /* graphics */

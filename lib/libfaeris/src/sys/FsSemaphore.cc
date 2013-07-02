@@ -35,7 +35,7 @@ int Semaphore::wait(long ms)
 	int ret=sem_timedwait(&m_sem,&time);
 	if(ret<0)
 	{
-		FS_TRACE_WARN("Wait %lx ms Failed",ms);
+		//FS_TRACE_WARN("Wait %ld ms Failed",ms);
 		return -1;
 	}
 	return 0;

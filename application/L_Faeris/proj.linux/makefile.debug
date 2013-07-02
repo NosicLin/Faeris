@@ -38,9 +38,11 @@ LINK_LIB= -lfaeris \
 		  -lzlib \
 		  -lfreetype \
 		  -lminizip \
-		  -lluaexport \
+		  -lluaexportd \
 		  -laudio  \
-		  -lfmodex
+		  -lfmodex \
+		  -lnetwork \
+		  -lcurl \
 
 
 #Source File 
