@@ -1,5 +1,5 @@
 #include "sys/FsSemaphore.h"
-
+#include "pthread.h"
 NS_FS_BEGIN
 
 Semaphore::Semaphore()

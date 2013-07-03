@@ -113,7 +113,7 @@ void HttpRequest::setData(const uint8_t* data,int data_len)
 void HttpRequest::getData(uint8_t** data,int* data_len)
 {
 	*data_len=m_data.size();
-	if(data_len==0)
+	if(*data_len==0)
 	{
 		*data=NULL;
 	}

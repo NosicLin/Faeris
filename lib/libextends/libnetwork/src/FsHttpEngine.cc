@@ -154,7 +154,7 @@ NS_FS_END
 
 
 
-#if FS_PLATFORM_OS(FS_OS_WIN) || FS_PLATFORM_OS(FS_OS_LINUX) || FS_PLATFORM_OS(FS_OS_ANDROID) 
+#if FS_PLATFORM_OS(FS_OS_WIN32) || FS_PLATFORM_OS(FS_OS_LINUX) || FS_PLATFORM_OS(FS_OS_ANDROID) 
 	#include "platform/FsCurlHttp.cc"
 #else 
 	#error "Unsupport Platform For FsHttpEngine" 

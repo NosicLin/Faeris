@@ -4,7 +4,6 @@ http=HttpEngine:create()
 
 request=HttpRequest:create()
 request:setUrl("192.168.1.3")
-request:addHeader("linux=fsdf")
 
 request.data={                      
 	onReponse=function(code,data,err) 
@@ -16,3 +15,4 @@ request.data={
                                                                                  
 
 http:send(request)
+

@@ -9,6 +9,7 @@
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 
+
 #if FS_PLATFORM_OS(FS_OS_WIN32)
 	#define FS_CONFIGURE_FILE "win32.fgame"
 #elif FS_PLATFORM_OS(FS_OS_LINUX)

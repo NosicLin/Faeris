@@ -3,12 +3,7 @@
 
 #include "FsConfig.h"
 
-//#if FS_PLATFORM_OS(FS_OS_WIN32)
-#ifdef FS_OS_WIN32
-	#include "c99/stdint.h"
-#else 
-	#include <stdint.h>
-#endif
+#include <stdint.h>
 
 typedef unsigned long ulong;
 typedef unsigned int uint;

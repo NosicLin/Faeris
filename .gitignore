@@ -45,3 +45,9 @@ temp
 *.class
 *.swo
 assets
+
+
+*.exp
+*.map
+lib/library/win32/obj
+lib/library/linux/obj
