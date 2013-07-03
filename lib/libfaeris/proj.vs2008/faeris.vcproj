@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="faeris"
+	Name="libfaeris"
 	ProjectGUID="{1A220C0A-1B8C-4B0D-9EF8-157B34855925}"
 	RootNamespace="faeris"
 	Keyword="Win32Proj"

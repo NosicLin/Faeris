@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="luaexport"
+	Name="libluaexport"
 	ProjectGUID="{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}"
 	RootNamespace="luaexport"
 	Keyword="Win32Proj"
