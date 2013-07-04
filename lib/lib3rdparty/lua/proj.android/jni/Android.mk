@@ -4,38 +4,38 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE :=lua_static  
 
-LOCAL_SRC_FILES := ../lapi.c  \
-				   ../lauxlib.c \
-				   ../lbaselib.c \
-				   ../lcode.c \
-				   ../ldblib.c \
-				   ../ldebug.c \
-				   ../ldo.c \
-				   ../ldump.c \
-				   ../lfunc.c \
-				   ../lgc.c \
-				   ../linit.c \
-				   ../liolib.c \
-				   ../llex.c \
-				   ../lmathlib.c \
-				   ../lmem.c \
-				   ../loadlib.c \
-				   ../lobject.c \
-				   ../lopcodes.c \
-				   ../loslib.c \
-				   ../lparser.c \
-				   ../lstate.c \
-				   ../lstring.c \
-				   ../lstrlib.c \
-				   ../ltable.c \
-				   ../ltablib.c \
-				   ../ltm.c \
-				   ../lundump.c \
-				   ../lvm.c \
-				   ../lzio.c \
-				   ../print.c \
+LOCAL_SRC_FILES := ../../src/lapi.c  \
+				   ../../src/lauxlib.c \
+				   ../../src/lbaselib.c \
+				   ../../src/lcode.c \
+				   ../../src/ldblib.c \
+				   ../../src/ldebug.c \
+				   ../../src/ldo.c \
+				   ../../src/ldump.c \
+				   ../../src/lfunc.c \
+				   ../../src/lgc.c \
+				   ../../src/linit.c \
+				   ../../src/liolib.c \
+				   ../../src/llex.c \
+				   ../../src/lmathlib.c \
+				   ../../src/lmem.c \
+				   ../../src/loadlib.c \
+				   ../../src/lobject.c \
+				   ../../src/lopcodes.c \
+				   ../../src/loslib.c \
+				   ../../src/lparser.c \
+				   ../../src/lstate.c \
+				   ../../src/lstring.c \
+				   ../../src/lstrlib.c \
+				   ../../src/ltable.c \
+				   ../../src/ltablib.c \
+				   ../../src/ltm.c \
+				   ../../src/lundump.c \
+				   ../../src/lvm.c \
+				   ../../src/lzio.c \
+				   ../../src/print.c \
 
-LOCAL_C_INCLUDES := -I../ 
+LOCAL_C_INCLUDES := -I../../src 
 
 LOCAL_CFLAGS += -Wno-psabi
 LOCAL_EXPORT_CFLAGS += -Wno-psabi

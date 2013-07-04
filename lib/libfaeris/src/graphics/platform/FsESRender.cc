@@ -1,7 +1,12 @@
 #include <string.h>
 #include <math.h>
 
-#include "GL/glew.h"
+#if FS_PLATFORM_OS(FS_OS_ANDROID) 
+	#include "GL_Android/gles_2.0.h"
+#else 
+	#include "GL/glew.h"
+#endif 
+
 #include "material/FsMaterial.h"
 #include "FsESRender.h"
 #include "graphics/FsProgram.h"

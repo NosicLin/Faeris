@@ -9,14 +9,12 @@ LOCAL_MODULE := faeris
 LOCAL_SRC_FILES :=  ../../src/FsAndroidMain.cc \
 
 
-LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../  \
-					 -I$(LOCAL_PATH)/../../src \
-					 -I$(LOCAL_PATH)/../../src/luaext \
-					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/android/lua \
-					 -I$(LOCAL_PATH)/../../../../platform/thirdparty/android/tolua++ \
-					 -I$(LOCAL_PATH)/../../../../libfaeris/src \
-					 -I$(LOCAL_PATH)/../../../../libfaeris/src/support  \
-					 -I$(LOCAL_PATH)/../../../../libextends/libluaexport/src \
+LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../../../lib/3rdparty/lua/include \
+					 -I$(LOCAL_PATH)/../../../../lib/3rdparty/tolua++/include \
+					 -I$(LOCAL_PATH)/../../../../lib/libfaeris/src \
+					 -I$(LOCAL_PATH)/../../../../lib/libfaeris/src/support  \
+					 -I$(LOCAL_PATH)/../../../../lib/libextends/libluaexport/src \
+					 -I$(LOCAL_PATH)/../../../../lib/libextends/libluaexport/src/luaext \
 
 					 
 
@@ -27,10 +25,13 @@ LOCAL_WHOLE_STATIC_LIBRARIES += minizip_static
 LOCAL_WHOLE_STATIC_LIBRARIES += libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += lua_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += tolua_static
+LOCAL_WHOLE_STATIC_LIBRARIES += curl_static
+LOCAL_WHOLE_STATIC_LIBRARIES += fmodex
+
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
 LOCAL_WHOLE_STATIC_LIBRARIES += audio_static
-LOCAL_WHOLE_STATIC_LIBRARIES += fmodex
+LOCAL_WHOLE_STATIC_LIBRARIES += network_static
 
 
 
@@ -41,16 +42,45 @@ LOCAL_LDLIBS    += -llog -lGLESv2  -lEGL
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-add-path,$(IMPORT_PATH))
-$(call import-module,../../../../libfaeris/proj.android/jni)
-$(call import-module,../../../../platform/proj.android/freetype/jni)
-$(call import-module,../../../../platform/proj.android/libpng/jni)
-$(call import-module,../../../../platform/proj.android/zlib/jni)
-$(call import-module,../../../../platform/proj.android/minizip/jni)
-$(call import-module,../../../../platform/proj.android/lua/jni)
-$(call import-module,../../../../platform/proj.android/tolua++/jni)
-$(call import-module,../../../../platform/proj.android/fmod/jni)
-$(call import-module,../../../../libextends/libluaexport/proj.android)
-$(call import-module,../../../../libextends/libaudio/proj.android)
+$(call import-module,../../../../lib/libfaeris/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/curl/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/freetype/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/fmod/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/libpng/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/lua/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/tolua++/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/minizip/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/zlib/proj.android/jni)
+$(call import-module,../../../../lib/libextends/libluaexport/proj.android)
+$(call import-module,../../../../lib/libextends/libaudio/proj.android)
+$(call import-module,../../../../lib/libextends/libnetwork/proj.android)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

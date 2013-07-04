@@ -7,9 +7,11 @@ LOCAL_MODULE :=faeris_static
 
 LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../src \
  					-I$(LOCAL_PATH)/../../src/support \
- 					-I$(LOCAL_PATH)/../src/support \
- 					-I$(LOCAL_PATH)/../../../platform/thirdparty/android \
- 					-I$(LOCAL_PATH)/../../../platform/thirdparty/android/freetype \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/freetype/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/GL/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/libpng/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/zlib/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/minizip/include \
 
 
 LOCAL_SRC_FILES :=  \
@@ -58,6 +60,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/scene/FsScene.cc \
 					../../src/scheduler/FsScheduler.cc \
 					../../src/scheduler/FsSchedulerTarget.cc \
+					../../src/scheduler/FsTask.cc \
 					../../src/support/data/FsBase64.cc \
 					../../src/support/data/FsDeflate.cc \
 					../../src/support/data/FsHash.cc \
@@ -84,6 +87,9 @@ LOCAL_SRC_FILES :=  \
 					../../src/sys/platform/android/FsJniUtil.cc \
 					../../src/sys/FsTimer.cc \
 					../../src/sys/FsWindow.cc \
+					../../src/sys/FsThread.cc \
+					../../src/sys/FsSemaphore.cc \
+					../../src/sys/FsMutex.cc \
 					../../src/util/FsArray.cc \
 					../../src/util/FsDict.cc \
 					../../src/util/FsLog.cc \

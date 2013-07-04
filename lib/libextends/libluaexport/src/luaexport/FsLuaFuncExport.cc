@@ -125,7 +125,7 @@ int luaf_loadfile(lua_State* l)
 int luaf_log(lua_State* l)
 {
 	const char* info=luaL_checkstring(l,1);
-	FsUtil_Log(info);
+	FsUtil_Log("%s",info);
 	return 0;
 }
 int luaf_logtag(lua_State* l)

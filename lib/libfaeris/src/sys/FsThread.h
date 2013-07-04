@@ -15,8 +15,8 @@ class Thread
 
 	public:
 		int start();   /* start the thread */
-		int cancel();  /* cancel the thread */
 		int join();	   /* wait the thread to exit */
+		int cancel();
 		int detach();  /* detach the thread */
 
 	public:

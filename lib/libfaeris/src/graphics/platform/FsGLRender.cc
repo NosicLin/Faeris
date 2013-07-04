@@ -1,6 +1,11 @@
 #include <string.h>
 
-#include "GL/glew.h"
+#if FS_PLATFORM_OS(FS_OS_ANDROID) 
+	#include "gles.h"
+#else 
+	#include "glew.h"
+#endif 
+
 #include "material/FsMaterial.h"
 #include "graphics/FsRender.h"
 #include "graphics/FsProgram.h"

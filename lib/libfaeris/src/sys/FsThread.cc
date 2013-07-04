@@ -18,10 +18,8 @@ Thread::Thread()
 
 Thread::~Thread()
 {
-	/* thread is running, so we need  to stop it */
 	if(m_init)
 	{
-		pthread_cancel(m_tid);
 		m_init=false;
 	}
 }
@@ -82,6 +80,11 @@ int Thread::detach()
 
 int Thread::cancel()
 {
+	return 0;
+
+	/* do NoThing, because android not support */
+
+	/*
 	if(!m_init)
 	{
 		FS_TRACE_WARN("Thread Not Init");
@@ -95,6 +98,7 @@ int Thread::cancel()
 		FS_TRACE_WARN("Cancel Thread Failed");
 	}
 	return ret;
+	*/
 }
 
 NS_FS_END
