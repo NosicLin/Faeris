@@ -5,7 +5,7 @@
 #include "FsMacros.h"
 
 NS_FS_BEGIN
-typedef {
+typedef struct{
 	AttachmentLoader super;                                 
 } TextureAttachmentLoader;                                 
 

@@ -5,15 +5,9 @@
 #include "core/FsObject.h"
 
 NS_FS_BEGIN
+class Render;
 class SpineSprite:public FsObject 
 {
-	public:
-		enum
-		{
-			ANIM_LOOP,
-			ANIM_START,
-			ANIM_END,
-		};
 	public:
 		static SpineSprite* create(const char* filename);
 
@@ -30,11 +24,15 @@ class SpineSprite:public FsObject
 		float getOpacity();
 
 		/* animation */
-		int setAnimation(const char* anim);
 		void updateAnimation(float dt);
 
-		void playAnimation(int mode=ANIM_LOOP);
-		void startAnimation(int mode=ANIM_LOOP);
+		int setAnimation(const char* anim,bool loop=false);
+		int addAnimation(const char* anim,bool loop=false,float delay=0.0f);
+		int clearAnimation();
+
+
+		void playAnimation();
+		void startAnimation();
 		void stopAnimation();
 		bool isAnimationPlaying();
 
@@ -42,7 +40,10 @@ class SpineSprite:public FsObject
 		/* time */
 		void setCurTime(float time);
 		float getCurTime(time);
+
+		/* TODO (this is no api to call in spine runtimes)
 		float getDurationTime();
+		*/
 
 	public:
 		virtual void update(float dt);
@@ -61,11 +62,13 @@ class SpineSprite:public FsObject
 		float m_opacity;
 		float m_elapseTime;
 
-		int m_mode;
 		int m_stop;
 
 
 		Skeleton* m_skeleton;
+		AnimationState* m_animationState;
+		AnimationStateData* m_animationStateData;
+
 		Animation* m_curAnimation;
 
 		SpineSpriteData* m_data;

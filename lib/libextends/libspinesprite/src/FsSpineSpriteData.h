@@ -8,7 +8,7 @@
 
 NS_FS_BEGIN
 class FsFile;
-class SpineSpriteData:public FsResource
+class SpineSpriteData:public Resource
 {
 	public:
 		static SpineSpriteData* create(FsFile* file);
@@ -18,6 +18,8 @@ class SpineSpriteData:public FsResource
 		{
 			return m_data;
 		}
+	public:
+		virtual const char* className();
 
 	protected:
 		SpineSpriteData();

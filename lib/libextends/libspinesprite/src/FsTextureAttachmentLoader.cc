@@ -1,5 +1,7 @@
 #include "FsTextureAttachmentLoader.h"
 #include "FsTextureAttachment.h"
+#include "spine/spine.h"
+#include "spine/extension.h"
 
 NS_FS_BEGIN 
 static Attachment* _TextureAttachmentLoader_NewAttachemnt(AttachmentLoader* self,Skin* skin,AttachmentType type, const char* name)
@@ -8,7 +10,7 @@ static Attachment* _TextureAttachmentLoader_NewAttachemnt(AttachmentLoader* self
 	{
 		case ATTACHMENT_REGION:
 			{
-				return SUPER(TextureAttachment_Create(name));
+				return (Attachment*)TextureAttachment_Create(name);
 			}
 		default:
 			{

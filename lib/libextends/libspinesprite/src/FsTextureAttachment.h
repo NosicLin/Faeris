@@ -7,8 +7,8 @@
 NS_FS_BEGIN
 class Texture2D;
 
-typedef {
-	Attachment super;
+typedef struct{
+	RegionAttachment super;
 	Texture2D* texture;
 } TextureAttachment;
 

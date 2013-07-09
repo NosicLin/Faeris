@@ -1,6 +1,16 @@
 #include "FsSpineSpriteData.h"
+#include "io/FsFile.h"
+#include "io/FsVFS.h"
+#include "FsTextureAttachmentLoader.h"
+#include "FsTextureAttachment.h"
 
 NS_FS_BEGIN
+
+
+const char* SpineSpriteData::className()
+{
+	return "SpineSpriteData";
+}
 
 
 SpineSpriteData* SpineSpriteData::create(FsFile* file)
@@ -14,17 +24,18 @@ SpineSpriteData* SpineSpriteData::create(FsFile* file)
 	return data;
 }
 
-SpineSpriteData* SpineSpriteData::init(FsFile* file)
+bool SpineSpriteData::init(FsFile* file)
 {
 	long length=file->getLength();
 	char* buf=new char[length];
 	SkeletonJson* json=NULL;
 	TextureAttachmentLoader* loader=NULL;
+	SkeletonData* data=NULL;
 
 	file->read(buf,length);
 
-	TextureAttachmentLoader* loader=new TextureAttachmentLoader();
-	SkeletonJson* json=SkeletonJson_createWithLoader((AttachmentLoader*)loader);
+	loader=new TextureAttachmentLoader();
+	json=SkeletonJson_createWithLoader((AttachmentLoader*)loader);
 
 	if(json==NULL)
 	{
@@ -32,7 +43,7 @@ SpineSpriteData* SpineSpriteData::init(FsFile* file)
 		goto error;
 	}
 
-	SkeletonData* data=SkeletonJson_readSkeletonData(json,buf);
+	data=SkeletonJson_readSkeletonData(json,buf);
 	if(data==NULL)
 	{
 		FS_TRACE_WARN("Create SkeletonData Failed");

@@ -1,3 +1,7 @@
+#include "spine/spine.h"
+#include "spine/extension.h"
+#include "graphics/FsTexture2D.h"
+#include "common/FsGlobal.h"
 #include "FsTextureAttachment.h"
 NS_FS_BEGIN
 
@@ -5,6 +9,7 @@ static void _TextureAttachment_Deinit(Attachment* att)
 {
 	TextureAttachment* self=SUB_CAST(TextureAttachment,att);
 	FS_SAFE_DEC_REF(self->texture);
+	_Attachment_deinit(att);
 }
 
 TextureAttachment* TextureAttachment_Create(const char* filename)
@@ -17,7 +22,7 @@ TextureAttachment* TextureAttachment_Create(const char* filename)
 	}
 	self->texture=texture;
 
-	_Attachment_init(SUPER(self),name,ATTACHMENT_REGION,_TextureAttachment_Deinit);
+	_Attachment_init((Attachment*)self,filename,ATTACHMENT_REGION,_TextureAttachment_Deinit);
 	return self;
 }
 
