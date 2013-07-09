@@ -1,0 +1,44 @@
+$#include "FsLuaExport.h"
+$#include "FsSpineSprite.h"
+
+class SpineSprite:public Entity 
+{
+	public:
+		enum
+		{
+			ANIM_LOOP,
+			ANIM_START,
+			ANIM_END,
+		};
+	public:
+		static SpineSprite* create(const char* filename);
+
+	public:
+		/* skin */
+		bool setSkin(const char* skin);
+
+		/* color */
+		void setColor(Color c);
+		Color getColor();
+
+		/* opacity */
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		/* animation */
+		void updateAnimation(float dt);
+		void setAnimation(const char* anim);
+
+
+		void playAnimation(int mode=ANIM_LOOP);
+		void startAnimation(int mode=ANIM_LOOP);
+		void stopAnimation();
+		bool isAnimationPlaying();
+
+
+		/* time */
+		void setCurTime(float time);
+		float getCurTime();
+		float getDurationTime();
+};
+
