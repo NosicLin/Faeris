@@ -26,7 +26,7 @@ static Attachment* _TextureAttachmentLoader_NewAttachemnt(AttachmentLoader* self
 
 
 
-TextureAttachmentLoader* TextureAttachment_Create()
+TextureAttachmentLoader* TextureAttachmentLoader_Create()
 {
 	TextureAttachmentLoader* self=NEW(TextureAttachmentLoader);
 	_AttachmentLoader_init(SUPER(self),_AttachmentLoader_deinit,_TextureAttachmentLoader_NewAttachemnt);

@@ -68,7 +68,9 @@ LuaEngine::LuaEngine()
 #endif /* FS_EXPORT_LIB_LUA_FUNC */
 
 
-
+#if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
+	tolua_FsSpineSprite_open(m_state);
+#endif 
 
 
 

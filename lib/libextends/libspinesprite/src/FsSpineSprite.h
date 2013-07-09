@@ -3,17 +3,29 @@
 #include "spine/spine.h"
 #include "FsMacros.h"
 #include "core/FsObject.h"
+#include "graphics/FsColor.h"
+#include "entity/FsEntity.h"
+#include "material/FsMat_V4F_T2F.h"
+#include "FsSpineSpriteData.h"
+#include "FsSpineSpriteDataMgr.h"
 
 NS_FS_BEGIN
 class Render;
-class SpineSprite:public FsObject 
+class SpineSprite:public Entity 
 {
+	public:
+		enum
+		{
+			ANIM_LOOP,
+			ANIM_START,
+			ANIM_END,
+		};
 	public:
 		static SpineSprite* create(const char* filename);
 
 	public:
 		/* skin */
-		int setSkin(const char* skin);
+		bool setSkin(const char* skin);
 
 		/* color */
 		void setColor(Color c);
@@ -25,25 +37,20 @@ class SpineSprite:public FsObject
 
 		/* animation */
 		void updateAnimation(float dt);
-
-		int setAnimation(const char* anim,bool loop=false);
-		int addAnimation(const char* anim,bool loop=false,float delay=0.0f);
-		int clearAnimation();
+		void setAnimation(const char* anim);
 
 
-		void playAnimation();
-		void startAnimation();
+		void playAnimation(int mode=ANIM_LOOP);
+		void startAnimation(int mode=ANIM_LOOP);
 		void stopAnimation();
 		bool isAnimationPlaying();
 
 
 		/* time */
 		void setCurTime(float time);
-		float getCurTime(time);
-
-		/* TODO (this is no api to call in spine runtimes)
+		float getCurTime();
 		float getDurationTime();
-		*/
+
 
 	public:
 		virtual void update(float dt);
@@ -54,6 +61,7 @@ class SpineSprite:public FsObject
 
 	protected:
 		bool init(const char* name);
+		void destroy();
 		SpineSprite();
 		~SpineSprite();
 
@@ -61,19 +69,16 @@ class SpineSprite:public FsObject
 		Color m_color;
 		float m_opacity;
 		float m_elapseTime;
+		float m_duration;
 
+		int m_mode;
 		int m_stop;
 
-
 		Skeleton* m_skeleton;
-		AnimationState* m_animationState;
-		AnimationStateData* m_animationStateData;
+		SpineSpriteData* m_data;
+		Mat_V4F_T2F* m_material;
 
 		Animation* m_curAnimation;
-
-		SpineSpriteData* m_data;
-
-		Mat_V4F_T2F_A1F* m_material;
 };
 
 
@@ -81,4 +86,17 @@ class SpineSprite:public FsObject
 NS_FS_END 
 
 #endif /*_FS_SPINE_SPRITE_H_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 

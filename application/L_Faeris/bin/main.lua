@@ -1,26 +1,32 @@
+sprite=SpineSprite:create("spineboy.json");
+sprite:setAnimation("walk");
+sprite:playAnimation();
+sprite:setPosition(480,320)
+--sprite:setColor(Color(255,0,0));
+sprite:setScale(0.5,0.5,1)
+scene=Scene:create()
 
-http=HttpEngine:create()
+layer=Layer2D:create()
+layer:setViewArea(0,0,960,640)
+scene:push(layer)
+
+layer:add(sprite)
 
 
-request=HttpRequest:create()
-request:setUrl("192.168.1.3")
 
-request.data={                      
-	onReponse=function(code,data,err) 
-		--print("data"..data)
-		f_log("reponse:"..code);
-		--f_utillog("code=%d,data=%s,err=%s",code,data,err);
-		scene=Scene:create();
-		layer=Layer2D:create()
-		layer:setViewArea(0,0,960,640)
-		quad=ColorQuad2D:create(150,150,Color(255,0,0))
-		quad:setPosition(480,320)
-		layer:add(quad)
-		scene:push(layer)
-		share:director():run(scene)
+layer.data={
+	onTouchBegin=function(self,x,y)
+		if cur_animation=="jump" then 
+			sprite:setAnimation("walk")
+			cur_animation="walk"
+		else  
+			sprite:setAnimation("jump")
+			cur_animation="jump"
+		end
+
 	end
 }
-f_log("send request");
+layer:setTouchEnabled(true)
 
-http:send(request)
 
+share:director():run(scene);

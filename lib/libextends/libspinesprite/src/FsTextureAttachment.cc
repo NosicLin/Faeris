@@ -1,8 +1,10 @@
+#include <string>
 #include "spine/spine.h"
 #include "spine/extension.h"
 #include "graphics/FsTexture2D.h"
 #include "common/FsGlobal.h"
 #include "FsTextureAttachment.h"
+
 NS_FS_BEGIN
 
 static void _TextureAttachment_Deinit(Attachment* att)
@@ -15,10 +17,12 @@ static void _TextureAttachment_Deinit(Attachment* att)
 TextureAttachment* TextureAttachment_Create(const char* filename)
 {
 	TextureAttachment* self=NEW(TextureAttachment);
-	Texture2D* texture=Global::textureMgr()->loadTexture(filename);
+	std::string rel_name=std::string(filename)+std::string(".png");
+
+	Texture2D* texture=Global::textureMgr()->loadTexture(rel_name.c_str());
 	if(texture==NULL)
 	{
-		FS_TRACE_WARN("Can't Load Texture(%s) For Spine Skeleton");
+		FS_TRACE_WARN("Can't Load Texture(%s) For Spine Skeleton",filename);
 	}
 	self->texture=texture;
 

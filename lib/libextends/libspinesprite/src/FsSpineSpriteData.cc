@@ -34,7 +34,7 @@ bool SpineSpriteData::init(FsFile* file)
 
 	file->read(buf,length);
 
-	loader=new TextureAttachmentLoader();
+	loader=TextureAttachmentLoader_Create();
 	json=SkeletonJson_createWithLoader((AttachmentLoader*)loader);
 
 	if(json==NULL)

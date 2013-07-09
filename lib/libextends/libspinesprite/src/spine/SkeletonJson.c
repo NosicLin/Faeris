@@ -389,6 +389,14 @@ SkeletonData* SkeletonJson_readSkeletonData (SkeletonJson* self, const char* jso
 						regionAttachment->rotation = Json_getFloat(attachmentMap, "rotation", 0);
 						regionAttachment->width = Json_getFloat(attachmentMap, "width", 32) * self->scale;
 						regionAttachment->height = Json_getFloat(attachmentMap, "height", 32) * self->scale;
+
+						regionAttachment->regionHeight=(int)regionAttachment->height;
+						regionAttachment->regionWidth=(int)regionAttachment->width;
+						regionAttachment->regionOffsetX=0;
+						regionAttachment->regionOffsetY=0;
+						regionAttachment->regionOriginalHeight=(int)regionAttachment->height;
+						regionAttachment->regionOriginalWidth=(int)regionAttachment->width;
+						
 						RegionAttachment_updateOffset(regionAttachment);
 					}
 
