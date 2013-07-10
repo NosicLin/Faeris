@@ -26,6 +26,7 @@ layer.data={
 
 	end
 }
+
 layer:setTouchEnabled(true)
 
 
