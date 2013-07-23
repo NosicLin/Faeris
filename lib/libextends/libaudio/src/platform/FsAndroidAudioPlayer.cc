@@ -2,7 +2,8 @@
 #include "sys/platform/android/FsJniUtil.h"
 #include "FsAndroidAudioPlayer.h"
 
-static const char* class_name="com/faeris/lib/Fs_AudioPlayer";
+static const char* JNI_AUDIO_PLAYER_CLASS_NAME="com/faeris/lib/Fs_AudioPlayer";
+static const char* JNI_MUSIC_CLASS_NAME = "com/faeris/lib/Fs_Music";
 
 NS_FS_BEGIN
 
@@ -25,7 +26,7 @@ Sound* AndroidAudioPlayer::createSound(const char* filename)
 	jstring jfile_name=env->NewStringUTF(filename);
 
 	jint ret;
-	FS_JNI_CALL_METHOD(m_audioPlayer,class_name,"createSound","(Ljava/lang/String;)I",Int,ret,jfile_name);
+	FS_JNI_CALL_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"createSound","(Ljava/lang/String;)I",Int,ret,jfile_name);
 	env->DeleteLocalRef(jfile_name);
 
 
@@ -40,7 +41,7 @@ void AndroidAudioPlayer::releaseSound(Sound* s)
 {
 	int sound_id=(int) s;
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"releaseSound","(I)V",sound_id);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"releaseSound","(I)V",sound_id);
 }
 
 Channel* AndroidAudioPlayer::playSound(Sound* s,int loop,int priority)
@@ -63,7 +64,7 @@ Channel* AndroidAudioPlayer::playSound(Sound* s,int loop,int priority)
 	}
 	
 	jint ret;
-	FS_JNI_CALL_METHOD(m_audioPlayer,class_name,"playSound","(III)I",Int,ret,sound_id,loop,priority);
+	FS_JNI_CALL_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"playSound","(III)I",Int,ret,sound_id,loop,priority);
 	if(ret==-1)
 	{
 		return NULL;
@@ -76,27 +77,27 @@ void AndroidAudioPlayer::pauseChannel(Channel* c)
 {
 	int channel=(int) c;
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"pauseChannel","(I)V",channel);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"pauseChannel","(I)V",channel);
 }
 void AndroidAudioPlayer::resumeChannel(Channel* c)
 {
 	int channel=(int) c;
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"resumeChannel","(I)V",channel);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"resumeChannel","(I)V",channel);
 }
 
 void AndroidAudioPlayer::stopChannel(Channel* c)
 {
 	int channel=(int) c;
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"stopChannel","(I)V",channel);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"stopChannel","(I)V",channel);
 }
 
 void AndroidAudioPlayer::setChannelVolume(Channel* c,float value)
 {
 	int channel=(int) c;
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"stopChannel","(IF)V",channel,value);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"stopChannel","(IF)V",channel,value);
 }
 
 
@@ -105,36 +106,36 @@ float AndroidAudioPlayer::getChannelVolume(Channel* c)
 	int channel=(int) c;
 	JniUtil::attachCurrentThread();
 	jfloat ret;
-	FS_JNI_CALL_METHOD(m_audioPlayer,class_name,"stopChannel","(I)F",Float,ret,channel);
+	FS_JNI_CALL_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"stopChannel","(I)F",Float,ret,channel);
 }
 
 void AndroidAudioPlayer::pauseChannels()
 {
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"pauseChannels","()V");
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"pauseChannels","()V");
 }
 
 void AndroidAudioPlayer::resumeChannels()
 {
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"resumeChannels","()V");
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"resumeChannels","()V");
 }
 void AndroidAudioPlayer::stopChannnels()
 {
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"stopChannels","()V");
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"stopChannels","()V");
 }
 
 void AndroidAudioPlayer::setVolume(float value)
 {
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,class_name,"setVolume","(F)V",value);
+	FS_JNI_CALL_VOID_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"setVolume","(F)V",value);
 }
 
 bool AndroidAudioPlayer::init(int channel_nu)
 {
 	JNIEnv* env=JniUtil::getEnv();
-	FS_JNI_NEW_OBJECT(class_name,"(I)V",m_audioPlayer,channel_nu);
+	FS_JNI_NEW_OBJECT(JNI_AUDIO_PLAYER_CLASS_NAME,"(I)V",m_audioPlayer,channel_nu);
 	if(m_audioPlayer)
 	{
 		env->NewGlobalRef(m_audioPlayer);
@@ -151,6 +152,7 @@ void AndroidAudioPlayer::destory()
 		env->DeleteGlobalRef(m_audioPlayer);
 		m_audioPlayer=0;
 	}
+
 }
 
 AndroidAudioPlayer::AndroidAudioPlayer()
@@ -164,7 +166,143 @@ AndroidAudioPlayer::~AndroidAudioPlayer ()
 
 
 
-NS_FS_END 
+class Music 
+{
+	public:
+		Music(jobject ob)
+		{
+			m_object=ob;
+		}
+		~Music()
+		{
+			JNIEnv* env=JniUtil::getEnv();
+			if(m_object)
+			{
+				env->DeleteGlobalRef(m_object);
+				m_object;
+			}
+		}
+	public:
+		jobject m_object;
+};
+
+
+
+Music* AndroidAudioPlayer::createMusic(const char* filename)
+{
+	JNIEnv* env=JniUtil::getEnv();
+	jstring jfile_name=env->NewStringUTF(filename);
+
+	jobject ret;
+	FS_JNI_CALL_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"createMusic","(Ljava/lang/String;)Lcom/faeris/lib/Fs_Music",jobject,ret,jfile_name);
+	env->DeleteLocalRef(jfile_name);
+
+	if(ret!=NULL)
+	{
+		env->NewGlobalRef(ret);
+		return new Music(ret);
+	}
+	return NULL;
+}
+
+void AndroidAudioPlayer::releaseMusic(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"destory","()V");
+};
+
+void AndroidAudioPlayer::playMusic(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"play","()V");
+}
+void AndroidAudioPlayer::stopMusic(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"stop","()V");
+}
+
+bool AndroidAudioPlayer::isMusicPlaying(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	bool ret;
+	FS_JNI_CALL_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"isPlaying","()Z",Boolean,ret);
+	return ret;
+}
+
+void AndroidAudioPlayer::pauseMusic(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"pause","()V");
+}
+
+
+void AndroidAudioPlayer::resumeMusic(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"play","()V");
+}
+
+void AndroidAudioPlayer::isMusicPaused(Music* m)
+{
+	return isMusicPlaying();
+}
+
+
+void AndroidAudioPlayer::setMusicLooping(Music* m,bool loop)
+{
+	JniUtil::attachCurrentThread();
+	jboolean j_loop=loop;
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"isLooping","(Z)V",j_loop);
+}
+
+bool AndroidAudioPlayer::isMusicLooping(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	jboolean ret;
+	FS_JNI_CALL_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"setLooping","()Z",Boolean,ret);
+	return ret;
+}
+
+
+void AndroidAudioPlayer::setMusicVolume(Music* m,float value)
+{
+	JniUtil::attachCurrentThread();
+	jfloat j_value=value;
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"setVolume","(F)V",j_value);
+}
+
+float AndroidAudioPlayer::getMusicVolume(Music* m)
+{
+	JniUtil::attachCurrentThread();
+	jfloat ret;
+	FS_JNI_CALL_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"getVolume","()F",ret);
+	return ret;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

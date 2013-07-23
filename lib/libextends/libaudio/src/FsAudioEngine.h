@@ -14,6 +14,7 @@ NS_FS_BEGIN
 
 class Channel;
 class Sound;
+class Music;
 class AudioPlayer;
 
 class AudioEngine:public FsObject
@@ -31,6 +32,14 @@ class AudioEngine:public FsObject
 
 	public:
 		static AudioEngine* create(int channel_nu=FS_DEFAULT_CHANNEL_NU);
+
+	public:
+		void playBackgroundMusic(const char* name,bool loop=true);
+		void stopBackgroundMusic();
+		void pauseBackgroundMusic();
+		void resumeBackgroundMusic();
+		void rewindBackgroundMusic();
+
 
 	public:
 		/* load and unload sound */
@@ -64,6 +73,12 @@ class AudioEngine:public FsObject
 	private:
 		AudioPlayer* m_player;
 		SoundSet m_sounds;
+
+		/* background music */
+		Music* m_bgm;
+		std::string m_bgmName;
+		bool m_bgmLoop;
+
 };
 
 NS_FS_END

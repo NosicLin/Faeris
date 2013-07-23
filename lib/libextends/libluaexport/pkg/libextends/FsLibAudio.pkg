@@ -8,6 +8,13 @@ class AudioEngine:public FsObject
 		static AudioEngine* create(int channel_nu);
 
 	public:
+		/* background music */
+		void playBackgroundMusic(const char* name,bool loop=true);
+		void stopBackgroundMusic();
+		void pauseBackgroundMusic();
+		void resumeBackgroundMusic();
+		void rewindBackgroundMusic();
+
 		/* load and unload sound */
 		int loadSound(const char* name);
 		int unloadSound(const char* name);

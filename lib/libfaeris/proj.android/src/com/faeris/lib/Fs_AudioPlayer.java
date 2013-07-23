@@ -4,9 +4,11 @@ package com.faeris.lib;
 
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
+import java.io.File;
 
 public class Fs_AudioPlayer 
 {
@@ -21,7 +23,6 @@ public class Fs_AudioPlayer
 	private SoundPool m_soundPool;
 	private float  m_volume;
 
-
 	/* public method */
 	public Fs_AudioPlayer(int channel_nu)
 	{
@@ -34,33 +35,124 @@ public class Fs_AudioPlayer
 		this.m_soundPool=new SoundPool(channel_nu,AudioManager.STREAM_MUSIC,0);
 		this.m_volume=1.0f;
 	}
+	
+	/* music */
+	
+	public Fs_Music createMusic(final String path)
+	{
+		File file=null;
+		if(path.startsWith("/"))
+		{
+			try
+			{
+				file=new File(path);
+				if(file.exists())
+				{
+					return Fs_Music.createFromPath(path);
+				}
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
+		
+		/* load from external path */
+		do{
+			String external_dir=Fs_Application.getExternalDir();
+			String external_path=external_dir+path;
+			try
+			{
+				file=new File(external_path);
+				if(file.exists())
+				{
+					return Fs_Music.createFromPath(external_path);
+				}
+				
+			}
+			catch(Exception e)
+			{
+				/*do nothing here */
+			}
+		}while(false);
+		
+		/* load from asserts */
+		do{
+			try{
+				AssetFileDescriptor fd=this.m_context.getAssets().openFd(path);
+				return Fs_Music.createFromFD(fd.getFileDescriptor());
+			}
+			catch(Exception e)
+			{
+				/* do nothing here */
+			}
+			
+		}while(false);
+		
+		/* load file */
+		Log.v(Fs_AudioPlayer.TAG,"Load Music Failed From Path:"+path);
+		return null;
+	}
 
 
 	/* create and release sound */
 	public int createSound(final String path)
 	{
 		int id=Fs_AudioPlayer.ERR_SOUND_ID;
-		try
+	
+		/* load from absolute path */
+		if(path.startsWith("/"))
 		{
-			if(path.startsWith("/"))
+			try
 			{
-				id=this.m_soundPool.load(path,0);
+				File file=new File(path);
+				if(file.exists())
+				{
+					id=this.m_soundPool.load(path,1);
+					return id;
+				}
 			}
-			else 
+			catch(Exception e)
 			{
-				id=this.m_soundPool.load(this.m_context.getAssets().openFd(path),0);
+				/* do nothing */
 			}
 		}
-		catch(final Exception e)
+		/* load from external path */
+		do
 		{
-			id=Fs_AudioPlayer.ERR_SOUND_ID;
-			Log.v(Fs_AudioPlayer.TAG,"error:"+e.getMessage(),e);
-		}
-		if(id==0)
+			try
+			{
+				File file=new File(Fs_Application.getExternalDir()+path);
+				if(file.exists())
+				{
+					id=this.m_soundPool.load(path,1);
+					return id;
+				}
+			}
+			catch(Exception e)
+			{
+				/* do nothing */
+			}
+			
+		}while(false);
+		
+		do 
 		{
-			id=Fs_AudioPlayer.ERR_SOUND_ID;
-		}
-		return id;
+			try
+			{
+				AssetFileDescriptor fd=this.m_context.getAssets().openFd(path);
+				id=this.m_soundPool.load(fd,1);
+				return id;
+			}
+			catch(Exception e)
+			{
+				/* do nothing */
+			}
+		}while(false);
+		
+		Log.v(Fs_AudioPlayer.TAG,"Can't Load Sound From Path:"+path);
+		
+		return Fs_AudioPlayer.ERR_SOUND_ID;
 
 	}
 	public void releaseSound(int sound)

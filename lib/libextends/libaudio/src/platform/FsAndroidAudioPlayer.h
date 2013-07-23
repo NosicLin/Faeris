@@ -12,11 +12,28 @@ class AndroidAudioPlayer:public AudioPlayer
 		static AndroidAudioPlayer* create(int channel_nu);
 
 	public:
-		virtual Sound* createSound(const char* filename);
-		virtual void releaseSound(Sound* s);
+		virtual Music* createMusic(const char* filename);
+		virtual void releaseMusic(Music* m);
+		virtual void playMusic(Music* m,bool loop);
+		virtual void stopMusic(Music* m);
+		virtual bool isMusicPlaying(Music* m);
+
+		virtual void pauseMusic(Music* m);
+		virtual void resumeMusic(Music* m);
+		virtual bool isMusicPaused(Music* m);
+
+
+		virtual void setMusicLooping(Music* m,bool loop);
+		virtual bool isMusicLooping(Music* m);
+		virtual void setMusicVolume(Music* m,float value);
+		virtual float getMusicVolume(Music* m);
+
 
 	public:
+		virtual Sound* createSound(const char* filename);
+		virtual void releaseSound(Sound* s);
 		virtual Channel* playSound(Sound* s,int loop,int priority);
+
 
 	public:
 		virtual void pauseChannel(Channel* c);
@@ -36,6 +53,7 @@ class AndroidAudioPlayer:public AudioPlayer
 		void destory();
 		AndroidAudioPlayer();
 		virtual ~AndroidAudioPlayer();
+
 	private:
 		jobject m_audioPlayer;
 };
@@ -43,3 +61,20 @@ class AndroidAudioPlayer:public AudioPlayer
 NS_FS_END 
 
 #endif /*_FS_ANDROID_AUDIO_PLAYER_H_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

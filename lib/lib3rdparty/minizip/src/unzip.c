@@ -1698,3 +1698,15 @@ extern int ZEXPORT unzSetOffset (file, pos)
     s->current_file_ok = (err == UNZ_OK);
     return err;
 }
+
+
+
+#include "unzipext.c"
+
+
+
+
+
+
+
+

@@ -1,3 +1,7 @@
+
+--audio=AudioEngine:create(32);
+--audio:playBackgroundMusic("1.mp3")
+
 sprite=SpineSprite:create("spineboy.json");
 sprite:setAnimation("walk");
 sprite:playAnimation();
@@ -14,6 +18,7 @@ layer:add(sprite)
 
 
 
+
 layer.data={
 	onTouchBegin=function(self,x,y)
 		if cur_animation=="jump" then 
@@ -24,8 +29,11 @@ layer.data={
 			cur_animation="jump"
 		end
 
+		--audio:playBackgroundMusic("1.mp3")
+
 	end
 }
+
 layer:setTouchEnabled(true)
 
 

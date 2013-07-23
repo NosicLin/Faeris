@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibAudio
-** Generated automatically by tolua++-1.0.92 on 07/10/13 00:28:31.
+** Generated automatically by tolua++-1.0.92 on 07/20/13 12:27:19.
 */
 
 #ifndef __cplusplus
@@ -74,6 +74,165 @@ static int tolua_FsLibAudio_AudioEngine_create01(lua_State* tolua_S)
  return 1;
 tolua_lerror:
  return tolua_FsLibAudio_AudioEngine_create00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: playBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_playBackgroundMusic00
+static int tolua_FsLibAudio_AudioEngine_playBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  bool loop = ((bool)  tolua_toboolean(tolua_S,3,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'playBackgroundMusic'", NULL);
+#endif
+  {
+   self->playBackgroundMusic(name,loop);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'playBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stopBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_stopBackgroundMusic00
+static int tolua_FsLibAudio_AudioEngine_stopBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopBackgroundMusic'", NULL);
+#endif
+  {
+   self->stopBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stopBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pauseBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_pauseBackgroundMusic00
+static int tolua_FsLibAudio_AudioEngine_pauseBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pauseBackgroundMusic'", NULL);
+#endif
+  {
+   self->pauseBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pauseBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resumeBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_resumeBackgroundMusic00
+static int tolua_FsLibAudio_AudioEngine_resumeBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resumeBackgroundMusic'", NULL);
+#endif
+  {
+   self->resumeBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resumeBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: rewindBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibAudio_AudioEngine_rewindBackgroundMusic00
+static int tolua_FsLibAudio_AudioEngine_rewindBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'rewindBackgroundMusic'", NULL);
+#endif
+  {
+   self->rewindBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'rewindBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -520,6 +679,11 @@ TOLUA_API int tolua_FsLibAudio_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"AudioEngine");
    tolua_function(tolua_S,"create",tolua_FsLibAudio_AudioEngine_create00);
    tolua_function(tolua_S,"create",tolua_FsLibAudio_AudioEngine_create01);
+   tolua_function(tolua_S,"playBackgroundMusic",tolua_FsLibAudio_AudioEngine_playBackgroundMusic00);
+   tolua_function(tolua_S,"stopBackgroundMusic",tolua_FsLibAudio_AudioEngine_stopBackgroundMusic00);
+   tolua_function(tolua_S,"pauseBackgroundMusic",tolua_FsLibAudio_AudioEngine_pauseBackgroundMusic00);
+   tolua_function(tolua_S,"resumeBackgroundMusic",tolua_FsLibAudio_AudioEngine_resumeBackgroundMusic00);
+   tolua_function(tolua_S,"rewindBackgroundMusic",tolua_FsLibAudio_AudioEngine_rewindBackgroundMusic00);
    tolua_function(tolua_S,"loadSound",tolua_FsLibAudio_AudioEngine_loadSound00);
    tolua_function(tolua_S,"unloadSound",tolua_FsLibAudio_AudioEngine_unloadSound00);
    tolua_function(tolua_S,"unloadSounds",tolua_FsLibAudio_AudioEngine_unloadSounds00);

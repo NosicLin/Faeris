@@ -12,6 +12,8 @@ public class Fs_Application
 	private static String m_packageName;
 	private static String m_apkPath;
 	private static String m_dataDir;
+	private static String m_externalDir;
+	
 	private static Fs_Activity m_context=null;
 	
 	private static Fs_UiEvent m_eventHandler=null;
@@ -34,6 +36,7 @@ public class Fs_Application
 		m_apkPath=app_info.sourceDir;
 		m_dataDir=context.getFilesDir().getAbsolutePath();
 		m_eventHandler=new Fs_UiEvent();
+		m_externalDir="/mnt/sdcard/fgame/"+m_packageName+"/";
 		
 		/* imei and imsi */
 		TelephonyManager tm=(TelephonyManager) m_context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -63,6 +66,11 @@ public class Fs_Application
 		m_context.finish();
 	}
 	
+	/* external dir */
+	public static String getExternalDir()
+	{
+		return m_externalDir;
+	}
 	
 	/* home Directory */
 	public static String getDataDir()

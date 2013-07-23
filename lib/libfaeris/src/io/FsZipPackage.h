@@ -3,9 +3,11 @@
 
 #include "FsMacros.h"
 #include "io/FsPackage.h"
+#include "io/FsFile.h"
 
 NS_FS_BEGIN
-class ZipPackageInternal;
+
+
 class ZipPackage:public Package 
 {
 	public:
@@ -24,8 +26,7 @@ class ZipPackage:public Package
 		virtual ~ZipPackage();
 
 	public:
-		ZipPackageInternal* m_imp;
-		FsFile* m_stream;
+		ZipReader* m_reader;
 };
 
 NS_FS_END 

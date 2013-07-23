@@ -122,8 +122,15 @@ void AudioEngine::setVolume(float value)
 AudioEngine::AudioEngine()
 {
 	m_player=0;
-
+	m_bgm=NULL;
+	m_bgmName=std::string("");
+	m_bgmLoop=true;
 }
+
+
+
+
+
 AudioEngine::~AudioEngine()
 {
 	destory();
@@ -143,15 +150,81 @@ bool AudioEngine::init(int channel_nu)
 	}
 }
 
+
 void AudioEngine::destory()
 {
 	if(m_player)
 	{
 		unloadSounds();
+		if(m_bgm)
+		{
+			m_player->releaseMusic(m_bgm);
+			m_player=NULL;
+		}
 		delete m_player;
+		m_player=NULL;
 	}
 }
 
+void AudioEngine::playBackgroundMusic(const char* name,bool loop)
+{
+	if(m_bgm||std::string(name)==m_bgmName)
+	{
+		m_player->playMusic(m_bgm,loop);
+	}
+	else 
+	{
+		if(m_bgm)
+		{
+			m_player->releaseMusic(m_bgm);
+			m_bgm=NULL;
+			m_bgmName="";
+		}
+		Music* music=m_player->createMusic(name);
+		if(music)
+		{
+			m_player->playMusic(music,loop);
+			m_bgmName=std::string(name);
+			m_bgm=music;
+		}
+	}
+	m_bgmLoop=loop;
+	
+}
+
+void AudioEngine::stopBackgroundMusic()
+{
+	if(m_bgm)
+	{
+		m_player->stopMusic(m_bgm);
+	}
+
+}
+
+void AudioEngine::pauseBackgroundMusic()
+{
+	if(m_bgm)
+	{
+		m_player->pauseMusic(m_bgm);
+	}
+
+}
+
+void AudioEngine::resumeBackgroundMusic()
+{
+	if(m_bgm)
+	{
+		m_player->resumeMusic(m_bgm);
+	}
+}
+
+void AudioEngine::rewindBackgroundMusic()
+{
+	if(m_bgm)
+	{
+		m_player->playMusic(m_bgm,m_bgmLoop);
+	}
+}
 
 
 

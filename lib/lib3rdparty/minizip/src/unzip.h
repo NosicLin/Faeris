@@ -362,3 +362,9 @@ extern int ZEXPORT unzSetOffset (unzFile file, uLong pos);
 #endif
 
 #endif /* _unz_H */
+
+
+/* libfaeris ext */
+#include "unzipext.h"
+
+
