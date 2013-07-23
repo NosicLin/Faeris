@@ -40,6 +40,7 @@ LINK_LIB= -lfaeris \
 		  -lminizip \
 		  -lluaexportd \
 		  -laudio  \
+		  -lspinesprite \
 		  -lfmodex \
 		  -lnetwork \
 		  -lcurl \
