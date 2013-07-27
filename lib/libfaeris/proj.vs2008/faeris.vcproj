@@ -738,6 +738,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\support\data\FsFgzReader.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\data\FsFgzReader.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\support\data\FsHash.cc"
 						>
 					</File>

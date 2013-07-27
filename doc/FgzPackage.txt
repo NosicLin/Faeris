@@ -1,3 +1,6 @@
+#INFO: Fgz is data package, used to pack file data together, 
+#	   it internal format like zip 
+
 # 1. Fgz Package Format  
 
 # ------Global Header ----

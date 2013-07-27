@@ -1,7 +1,17 @@
 #include "support/data/FsFgzReader.h"
+#include "util/FsDict.h"
+#include "util/FsString.h"
+#include "io/FsSegFile.h"
+#include "io/FsMemFile.h"
+#include "io/FsFile.h"
+#include "support/data/FsDeflate.h"
+
+
+NS_FS_BEGIN
 
 static char _FgzGLobalMagicNu[8]=FS_FGZ_MAGIC_NU;
 static char _FgzFileMagicNu[8]=FS_FGZ_FILE_MAGIC_NU;
+
 
 
 typedef struct  
@@ -50,7 +60,7 @@ class FgzFileInfo:public FsObject
 			FS_SAFE_ASSIGN(m_filename,str);
 			str->decRef();
 		}
-		void setOffset(uint32_t offset)
+		void setDataOffset(uint32_t offset)
 		{
 			m_dataOffset=offset;
 		}
@@ -92,28 +102,49 @@ FsFile* FgzReader::getFile(const char* filename)
 	{
 		ret=SegFile::create(
 				m_stream,
-				info.m_dataOffset,
-				info.m_header.m_unsize);
+				info->m_dataOffset,
+				info->m_header.m_unsize);
 
 	}
 	else if(info->m_header.m_method==FS_FGZ_DEFLATE)
 	{
-		int file_size=info->m_header.m_unsize;
+		uint32_t file_size=info->m_header.m_unsize;
 		ret=MemFile::create(file_size);
-		char* buffer=(char*) ret->getInternalBuffer();
+		char* buffer=(char*) (((MemFile*)ret)->getInternalBuffer());
 		char* compress_buf=new char[info->m_header.m_ensize];
 
-		m_stream->seek(info->m_dataOffset);
-		m_stream->read(compress_buf,info->m_header.m_ensize);
+		do{
+			if(m_stream->seek(info->m_dataOffset,FsFile::FS_SEEK_SET)==-1)
+			{
+				ret->decRef();
+				delete[] compress_buf;
+				ret=NULL;
+				break;
+			}
 
-		FsDeflate_UnCompress(
-				compress_buf,
-				info->m_header.m_ensize,
-				buffer,
-				file_size);
+			if(m_stream->read(compress_buf,info->m_header.m_ensize)!=info->m_header.m_ensize)
+			{
+				ret->decRef();
+				delete[] compress_buf;
+				ret=NULL;
+				break;
+			}
 
-		delete[] compress_buf;
-		compress_buf=NULL;
+			if(FsDeflate_UnCompress(
+					(const uint8_t*) compress_buf,
+					info->m_header.m_ensize,
+					(uint8_t*) buffer,
+					&file_size)==-1)
+			{
+				ret->decRef();
+				delete[] compress_buf;
+				ret=NULL;
+				break;
+			}
+
+			delete[] compress_buf;
+			compress_buf=NULL;
+		}while(0);
 	}
 	else 
 	{
@@ -143,12 +174,13 @@ FgzReader::~FgzReader()
 bool FgzReader::init(FsFile* file)
 {
 	FgzGlobalHeader g_header;
-	int i,file_nu=0,file_pos=0;
+	int i,file_nu=0,file_data_pos=0;
 	FsDict* fileset=FsDict::create();
 
 	int file_name_length;
+	int current_offset;
 	char* name_buf=NULL;
-
+	FgzFileInfo* info=NULL;
 
 
 
@@ -173,31 +205,41 @@ bool FgzReader::init(FsFile* file)
 	}
 
 	file_nu=g_header.m_fileNu;
-	ret=file->seek(g_header.m_offset,FsFile::FS_SEEK_SET);
-	if(ret<0)
-	{
-		FS_TRACE_WARN("Seek Error");
-		goto error;
-	}
+
+	current_offset=g_header.m_offset;
 
 	for(i=0;i<file_nu;i++)
 	{
-		FgzFileInfo* info=new FgzFileInfo();
+
+		ret=file->seek(current_offset,FsFile::FS_SEEK_SET);
+		if(ret<0)
+		{
+			FS_TRACE_WARN("Seek Error");
+			goto error;
+		}
+
+
+		info=new FgzFileInfo();
 
 		ret=file->read(&info->m_header,sizeof(info->m_header));
+
+		/* read file header */
 		if(ret!=sizeof(info->m_header))
 		{
 			FS_TRACE_WARN("FgzPackage Damaged");
 			info->decRef();
 			goto error;
 		}
-		if(memcmp(info->m_header,_FgzFileMagicNu,8)!=0)
+
+		/* compare file header */
+		if(memcmp(&info->m_header,_FgzFileMagicNu,8)!=0)
 		{
 			FS_TRACE_WARN("FgzPackage Damaged");
 			info->decRef();
 			goto error;
 		}
 
+		/* read file name */
 		file_name_length=info->m_header.m_filenameLength;
 		name_buf=new char[file_name_length+1];
 		ret=file->read(name_buf,file_name_length);
@@ -213,10 +255,16 @@ bool FgzReader::init(FsFile* file)
 		info->setFileName(name_buf);
 		delete[] name_buf;
 
-		file_pos=file->tell();
-		info->setOffset(file_pos);
-
+		file_data_pos=current_offset+sizeof(FgzFileHeader)+info->m_header.m_filenameLength;
+		info->setDataOffset(file_data_pos);
 		fileset->insert(info->m_filename,info);
+
+
+
+		/* update current offset to read next file */
+		current_offset+=sizeof(FgzFileHeader)+info->m_header.m_filenameLength+info->m_header.m_ensize;
+		info->decRef();
+		info=NULL;
 	}
 
 	file->addRef();
@@ -237,6 +285,8 @@ void FgzReader::destroy()
 }
 
 
+
+NS_FS_END
 
 
 

@@ -16,8 +16,12 @@ uint FsDeflate_CompressBound(uint value);
  * 	the actual size of the compressed buffer 
  * 		if success 0 will return, -1 if there was not falied 
  */
-int FsDeflate_Compress(const uint8_t* src_buf,uint src_length,
-		uint8_t* dst_buf,uint8_t* dst_length);
+int FsDeflate_Compress(const uint8_t* src_buf,uint32_t src_length,
+		uint8_t* dst_buf,uint32_t* dst_length);
+
+int FsDeflate_Compress(const uint8_t* src_buf,uint32_t src_length,
+						uint8_t* dst_buf,uint32_t* dst_length,
+						int level);
 
 
 /* description:
@@ -31,8 +35,8 @@ int FsDeflate_Compress(const uint8_t* src_buf,uint src_length,
  * 	compressed buffer.
  * 		uncompressed returns 0 if success, -1 if falied
  */
-int FsDeflate_UnCompress(const uint8_t* src_buf,uint src_length,
-		uint8_t* dst_buf,uint8_t* dst_length);
+int FsDeflate_UnCompress(const uint8_t* src_buf,uint32_t src_length,
+		uint8_t* dst_buf,uint32_t* dst_length);
 
 #endif /*_FS_DEFLATE_H_*/
 

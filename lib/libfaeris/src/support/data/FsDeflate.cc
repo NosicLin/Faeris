@@ -1,14 +1,38 @@
 #include "zlib.h"
 #include "support/data/FsDeflate.h"
 
+#define FS_DEFAULT_COMPRESS_LEVEL 6
 uint FsDeflate_CompressBound(uint value)
 {
 	return compressBound(value);
 }
 
-int FsDeflate_Compress(uint8_t* src_buf,uint src_length,
-		uint8_t* dst_buf,uint* dst_length)
+int FsDeflate_Compress(uint8_t* src_buf,uint32_t src_length,
+		uint8_t* dst_buf,uint32_t* dst_length)
 {
+	return FsDeflate_Compress(src_buf,src_length,dst_buf,dst_length,FS_DEFAULT_COMPRESS_LEVEL);
+}
+
+int FsDeflate_Compress(uint8_t* src_buf,uint32_t src_length,
+		uint8_t* dst_buf,uint32_t* dst_length,int level)
+{
+	int ret=compress2((Bytef*) dst_buf,(uLongf*) dst_length,(Bytef*) src_buf,(uLong) src_length,level);
+	if(ret!=Z_OK)
+	{
+		return -1;
+	}
 	return 0;
 }
 
+
+
+int FsDeflate_UnCompress(const uint8_t* src_buf,uint32_t src_length,
+		uint8_t* dst_buf,uint32_t* dst_length)
+{
+	int ret=uncompress((Bytef*) dst_buf,(uLongf*) dst_length,(const Bytef*) src_buf,(uLong) src_length);
+	if(ret!=Z_OK)
+	{
+		return -1;
+	}
+	return 0;
+}

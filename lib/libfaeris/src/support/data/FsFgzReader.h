@@ -4,6 +4,7 @@
 #include "FsMacros.h"
 #include "core/FsObject.h"
 
+
 #define FS_FGZ_STORE 	0x0 
 #define FS_FGZ_DEFLATE  0x10
 #define FS_FGZ_LZMA   	0x20 
@@ -22,6 +23,7 @@
 
 NS_FS_BEGIN
 class FsFile;
+class FsDict;
 class FgzReader:public FsObject 
 {
 	public:
