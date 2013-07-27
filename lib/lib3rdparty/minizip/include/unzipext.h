@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-extern  unsigned int  ZEXPORT unzextGetFileOffset OF((unzFile file));
+extern  uint32_t ZEXPORT unzextGetFileOffset OF((unzFile file));
 
 
 #ifdef __cplusplus

@@ -1,4 +1,8 @@
 #include "support/data/FsZipReader.h"
+#include "unzip.h"
+#include "io/FsMemFile.h"
+#include "io/FsSegFile.h"
+#include "io/FsFile.h"
 
 
 NS_FS_BEGIN
@@ -74,7 +78,7 @@ static zlib_filefunc_def  _zlib_func=
 
 ZipReader* ZipReader::create(FsFile* file)
 {
-	unzFile* unz_file=unzOpen2((const char*) file,&_zlib_func);
+	unzFile unz_file=unzOpen2((const char*) file,&_zlib_func);
 	if(unz_file==NULL)
 	{
 		return NULL;
@@ -101,11 +105,11 @@ ZipReader::~ZipReader()
 	destroy();
 }
 
-bool ZipReader::init(FsFile* file,void* unzFile)
+bool ZipReader::init(FsFile* file,void* unz_file)
 {
 	m_stream=file;
 	file->addRef();
-	m_unzfile=unzfile;
+	m_unzfile=unz_file;
 	return true;
 }
 
@@ -170,7 +174,7 @@ FsFile* ZipReader::getFile(const char* filename)
 	{
 		int file_size=file_info.uncompressed_size;
 		int offset=unzextGetFileOffset(m_unzfile);
-		SegFile* file=SegFile::create(m_stream,file_size,offset);
+		SegFile* file=SegFile::create(m_stream,offset,file_size);
 		return file;
 	}
 

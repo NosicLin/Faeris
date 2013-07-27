@@ -18,7 +18,7 @@ SegFile* SegFile::create(FsFile* file,uint32_t offset,uint32_t length)
 		ret=NULL;
 	}
 
-	return NULL;
+	return ret;
 }
 
 long SegFile::read(void* buf,long length)
@@ -42,7 +42,7 @@ long SegFile::read(void* buf,long length)
 	}
 
 
-	m_stream->seek(m_offset+m_curpos);
+	m_stream->seek(m_offset+m_curpos,FsFile::FS_SEEK_SET);
 	int readbyte=m_stream->read(buf,length);
 	if(readbyte>0)
 	{
@@ -70,7 +70,7 @@ long SegFile::write(const void* buf,long length)
 		length=rest;
 	}
 
-	m_stream->seek(m_offset+m_curpos);
+	m_stream->seek(m_offset+m_curpos,FsFile::FS_SEEK_SET);
 	int writebyte=m_stream->write(buf,length);
 	if(writebyte>0)
 	{
@@ -110,7 +110,7 @@ long SegFile::seek(long offset,int where)
 	{
 		m_curpos=0;
 	}
-	else if(pos>m_length)
+	else if(pos>(int)m_length)
 	{
 		m_curpos=m_length;
 	}
@@ -159,7 +159,7 @@ long SegFile::getLength()
 	return m_length;
 }
 
-long SegFile::~SegFile()
+SegFile::~SegFile()
 {
 	destroy();
 }

@@ -45,6 +45,10 @@
 #ifndef _unz_H
 #define _unz_H
 
+/* Encryption and decryption Not used here */
+#define NOCRYPT 
+#define NOUNCRYPT
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -358,3 +362,9 @@ extern int ZEXPORT unzSetOffset (unzFile file, uLong pos);
 #endif
 
 #endif /* _unz_H */
+
+
+/* libfaeris ext */
+#include "unzipext.h"
+
+

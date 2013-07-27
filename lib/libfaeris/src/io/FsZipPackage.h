@@ -7,6 +7,7 @@
 
 NS_FS_BEGIN
 
+class ZipReader;
 
 class ZipPackage:public Package 
 {

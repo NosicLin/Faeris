@@ -302,6 +302,10 @@ enum
 #define FS_VFS_NAME_FILTER_CLASS_NAME "NameFilter"
 #define FS_VFS_PREFIX_NAME_FILTER_CLASS_NAME "PrefixNameFilter"
 #define FS_VFS_MAP_PACKAGE_CLASS_NAME "MapPackage"
+#define FS_SEG_FILE_CLASS_NAME  "SegFile"
+
+/* support */
+#define FS_ZIP_READER_CLASS_NAME "ZipReader"
 
 #include "FsTypes.h"
 

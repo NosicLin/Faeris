@@ -199,11 +199,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\io\FsResPackage.cc"
+					RelativePath="..\src\io\FsSegFile.cc"
 					>
 				</File>
 				<File
-					RelativePath="..\src\io\FsResPackage.h"
+					RelativePath="..\src\io\FsSegFile.h"
 					>
 				</File>
 				<File
@@ -759,6 +759,14 @@
 					</File>
 					<File
 						RelativePath="..\src\support\data\FsUnicode.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\data\FsZipReader.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\data\FsZipReader.h"
 						>
 					</File>
 				</Filter>

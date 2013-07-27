@@ -7,7 +7,7 @@
 NS_FS_BEGIN
 
 class FsFile;
-class ZipReader:FsObject
+class ZipReader:public FsObject
 {
 	public:
 		static ZipReader* create(FsFile* file);

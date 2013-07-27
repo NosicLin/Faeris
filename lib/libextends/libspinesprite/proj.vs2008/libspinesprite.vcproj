@@ -196,7 +196,7 @@
 				Name="spine"
 				>
 				<File
-					RelativePath="..\src\spine\Animation.c"
+					RelativePath="..\src\spine\Animation.cc"
 					>
 				</File>
 				<File
@@ -204,7 +204,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\AnimationState.c"
+					RelativePath="..\src\spine\AnimationState.cc"
 					>
 				</File>
 				<File
@@ -212,7 +212,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\AnimationStateData.c"
+					RelativePath="..\src\spine\AnimationStateData.cc"
 					>
 				</File>
 				<File
@@ -220,7 +220,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Atlas.c"
+					RelativePath="..\src\spine\Atlas.cc"
 					>
 				</File>
 				<File
@@ -228,7 +228,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\AtlasAttachmentLoader.c"
+					RelativePath="..\src\spine\AtlasAttachmentLoader.cc"
 					>
 				</File>
 				<File
@@ -236,7 +236,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Attachment.c"
+					RelativePath="..\src\spine\Attachment.cc"
 					>
 				</File>
 				<File
@@ -244,7 +244,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\AttachmentLoader.c"
+					RelativePath="..\src\spine\AttachmentLoader.cc"
 					>
 				</File>
 				<File
@@ -252,7 +252,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Bone.c"
+					RelativePath="..\src\spine\Bone.cc"
 					>
 				</File>
 				<File
@@ -260,7 +260,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\BoneData.c"
+					RelativePath="..\src\spine\BoneData.cc"
 					>
 				</File>
 				<File
@@ -268,7 +268,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\extension.c"
+					RelativePath="..\src\spine\extension.cc"
 					>
 				</File>
 				<File
@@ -276,7 +276,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Json.c"
+					RelativePath="..\src\spine\Json.cc"
 					>
 				</File>
 				<File
@@ -284,7 +284,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\RegionAttachment.c"
+					RelativePath="..\src\spine\RegionAttachment.cc"
 					>
 				</File>
 				<File
@@ -292,7 +292,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Skeleton.c"
+					RelativePath="..\src\spine\Skeleton.cc"
 					>
 				</File>
 				<File
@@ -300,7 +300,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\SkeletonData.c"
+					RelativePath="..\src\spine\SkeletonData.cc"
 					>
 				</File>
 				<File
@@ -308,7 +308,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\SkeletonJson.c"
+					RelativePath="..\src\spine\SkeletonJson.cc"
 					>
 				</File>
 				<File
@@ -316,7 +316,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Skin.c"
+					RelativePath="..\src\spine\Skin.cc"
 					>
 				</File>
 				<File
@@ -324,7 +324,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\Slot.c"
+					RelativePath="..\src\spine\Slot.cc"
 					>
 				</File>
 				<File
@@ -332,7 +332,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\spine\SlotData.c"
+					RelativePath="..\src\spine\SlotData.cc"
 					>
 				</File>
 				<File
