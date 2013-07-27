@@ -12,6 +12,8 @@ FgzLzma=0x20
 FgzCrc32Default=0xfae
 FgzCompressBound=0.8 
 
+FgzCompressDefaultLevel=6
+
 class FgzWriter:
 	def __init__(self):
 		self.m_files={}
@@ -60,11 +62,11 @@ class FgzWriter:
 			# get file data 
 			un_data=pf.read()
 			un_data_size=len(un_data)
-			un_data_crc32=gzip.zlib.crc32(un_data,FgzCrc32Default)
+			un_data_crc32=gzip.zlib.crc32(un_data,FgzCrc32Default)&0xffffffff
 
-			en_data=gzip.zlib.compress(un_data,6)
+			en_data=gzip.zlib.compress(un_data,FgzCompressDefaultLevel)
 			en_data_size=len(en_data)
-			en_data_crc32=gzip.zlib.crc32(en_data,FgzCrc32Default)
+			en_data_crc32=gzip.zlib.crc32(en_data,FgzCrc32Default)&0xffffffff
 			
 
 			method=v["method"]

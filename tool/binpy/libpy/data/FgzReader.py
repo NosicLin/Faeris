@@ -39,7 +39,7 @@ class FgzReader:
 			cur_file["offset"]=offset
 			self.m_files[cur_file["filename"]]=cur_file
 
-			fp.seek(offset+cur_file["unCompressSize"],0)
+			fp.seek(offset+cur_file["compressSize"],0)
 
 
 
@@ -51,7 +51,7 @@ class FgzReader:
 		return self.m_files
 
 	def printAllFileInfo(self):
-		print "%s package info:"%(self.m_url)
+		print "%s package info:files(%d)"%(self.m_url,self.m_fileNu)
 		for filename in self.m_files:
 			info=self.m_files[filename]
 

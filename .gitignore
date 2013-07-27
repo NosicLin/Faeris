@@ -1,3 +1,5 @@
+tmp
+*.pyc
 *.dep
 tags
 *.swp
