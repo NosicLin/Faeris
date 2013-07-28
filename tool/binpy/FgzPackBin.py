@@ -10,7 +10,7 @@ FGZ_PACKAGE_NAME="fdata.fgz"
 FGZ_TARGET_DIR="../tmp/assets"
 
 # file ignore to pack 
-FGZ_IGNORE_FILE_EXT=[".ogg"]
+FGZ_IGNORE_FILE_EXT=[".ogg",".lua"]
 
 # file will not compress 
 FGZ_NOT_COMPRESS_FILE_EXT=[]
@@ -32,29 +32,6 @@ reader.printAllFileInfo()
 print 
 print "packing success,press <enter> to exit"
 raw_input()
-
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-	
-
-
-
-
-
-
 
 
 
