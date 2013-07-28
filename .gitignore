@@ -1,4 +1,5 @@
 tmp
+*.fgz
 *.pyc
 *.dep
 tags

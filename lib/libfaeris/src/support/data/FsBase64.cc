@@ -3,6 +3,7 @@
 
 #define FS_BASE64_VALID_VALUE 255 
 
+NS_FS_BEGIN
 static uint8_t s_detable[256]={
 	64,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
 	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
@@ -169,6 +170,7 @@ int FsBase64_Encode(uint8_t* src_buf,uint src_length,uint8_t** dst_buf,uint* dst
 
 
 
+NS_FS_END
 
 
 

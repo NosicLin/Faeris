@@ -27,8 +27,8 @@ typedef struct
 {
 	uint8_t  m_magicNu[8];
 	uint32_t m_method;
-	uint32_t m_unsize;
 	uint32_t m_ensize;
+	uint32_t m_unsize;
 	uint32_t m_crc32;
 	uint32_t m_filenameLength;
 }FgzFileHeader;
@@ -94,7 +94,6 @@ FsFile* FgzReader::getFile(const char* filename)
 	if(info==NULL)
 	{
 		FS_TRACE_INFO("Can't Find File(%s) In FgzPackage",filename);
-		info->decRef();
 		return NULL;
 	}
 
@@ -257,6 +256,8 @@ bool FgzReader::init(FsFile* file)
 
 		file_data_pos=current_offset+sizeof(FgzFileHeader)+info->m_header.m_filenameLength;
 		info->setDataOffset(file_data_pos);
+
+		FS_TRACE_INFO("add File %s",info->m_filename->cstr());
 		fileset->insert(info->m_filename,info);
 
 

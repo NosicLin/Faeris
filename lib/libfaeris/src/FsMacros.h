@@ -299,6 +299,7 @@ enum
 #define FS_PACKAGE_CLASS_NAME "Package"
 #define FS_RES_PACKAGE_CLASS_NAME "ResPackage"
 #define FS_ZIP_PACKAGE_CLASS_NAME "ZipPackage"
+#define FS_FGZ_PACKAGE_CLASS_NAME "FgzPackage"
 #define FS_VFS_NAME_FILTER_CLASS_NAME "NameFilter"
 #define FS_VFS_PREFIX_NAME_FILTER_CLASS_NAME "PrefixNameFilter"
 #define FS_VFS_MAP_PACKAGE_CLASS_NAME "MapPackage"

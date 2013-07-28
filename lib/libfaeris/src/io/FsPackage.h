@@ -13,7 +13,7 @@ class Package:public FsObject
 		{
 			PACKAGE_UNKOWN=0,
 			PACKAGE_ZIP,
-			PACKAGE_RES,
+			PACKAGE_FGZ,
 		};
 	public:
 		static  Package* create(const char* filename,int type=PACKAGE_UNKOWN);

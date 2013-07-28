@@ -2,6 +2,7 @@
 #define _FS_DEFLATE_H_
 #include "FsMacros.h"
 
+NS_FS_BEGIN
 /* description:
  * 		FSDeflate_Compress() return an upper bound on the compressed size 
  * 	after FsDeflate_Compress on src_length bytes. It would be used before 
@@ -37,6 +38,8 @@ int FsDeflate_Compress(const uint8_t* src_buf,uint32_t src_length,
  */
 int FsDeflate_UnCompress(const uint8_t* src_buf,uint32_t src_length,
 		uint8_t* dst_buf,uint32_t* dst_length);
+
+NS_FS_END
 
 #endif /*_FS_DEFLATE_H_*/
 

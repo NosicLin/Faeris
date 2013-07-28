@@ -1,6 +1,7 @@
 #include "io/FsVFS.h"
 #include "io/FsPackage.h"
 #include "io/FsZipPackage.h"
+#include "io/FsFgzPackage.h"
 
 NS_FS_BEGIN
 
@@ -19,6 +20,8 @@ Package* Package::create(const char* filename,int type)
 		case PACKAGE_ZIP:
 			ret=ZipPackage::create(file);
 			break;
+		case PACKAGE_FGZ:
+			ret=FgzPackage::create(file);
 	}
 	file->decRef();
 	return ret;

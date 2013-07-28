@@ -1,4 +1,7 @@
 #include "support/data/FsHash.h"
+
+NS_FS_BEGIN
+
 ulong FsHash_JCode(const char* str)
 {
 	ulong hash = 1315423911;
@@ -8,4 +11,6 @@ ulong FsHash_JCode(const char* str)
 	}
 	return hash ;
 }
+
+NS_FS_END
 

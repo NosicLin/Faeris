@@ -175,6 +175,14 @@
 				Name="io"
 				>
 				<File
+					RelativePath="..\src\io\FsFgzPackage.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\io\FsFgzPackage.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\io\FsFile.cc"
 					>
 				</File>
