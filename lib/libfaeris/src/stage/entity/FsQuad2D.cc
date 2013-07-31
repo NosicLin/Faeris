@@ -1,8 +1,8 @@
-#include "entity/FsQuad2D.h"
+#include "stage/entity/FsQuad2D.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsRender.h"
-#include "material/FsMat_V4F_T2F.h"
-#include "common/FsGlobal.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
+#include "FsGlobal.h"
 #include "mgr/FsTextureMgr.h"
 
 NS_FS_BEGIN

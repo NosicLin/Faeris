@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 07/20/13 12:27:21.
+** Generated automatically by tolua++-1.0.92 on 07/31/13 12:59:23.
 */
 
 #ifndef __cplusplus
@@ -14,27 +14,29 @@
 TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 
 #include "FsLuaExport.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
+#include "FsObject.h"
 #include "luaext/FsLuaTouchEventListener.h"
 #include "luaext/FsLuaSysEventListener.h"
-#include "event/FsTouchDispatcher.h"
-#include "event/FsSysDispatcher.h"
-#include "entity/FsEntity.h"
+#include "sys/event/FsTouchDispatcher.h"
+#include "sys/event/FsSysDispatcher.h"
+#include "stage/entity/FsEntity.h"
 #include "luaext/FsLuaEntity.h"
 #include "luaext/FsLuaEntity.h"
-#include "entity/FsQuad2D.h"
+#include "stage/entity/FsQuad2D.h"
 #include "luaext/FsLuaEntity.h"
-#include "entity/FsLabelTTF.h"
+#include "stage/entity/FsLabelTTF.h"
 #include "luaext/FsLuaEntity.h"
-#include "entity/FsSprite2D.h"
+#include "stage/entity/FsSprite2D.h"
 #include "luaext/FsLuaEntity.h"
-#include "entity/FsLabelBitmap.h"
+#include "stage/entity/FsLabelBitmap.h"
+#include "luaext/FsLuaEntity.h"
 #include "scheduler/FsScheduler.h"
 #include "luaext/FsLuaScene.h"
-#include "scene/FsDirector.h"
-#include "scene/FsLayer.h"
+#include "stage/FsDirector.h"
+#include "stage/layer/FsLayer.h"
 #include "luaext/FsLuaLayer.h"
-#include "scene/FsLayer2D.h"
+#include "stage/layer/FsLayer2D.h"
 #include "graphics/FsRender.h"
 #include "graphics/FsColor.h"
 #include "graphics/FsFontTTF.h"

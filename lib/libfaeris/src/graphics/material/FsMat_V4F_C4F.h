@@ -2,7 +2,7 @@
 #define _FS_POSITION_COLOR_MATERIAL_H_
 
 #include "FsMacros.h"
-#include "material/FsMaterial.h"
+#include "graphics/material/FsMaterial.h"
 
 NS_FS_BEGIN
 class Mat_V4F_C4F:public Material

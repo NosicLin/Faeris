@@ -1,5 +1,5 @@
-#include "scene/FsLayer.h"
-#include "entity/FsEntity.h"
+#include "stage/layer/FsLayer.h"
+#include "stage/entity/FsEntity.h"
 #include "util/FsDict.h"
 
 

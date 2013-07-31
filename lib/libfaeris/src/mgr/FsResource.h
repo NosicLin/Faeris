@@ -3,7 +3,7 @@
 #include <string>
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "util/FsString.h"
 
 NS_FS_BEGIN 

@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "support/data/FsIconv.h"
-#include "entity/FsLabelTTF.h"
-#include "material/FsMat_V4F_T2F.h"
+#include "stage/entity/FsLabelTTF.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
 #include "graphics/FsImage2D.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsFontTTF.h"

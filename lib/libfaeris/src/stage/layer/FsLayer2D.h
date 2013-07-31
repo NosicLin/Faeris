@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "FsMacros.h"
-#include "scene/FsLayer.h"
+#include "stage/layer/FsLayer.h"
 #include "math/FsMatrix4.h"
 #include "math/FsVector2.h"
 #include "math/FsRect2D.h"

@@ -1,5 +1,5 @@
 #include "mgr/FsSprite2DDataMgr.h"
-#include "entity/FsSprite2DData.h"
+#include "stage/entity/FsSprite2DData.h"
 
 
 NS_FS_BEGIN 

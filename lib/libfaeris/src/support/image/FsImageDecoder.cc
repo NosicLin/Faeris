@@ -3,7 +3,7 @@
 #include "support/image/FsImageDecoder.h"
 #include "support/image/FsImagePng.h"
 #include "graphics/FsImage2D.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsVFS.h"
 
 NS_FS_BEGIN
 Image2D::ImageType FsUtil_ImageType(const char* name)

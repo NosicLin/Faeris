@@ -2,9 +2,9 @@
 #include "support/data/FsFgzReader.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"
-#include "io/FsSegFile.h"
-#include "io/FsMemFile.h"
-#include "io/FsFile.h"
+#include "sys/io/FsSegFile.h"
+#include "sys/io/FsMemFile.h"
+#include "sys/io/FsFile.h"
 #include "support/data/FsDeflate.h"
 
 

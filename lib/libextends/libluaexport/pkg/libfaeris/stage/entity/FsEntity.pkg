@@ -1,4 +1,4 @@
-$#include "entity/FsEntity.h"
+$#include "stage/entity/FsEntity.h"
 $#include "luaext/FsLuaEntity.h"
 
 class Entity@__Entity:public FsObject

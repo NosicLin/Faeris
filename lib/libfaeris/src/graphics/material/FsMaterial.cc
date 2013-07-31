@@ -1,4 +1,4 @@
-#include "material/FsMaterial.h"
+#include "graphics/material/FsMaterial.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN

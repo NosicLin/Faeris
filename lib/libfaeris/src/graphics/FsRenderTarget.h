@@ -1,7 +1,7 @@
 #ifndef _FAERIS_RENDER_TARGET_H_
 #define _FAERIS_RENDER_TARGET_H_
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 NS_FS_BEGIN
 class Render;

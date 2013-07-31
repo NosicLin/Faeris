@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 #if defined(FS_OS_WIN32)
 	#pragma warning (disable:4800)

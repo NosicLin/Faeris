@@ -4,10 +4,10 @@
 
 #include "FsLuaExport.h"
 #include "support/data/FsEncrypt.h"
-#include "io/FsVFS.h"
-#include "util/FsLog.h"
+#include "sys/io/FsVFS.h"
+#include "support/util/FsLog.h"
 #include "FsLuaEngine.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "sys/FsSys.h"
 
 

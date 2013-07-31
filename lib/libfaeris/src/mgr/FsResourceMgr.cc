@@ -1,7 +1,7 @@
 #include "mgr/FsResourceMgr.h"
 #include "mgr/FsResource.h"
 #include "util/FsPathUtil.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsVFS.h"
 
 NS_FS_BEGIN
 ResourceMgr::ResourceMgr(ResourceCreateFunc func)

@@ -1,9 +1,9 @@
-#include "scene/FsDirector.h"
-#include "event/FsTouchDispatcher.h"
-#include "common/FsGlobal.h"
+#include "stage/FsDirector.h"
+#include "sys/event/FsTouchDispatcher.h"
+#include "FsGlobal.h"
 #include "util/FsArray.h"
 #include "math/FsVector2.h"
-#include "scene/FsScene.h"
+#include "stage/FsScene.h"
 
 NS_FS_BEGIN
 

@@ -2,10 +2,10 @@
 #define _FS_SCHEDULER_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "util/FsSlowArray.h"
 #include "sys/FsTimer.h"
-#include "sys/FsMutex.h"
+#include "sys/thread/FsMutex.h"
 
 NS_FS_BEGIN
 class SchedulerTarget;

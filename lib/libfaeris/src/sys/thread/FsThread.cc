@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "sys/FsThread.h"
+#include "sys/thread/FsThread.h"
 
 NS_FS_BEGIN
 static void* FsThread_Run(void* t)

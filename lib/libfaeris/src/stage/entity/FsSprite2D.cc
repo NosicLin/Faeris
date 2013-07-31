@@ -1,9 +1,9 @@
-#include "entity/FsSprite2D.h"
-#include "common/FsGlobal.h"
-#include "entity/FsSprite2DData.h"
+#include "stage/entity/FsSprite2D.h"
+#include "FsGlobal.h"
+#include "stage/entity/FsSprite2DData.h"
 #include "graphics/FsTexture2D.h"
 #include "util/FsArray.h"
-#include "material/FsMat_V4F_T2F_A1F.h"
+#include "graphics/material/FsMat_V4F_T2F_A1F.h"
 
 NS_FS_BEGIN
 

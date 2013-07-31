@@ -1,6 +1,6 @@
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 #include "graphics/FsRender.h"
-#include "scene/FsLayer.h"
+#include "stage/layer/FsLayer.h"
 
 NS_FS_BEGIN
 

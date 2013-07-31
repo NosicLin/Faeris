@@ -3,7 +3,7 @@
 
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "math/FsVector3.h"
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
@@ -182,7 +182,7 @@ class Entity :public FsObject
 		friend class Layer;
 };
 
-#include "entity/FsEntity.inl"
+#include "stage/entity/FsEntity.inl"
 NS_FS_END
 
 #endif 

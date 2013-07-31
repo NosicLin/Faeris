@@ -1,4 +1,4 @@
-$#include "entity/FsSprite2D.h"
+$#include "stage/entity/FsSprite2D.h"
 $#include "luaext/FsLuaEntity.h"
 
 class Sprite2D@__Sprite2D:public Entity 

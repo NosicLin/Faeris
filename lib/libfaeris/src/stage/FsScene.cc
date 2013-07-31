@@ -1,5 +1,5 @@
-#include "scene/FsScene.h"
-#include "scene/FsLayer.h"
+#include "stage/FsScene.h"
+#include "stage/layer/FsLayer.h"
 #include "util/FsSlowArray.h"
 NS_FS_BEGIN
 

@@ -1,3 +1,4 @@
+$#include "FsObject.h"
 class FsObject 
 {
 	public:

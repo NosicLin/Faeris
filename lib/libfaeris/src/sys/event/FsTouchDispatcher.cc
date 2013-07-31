@@ -1,5 +1,5 @@
-#include "event/FsTouchDispatcher.h"
-#include "common/FsGlobal.h"
+#include "sys/event/FsTouchDispatcher.h"
+#include "FsGlobal.h"
 
 NS_FS_BEGIN
 

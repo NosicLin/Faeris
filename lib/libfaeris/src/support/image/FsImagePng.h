@@ -3,7 +3,7 @@
 
 #include "FsMacros.h"
 #include "graphics/FsImage2D.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsVFS.h"
 
 NS_FS_BEGIN
 Image2D* FsUtil_PngReader(const char* filename);

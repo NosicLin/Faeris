@@ -1,7 +1,7 @@
 #ifndef _FS_LUA_ENGINE_H_
 #define _FS_LUA_ENGINE_H_
 
-#include "common/FsScriptEngine.h"
+#include "extends/FsScriptEngine.h"
 
 
 

@@ -2,8 +2,8 @@
 #include "scheduler/FsSchedulerTarget.h"
 #include "scheduler/FsTask.h"
 #include "sys/FsSys.h"
-#include "common/FsScriptEngine.h"
-#include "common/FsGlobal.h"
+#include "extends/FsScriptEngine.h"
+#include "FsGlobal.h"
 
 NS_FS_BEGIN
 const char* Scheduler::className() 

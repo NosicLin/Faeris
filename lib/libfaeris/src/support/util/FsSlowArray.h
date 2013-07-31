@@ -5,7 +5,7 @@
 
 #include "FsMacros.h"
 #include "util/FsArray.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 NS_FS_BEGIN
 class FsSlowArray:public FsObject

@@ -6,7 +6,7 @@
 #include "FsMacros.h"
 #include "FsFmodPlayer.h"
 
-#include "io/FsVFS.h"
+#include "sys/io/FsVFS.h"
 
 
 #define FS_MAX_MUSIC_CHANNEL_NU 32

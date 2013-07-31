@@ -1,7 +1,7 @@
 #ifndef _FS_POSITION_TEXTURE_MATERIAL_H_
 #define _FS_POSITION_TEXTURE_MATERIAL_H_
 #include "FsMacros.h"
-#include "material/FsMaterial.h"
+#include "graphics/material/FsMaterial.h"
 
 NS_FS_BEGIN
 class Program;

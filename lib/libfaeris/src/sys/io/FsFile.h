@@ -2,7 +2,7 @@
 #define _FAERY_IO_FSFILE_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 NS_FS_BEGIN
 
 class FsFile:public FsObject

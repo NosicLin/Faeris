@@ -4,7 +4,7 @@
 
 #include "FsMacros.h"
 #include "mgr/FsResource.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "math/FsRect2D.h"
 
 

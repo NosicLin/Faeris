@@ -1,4 +1,4 @@
-$#include "entity/FsQuad2D.h"
+$#include "stage/entity/FsQuad2D.h"
 $#include "luaext/FsLuaEntity.h"
 class Quad2D@__Quad2D:public Entity 
 {

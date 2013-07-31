@@ -5,7 +5,7 @@
 #include "FsMacros.h"
 #include "entity/FsEntity.h"
 #include "graphics/FsColor.h"
-#include "material/FsPositionColorLineMaterial.h"
+#include "graphics/material/FsPositionColorLineMaterial.h"
 
 
 NS_FS_BEGIN

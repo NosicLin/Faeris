@@ -2,10 +2,10 @@
 #define _FS_SPINE_SPRITE_H_
 #include "spine/spine.h"
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "graphics/FsColor.h"
-#include "entity/FsEntity.h"
-#include "material/FsMat_V4F_T2F.h"
+#include "stage/entity/FsEntity.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
 #include "FsSpineSpriteData.h"
 #include "FsSpineSpriteDataMgr.h"
 

@@ -1,8 +1,8 @@
 #ifndef _FS_LUA_LAYER_H_
 #define _FS_LUA_LAYER_H_
 
-#include "scene/FsLayer2D.h"
-#include "scene/FsColorLayer.h"
+#include "stage/layer/FsLayer2D.h"
+#include "stage/layer/FsColorLayer.h"
 #include "FsLuaMacros.h"
 
 #include "luaext/FsTLuaLayer.h"

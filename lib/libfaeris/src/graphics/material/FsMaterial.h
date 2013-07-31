@@ -2,7 +2,7 @@
 #define _FS_BASE_MATERIAL_H_
 #include "FsMacros.h"
 #include "mgr/FsResource.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN

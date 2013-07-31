@@ -2,7 +2,7 @@
 #define _FS_SCENE_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 
 

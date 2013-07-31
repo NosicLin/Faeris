@@ -2,7 +2,7 @@
 #define _FS_ZIP_READER_H_ 
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 NS_FS_BEGIN
 

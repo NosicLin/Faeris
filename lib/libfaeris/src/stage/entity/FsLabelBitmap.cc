@@ -1,7 +1,7 @@
-#include "entity/FsLabelBitmap.h"
+#include "stage/entity/FsLabelBitmap.h"
 #include "graphics/FsFontBitmap.h"
 #include "graphics/FsTexture2D.h"
-#include "material/FsMat_V4F_T2F.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
 #include "support/data/FsUnicode.h"
 #include "support/data/FsIconv.h"
 NS_FS_BEGIN

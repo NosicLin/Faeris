@@ -1,7 +1,7 @@
 #ifndef _FS_LAYER_H_
 #define _FS_LAYER_H_
 
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "math/FsRect2D.h"
 
 NS_FS_BEGIN

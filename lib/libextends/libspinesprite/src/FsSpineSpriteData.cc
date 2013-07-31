@@ -1,6 +1,6 @@
 #include "FsSpineSpriteData.h"
-#include "io/FsFile.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsFile.h"
+#include "sys/io/FsVFS.h"
 #include "FsTextureAttachmentLoader.h"
 #include "FsTextureAttachment.h"
 

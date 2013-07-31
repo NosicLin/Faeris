@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "io/FsFile.h"
-#include "io/FsZipPackage.h"
+#include "sys/io/FsFile.h"
+#include "sys/io/FsZipPackage.h"
 #include "support/data/FsZipReader.h"
 
 NS_FS_BEGIN

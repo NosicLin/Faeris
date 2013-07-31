@@ -2,7 +2,7 @@
 #define _FS_SCRIPT_ENGINE_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 NS_FS_BEGIN
 
 class ScriptEngine:public FsObject

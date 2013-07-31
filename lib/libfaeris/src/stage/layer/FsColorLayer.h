@@ -2,7 +2,7 @@
 #define _FS_COLOR_LAYER_H_
 
 #include "FsMacros.h"
-#include "scene/FsLayer.h"
+#include "stage/layer/FsLayer.h"
 #include "graphics/FsColor.h"
 
 NS_FS_BEGIN

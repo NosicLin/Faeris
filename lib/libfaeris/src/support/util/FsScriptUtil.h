@@ -5,7 +5,7 @@
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 #include "util/FsString.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 
 NS_FS_BEGIN
 class ScriptUtil

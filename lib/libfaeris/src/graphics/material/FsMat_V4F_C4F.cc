@@ -1,4 +1,4 @@
-#include "material/FsMat_V4F_C4F.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
 #include "graphics/FsProgram.h"
 
 NS_FS_BEGIN

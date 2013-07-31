@@ -3,15 +3,15 @@
 
 #include "FsMacros.h"
 #include "FsLuaMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "luaext/FsLuaEntity.h"
 #include "luaext/FsTEntity.h"
-#include "entity/FsEntity.h"
-#include "entity/FsColorQuad2D.h"
-#include "entity/FsQuad2D.h"
-#include "entity/FsSprite2D.h"
-#include "entity/FsLabelTTF.h"
-#include "entity/FsLabelBitmap.h"
+#include "stage/entity/FsEntity.h"
+#include "stage/entity/FsColorQuad2D.h"
+#include "stage/entity/FsQuad2D.h"
+#include "stage/entity/FsSprite2D.h"
+#include "stage/entity/FsLabelTTF.h"
+#include "stage/entity/FsLabelBitmap.h"
 
 NS_FS_BEGIN
 class LuaEntity:public TEntity<Entity>

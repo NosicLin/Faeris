@@ -1,7 +1,7 @@
 #include "FsLuaMacros.h"
 #include "FsLuaEngine.h"
 #include "luaext/FsLuaTouchEventListener.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 
 
 NS_FS_BEGIN

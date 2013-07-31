@@ -3,7 +3,7 @@
 #include "FsMacros.h"
 #include "mgr/FsResource.h"
 #include "graphics/FsImage2D.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 
 #define FS_FONT_GLYPH_CACHE_NU 256
 

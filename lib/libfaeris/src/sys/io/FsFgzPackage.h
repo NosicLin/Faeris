@@ -2,8 +2,8 @@
 #define _FS_FGZ_PACKAGE_H_
 
 #include "FsMacros.h"
-#include "io/FsPackage.h"
-#include "io/FsFile.h"
+#include "sys/io/FsPackage.h"
+#include "sys/io/FsFile.h"
 
 NS_FS_BEGIN
 class FgzReader;

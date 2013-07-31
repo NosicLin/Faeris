@@ -1,8 +1,8 @@
 #include "FsMacros.h"
 #include "util/FsLog.h"
 #include "FsConfig.h"
-#include "io/FsFile.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsFile.h"
+#include "sys/io/FsVFS.h"
 #include <stdarg.h>
 
 NS_FS_BEGIN

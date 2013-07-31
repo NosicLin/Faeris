@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "FsMacros.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 #include "xir_scanner.h"
 #include "util/FsDict.h"
 #include "util/FsArray.h"

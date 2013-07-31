@@ -1,10 +1,10 @@
 #ifndef _FS_HTTP_ENGING_H_
 #define _FS_HTTP_ENGING_H_ 
 #include "FsMacros.h"
-#include "core/FsObject.h"
-#include "sys/FsThread.h"
-#include "sys/FsMutex.h"
-#include "sys/FsSemaphore.h"
+#include "FsObject.h"
+#include "sys/thread/FsThread.h"
+#include "sys/thread/FsMutex.h"
+#include "sys/thread/FsSemaphore.h"
 #include "util/FsArray.h"
 
 NS_FS_BEGIN

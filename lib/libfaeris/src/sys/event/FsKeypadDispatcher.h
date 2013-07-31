@@ -2,7 +2,7 @@
 #define _FS_KEYPAD_DISPATCHER_H_ 
 
 #include "FsMacros.h"
-#include "event/FsTEventDispatcher.h"
+#include "sys/event/FsTEventDispatcher.h"
 
 NS_FS_BEGIN
 class KeypadEvent 

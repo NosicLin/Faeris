@@ -1,5 +1,5 @@
-#include "entity/FsColorQuad2D.h"
-#include "material/FsMat_V4F_C4F.h"
+#include "stage/entity/FsColorQuad2D.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
 #include "graphics/FsRender.h"
 
 NS_FS_BEGIN

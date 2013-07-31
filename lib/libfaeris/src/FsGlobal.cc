@@ -1,4 +1,4 @@
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 
 
 NS_FS_BEGIN

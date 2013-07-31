@@ -2,7 +2,7 @@
 #define _FS_LUA_TOUCH_EVENT_LISTENER_H_
 
 #include "FsMacros.h"
-#include "event/FsTouchDispatcher.h"
+#include "sys/event/FsTouchDispatcher.h"
 
 NS_FS_BEGIN
 class LuaTouchEventListener:public TouchEventListener

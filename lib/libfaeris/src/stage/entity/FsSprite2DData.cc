@@ -1,9 +1,9 @@
-#include "entity/FsSprite2DData.h"
+#include "stage/entity/FsSprite2DData.h"
 #include "util/FsDict.h"
 #include "util/FsArray.h"
 #include "util/FsScriptUtil.h"
 #include "graphics/FsTexture2D.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 
 
 

@@ -1,4 +1,4 @@
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "luaext/FsLuaScene.h"
 #include "FsLuaEngine.h"
 

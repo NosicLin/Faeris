@@ -1,6 +1,6 @@
-#include "core/FsObject.h"
-#include "common/FsGlobal.h"
-#include "common/FsScriptEngine.h"
+#include "FsObject.h"
+#include "FsGlobal.h"
+#include "extends/FsScriptEngine.h"
 
 NS_FS_BEGIN 
 

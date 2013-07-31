@@ -2,10 +2,10 @@
 #include "GL/glew.h"
 #include "sys/FsWindow.h"
 #include "util/FsLog.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "scheduler/FsSchedulerTarget.h"
 #include "scheduler/FsScheduler.h"
-#include "event/FsTouchDispatcher.h"
+#include "sys/event/FsTouchDispatcher.h"
 
 
 #define FS_DEFAULT_WINDOW_WIDTH 640 

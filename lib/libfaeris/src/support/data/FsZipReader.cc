@@ -1,8 +1,8 @@
 #include "support/data/FsZipReader.h"
 #include "unzip.h"
-#include "io/FsMemFile.h"
-#include "io/FsSegFile.h"
-#include "io/FsFile.h"
+#include "sys/io/FsMemFile.h"
+#include "sys/io/FsSegFile.h"
+#include "sys/io/FsFile.h"
 
 
 NS_FS_BEGIN

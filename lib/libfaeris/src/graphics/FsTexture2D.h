@@ -5,7 +5,7 @@
 #include "FsConfig.h"
 #include "mgr/FsResourceMgr.h"
 #include "mgr/FsResource.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 #include "graphics/FsImage2D.h"
 
 #if FS_CONFIG(FS_GL_RENDER) ||FS_CONFIG(FS_GLES_RENDER)

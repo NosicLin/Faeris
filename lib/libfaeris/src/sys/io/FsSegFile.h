@@ -2,7 +2,7 @@
 #define _FS_SEG_FILE_H_ 
 
 #include "FsMacros.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 
 NS_FS_BEGIN
 class SegFile:public FsFile 

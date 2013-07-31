@@ -1,9 +1,9 @@
 #include <algorithm>
-#include "scene/FsLayer2D.h"
-#include "util/FsArray.h"
-#include "util/FsDict.h"
+#include "stage/layer/FsLayer2D.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsDict.h"
 #include "graphics/FsRender.h"
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 
 NS_FS_BEGIN
 

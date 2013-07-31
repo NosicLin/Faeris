@@ -23,8 +23,6 @@
 
 
 #define FS_EXPORT_LIB_FAERIS
-#define FS_EXPORT_LIB_AUDIO 
-#define FS_EXPORT_LIB_NETWORK
 
 #define FS_EXPORT_LIB_LUA_FUNC 
 

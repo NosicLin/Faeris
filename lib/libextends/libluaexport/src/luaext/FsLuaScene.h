@@ -1,7 +1,7 @@
 #ifndef _FS_LUA_SCENE_H_
 #define _FS_LUA_SCENE_H_ 
 
-#include "scene/FsScene.h"
+#include "stage/FsScene.h"
 #include "FsLuaMacros.h"
 NS_FS_BEGIN
 class LuaScene:public Scene 

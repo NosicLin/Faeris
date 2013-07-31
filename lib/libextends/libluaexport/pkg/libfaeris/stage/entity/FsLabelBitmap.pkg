@@ -1,4 +1,5 @@
-$#include "entity/FsLabelBitmap.h"
+$#include "stage/entity/FsLabelBitmap.h"
+$#include "luaext/FsLuaEntity.h"
 
 class LabelBitmap@__LabelBitmap:public Entity 
 {

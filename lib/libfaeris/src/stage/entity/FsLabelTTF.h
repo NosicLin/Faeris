@@ -4,7 +4,7 @@
 #include <string>
 
 #include "FsMacros.h"
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 #include "graphics/FsColor.h"
 
 NS_FS_BEGIN

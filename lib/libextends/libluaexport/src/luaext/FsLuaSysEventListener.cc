@@ -1,5 +1,5 @@
 #include "FsLuaMacros.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "luaext/FsLuaSysEventListener.h"
 #include "FsLuaEngine.h"
 

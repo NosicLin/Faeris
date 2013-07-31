@@ -1,4 +1,4 @@
-$#include "scene/FsLayer.h"
+$#include "stage/layer/FsLayer.h"
 
 class Layer@__layer:public FsObject
 {

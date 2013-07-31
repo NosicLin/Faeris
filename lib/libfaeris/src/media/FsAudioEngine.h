@@ -5,7 +5,7 @@
 #include <string>
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "FsAudioPlayer.h"
 
 #define FS_DEFAULT_CHANNEL_NU 5

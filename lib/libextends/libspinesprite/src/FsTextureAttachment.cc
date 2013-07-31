@@ -2,7 +2,7 @@
 #include "spine/spine.h"
 #include "spine/extension.h"
 #include "graphics/FsTexture2D.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "FsTextureAttachment.h"
 
 NS_FS_BEGIN

@@ -1,5 +1,5 @@
 #include "FsLuaHttpRequest.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "FsLuaEngine.h"
 
 #include "tolua++.h"

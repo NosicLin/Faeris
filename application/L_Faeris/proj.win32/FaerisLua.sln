@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaudio", "..\..\..\lib\libextends\libaudio\proj.vs2008\libaudio.vcproj", "{4F864FCF-E55B-4250-A12E-52784D9439E4}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libluaexport", "..\..\..\lib\libextends\libluaexport\proj.vs2008\luaexport.vcproj", "{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libnetwork", "..\..\..\lib\libextends\libnetwork\proj.vs2008\network.vcproj", "{98B46658-D79C-428A-874B-782C9C8C10D1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaeris", "..\..\..\lib\libfaeris\proj.vs2008\faeris.vcproj", "{1A220C0A-1B8C-4B0D-9EF8-157B34855925}"
 EndProject
@@ -19,18 +15,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Debug|Win32.Build.0 = Debug|Win32
-		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Release|Win32.ActiveCfg = Release|Win32
-		{4F864FCF-E55B-4250-A12E-52784D9439E4}.Release|Win32.Build.0 = Release|Win32
 		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Debug|Win32.Build.0 = Debug|Win32
 		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Release|Win32.ActiveCfg = Release|Win32
 		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98}.Release|Win32.Build.0 = Release|Win32
-		{98B46658-D79C-428A-874B-782C9C8C10D1}.Debug|Win32.ActiveCfg = Debug|Win32
-		{98B46658-D79C-428A-874B-782C9C8C10D1}.Debug|Win32.Build.0 = Debug|Win32
-		{98B46658-D79C-428A-874B-782C9C8C10D1}.Release|Win32.ActiveCfg = Release|Win32
-		{98B46658-D79C-428A-874B-782C9C8C10D1}.Release|Win32.Build.0 = Release|Win32
 		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Debug|Win32.ActiveCfg = Debug|Win32
 		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Debug|Win32.Build.0 = Debug|Win32
 		{1A220C0A-1B8C-4B0D-9EF8-157B34855925}.Release|Win32.ActiveCfg = Release|Win32

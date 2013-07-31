@@ -2,7 +2,7 @@
 #define _FS_QUAD_2D_H_ 
 
 #include "FsMacros.h"
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 #include "math/FsRect2D.h"
 #include "graphics/FsColor.h"
 

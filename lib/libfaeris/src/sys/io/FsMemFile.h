@@ -1,7 +1,7 @@
 #ifndef _FAERY_MEM_FILE_H_
 #define _FAERY_MEM_FILE_H_
 
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 
 NS_FS_BEGIN
 class MemFile:public FsFile

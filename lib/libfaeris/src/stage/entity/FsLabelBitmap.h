@@ -7,11 +7,11 @@
 #include <vector>
 
 #include "FsMacros.h"
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 #include "graphics/FsColor.h"
 #include "math/FsVertices.h"
 #include "math/FsFace3.h"
-#include "material/FsMat_V4F_T2F.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
 
 
 NS_FS_BEGIN

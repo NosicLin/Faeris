@@ -1,5 +1,6 @@
-$#include "entity/FsLabelTTF.h"
+$#include "stage/entity/FsLabelTTF.h"
 $#include "luaext/FsLuaEntity.h"
+
 class LabelTTF@__LabelTTF:public Entity
 {
 	public:

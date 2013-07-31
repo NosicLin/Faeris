@@ -1,6 +1,6 @@
-#include "scene/FsColorLayer.h"
+#include "stage/layer/FsColorLayer.h"
 #include "graphics/FsRender.h"
-#include "material/FsMat_V4F_C4F.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
 
 NS_FS_BEGIN
 ColorLayer* ColorLayer::create()

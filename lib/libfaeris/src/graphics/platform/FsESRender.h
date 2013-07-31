@@ -2,7 +2,7 @@
 #define _FS_GL_ES_RENDER_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "graphics/FsColor.h"
 #include "graphics/FsRenderTarget.h"
 

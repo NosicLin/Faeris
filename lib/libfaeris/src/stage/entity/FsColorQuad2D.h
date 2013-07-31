@@ -1,7 +1,7 @@
 #ifndef _FS_COLOR_QUAD_2D_H_
 #define _FS_COLOR_QUAD_2D_H_
 
-#include "entity/FsEntity.h"
+#include "stage/entity/FsEntity.h"
 #include "graphics/FsColor.h"
 
 NS_FS_BEGIN

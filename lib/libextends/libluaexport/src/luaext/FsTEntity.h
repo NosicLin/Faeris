@@ -3,8 +3,8 @@
 
 #include "FsMacros.h"
 
-#include "entity/FsEntity.h"
-#include "common/FsGlobal.h"
+#include "stage/entity/FsEntity.h"
+#include "FsGlobal.h"
 #include "FsLuaEngine.h"
 
 NS_FS_BEGIN

@@ -1,4 +1,4 @@
-$#include "FsAudioEngine.h"
+$#include "media/FsAudioEngine.h"
 $#include "FsLuaExport.h"
 
 class AudioEngine:public FsObject

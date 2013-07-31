@@ -231,19 +231,11 @@
 				Name="luaexport"
 				>
 				<File
-					RelativePath="..\src\luaexport\FsLibAudioExport.cc"
-					>
-				</File>
-				<File
 					RelativePath="..\src\luaexport\FsLibFaerisExport.cc"
 					>
 				</File>
 				<File
 					RelativePath="..\src\luaexport\FsLibLuaScript.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\luaexport\FsLibNetworkExport.cc"
 					>
 				</File>
 				<File

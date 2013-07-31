@@ -2,7 +2,7 @@
 
 #include "FsHttpRequest.h"
 #include "FsHttpReponse.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "scheduler/FsTask.h"
 #include "scheduler/FsScheduler.h"
 

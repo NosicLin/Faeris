@@ -2,9 +2,9 @@
 #define _FS_PROGRAM_H_
 
 #include "FsMacros.h"
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 #include "FsConfig.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "mgr/FsResource.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"

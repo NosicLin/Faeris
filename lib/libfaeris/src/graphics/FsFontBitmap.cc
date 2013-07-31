@@ -6,9 +6,9 @@
 #include "util/FsDict.h"
 #include "util/FsInteger.h"
 #include "util/FsArray.h"
-#include "io/FsFile.h"
-#include "io/FsVFS.h"
-#include "common/FsGlobal.h"
+#include "sys/io/FsFile.h"
+#include "sys/io/FsVFS.h"
+#include "FsGlobal.h"
 
 NS_FS_BEGIN
 #define FS_CHAR_TOKEN_NUM 9

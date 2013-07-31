@@ -3,8 +3,8 @@
 
 
 #include "FsLuaMacros.h"
-#include "FsHttpRequest.h"
-#include "FsHttpReponse.h"
+#include "sys/network/FsHttpRequest.h"
+#include "sys/network/FsHttpReponse.h"
 
 
 

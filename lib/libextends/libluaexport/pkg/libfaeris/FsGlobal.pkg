@@ -1,4 +1,4 @@
-$#include "common/FsGlobal.h"
+$#include "FsGlobal.h"
 
 class Global@share
 {

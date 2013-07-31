@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "libpng/png.h"
 #include "graphics/FsImage2D.h"
-#include "io/FsVFS.h"
+#include "sys/io/FsVFS.h"
 
 #define FS_PNG_SIG_BITS 8
 

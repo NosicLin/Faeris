@@ -2,7 +2,7 @@
 #define _FAERY_XIR_SCRIPT_FILE_H_ 
 
 #define FS_EOF (-1)
-#include "io/FsFile.h"
+#include "sys/io/FsFile.h"
 
 class XirFile
 {

@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 #define TOLUA_REFID_FUNCTION_MAPPING "tolua_reffunction_mapping"
 #define TOLUA_REFID_TABLE_MAPPING  "tolua_table_mapping"

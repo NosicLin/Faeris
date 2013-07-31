@@ -1,7 +1,7 @@
 $#include "FsLuaExport.h"
-$#include "FsHttpEngine.h"
+$#include "sys/network/FsHttpEngine.h"
 $#include "luaext/FsLuaHttpRequest.h"
-$#include "FsHttpReponse.h"
+$#include "sys/network/FsHttpReponse.h"
 
 class HttpEngine:public FsObject 
 {

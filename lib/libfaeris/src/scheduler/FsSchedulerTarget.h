@@ -2,7 +2,7 @@
 #define _FS_SCHEDULER_TARGET_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 NS_FS_BEGIN
 class Scheduler;

@@ -2,7 +2,7 @@
 #define _FS_FGZ_READER_H_
 
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 
 #define FS_FGZ_STORE 	0x0 

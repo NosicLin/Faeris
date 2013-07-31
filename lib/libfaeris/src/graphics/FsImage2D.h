@@ -1,7 +1,7 @@
 #ifndef _FAERIS_IMAGE2D_H_
 #define _FAERIS_IMAGE2D_H_
 #include "FsMacros.h"
-#include "core/FsObject.h"
+#include "FsObject.h"
 #include "graphics/FsColor.h"
 NS_FS_BEGIN
 class Image2D:public FsObject

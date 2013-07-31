@@ -1,8 +1,8 @@
 #include <string.h>
 
 #include "FsVFS.h"
-#include "io/FsSysFile.h"
-#include "io/FsPackage.h"
+#include "sys/io/FsSysFile.h"
+#include "sys/io/FsPackage.h"
 #include "sys/FsSys.h"
 #include "util/FsArray.h"
 #include "util/FsPathUtil.h"

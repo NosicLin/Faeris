@@ -1,4 +1,4 @@
-$#include "scene/FsLayer2D.h"
+$#include "stage/layer/FsLayer2D.h"
 
 class Layer2D@__Layer2D:public Layer
 {

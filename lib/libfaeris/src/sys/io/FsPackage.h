@@ -1,7 +1,7 @@
 #ifndef _FS_PACKAGE_H_
 #define _FS_PACKAGE_H_ 
 
-#include "core/FsObject.h"
+#include "FsObject.h"
 
 NS_FS_BEGIN
 

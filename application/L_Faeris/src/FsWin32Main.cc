@@ -1,13 +1,13 @@
 #include "FsMacros.h"
 #include "FsFaerisModule.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "FsLuaEngine.h"
-#include "io/FsPackage.h"
-#include "io/FsVFS.h"
-#include "util/FsPathUtil.h"
-#include "util/FsScriptUtil.h"
-#include "util/FsDict.h"
-#include "util/FsArray.h"
+#include "sys/io/FsPackage.h"
+#include "sys/io/FsVFS.h"
+#include "support/util/FsPathUtil.h"
+#include "support/util/FsScriptUtil.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsArray.h"
 
 
 #if FS_PLATFORM_OS(FS_OS_WIN32)

@@ -1,4 +1,4 @@
-$#include "scene/FsDirector.h"
+$#include "stage/FsDirector.h"
 
 class Director:public FsObject
 {

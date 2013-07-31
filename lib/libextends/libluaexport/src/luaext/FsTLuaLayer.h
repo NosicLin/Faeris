@@ -1,7 +1,7 @@
 #ifndef _FS_LUA_T_LAYER_H_
 #define _FS_LUA_T_LAYER_H_
 
-#include "scene/FsLayer.h"
+#include "stage/layer/FsLayer.h"
 #include "FsLuaEngine.h"
 
 NS_FS_BEGIN

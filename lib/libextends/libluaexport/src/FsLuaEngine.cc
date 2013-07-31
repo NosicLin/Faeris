@@ -16,10 +16,10 @@ extern "C"
 #include "FsLuaMacros.h"
 #include "FsLuaEngine.h"
 #include "luaexport/FsLuaExport.h"
-#include "common/FsGlobal.h"
-#include "util/FsLog.h"
-#include "io/FsVFS.h"
-#include "event/FsTouchDispatcher.h"
+#include "FsGlobal.h"
+#include "support/util/FsLog.h"
+#include "sys/io/FsVFS.h"
+#include "sys/event/FsTouchDispatcher.h"
 
 #define FS_LUA_ENGINE_CLASS_NAME "LuaEngine"
 
@@ -53,14 +53,7 @@ LuaEngine::LuaEngine()
 #endif 
 
 
-#if FS_CONFIG(FS_EXPORT_LIB_AUDIO)
-	/* init audio interface */
-	tolua_FsLibAudio_open(m_state);
-#endif 
 
-#if FS_CONFIG(FS_EXPORT_LIB_NETWORK)
-	tolua_FsLibNetwork_open(m_state);
-#endif 
 
 #if FS_CONFIG(FS_EXPORT_LIB_LUA_FUNC)
 	tolua_FsLuaFuncExport_open(m_state);
