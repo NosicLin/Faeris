@@ -27,22 +27,22 @@ INCLUDE_DIR= -I./  \
 LINK_DIR= -L../../../lib/library/linux/3rdparty \
 		  -L../../../lib/library/linux
 
-LINK_LIB= -lX11  \
+LINK_LIB= -lluaexportd \
+		  -lfaerisd \
+		  -lspinesprited \
+		  -lX11  \
 		  -lGLEW \
 		  -lGL  \
 		  -lpthread \
 		  -lluad \
 		  -ltolua++d \
 		  -llibpngd \
-		  -lfmodex \
 		  -lzlibd \
 		  -lcurld \
 		  -lrt \
 		  -lminizipd \
 		  -lfreetype \
-		  -lluaexportd \
-		  -lspinesprited \
-		  -lfaerisd \
+		  -lfmodex \
 
 
 #Source File 
