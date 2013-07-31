@@ -215,10 +215,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\luaext\FsSysEventListener.h"
-					>
-				</File>
-				<File
 					RelativePath="..\src\luaext\FsTEntity.h"
 					>
 				</File>
