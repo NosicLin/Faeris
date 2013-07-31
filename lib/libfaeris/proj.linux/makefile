@@ -42,9 +42,11 @@ SRC= common/FsGlobal.cc \
 	 graphics/FsRender.cc \
 	 graphics/FsTexture2D.cc \
 	 io/FsFile.cc \
+	 io/FsSysFile.cc \
+	 io/FsSegFile.cc \
 	 io/FsMemFile.cc \
 	 io/FsPackage.cc \
-	 io/FsSysFile.cc \
+	 io/FsFgzPackage.cc \
 	 io/FsVFS.cc \
 	 io/FsZipPackage.cc \
 	 material/FsMat_V4F_C4F.cc \
@@ -74,6 +76,8 @@ SRC= common/FsGlobal.cc \
 	 support/data/FsHash.cc \
 	 support/data/FsIconv.cc \
 	 support/data/FsUnicode.cc \
+	 support/data/FsFgzReader.cc \
+	 support/data/FsZipReader.cc \
 	 support/felis/sl_comment.cc \
 	 support/felis/sl_double_quote_str.cc \
 	 support/felis/sl_simple_str.cc \

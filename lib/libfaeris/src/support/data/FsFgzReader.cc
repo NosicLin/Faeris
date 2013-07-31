@@ -1,3 +1,4 @@
+#include <string.h>
 #include "support/data/FsFgzReader.h"
 #include "util/FsDict.h"
 #include "util/FsString.h"
@@ -121,7 +122,7 @@ FsFile* FgzReader::getFile(const char* filename)
 				break;
 			}
 
-			if(m_stream->read(compress_buf,info->m_header.m_ensize)!=info->m_header.m_ensize)
+			if(m_stream->read(compress_buf,info->m_header.m_ensize)!=(int)info->m_header.m_ensize)
 			{
 				ret->decRef();
 				delete[] compress_buf;
@@ -257,7 +258,7 @@ bool FgzReader::init(FsFile* file)
 		file_data_pos=current_offset+sizeof(FgzFileHeader)+info->m_header.m_filenameLength;
 		info->setDataOffset(file_data_pos);
 
-		FS_TRACE_INFO("add File %s",info->m_filename->cstr());
+		//FS_TRACE_INFO("add File %s",info->m_filename->cstr());
 		fileset->insert(info->m_filename,info);
 
 
