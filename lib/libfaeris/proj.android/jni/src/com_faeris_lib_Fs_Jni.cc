@@ -62,6 +62,7 @@ extern "C" {
 	VFS::addFilter(sdcard_filter);
 	sdcard_filter->decRef();
 
+
 	/* add name filter */
 	VFS::PrefixNameFilter* assets_filter=VFS::PrefixNameFilter::create("assets/");
 	VFS::addFilter(assets_filter);

@@ -8,7 +8,6 @@ LOCAL_MODULE := faeris
 
 LOCAL_SRC_FILES :=  ../../src/FsAndroidMain.cc \
 
-
 LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../../../lib/3rdparty/lua/include \
 					 -I$(LOCAL_PATH)/../../../../lib/3rdparty/tolua++/include \
 					 -I$(LOCAL_PATH)/../../../../lib/libfaeris/src \
