@@ -3,7 +3,7 @@
 
 #include "FsMacros.h"
 #include "FsObject.h"
-#include "util/FsSlowArray.h"
+#include "support/util/FsSlowArray.h"
 #include "sys/FsTimer.h"
 #include "sys/thread/FsMutex.h"
 

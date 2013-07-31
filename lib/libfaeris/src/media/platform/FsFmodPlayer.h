@@ -5,7 +5,7 @@
 #include "fmod/fmod.hpp"
 
 #include "FsMacros.h"
-#include "FsAudioPlayer.h"
+#include "media/FsAudioPlayer.h"
 
 
 NS_FS_BEGIN

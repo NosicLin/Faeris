@@ -20,9 +20,7 @@ INCLUDE_DIR=-I../src \
 
 
 #Source File 
-SRC=  luaexport/FsLibAudioExport.cc \
-	  luaexport/FsLibNetworkExport.cc \
-	  luaexport/FsLibSpineSprite.cc \
+SRC=  luaexport/FsLibSpineSprite.cc \
 	  luaexport/FsLibFaerisExport.cc \
 	  luaexport/FsLibLuaScript.cc \
 	  luaexport/FsLuaFuncExport.cc \

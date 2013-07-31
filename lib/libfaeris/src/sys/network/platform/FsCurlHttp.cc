@@ -3,8 +3,8 @@
 
 
 #include "FsMacros.h"
-#include "FsHttpReponse.h"
-#include "FsHttpRequest.h"
+#include "sys/network/FsHttpReponse.h"
+#include "sys/network/FsHttpRequest.h"
 
 NS_FS_BEGIN 
 

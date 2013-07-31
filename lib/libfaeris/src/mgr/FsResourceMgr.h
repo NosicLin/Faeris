@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include "FsMacros.h"
-#include "util/FsString.h"
+#include "support/util/FsString.h"
 
 NS_FS_BEGIN
 class Resource;

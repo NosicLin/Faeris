@@ -7,12 +7,12 @@
 	#include "GL/glew.h"
 #endif 
 
-#include "material/FsMaterial.h"
+#include "graphics/material/FsMaterial.h"
 #include "FsESRender.h"
 #include "graphics/FsProgram.h"
 #include "graphics/FsTexture2D.h"
 #include "math/FsMatrix4.h"
-#include "util/FsString.h"
+#include "support/util/FsString.h"
 
 NS_FS_BEGIN
 static GLint FsType_ToGLEnum(int t)

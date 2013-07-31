@@ -6,8 +6,8 @@
 #include "FsConfig.h"
 #include "FsObject.h"
 #include "mgr/FsResource.h"
-#include "util/FsDict.h"
-#include "util/FsString.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsString.h"
 
 #if FS_CONFIG(FS_GL_RENDER) ||FS_CONFIG(FS_GLES_RENDER)
 	typedef uint PlatformProgram;

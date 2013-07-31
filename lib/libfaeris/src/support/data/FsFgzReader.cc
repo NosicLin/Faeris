@@ -1,7 +1,7 @@
 #include <string.h>
 #include "support/data/FsFgzReader.h"
-#include "util/FsDict.h"
-#include "util/FsString.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsString.h"
 #include "sys/io/FsSegFile.h"
 #include "sys/io/FsMemFile.h"
 #include "sys/io/FsFile.h"

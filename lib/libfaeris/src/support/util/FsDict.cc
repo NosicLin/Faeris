@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "util/FsDict.h"
-#include "util/FsString.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsString.h"
 
 #define FS_DICT_MIN_SIZE 8
 #define FS_DICT_DEFAULT_PERTURB_SHIFT 5

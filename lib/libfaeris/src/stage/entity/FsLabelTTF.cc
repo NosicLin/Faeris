@@ -7,7 +7,7 @@
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsFontTTF.h"
 #include "graphics/FsRender.h"
-#include "util/FsArray.h"
+#include "support/util/FsArray.h"
 
 
 NS_FS_BEGIN

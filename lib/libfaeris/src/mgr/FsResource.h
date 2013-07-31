@@ -4,7 +4,7 @@
 
 #include "FsMacros.h"
 #include "FsObject.h"
-#include "util/FsString.h"
+#include "support/util/FsString.h"
 
 NS_FS_BEGIN 
 class ResourceMgr;

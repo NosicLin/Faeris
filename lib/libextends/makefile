@@ -1,4 +1,4 @@
-DIR=  libaudio \
+DIR=  libspinesprite \
 	  libluaexport \
 	
 

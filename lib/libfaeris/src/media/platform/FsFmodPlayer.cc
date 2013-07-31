@@ -402,10 +402,8 @@ void FmodPlayer::playMusic(Music* m,bool loop)
 
 	FMOD_RESULT result;
 	FMOD::Channel* channel=NULL;
-	FMOD::Sound* sound=NULL;
 	m_musics->getChannel(m->m_id,&channel);
 
-	sound= m->m_sound;
 	result=m_musics->playSound(FMOD_CHANNEL_REUSE,m->m_sound,true,&channel);
 
 	if(result!=FMOD_OK)

@@ -1,6 +1,6 @@
 # Normal Information 
 CC=g++
-FLAGS= -g -Wall  -DLINUX
+FLAGS= -g -Wall  -DLINUX -pthread
 FILE_EXT=cc
 
 #Project infor 
@@ -20,30 +20,27 @@ INCLUDE_DIR= -I./  \
 			 -I../../../lib/lib3rdparty/lua/include \
 			 -I../../../lib/lib3rdparty/tolua++/include \
 			 -I../../../lib/libfaeris/src \
-			 -I../../../lib/libfaeris/src/support \
 			 -I../../../lib/libextends/libaudio/src \
 			 -I../../../lib/libextends/libluaexport/src \
 
 
-LINK_DIR= -L../../../lib/library/linux/library \
+LINK_DIR= -L../../../lib/library/linux/3rdparty \
 		  -L../../../lib/library/linux
 
-LINK_LIB= -lfaeris \
-	      -lGL  \
+LINK_LIB= -lX11  \
 		  -lGLEW \
-		  -lX11  \
-		  -llua  \
-		  -ltolua++ \
-		  -llibpng \
-		  -lzlib \
+		  -lGL  \
+		  -lpthread \
+		  -lluad \
+		  -ltolua++d \
+		  -llibpngd \
+		  -lzlibd \
+		  -lcurld \
+		  -lminizipd \
 		  -lfreetype \
-		  -lminizip \
 		  -lluaexportd \
-		  -laudio  \
-		  -lspinesprite \
-		  -lfmodex \
-		  -lnetwork \
-		  -lcurl \
+		  -lspinesprited \
+		  -lfaerisd \
 
 
 #Source File 

@@ -1,6 +1,6 @@
 #include "mgr/FsResourceMgr.h"
 #include "mgr/FsResource.h"
-#include "util/FsPathUtil.h"
+#include "support/util/FsPathUtil.h"
 #include "sys/io/FsVFS.h"
 
 NS_FS_BEGIN

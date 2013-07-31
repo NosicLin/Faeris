@@ -2,9 +2,9 @@
 #define _FS_SCRIPT_UTIL_H_
 
 #include "FsMacros.h"
-#include "util/FsDict.h"
-#include "util/FsArray.h"
-#include "util/FsString.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsString.h"
 #include "sys/io/FsFile.h"
 
 NS_FS_BEGIN

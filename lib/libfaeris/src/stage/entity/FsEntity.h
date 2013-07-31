@@ -7,8 +7,8 @@
 #include "math/FsVector3.h"
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
-#include "util/FsString.h"
-#include "util/FsArray.h"
+#include "support/util/FsString.h"
+#include "support/util/FsArray.h"
 
 NS_FS_BEGIN
 class Render;

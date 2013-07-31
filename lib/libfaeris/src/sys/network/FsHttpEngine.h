@@ -5,7 +5,7 @@
 #include "sys/thread/FsThread.h"
 #include "sys/thread/FsMutex.h"
 #include "sys/thread/FsSemaphore.h"
-#include "util/FsArray.h"
+#include "support/util/FsArray.h"
 
 NS_FS_BEGIN
 class HttpRequest;

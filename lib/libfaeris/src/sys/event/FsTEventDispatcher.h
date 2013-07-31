@@ -6,7 +6,7 @@
 #include "FsMacros.h"
 #include "scheduler/FsSchedulerTarget.h"
 #include "FsObject.h"
-#include "util/FsSlowArray.h"
+#include "support/util/FsSlowArray.h"
 
 NS_FS_BEGIN
 

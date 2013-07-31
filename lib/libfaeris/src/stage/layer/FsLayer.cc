@@ -1,6 +1,6 @@
 #include "stage/layer/FsLayer.h"
 #include "stage/entity/FsEntity.h"
-#include "util/FsDict.h"
+#include "support/util/FsDict.h"
 
 
 NS_FS_BEGIN

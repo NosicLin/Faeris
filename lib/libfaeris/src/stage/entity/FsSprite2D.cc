@@ -2,7 +2,7 @@
 #include "FsGlobal.h"
 #include "stage/entity/FsSprite2DData.h"
 #include "graphics/FsTexture2D.h"
-#include "util/FsArray.h"
+#include "support/util/FsArray.h"
 #include "graphics/material/FsMat_V4F_T2F_A1F.h"
 
 NS_FS_BEGIN

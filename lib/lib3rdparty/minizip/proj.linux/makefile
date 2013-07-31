@@ -6,7 +6,7 @@ FLAGS_DEBUG= -g -Wall
 FLAGS_RELEASE= -O3
 
 #Project infor 
-PROJECT_PATH= ../../../library/linux/
+PROJECT_PATH= ../../../library/linux/3rdparty/
 PROJECT=minizip
 
 SRC_DIR=../src

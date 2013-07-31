@@ -4,8 +4,8 @@
 #include "sys/io/FsSysFile.h"
 #include "sys/io/FsPackage.h"
 #include "sys/FsSys.h"
-#include "util/FsArray.h"
-#include "util/FsPathUtil.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsPathUtil.h"
 
 NS_FS_BEGIN
 #define FS_ROOT_PATH_SIZE  1024

@@ -3,9 +3,9 @@
 
 #include "graphics/FsFontBitmap.h"
 #include "graphics/FsTexture2D.h"
-#include "util/FsDict.h"
-#include "util/FsInteger.h"
-#include "util/FsArray.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsInteger.h"
+#include "support/util/FsArray.h"
 #include "sys/io/FsFile.h"
 #include "sys/io/FsVFS.h"
 #include "FsGlobal.h"

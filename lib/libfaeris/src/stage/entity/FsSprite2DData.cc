@@ -1,7 +1,7 @@
 #include "stage/entity/FsSprite2DData.h"
-#include "util/FsDict.h"
-#include "util/FsArray.h"
-#include "util/FsScriptUtil.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsScriptUtil.h"
 #include "graphics/FsTexture2D.h"
 #include "FsGlobal.h"
 

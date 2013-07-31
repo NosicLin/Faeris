@@ -6,7 +6,7 @@ FLAGS_DEBUG= -g -Wall -Werror -DHAVE_CONFIG_H -lrt
 FLAGS_RELEASE= -O3 -DHAVE_CONFIG_H 
 
 #Project info
-PROJECT_PATH= ../../../library/linux/
+PROJECT_PATH= ../../../library/linux/3rdparty/
 PROJECT=curl
 
 SRC_DIR= ../src/lib

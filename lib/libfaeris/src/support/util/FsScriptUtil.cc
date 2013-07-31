@@ -1,11 +1,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "util/FsScriptUtil.h"
-#include "util/FsArray.h"
-#include "util/FsDict.h"
-#include "util/FsString.h"
-#include "felis/xir_parser.h"
+#include "support/util/FsScriptUtil.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsString.h"
+#include "support/felis/xir_parser.h"
 
 NS_FS_BEGIN
 static bool s_ObjectWrite(FsObject* ob,FsFile* file,int indent);

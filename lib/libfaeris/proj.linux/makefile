@@ -11,7 +11,6 @@ PROJECT=faeris
 
 SRC_DIR=../src
 INCLUDE_DIR=-I../src \
-			-I../src/support  \
 		   	-I../../lib3rdparty/freetype/include \
 		   	-I../../lib3rdparty/libpng/include \
 		   	-I../../lib3rdparty/lua/include \
@@ -19,21 +18,46 @@ INCLUDE_DIR=-I../src \
 		   	-I../../lib3rdparty/tolua++/include \
 		   	-I../../lib3rdparty/lua/include \
 		   	-I../../lib3rdparty/zlib/include \
+			-I../../lib3rdparty/curl/include \
+			-I../../lib3rdparty/fmod/include \
 
 #Source File 
-SRC= common/FsGlobal.cc \
-	 common/FsScriptEngine.cc \
-	 core/FsObject.cc \
-	 entity/FsColorQuad2D.cc \
-	 entity/FsEntity.cc \
-	 entity/FsLabelBitmap.cc \
-	 entity/FsLabelTTF.cc \
-	 entity/FsQuad2D.cc \
-	 entity/FsSprite2D.cc \
-	 entity/FsSprite2DData.cc \
-	 event/FsKeypadDispatcher.cc \
-	 event/FsSysDispatcher.cc \
-	 event/FsTouchDispatcher.cc \
+SRC= FsGlobal.cc \
+	 FsObject.cc \
+	 FsFaerisModule.cc  \
+	 extends/FsScriptEngine.cc \
+	 stage/entity/FsColorQuad2D.cc \
+	 stage/entity/FsEntity.cc \
+	 stage/entity/FsLabelBitmap.cc \
+	 stage/entity/FsLabelTTF.cc \
+	 stage/entity/FsQuad2D.cc \
+	 stage/entity/FsSprite2D.cc \
+	 stage/entity/FsSprite2DData.cc \
+	 stage/layer/FsColorLayer.cc \
+	 stage/layer/FsLayer.cc \
+	 stage/layer/FsLayer2D.cc \
+	 stage/FsDirector.cc \
+	 stage/FsScene.cc \
+	 sys/event/FsKeypadDispatcher.cc \
+	 sys/event/FsSysDispatcher.cc \
+	 sys/event/FsTouchDispatcher.cc \
+	 sys/io/FsFile.cc \
+	 sys/io/FsSysFile.cc \
+	 sys/io/FsSegFile.cc \
+	 sys/io/FsMemFile.cc \
+	 sys/io/FsPackage.cc \
+	 sys/io/FsFgzPackage.cc \
+	 sys/io/FsVFS.cc \
+	 sys/io/FsZipPackage.cc \
+	 sys/FsSys.cc \
+	 sys/FsTimer.cc \
+	 sys/FsWindow.cc \
+	 sys/thread/FsMutex.cc \
+	 sys/thread/FsSemaphore.cc \
+	 sys/thread/FsThread.cc \
+	 sys/network/FsHttpEngine.cc \
+	 sys/network/FsHttpReponse.cc \
+	 sys/network/FsHttpRequest.cc \
 	 graphics/FsColor.cc \
 	 graphics/FsFontBitmap.cc \
 	 graphics/FsFontTTF.cc \
@@ -41,18 +65,10 @@ SRC= common/FsGlobal.cc \
 	 graphics/FsProgram.cc \
 	 graphics/FsRender.cc \
 	 graphics/FsTexture2D.cc \
-	 io/FsFile.cc \
-	 io/FsSysFile.cc \
-	 io/FsSegFile.cc \
-	 io/FsMemFile.cc \
-	 io/FsPackage.cc \
-	 io/FsFgzPackage.cc \
-	 io/FsVFS.cc \
-	 io/FsZipPackage.cc \
-	 material/FsMat_V4F_C4F.cc \
-	 material/FsMat_V4F_T2F.cc \
-	 material/FsMat_V4F_T2F_A1F.cc \
-	 material/FsMaterial.cc \
+	 graphics/material/FsMat_V4F_C4F.cc \
+	 graphics/material/FsMat_V4F_T2F.cc \
+	 graphics/material/FsMat_V4F_T2F_A1F.cc \
+	 graphics/material/FsMaterial.cc \
 	 math/FsMathUtil.cc \
 	 math/FsMatrix4.cc \
 	 math/FsQuaternion.cc \
@@ -62,11 +78,6 @@ SRC= common/FsGlobal.cc \
 	 mgr/FsResourceMgr.cc \
 	 mgr/FsSprite2DDataMgr.cc \
 	 mgr/FsTextureMgr.cc \
-	 scene/FsColorLayer.cc \
-	 scene/FsDirector.cc \
-	 scene/FsLayer.cc \
-	 scene/FsLayer2D.cc \
-	 scene/FsScene.cc \
 	 scheduler/FsScheduler.cc \
 	 scheduler/FsSchedulerTarget.cc \
 	 scheduler/FsTask.cc \
@@ -92,21 +103,16 @@ SRC= common/FsGlobal.cc \
 	 support/felis/xir_token.cc \
 	 support/image/FsImageDecoder.cc \
 	 support/image/FsImagePng.cc \
-	 sys/FsSys.cc \
-	 sys/FsTimer.cc \
-	 sys/FsWindow.cc \
-	 sys/FsMutex.cc \
-	 sys/FsSemaphore.cc \
-	 sys/FsThread.cc \
-	 util/FsArray.cc \
-	 util/FsDict.cc \
-	 util/FsInteger.cc \
-	 util/FsLog.cc \
-	 util/FsPathUtil.cc \
-	 util/FsScriptUtil.cc \
-	 util/FsSlowArray.cc \
-	 util/FsString.cc \
-	 FsFaerisModule.cc 
+	 support/util/FsArray.cc \
+	 support/util/FsDict.cc \
+	 support/util/FsInteger.cc \
+	 support/util/FsLog.cc \
+	 support/util/FsPathUtil.cc \
+	 support/util/FsScriptUtil.cc \
+	 support/util/FsSlowArray.cc \
+	 support/util/FsString.cc \
+	 media/FsAudioEngine.cc \
+	 media/FsAudioPlayer.cc \
 
 
 include ../../MK_BUILD_STATIC_LIB

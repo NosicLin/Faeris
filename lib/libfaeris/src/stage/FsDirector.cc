@@ -1,7 +1,7 @@
 #include "stage/FsDirector.h"
 #include "sys/event/FsTouchDispatcher.h"
 #include "FsGlobal.h"
-#include "util/FsArray.h"
+#include "support/util/FsArray.h"
 #include "math/FsVector2.h"
 #include "stage/FsScene.h"
 

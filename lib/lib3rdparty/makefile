@@ -1,5 +1,4 @@
-DIR=     curl \
-		 libpng \
+DIR=    libpng \
 		 lua \
 		 minizip \
 		 tolua++ \

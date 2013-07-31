@@ -5,7 +5,7 @@
 #endif 
 
 #include "graphics/FsProgram.h"
-#include "util/FsLog.h"
+#include "support/util/FsLog.h"
 
 #define FS_MAX_GL_SHADER_LOG_LENGTH 1024
 #define FS_MAX_GL_PROGRAM_LOG_LENGTH 1024

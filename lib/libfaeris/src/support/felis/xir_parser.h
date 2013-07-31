@@ -5,10 +5,10 @@
 #include "FsMacros.h"
 #include "sys/io/FsFile.h"
 #include "xir_scanner.h"
-#include "util/FsDict.h"
-#include "util/FsArray.h"
-#include "util/FsString.h"
-#include "util/FsScriptUtil.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsString.h"
+#include "support/util/FsScriptUtil.h"
 
 
 

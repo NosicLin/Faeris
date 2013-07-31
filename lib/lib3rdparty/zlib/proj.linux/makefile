@@ -7,7 +7,7 @@ FLAGS_RELEASE= -O3
 
 
 #Project info
-PROJECT_PATH= ../../../library/linux/
+PROJECT_PATH= ../../../library/linux/3rdparty/
 PROJECT=zlib
 
 SRC_DIR=../src
