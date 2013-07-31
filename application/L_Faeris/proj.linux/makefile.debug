@@ -1,6 +1,6 @@
 # Normal Information 
 CC=g++
-FLAGS= -g -Wall  -DLINUX -pthread
+FLAGS= -g -Wall  -DLINUX 
 FILE_EXT=cc
 
 #Project infor 
@@ -34,8 +34,10 @@ LINK_LIB= -lX11  \
 		  -lluad \
 		  -ltolua++d \
 		  -llibpngd \
+		  -lfmodex \
 		  -lzlibd \
 		  -lcurld \
+		  -lrt \
 		  -lminizipd \
 		  -lfreetype \
 		  -lluaexportd \
