@@ -147,7 +147,7 @@ void Scheduler::destroy()
 	m_taskPending=NULL;
 
 	m_taskHanding->decRef();
-	m_taskHanding->decRef();
+	m_taskHanding=NULL;
 	delete m_taskLock;
 	m_taskLock=NULL;
 
