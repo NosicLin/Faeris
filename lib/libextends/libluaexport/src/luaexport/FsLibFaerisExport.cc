@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 07/31/13 12:59:23.
+** Generated automatically by tolua++-1.0.92 on 07/31/13 13:22:23.
 */
 
 #ifndef __cplusplus
@@ -51,6 +51,12 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "mgr/FsTextureMgr.h"
 #include "mgr/FsResourceMgr.h"
 #include "mgr/FsResource.h"
+#include "media/FsAudioEngine.h"
+#include "FsLuaExport.h"
+#include "FsLuaExport.h"
+#include "sys/network/FsHttpEngine.h"
+#include "luaext/FsLuaHttpRequest.h"
+#include "sys/network/FsHttpReponse.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -111,9 +117,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"SchedulerTarget");
  toluaext_usertype(tolua_S,"Director");
  toluaext_usertype(tolua_S,"Scene");
+ toluaext_usertype(tolua_S,"AudioEngine");
  toluaext_usertype(tolua_S,"Layer");
+ tolua_usertype(tolua_S,"LuaHttpRequest");
+ tolua_usertype(tolua_S,"HttpEngine");
  tolua_usertype(tolua_S,"Sprite2D");
  
+ tolua_usertype(tolua_S,"Channel");
  toluaext_usertype(tolua_S,"LuaEntity");
  toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
@@ -13914,6 +13924,1158 @@ static int tolua_FsLibFaeris_ResourceMgr_add00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: create of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_create00
+static int tolua_FsLibFaeris_AudioEngine_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   AudioEngine* tolua_ret = (AudioEngine*)  AudioEngine::create();
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"AudioEngine");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_create01
+static int tolua_FsLibFaeris_AudioEngine_create01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  int channel_nu = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   AudioEngine* tolua_ret = (AudioEngine*)  AudioEngine::create(channel_nu);
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"AudioEngine");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_FsLibFaeris_AudioEngine_create00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: playBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_playBackgroundMusic00
+static int tolua_FsLibFaeris_AudioEngine_playBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  bool loop = ((bool)  tolua_toboolean(tolua_S,3,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'playBackgroundMusic'", NULL);
+#endif
+  {
+   self->playBackgroundMusic(name,loop);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'playBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stopBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_stopBackgroundMusic00
+static int tolua_FsLibFaeris_AudioEngine_stopBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopBackgroundMusic'", NULL);
+#endif
+  {
+   self->stopBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stopBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pauseBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_pauseBackgroundMusic00
+static int tolua_FsLibFaeris_AudioEngine_pauseBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pauseBackgroundMusic'", NULL);
+#endif
+  {
+   self->pauseBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pauseBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resumeBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_resumeBackgroundMusic00
+static int tolua_FsLibFaeris_AudioEngine_resumeBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resumeBackgroundMusic'", NULL);
+#endif
+  {
+   self->resumeBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resumeBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: rewindBackgroundMusic of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_rewindBackgroundMusic00
+static int tolua_FsLibFaeris_AudioEngine_rewindBackgroundMusic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'rewindBackgroundMusic'", NULL);
+#endif
+  {
+   self->rewindBackgroundMusic();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'rewindBackgroundMusic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadSound of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_loadSound00
+static int tolua_FsLibFaeris_AudioEngine_loadSound00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadSound'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->loadSound(name);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadSound'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unloadSound of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_unloadSound00
+static int tolua_FsLibFaeris_AudioEngine_unloadSound00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unloadSound'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->unloadSound(name);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unloadSound'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unloadSounds of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_unloadSounds00
+static int tolua_FsLibFaeris_AudioEngine_unloadSounds00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unloadSounds'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->unloadSounds();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unloadSounds'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: playSound of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_playSound00
+static int tolua_FsLibFaeris_AudioEngine_playSound00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int loop = ((int)  tolua_tonumber(tolua_S,3,0));
+  int priority = ((int)  tolua_tonumber(tolua_S,4,AudioEngine::PRIORITY_MIDDLE));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'playSound'", NULL);
+#endif
+  {
+   Channel* tolua_ret = (Channel*)  self->playSound(name,loop,priority);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Channel");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'playSound'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pauseChannel of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_pauseChannel00
+static int tolua_FsLibFaeris_AudioEngine_pauseChannel00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Channel",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pauseChannel'", NULL);
+#endif
+  {
+   self->pauseChannel(c);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pauseChannel'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resumeChannel of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_resumeChannel00
+static int tolua_FsLibFaeris_AudioEngine_resumeChannel00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Channel",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resumeChannel'", NULL);
+#endif
+  {
+   self->resumeChannel(c);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resumeChannel'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stopChannel of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_stopChannel00
+static int tolua_FsLibFaeris_AudioEngine_stopChannel00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Channel",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopChannel'", NULL);
+#endif
+  {
+   self->stopChannel(c);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stopChannel'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setChannelVolume of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_setChannelVolume00
+static int tolua_FsLibFaeris_AudioEngine_setChannelVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Channel",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
+  float value = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setChannelVolume'", NULL);
+#endif
+  {
+   self->setChannelVolume(c,value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setChannelVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getChannelVolume of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_getChannelVolume00
+static int tolua_FsLibFaeris_AudioEngine_getChannelVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Channel",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  Channel* c = ((Channel*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getChannelVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getChannelVolume(c);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getChannelVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pauseChannels of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_pauseChannels00
+static int tolua_FsLibFaeris_AudioEngine_pauseChannels00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pauseChannels'", NULL);
+#endif
+  {
+   self->pauseChannels();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pauseChannels'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resumeChannels of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_resumeChannels00
+static int tolua_FsLibFaeris_AudioEngine_resumeChannels00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resumeChannels'", NULL);
+#endif
+  {
+   self->resumeChannels();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resumeChannels'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stopChannnels of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_stopChannnels00
+static int tolua_FsLibFaeris_AudioEngine_stopChannnels00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopChannnels'", NULL);
+#endif
+  {
+   self->stopChannnels();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stopChannnels'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVolume of class  AudioEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_AudioEngine_setVolume00
+static int tolua_FsLibFaeris_AudioEngine_setVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AudioEngine",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AudioEngine* self = (AudioEngine*)  tolua_tousertype(tolua_S,1,0);
+  float value = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVolume'", NULL);
+#endif
+  {
+   self->setVolume(value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  HttpEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpEngine_create00
+static int tolua_FsLibFaeris_HttpEngine_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"HttpEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   HttpEngine* tolua_ret = (HttpEngine*)  HttpEngine::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"HttpEngine");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: send of class  HttpEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpEngine_send00
+static int tolua_FsLibFaeris_HttpEngine_send00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"HttpEngine",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  HttpEngine* self = (HttpEngine*)  tolua_tousertype(tolua_S,1,0);
+  LuaHttpRequest* request = ((LuaHttpRequest*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'send'", NULL);
+#endif
+  {
+   self->send(request);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'send'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: clear of class  HttpEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpEngine_clear00
+static int tolua_FsLibFaeris_HttpEngine_clear00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"HttpEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  HttpEngine* self = (HttpEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'clear'", NULL);
+#endif
+  {
+   self->clear();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'clear'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stop of class  HttpEngine */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpEngine_stop00
+static int tolua_FsLibFaeris_HttpEngine_stop00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"HttpEngine",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  HttpEngine* self = (HttpEngine*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stop'", NULL);
+#endif
+  {
+   self->stop();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stop'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_create00
+static int tolua_FsLibFaeris_HttpRequest_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   LuaHttpRequest* tolua_ret = (LuaHttpRequest*)  LuaHttpRequest::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"LuaHttpRequest");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setUrl of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_setUrl00
+static int tolua_FsLibFaeris_HttpRequest_setUrl00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setUrl'", NULL);
+#endif
+  {
+   self->setUrl(url);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setUrl'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getUrl of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_getUrl00
+static int tolua_FsLibFaeris_HttpRequest_getUrl00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUrl'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->getUrl();
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getUrl'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMethod of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_setMethod00
+static int tolua_FsLibFaeris_HttpRequest_setMethod00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  int method = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMethod'", NULL);
+#endif
+  {
+   self->setMethod(method);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMethod'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMethod of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_getMethod00
+static int tolua_FsLibFaeris_HttpRequest_getMethod00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMethod'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getMethod();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMethod'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVersion of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_setVersion00
+static int tolua_FsLibFaeris_HttpRequest_setVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  int version = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVersion'", NULL);
+#endif
+  {
+   self->setVersion(version);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVersion of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_getVersion00
+static int tolua_FsLibFaeris_HttpRequest_getVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVersion'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getVersion();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addHeader of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_addHeader00
+static int tolua_FsLibFaeris_HttpRequest_addHeader00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* header = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addHeader'", NULL);
+#endif
+  {
+   self->addHeader(header);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addHeader'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeHeader of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_removeHeader00
+static int tolua_FsLibFaeris_HttpRequest_removeHeader00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* header = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeHeader'", NULL);
+#endif
+  {
+   self->removeHeader(header);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeHeader'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: clearHeader of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_clearHeader00
+static int tolua_FsLibFaeris_HttpRequest_clearHeader00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'clearHeader'", NULL);
+#endif
+  {
+   self->clearHeader();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'clearHeader'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getHeaderNu of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_getHeaderNu00
+static int tolua_FsLibFaeris_HttpRequest_getHeaderNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeaderNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getHeaderNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getHeaderNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setData of class  LuaHttpRequest */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_HttpRequest_setData00
+static int tolua_FsLibFaeris_HttpRequest_setData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaHttpRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaHttpRequest* self = (LuaHttpRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setData'", NULL);
+#endif
+  {
+   self->setData(data);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
 {
@@ -14547,6 +15709,55 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Resource","Resource","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Resource");
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"AudioEngine","AudioEngine","FsObject",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"AudioEngine");
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_AudioEngine_create00);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_AudioEngine_create01);
+   tolua_function(tolua_S,"playBackgroundMusic",tolua_FsLibFaeris_AudioEngine_playBackgroundMusic00);
+   tolua_function(tolua_S,"stopBackgroundMusic",tolua_FsLibFaeris_AudioEngine_stopBackgroundMusic00);
+   tolua_function(tolua_S,"pauseBackgroundMusic",tolua_FsLibFaeris_AudioEngine_pauseBackgroundMusic00);
+   tolua_function(tolua_S,"resumeBackgroundMusic",tolua_FsLibFaeris_AudioEngine_resumeBackgroundMusic00);
+   tolua_function(tolua_S,"rewindBackgroundMusic",tolua_FsLibFaeris_AudioEngine_rewindBackgroundMusic00);
+   tolua_function(tolua_S,"loadSound",tolua_FsLibFaeris_AudioEngine_loadSound00);
+   tolua_function(tolua_S,"unloadSound",tolua_FsLibFaeris_AudioEngine_unloadSound00);
+   tolua_function(tolua_S,"unloadSounds",tolua_FsLibFaeris_AudioEngine_unloadSounds00);
+   tolua_function(tolua_S,"playSound",tolua_FsLibFaeris_AudioEngine_playSound00);
+   tolua_function(tolua_S,"pauseChannel",tolua_FsLibFaeris_AudioEngine_pauseChannel00);
+   tolua_function(tolua_S,"resumeChannel",tolua_FsLibFaeris_AudioEngine_resumeChannel00);
+   tolua_function(tolua_S,"stopChannel",tolua_FsLibFaeris_AudioEngine_stopChannel00);
+   tolua_function(tolua_S,"setChannelVolume",tolua_FsLibFaeris_AudioEngine_setChannelVolume00);
+   tolua_function(tolua_S,"getChannelVolume",tolua_FsLibFaeris_AudioEngine_getChannelVolume00);
+   tolua_function(tolua_S,"pauseChannels",tolua_FsLibFaeris_AudioEngine_pauseChannels00);
+   tolua_function(tolua_S,"resumeChannels",tolua_FsLibFaeris_AudioEngine_resumeChannels00);
+   tolua_function(tolua_S,"stopChannnels",tolua_FsLibFaeris_AudioEngine_stopChannnels00);
+   tolua_function(tolua_S,"setVolume",tolua_FsLibFaeris_AudioEngine_setVolume00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"HttpEngine","HttpEngine","FsObject",NULL);
+  tolua_beginmodule(tolua_S,"HttpEngine");
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_HttpEngine_create00);
+   tolua_function(tolua_S,"send",tolua_FsLibFaeris_HttpEngine_send00);
+   tolua_function(tolua_S,"clear",tolua_FsLibFaeris_HttpEngine_clear00);
+   tolua_function(tolua_S,"stop",tolua_FsLibFaeris_HttpEngine_stop00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"HttpRequest","LuaHttpRequest","FsObject",NULL);
+  tolua_beginmodule(tolua_S,"HttpRequest");
+   tolua_constant(tolua_S,"VERSION_1_0",LuaHttpRequest::VERSION_1_0);
+   tolua_constant(tolua_S,"VERSION_1_1",LuaHttpRequest::VERSION_1_1);
+   tolua_constant(tolua_S,"METHOD_GET",LuaHttpRequest::METHOD_GET);
+   tolua_constant(tolua_S,"METHOD_POST",LuaHttpRequest::METHOD_POST);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_HttpRequest_create00);
+   tolua_function(tolua_S,"setUrl",tolua_FsLibFaeris_HttpRequest_setUrl00);
+   tolua_function(tolua_S,"getUrl",tolua_FsLibFaeris_HttpRequest_getUrl00);
+   tolua_function(tolua_S,"setMethod",tolua_FsLibFaeris_HttpRequest_setMethod00);
+   tolua_function(tolua_S,"getMethod",tolua_FsLibFaeris_HttpRequest_getMethod00);
+   tolua_function(tolua_S,"setVersion",tolua_FsLibFaeris_HttpRequest_setVersion00);
+   tolua_function(tolua_S,"getVersion",tolua_FsLibFaeris_HttpRequest_getVersion00);
+   tolua_function(tolua_S,"addHeader",tolua_FsLibFaeris_HttpRequest_addHeader00);
+   tolua_function(tolua_S,"removeHeader",tolua_FsLibFaeris_HttpRequest_removeHeader00);
+   tolua_function(tolua_S,"clearHeader",tolua_FsLibFaeris_HttpRequest_clearHeader00);
+   tolua_function(tolua_S,"getHeaderNu",tolua_FsLibFaeris_HttpRequest_getHeaderNu00);
+   tolua_function(tolua_S,"setData",tolua_FsLibFaeris_HttpRequest_setData00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

@@ -68,6 +68,15 @@ $pfile "mgr/FsResource.pkg"
 
 
 
+/* media */
+$pfile "media/FsAudioEngine.pkg"
+
+
+/* network */
+
+$pfile "sys/network/FsHttpEngine.pkg"
+
+
 
 
 
