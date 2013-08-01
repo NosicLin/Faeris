@@ -312,6 +312,7 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 				}
 			}
 
+			 
 			FS_SAFE_DEC_REF(map_path);
 			FS_SAFE_DEC_REF(map_type);
 			FS_SAFE_DEC_REF(map_url);
