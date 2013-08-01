@@ -209,6 +209,7 @@
     <ROW Extension="fgame" Component_="L_Faeris_D.exe" ProgId_="[|Manufacturer].[|ProductName]" Feature_="MainFeature" Options="32"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="ext.exe" SourcePath="icon\blue_butterfly.ico" Index="0"/>
     <ROW Name="faeris_logo.exe" SourcePath="icon\faeris_logo.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
@@ -254,7 +255,7 @@
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiProgIdComponent">
-    <ROW ProgId="[|Manufacturer].[|ProductName]" Description="Faeris Game Engine Boot File" Icon_="faeris_logo.exe"/>
+    <ROW ProgId="[|Manufacturer].[|ProductName]" Description="Faeris Game Engine Boot File" Icon_="ext.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
     <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>

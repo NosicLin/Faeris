@@ -40,7 +40,7 @@ std::string PathUtil::getFileName(const char* name)
 			break;
 		}
 	}
-	return std::string(name+split);
+	return std::string(name+split+1);
 }
 std::string PathUtil::toStdPath(const char* name)
 {

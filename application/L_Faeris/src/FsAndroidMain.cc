@@ -5,7 +5,7 @@
 #include "FsLuaEngine.h"
 
 #include "sys/FsSys.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 
 NS_FS_USE
 extern "C"

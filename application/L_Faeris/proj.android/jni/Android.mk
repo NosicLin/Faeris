@@ -29,8 +29,8 @@ LOCAL_WHOLE_STATIC_LIBRARIES += fmodex
 
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
-LOCAL_WHOLE_STATIC_LIBRARIES += audio_static
-LOCAL_WHOLE_STATIC_LIBRARIES += network_static
+LOCAL_WHOLE_STATIC_LIBRARIES += spinesprite_static
+
 
 
 
@@ -51,8 +51,7 @@ $(call import-module,../../../../lib/lib3rdparty/tolua++/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/minizip/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/zlib/proj.android/jni)
 $(call import-module,../../../../lib/libextends/libluaexport/proj.android)
-$(call import-module,../../../../lib/libextends/libaudio/proj.android)
-$(call import-module,../../../../lib/libextends/libnetwork/proj.android)
+$(call import-module,../../../../lib/libextends/libspinesprite/proj.android)
 
 
 

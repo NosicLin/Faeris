@@ -1,11 +1,12 @@
 #include "com_faeris_lib_Fs_Jni.h"
-#include "common/FsGlobal.h"
+#include "FsGlobal.h"
 #include "FsFaerisModule.h"
 
-#include "io/FsVFS.h"
-#include "io/FsPackage.h"
+#include "sys/io/FsVFS.h"
+#include "sys/io/FsPackage.h"
 
 #include "sys/FsSys.h"
+#include "support/util/FsScriptUtil.h"
 
 
 NS_FS_USE
@@ -62,18 +63,57 @@ extern "C" {
 	VFS::addFilter(sdcard_filter);
 	sdcard_filter->decRef();
 
-
 	/* add name filter */
 	VFS::PrefixNameFilter* assets_filter=VFS::PrefixNameFilter::create("assets/");
 	VFS::addFilter(assets_filter);
 	assets_filter->decRef();
 
+	FsFile* fgame=VFS::open("android.fgame");
+	if(fgame!=NULL)
+	{
+		FsDict* dict=NULL;
+		FsDict* script=NULL;
+		FsString* entry=NULL;
+		ScriptEngine* sc=NULL;
+		do
+		{
+			dict=ScriptUtil::parseScript(fgame);
+			if(dict==NULL)
+			{
+				break;
+			}
+			FsFaeris_LoadConfig(dict);
+
+			script=ScriptUtil::getDict(dict,"script");
+			if(script==NULL)
+			{
+				break;
+			}
+			FsString* entry=ScriptUtil::getString(script,"entry");
+			if(entry==NULL)
+			{
+				break;
+			}
+			sc=Global::scriptEngine();
+			sc->executeFile(entry->cstr());
+		}while(false);
+
+		FS_SAFE_DEC_REF(dict);
+		FS_SAFE_DEC_REF(script);
+		FS_SAFE_DEC_REF(entry);
+		FS_SAFE_DEC_REF(sc);
+		fgame->decRef();
+	}
+	else 
+	{
+		ScriptEngine* sc=Global::scriptEngine();
+		sc->executeFile("main.lua");
+		sc->decRef();
+	}
+
 
 
 	/* run main.lua script */
-	ScriptEngine* sc=Global::scriptEngine();
-	sc->executeFile("main.lua");
-	sc->decRef();
 
 }
 
@@ -305,8 +345,8 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onKeyEventMenu
  * Method:    schedulerStop
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_com_faeris_lib_Fs_1Jni_schedulerStop
-  (JNIEnv *, jclass)
+	JNIEXPORT jboolean JNICALL Java_com_faeris_lib_Fs_1Jni_schedulerStop
+(JNIEnv *, jclass)
 {
 	Scheduler* s=Global::scheduler();
 	if(s)

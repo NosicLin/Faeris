@@ -12,22 +12,28 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../src \
  					-I$(LOCAL_PATH)/../../../lib3rdparty/libpng/include \
  					-I$(LOCAL_PATH)/../../../lib3rdparty/zlib/include \
  					-I$(LOCAL_PATH)/../../../lib3rdparty/minizip/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/curl/include \
+ 					-I$(LOCAL_PATH)/../../../lib3rdparty/fmod/include \
 
 
 LOCAL_SRC_FILES :=  \
 					src/com_faeris_lib_Fs_Jni.cc \
-					../../src/common/FsScriptEngine.cc \
-					../../src/common/FsGlobal.cc \
-					../../src/core/FsObject.cc \
-					../../src/entity/FsColorQuad2D.cc \
-					../../src/entity/FsEntity.cc \
-					../../src/entity/FsLabelTTF.cc \
-					../../src/entity/FsQuad2D.cc \
-					../../src/entity/FsSprite2DData.cc \
-					../../src/entity/FsSprite2D.cc \
-					../../src/entity/FsLabelBitmap.cc \
-					../../src/event/FsSysDispatcher.cc \
-					../../src/event/FsTouchDispatcher.cc \
+					../../src/FsGlobal.cc \
+					../../src/FsObject.cc \
+					../../src/FsFaerisModule.cc \
+					../../src/extends/FsScriptEngine.cc \
+					../../src/stage/entity/FsColorQuad2D.cc \
+					../../src/stage/entity/FsEntity.cc \
+					../../src/stage/entity/FsLabelTTF.cc \
+					../../src/stage/entity/FsQuad2D.cc \
+					../../src/stage/entity/FsSprite2DData.cc \
+					../../src/stage/entity/FsSprite2D.cc \
+					../../src/stage/entity/FsLabelBitmap.cc \
+					../../src/stage/layer/FsColorLayer.cc \
+					../../src/stage/layer/FsLayer.cc \
+					../../src/stage/layer/FsLayer2D.cc \
+					../../src/stage/FsScene.cc \
+					../../src/stage/FsDirector.cc \
 					../../src/graphics/FsColor.cc \
 					../../src/graphics/FsFontTTF.cc \
 					../../src/graphics/FsImage2D.cc \
@@ -35,16 +41,30 @@ LOCAL_SRC_FILES :=  \
 					../../src/graphics/FsProgram.cc \
 					../../src/graphics/FsTexture2D.cc \
 					../../src/graphics/FsFontBitmap.cc \
-					../../src/io/FsFile.cc \
-					../../src/io/FsSysFile.cc \
-					../../src/io/FsVFS.cc \
-					../../src/io/FsPackage.cc \
-					../../src/io/FsZipPackage.cc \
-					../../src/io/FsMemFile.cc \
-					../../src/material/FsMat_V4F_C4F.cc \
-					../../src/material/FsMat_V4F_T2F.cc \
-					../../src/material/FsMat_V4F_T2F_A1F.cc \
-					../../src/material/FsMaterial.cc \
+					../../src/graphics/material/FsMat_V4F_C4F.cc \
+					../../src/graphics/material/FsMat_V4F_T2F.cc \
+					../../src/graphics/material/FsMat_V4F_T2F_A1F.cc \
+					../../src/graphics/material/FsMaterial.cc \
+					../../src/sys/event/FsSysDispatcher.cc \
+					../../src/sys/event/FsTouchDispatcher.cc \
+					../../src/sys/io/FsFile.cc \
+					../../src/sys/io/FsSysFile.cc \
+					../../src/sys/io/FsVFS.cc \
+					../../src/sys/io/FsPackage.cc \
+					../../src/sys/io/FsZipPackage.cc \
+					../../src/sys/io/FsFgzPackage.cc \
+					../../src/sys/io/FsMemFile.cc \
+					../../src/sys/io/FsSegFile.cc  \
+					../../src/sys/thread/FsThread.cc \
+					../../src/sys/thread/FsSemaphore.cc \
+					../../src/sys/thread/FsMutex.cc \
+					../../src/sys/network/FsHttpEngine.cc \
+					../../src/sys/network/FsHttpReponse.cc \
+					../../src/sys/network/FsHttpRequest.cc \
+					../../src/sys/FsSys.cc \
+					../../src/sys/platform/android/FsJniUtil.cc \
+					../../src/sys/FsTimer.cc \
+					../../src/sys/FsWindow.cc \
 					../../src/math/FsMathUtil.cc \
 					../../src/math/FsMatrix4.cc \
 					../../src/math/FsRect2D.cc \
@@ -53,11 +73,6 @@ LOCAL_SRC_FILES :=  \
 					../../src/mgr/FsResourceMgr.cc \
 					../../src/mgr/FsTextureMgr.cc \
 					../../src/mgr/FsSprite2DDataMgr.cc \
-					../../src/scene/FsColorLayer.cc \
-					../../src/scene/FsDirector.cc \
-					../../src/scene/FsLayer.cc \
-					../../src/scene/FsLayer2D.cc \
-					../../src/scene/FsScene.cc \
 					../../src/scheduler/FsScheduler.cc \
 					../../src/scheduler/FsSchedulerTarget.cc \
 					../../src/scheduler/FsTask.cc \
@@ -66,6 +81,8 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/data/FsHash.cc \
 					../../src/support/data/FsIconv.cc \
 					../../src/support/data/FsUnicode.cc \
+					../../src/support/data/FsZipReader.cc \
+					../../src/support/data/FsFgzReader.cc \
 					../../src/support/data/FsEncrypt.cc \
 					../../src/support/felis/sl_comment.cc \
 					../../src/support/felis/sl_double_quote_str.cc \
@@ -83,21 +100,15 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/image/FsImageFaw.cc  \
 					../../src/support/image/FsImageJpeg.cc \
 					../../src/support/image/FsImagePng.cc \
-					../../src/sys/FsSys.cc \
-					../../src/sys/platform/android/FsJniUtil.cc \
-					../../src/sys/FsTimer.cc \
-					../../src/sys/FsWindow.cc \
-					../../src/sys/FsThread.cc \
-					../../src/sys/FsSemaphore.cc \
-					../../src/sys/FsMutex.cc \
-					../../src/util/FsArray.cc \
-					../../src/util/FsDict.cc \
-					../../src/util/FsLog.cc \
-					../../src/util/FsPathUtil.cc \
-					../../src/util/FsScriptUtil.cc \
-					../../src/util/FsSlowArray.cc \
-					../../src/util/FsString.cc \
-					../../src/FsFaerisModule.cc \
+					../../src/support/util/FsArray.cc \
+					../../src/support/util/FsDict.cc \
+					../../src/support/util/FsLog.cc \
+					../../src/support/util/FsPathUtil.cc \
+					../../src/support/util/FsScriptUtil.cc \
+					../../src/support/util/FsSlowArray.cc \
+					../../src/support/util/FsString.cc \
+					../../src/media/FsAudioEngine.cc \
+					../../src/media/FsAudioPlayer.cc \
 
 
 
