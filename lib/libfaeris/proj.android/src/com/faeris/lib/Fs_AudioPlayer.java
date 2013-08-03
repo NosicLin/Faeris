@@ -43,6 +43,7 @@ public class Fs_AudioPlayer
 		File file=null;
 		if(path.startsWith("/"))
 		{
+			Log.v(Fs_AudioPlayer.TAG,"load music from absoult path:"+path);
 			try
 			{
 				file=new File(path);
@@ -59,6 +60,7 @@ public class Fs_AudioPlayer
 		
 		/* load from external path */
 		do{
+			Log.v(Fs_AudioPlayer.TAG,"load music from absoult external path:"+path);
 			String external_dir=Fs_Application.getExternalDir();
 			String external_path=external_dir+path;
 			try
@@ -78,9 +80,10 @@ public class Fs_AudioPlayer
 		
 		/* load from asserts */
 		do{
+			Log.v(Fs_AudioPlayer.TAG,"load music from assets path:"+path);
 			try{
-				AssetFileDescriptor fd=this.m_context.getAssets().openFd(path);
-				return Fs_Music.createFromFD(fd.getFileDescriptor());
+				AssetFileDescriptor af=this.m_context.getAssets().openFd(path);
+				return Fs_Music.createFromAssets(af);
 			}
 			catch(Exception e)
 			{
@@ -103,6 +106,7 @@ public class Fs_AudioPlayer
 		/* load from absolute path */
 		if(path.startsWith("/"))
 		{
+			Log.v(Fs_AudioPlayer.TAG,"Loading: load sound from Absoulte Path: "+path);
 			try
 			{
 				File file=new File(path);
@@ -114,23 +118,26 @@ public class Fs_AudioPlayer
 			}
 			catch(Exception e)
 			{
+				Log.v(Fs_AudioPlayer.TAG,"Exception:can't load sound from Absoulte Path: "+path);
 				/* do nothing */
 			}
 		}
 		/* load from external path */
 		do
 		{
+			Log.v(Fs_AudioPlayer.TAG,"Loading: load sound from External Path: "+path);
 			try
 			{
 				File file=new File(Fs_Application.getExternalDir()+path);
 				if(file.exists())
 				{
-					id=this.m_soundPool.load(path,1);
+					id=this.m_soundPool.load(Fs_Application.getExternalDir()+path,1);
 					return id;
 				}
 			}
 			catch(Exception e)
 			{
+				Log.v(Fs_AudioPlayer.TAG,"Exception:can't load sound from External Path: "+path);
 				/* do nothing */
 			}
 			
@@ -138,6 +145,7 @@ public class Fs_AudioPlayer
 		
 		do 
 		{
+			Log.v(Fs_AudioPlayer.TAG,"Loading: load sound from Assets Path: "+path);
 			try
 			{
 				AssetFileDescriptor fd=this.m_context.getAssets().openFd(path);
@@ -146,6 +154,7 @@ public class Fs_AudioPlayer
 			}
 			catch(Exception e)
 			{
+				Log.v(Fs_AudioPlayer.TAG,"Exception:can't load sound from Assets Path: "+path);
 				/* do nothing */
 			}
 		}while(false);
