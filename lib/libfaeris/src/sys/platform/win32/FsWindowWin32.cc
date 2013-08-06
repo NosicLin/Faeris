@@ -8,6 +8,7 @@
 #include "sys/event/FsTouchDispatcher.h"
 
 
+
 #define FS_DEFAULT_WINDOW_WIDTH 640 
 #define FS_DEFAULT_WINDOW_HEIGHT 480
 #define FS_DEFAULT_WINDOW_BITS 32
@@ -52,6 +53,24 @@ void EventGraper::update(int priority,float dt)
 	}
 }
 
+class PlatformWindow
+{
+	public:
+		HGLRC hrc; 
+		HDC hdc;
+		HWND hwnd;
+		HINSTANCE hinstance;
+		EventGraper* m_eventGrap;
+	protected:
+		bool initWin();
+		bool initGL();
+
+	public:
+		static PlatformWindow* create();
+		PlatformWindow();
+		~PlatformWindow();
+
+};
 
 
 static bool pointInView(float x,float y)
@@ -74,6 +93,25 @@ static void transformViewPoint(float* x,float* y)
 	*y=1.0f-*y;
 }
 static bool s_mouse_capture=false;
+
+
+
+
+LRESULT s_input_dialog_proc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+     switch (Msg)
+     {
+     case WM_CLOSE: 
+         DestroyWindow(hDlg); 
+         return TRUE;
+         break;
+     case WM_DESTROY: 
+         PostQuitMessage(0); 
+         return TRUE;
+     };
+	 return DefWindowProc(hDlg,Msg,wParam,lParam);
+}
+
 
 LRESULT CALLBACK s_winproc(
 		HWND hwnd,
@@ -145,8 +183,10 @@ LRESULT CALLBACK s_winproc(
 
 		case WM_KEYDOWN:
 			break;
+
 		case WM_KEYUP:
 			break;
+
 		case WM_SIZE:
 			{
 				switch(wparam)
@@ -211,24 +251,6 @@ static void SetupPixelFormat(HDC hDC)
 
 
 
-class PlatformWindow
-{
-	public:
-		HGLRC hrc; 
-		HDC hdc;
-		HWND hwnd;
-		HINSTANCE hinstance;
-		EventGraper* m_eventGrap;
-	protected:
-		bool initWin();
-		bool initGL();
-
-	public:
-		static PlatformWindow* create();
-		PlatformWindow();
-		~PlatformWindow();
-
-};
 
 
 
@@ -515,6 +537,14 @@ Window::~Window()
 	m_window=NULL;
 
 }
+
+
+/* input method dialog */
+
+
+
+
+
 
 NS_FS_END 
 

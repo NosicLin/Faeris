@@ -30,9 +30,10 @@ std::string PathUtil::getDirName(const char* name)
 }
 std::string PathUtil::getFileName(const char* name)
 {
-	int split=0;
+	int split=-1;
 	int name_len=strlen(name);
-	for(int i=name_len-1;i>=0;i--)
+	int i;
+	for(i=name_len-1;i>=0;i--)
 	{
 		if(name[i]=='/')
 		{
@@ -40,7 +41,9 @@ std::string PathUtil::getFileName(const char* name)
 			break;
 		}
 	}
+
 	return std::string(name+split+1);
+
 }
 std::string PathUtil::toStdPath(const char* name)
 {

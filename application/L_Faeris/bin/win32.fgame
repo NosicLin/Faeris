@@ -1,7 +1,7 @@
 win:{
-	width:960
-	height:640
-	caption:"FgzTest"
+	width:1024
+	height:800
+	caption:"ZipTest"
 }
 
 game:{
@@ -10,6 +10,7 @@ game:{
 }
 
 env:{
+
 }
 
 
@@ -17,14 +18,18 @@ script:{
 	entry:"main.lua"
 }
 
+
+mgr:{
+	textureMgr:{
+		searchPath:["sss","fsfsf"]
+	}
+}
 vfs:{
-	mapPackage:[
-		{
-			packageType:"fgz"
-			url:"fdata.fgz"
-			mapPath:""
-		}
-	]
 
 }
+
+
+
+
+
 
