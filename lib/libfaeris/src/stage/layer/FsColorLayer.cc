@@ -28,7 +28,11 @@ Color ColorLayer::getColor()
 
 void ColorLayer::draw(Render*  r)
 {
-
+	if(m_scissorEnabled)
+	{
+		r->setScissorEnabled(true);
+		r->setScissorArea(m_scissorArea.x,m_scissorArea.y,m_scissorArea.width,m_scissorArea.height);
+	}
 	
 	Mat_V4F_C4F* material=Mat_V4F_C4F::shareMaterial();
 	material->setOpacity(1.0);
@@ -70,6 +74,10 @@ void ColorLayer::draw(Render*  r)
 	r->setAndEnableVertexAttrPointer(color_loc,4,FS_FLOAT,4,0,vc);
 
 	r->drawFace3(faces,2);
+	if(m_scissorEnabled)
+	{
+		r->setScissorEnabled(false);
+	}
 	
 }
 
