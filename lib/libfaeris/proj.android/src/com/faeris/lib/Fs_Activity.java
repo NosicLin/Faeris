@@ -34,7 +34,7 @@ public abstract class Fs_Activity extends Activity
 	{
 		super.onResume();
 		this.m_view.onResume();
-		Fs_Jni.onForeground();
+		//Fs_Jni.onForeground();
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public abstract class Fs_Activity extends Activity
 	{
 		super.onPause();
 		this.m_view.onPause();
-		Fs_Jni.onBackground();
+		//Fs_Jni.onBackground();
 	}
 	
 	
@@ -50,8 +50,9 @@ public abstract class Fs_Activity extends Activity
 	@Override
 	protected void onDestroy()
 	{
+		Log.v("Fs_Activity","onDestroy");
 		super.onDestroy();
-		Fs_Jni.onDestroy();
+		//Fs_Jni.onDestroy();
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	
@@ -84,6 +85,7 @@ public abstract class Fs_Activity extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    	if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    		Log.v("Fs_Activity","Exit");
 	    		android.os.Process.killProcess(android.os.Process.myPid());
 	    	}
 	        return super.onKeyDown(keyCode, event);

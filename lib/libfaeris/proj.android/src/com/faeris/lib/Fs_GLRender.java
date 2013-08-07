@@ -55,6 +55,10 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 			this.m_init=true;
 			Log.v("key","init:"+this.m_init);
 		}
+		else 
+		{
+			Log.v("Fs_GLRender","Opengl context lost");
+		}
 		m_now=System.currentTimeMillis();
 		m_last=m_now;
 	}

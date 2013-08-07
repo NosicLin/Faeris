@@ -46,6 +46,9 @@ class Window:public RenderTarget
 		void setCenter();
 
 	public:
+		void openTextInputPad();
+
+	public:
 		virtual const char* className();
 
 	protected:

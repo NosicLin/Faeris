@@ -53,7 +53,11 @@ int main(int argc,char** argv)
 	std::string path=std::string(config);
 	path=PathUtil::toStdPath(path.c_str());
 
-	std::string dir_name=PathUtil::getDirName(path.c_str())+std::string("/");
+	std::string dir_name=PathUtil::getDirName(path.c_str());
+	if(dir_name!= std::string(""))
+	{
+			dir_name+=std::string("/");
+	}
 	VFS::setRoot(dir_name.c_str());
 
 	std::string file_name=PathUtil::getFileName(path.c_str());

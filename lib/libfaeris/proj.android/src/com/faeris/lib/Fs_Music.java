@@ -2,6 +2,7 @@ package com.faeris.lib;
 
 import java.io.FileDescriptor;
 
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.util.Log;
 
@@ -41,13 +42,13 @@ public class Fs_Music {
 
 		
 	}
-	public static Fs_Music createFromFD(FileDescriptor fd)
+	public static Fs_Music createFromAssets(final AssetFileDescriptor af )
 	{
 		MediaPlayer media_player;
 		media_player=new MediaPlayer();
 		try
 		{
-			media_player.setDataSource(fd);
+			media_player.setDataSource(af.getFileDescriptor(),af.getStartOffset(),af.getLength());
 			media_player.prepare();
 		}
 		catch(Exception e)
@@ -104,6 +105,19 @@ public class Fs_Music {
 		{
 			Log.v(Fs_Music.TAG,"Play Music Failed:"+e.getMessage());
 		}
+	}
+	
+	public void pause()
+	{
+		if(m_mediaPlayer.isPlaying())
+		{
+			m_mediaPlayer.pause();
+		}
+	}
+	
+	public void resume()
+	{
+		play();
 	}
 
 

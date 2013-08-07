@@ -50,7 +50,7 @@ class TouchEvent
 class TouchEventListener:public FsObject
 {
 	public:
-		TouchEventListener* create();
+		static TouchEventListener* create();
 
 	protected:
 		TouchEventListener();
