@@ -10,11 +10,6 @@ $pfile "FsGlobal.pkg"
 $pfile "FsObject.pkg"
 
 
-/* event */
-$pfile "sys/event/FsTouchEventListener.pkg"
-$pfile "sys/event/FsSysEventListener.pkg"
-$pfile "sys/event/FsTouchDispatcher.pkg"
-$pfile "sys/event/FsSysDispatcher.pkg"
 
 
 /* entity */
@@ -58,6 +53,14 @@ $pfile "math/FsRect2D.pkg"
 
 /* sys */
 $pfile "sys/FsWindow.pkg"
+$pfile "sys/FsKeyCode.pkg"
+
+/* sys/event */
+$pfile "sys/event/FsTouchEventListener.pkg"
+$pfile "sys/event/FsSysEventListener.pkg"
+$pfile "sys/event/FsTouchDispatcher.pkg"
+$pfile "sys/event/FsSysDispatcher.pkg"
+$pfile "sys/event/FsKeypadDispatcher.pkg"
 
 /* mgr */
 $pfile "mgr/FsTextureMgr.pkg"

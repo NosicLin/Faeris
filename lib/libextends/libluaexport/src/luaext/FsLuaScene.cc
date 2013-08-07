@@ -116,6 +116,15 @@ void LuaScene::touchesEnd(TouchEvent* event)
 	}
 }
 
+void LuaScene::keypadEvent(int type,int keycode)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onKeypadEvent",3,0,"fii",this,type,keycode))
+	{
+		Scene::keypadEvent(type,keycode);
+	}
+}
+
 
 const char*  LuaScene::className()
 {

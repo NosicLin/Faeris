@@ -5,43 +5,91 @@ _push_functions = _push_functions or {}
 
 local fsobject= {
 	"FsObject",
-	"TextureMgr",
-	"TouchEventListener",
-	"FontTTF",
-	"FontBitmap",
+
+
 	"Scheduler",
-	"Entity",
 	"SchedulerTarget",
-	"Director",
-	"Scene",
-	"Layer",
+
+
+	-- graphics 
 	"Texture2D",
+	"Render",
+	"Window",
+
+	-- util 
+	"FsArray",
+
+	-- mgr 
+	"TextureMgr",
+	"ResourceMgr",
 	"Resource",
 
-	"LuaEntity",
-	"LuaColorLayer",
-	"Render",
-	"SysDispatcher",
-	"Quad2D",
-	"Window",
-	"TouchDispatcher",
+
+
+	-- scene 
+	"Director",
+	"Scene",
+	"LuaScene",
+
+
+
+
+	-- layer 
+	"Layer",
 	"Layer2D",
 	"LuaLayer2D",
-	"FsObject",
-	"ResourceMgr",
-	"LuaScene",
-	"FsArray",
+
+	"ColorLayer",
+	"LuaColorLayer",
+
+
+	--entity 
+	"Entity",
+	"LuaEntity",
+
+	"ColorQuad2D",
 	"LuaColorQuad2D",
-	"SysEventListener",
-	"LuaTouchEventListener",
-	"LuaLabelBitmap",
-	"LabelTTF",
-	"LuaLabelTTF",
-	"LuaSysEventListener",
+
+	"Quad2D",
 	"LuaQuad2D",
 
-	-- extend 
+	"Sprite2D",
+	"LuaSprite2D",
+
+
+	"FontTTF",
+	"LabelTTF",
+	"LuaLabelTTF",
+
+
+	"FontBitmap",
+	"LabelBitmap",
+	"LuaLabelBitmap",
+
+
+	--sys/event 
+	"TouchEventListener",
+	"LuaTouchEventListener",
+	"SysEventListener",
+	"LuaSysEventListener",
+
+	-- dispatcher
+	"TouchDispatcher",
+	"SysDispatcher",
+	"keypadDispatcher",
+
+	--media  
 	"AudioEngine",
+
+	--network 
+	"HttpEngine",
+	"LuaHttpEngine",
+	"LuaHttpRequest",
+
+	--extend 
+	"SpineSprite",
+	"LuaSpineSprite",
+	
 }
 
 

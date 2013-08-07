@@ -3,17 +3,26 @@
 
 #include "FsMacros.h"
 #include "sys/event/FsTEventDispatcher.h"
+#include "sys/FsKeyCode.h"
 
 NS_FS_BEGIN
 class KeypadEvent 
 {
 	public:
-		KeypadEvent(int _keycode)
+		enum 
+		{
+			KEYPAD_DOWN,
+			KEYPAD_UP,
+		};
+	public:
+		KeypadEvent(int _keycode,int _type)
 		{
 			keycode=_keycode;
+			type=_type;
 		}
 	public:
 		int keycode;
+		int type;
 };
 
 class KeypadEventListener:public FsObject
@@ -27,11 +36,11 @@ class KeypadEventListener:public FsObject
 	public:
 		void handleEvent(KeypadEvent* event)
 		{
-			onKeypadEvent(event);
+			onKeypadEvent(event->type,event->keycode);
 		}
 
 	public:
-		virtual void onKeypadEvent(KeypadEvent* event);
+		virtual void onKeypadEvent(int type,int keycode);
 		
 		/* Override FsObject*/
 		virtual const char* className();
@@ -42,11 +51,7 @@ class KeypadEventListener:public FsObject
 class KeypadDispatcher:public TEventDispatcher<KeypadEvent,KeypadEventListener>
 {
 	public:
-		enum 
-		{
-			KEYPAD_BACK,
-			KEYPAD_MENU,
-		};
+
 	public:
 		static KeypadDispatcher* create();
 		const char* className();

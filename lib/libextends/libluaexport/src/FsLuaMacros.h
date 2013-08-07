@@ -17,8 +17,11 @@
 #define FS_LUA_LABEL_TTF_CLASS_NAME 			"LuaLabelTTF"
 #define FS_LUA_LABEL_BITMAP_CLASS_NAME  		"LuaLabelBitmap"
 #define FS_LUA_SPRITE2D_CLASS_NAME				"LuaSprite2D"
+#define FS_LUA_SPINE_SPRITE_CLASS_NAME			"LuaSpineSprite"
+
 
 #define FS_LUA_HTTP_REQUEST_CLASS_NAME  		"LuaHttpRequest"
+
 
 
 

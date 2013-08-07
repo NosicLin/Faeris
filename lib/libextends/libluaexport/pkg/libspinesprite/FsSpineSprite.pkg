@@ -1,7 +1,8 @@
 $#include "FsLuaExport.h"
 $#include "FsSpineSprite.h"
+$#include "luaext/FsLuaEntity.h"
 
-class SpineSprite:public Entity 
+class SpineSprite@__SpineSprite:public Entity 
 {
 	public:
 		enum
@@ -10,8 +11,6 @@ class SpineSprite:public Entity
 			ANIM_START,
 			ANIM_END,
 		};
-	public:
-		static SpineSprite* create(const char* filename);
 
 	public:
 		/* skin */
@@ -41,4 +40,18 @@ class SpineSprite:public Entity
 		float getCurTime();
 		float getDurationTime();
 };
+
+class LuaSpineSprite@SpineSprite:public SpineSprite 
+{
+	public:
+		enum
+		{
+			ANIM_LOOP,
+			ANIM_START,
+			ANIM_END,
+		};
+	public:
+		static LuaSpineSprite* create(const char* filename);
+};
+
 

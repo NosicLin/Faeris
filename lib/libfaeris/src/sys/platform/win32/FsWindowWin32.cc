@@ -182,9 +182,11 @@ LRESULT CALLBACK s_winproc(
 			break;
 
 		case WM_KEYDOWN:
+			Global::keypadDispatcher()->dispatchEvent(new KeypadEvent(wparam,KeypadEvent::KEYPAD_DOWN));
 			break;
 
 		case WM_KEYUP:
+			Global::keypadDispatcher()->dispatchEvent(new KeypadEvent(wparam,KeypadEvent::KEYPAD_UP));
 			break;
 
 		case WM_SIZE:

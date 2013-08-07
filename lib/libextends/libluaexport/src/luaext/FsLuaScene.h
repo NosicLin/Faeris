@@ -25,6 +25,7 @@ class LuaScene:public Scene
 		virtual void touchesMove(TouchEvent* event);
 		virtual void touchesPointerUp(TouchEvent* event);
 		virtual void touchesEnd(TouchEvent* event);
+		virtual void keypadEvent(int type,int keycode);
 
 
 
@@ -54,6 +55,10 @@ class LuaScene:public Scene
 		void onTouchesEnd(TouchEvent* event)
 		{
 			Scene::touchesEnd(event);
+		}
+		void onKeypadEvent(int type,int keycode)
+		{
+			Scene::keypadEvent(type,keycode);
 		}
 
 		/* inherit FsObject */

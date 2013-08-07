@@ -13,6 +13,10 @@
 #include "stage/entity/FsLabelTTF.h"
 #include "stage/entity/FsLabelBitmap.h"
 
+#if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
+#include "FsSpineSprite.h"
+#endif 
+
 NS_FS_BEGIN
 class LuaEntity:public TEntity<Entity>
 {
@@ -174,6 +178,39 @@ class LuaSprite2D:public TEntity<Sprite2D>
 		LuaSprite2D(){}
 		~LuaSprite2D(){}
 };
+
+
+#if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
+
+
+class LuaSpineSprite:public TEntity<SpineSprite>
+{
+	public:
+		static LuaSpineSprite* create(const char* name)
+		{
+			LuaSpineSprite* ret=new LuaSpineSprite();
+			if(!ret->init(name))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_SPINE_SPRITE_CLASS_NAME;
+		}
+	protected:
+		LuaSpineSprite(){}
+		~LuaSpineSprite(){}
+};
+
+
+#endif 
+
+
 NS_FS_END
 
 #endif /*_FS_LUA_ENTITY_H_*/

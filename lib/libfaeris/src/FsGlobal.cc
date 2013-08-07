@@ -7,6 +7,9 @@ FS_GLOBAL_CC(Scheduler,scheduler,setScheduler);
 FS_GLOBAL_CC(TouchDispatcher,touchDispatcher,setTouchDispatcher);
 
 FS_GLOBAL_CC(SysDispatcher,sysDispatcher,setSysDispatcher);
+
+FS_GLOBAL_CC(KeypadDispatcher,keypadDispatcher,setKeypadDispatcher);
+
 FS_GLOBAL_CC(Director,director,setDirector);
 
 FS_GLOBAL_CC(Window,window,setWindow);

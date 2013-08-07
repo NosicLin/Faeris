@@ -10,7 +10,7 @@ KeypadEventListener* KeypadEventListener::create()
 KeypadEventListener::KeypadEventListener() { }
 KeypadEventListener::~KeypadEventListener() { }
 
-void KeypadEventListener::onKeypadEvent(KeypadEvent* event){}
+void KeypadEventListener::onKeypadEvent(int type,int keycode){}
 
 
 const char* KeypadEventListener::className()

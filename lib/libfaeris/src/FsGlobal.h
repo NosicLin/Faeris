@@ -7,6 +7,7 @@
 #include "graphics/FsRender.h"
 #include "sys/event/FsTouchDispatcher.h"
 #include "sys/event/FsSysDispatcher.h"
+#include "sys/event/FsKeypadDispatcher.h"
 #include "sys/FsWindow.h"
 #include "extends/FsScriptEngine.h"
 #include "mgr/FsTextureMgr.h"
@@ -45,6 +46,7 @@ class Global
 	FS_GLOBAL_H(Scheduler,scheduler,setScheduler);
 	FS_GLOBAL_H(TouchDispatcher,touchDispatcher,setTouchDispatcher);
 	FS_GLOBAL_H(SysDispatcher,sysDispatcher,setSysDispatcher);
+	FS_GLOBAL_H(KeypadDispatcher,keypadDispatcher,setKeypadDispatcher);
 	FS_GLOBAL_H(Director,director,setDirector);
 	FS_GLOBAL_H(Window,window,setWindow);
 	FS_GLOBAL_H(Render,render,setRender);

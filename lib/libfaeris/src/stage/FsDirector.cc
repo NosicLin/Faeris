@@ -90,6 +90,33 @@ DirectorTouchEventListener::~DirectorTouchEventListener()
 }
 
 
+class DirectorKeypadEventListener:public KeypadEventListener
+{
+	public:
+		static DirectorKeypadEventListener* create(Director* director)
+		{
+			return new DirectorKeypadEventListener(director);
+		}
+
+	public:
+		virtual void onKeypadEvent(int type,int keycode)
+		{
+			m_director->keypadEvent(type,keycode);
+		}
+
+
+	protected:
+		DirectorKeypadEventListener(Director* director)
+		{
+			m_director=director;
+		}
+		~DirectorKeypadEventListener()
+		{
+		}
+	private:
+		Director* m_director;
+};
+
 Director* Director::create()
 {
 	Director* ret=new Director;
@@ -208,6 +235,9 @@ void Director::init()
 	m_touchEventListener=DirectorTouchEventListener::create(this);
 	Global::touchDispatcher()->addListener(m_touchEventListener);
 
+	m_keypadEventListener=DirectorKeypadEventListener::create(this);
+	Global::keypadDispatcher()->addListener(m_keypadEventListener);
+
 }
 void Director::destroy()
 {
@@ -228,6 +258,9 @@ void Director::destroy()
 
 	Global::touchDispatcher()->removeListener(m_touchEventListener);
 	m_touchEventListener->decRef();
+
+	Global::keypadDispatcher()->removeListener(m_keypadEventListener);
+	m_keypadEventListener->decRef();
 }
 
 void Director::repace(Scene* scene)
@@ -326,6 +359,14 @@ void Director::touchesEnd(TouchEvent* event)
 	if(!m_current) return;
 	m_current->touchesEnd(event);
 }
+
+void Director::keypadEvent(int type,int keycode)
+{
+	if(m_stop) return;
+	if(!m_current) return;
+	m_current->keypadEvent(type,keycode);
+}
+
 
 
 

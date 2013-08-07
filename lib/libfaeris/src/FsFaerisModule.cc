@@ -5,6 +5,8 @@
 #include "graphics/FsRender.h"
 #include "sys/event/FsTouchDispatcher.h"
 #include "sys/event/FsSysDispatcher.h"
+#include "sys/event/FsKeypadDispatcher.h"
+
 #include "sys/FsWindow.h"
 #include "extends/FsScriptEngine.h"
 #include "mgr/FsTextureMgr.h"
@@ -35,6 +37,9 @@ int FsFaeris_ModuleInit()
 
 	SysDispatcher* sys_dispatcher=SysDispatcher::create();
 	Global::setSysDispatcher(sys_dispatcher);
+	
+	KeypadDispatcher* key_dispatcher=KeypadDispatcher::create();
+	Global::setKeypadDispatcher(key_dispatcher);
 
 	Director* director=Director::create();
 	Global::setDirector(director);
@@ -61,6 +66,7 @@ int FsFaeris_ModuleInit()
 	/* register scheduler target */
 	scheduler->add(touch_dispatcher,Scheduler::HIGH);
 	scheduler->add(sys_dispatcher,Scheduler::HIGH);
+	scheduler->add(key_dispatcher,Scheduler::HIGH);
 
 	scheduler->add(director,Scheduler::MIDDLE);
 	scheduler->add(director,Scheduler::LOW);
@@ -85,6 +91,7 @@ int FsFaeris_ModuleExit()
 	Scheduler* scheduler=Global::scheduler();
 	TouchDispatcher* touch_dispatcher=Global::touchDispatcher();
 	SysDispatcher* sys_dispatcher=Global::sysDispatcher();
+	KeypadDispatcher* key_dispatcher=Global::keypadDispatcher();
 
 	Director* director=Global::director();
 	Window* window=Global::window();
@@ -100,6 +107,8 @@ int FsFaeris_ModuleExit()
 	/* remove scheduler target */
 	scheduler->remove(sys_dispatcher,Scheduler::HIGH);
 	scheduler->remove(touch_dispatcher,Scheduler::HIGH);
+	scheduler->remove(key_dispatcher,Scheduler::HIGH);
+
 	scheduler->remove(director,Scheduler::MIDDLE);
 	scheduler->remove(director,Scheduler::LOW);
 
@@ -111,6 +120,7 @@ int FsFaeris_ModuleExit()
 	director->forceDestroy();
 	touch_dispatcher->forceDestroy();
 	sys_dispatcher->forceDestroy();
+	key_dispatcher->forceDestroy();
 
 	scheduler->forceDestroy();
 

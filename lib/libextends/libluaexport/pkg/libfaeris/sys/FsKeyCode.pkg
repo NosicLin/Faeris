@@ -1,8 +1,4 @@
-#ifndef _FS_KEY_CODE_H_
-#define _FS_KEY_CODE_H_
-#include "FsMacros.h"
-
-NS_FS_BEGIN
+$#include "sys/FsKeyCode.h"
 
 enum 
 {
@@ -71,6 +67,3 @@ enum
 };
 
 
-NS_FS_END
-
-#endif /*_FS_KEY_CODE_H_*/

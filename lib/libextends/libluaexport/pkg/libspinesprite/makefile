@@ -1,5 +1,5 @@
 main:
-	../../tool/$(TOLUA)  -o ../../src/luaexport/FsLibSpineSprite.cc FsSpineSprite.pkg
+	../../tool/$(TOLUA) -L "../basic.lua" -o ../../src/luaexport/FsLibSpineSprite.cc FsSpineSprite.pkg
 
 
 

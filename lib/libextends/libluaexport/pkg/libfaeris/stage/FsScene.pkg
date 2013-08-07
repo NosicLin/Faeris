@@ -34,5 +34,6 @@ class LuaScene@Scene:public Scene
 		void onTouchesPointerUp@touchesPointerUp(TouchEvent* event);
 		void onTouchesEnd@touchesEnd(TouchEvent* event);
 
+		void onKeypadEvent@keypadEvent(int type,int keycode);
 };
 

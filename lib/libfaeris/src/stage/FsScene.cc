@@ -267,6 +267,10 @@ void Scene::touchesEnd(TouchEvent* event)
 	m_layers->flush();
 }
 
+void Scene::keypadEvent(int type,int keycode)
+{
+}
+
 
 
 const char* Scene::className()

@@ -44,6 +44,8 @@ class Scene:public FsObject
 		virtual void touchesPointerUp(TouchEvent* event);
 		virtual void touchesEnd(TouchEvent* event);
 
+		virtual void keypadEvent(int type,int keycode);
+
 		/*  inherit FsObject */
 		virtual const char* className();
 	protected:
