@@ -408,7 +408,7 @@ void Window::swapBuffers()
 {
 	if(m_window)
 	{
-		SwapBuffers(m_window->hdc);
+		::SwapBuffers(m_window->hdc);
 	}
 }
 

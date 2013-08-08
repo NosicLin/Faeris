@@ -5,16 +5,16 @@
 NS_FS_BEGIN 
 Timer::Timer()
 {
-	m_begin=GetTickCount();
+	m_begin=timeGetTime();
 }
 void Timer::reset()
 {
-	m_begin=GetTickCount();
+	m_begin=timeGetTime();
 }
 
 long Timer::now() const 
 {
-	DWORD current=GetTickCount();
+	DWORD current=timeGetTime();
 	return  current-m_begin;
 }
 

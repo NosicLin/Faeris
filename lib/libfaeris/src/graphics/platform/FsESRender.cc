@@ -122,12 +122,17 @@ Render::Render()
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
+	/* depth */
+	glClearDepth(1.0f);
+	glDepthFunc(GL_LEQUAL);
+	glDisable(GL_DEPTH_TEST);
+
 
 	/* face */
 	m_frontFace=FRONT_CCW;
 	m_cullFace=false;
-	glFrontFace(GL_CCW);
-	glDisable(GL_CULL_FACE);
+	//glFrontFace(GL_CCW);
+	//glDisable(GL_CULL_FACE);
 
 
 	/* texture */

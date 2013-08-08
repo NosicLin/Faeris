@@ -1,7 +1,7 @@
 win:{
-	width:1024
-	height:800
-	caption:"ZipTest"
+	width:960
+	height:640
+	caption:"FontTest"
 }
 
 game:{
@@ -24,11 +24,6 @@ mgr:{
 		searchPath:["sss","fsfsf"]
 	}
 }
-vfs:{
-
-}
-
-
 
 
 

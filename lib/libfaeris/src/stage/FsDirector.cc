@@ -278,7 +278,7 @@ void Director::draw()
 	Render* render=Global::render();
 	if(!render) return;
 
-	render->clear();
+	render->clear(true,true);
 
 	if(m_current)
 	{

@@ -44,10 +44,13 @@ void Scheduler::mainLoop()
 
 
 		long sleep_time=(long)update((float)diff_time);
+		//printf("sleep_time=%d\n",sleep_time);
+		
 		if(sleep_time>0)
 		{
 			Sys::usleep(sleep_time);
 		}
+	
 		last_time=cur_time;
 	}
 }
@@ -157,6 +160,7 @@ void Scheduler::destroy()
 float Scheduler::update(float dt)
 {
 
+	long update_begin=m_timer.now();
 	/* run sync task,
 	 * swap task pending queue and handing queue 
 	 * for minimize lock time 
@@ -182,7 +186,7 @@ float Scheduler::update(float dt)
 
 
 	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
-	long update_begin=m_timer.now();
+
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
 		m_target[i]->lock();

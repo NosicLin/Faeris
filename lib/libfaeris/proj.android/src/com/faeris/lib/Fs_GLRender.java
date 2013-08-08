@@ -17,6 +17,7 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 		m_now=System.currentTimeMillis() ;
 		float diff=m_now-m_last;
 		float sleep_time=Fs_Jni.onUpdate(diff);
+		/*
 		if(sleep_time>0)
 		{
 			try
@@ -27,6 +28,7 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 			{
 			}
 		}
+		*/
 		m_last=m_now;
 	}
 	public void setIsDraw(boolean draw)
