@@ -243,6 +243,33 @@ void Entity::remove(Entity* n)
 	FS_TRACE_WARN("Entity Not Found");
 }
 
+void Entity::clearChild()
+{
+	while(m_chirdren->size()>0)
+	{
+		Entity* node=(Entity*)m_chirdren->get(0);
+		remove(node);
+		node->decRef();
+	}
+}
+void Entity::drop(bool recusive)
+{
+	while(m_chirdren->size()>0)
+	{
+		Entity* node=(Entity*)m_chirdren->get(0);
+		remove(node);
+
+		if(recusive)
+		{
+			node->drop(true);
+		}
+		node->decRef();
+	}
+	FsObject::dropScriptData();
+}
+
+
+
 void Entity::detach()
 {
 	if(m_parent)

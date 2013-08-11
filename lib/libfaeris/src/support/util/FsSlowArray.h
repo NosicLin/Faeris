@@ -21,11 +21,15 @@ class FsSlowArray:public FsObject
 		void lock();
 		void unlock();
 		void flush();
+
 		void push(FsObject* object);
 		void pop();
 		void remove(FsObject* object);
 		void set(int pos,FsObject* object);
 		void insert(int pos,FsObject* object);
+		void clear();
+
+
 		FsObject* get(ulong index);
 		FsObject* top();
 		int size();
@@ -46,6 +50,7 @@ class FsSlowArray:public FsObject
 			CM_REMOVE,
 			CM_SET,
 			CM_INSERT,
+			CM_CLEAR,
 		};
 
 		class PendingCommand
