@@ -44,12 +44,17 @@ void Scheduler::mainLoop()
 
 
 		long sleep_time=(long)update((float)diff_time);
-		//printf("sleep_time=%d\n",sleep_time);
+		printf("sleep_time=%d\n",sleep_time);
 		
+		while(m_timer.now()-cur_time<16){}
+		
+		/*
 		if(sleep_time>0)
 		{
 			Sys::usleep(sleep_time);
 		}
+		*/
+		
 	
 		last_time=cur_time;
 	}
@@ -165,14 +170,14 @@ float Scheduler::update(float dt)
 	 * swap task pending queue and handing queue 
 	 * for minimize lock time 
 	 */ 
-	m_taskLock->lock();
+	//m_taskLock->lock();
 	if(m_taskPending->size()!=0)
 	{
 		FsArray* tmp=m_taskHanding;
 		m_taskHanding=m_taskPending;
 		m_taskPending=tmp;
 	}
-	m_taskLock->unlock();
+	//m_taskLock->unlock();
 
 	/* running all pend task */
 	int task_nu=m_taskHanding->size();
