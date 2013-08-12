@@ -253,6 +253,25 @@ bool FsDict::insert(FsObject* key,FsObject* value)
 	}
 	return true;
 }
+
+void FsDict::clear()
+{
+	for(unsigned int i=0;i<=m_mask;i++)
+	{
+		DictEntry* e=m_table+i;
+		if(validEntry(e))
+		{
+			e->m_key->decRef();
+			e->m_value->decRef();
+		}
+		e->m_value=NULL;
+		e->m_key=NULL;
+	}
+	m_used=0;
+	m_fill=0;
+}
+
+
 FsDict::~FsDict()
 {
 	DictEntry* p;

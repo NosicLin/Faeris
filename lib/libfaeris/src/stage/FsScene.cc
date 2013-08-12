@@ -50,6 +50,22 @@ Layer* Scene::getLayer(int index)
 }
 
 
+void Scene::drop(bool recursion) 
+{
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		Layer* layer=(Layer*)m_layers->get(i);
+		if(recursion)
+		{
+			layer->drop(true);
+		}
+		layer->decRef();
+	}
+	m_layers->clear();
+	FsObject::dropScriptData();
+}
+
 /* event */
 
 void Scene::enter()
@@ -266,6 +282,8 @@ void Scene::touchesEnd(TouchEvent* event)
 	m_layers->unlock();
 	m_layers->flush();
 }
+
+
 
 void Scene::keypadEvent(int type,int keycode)
 {

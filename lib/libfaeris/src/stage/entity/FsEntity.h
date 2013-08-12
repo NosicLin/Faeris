@@ -34,9 +34,14 @@ class Entity :public FsObject
 		/* relation ship*/
 		void addChild(Entity* n);
 		void remove(Entity* n);
+		void clearChild();
+
 		void detach();
 		FsArray* allChild();
 		int childNu();
+
+
+		void drop(bool recusive=true);
 
 		//Entity* getChildByName(FsString* name,bool recusive=0);
 		//Entity* getChildByName(const char* name,bool recusive=0);

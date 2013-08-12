@@ -28,6 +28,9 @@ class Scene:public FsObject
 		Layer* getLayer(int index);
 
 	public:
+		virtual void drop(bool recursion=true);
+
+	public:
 		/* event hook */
 		virtual void enter();
 		virtual void exit();

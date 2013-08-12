@@ -45,6 +45,13 @@ void FsSlowArray::flush()
 			case CM_INSERT:
 				m_items->insert(cm->m_pos,cm->m_object);
 				break;
+			case CM_CLEAR:
+				m_items->clear();
+				break;
+			default:
+				assert(0);
+				break;
+
 		}
 		delete cm;
 	}
@@ -113,6 +120,19 @@ void FsSlowArray::insert(int pos,FsObject* object)
 	else 
 	{
 		m_items->insert(pos,object);
+	}
+}
+
+void FsSlowArray::clear() 
+{
+	if(m_lock)
+	{
+		PendingCommand* cm=new PendingCommand(CM_CLEAR,0,NULL);
+		m_pendingCommand.push_back(cm);
+	}
+	else 
+	{
+		m_items->clear();
 	}
 }
 

@@ -28,6 +28,8 @@ class Layer:public FsObject
 		bool scissorEnabled(){return m_scissorEnabled;}
 		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
+		void clearEntity();
+
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
@@ -54,6 +56,10 @@ class Layer:public FsObject
 		virtual bool touchesMove(TouchEvent* event);
 		virtual bool touchesPointerUp(TouchEvent* event);
 		virtual bool touchesEnd(TouchEvent* event);
+
+		/* drop data */
+		virtual void drop(bool recursion=true);
+
 
 		/* inherit FsObject */
 		virtual const char* className();
