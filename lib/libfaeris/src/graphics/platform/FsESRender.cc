@@ -104,8 +104,11 @@ Render::Render()
 	m_material=NULL;
 	m_program=NULL;
 
+
 	/* cache GL State */
 	m_clearColor=Color(0,0,0);
+	glClearColor(0.0f,0.0f,0.0f,1.0f);
+
 	m_scissorEnable=false;
 	m_depthTest=false;
 	m_viewportX=0;
@@ -257,6 +260,8 @@ void Render::swapBuffers()
 /* color */
 void Render::clear(bool color,bool depth,bool stencil)
 {
+	
+
 	glClearColor(m_clearColor.r/255.0f,
 			 	 m_clearColor.g/255.0f,
 				 m_clearColor.b/255.0f,
@@ -267,6 +272,7 @@ void Render::clear(bool color,bool depth,bool stencil)
 	if(depth) flags|=GL_DEPTH_BUFFER_BIT;
 	if(stencil) flags|=GL_STENCIL_BUFFER_BIT;
 	glClear(flags);
+
 }
 
 /* transform */

@@ -25,7 +25,7 @@ class Timer
 	public:
 		Timer();
 		void reset();
-		long now() const ;
+		float now() const ;
 	private:
 		PlatformTimeVal m_begin;
 };

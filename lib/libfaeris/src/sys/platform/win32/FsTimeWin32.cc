@@ -13,11 +13,11 @@ void Timer::reset()
 	QueryPerformanceCounter((LARGE_INTEGER*)&m_begin.count);
 }
 
-long Timer::now() const 
+float Timer::now() const 
 {
 	__int64 current;
 	QueryPerformanceCounter((LARGE_INTEGER*)&current);
-	return  (long)(double(current-m_begin.count)/double(m_begin.frequency)*1000);
+	return  float(current-m_begin.count)/float(m_begin.frequency)*1000.0f;
 }
 
 NS_FS_END 

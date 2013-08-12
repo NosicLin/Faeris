@@ -1,7 +1,7 @@
 local director =share:director();
 local render=share:render()
 local scheduler=share:scheduler()
-scheduler:setFps(60)
+--scheduler:setFps(60)
 
 --director:setAutoSwapBuffers(false);
 

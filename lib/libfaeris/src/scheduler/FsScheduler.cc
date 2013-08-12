@@ -28,14 +28,15 @@ void Scheduler::stop()
 void Scheduler::setFps(int fps)
 {
 	m_fps=fps;
+	m_intervalTime=(float)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
 }
 
 void Scheduler::mainLoop()
 {
 	//long begin_time=m_timer.now();
-	long last_time=m_timer.now();
+	float last_time=m_timer.now();
 
-	long diff_time,cur_time;
+	float diff_time,cur_time;
 
 	while(!m_stop)
 	{
@@ -43,10 +44,10 @@ void Scheduler::mainLoop()
 		diff_time=cur_time-last_time;
 
 
-		long sleep_time=(long)update((float)diff_time);
-		printf("sleep_time=%d\n",sleep_time);
+		float sleep_time=update((float)diff_time);
+		printf("sleep_time=%f\n",sleep_time);
 		
-		while(m_timer.now()-cur_time<16){}
+		while(m_timer.now()-cur_time<=m_intervalTime){}
 		
 		/*
 		if(sleep_time>0)
@@ -138,6 +139,7 @@ void Scheduler::init()
 	}
 	m_stop=false;
 	m_fps=60;
+	m_intervalTime=(1.0f/60.0f)*1000;
 
 	m_taskHanding=FsArray::create();
 	m_taskPending=FsArray::create();
@@ -165,19 +167,19 @@ void Scheduler::destroy()
 float Scheduler::update(float dt)
 {
 
-	long update_begin=m_timer.now();
+	float update_begin=m_timer.now();
 	/* run sync task,
 	 * swap task pending queue and handing queue 
 	 * for minimize lock time 
 	 */ 
-	//m_taskLock->lock();
+	m_taskLock->lock();
 	if(m_taskPending->size()!=0)
 	{
 		FsArray* tmp=m_taskHanding;
 		m_taskHanding=m_taskPending;
 		m_taskPending=tmp;
 	}
-	//m_taskLock->unlock();
+	m_taskLock->unlock();
 
 	/* running all pend task */
 	int task_nu=m_taskHanding->size();
@@ -190,7 +192,7 @@ float Scheduler::update(float dt)
 	m_taskHanding->clear();
 
 
-	long perframe_time=(long)( m_fps<=0?0.0f:1000.0f/(float)m_fps);
+	float perframe_time=m_intervalTime;
 
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
@@ -219,7 +221,7 @@ float Scheduler::update(float dt)
 	
 	
 
-	long update_end=m_timer.now();
+	float update_end=m_timer.now();
 
 	return (float)(perframe_time-(update_end-update_begin));
 }
