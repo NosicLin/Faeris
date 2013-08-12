@@ -92,6 +92,7 @@ class  FsDict:public FsObject
 		bool insert(FsObject* key,FsObject* value);
 		bool insertWithNewKey(FsObject* key,FsObject* value);
 		bool remove(FsObject* key);
+		void clear();
 		Iterator* getIterator();
 		ulong size(){return m_used;}
 	protected:

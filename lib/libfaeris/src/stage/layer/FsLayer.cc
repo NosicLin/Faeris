@@ -26,6 +26,7 @@ void Layer::add(Entity* entity)
 
 }
 
+
 void Layer::remove(Entity* entity)
 {
 	if(entity->layer()!=this)
@@ -33,6 +34,7 @@ void Layer::remove(Entity* entity)
 		FS_TRACE_WARN("Object is not Own by this layer");
 		return ;
 	}
+
 	if(entity->parent()!=NULL)
 	{
 		FS_TRACE_WARN("object is indirect owner by this layer,can't remove");
@@ -121,6 +123,41 @@ void Layer::draw(Render* render)
 
 }
 
+void Layer::clearEntity()
+{
+	FsDict::Iterator iter(m_entity);
+	while(!iter.done())
+	{
+		Entity* entity=(Entity*)iter.getValue();
+		dropOwnership(entity);
+		entity->decRef();
+		iter.next();
+	}
+	m_entity->clear();
+}
+
+void Layer::drop(bool recursion)
+{
+	FsDict::Iterator iter(m_entity);
+	while(!iter.done())
+	{
+		Entity* entity=(Entity*)iter.getValue();
+		dropOwnership(entity);
+
+		if(recursion)
+		{
+			entity->drop(true);
+		}
+
+		entity->decRef();
+		iter.next();
+	}
+	m_entity->clear();
+	FsObject::dropScriptData();
+}
+
+
+
 /* scissor */ 
 void Layer::setScissorArea(float x,float y,float width,float height)
 {
@@ -133,6 +170,8 @@ void Layer::getScissorArea(float* x,float* y,float* width,float* height)
 	*width=m_scissorArea.width;
 	*height=m_scissorArea.height;
 }
+
+
 bool Layer::touchBegin(float x,float y)
 {
 	return m_touchEnabled;

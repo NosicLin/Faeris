@@ -26,15 +26,24 @@ class FsObject
 		void forceDestroy(){delete this;}
 
 	public:
-		FsObject():m_refNu(1),m_scriptData(-1){}
+		FsObject()
+			:m_refNu(1)
+#if FS_CONFIG(FS_SCRIPT_SUPPORT)
+			,m_scriptData(-1)
+#endif 
+		{}
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
 
+
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 	public:
 		int m_scriptData; /* script data */
+
+	public:
+		virtual void dropScriptData();
 #endif 
 };
 NS_FS_END
