@@ -6,6 +6,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaeris", "..\..\..\lib\libfaeris\proj.vs2008\faeris.vcproj", "{1A220C0A-1B8C-4B0D-9EF8-157B34855925}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "L_Faeris", "FaerisWin32.vcproj", "{3C38EA9B-4527-40D0-8194-4914648F7934}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5489D600-2CBC-4EF5-803D-FEFCCFF64F98} = {5489D600-2CBC-4EF5-803D-FEFCCFF64F98}
+		{1A220C0A-1B8C-4B0D-9EF8-157B34855925} = {1A220C0A-1B8C-4B0D-9EF8-157B34855925}
+		{F409901A-8879-47CF-93F5-F247A7E760F8} = {F409901A-8879-47CF-93F5-F247A7E760F8}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libspinesprite", "..\..\..\lib\libextends\libspinesprite\proj.vs2008\libspinesprite.vcproj", "{F409901A-8879-47CF-93F5-F247A7E760F8}"
 EndProject
