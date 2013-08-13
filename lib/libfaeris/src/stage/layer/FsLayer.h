@@ -29,6 +29,7 @@ class Layer:public FsObject
 		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
 		void clearEntity();
+		Scene* getScene();
 
 		/* entity */
 		void add(Entity* entity);
@@ -39,7 +40,7 @@ class Layer:public FsObject
 		void takeOwnership(Entity* entity);
 		void dropOwnership(Entity* entity);
 
-		Scene* scene();
+
 	public:
 		/* event hook */
 		virtual void update(float dt);

@@ -136,6 +136,14 @@ void Layer::clearEntity()
 	m_entity->clear();
 }
 
+Scene* Layer::getScene()
+{
+//	FS_SAFE_ADD_REF(m_scene);
+	//return m_scene;
+	return NULL;
+}
+
+
 void Layer::drop(bool recursion)
 {
 	FsDict::Iterator iter(m_entity);
