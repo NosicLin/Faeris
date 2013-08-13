@@ -39,6 +39,10 @@ class Director :public SchedulerTarget
 		bool isRunning();
 		void setAutoSwapBuffers(bool swap);
 
+	public: 
+		virtual void draw();
+		virtual void update(float dt);
+
 	protected:
 		Director();
 		~Director();
@@ -46,8 +50,9 @@ class Director :public SchedulerTarget
 		void destroy();
 		void repace(Scene* scene);
 
-		void draw();
-		void update(float dt);
+		void drawScene();
+		void swapBuffers();
+
 
 		void touchBegin(float x,float y);
 		void touchMove(float x,float y);

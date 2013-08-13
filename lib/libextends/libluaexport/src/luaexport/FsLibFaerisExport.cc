@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 08/07/13 22:24:25.
+** Generated automatically by tolua++-1.0.92 on 08/13/13 10:54:43.
 */
 
 #ifndef __cplusplus
@@ -28,6 +28,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "stage/entity/FsLabelBitmap.h"
 #include "luaext/FsLuaEntity.h"
 #include "scheduler/FsScheduler.h"
+#include "luaext/FsLuaSchedulerTarget.h"
 #include "luaext/FsLuaScene.h"
 #include "stage/FsDirector.h"
 #include "stage/layer/FsLayer.h"
@@ -113,6 +114,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"TextureMgr");
  toluaext_usertype(tolua_S,"TouchEventListener");
  toluaext_usertype(tolua_S,"FontTTF");
+ tolua_usertype(tolua_S,"LuaSchedulerTarget");
  toluaext_usertype(tolua_S,"Scheduler");
  toluaext_usertype(tolua_S,"Entity");
  tolua_usertype(tolua_S,"Vector3");
@@ -135,7 +137,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"KeypadEvent");
  toluaext_usertype(tolua_S,"SysDispatcher");
  toluaext_usertype(tolua_S,"Quad2D");
- toluaext_usertype(tolua_S,"LabelTTF");
+ tolua_usertype(tolua_S,"Color");
  toluaext_usertype(tolua_S,"LuaLabelBitmap");
  toluaext_usertype(tolua_S,"TouchDispatcher");
  tolua_usertype(tolua_S,"TouchEvent");
@@ -150,16 +152,16 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"TouchPoint");
  toluaext_usertype(tolua_S,"LuaSysEventListener");
  tolua_usertype(tolua_S,"Global");
- tolua_usertype(tolua_S,"Color");
+ toluaext_usertype(tolua_S,"LuaColorQuad2D");
  toluaext_usertype(tolua_S,"LuaTouchEventListener");
  toluaext_usertype(tolua_S,"Window");
  tolua_usertype(tolua_S,"Rect2D");
  tolua_usertype(tolua_S,"Vector4");
  toluaext_usertype(tolua_S,"LuaSprite2D");
- toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"Texture2D");
  toluaext_usertype(tolua_S,"SysEventListener");
  tolua_usertype(tolua_S,"Vector2");
- toluaext_usertype(tolua_S,"Texture2D");
+ toluaext_usertype(tolua_S,"LabelTTF");
  toluaext_usertype(tolua_S,"LuaLabelTTF");
  toluaext_usertype(tolua_S,"ColorLayer");
  toluaext_usertype(tolua_S,"LuaQuad2D");
@@ -5080,6 +5082,69 @@ static int tolua_FsLibFaeris_Scheduler_remove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'remove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaSchedulerTarget */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SchedulerTarget_create00
+static int tolua_FsLibFaeris_SchedulerTarget_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaSchedulerTarget",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   LuaSchedulerTarget* tolua_ret = (LuaSchedulerTarget*)  LuaSchedulerTarget::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"LuaSchedulerTarget");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  LuaSchedulerTarget */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_SchedulerTarget_update00
+static int tolua_FsLibFaeris_SchedulerTarget_update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaSchedulerTarget",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaSchedulerTarget* self = (LuaSchedulerTarget*)  tolua_tousertype(tolua_S,1,0);
+  int priority = ((int)  tolua_tonumber(tolua_S,2,0));
+  float dt = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(priority,dt);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
  return 0;
 #endif
 }
@@ -15411,6 +15476,14 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"mainLoop",tolua_FsLibFaeris_Scheduler_mainLoop00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris_Scheduler_add00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris_Scheduler_remove00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"__SchedulerTarget","SchedulerTarget","FsObject",toluaext_fscollector);
+  tolua_beginmodule(tolua_S,"__SchedulerTarget");
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"SchedulerTarget","LuaSchedulerTarget","SchedulerTarget",NULL);
+  tolua_beginmodule(tolua_S,"SchedulerTarget");
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_SchedulerTarget_create00);
+   tolua_function(tolua_S,"update",tolua_FsLibFaeris_SchedulerTarget_update00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"__Scene","Scene","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"__Scene");

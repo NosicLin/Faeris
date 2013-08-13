@@ -160,7 +160,13 @@ void Director::update(int priority,float dt)
 			update(dt);
 			break;
 		case Scheduler::LOW:
-			draw();
+			drawScene();
+			break;
+		case Scheduler::LOWEST:
+			if(m_autoSwapBuffers)
+			{
+				swapBuffers();
+			}
 			break;
 	}
 }
@@ -210,6 +216,15 @@ bool Director::isRunning()
 void Director::setAutoSwapBuffers(bool swap)
 {
 	m_autoSwapBuffers=swap;
+}
+void Director::draw()
+{
+	drawScene();
+	if(m_autoSwapBuffers)
+	{
+		swapBuffers();
+
+	}
 }
 
 
@@ -270,7 +285,7 @@ void Director::repace(Scene* scene)
 
 }
 
-void Director::draw()
+void Director::drawScene()
 {
 
 	//FS_TRACE_INFO("Draw");
@@ -284,10 +299,14 @@ void Director::draw()
 	{
 		m_current->draw(render);
 	}
-	if(m_autoSwapBuffers)
-	{
-		render->swapBuffers();
-	}
+
+
+}
+void Director::swapBuffers()
+{
+
+	Render* render=Global::render();
+	render->swapBuffers();
 
 }
 

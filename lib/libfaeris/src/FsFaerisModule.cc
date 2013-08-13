@@ -70,6 +70,7 @@ int FsFaeris_ModuleInit()
 
 	scheduler->add(director,Scheduler::MIDDLE);
 	scheduler->add(director,Scheduler::LOW);
+	scheduler->add(director,Scheduler::LOWEST);
 
 	/* set Global */
 	
@@ -111,6 +112,7 @@ int FsFaeris_ModuleExit()
 
 	scheduler->remove(director,Scheduler::MIDDLE);
 	scheduler->remove(director,Scheduler::LOW);
+	scheduler->remove(director,Scheduler::LOWEST);
 
 
 
