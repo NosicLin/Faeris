@@ -229,6 +229,7 @@ void Layer::init()
 	m_touchEnabled=false;
 	m_scissorEnabled=false;
 	m_scissorArea.set(0,0,1,1);
+	m_scene=NULL;
 }
 
 void Layer::destroy()
