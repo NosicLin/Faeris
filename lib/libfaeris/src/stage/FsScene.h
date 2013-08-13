@@ -27,6 +27,9 @@ class Scene:public FsObject
 		Layer* top();
 		Layer* getLayer(int index);
 
+		void clear();
+
+
 	public:
 		virtual void drop(bool recursion=true);
 

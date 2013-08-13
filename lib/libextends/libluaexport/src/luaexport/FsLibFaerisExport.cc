@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 08/13/13 10:54:43.
+** Generated automatically by tolua++-1.0.92 on 08/13/13 15:35:33.
 */
 
 #ifndef __cplusplus
@@ -684,6 +684,38 @@ static int tolua_FsLibFaeris___Entity_childNu00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'childNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLayer of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getLayer00
+static int tolua_FsLibFaeris___Entity_getLayer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLayer'", NULL);
+#endif
+  {
+   Layer* tolua_ret = (Layer*)  self->getLayer();
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Layer");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLayer'.",&tolua_err);
  return 0;
 #endif
 }
@@ -6321,6 +6353,38 @@ static int tolua_FsLibFaeris___layer_remove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'remove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getScene of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_getScene00
+static int tolua_FsLibFaeris___layer_getScene00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getScene'", NULL);
+#endif
+  {
+   Scene* tolua_ret = (Scene*)  self->getScene();
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Scene");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getScene'.",&tolua_err);
  return 0;
 #endif
 }
@@ -15270,6 +15334,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"detach",tolua_FsLibFaeris___Entity_detach00);
    tolua_function(tolua_S,"allChild",tolua_FsLibFaeris___Entity_allChild00);
    tolua_function(tolua_S,"childNu",tolua_FsLibFaeris___Entity_childNu00);
+   tolua_function(tolua_S,"getLayer",tolua_FsLibFaeris___Entity_getLayer00);
    tolua_function(tolua_S,"getPosition",tolua_FsLibFaeris___Entity_getPosition00);
    tolua_function(tolua_S,"getPosition",tolua_FsLibFaeris___Entity_getPosition01);
    tolua_function(tolua_S,"getPositionX",tolua_FsLibFaeris___Entity_getPositionX00);
@@ -15532,6 +15597,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setTouchEnabled",tolua_FsLibFaeris___layer_setTouchEnabled00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris___layer_add00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___layer_remove00);
+   tolua_function(tolua_S,"getScene",tolua_FsLibFaeris___layer_getScene00);
    tolua_function(tolua_S,"setScissorArea",tolua_FsLibFaeris___layer_setScissorArea00);
    tolua_function(tolua_S,"getScissorArea",tolua_FsLibFaeris___layer_getScissorArea00);
    tolua_function(tolua_S,"scissorEnabled",tolua_FsLibFaeris___layer_scissorEnabled00);

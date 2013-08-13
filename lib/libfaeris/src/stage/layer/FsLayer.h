@@ -11,6 +11,7 @@ class Render;
 class FsDict;
 class Vector2;
 class TouchEvent;
+class Scene;
 class Layer:public FsObject
 {
 	public:
@@ -82,6 +83,10 @@ class Layer:public FsObject
 
 		Rect2D m_scissorArea;
 		bool m_scissorEnabled;
+
+		Scene* m_scene;
+
+		friend class Scene;
 
 };
 NS_FS_END

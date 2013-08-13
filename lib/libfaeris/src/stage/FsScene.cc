@@ -12,25 +12,62 @@ Scene* Scene::create()
 /* layer operation */
 void Scene::push(Layer* layer)
 {
+	if(layer->m_scene)
+	{
+		FS_TRACE_WARN("layer is already owned by scene");
+		return ;
+	}
 	m_layers->push(layer);
+	layer->m_scene=this;
 }
 
 void Scene::pop()
 {
+	int size=m_layers->size();
+	if(size==0)
+	{
+		FS_TRACE_WARN("No Layer to pop");
+		return;
+	}
+	Layer* ret=(Layer*)m_layers->get(size-1);
+	ret->m_scene=NULL;
 	m_layers->pop();
+	ret->decRef();
 }
 
 void Scene::insert(int pos,Layer* layer)
 {
+	if(layer->m_scene)
+	{
+		FS_TRACE_WARN("layer is already owned by scene");
+		return ;
+	}
 	m_layers->insert(pos,layer);
+	layer->m_scene=this;
 }
 void Scene::replace(int pos,Layer* layer)
 {
+	Layer*  ret=(Layer*)m_layers->get(pos);
+	if(ret==NULL)
+	{
+		FS_TRACE_WARN("Index(%d) Layer Out Of Range",pos);
+		return; 
+	}
+	ret->m_scene=NULL;
+	ret->decRef();
+
 	m_layers->set(pos,layer);
 }
 
 void Scene::remove(Layer* layer)
 {
+	if(layer->m_scene!=this)
+	{
+		FS_TRACE_WARN("Layer is not owned by scene");
+		return;
+	}
+
+	layer->m_scene=NULL;
 	m_layers->remove(layer);
 }
 
@@ -50,6 +87,18 @@ Layer* Scene::getLayer(int index)
 }
 
 
+void Scene::clear()
+{
+	int layer_nu=m_layers->size();
+	for(int i=layer_nu-1;i>=0;i--)
+	{
+		Layer* layer=(Layer*)m_layers->get(i);
+		layer->m_scene=NULL;
+		layer->decRef();
+	}
+	m_layers->clear();
+}
+
 void Scene::drop(bool recursion) 
 {
 	int layer_nu=m_layers->size();
@@ -60,6 +109,7 @@ void Scene::drop(bool recursion)
 		{
 			layer->drop(true);
 		}
+		layer->m_scene=NULL;
 		layer->decRef();
 	}
 	m_layers->clear();

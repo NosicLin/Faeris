@@ -1,5 +1,6 @@
 #include "stage/layer/FsLayer.h"
 #include "stage/entity/FsEntity.h"
+#include "stage/FsScene.h"
 #include "support/util/FsDict.h"
 
 
@@ -138,9 +139,8 @@ void Layer::clearEntity()
 
 Scene* Layer::getScene()
 {
-//	FS_SAFE_ADD_REF(m_scene);
-	//return m_scene;
-	return NULL;
+	FS_SAFE_ADD_REF(m_scene);
+	return m_scene;
 }
 
 
