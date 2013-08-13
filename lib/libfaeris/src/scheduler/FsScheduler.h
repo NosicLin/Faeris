@@ -62,6 +62,7 @@ class Scheduler :public FsObject
 		FsSlowArray* m_target[PRIORITY_NU];
 		bool m_stop;
 		int m_fps;
+		float m_intervalTime;
 
 		Timer m_timer;
 

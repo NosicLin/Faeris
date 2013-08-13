@@ -5,17 +5,19 @@
 NS_FS_BEGIN 
 Timer::Timer()
 {
-	m_begin=timeGetTime();
+	QueryPerformanceCounter((LARGE_INTEGER*)&m_begin.count);
+	QueryPerformanceFrequency((LARGE_INTEGER*)&m_begin.frequency);
 }
 void Timer::reset()
 {
-	m_begin=timeGetTime();
+	QueryPerformanceCounter((LARGE_INTEGER*)&m_begin.count);
 }
 
-long Timer::now() const 
+float Timer::now() const 
 {
-	DWORD current=timeGetTime();
-	return  current-m_begin;
+	__int64 current;
+	QueryPerformanceCounter((LARGE_INTEGER*)&current);
+	return  float(current-m_begin.count)/float(m_begin.frequency)*1000.0f;
 }
 
 NS_FS_END 

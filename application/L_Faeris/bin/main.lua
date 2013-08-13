@@ -1,7 +1,7 @@
 local director =share:director();
 local render=share:render()
 local scheduler=share:scheduler()
-scheduler:setFps(60)
+--scheduler:setFps(60)
 
 --director:setAutoSwapBuffers(false);
 
@@ -13,6 +13,8 @@ layer:setViewArea(0,0,960,640)
 
 local quad2d= Quad2D:create("dog.png")
 quad2d:setPosition(500,500,0)
+
+quad2d:setScale(2,2,1)
 quad2d.data={
 	onUpdate=function(self,dt)
 		self.x=self.x+6

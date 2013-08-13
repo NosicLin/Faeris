@@ -8,7 +8,11 @@
 	typedef struct timeval PlatformTimeVal;
 #elif FS_PLATFORM_OS(FS_OS_WIN32)
 	#include <Windows.h>
-	typedef DWORD  PlatformTimeVal;
+	struct  PlatformTimeVal
+	{
+		__int64 count;
+		__int64 frequency;
+	};
 #else 
 	#error "Unsupport Platform OS"
 #endif 
@@ -21,7 +25,7 @@ class Timer
 	public:
 		Timer();
 		void reset();
-		long now() const ;
+		float now() const ;
 	private:
 		PlatformTimeVal m_begin;
 };
