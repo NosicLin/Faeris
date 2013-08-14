@@ -125,8 +125,8 @@ LRESULT CALLBACK s_winproc(
 	{
 		case WM_LBUTTONDOWN:
 			{
-				float x=(float)LOWORD(lparam);
-				float y=(float)HIWORD(lparam);
+				float x=(float)(short)LOWORD(lparam);
+				float y=(float)(short)HIWORD(lparam);
 				transformViewPoint(&x,&y);
 				if(pointInView(x,y))
 				{
@@ -145,8 +145,8 @@ LRESULT CALLBACK s_winproc(
 			{
 				if(wparam==MK_LBUTTON&&s_mouse_capture)
 				{
-					float x=(float)LOWORD(lparam);
-					float y=(float)HIWORD(lparam);
+					float x=(float)(short)LOWORD(lparam);
+					float y=(float)(short)HIWORD(lparam);
 					transformViewPoint(&x,&y);
 
 					TouchPoint p(0,x,y);
@@ -160,8 +160,8 @@ LRESULT CALLBACK s_winproc(
 			{
 				if(s_mouse_capture)
 				{
-					float x=(float)LOWORD(lparam);
-					float y=(float)HIWORD(lparam);
+					float x=(float)(short)LOWORD(lparam);
+					float y=(float)(short)HIWORD(lparam);
 					transformViewPoint(&x,&y);
 
 					TouchPoint p(0,x,y);
