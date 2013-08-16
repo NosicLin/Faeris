@@ -2414,7 +2414,7 @@ static int tolua_FsLibFaeris___ColorQuad2D_setRect00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRect'", NULL);
 #endif
   {
-   self->setRect(*rect);
+   self->setRect2D(*rect);
   }
  }
  return 0;
