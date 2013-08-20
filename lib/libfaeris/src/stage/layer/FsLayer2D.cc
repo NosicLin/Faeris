@@ -36,8 +36,8 @@ Matrix4 Layer2D::getProjectMatrix()const
 			m_viewArea.x+m_viewArea.width,
 			m_viewArea.y,
 			m_viewArea.y+m_viewArea.height,
-			1,
-			10);
+			-1024,
+			1024);
 	return mat;
 }
 

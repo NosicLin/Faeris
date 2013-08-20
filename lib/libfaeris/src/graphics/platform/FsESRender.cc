@@ -134,8 +134,10 @@ Render::Render()
 	/* face */
 	m_frontFace=FRONT_CCW;
 	m_cullFace=false;
-	//glFrontFace(GL_CCW);
-	//glDisable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
+	glDisable(GL_CULL_FACE);
+
+
 
 
 	/* texture */
@@ -435,7 +437,7 @@ void Render::drawArray(int mode,int start,uint size)
 	glDrawArrays(mode_gl,start,size);
 
 }
-
+	
 
 
 /* set opengl state */

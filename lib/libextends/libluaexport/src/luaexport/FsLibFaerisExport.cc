@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 08/13/13 15:35:33.
+** Generated automatically by tolua++-1.0.92 on 08/16/13 13:52:25.
 */
 
 #ifndef __cplusplus
@@ -78,16 +78,16 @@ static int tolua_collect_Vector2 (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_Rect2D (lua_State* tolua_S)
+static int tolua_collect_Color (lua_State* tolua_S)
 {
- Rect2D* self = (Rect2D*) tolua_tousertype(tolua_S,1,0);
+ Color* self = (Color*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_Color (lua_State* tolua_S)
+static int tolua_collect_Rect2D (lua_State* tolua_S)
 {
- Color* self = (Color*) tolua_tousertype(tolua_S,1,0);
+ Rect2D* self = (Rect2D*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -2393,9 +2393,9 @@ static int tolua_FsLibFaeris___ColorQuad2D_setColor00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setRect of class  ColorQuad2D */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___ColorQuad2D_setRect00
-static int tolua_FsLibFaeris___ColorQuad2D_setRect00(lua_State* tolua_S)
+/* method: setRect2D of class  ColorQuad2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___ColorQuad2D_setRect2D00
+static int tolua_FsLibFaeris___ColorQuad2D_setRect2D00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -2411,7 +2411,7 @@ static int tolua_FsLibFaeris___ColorQuad2D_setRect00(lua_State* tolua_S)
   ColorQuad2D* self = (ColorQuad2D*)  tolua_tousertype(tolua_S,1,0);
   const Rect2D* rect = ((const Rect2D*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRect'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRect2D'", NULL);
 #endif
   {
    self->setRect2D(*rect);
@@ -2420,7 +2420,49 @@ static int tolua_FsLibFaeris___ColorQuad2D_setRect00(lua_State* tolua_S)
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRect'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setRect2D'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getRect2D of class  ColorQuad2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___ColorQuad2D_getRect2D00
+static int tolua_FsLibFaeris___ColorQuad2D_getRect2D00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ColorQuad2D",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ColorQuad2D* self = (ColorQuad2D*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRect2D'", NULL);
+#endif
+  {
+   Rect2D tolua_ret = (Rect2D)  self->getRect2D();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((Rect2D)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"Rect2D");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(Rect2D));
+     tolua_pushusertype(tolua_S,tolua_obj,"Rect2D");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRect2D'.",&tolua_err);
  return 0;
 #endif
 }
@@ -15395,7 +15437,8 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_constant(tolua_S,"VERTEX_D",ColorQuad2D::VERTEX_D);
    tolua_constant(tolua_S,"VERTEX_ALL",ColorQuad2D::VERTEX_ALL);
    tolua_function(tolua_S,"setColor",tolua_FsLibFaeris___ColorQuad2D_setColor00);
-   tolua_function(tolua_S,"setRect",tolua_FsLibFaeris___ColorQuad2D_setRect00);
+   tolua_function(tolua_S,"setRect2D",tolua_FsLibFaeris___ColorQuad2D_setRect2D00);
+   tolua_function(tolua_S,"getRect2D",tolua_FsLibFaeris___ColorQuad2D_getRect2D00);
    tolua_function(tolua_S,"setOpacity",tolua_FsLibFaeris___ColorQuad2D_setOpacity00);
    tolua_function(tolua_S,"getOpacity",tolua_FsLibFaeris___ColorQuad2D_getOpacity00);
   tolua_endmodule(tolua_S);

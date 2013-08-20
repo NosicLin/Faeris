@@ -73,7 +73,7 @@ class Layer:public FsObject
 		void init();
 		void destroy();
 		void updateAllWorldMatrix();
-
+	
 
 	protected:
 		FsDict* m_entity;  /* direct add to layer */
