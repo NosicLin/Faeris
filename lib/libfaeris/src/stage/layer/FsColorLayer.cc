@@ -38,7 +38,7 @@ void ColorLayer::draw(Render*  r)
 	material->setOpacity(1.0);
 
 	Matrix4 mat;
-	mat.makeOrthographic(0,1,0,1,0,100);
+	mat.makeOrthographic(0,1,0,1,-100,100);
 	r->setProjectionMatrix(&mat);
 
 	r->setMaterial(material);

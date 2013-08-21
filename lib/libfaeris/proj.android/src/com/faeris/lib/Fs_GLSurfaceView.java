@@ -12,10 +12,8 @@ import android.util.Log;
 
 
 
-public class Fs_GLSurfaceView  extends GLSurfaceView 
+public class Fs_GLSurfaceView  extends GLSurfaceView
 {
-
-	
 	private Fs_GLRender m_render;
 	private float m_width;
 	private float m_height;
@@ -164,7 +162,8 @@ public class Fs_GLSurfaceView  extends GLSurfaceView
 			this.queueEvent(new Runnable(){
 				@Override
 				public void run(){
-					Fs_Jni.onResize(new_width,new_height);
+					//Fs_Jni.onResize(new_width,new_height);
+					Log.v("size11 change","width:"+new_width+"height"+new_height);
 				}
 			});
 		}

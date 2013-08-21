@@ -421,7 +421,7 @@ void Render::drawFace3(Face3* f,uint num)
 	}
 
 
-	glDrawElements(GL_TRIANGLES,num*3,GL_UNSIGNED_INT,f);
+	glDrawElements(GL_TRIANGLES,num*3,GL_UNSIGNED_SHORT,f);
 
 }
 
