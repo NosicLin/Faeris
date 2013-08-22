@@ -38,6 +38,7 @@ class Sprite2D@__Sprite2D:public Entity
 
 		/* fps */
 		int getFps();
+		void setFps(int fps);
 };
 
 class LuaSprite2D@Sprite2D:public  Sprite2D 

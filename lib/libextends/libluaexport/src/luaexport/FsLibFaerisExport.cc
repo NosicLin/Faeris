@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 08/16/13 13:52:25.
+** Generated automatically by tolua++-1.0.92 on 08/22/13 09:36:30.
 */
 
 #ifndef __cplusplus
@@ -4066,6 +4066,39 @@ static int tolua_FsLibFaeris___Sprite2D_getFps00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getFps'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setFps of class  Sprite2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Sprite2D_setFps00
+static int tolua_FsLibFaeris___Sprite2D_setFps00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Sprite2D",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Sprite2D* self = (Sprite2D*)  tolua_tousertype(tolua_S,1,0);
+  int fps = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFps'", NULL);
+#endif
+  {
+   self->setFps(fps);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setFps'.",&tolua_err);
  return 0;
 #endif
 }
@@ -15519,6 +15552,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getCurFrame",tolua_FsLibFaeris___Sprite2D_getCurFrame00);
    tolua_function(tolua_S,"getTotalFrame",tolua_FsLibFaeris___Sprite2D_getTotalFrame00);
    tolua_function(tolua_S,"getFps",tolua_FsLibFaeris___Sprite2D_getFps00);
+   tolua_function(tolua_S,"setFps",tolua_FsLibFaeris___Sprite2D_setFps00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Sprite2D","LuaSprite2D","Sprite2D",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Sprite2D");

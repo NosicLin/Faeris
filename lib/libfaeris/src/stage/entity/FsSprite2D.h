@@ -10,6 +10,7 @@ NS_FS_BEGIN
 class Sprite2DData;
 class Texture2D;
 class FsArray;
+class FsDict;
 class Sprite2DAnimation;
 class Mat_V4F_T2F_A1F;
 
@@ -51,8 +52,10 @@ class Sprite2D :public Entity
 		int getCurFrame();
 		int getTotalFrame();
 
+
 		/* fps */
 		int getFps();
+		void setFps(int fps);
 
 	public:
 		/* inherit Entity */
@@ -75,12 +78,17 @@ class Sprite2D :public Entity
 		int m_curFrame;
 		float m_elapseTime;
 
+
+
 		int m_mode;
 		int m_stop;
+
+		int m_curFps;
 
 		Sprite2DData* m_data;
 		Sprite2DAnimation* m_curAnimation;
 		FsArray* m_textures;
+		FsDict* m_animationFps;
 
 		/* material */
 
