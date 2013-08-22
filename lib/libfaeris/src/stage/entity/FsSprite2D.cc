@@ -226,11 +226,9 @@ void Sprite2D::setAnimation(Sprite2DAnimation* anim)
 
 	if(m_curAnimation)
 	{
-		int total_frame=m_curAnimation->getKeyFrameNu();
-		if(m_curFrame>total_frame)
-		{
-			m_curFrame=total_frame-1;
-		}
+		//int total_frame=m_curAnimation->getKeyFrameNu();
+		m_curFrame=0;
+
 	}
 }
 
