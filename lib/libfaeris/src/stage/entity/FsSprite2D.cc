@@ -285,6 +285,7 @@ Sprite2D::~Sprite2D()
 	FS_SAFE_DEC_REF(m_curAnimation);
 	FS_SAFE_DEC_REF(m_textures);
 	FS_SAFE_DEC_REF(m_material);
+	FS_SAFE_DEC_REF(m_animationFps);
 }
 
 

@@ -108,6 +108,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/util/FsScriptUtil.cc \
 					../../src/support/util/FsSlowArray.cc \
 					../../src/support/util/FsString.cc \
+					../../src/support/util/FsInteger.cc \
 					../../src/media/FsAudioEngine.cc \
 					../../src/media/FsAudioPlayer.cc \
 
