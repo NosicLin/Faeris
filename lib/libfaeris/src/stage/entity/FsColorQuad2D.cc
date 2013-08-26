@@ -113,9 +113,14 @@ void ColorQuad2D::setColor(Color c,int vertex)
 	}
 }
 
-void ColorQuad2D::setRect(const Rect2D& rect)
+void ColorQuad2D::setRect2D(const Rect2D& rect)
 {
 	m_rect=rect;
+}
+
+Rect2D ColorQuad2D::getRect2D()
+{
+	return m_rect;
 }
 void ColorQuad2D::setOpacity(float opacity)
 {

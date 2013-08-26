@@ -14,6 +14,8 @@ class Entity@__Entity:public FsObject
 		FsArray* allChild();
 		int childNu();
 
+		Layer* getLayer();
+
 	public: /* get transform info */
 		Vector3 getPosition();
 		void getPosition(float* x=0, float* y=0,float* z=0);

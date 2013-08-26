@@ -11,6 +11,7 @@ class Render;
 class FsDict;
 class Vector2;
 class TouchEvent;
+class Scene;
 class Layer:public FsObject
 {
 	public:
@@ -29,6 +30,7 @@ class Layer:public FsObject
 		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
 		void clearEntity();
+		Scene* getScene();
 
 		/* entity */
 		void add(Entity* entity);
@@ -39,7 +41,7 @@ class Layer:public FsObject
 		void takeOwnership(Entity* entity);
 		void dropOwnership(Entity* entity);
 
-		Scene* scene();
+
 	public:
 		/* event hook */
 		virtual void update(float dt);
@@ -71,7 +73,7 @@ class Layer:public FsObject
 		void init();
 		void destroy();
 		void updateAllWorldMatrix();
-
+	
 
 	protected:
 		FsDict* m_entity;  /* direct add to layer */
@@ -81,6 +83,10 @@ class Layer:public FsObject
 
 		Rect2D m_scissorArea;
 		bool m_scissorEnabled;
+
+		Scene* m_scene;
+
+		friend class Scene;
 
 };
 NS_FS_END

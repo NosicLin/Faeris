@@ -14,6 +14,7 @@ class Layer@__layer:public FsObject
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		Scene* getScene();
 
 		/* scissor */
 		void setScissorArea(float x,float y,float width,float height);

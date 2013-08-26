@@ -11,14 +11,14 @@ class Face3
 		{
 			struct
 			{
-				uint32_t a;
-				uint32_t b;
-				uint32_t c;
+				uint16_t a;
+				uint16_t b;
+				uint16_t c;
 			};
-			uint32_t v[3];
+			uint16_t v[3];
 		};
 	public:
-		Face3(uint32_t _a,uint32_t _b,uint32_t _c)
+		Face3(uint16_t _a,uint16_t _b,uint16_t _c)
 			:a(_a),b(_b),c(_c)
 		{}
 		Face3(){}

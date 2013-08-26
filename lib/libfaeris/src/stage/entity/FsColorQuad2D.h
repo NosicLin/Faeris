@@ -43,7 +43,8 @@ class ColorQuad2D:public Entity
 
 	public:
 		void setColor(Color c,int vertex=VERTEX_ALL);
-		void setRect(const Rect2D& rect);
+		void setRect2D(const Rect2D& rect);
+		Rect2D getRect2D();
 		void setOpacity(float opacity);
 		float getOpacity();
 

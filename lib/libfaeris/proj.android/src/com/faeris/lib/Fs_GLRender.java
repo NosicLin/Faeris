@@ -43,6 +43,7 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height)
 	{
+		Log.v("size change","width:"+width+"height"+height);
 		Fs_Jni.onResize(width, height);
 		
 	} 

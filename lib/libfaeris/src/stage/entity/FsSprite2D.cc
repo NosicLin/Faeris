@@ -3,6 +3,8 @@
 #include "stage/entity/FsSprite2DData.h"
 #include "graphics/FsTexture2D.h"
 #include "support/util/FsArray.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsInteger.h"
 #include "graphics/material/FsMat_V4F_T2F_A1F.h"
 
 NS_FS_BEGIN
@@ -54,7 +56,7 @@ void Sprite2D::updateAnimation(float dt)
 		return ;
 	}
 
-	int fps=m_curAnimation->getFps();
+	int fps=m_curFps;
 	float frame_time=1000.0f/(float)fps;
 	int total_frame=m_curAnimation->getKeyFrameNu();
 
@@ -136,17 +138,7 @@ int Sprite2D::getTotalFrame()
 	return m_curAnimation->getKeyFrameNu();
 }
 
-int Sprite2D::getFps()
-{
-	if(!m_curAnimation)
-	{
-		return 0;
-	}
-	else 
-	{
-		return m_curAnimation->getFps();
-	}
-}
+
 
 void Sprite2D::update(float dt)
 {
@@ -214,8 +206,9 @@ bool Sprite2D::init(const char* name)
 	}
 	m_data=data;
 	m_textures=data->getTextures();
-	return true;
+	m_animationFps=FsDict::create();
 
+	return true;
 }
 
 void Sprite2D::setAnimation(Sprite2DAnimation* anim)
@@ -224,15 +217,48 @@ void Sprite2D::setAnimation(Sprite2DAnimation* anim)
 	FS_SAFE_DEC_REF(m_curAnimation);
 	m_curAnimation=anim;
 
+
 	if(m_curAnimation)
 	{
-		int total_frame=m_curAnimation->getKeyFrameNu();
-		if(m_curFrame>total_frame)
+		FsString* anim_name=m_curAnimation->getName();
+		m_curFrame=0;
+		FsInteger* fps=(FsInteger*)m_animationFps->lookup(anim_name);
+		if(fps)
 		{
-			m_curFrame=total_frame-1;
+			m_curFps=fps->getValue();
 		}
+		else
+		{
+			m_curFps=m_curAnimation->getFps();
+		}
+		FS_SAFE_DEC_REF(anim_name);
+		FS_SAFE_DEC_REF(fps);
+		m_elapseTime=0.0f;
+	}
+	else 
+	{
+		m_curFps=0;
 	}
 }
+
+int Sprite2D::getFps()
+{
+	return m_curFps;
+}
+
+void Sprite2D::setFps(int fps)
+{
+	if(m_curAnimation)
+	{
+		FsString* anim_name=m_curAnimation->getName();
+		FsInteger* ifps=FsInteger::create(fps);
+		m_animationFps->insert(anim_name,ifps);
+		FS_SAFE_DEC_REF(anim_name);
+		FS_SAFE_DEC_REF(ifps);
+		m_curFps=fps;
+	}
+}
+
 
 Sprite2D::Sprite2D()
 {
@@ -243,9 +269,13 @@ Sprite2D::Sprite2D()
 
 	m_mode=ANIM_LOOP;
 	m_stop=true;
+	m_curFps=0;
+
+
 	m_data=NULL;
 	m_curAnimation=NULL;
 	m_textures=NULL;
+	m_animationFps=NULL;
 	m_material=Mat_V4F_T2F_A1F::shareMaterial();
 }
 
@@ -255,6 +285,7 @@ Sprite2D::~Sprite2D()
 	FS_SAFE_DEC_REF(m_curAnimation);
 	FS_SAFE_DEC_REF(m_textures);
 	FS_SAFE_DEC_REF(m_material);
+	FS_SAFE_DEC_REF(m_animationFps);
 }
 
 

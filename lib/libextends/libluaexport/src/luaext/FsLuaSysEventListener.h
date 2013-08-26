@@ -16,6 +16,11 @@ class LuaSysEventListener:public  SysEventListener
 		virtual void exit();
 		virtual void quit();
 
+	public:
+		virtual void onForeground();
+		virtual void onBackground();
+		virtual void onExit();
+		virtual void onQuit();
 
 		/* inherit FsObject */
 		virtual const char*  className();

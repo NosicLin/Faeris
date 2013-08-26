@@ -17,29 +17,46 @@ LuaSysEventListener* LuaSysEventListener::create()
 	return ret;
 }
 
-void LuaSysEventListener::foreground()
+void LuaSysEventListener::onForeground()
 {
 
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
 	se->callFunctionInTable(m_scriptData,"onForeground",1,0,"f",this);
 }
 
-void LuaSysEventListener::background()
+void LuaSysEventListener::onBackground()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
 	se->callFunctionInTable(m_scriptData,"onBackground",1,0,"f",this);
 }
 
-void LuaSysEventListener::exit()
+void LuaSysEventListener::onExit()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
 	se->callFunctionInTable(m_scriptData,"onExit",1,0,"f",this);
 }
 
-void LuaSysEventListener::quit()
+void LuaSysEventListener::onQuit()
 {
 	LuaEngine* se=(LuaEngine*) Global::scriptEngine();
 	se->callFunctionInTable(m_scriptData,"onQuit",1,0,"f",this);
+}
+
+void LuaSysEventListener::foreground()
+{
+	onForeground();
+}
+void LuaSysEventListener::background()
+{
+	onBackground();
+}
+void LuaSysEventListener::exit()
+{
+	onExit();
+}
+void LuaSysEventListener::quit()
+{
+	onQuit();
 }
 
 LuaSysEventListener::LuaSysEventListener()

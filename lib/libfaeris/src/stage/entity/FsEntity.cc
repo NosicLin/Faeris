@@ -252,6 +252,12 @@ void Entity::clearChild()
 		node->decRef();
 	}
 }
+Layer* Entity::getLayer()
+{
+	FS_SAFE_ADD_REF(m_layer);
+	return m_layer;
+}
+
 void Entity::drop(bool recusive)
 {
 	while(m_chirdren->size()>0)

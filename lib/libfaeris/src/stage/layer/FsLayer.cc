@@ -1,5 +1,6 @@
 #include "stage/layer/FsLayer.h"
 #include "stage/entity/FsEntity.h"
+#include "stage/FsScene.h"
 #include "support/util/FsDict.h"
 
 
@@ -136,6 +137,13 @@ void Layer::clearEntity()
 	m_entity->clear();
 }
 
+Scene* Layer::getScene()
+{
+	FS_SAFE_ADD_REF(m_scene);
+	return m_scene;
+}
+
+
 void Layer::drop(bool recursion)
 {
 	FsDict::Iterator iter(m_entity);
@@ -221,6 +229,7 @@ void Layer::init()
 	m_touchEnabled=false;
 	m_scissorEnabled=false;
 	m_scissorArea.set(0,0,1,1);
+	m_scene=NULL;
 }
 
 void Layer::destroy()

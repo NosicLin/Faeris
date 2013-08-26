@@ -35,6 +35,7 @@ class Entity :public FsObject
 		void addChild(Entity* n);
 		void remove(Entity* n);
 		void clearChild();
+		Layer* getLayer();
 
 		void detach();
 		FsArray* allChild();

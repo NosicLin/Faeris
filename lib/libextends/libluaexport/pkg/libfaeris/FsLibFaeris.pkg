@@ -23,6 +23,7 @@ $pfile "stage/entity/FsLabelBitmap.pkg"
 
 /* scheduler */
 $pfile "scheduler/FsScheduler.pkg"
+$pfile "scheduler/FsLuaSchedulerTarget.pkg"
 
 
 
