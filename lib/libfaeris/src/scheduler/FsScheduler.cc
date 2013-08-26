@@ -45,16 +45,19 @@ void Scheduler::mainLoop()
 
 
 		float sleep_time=update((float)diff_time);
-		printf("sleep_time=%f\n",sleep_time);
 		
 		while(m_timer.now()-cur_time<=m_intervalTime){}
 		
+		
+	
 		/*
 		if(sleep_time>0)
 		{
-			Sys::usleep(sleep_time);
+			Sys::usleep((long)sleep_time);
 		}
 		*/
+
+		
 		
 	
 		last_time=cur_time;
