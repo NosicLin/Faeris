@@ -69,6 +69,7 @@ template<typename T> T abs(T f){return f<0?-f:f;}
 void srand(ulong s);
 int random();
 int random(int begin,int end);
+float random(float begin,float end);
 
 inline int floatEqual(float a,float b)
 {
