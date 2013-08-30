@@ -285,15 +285,93 @@ bool ParticleEmitter::init(FsFile* file)
 		}
 		FS_SAFE_DEC_REF(move_mode);
 	}
+	FS_SAFE_DEC_REF(particle);
 
+	FsDict* texture=ScriptUtil::getDict(dict,"texture");
+	if(texture)
+	{
+		FsString* blendSrc=ScriptUtil::getString(texture,"blendSrc");
+		if(blendSrc)
+		{
+			if(blendSrc->equal(" xxx x"))
+			{
+				/* TODO */
+			}
+		}
+		FS_SAFE_DEC_REF(blendSrc);
+
+
+		FsString* blendDst=ScriptUtil::getString(texture,"blendDst")
+		if(blendDst)
+		{
+			if(blendDst->equal("xxx xxx"))
+			{
+				/* TODO */
+			}
+		}
+		FS_SAFE_DEC_REF(blendDst);
+
+		FsString* url=ScriptUtil::getString(texture,"url");
+		if(url)
+		{
+			Texture2D* t=Global::textureMgr()->loadTexture(url.cstr());
+			m_texture=t;
+		}
+		FS_SAFE_DEC_REF(url);
+
+	}
+	
+
+	FsDict* environment=ScriptUtil::getDict(dict,"environment");
+	if(environment)
+	{
+		FsString* mode=ScriptUtil::getString(dict,"mode");
+		if(mode)
+		{
+			if(mode->equal("gravity"))
+			{
+				m_enviromentMode=ENV_GRAVITY;
+			}
+			else if(mode->equal("radial"))
+			{
+				m_enviromentMode=ENV_RADIAL;
+			}
+		}
+		FS_SAFE_DEC_REF(mode);
+
+		FsDict* gravity=ScriptUtil::getString(dict,"gravity");
+		if(gravity)
+		{
+			ScriptUtil::getFloat(gravity,"speed",&m_speed);
+			ScriptUtil::getFloat(gravity,"speedVar",&m_speedVar);
+
+			FsArray* g=ScriptUtil::getArray(gravity,"gravity");
+			if(g)
+			{
+				ScriptUtil::getFloat(g,0,&m_gravity.x);
+				ScriptUtil::getFloat(g,1,&m_gravity.y);
+			}
+			FS_SAFE_DEC_REF(g);
+			ScriptUtil::getFloat(gravity,"radialAcceleration",m_radialAcceleration);
+			ScriptUtil::getFloat(gravity,"radialAccelerationVar",m_radialAccelerationVar);
+			ScriptUtil::getFloat(gravity,"tangentialAcceleration",m_tangentialAcceleration);
+			ScriptUtil::getFloat(gravity,"tangentialAccelerationVar",m_tangentialAccelerationVar);
+		}
+		FS_SAFE_DEC_REF(gravity);
+
+		FsDict* radial=ScriptUtil::getString(dict,"radial");
+		if(radial)
+		{
+			ScriptUtil::getFloat(radial,"beginRadius",&m_beginRadius);
+			ScriptUtil::getFloat(radial,"beginRadiusVar",&m_beginRadiusVar);
+			ScriptUtil::getFloat(radial,"rotateSpeed",&m_rotateSpeed);
+			ScriptUtil::getFloat(radial,"rotateSpeedVar",&m_rotateSpeedVar);
+		}
+		FS_SAFE_DEC_REF(radial);
+	}
+	return true;
 
 }
-
-
-
-
-
-
 
 NS_FS_END
 
