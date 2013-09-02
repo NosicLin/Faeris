@@ -60,7 +60,8 @@ class Render:public FsObject
 			TRIANGLE_FAN,
 
 			/* uniform */
-						/* float vec2 vec3 vec4 */
+
+			/* float vec2 vec3 vec4 */
 			U_F_1=0,
 			U_F_2,
 			U_F_3,
