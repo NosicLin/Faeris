@@ -34,6 +34,24 @@ class Color
 		bool operator==(Color right){return rgba==right.rgba;}
 		bool operator!=(Color right){return rgba!=right.rgba;}
 };
+
+class Color4f
+{
+	public:
+		Color4f(float red,float green,float blue,float alpha)
+			:r(red),g(green),b(blue),a(alpha)
+		{}
+		Color4f()
+			:r(1.0),g(1.0),b(1.0),a(1.0)
+		{
+		}
+
+	public:
+		float r,g,b,a;
+};
+
+
 NS_FS_END
+
 #endif /*_FAERIS_COLOR_H_*/
 

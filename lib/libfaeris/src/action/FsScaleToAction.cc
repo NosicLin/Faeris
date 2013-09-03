@@ -3,17 +3,17 @@
 #include "stage/entity/FsEntity.h"
 NS_FS_BEGIN
 
-const char* ScaleToAciton::className()
+const char* ScaleToAction::className()
 {
 	return FS_SCALE_TO_ACTION_CLASS_NAME;
 }
 
-ScaleToAciton* ScaleToAciton::create(float sx,float sy,float sz,float time)
+ScaleToAction* ScaleToAction::create(float sx,float sy,float sz,float time)
 {
-	return new ScaleToAciton(sx,sy,sz,time);
+	return new ScaleToAction(sx,sy,sz,time);
 }
 
-bool ScaleToAciton::run(StageElement* target,float dt)
+bool ScaleToAction::run(StageElement* target,float dt)
 {
 	float old_dt=dt;
 	if(m_elapse>=m_lifeTime)
@@ -28,7 +28,7 @@ bool ScaleToAciton::run(StageElement* target,float dt)
 	Entity* entity=dynamic_cast<Entity*>(target);
 	if(!entity)
 	{
-		FS_TRACE_WARN("ScaleToAciton Can Only Effect Entity");
+		FS_TRACE_WARN("ScaleToAction Can Only Effect Entity");
 		return true;
 	}
 
@@ -41,7 +41,7 @@ bool ScaleToAciton::run(StageElement* target,float dt)
 	return false;
 }
 
-ScaleToAciton::ScaleToAciton(float sx,float sy,float sz,float time)
+ScaleToAction::ScaleToAction(float sx,float sy,float sz,float time)
 {
 	m_targetScale=Vector3(sx,sy,sz);
 	m_elapse=0;

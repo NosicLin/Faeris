@@ -32,7 +32,7 @@ bool MoveToAction::run(StageElement* target,float dt)
 		return true;
 	}
 	Vector3 pos=entity->getPosition();
-	Vector3 diff=(m_targetPos-pos)/(m_elapse-m_lifeTime)*dt;
+	Vector3 diff=(m_targetPos-pos)/(m_lifeTime-m_elapse)*dt;
 	entity->setPosition(pos+diff);
 
 	m_elapse+=old_dt;

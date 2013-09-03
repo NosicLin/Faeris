@@ -2,20 +2,20 @@
 #include "math/FsVector3.h"
 
 NS_FS_BEGIN
-class ScaleToAciton:public Action 
+class ScaleToAction:public Action 
 {
 	public:
-		static ScaleToAciton* create(float sx,float sy,float sz,float time);
-		static ScaleToAciton* create(float sx,float sy,float time)
+		static ScaleToAction* create(float sx,float sy,float sz,float time);
+		static ScaleToAction* create(float sx,float sy,float time)
 		{
-			return create(sx,sy,1,time);
+			return ScaleToAction::create(sx,sy,1,time);
 		}
 	public:
 		virtual bool run(StageElement* target,float dt);
 		virtual const char* className();
 
 	protected:
-		ScaleToAciton(float sx,float sy,float sz,float time);
+		ScaleToAction(float sx,float sy,float sz,float time);
 
 	private:
 		float m_elapse;

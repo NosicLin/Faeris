@@ -1,0 +1,20 @@
+#ifndef _FS_LUA_ACTION_H_
+#define _FS_LUA_ACTION_H_
+
+#include "action/FsAction.h"
+
+class LuaAction:public Action 
+{
+	public:
+		LuaAction* create();
+	public:
+		virtual void 
+		virtual const char* className();
+
+
+}
+
+
+
+#endif /*_FS_LUA_ACTION_H_*/
+

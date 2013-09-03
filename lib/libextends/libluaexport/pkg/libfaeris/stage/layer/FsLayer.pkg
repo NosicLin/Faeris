@@ -1,6 +1,6 @@
 $#include "stage/layer/FsLayer.h"
 
-class Layer@__layer:public FsObject
+class Layer@__layer:public StageElement
 {
 	public:
 		/* visible */

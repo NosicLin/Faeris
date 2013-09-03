@@ -20,6 +20,10 @@ $pfile "stage/entity/FsLabelTTF.pkg"
 $pfile "stage/entity/FsSprite2D.pkg"
 $pfile "stage/entity/FsLabelBitmap.pkg"
 
+/* stage */
+$pfile "stage/FsStageElement.pkg"
+
+
 
 /* scheduler */
 $pfile "scheduler/FsScheduler.pkg"

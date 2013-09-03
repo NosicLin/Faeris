@@ -17,7 +17,11 @@ class ParticleEmitter:public FsObject
 	public:
 		enum{
 			MOVE_FREE,
+<<<<<<< HEAD
 			MOVE_GROUP,
+=======
+			MOVE_FOLLOW,
+>>>>>>> 08eb8011da0b7c263cd0f546f3d1b694b977570a
 		};
 
 		enum
@@ -501,12 +505,10 @@ class ParticleEmitter:public FsObject
 		float m_endRadiusVar;
 		float m_rotateSpeed;
 		float m_rotateSpeedVar;
-
 };
 
 
 NS_FS_END 
-
-
 #endif /*_FS_PARTICLE_EMITTER_H_*/
+
 

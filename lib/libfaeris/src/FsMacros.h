@@ -297,10 +297,10 @@ enum
 
 
 /* action */
-#define FS_SCALE_TO_ACTION_CLASS_NAME "ScaleToAciton" 
+#define FS_SCALE_TO_ACTION_CLASS_NAME "ScaleToAction" 
 #define FS_SCALE_BY_ACTION_CLASS_NAME "ScaleByAction"
 #define FS_MOVE_TO_ACTION_CLASS_NAME "MoveToAction"
-#define FS_MOVE_BY_ACTION_CLASS_NAME "MoveByAtion"
+#define FS_MOVE_BY_ACTION_CLASS_NAME "MoveByAction"
 #define FS_ROTATE_Z_TO_ACTION_CLASS_NAME "RotateZToAction"
 #define FS_ROTATE_Z_BY_ACTION_CLASS_NAME "RotateZByAction"
 #define FS_ACTION_CLASS_NAME "Action"

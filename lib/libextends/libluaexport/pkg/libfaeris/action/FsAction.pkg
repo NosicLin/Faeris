@@ -1,6 +1,15 @@
 $#include "action/FsAction.h"
+$#include "Luaext/FsLuaAction.h"
 
-class Action:public FsObject 
+
+class Action@__Action:public FsObject 
 {
 };
+
+class LuaAction@Action:public Action 
+{
+	public:
+		static LuaAction* create();
+};
+
 

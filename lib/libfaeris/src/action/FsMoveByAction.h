@@ -1,10 +1,12 @@
 #ifndef _FS_MOVE_BY_ACTION_H_
 #define _FS_MOVE_BY_ACTION_H_
 
+#include "FsMacros.h"
 #include "action/FsAction.h"
 #include "math/FsVector3.h"
 
 NS_FS_BEGIN
+
 class MoveByAction:public Action
 {
 	public:
