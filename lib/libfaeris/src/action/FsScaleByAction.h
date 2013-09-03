@@ -1,0 +1,30 @@
+#include "action/FsAction.h"
+#include "math/FsVector3.h"
+
+NS_FS_BEGIN
+class ScaleByAction:public Action 
+{
+	public:
+		static ScaleByAction* create(float sx,float sy,float sz,float time);
+		static ScaleByAction* create(float sx,float sy,float time)
+		{
+			create(sx,sy,time);
+		}
+
+	public:
+		virtual bool run(StageElement* target,float dt);
+		virtual const char* className();
+
+	protected:
+		ScaleByAction(float sx,float sy,float sz,float time);
+
+	private:
+		float m_elapse;
+		float m_lifeTime;
+		Vector3 m_stepScale;
+};
+
+
+
+NS_FS_END
+

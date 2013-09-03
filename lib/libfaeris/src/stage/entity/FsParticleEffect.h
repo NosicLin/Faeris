@@ -6,9 +6,8 @@
 
 NS_FS_BEGIN
 
-
-
 class ParticleEmitter;
+
 
 class Particle 
 {
@@ -45,6 +44,7 @@ class Particle
 		}m_radialMode;
 
 };
+
 class ParticleEffect:public Entity 
 {
 	public:
@@ -54,10 +54,28 @@ class ParticleEffect:public Entity
 
 	public:
 
-};
 
+};
 
 
 NS_FS_END
 
+
 #endif /*_FS_PARTICLE_EFFECT_H_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

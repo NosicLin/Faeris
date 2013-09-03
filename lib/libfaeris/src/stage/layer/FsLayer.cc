@@ -100,6 +100,12 @@ Layer::~Layer()
 
 void Layer::update(float dt)
 {
+	updateAction(dt);
+	updateEntity(dt);
+}
+
+void Layer::updateEntity(float dt)
+{
 	FsDict::Iterator iter(m_ownerEntity);
 	while(!iter.done())
 	{

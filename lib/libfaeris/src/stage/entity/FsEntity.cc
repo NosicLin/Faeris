@@ -24,8 +24,9 @@ Entity::~Entity()
 	destroy();
 }
 
-void Entity::update(float /*dt*/)
+void Entity::update(float dt)
 {
+	updateAction(dt);
 }
 
 void Entity::draw(Render* r,bool updateMatrix)

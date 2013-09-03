@@ -226,6 +226,11 @@ enum
 
 /* class name */
 
+
+/* stage */
+#define FS_STAGE_ELEMENT_CLASS_NAME "StageElement"
+
+
 /* entity */
 #define FS_ENTITY_CLASS_NAME "Entity"
 #define FS_COLOR_QUAD2D_CLASS_NAME "ColorQuad2D"
@@ -291,6 +296,16 @@ enum
 #define FS_SPRITE_2D_DATA_MGR_CLASS_NAME "Sprite2DDataMgr"
 
 
+/* action */
+#define FS_SCALE_TO_ACTION_CLASS_NAME "ScaleToAciton" 
+#define FS_SCALE_BY_ACTION_CLASS_NAME "ScaleByAction"
+#define FS_MOVE_TO_ACTION_CLASS_NAME "MoveToAction"
+#define FS_MOVE_BY_ACTION_CLASS_NAME "MoveByAtion"
+#define FS_ROTATE_Z_TO_ACTION_CLASS_NAME "RotateZToAction"
+#define FS_ROTATE_Z_BY_ACTION_CLASS_NAME "RotateZByAction"
+#define FS_ACTION_CLASS_NAME "Action"
+#define FS_PAUSE_ACTION_CLASS_NAME "PauseAction"
+#define FS_SEQ_ACTION_CLASS_NAME "SeqAction"
 
 /* io */
 #define FS_FILE_CLASS_NAME "FsFile"

@@ -11,13 +11,15 @@ class FsFile;
 class Texture2D;
 class Particle;
 
+
 class ParticleEmitter:public FsObject 
 {
 	public:
 		enum{
-			FREE_MOVE,
-			FOLLOW_MOVE,
+			MOVE_FREE,
+			MOVE_GROUP,
 		};
+
 		enum
 		{
 			ENV_GRAVITY,
@@ -38,14 +40,17 @@ class ParticleEmitter:public FsObject
 		{
 			m_durationTime=time;
 		}
+
 		float getDurationTime()
 		{
 			return m_durationTime;
 		}
+
 		void setDurationTimeVar(float time)
 		{
 			m_durationTimeVar=time;
 		}
+
 		float getDurationTimeVar()
 		{
 			return m_durationTimeVar;
@@ -68,6 +73,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_emitSpeed=speed;
 		}
+
 		int getEmitSpeed()
 		{
 			return m_emitSpeed;
@@ -80,6 +86,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_lifeTime=time;
 		}
+
 		float getLifeTime()
 		{
 			return m_lifeTime;
@@ -89,6 +96,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_lifeTimeVar=time;
 		}
+
 		float getLifeTimeVar()
 		{
 			return m_lifeTimeVar;
@@ -226,26 +234,25 @@ class ParticleEmitter:public FsObject
 		}
 
 		/* position */
-		void setPosition(float x,float y)
+		void setPosition(const Vector2f& pos)
 		{
-			m_positionX=x;
-			m_positionY=y;
-		}
-		void getPosition(float* x,float* y)
-		{
-			*x=m_positionX;
-			*y=m_positionY;
+			m_position=pos;
 		}
 
-		void setPositionVar(float x,float y)
+		Vector2f getPosition()
 		{
-			m_positionXVar=x;
-			m_positionYVar=y;
+			return m_position;
 		}
-		void getPositionVar(float* x,float* y)
+
+
+		void setPositionVar(const Vector2f& pos)
 		{
-			*x=m_positionXVar;
-			*y=m_positionYVar;
+			m_positionVar=pos;
+		}
+
+		Vector2f getPositionVar()
+		{
+			return m_positionVar;
 		}
 
 		/* move mode */
@@ -317,15 +324,15 @@ class ParticleEmitter:public FsObject
 		{
 			return m_speedVar;
 		}
-		void setGravity(float x,float y)
+
+		void setGravity(const Vector2f& g)
 		{
-			m_gravityX=x;
-			m_gravityY=y;
+			m_gravity=g;
 		}
-		void getGravity(float* x,float* y)
+
+		Vector2f getGravity()
 		{
-			*x=m_gravityX;
-			*y=m_gravityY;
+			return m_gravity;
 		}
 
 		void setRadialAcceleration(float accel)
@@ -387,6 +394,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_endRadius=radius;
 		}
+
 		float getEndRadius()
 		{
 			return m_endRadius;
@@ -396,6 +404,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_endRadiusVar=radius;
 		}
+
 		float getEndRadiusVar()
 		{
 			return m_endRadiusVar;
@@ -405,14 +414,17 @@ class ParticleEmitter:public FsObject
 		{
 			m_rotateSpeed=speed;
 		}
+
 		float getRotateSpeed()
 		{
 			return m_rotateSpeed;
 		}
+
 		void setRotateSpeedVar(float speed)
 		{
 			m_rotateSpeedVar=speed;
 		}
+
 		float getRotateSpeedVar()
 		{
 			return m_rotateSpeedVar;

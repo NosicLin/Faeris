@@ -1,7 +1,7 @@
 #ifndef _FS_LAYER_H_
 #define _FS_LAYER_H_
 
-#include "FsObject.h"
+#include "stage/FsStageElement.h"
 #include "math/FsRect2D.h"
 
 NS_FS_BEGIN
@@ -12,7 +12,7 @@ class FsDict;
 class Vector2;
 class TouchEvent;
 class Scene;
-class Layer:public FsObject
+class Layer:public StageElement
 {
 	public:
 		/* visible */
@@ -66,6 +66,8 @@ class Layer:public FsObject
 		/* inherit FsObject */
 		virtual const char* className();
 
+	public:
+		void updateEntity(float dt);
 
 	protected:
 		Layer();

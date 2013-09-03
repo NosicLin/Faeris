@@ -3,7 +3,7 @@
 
 
 #include "FsMacros.h"
-#include "FsObject.h"
+#include "stage/FsStageElement.h"
 #include "math/FsVector3.h"
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
@@ -13,7 +13,7 @@
 NS_FS_BEGIN
 class Render;
 class Layer;
-class Entity :public FsObject
+class Entity :public StageElement
 {
 	public:
 		Entity* create();
