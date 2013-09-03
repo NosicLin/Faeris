@@ -1,5 +1,8 @@
-#include "FsScaleByAction.h"
+#include "action/FsScaleByAction.h"
+#include "stage/entity/FsEntity.h"
 
+
+NS_FS_BEGIN
 
 const char* ScaleByAction::className()
 {
@@ -8,7 +11,7 @@ const char* ScaleByAction::className()
 
 ScaleByAction* ScaleByAction::create(float sx,float sy,float sz,float time)
 {
-	return ScaleByAction(sx,sy,sz,time);
+	return new ScaleByAction(sx,sy,sz,time);
 }
 
 
@@ -46,3 +49,5 @@ ScaleByAction::ScaleByAction(float sx,float sy,float sz,float time)
 }
 
 
+
+NS_FS_END

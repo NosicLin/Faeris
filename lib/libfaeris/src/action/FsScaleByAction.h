@@ -8,7 +8,7 @@ class ScaleByAction:public Action
 		static ScaleByAction* create(float sx,float sy,float sz,float time);
 		static ScaleByAction* create(float sx,float sy,float time)
 		{
-			create(sx,sy,time);
+			return ScaleByAction::create(sx,sy,1,time);
 		}
 
 	public:

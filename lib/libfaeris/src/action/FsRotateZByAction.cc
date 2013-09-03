@@ -1,4 +1,6 @@
-#include "FsRotateByAction.h"
+#include "FsRotateZByAction.h"
+#include "stage/entity/FsEntity.h"
+
 
 NS_FS_BEGIN
 const char* RotateZByAction::className()

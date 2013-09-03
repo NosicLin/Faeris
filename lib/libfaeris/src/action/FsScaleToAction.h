@@ -8,7 +8,7 @@ class ScaleToAciton:public Action
 		static ScaleToAciton* create(float sx,float sy,float sz,float time);
 		static ScaleToAciton* create(float sx,float sy,float time)
 		{
-			return create(sx,fy,1,time);
+			return create(sx,sy,1,time);
 		}
 	public:
 		virtual bool run(StageElement* target,float dt);

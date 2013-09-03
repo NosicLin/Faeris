@@ -1,4 +1,5 @@
-#include "action/FsRotateToAction.h"
+#include "action/FsRotateZToAction.h"
+#include "stage/entity/FsEntity.h"
 
 NS_FS_BEGIN
 

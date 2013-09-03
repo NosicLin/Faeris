@@ -1,0 +1,10 @@
+$#include "action/FsScaleToAction.h"
+
+class ScaleToAciton:public Action 
+{
+	public:
+		static ScaleToAciton* create(float sx,float sy,float sz,float time);
+		static ScaleToAciton* create(float sx,float sy,float time);
+};
+
+

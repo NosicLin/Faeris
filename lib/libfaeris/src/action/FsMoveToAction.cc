@@ -1,4 +1,6 @@
-#include "stage/FsMoveToAction.h"
+#include "action/FsMoveToAction.h"
+#include "stage/entity/FsEntity.h"
+
 NS_FS_BEGIN
 
 const char* MoveToAction::className()

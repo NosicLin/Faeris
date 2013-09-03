@@ -1,0 +1,6 @@
+$#include "action/FsAction.h"
+
+class Action:public FsObject 
+{
+};
+

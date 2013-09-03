@@ -22,6 +22,11 @@ class StageElement:public FsObject
 		void updateAction(float dt);
 
 	protected:
+		StageElement();
+		virtual ~StageElement();
+
+
+	protected:
 		FsSlowArray* m_actions;
 };
 NS_FS_END

@@ -1,4 +1,5 @@
 #include "action/FsMoveByAction.h"
+#include "stage/entity/FsEntity.h"
 
 NS_FS_BEGIN
 

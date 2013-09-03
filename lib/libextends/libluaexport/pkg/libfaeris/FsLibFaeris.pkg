@@ -69,7 +69,16 @@ $pfile "mgr/FsResourceMgr.pkg"
 $pfile "mgr/FsResource.pkg"
 
 
-
+/* action */
+$pfile "action/FsAction.pkg"
+$pfile "action/FsMoveByAction.pkg"
+$pfile "action/FsMoveToAction.pkg"
+$pfile "action/FsPauseAction.pkg"
+$pfile "action/FsRotateZByAction.pkg"
+$pfile "action/FsRotateZToAction.pkg"
+$pfile "action/FsScaleByAction.pkg"
+$pfile "action/FsScaleToAction.pkg"
+$pfile "action/FsSeqAction.pkg"
 
 
 /* media */

@@ -1,0 +1,13 @@
+$#include "action/FsSeqAction.h"
+
+class SeqAction:public Action 
+{
+	public:
+		static SeqAction* create();
+
+	public:
+		void addAction(Action* action);
+		void removeAction(Action* action);
+		void clearAction();
+};
+

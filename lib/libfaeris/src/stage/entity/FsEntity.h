@@ -103,12 +103,14 @@ class Entity :public StageElement
 		void setRotateY(float r);
 		void setRotateZ(float r);
 
+		void setScale(const Vector3& s);
 		void setScale(float sx,float sy,float sz);
 		void setScaleX(float s);
 		void setScaleY(float s);
 		void setScaleZ(float s);
 
 		void setPosition(float tx,float ty,float tz);
+		void setPosition(const Vector3& pos);
 		void setPositionX(float t);
 		void setPositionY(float t);
 		void setPositionZ(float t);

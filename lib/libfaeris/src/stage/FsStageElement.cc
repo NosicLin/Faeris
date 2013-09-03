@@ -54,6 +54,16 @@ void StageElement::updateAction(float dt)
 }
 
 
+StageElement::StageElement()
+{
+	m_actions=FsSlowArray::create();
+}
+
+StageElement::~StageElement()
+{
+	FS_SAFE_DEC_REF(m_actions);
+}
+
 
 
 

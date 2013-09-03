@@ -32,6 +32,11 @@ class Vector3
 		bool equal(const Vector3& v) const;
 		void set(float _x,float _y,float _z);
 
+		Vector3 operator+(const Vector3& v)const;
+		Vector3 operator-(const Vector3& v)const;
+		Vector3 operator/ (float v)const;
+		Vector3 operator* (float v)const;
+
 
 };
 #include "FsVector3.inl"

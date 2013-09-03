@@ -1,4 +1,6 @@
 #include "action/FsSeqAction.h"
+#include "stage/entity/FsEntity.h"
+
 
 NS_FS_BEGIN
 
@@ -12,6 +14,12 @@ SeqAction::SeqAction()
 	m_actions=NULL;
 }
 
+SeqAction* SeqAction::create()
+{
+	SeqAction* ret=new SeqAction;
+	ret->init();
+	return ret;
+}
 
 SeqAction::~SeqAction()
 {
@@ -21,9 +29,10 @@ SeqAction::~SeqAction()
 bool SeqAction::init()
 {
 	m_actions=FsArray::create();
+	return true;
 }
 
-bool SeqAction::destory()
+void SeqAction::destory()
 {
 	FS_SAFE_DEC_REF(m_actions);
 }
@@ -54,7 +63,7 @@ bool SeqAction::run(StageElement* target,float dt)
 
 	bool finish=false;
 
-	Action* cur=m_actions->get(0);
+	Action* cur=(Action*)m_actions->get(0);
 	finish=cur->run(target,dt);
 	if(finish)
 	{

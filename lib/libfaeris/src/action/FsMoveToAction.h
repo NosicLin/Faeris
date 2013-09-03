@@ -9,7 +9,17 @@ NS_FS_BEGIN
 class MoveToAction:public Action 
 {
 	public: 
-		MoveToAction* create(const Vector3& pos,float time);
+		static MoveToAction* create(float sx,float sy,float sz,float time)
+		{
+			return MoveToAction::create(Vector3(sx,sy,sz),time);
+		}
+		static MoveToAction* create(float sx,float sy,float time)
+		{
+			return MoveToAction::create(Vector3(sx,sy,0),time);
+		}
+		
+		static MoveToAction* create(const Vector3& pos,float time);
+
 
 	public:
 		virtual bool run(StageElement* target,float dt);

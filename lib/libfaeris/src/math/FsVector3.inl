@@ -102,4 +102,46 @@ inline void Vector3::set(float _x,float _y,float _z)
 	z=_z;
 }
 
+inline Vector3 Vector3::operator+(const Vector3& v)const
+{
+	return this->add(v);
+}
+
+
+inline Vector3 Vector3::operator-(const Vector3& v)const
+{
+	return this->sub(v);
+}
+
+
+inline Vector3 Vector3::operator/(float v)const
+{
+	return this->scale(1/v);
+}
+
+
+inline Vector3 Vector3::operator*(float v)const
+{
+	return this->scale(v);
+}
+
+
+
+
+
+
 #endif 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

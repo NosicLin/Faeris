@@ -1,5 +1,6 @@
 #include "action/FsScaleToAction.h"
 
+#include "stage/entity/FsEntity.h"
 NS_FS_BEGIN
 
 const char* ScaleToAciton::className()
@@ -8,14 +9,14 @@ const char* ScaleToAciton::className()
 }
 
 ScaleToAciton* ScaleToAciton::create(float sx,float sy,float sz,float time)
-k
-	return new ScaleToAciton(sx,fy,fz,time);
+{
+	return new ScaleToAciton(sx,sy,sz,time);
 }
 
 bool ScaleToAciton::run(StageElement* target,float dt)
 {
 	float old_dt=dt;
-	float(m_elapse>=m_lifeTime)
+	if(m_elapse>=m_lifeTime)
 	{
 		return true;
 	}
@@ -40,7 +41,7 @@ bool ScaleToAciton::run(StageElement* target,float dt)
 	return false;
 }
 
-ScaleToAciton::ScaleToAciton()
+ScaleToAciton::ScaleToAciton(float sx,float sy,float sz,float time)
 {
 	m_targetScale=Vector3(sx,sy,sz);
 	m_elapse=0;

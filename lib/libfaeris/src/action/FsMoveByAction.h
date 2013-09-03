@@ -8,7 +8,15 @@ NS_FS_BEGIN
 class MoveByAction:public Action
 {
 	public:
-		MoveByAction* create(const Vector3& pos,float time);
+		static MoveByAction* create(float x,float y,float z,float time)
+		{
+			return MoveByAction::create(Vector3(x,y,z),time);
+		}
+		static MoveByAction* create(float x,float y,float time)
+		{
+			return MoveByAction::create(Vector3(x,y,0),time);
+		}
+		static MoveByAction* create(const Vector3& pos,float time);
 
 	public:
 		virtual bool run(StageElement* target,float dt);
@@ -20,7 +28,7 @@ class MoveByAction:public Action
 	private:
 		float m_lifeTime;
 		float m_elapse;
-		Vector3& m_stepPos;
+		Vector3 m_stepPos;
 };
 
 

@@ -5,6 +5,7 @@
 
 
 NS_FS_BEGIN
+class FsArray;
 class SeqAction:public Action 
 {
 	public:
