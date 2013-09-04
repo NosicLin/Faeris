@@ -47,17 +47,17 @@ class Fs_V2F_T2F_C4F
 {
 	public:
 		Fs_V2F_T2F_C4F(){}
-		Fs_V2F_T2F_C4F(cosnt Vector2& v,const TexCoord2& t,const Color4f& c)
+		Fs_V2F_T2F_C4F(const Vector2& v,const TexCoord2& t,const Color4f& c)
 		{
-			v3=v;
+			v2=v;
 			t2=t;
 			c4=c;
 		}
 
 	public:
-		Vector2=v;
-		TexCoord2=t;
-		Color4f=c;
+		Vector2 v2;
+		TexCoord2 t2;
+		Color4f c4;
 };
 
 

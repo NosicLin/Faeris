@@ -2,7 +2,7 @@
 #define _FS_SCENE_H_
 
 #include "FsMacros.h"
-#include "FsObject.h"
+#include "stage/FsStageElement.h"
 
 
 
@@ -12,7 +12,7 @@ class Layer;
 class FsSlowArray;
 class Vector2;
 class TouchEvent;
-class Scene:public FsObject
+class Scene:public StageElement
 {
 	public:
 		static Scene* create();
@@ -54,6 +54,9 @@ class Scene:public FsObject
 
 		/*  inherit FsObject */
 		virtual const char* className();
+	public:
+		void updateLayers(float dt);
+
 	protected:
 		Scene();
 		~Scene();

@@ -5,7 +5,9 @@
 #include "stage/entity/FsEntity.h"
 
 NS_FS_BEGIN
+
 class ParticleEmitter;
+
 
 class Particle 
 {
@@ -101,12 +103,13 @@ class ParticleEffect:public Entity
 		bool m_autoRemove;
 
 		FsMat_V4F_T2F_C4F* m_material;
+
 };
+
 
 NS_FS_END
 
+
 #endif /*_FS_PARTICLE_EFFECT_H_*/
-
-
 
 

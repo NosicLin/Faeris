@@ -108,6 +108,12 @@ inline void Entity::setRotateZ(float r)
 	m_worldMatrixDirty=1;
 }
 
+inline void Entity::setScale(const Vector3& scale)
+{
+	m_scale=scale;
+	m_localMatrixDirty=1;
+	m_worldMatrixDirty=1;
+}
 inline void Entity::setScale(float sx,float sy,float sz)
 {
 	m_scale.set(sx,sy,sz);
@@ -133,6 +139,12 @@ inline void Entity::setScaleZ(float s)
 	m_worldMatrixDirty=1;
 }
 
+inline void Entity::setPosition(const Vector3& pos)
+{
+	m_translate=pos;
+	m_localMatrixDirty=1;
+	m_worldMatrixDirty=1;
+}
 inline void Entity::setPosition(float tx,float ty,float tz)
 {
 	m_translate.set(tx,ty,tz);

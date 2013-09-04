@@ -126,8 +126,14 @@ void Scene::exit()
 {
 	/* do nothing */
 }
-
 void Scene::update(float dt)
+{
+	updateAction(dt);
+	updateLayers(dt);
+}
+
+
+void Scene::updateLayers(float dt)
 {
 	m_layers->lock();
 	int layer_nu=m_layers->size();
@@ -143,6 +149,7 @@ void Scene::update(float dt)
 	m_layers->unlock();
 	m_layers->flush();
 }
+
 void Scene::draw(Render* render)
 {
 	m_layers->lock();

@@ -23,6 +23,7 @@
 
 #define FS_LUA_HTTP_REQUEST_CLASS_NAME  		"LuaHttpRequest"
 
+#define FS_LUA_ACTION_CLASS_NAME    		    "LuaAction"
 
 
 

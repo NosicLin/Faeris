@@ -368,6 +368,7 @@ bool ParticleEmitter::init(FsFile* file)
 			ScriptUtil::getFloat(radial,"rotateSpeedVar",&m_rotateSpeedVar);
 		}
 		FS_SAFE_DEC_REF(radial);
+
 	}
 	return true;
 

@@ -175,6 +175,14 @@
 				Name="luaext"
 				>
 				<File
+					RelativePath="..\src\luaext\FsLuaAction.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\luaext\FsLuaAction.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\luaext\FsLuaEntity.h"
 					>
 				</File>

@@ -1,0 +1,12 @@
+$#include "action/FsScaleByAction.h"
+
+class ScaleByAction:public Action 
+{
+	public:
+		static ScaleByAction* create(float sx,float sy,float sz,float time);
+		static ScaleByAction* create(float sx,float sy,float time);
+};
+
+
+
+

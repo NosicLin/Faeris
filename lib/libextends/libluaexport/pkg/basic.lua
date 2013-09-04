@@ -42,6 +42,9 @@ local fsobject= {
 	"ColorLayer",
 	"LuaColorLayer",
 
+	--stage 
+	"StageElement",
+
 
 	--entity 
 	"Entity",
@@ -89,6 +92,18 @@ local fsobject= {
 	--extend 
 	"SpineSprite",
 	"LuaSpineSprite",
+
+	--action 
+	"Action",
+	"MoveByAction",
+	"MoveToAction",
+	"RotateZByAction",
+	"RotateZToAction",
+	"ScaleByAction",
+	"ScaleToAction",
+	"SeqAction",
+	"PauseAction",
+	"LuaAction",
 	
 }
 

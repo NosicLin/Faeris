@@ -1,0 +1,10 @@
+$#include "action/FsRotateZToAction.h"
+
+class RotateZToAction:public Action 
+{
+	public:
+		static RotateZToAction* create(float angle,float time);
+};
+
+
+

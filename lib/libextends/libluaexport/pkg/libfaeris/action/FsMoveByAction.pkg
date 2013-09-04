@@ -1,0 +1,11 @@
+$#include "action/FsMoveByAction.h"
+
+class MoveByAction:public Action
+{
+	public:
+		static MoveByAction* create(float x,float y,float z,float time);
+		static MoveByAction* create(float x,float y,float time);
+		static MoveByAction* create(const Vector3& pos,float time);
+};
+
+
