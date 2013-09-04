@@ -27,7 +27,7 @@ bool PauseAction::run(StageElement* target,float dt)
 PauseAction::PauseAction(float time)
 {
 	m_elapse=0;
-	m_lifeTime=0;
+	m_lifeTime=time;
 }
 
 
