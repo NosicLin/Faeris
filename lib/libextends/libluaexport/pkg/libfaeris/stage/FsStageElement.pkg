@@ -7,6 +7,10 @@ class StageElement:public FsObject
 		void removeAction(Action* action);
 		void clearAction(Action* action);
 
+		void stopAction();
+		bool isActionStop();
+		void resumeAction();
+
 	public:
 		void updateAction(float dt);
 };

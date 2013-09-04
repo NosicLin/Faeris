@@ -57,7 +57,7 @@ void Sprite2D::updateAnimation(float dt)
 	}
 
 	int fps=m_curFps;
-	float frame_time=1000.0f/(float)fps;
+	float frame_time=1.0f/(float)fps;
 	int total_frame=m_curAnimation->getKeyFrameNu();
 
 
@@ -142,6 +142,7 @@ int Sprite2D::getTotalFrame()
 
 void Sprite2D::update(float dt)
 {
+	updateAction(dt);
 	updateAnimation(dt);
 }
 

@@ -14,6 +14,10 @@ class StageElement:public FsObject
 		void removeAction(Action* action);
 		void clearAction(Action* action);
 
+		void stopAction();
+		bool isActionStop();
+		void resumeAction();
+
 	public:
 		virtual void update(float dt);
 		virtual const char* className();
@@ -28,6 +32,7 @@ class StageElement:public FsObject
 
 	protected:
 		FsSlowArray* m_actions;
+		bool m_stop;
 };
 NS_FS_END
 

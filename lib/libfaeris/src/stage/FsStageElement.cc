@@ -30,9 +30,28 @@ void StageElement::update(float dt)
 {
 	updateAction(dt);
 }
+void StageElement::stopAction()
+{
+	m_stop=true;
+}
+bool StageElement::isActionStop()
+{
+	return m_stop;
+}
+void StageElement::resumeAction()
+{
+	m_stop=false;
+}
+
+
 
 void StageElement::updateAction(float dt)
 {
+	if(m_stop)
+	{
+		return;
+	}
+
 	m_actions->lock();
 
 	int action_nu=m_actions->size();
@@ -57,6 +76,7 @@ void StageElement::updateAction(float dt)
 StageElement::StageElement()
 {
 	m_actions=FsSlowArray::create();
+	m_stop=false;
 }
 
 StageElement::~StageElement()
