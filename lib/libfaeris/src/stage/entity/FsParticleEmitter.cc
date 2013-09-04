@@ -314,7 +314,7 @@ bool ParticleEmitter::init(FsFile* file)
 		FsString* url=ScriptUtil::getString(texture,"url");
 		if(url)
 		{
-			Texture2D* t=Global::textureMgr()->loadTexture(url.cstr());
+			Texture2D* t=Global::textureMgr()->loadTexture(url->cstr());
 			m_texture=t;
 		}
 		FS_SAFE_DEC_REF(url);

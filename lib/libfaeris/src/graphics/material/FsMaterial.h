@@ -24,6 +24,7 @@ class Material:public FsObject
 
 		virtual ~Material();
 		virtual const char* className();
+
 	public:
 		/* blend */
 		void setBlend(int equation,int src,int dst)

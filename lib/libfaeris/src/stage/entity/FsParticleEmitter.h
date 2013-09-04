@@ -138,6 +138,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_startColor=c;
 		}
+
 		Color getStartColor()
 		{
 			return m_startColor;
@@ -147,19 +148,22 @@ class ParticleEmitter:public FsObject
 		{
 			m_startColorVar=c;
 		}
+
 		Color getStartColorVar()
 		{
 			return m_startSizeVar;
-
 		}
+
 		void setEndColor(Color c)
 		{
 			m_endColor=c;
 		}
+
 		Color getEndColor()
 		{
 			return m_endColor;
 		}
+
 		void setEndColorVar(Color c)
 		{
 			m_endColorVar=c;
@@ -273,10 +277,12 @@ class ParticleEmitter:public FsObject
 		{
 			m_blendDst=blend;
 		}
+
 		int getBlendDst()
 		{
 			return m_blendDst;
 		}
+
 		void setTexture(Texture2D* texture)
 		{
 			FS_SAFE_ASSIGN(m_texture,texture);
@@ -490,7 +496,6 @@ class ParticleEmitter:public FsObject
 		float m_rotateSpeed;
 		float m_rotateSpeedVar;
 };
-
 
 NS_FS_END 
 #endif /*_FS_PARTICLE_EMITTER_H_*/

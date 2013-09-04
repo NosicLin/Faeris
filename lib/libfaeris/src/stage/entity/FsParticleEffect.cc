@@ -255,7 +255,7 @@ void ParticleEffect::generateParticle(float dt)
 	int particle_size=m_particles.size();
 	if(generate_nu+particle_size>m_maxParticles)
 	{
-		generate_nu=m_maxParticles=particle_size;
+		generate_nu=m_maxParticles-particle_size;
 	}
 
 	m_particles.resize(particle_size+generate_nu);

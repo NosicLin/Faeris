@@ -5,9 +5,6 @@
 #include "stage/entity/FsEntity.h"
 
 NS_FS_BEGIN
-
-
-
 class ParticleEmitter;
 
 class Particle 
@@ -50,12 +47,13 @@ class Particle
 			float m_radiusDt;
 			float m_angleDt;
 		}m_radialMode;
-
 };
+
 
 class ParticleEffect:public Entity 
 {
 	public:
+
 		ParticleEffect* create(const char* filename);
 		ParticleEffect* create(FsFile* file);
 		ParticleEffect* create(ParticleEmitter* emitter);
@@ -100,13 +98,10 @@ class ParticleEffect:public Entity
 
 		bool m_stop;
 		bool m_pause;
-
 		bool m_autoRemove;
+
 		FsMat_V4F_T2F_C4F* m_material;
-
 };
-
-
 
 NS_FS_END
 
