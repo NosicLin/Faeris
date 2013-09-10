@@ -7,7 +7,7 @@
 NS_FS_BEGIN
 
 class ParticleEmitter;
-
+class FsMat_V4F_T2F_C4F;
 
 class Particle 
 {
@@ -23,8 +23,8 @@ class Particle
 		float m_rotation;
 		float m_rotationDt;
 
-		Vector2f m_position;
-		Vector2f m_startPos;
+		Vector2 m_position;
+		Vector2 m_startPos;
 		
 
 		int m_envMode;
@@ -34,7 +34,7 @@ class Particle
 		struct 
 		{
 
-			Vector2f m_gravity;
+			Vector2 m_gravity;
 			float m_speed;
 			float m_radialAcceleration;
 			float m_tangentialAcceleration;
@@ -85,7 +85,7 @@ class ParticleEffect:public Entity
 		virtual void generateParticle(float dt);
 		ParticleEffect();
 		~ParticleEffect();
-		bool init(Emitter* emitter);
+		bool init(ParticleEmitter* emitter);
 		void destory();
 
 

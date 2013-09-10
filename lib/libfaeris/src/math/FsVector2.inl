@@ -63,10 +63,28 @@ inline bool Vector2::equal(const Vector2& v) const
 	return Math::floatEqual(x,v.x)&&Math::floatEqual(y,v.y);
 }
 
+
+/* operator */
+
+inline Vector2 Vector2::operator+(const Vector2& v) const 
+{
+	return this->add(v);
+}
+
+inline Vector2 Vector2::operator-(const Vector2& v) const 
+{
+	return this->sub(v);
+}
+
+inline Vector2 Vector2::operator/(float v) const 
+{
+	return this->scale(1.0f/v);
+}
+
+inline Vector2 Vector2::operator*(float v) const 
+{
+	return this->scale(v);
+}
+
 #endif
-
-
-
-
-
 

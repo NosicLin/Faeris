@@ -11,17 +11,17 @@
 
 NS_FS_BEGIN
 
-
-
 const char* HttpEngine::className()
 {
-	return "HttpEngine";
+	return FS_HTTP_ENGINE_CLASS_NAME;
 }
 
 HttpEngine* HttpEngine::create()
 {
 	HttpEngine* ret=new HttpEngine;
+	//FS_TRACE_WARN("begin start http engine");
 	ret->start();
+	//FS_TRACE_WARN("end start http engine");
 	return ret;
 }
 

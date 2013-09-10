@@ -25,6 +25,7 @@ LOCAL_SRC_FILES :=  ../src/toluaext++.cc \
 					../src/luaext/FsLuaTouchEventListener.cc \
 					../src/luaext/FsLuaHttpRequest.cc \
 					../src/luaext/FsLuaSchedulerTarget.cc \
+					../src/luaext/FsLuaAction.cc \
 					../src/FsLuaEngine.cc \
 					../src/luaexport/FsLibFaerisExport.cc \
 					../src/luaexport/FsLibLuaScript.cc \

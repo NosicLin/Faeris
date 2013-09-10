@@ -9,6 +9,8 @@ class Scene@__Scene:public StageElement
 		void remove(Layer* layer);
 
 		int layerNu();
+		int getLayerIndex(Layer* layer);
+
 		Layer* top();
 		Layer* getLayer(int index);
 };

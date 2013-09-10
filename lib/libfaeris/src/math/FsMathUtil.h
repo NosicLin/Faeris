@@ -62,6 +62,21 @@ inline float acosa(float angle)
 	return ::acosf(angleToRadian(angle));
 }
 
+inline float clampf(float value,float min,float max)
+{
+	if(value<min)
+	{
+		return min;
+	}
+	if(value>max)
+	{
+		return max;
+	}
+	return value;
+}
+
+
+
 
 
 template<typename T> T abs(T f){return f<0?-f:f;}

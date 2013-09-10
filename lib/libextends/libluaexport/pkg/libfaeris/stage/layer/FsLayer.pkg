@@ -11,9 +11,12 @@ class Layer@__layer:public StageElement
 		bool touchEnabled();
 		void setTouchEnabled(bool enable);
 
+		
+
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		void clearEntity();
 		Scene* getScene();
 
 		/* scissor */

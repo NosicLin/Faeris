@@ -22,6 +22,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/FsObject.cc \
 					../../src/FsFaerisModule.cc \
 					../../src/extends/FsScriptEngine.cc \
+					../../src/stage/FsStageElement.cc \
 					../../src/stage/entity/FsColorQuad2D.cc \
 					../../src/stage/entity/FsEntity.cc \
 					../../src/stage/entity/FsLabelTTF.cc \
@@ -111,6 +112,15 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/util/FsInteger.cc \
 					../../src/media/FsAudioEngine.cc \
 					../../src/media/FsAudioPlayer.cc \
+					../../src/action/FsAction.cc \
+					../../src/action/FsMoveByAction.cc \
+					../../src/action/FsMoveToAction.cc \
+					../../src/action/FsPauseAction.cc \
+					../../src/action/FsRotateZByAction.cc \
+					../../src/action/FsRotateZToAction.cc \
+					../../src/action/FsScaleByAction.cc \
+					../../src/action/FsScaleToAction.cc \
+					../../src/action/FsSeqAction.cc \
 
 
 

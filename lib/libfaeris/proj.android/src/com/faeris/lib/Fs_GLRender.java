@@ -16,7 +16,7 @@ public class Fs_GLRender implements GLSurfaceView.Renderer
 	{
 		m_now=System.currentTimeMillis() ;
 		float diff=m_now-m_last;
-		float sleep_time=Fs_Jni.onUpdate(diff);
+		float sleep_time=Fs_Jni.onUpdate(diff/1000.0f);
 		/*
 		if(sleep_time>0)
 		{

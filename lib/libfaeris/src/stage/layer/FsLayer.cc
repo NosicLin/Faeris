@@ -231,6 +231,8 @@ void Layer::init()
 {
 	m_entity=FsDict::create();
 	m_ownerEntity=FsDict::create();
+	assert(m_entity);
+	assert(m_ownerEntity);
 	m_visible=true;
 	m_touchEnabled=false;
 	m_scissorEnabled=false;

@@ -1,8 +1,12 @@
-#ifndef _FS_PARTICLE_EMITTER_H_
-#define _FS_PARTICLE_EMITTER_H_
+#ifndef _FS_PARTICLE_2D_EMITTER_H_
+#define _FS_PARTICLE_2D_EMITTER_H_
 
 #include "FsMacros.h"
 #include "FsObject.h"
+
+#include "graphics/FsColor.h"
+#include "graphics/FsTexture2D.h"
+#include "math/FsVector2.h"
 
 
 NS_FS_BEGIN
@@ -12,16 +16,12 @@ class Texture2D;
 class Particle;
 
 
-class ParticleEmitter:public FsObject 
+class Particle2DEmitter:public FsObject 
 {
 	public:
 		enum{
 			MOVE_FREE,
-<<<<<<< HEAD
 			MOVE_GROUP,
-=======
-			MOVE_FOLLOW,
->>>>>>> 08eb8011da0b7c263cd0f546f3d1b694b977570a
 		};
 
 		enum
@@ -31,9 +31,9 @@ class ParticleEmitter:public FsObject
 		};
 
 	public:
-		ParticleEmitter* create();
-		ParticleEmitter* create(const char* filename);
-		ParticleEmitter* create(FsFile* file);
+		Particle2DEmitter* create();
+		Particle2DEmitter* create(const char* filename);
+		Particle2DEmitter* create(FsFile* file);
 
 	public:
 
@@ -120,7 +120,8 @@ class ParticleEmitter:public FsObject
 		{
 			m_startSizeVar=size;
 		}
-		void getStartSizeVar()
+		
+		float getStartSizeVar()
 		{
 			return m_startSizeVar;
 		}
@@ -163,7 +164,7 @@ class ParticleEmitter:public FsObject
 
 		Color getStartColorVar()
 		{
-			return m_startSizeVar;
+			return m_startColorVar;
 		}
 
 		void setEndColor(Color c)
@@ -242,23 +243,23 @@ class ParticleEmitter:public FsObject
 		}
 
 		/* position */
-		void setPosition(const Vector2f& pos)
+		void setPosition(const Vector2& pos)
 		{
 			m_position=pos;
 		}
 
-		Vector2f getPosition()
+		Vector2 getPosition()
 		{
 			return m_position;
 		}
 
 
-		void setPositionVar(const Vector2f& pos)
+		void setPositionVar(const Vector2& pos)
 		{
 			m_positionVar=pos;
 		}
 
-		Vector2f getPositionVar()
+		Vector2 getPositionVar()
 		{
 			return m_positionVar;
 		}
@@ -335,12 +336,12 @@ class ParticleEmitter:public FsObject
 			return m_speedVar;
 		}
 
-		void setGravity(const Vector2f& g)
+		void setGravity(const Vector2& g)
 		{
 			m_gravity=g;
 		}
 
-		Vector2f getGravity()
+		Vector2 getGravity()
 		{
 			return m_gravity;
 		}
@@ -351,7 +352,7 @@ class ParticleEmitter:public FsObject
 		}
 		float getRadialAcceleration()
 		{
-			return m_radialAcceleration
+			return m_radialAcceleration;
 		}
 		void setRadialAccelerationVar(float accel)
 		{
@@ -366,7 +367,7 @@ class ParticleEmitter:public FsObject
 		{
 			m_tangentialAcceleration=accel;
 		}
-		void getTangentialAcceleration()
+		float getTangentialAcceleration()
 		{
 			return m_tangentialAcceleration;
 		}
@@ -374,30 +375,30 @@ class ParticleEmitter:public FsObject
 		{
 			m_tangentialAccelerationVar=accel;
 		}
-		void getTangentialAccelerationVar()
+		float getTangentialAccelerationVar()
 		{
 			return m_tangentialAccelerationVar;
 		}
 
 		/* radial mode */
-		void setBeginRadius(float radius)
+		void setStartRadius(float radius)
 		{
-			m_beginRadius=radius;
+			m_startRadius=radius;
 		}
 
-		float getBeginRadius()
+		float getStartRadius()
 		{
-			return m_beginRadius;
+			return m_startRadius;
 		}
 		
-		void setBeginRadiusVar(float radius)
+		void setStartRadiusVar(float radius)
 		{
-			m_beginRadiusVar=radius;
+			m_startRadiusVar=radius;
 		}
 
-		float getBeginRadiusVar()
+		float getStartRadiusVar()
 		{
-			return m_beginRadiusVar;
+			return m_startRadiusVar;
 		}
 
 		void setEndRadius(float radius)
@@ -447,8 +448,8 @@ class ParticleEmitter:public FsObject
 
 
 	protected:
-		ParticleEmitter();
-		virtual ~ParticleEmitter();
+		Particle2DEmitter();
+		virtual ~Particle2DEmitter();
 		virtual const char* className();
 
 		bool init();
@@ -481,8 +482,8 @@ class ParticleEmitter:public FsObject
 		float m_endRotation;
 		float m_endRotationVar;
 
-		Vector2f m_position;
-		Vector2f m_positionVar;
+		Vector2 m_position;
+		Vector2 m_positionVar;
 
 		int m_moveMode;
 
@@ -497,7 +498,7 @@ class ParticleEmitter:public FsObject
 		/* gravity mode */
 		float m_speed;
 		float m_speedVar;
-		Vector2f m_gravity;
+		Vector2 m_gravity;
 
 		float m_radialAcceleration;
 		float m_radialAccelerationVar;
@@ -505,8 +506,8 @@ class ParticleEmitter:public FsObject
 		float m_tangentialAccelerationVar;
 
 		/* radial mode */
-		float m_beginRadius;
-		float m_beginRadiusVar;
+		float m_startRadius;
+		float m_startRadiusVar;
 		float m_endRadius;
 		float m_endRadiusVar;
 		float m_rotateSpeed;

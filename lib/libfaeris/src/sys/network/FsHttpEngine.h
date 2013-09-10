@@ -16,7 +16,7 @@ HttpReponse* FsHttp_HandleGet(HttpRequest* request,int max_connect_time,int max_
 
 
 
-class HttpEngine:public Thread, public FsObject 
+class HttpEngine:public FsObject,public Thread
 {
 	public:
 		static HttpEngine* create();
@@ -31,6 +31,7 @@ class HttpEngine:public Thread, public FsObject
 		virtual void run();
 
 	public:
+		/* override FsObject */
 		virtual const char* className();
 
 

@@ -31,6 +31,12 @@ class Vector2
 		float length() const;
 		float length2() const;
 		bool equal(const Vector2& v)const ;
+
+		/* operator */
+		Vector2 operator + (const Vector2& v)const;
+		Vector2 operator - (const Vector2& v)const;
+		Vector2 operator / (float v) const ;
+		Vector2 operator * (float v) const ;
 };
 
 #include "FsVector2.inl"

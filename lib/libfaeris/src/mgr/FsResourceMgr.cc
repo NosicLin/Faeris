@@ -7,7 +7,16 @@ NS_FS_BEGIN
 ResourceMgr::ResourceMgr(ResourceCreateFunc func)
 {
 	m_func=func;
+	m_preload=FsDict::create();
 }
+
+
+ResourceMgr::~ResourceMgr()
+{
+	clearCache();
+	m_preload->decRef();
+}
+
 
 
 void ResourceMgr::addSearchPath(const char* path)
@@ -177,23 +186,52 @@ Resource* ResourceMgr::loadFromPath(const char* name)
 	fs_name->decRef();
 	return ret;
 }
+
+bool ResourceMgr::preloadResource(const char* path)
+{
+	FsString* fs_path=FsString::create(path);
+	Resource* ret=load(path);
+
+	if(ret)
+	{
+		m_preload->insert(fs_path,ret);
+		FS_SAFE_DEC_REF(fs_path);
+		FS_SAFE_DEC_REF(ret);
+		return true;
+	}
+	else 
+	{
+		FS_SAFE_DEC_REF(fs_path);
+		return false;
+	}
+}
+
+
+bool ResourceMgr::unPreloadResource(const char* path)
+{
+	FsString* fs_path=FsString::create(path);
+	bool ret=m_preload->remove(fs_path);
+	FS_SAFE_DEC_REF(fs_path);
+	return ret;
+}
+
+void ResourceMgr::clearPreloadResource()
+{
+	m_preload->clear();
+}
+
+void ResourceMgr::clearCache()
+{
+	MgrSet::iterator iter=m_caches.begin();
+
+	for(;iter!=m_caches.end();++iter)
+	{
+		iter->second->setMgr(NULL);
+	}
+	m_caches.clear();
+}
+
 NS_FS_END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

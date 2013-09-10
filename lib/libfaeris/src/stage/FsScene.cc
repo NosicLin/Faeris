@@ -86,6 +86,24 @@ Layer* Scene::getLayer(int index)
 	return (Layer*)m_layers->get(index);
 }
 
+int Scene::getLayerIndex(Layer* layer)
+{
+	int layer_nu=m_layers->size();
+	Layer* cur=NULL;
+
+	for(int i=0;i<layer_nu;i++)
+	{
+		cur=(Layer*)m_layers->get(i);
+		if(cur==layer)
+		{
+			cur->decRef();
+			return i;
+		}
+
+		cur->decRef();
+	}
+	return -1;
+}
 
 void Scene::clear()
 {

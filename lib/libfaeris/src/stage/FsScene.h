@@ -26,6 +26,7 @@ class Scene:public StageElement
 		int layerNu();
 		Layer* top();
 		Layer* getLayer(int index);
+		int getLayerIndex(Layer* layer);
 
 		void clear();
 

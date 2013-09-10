@@ -125,23 +125,7 @@ inline Vector3 Vector3::operator*(float v)const
 	return this->scale(v);
 }
 
-
-
-
-
-
 #endif 
-
-
-
-
-
-
-
-
-
-
-
 
 
 

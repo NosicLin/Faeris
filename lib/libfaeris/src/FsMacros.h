@@ -1,8 +1,7 @@
 #ifndef _FAERIS_MACROS_H_
 #define _FAERIS_MACROS_H_
 #include <assert.h>
-
-
+#include "FsConfig.h"
 
 #define FS_BEGIN_NAMESPACE(name) namespace name{
 #define FS_END_NAMESPACE(name) }
@@ -322,6 +321,9 @@ enum
 
 /* support */
 #define FS_ZIP_READER_CLASS_NAME "ZipReader"
+
+/* networking */
+#define FS_HTTP_ENGINE_CLASS_NAME "HttpEngine"
 
 #include "FsTypes.h"
 

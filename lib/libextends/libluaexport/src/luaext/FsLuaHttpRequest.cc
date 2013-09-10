@@ -55,10 +55,11 @@ void LuaHttpRequest::onSyncReponse(HttpReponse* reponse)
 	int error_len=0;
 	reponse->getErrorBuf(&error_buf,&error_len);
 
+	toluaext_pushfsobject(l_state,this);
 	lua_pushinteger(l_state,code);
 	lua_pushlstring(l_state,(char*)data_buf,data_len);
 	lua_pushlstring(l_state,(char*)error_buf,error_len);
-	if(lua_pcall(l_state,3,0,0))
+	if(lua_pcall(l_state,4,0,0))
 	{
 		FsUtil_Log("[LUA_ERROR] %s",lua_tostring(l_state,-1));
 		lua_remove(l_state,-1);

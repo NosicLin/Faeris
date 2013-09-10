@@ -1,14 +1,18 @@
-#include "stage/entity/FsParticleEmitter.h"
-#include "stage/entity/FsParticleEffect.h"
+#include "stage/entity/FsParticle2DEmitter.h"
+#include "stage/entity/FsParticle2DEffect.h"
 #include "sys/io/FsVFS.h"
 #include "graphics/FsTexture2D.h"
 #include "graphics/FsRender.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsScriptUtil.h"
+#include "support/util/FsArray.h"
+#include "support/util/FsString.h"
 
 NS_FS_BEGIN
 
-ParticleEmitter* ParticleEmitter::create()
+Particle2DEmitter* Particle2DEmitter::create()
 {
-	ParticleEmitter* ret=new ParticleEmitter;
+	Particle2DEmitter* ret=new Particle2DEmitter;
 	if(!ret->init())
 	{
 		delete ret;
@@ -17,9 +21,9 @@ ParticleEmitter* ParticleEmitter::create()
 	return ret;
 }
 
-ParticleEmitter* ParticleEmitter::create(const char* filename)
+Particle2DEmitter* Particle2DEmitter::create(const char* filename)
 {
-	ParticleEmitter* ret=new ParticleEmitter;
+	Particle2DEmitter* ret=new Particle2DEmitter;
 	if(!ret->init(filename))
 	{
 		delete ret;
@@ -28,9 +32,9 @@ ParticleEmitter* ParticleEmitter::create(const char* filename)
 	return ret;
 }
 
-ParticleEmitter* ParticleEmitter::create(FsFile* file)
+Particle2DEmitter* Particle2DEmitter::create(FsFile* file)
 {
-	ParticleEmitter* ret=new ParticleEmitter;
+	Particle2DEmitter* ret=new Particle2DEmitter;
 	if(!ret->init(file))
 	{
 		delete ret;
@@ -39,11 +43,11 @@ ParticleEmitter* ParticleEmitter::create(FsFile* file)
 	return ret;
 }
 
-void ParticleEmitter::generateParticle(Particle* p)
+void Particle2DEmitter::generateParticle(Particle* p)
 {
 	float fbegin,fend;
 
-	memset(p,sizeof(*p));
+	memset(p,0,sizeof(*p));
 
 	float lifetime=m_lifeTime+m_lifeTime*Math::random(0.0f,1.0f);
 
@@ -55,31 +59,31 @@ void ParticleEmitter::generateParticle(Particle* p)
 		return ;
 	}
 	
-	fbegin=m_beginSize+m_beginSizeVar*Math::random(0.0f,1.0f);
+	fbegin=m_startSize+m_startSizeVar*Math::random(0.0f,1.0f);
 	fend=m_endSize+m_endSizeVar*Math::random(0.0f,1.0f);
 
-	p->m_size=fbegin
+	p->m_size=fbegin;
 	p->m_sizeDt=(fend-fbegin)/lifetime;
 
 	fbegin=m_startColor.r+m_startColorVar.r*Math::random(0.0f,1.0f);
 	fend=m_endColor.r+m_endColorVar.r*Math::random(0.0f,1.0f);
-	p->m_colorRed=Math::clampf(fbegin/255.0,0,1.0f);
-	p->m_colorRedDt=(Math::clampf(fend/255.0,0,1.0f)-p->m_colorRed)/lifetime;
+	p->m_colorRed=Math::clampf(fbegin/255.0f,0,1.0f);
+	p->m_colorRedDt=(Math::clampf(fend/255.0f,0,1.0f)-p->m_colorRed)/lifetime;
 
 	fbegin=m_startColor.g+m_startColorVar.g*Math::random(0.0f,1.0f);
 	fend=m_endColor.g+m_endColorVar.g*Math::random(0.0f,1.0f);
-	p->m_colorGreen=Math::clampf(fbegin/255.0,0,1.0f);
-	p->m_colorGreenDt=(Math::clampf(fend/255.0,0,1.0f)-p->m_colorGreen)/lifetime;
+	p->m_colorGreen=Math::clampf(fbegin/255.0f,0,1.0f);
+	p->m_colorGreenDt=(Math::clampf(fend/255.0f,0,1.0f)-p->m_colorGreen)/lifetime;
 
 	fbegin=m_startColor.b+m_startColorVar.b*Math::random(0.0f,1.0f);
 	fend=m_endColor.b+m_endColorVar.b*Math::random(0.0f,1.0f);
-	p->m_colorBlue=Math::clampf(fbegin/255.0,0,1.0f);
-	p->m_colorBlueDt=(Math::clampf(fend/255.0,0,1.0f)-p->m_colorBlue)/lifetime;
+	p->m_colorBlue=Math::clampf(fbegin/255.0f,0,1.0f);
+	p->m_colorBlueDt=(Math::clampf(fend/255.0f,0,1.0f)-p->m_colorBlue)/lifetime;
 
 	fbegin=m_startColor.a+m_startColorVar.a*Math::random(0.0f,1.0f);
 	fend=m_endColor.a+m_endColorVar.a*Math::random(0.0f,1.0f);
-	p->m_colorAlpha=Math::clampf(fbegin/255.0,0,1.0f);
-	p->m_colorAlphaDt=(Math::clampf(fend/255.0,0,1.0f)-p->m_colorAlpha)/lifetime;
+	p->m_colorAlpha=Math::clampf(fbegin/255.0f,0,1.0f);
+	p->m_colorAlphaDt=(Math::clampf(fend/255.0f,0,1.0f)-p->m_colorAlpha)/lifetime;
 
 	p->m_angle=m_angle+m_angleVar*Math::random(0.0f,1.0f);
 
@@ -104,12 +108,12 @@ void ParticleEmitter::generateParticle(Particle* p)
 
 	p->m_radialMode.m_radius=fbegin;
 	p->m_radialMode.m_radiusDt=(fend-fbegin)/m_lifeTime;
-	p->m_radiusDt.m_angleDt=m_rotateSpeed+m_rotateSpeedVar*Math::random(0.0f,1.0f);
+	p->m_radialMode.m_angleDt=m_rotateSpeed+m_rotateSpeedVar*Math::random(0.0f,1.0f);
 }
 
 
 
-ParticleEmitter::ParticleEmitter()
+Particle2DEmitter::Particle2DEmitter()
 	:m_durationTime(0),
 	m_durationTimeVar(0),
 	m_maxParticleNu(0),
@@ -132,7 +136,7 @@ ParticleEmitter::ParticleEmitter()
 	m_endRotationVar(0),
 	m_position(0,0),
 	m_positionVar(0,0),
-	m_moveMode(FOLLOW_MOVE),
+	m_moveMode(MOVE_GROUP),
 	m_blendSrc(Render::FACTOR_ONE),
 	m_blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
 	m_texture(NULL),
@@ -144,8 +148,8 @@ ParticleEmitter::ParticleEmitter()
 	m_radialAccelerationVar(0),
 	m_tangentialAcceleration(0),
 	m_tangentialAccelerationVar(0),
-	m_beginRadius(0),
-	m_beginRadiusVar(0),
+	m_startRadius(0),
+	m_startRadiusVar(0),
 	m_endRadius(0),
 	m_endRadiusVar(0),
 	m_rotateSpeed(0),
@@ -153,12 +157,12 @@ ParticleEmitter::ParticleEmitter()
 {
 }
 
-bool ParticleEmitter::init()
+bool Particle2DEmitter::init()
 {
 	return true;
 }
 
-bool ParticleEmitter::init(const char* filename)
+bool Particle2DEmitter::init(const char* filename)
 {
 	FsFile* file=VFS::open(filename);
 	if(file==NULL)
@@ -171,7 +175,7 @@ bool ParticleEmitter::init(const char* filename)
 	return ret;
 }
 
-bool ParticleEmitter::init(FsFile* file)
+bool Particle2DEmitter::init(FsFile* file)
 {
 	FsDict* dict=ScriptUtil::parseScript(file);
 
@@ -181,7 +185,7 @@ bool ParticleEmitter::init(FsFile* file)
 		return false;
 	}
 
-	FsDict* emmitor=ScriptUtil::getDict(dict,"emittor");
+	FsDict* emittor=ScriptUtil::getDict(dict,"emittor");
 	if (!emmitor) 
 	{
 		FS_TRACE_WARN("Can't Get Emmitor Infoamtion");
@@ -212,38 +216,47 @@ bool ParticleEmitter::init(FsFile* file)
 		FsArray* start_color=ScriptUtil::getArray(particle,"startColor");
 		if(start_color)
 		{
-			ScriptUtil::getInteger(start_color,0,&m_startColor.r);
-			ScriptUtil::getInteger(start_color,1,&m_startColor.g);
-			ScriptUtil::getInteger(start_color,2,&m_startColor.b);
-			ScriptUtil::getInteger(start_color,3,&m_startColor.a);
+			int r,g,b,a;
+			ScriptUtil::getInteger(start_color,0,&r);
+			ScriptUtil::getInteger(start_color,1,&g);
+			ScriptUtil::getInteger(start_color,2,&b);
+			ScriptUtil::getInteger(start_color,3,&a);
+			m_startColor=Color(r,g,b,a);
 		}
 
 		FsArray* start_color_var=ScriptUtil::getArray(particle,"startColorVar");
 		if (start_color_var)
 		{
-			ScriptUtil::getInteger(start_color_var,0,&m_startColorVar.r);
-			ScriptUtil::getInteger(start_color_var,1,&m_startColorVar.g);
-			ScriptUtil::getInteger(start_color_var,2,&m_startColorVar.b);
-			ScriptUtil::getInteger(start_color_var,3,&m_startColorVar.a);
+			int r,g,b,a;
+			ScriptUtil::getInteger(start_color_var,0,&r);
+			ScriptUtil::getInteger(start_color_var,1,&g);
+			ScriptUtil::getInteger(start_color_var,2,&b);
+			ScriptUtil::getInteger(start_color_var,3,&a);
+			m_startColorVar=Color(r,g,b,a);
 		}
 
 		FsArray* end_color=ScriptUtil::getArray(particle,"endColor");
 		if(end_color)
 		{
-			ScriptUtil::getInteger(end_color,0,&m_endColor.r);
-			ScriptUtil::getInteger(end_color,1,&m_endColor.g);
-			ScriptUtil::getInteger(end_color,2,&m_endColor.b);
-			ScriptUtil::getInteger(end_color,3,&m_endColor.a);
+			int r,g,b,a;
+			ScriptUtil::getInteger(end_color,0,&r);
+			ScriptUtil::getInteger(end_color,1,&g);
+			ScriptUtil::getInteger(end_color,2,&b);
+			ScriptUtil::getInteger(end_color,3,&a);
+			m_endColor=Color(r,g,b,a);
+
 		}
 
 
 		FsArray* end_color_var=ScriptUtil::getArray(particle,"endColorVar");
 		if(end_color_var)
 		{
-			ScriptUtil::getInteger(end_color_var,0,&m_endColorVar.r);
-			ScriptUtil::getInteger(end_color_var,1,&m_endColorVar.g);
-			ScriptUtil::getInteger(end_color_var,2,&m_endColorVar.b);
-			ScriptUtil::getInteger(end_color_var,3,&m_endColorVar.a);
+			int r,g,b,a;
+			ScriptUtil::getInteger(end_color_var,0,&r);
+			ScriptUtil::getInteger(end_color_var,1,&g);
+			ScriptUtil::getInteger(end_color_var,2,&b);
+			ScriptUtil::getInteger(end_color_var,3,&a);
+			m_endColorVar=Color(r,g,b,a);
 		}
 		FS_SAFE_DEC_REF(start_color);
 		FS_SAFE_DEC_REF(start_color_var);

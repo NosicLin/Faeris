@@ -169,7 +169,7 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 
 	Sprite2DKeyFrame* frame=m_curAnimation->getKeyFrame(m_curFrame);
 
-	Face3 faces[2]=
+	static Face3 faces[2]=
 	{
 		Face3(0,3,2),
 		Face3(2,1,0),
