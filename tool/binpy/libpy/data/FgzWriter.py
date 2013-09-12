@@ -62,6 +62,14 @@ class FgzWriter:
 			# get file data 
 			un_data=pf.read()
 			un_data_size=len(un_data)
+			if un_data_size == 0:
+				print("Empty File:"+v["filename"]+" ignore")
+				continue
+
+				
+
+
+
 			un_data_crc32=gzip.zlib.crc32(un_data,FgzCrc32Default)&0xffffffff
 
 			en_data=gzip.zlib.compress(un_data,FgzCompressDefaultLevel)

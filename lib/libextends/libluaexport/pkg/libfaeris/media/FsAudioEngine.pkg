@@ -34,5 +34,4 @@ class AudioEngine:public FsObject
 		void resumeChannels();
 		void stopChannnels();
 		void setVolume(float value);
-
 };

@@ -168,7 +168,7 @@ void AudioEngine::destory()
 
 void AudioEngine::playBackgroundMusic(const char* name,bool loop)
 {
-	if(m_bgm||std::string(name)==m_bgmName)
+	if(m_bgm&&(std::string(name)==m_bgmName))
 	{
 		m_player->playMusic(m_bgm,loop);
 	}

@@ -98,6 +98,7 @@ public class Fs_Music {
 			{
 				m_mediaPlayer.prepare();
 				m_isPrepared=true;
+				m_mediaPlayer.seekTo(0);
 			}
 			m_mediaPlayer.start();
 		}
@@ -136,7 +137,7 @@ public class Fs_Music {
 	public void stop()
 	{
 		m_mediaPlayer.stop();
-		m_mediaPlayer.seekTo(0);
+
 		m_isPrepared=false;
 	}
 
@@ -160,6 +161,11 @@ public class Fs_Music {
 					m_mediaPlayer=null;
 				}
 				
+			}
+			else 
+			{
+				m_mediaPlayer.release();
+				m_mediaPlayer=null;
 			}
 		}
 	}

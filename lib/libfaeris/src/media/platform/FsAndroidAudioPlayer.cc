@@ -29,9 +29,9 @@ Sound* AndroidAudioPlayer::createSound(const char* filename)
 	FS_JNI_CALL_METHOD(m_audioPlayer,JNI_AUDIO_PLAYER_CLASS_NAME,"createSound","(Ljava/lang/String;)I",Int,ret,jfile_name);
 	env->DeleteLocalRef(jfile_name);
 
-
 	if(ret==-1)
 	{
+		FS_TRACE_WARN("Create Sound %s Failed",filename);
 		return NULL;
 	}
 	return (Sound*) ((int)ret);
@@ -179,7 +179,7 @@ class Music
 			if(m_object)
 			{
 				env->DeleteGlobalRef(m_object);
-				m_object;
+				m_object=NULL;
 			}
 		}
 	public:
@@ -208,7 +208,7 @@ Music* AndroidAudioPlayer::createMusic(const char* filename)
 void AndroidAudioPlayer::releaseMusic(Music* m)
 {
 	JniUtil::attachCurrentThread();
-	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"destory","()V");
+	FS_JNI_CALL_VOID_METHOD(m->m_object,JNI_MUSIC_CLASS_NAME,"release","()V");
 };
 
 void AndroidAudioPlayer::playMusic(Music* m,bool loop)
