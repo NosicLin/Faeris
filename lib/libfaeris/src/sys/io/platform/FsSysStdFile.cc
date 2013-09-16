@@ -78,7 +78,7 @@ SysFile* SysFile::open(const char* name,uint mode)
 	
 	if(f==NULL)
 	{
-		FS_TRACE_ERROR("Open File(%s) Failed",name);
+	//	FS_TRACE_ERROR("Open File(%s) Failed",name);
 		return NULL;
 	}
 	return new SysFile(f);
