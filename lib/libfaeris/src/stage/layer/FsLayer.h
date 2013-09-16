@@ -9,9 +9,11 @@ class Entity;
 class Scene;
 class Render;
 class FsDict;
+class FsSlowDict;
 class Vector2;
 class TouchEvent;
 class Scene;
+
 class Layer:public StageElement
 {
 	public:
@@ -79,7 +81,7 @@ class Layer:public StageElement
 
 	protected:
 		FsDict* m_entity;  /* direct add to layer */
-		FsDict* m_ownerEntity; /* all sub chirld */
+		FsSlowDict* m_ownerEntity; /* all sub chirld */
 		bool m_visible;
 		bool m_touchEnabled;
 

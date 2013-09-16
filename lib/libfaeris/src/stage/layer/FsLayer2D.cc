@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "stage/layer/FsLayer2D.h"
 #include "support/util/FsArray.h"
+#include "support/util/FsSlowDict.h"
 #include "support/util/FsDict.h"
 #include "graphics/FsRender.h"
 #include "stage/entity/FsEntity.h"
@@ -142,14 +143,15 @@ void Layer2D::draw(Render* r)
 void Layer2D::getEntityInView(std::vector<Entity*>* entitys)
 {
 	/* TODO(add real eliminate here) */
-	FsDict::Iterator iter(m_ownerEntity);
-	while(!iter.done())
+	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	while(!iter->done())
 	{
-		FsObject* ob=iter.getValue();
+		FsObject* ob=iter->getValue();
 		entitys->push_back((Entity*)ob);
 		ob->decRef();
-		iter.next();
+		iter->next();
 	}
+	delete iter;
 }
 
 

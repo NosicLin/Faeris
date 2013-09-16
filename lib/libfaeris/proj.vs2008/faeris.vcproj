@@ -570,6 +570,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\support\util\FsSlowDict.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\support\util\FsSlowDict.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\support\util\FsString.cc"
 						>
 					</File>

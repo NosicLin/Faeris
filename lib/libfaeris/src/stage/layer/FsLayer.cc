@@ -2,13 +2,14 @@
 #include "stage/entity/FsEntity.h"
 #include "stage/FsScene.h"
 #include "support/util/FsDict.h"
-
+#include "support/util/FsSlowDict.h"
 
 NS_FS_BEGIN
  const char* Layer::className()
 {
 	return FS_LAYER_CLASS_NAME;
 }
+
 void Layer::add(Entity* entity)
 {
 	if(entity->layer()==this)
@@ -16,9 +17,10 @@ void Layer::add(Entity* entity)
 		FS_TRACE_WARN("object all ready add to this layer");
 		return ;
 	}
+
 	if(entity->parent()!=NULL)
 	{
-		FS_TRACE_WARN("object is indirect owner by another layer ");
+		FS_TRACE_WARN("object is indirect owner by another layer");
 		return ;
 	}
 
@@ -106,27 +108,34 @@ void Layer::update(float dt)
 
 void Layer::updateEntity(float dt)
 {
-	FsDict::Iterator iter(m_ownerEntity);
-	while(!iter.done())
+	m_ownerEntity->lock();
+	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	while(!iter->done())
 	{
-		Entity* entity=(Entity*)iter.getValue();
+		Entity* entity=(Entity*)iter->getValue();
 		entity->update(dt);
 		entity->decRef();
-		iter.next();
+		iter->next();
 	}
+	delete iter;
+	m_ownerEntity->unlock();
+	m_ownerEntity->flush();
+
 }
+
 
 void Layer::draw(Render* render)
 {
 	updateAllWorldMatrix();
-	FsDict::Iterator iter(m_ownerEntity);
-	while(!iter.done())
+	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	while(!iter->done())
 	{
-		Entity* entity=(Entity*)iter.getValue();
+		Entity* entity=(Entity*)iter->getValue();
 		entity->draw(render,false);
 		entity->decRef();
-		iter.next();
+		iter->next();
 	}
+	delete iter;
 
 }
 
@@ -230,7 +239,7 @@ bool Layer::touchesEnd(TouchEvent* event)
 void Layer::init()
 {
 	m_entity=FsDict::create();
-	m_ownerEntity=FsDict::create();
+	m_ownerEntity=FsSlowDict::create();
 	assert(m_entity);
 	assert(m_ownerEntity);
 	m_visible=true;
@@ -242,16 +251,17 @@ void Layer::init()
 
 void Layer::destroy()
 {
-	FsDict::Iterator iter(m_ownerEntity);
-	while(!iter.done())
+	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	while(!iter->done())
 	{
-		Entity* entity=(Entity*)iter.getValue();
+		Entity* entity=(Entity*)iter->getValue();
 		entity->setLayer(NULL);
 		entity->decRef();
-		iter.next();
+		iter->next();
 	}
 	m_entity->decRef();
 	m_ownerEntity->decRef();
+	delete iter;
 }
 
 void Layer::updateAllWorldMatrix()

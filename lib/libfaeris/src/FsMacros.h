@@ -254,7 +254,7 @@ enum
 #define FS_STRING_CLASS_NAME "FsString"
 #define FS_INTEGER_CLASS_NAME "FsInteger"
 #define FS_DICT_CLASS_NAME "FsDict"
-
+#define FS_SLOW_DICT_CLASS_NAME "FsSlowDict"
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
 #define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"

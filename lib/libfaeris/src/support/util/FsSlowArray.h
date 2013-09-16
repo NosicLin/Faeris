@@ -60,8 +60,17 @@ class FsSlowArray:public FsObject
 				{
 					m_type=type;
 					m_pos=pos;
+					FS_SAFE_ADD_REF(ob);
 					m_object=ob;
 				}
+
+
+				~PendingCommand()
+				{
+					FS_SAFE_DEC_REF(m_object);
+				}
+
+				
 			public:
 				int m_type;
 				int m_pos;
