@@ -65,11 +65,12 @@ void HttpReponse::setErrorBuf(uint8_t* buf,int len)
 void HttpReponse::getErrorBuf(uint8_t** buf,int* len)
 {
 
+	static uint8_t empty_str[]="";
 	*len=m_error.size();
 
 	if(m_error.size()==0)
 	{
-		*buf=NULL;
+		*buf=empty_str;
 	}
 	else
 	{

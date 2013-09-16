@@ -359,7 +359,7 @@ bool FontBitmap::init(FsFile* file)
 		}
 		else
 		{
-			FS_TRACE_INFO("Ignore Unused Of UnSupport Line(%d)",line_num);
+			//FS_TRACE_INFO("Ignore Unused Of UnSupport Line(%d)",line_num);
 		}
 
 next_line:

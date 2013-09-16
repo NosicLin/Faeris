@@ -55,6 +55,7 @@ void LuaHttpRequest::onSyncReponse(HttpReponse* reponse)
 	int error_len=0;
 	reponse->getErrorBuf(&error_buf,&error_len);
 
+	this->addRef();
 	toluaext_pushfsobject(l_state,this);
 	lua_pushinteger(l_state,code);
 	lua_pushlstring(l_state,(char*)data_buf,data_len);
