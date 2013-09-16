@@ -31,9 +31,9 @@ class Particle2DEmitter:public FsObject
 		};
 
 	public:
-		Particle2DEmitter* create();
-		Particle2DEmitter* create(const char* filename);
-		Particle2DEmitter* create(FsFile* file);
+		static Particle2DEmitter* create();
+		static Particle2DEmitter* create(const char* filename);
+		static Particle2DEmitter* create(FsFile* file);
 
 	public:
 
