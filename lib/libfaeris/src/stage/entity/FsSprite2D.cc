@@ -9,6 +9,40 @@
 
 NS_FS_BEGIN
 
+class AnimationCacheData: public FsObject 
+{
+	public:
+		static AnimationCacheData* create(Sprite2DAnimation* anim)
+		{
+			AnimationCacheData* ret=new AnimationCacheData();
+			ret->init(anim);
+			return ret;
+		}
+
+	protected:
+		AnimationCacheData()
+		{
+			m_fps=0;
+			m_offsetx=0;
+			m_offsety=0;
+		}
+		bool init(Sprite2DAnimation* anim)
+		{
+			m_fps=anim->getFps();
+			return true;
+		}
+
+	public:
+		const char* className() 
+		{
+			return "AnimationCacheData";
+		}
+
+	public:
+		int m_fps;
+		float m_offsetx,m_offsety;
+};
+
 Sprite2D* Sprite2D::create(const char* name)
 {
 
@@ -47,6 +81,16 @@ void Sprite2D::setAnimation(const char*  name)
 	setAnimation(anim);
 
 	FS_SAFE_DEC_REF(anim);
+}
+const char* Sprite2D::getAnimation()
+{
+	if(m_curAnimation)
+	{
+		return NULL;
+	}
+	FsString* name=m_curAnimation->getName();
+	name->decRef();
+	return name->cstr();
 }
 
 void Sprite2D::updateAnimation(float dt)
@@ -160,6 +204,15 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 	}
 	render->pushMatrix();
 	render->mulMatrix(&m_worldMatrix);
+	if(m_curAnimationCacheData) 
+	{
+		if(m_curAnimationCacheData->m_offsetx||m_curAnimationCacheData->m_offsety)
+		{
+			render->translate(Vector3(m_curAnimationCacheData->m_offsetx,
+								m_curAnimationCacheData->m_offsety,0));
+		}
+	}
+
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
 
@@ -207,7 +260,7 @@ bool Sprite2D::init(const char* name)
 	}
 	m_data=data;
 	m_textures=data->getTextures();
-	m_animationFps=FsDict::create();
+	m_animationCacheData=FsDict::create();
 
 	return true;
 }
@@ -223,17 +276,18 @@ void Sprite2D::setAnimation(Sprite2DAnimation* anim)
 	{
 		FsString* anim_name=m_curAnimation->getName();
 		m_curFrame=0;
-		FsInteger* fps=(FsInteger*)m_animationFps->lookup(anim_name);
-		if(fps)
+		m_curAnimationCacheData=(AnimationCacheData*)m_animationCacheData->lookup(anim_name);
+		if(m_curAnimationCacheData)
 		{
-			m_curFps=fps->getValue();
+			m_curFps=m_curAnimationCacheData->m_fps;
 		}
 		else
 		{
 			m_curFps=m_curAnimation->getFps();
 		}
+
 		FS_SAFE_DEC_REF(anim_name);
-		FS_SAFE_DEC_REF(fps);
+		FS_SAFE_DEC_REF(m_curAnimationCacheData);
 		m_elapseTime=0.0f;
 	}
 	else 
@@ -251,12 +305,54 @@ void Sprite2D::setFps(int fps)
 {
 	if(m_curAnimation)
 	{
-		FsString* anim_name=m_curAnimation->getName();
-		FsInteger* ifps=FsInteger::create(fps);
-		m_animationFps->insert(anim_name,ifps);
-		FS_SAFE_DEC_REF(anim_name);
-		FS_SAFE_DEC_REF(ifps);
+		if(!m_curAnimationCacheData) 
+		{
+			FsString* anim_name=m_curAnimation->getName();
+			m_curAnimationCacheData =AnimationCacheData::create(m_curAnimation);
+			m_animationCacheData->insert(anim_name,m_curAnimationCacheData);
+			FS_SAFE_DEC_REF(anim_name);
+			FS_SAFE_DEC_REF(m_curAnimationCacheData);
+			m_curFps=fps;
+		}
+		m_curAnimationCacheData->m_fps=fps;
 		m_curFps=fps;
+	}
+}
+void Sprite2D::setAnimationOffset(float x,float y)
+{
+	if(m_curAnimation) 
+	{
+		if(m_curAnimationCacheData) 
+		{
+			FsString* anim_name=m_curAnimation->getName();
+			m_curAnimationCacheData =AnimationCacheData::create(m_curAnimation);
+			m_animationCacheData->insert(anim_name,m_curAnimationCacheData);
+			FS_SAFE_DEC_REF(anim_name);
+			FS_SAFE_DEC_REF(m_curAnimationCacheData);
+		}
+		m_curAnimationCacheData->m_offsetx=x;
+		m_curAnimationCacheData->m_offsety=y;
+	}
+
+}
+
+void Sprite2D::getAnimationOffset(float* x,float* y)
+{
+	if(!m_curAnimation)
+	{
+		*x=0;
+		*y=0;
+		return ;
+	}
+	if(m_curAnimationCacheData)
+	{
+		*x=m_curAnimationCacheData->m_offsetx;
+		*y=m_curAnimationCacheData->m_offsety;
+	}
+	else 
+	{
+		*x=0;
+		*y=0;
 	}
 }
 
@@ -275,8 +371,10 @@ Sprite2D::Sprite2D()
 
 	m_data=NULL;
 	m_curAnimation=NULL;
+	m_curAnimationCacheData=NULL;
+
 	m_textures=NULL;
-	m_animationFps=NULL;
+	m_animationCacheData=NULL;
 	m_material=Mat_V4F_T2F_A1F::shareMaterial();
 }
 
@@ -286,7 +384,7 @@ Sprite2D::~Sprite2D()
 	FS_SAFE_DEC_REF(m_curAnimation);
 	FS_SAFE_DEC_REF(m_textures);
 	FS_SAFE_DEC_REF(m_material);
-	FS_SAFE_DEC_REF(m_animationFps);
+	FS_SAFE_DEC_REF(m_animationCacheData);
 }
 
 

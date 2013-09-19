@@ -13,6 +13,7 @@ class FsArray;
 class FsDict;
 class Sprite2DAnimation;
 class Mat_V4F_T2F_A1F;
+class AnimationCacheData;
 
 class Sprite2D :public Entity 
 {
@@ -38,6 +39,7 @@ class Sprite2D :public Entity
 
 		/* animation */
 		void setAnimation(const char* name);
+		const char* getAnimation();
 		void updateAnimation(float dt);
 
 		void playAnimation(int mode=ANIM_LOOP);
@@ -45,6 +47,9 @@ class Sprite2D :public Entity
 		void stopAnimation();
 
 		bool isAnimationPlaying();
+
+		void setAnimationOffset(float x,float y);
+		void getAnimationOffset(float* x,float* y);
 
 
 		/* frame */
@@ -86,9 +91,11 @@ class Sprite2D :public Entity
 		int m_curFps;
 
 		Sprite2DData* m_data;
+
 		Sprite2DAnimation* m_curAnimation;
+		AnimationCacheData* m_curAnimationCacheData; /* weak reference */
 		FsArray* m_textures;
-		FsDict* m_animationFps;
+		FsDict* m_animationCacheData;
 
 		/* material */
 

@@ -21,7 +21,7 @@ void StageElement::removeAction(Action* action)
 	m_actions->remove(action);
 }
 
-void StageElement::clearAction(Action* action)
+void StageElement::clearAction()
 {
 	m_actions->clear();
 }

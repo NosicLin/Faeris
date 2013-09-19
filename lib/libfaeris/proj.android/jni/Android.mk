@@ -104,6 +104,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/image/FsImagePng.cc \
 					../../src/support/util/FsArray.cc \
 					../../src/support/util/FsDict.cc \
+					../../src/support/util/FsSlowDict.cc \
 					../../src/support/util/FsLog.cc \
 					../../src/support/util/FsPathUtil.cc \
 					../../src/support/util/FsScriptUtil.cc \

@@ -5,7 +5,7 @@ class StageElement:public FsObject
 	public:
 		void doAction(Action* action);
 		void removeAction(Action* action);
-		void clearAction(Action* action);
+		void clearAction();
 
 		void stopAction();
 		bool isActionStop();
