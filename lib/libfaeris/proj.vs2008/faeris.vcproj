@@ -842,6 +842,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\stage\entity\FsParticle2DEmitter.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsParticle2DEmitter.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\stage\entity\FsQuad2D.cc"
 						>
 					</File>

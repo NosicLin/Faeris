@@ -7,8 +7,19 @@
 #include "support/util/FsScriptUtil.h"
 #include "support/util/FsArray.h"
 #include "support/util/FsString.h"
+#include "FsGlobal.h"
+
 
 NS_FS_BEGIN
+
+const char* Particle2DEmitter::className()
+{
+	return FS_PARTICLE2D_EMITTER_CLASS_NAME;
+}
+
+
+
+
 
 Particle2DEmitter* Particle2DEmitter::create()
 {
@@ -49,7 +60,7 @@ void Particle2DEmitter::generateParticle(Particle* p)
 
 	memset(p,0,sizeof(*p));
 
-	float lifetime=m_lifeTime+m_lifeTime*Math::random(0.0f,1.0f);
+	float lifetime=m_lifeTime+m_lifeTimeVar*Math::random(0.0f,1.0f);
 
 	p->m_timeElapse=0;
 	p->m_lifeTime=lifetime;
@@ -157,6 +168,11 @@ Particle2DEmitter::Particle2DEmitter()
 {
 }
 
+Particle2DEmitter::~Particle2DEmitter()
+{
+}
+
+
 bool Particle2DEmitter::init()
 {
 	return true;
@@ -185,20 +201,37 @@ bool Particle2DEmitter::init(FsFile* file)
 		return false;
 	}
 
-	FsDict* emittor=ScriptUtil::getDict(dict,"emittor");
-	if (!emmitor) 
+
+	/* ---- emittor ------- */
+	FsDict* emittor=ScriptUtil::getDict(dict,"emitter");
+	if (!emittor) 
 	{
 		FS_TRACE_WARN("Can't Get Emmitor Infoamtion");
 	}
 	else 
 	{
-		ScriptUtil::getFloat(emittor,"durationTime",&m_durationTime);
-		ScriptUtil::getFloat(emittor,"durationTimeVar",&m_durationTimeVar);
-		ScriptUtil::getInteger(emittor,"emitSpeed",&m_emitSpeed);
-		ScriptUtil::getInteger(emittor,"maxParticleNu",&m_maxParticleNu);
-	}
-	emittor->decRef();
+		if(!ScriptUtil::getFloat(emittor,"durationTime",&m_durationTime))
+		{
+			FS_TRACE_WARN("Can't Get emitter:durationTime Info");
+		}
+		if(!ScriptUtil::getFloat(emittor,"durationTimeVar",&m_durationTimeVar))
+		{
+			FS_TRACE_WARN("Can't Get emitter:durationTimeVar Info");
+		}
+		if(!ScriptUtil::getInteger(emittor,"emitSpeed",&m_emitSpeed))
+		{
+			FS_TRACE_WARN("Can't Get emitter:emitSpeed Info");
+		}
 
+		if(!ScriptUtil::getInteger(emittor,"maxParticleNu",&m_maxParticleNu))
+		{
+			FS_TRACE_WARN("Can't Get emittor:maxParticleNu Info");
+		}
+	}
+	FS_SAFE_DEC_REF(emittor);
+
+
+	/* --- particle ----- */
 	FsDict* particle=ScriptUtil::getDict(dict,"particle");
 	if(!particle)
 	{
@@ -206,12 +239,30 @@ bool Particle2DEmitter::init(FsFile* file)
 	}
 	else 
 	{
-		ScriptUtil::getFloat(particle,"lifeTime",&m_lifeTime);
-		ScriptUtil::getFloat(particle,"lifetimeVar",&m_lifeTimeVar);
-		ScriptUtil::getFloat(particle,"startSize",&m_startSize);
-		ScriptUtil::getFloat(particle,"startSizeVar",&m_startSizeVar);
-		ScriptUtil::getFloat(particle,"endSize",&m_endSize);
-		ScriptUtil::getFloat(particle,"endSizeVar",&m_endSizeVar);
+		if(!ScriptUtil::getFloat(particle,"lifeTime",&m_lifeTime))
+		{
+			FS_TRACE_WARN("Can't Get particle:lifeTime Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"lifeTimeVar",&m_lifeTimeVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:lifeTimeVar Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"startSize",&m_startSize))
+		{
+			FS_TRACE_WARN("Can't Get particle:startSize Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"startSizeVar",&m_startSizeVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:startSizeVar Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"endSize",&m_endSize))
+		{
+			FS_TRACE_WARN("Can't Get particle:endSize Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"endSizeVar",&m_endSizeVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:endSizeVar Info");
+		}
 
 		FsArray* start_color=ScriptUtil::getArray(particle,"startColor");
 		if(start_color)
@@ -222,6 +273,10 @@ bool Particle2DEmitter::init(FsFile* file)
 			ScriptUtil::getInteger(start_color,2,&b);
 			ScriptUtil::getInteger(start_color,3,&a);
 			m_startColor=Color(r,g,b,a);
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:StartColor Info");
 		}
 
 		FsArray* start_color_var=ScriptUtil::getArray(particle,"startColorVar");
@@ -234,6 +289,11 @@ bool Particle2DEmitter::init(FsFile* file)
 			ScriptUtil::getInteger(start_color_var,3,&a);
 			m_startColorVar=Color(r,g,b,a);
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:StartColrVar Info");
+		}
+
 
 		FsArray* end_color=ScriptUtil::getArray(particle,"endColor");
 		if(end_color)
@@ -245,6 +305,10 @@ bool Particle2DEmitter::init(FsFile* file)
 			ScriptUtil::getInteger(end_color,3,&a);
 			m_endColor=Color(r,g,b,a);
 
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:EndColor Info");
 		}
 
 
@@ -258,21 +322,56 @@ bool Particle2DEmitter::init(FsFile* file)
 			ScriptUtil::getInteger(end_color_var,3,&a);
 			m_endColorVar=Color(r,g,b,a);
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:EndColorVar");
+		}
+
 		FS_SAFE_DEC_REF(start_color);
 		FS_SAFE_DEC_REF(start_color_var);
 		FS_SAFE_DEC_REF(end_color);
 		FS_SAFE_DEC_REF(end_color_var);
 
-		ScriptUtil::getFloat(particle,"angle",&m_angle);
-		ScriptUtil::getFloat(particle,"angleVar",&m_angleVar);
-		ScriptUtil::getFloat(particle,"startRotation",&m_rotation);
-		ScriptUtil::getFloat(particle,"startRotationVar",&m_rotationVar);
+		if(!ScriptUtil::getFloat(particle,"angle",&m_angle))
+		{
+			FS_TRACE_WARN("Can't Get particle:angle Info");
+		}
+
+		if(!ScriptUtil::getFloat(particle,"angleVar",&m_angleVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:angleVar Info");
+		}
+		if(!ScriptUtil::getFloat(particle,"startRotation",&m_startRotation))
+		{
+			FS_TRACE_WARN("Can't Get particle:startRotate Info");
+		}
+
+		if(!ScriptUtil::getFloat(particle,"startRotationVar",&m_startRotationVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:startRotationVar Info");
+		}
+
+		if(!ScriptUtil::getFloat(particle,"endRotation",&m_endRotation)) 
+		{
+			FS_TRACE_WARN("Can't Get particle:endRotation Info");
+		}
+
+		if(!ScriptUtil::getFloat(particle,"endRotationVar",&m_endRotationVar))
+		{
+			FS_TRACE_WARN("Can't Get particle:endRotationVar Info");
+		}
+
+
 
 		FsArray* position=ScriptUtil::getArray(particle,"position");
 		if(position)
 		{
 			ScriptUtil::getFloat(position,0,&m_position.x);
 			ScriptUtil::getFloat(position,1,&m_position.y);
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:position Info");
 		}
 		FS_SAFE_DEC_REF(position);
 
@@ -282,6 +381,11 @@ bool Particle2DEmitter::init(FsFile* file)
 			ScriptUtil::getFloat(position_var,0,&m_positionVar.x);
 			ScriptUtil::getFloat(position_var,1,&m_positionVar.y);
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:positionVar Info");
+		}
+
 		FS_SAFE_DEC_REF(position_var);
 
 		FsString* move_mode=ScriptUtil::getString(particle,"moveMode");
@@ -295,11 +399,23 @@ bool Particle2DEmitter::init(FsFile* file)
 			{
 				m_moveMode=MOVE_GROUP;
 			}
+			else 
+			{
+				FS_TRACE_WARN("Error particle:moveMode Value");
+			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get particle:moveMode Info");
 		}
 		FS_SAFE_DEC_REF(move_mode);
 	}
+
 	FS_SAFE_DEC_REF(particle);
 
+
+
+	/* --- texture --- */
 	FsDict* texture=ScriptUtil::getDict(dict,"texture");
 	if(texture)
 	{
@@ -311,16 +427,24 @@ bool Particle2DEmitter::init(FsFile* file)
 				/* TODO */
 			}
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get blendSrc Info");
+		}
 		FS_SAFE_DEC_REF(blendSrc);
 
 
-		FsString* blendDst=ScriptUtil::getString(texture,"blendDst")
+		FsString* blendDst=ScriptUtil::getString(texture,"blendDst");
 		if(blendDst)
 		{
 			if(blendDst->equal("xxx xxx"))
 			{
 				/* TODO */
 			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get blendDst Info");
 		}
 		FS_SAFE_DEC_REF(blendDst);
 
@@ -330,15 +454,26 @@ bool Particle2DEmitter::init(FsFile* file)
 			Texture2D* t=Global::textureMgr()->loadTexture(url->cstr());
 			m_texture=t;
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get Texture Url");
+		}
+
 		FS_SAFE_DEC_REF(url);
 
 	}
+	else 
+	{
+		FS_TRACE_WARN("Can't Find Texture Info");
+	}
+	FS_SAFE_DEC_REF(texture);
 	
 
+	/* ---- enviroment ----- */
 	FsDict* environment=ScriptUtil::getDict(dict,"environment");
 	if(environment)
 	{
-		FsString* mode=ScriptUtil::getString(dict,"mode");
+		FsString* mode=ScriptUtil::getString(environment,"mode");
 		if(mode)
 		{
 			if(mode->equal("gravity"))
@@ -349,14 +484,29 @@ bool Particle2DEmitter::init(FsFile* file)
 			{
 				m_enviromentMode=ENV_RADIAL;
 			}
+			else 
+			{
+				FS_TRACE_WARN("Error environment:mode value");
+			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get environment:mode Info");
 		}
 		FS_SAFE_DEC_REF(mode);
 
-		FsDict* gravity=ScriptUtil::getString(dict,"gravity");
+		FsDict* gravity=ScriptUtil::getDict(environment,"gravity");
 		if(gravity)
 		{
-			ScriptUtil::getFloat(gravity,"speed",&m_speed);
-			ScriptUtil::getFloat(gravity,"speedVar",&m_speedVar);
+			if(!ScriptUtil::getFloat(gravity,"speed",&m_speed))
+			{
+				FS_TRACE_WARN("Can't Get gravity:speed Info");
+			}
+
+			if(!ScriptUtil::getFloat(gravity,"speedVar",&m_speedVar))
+			{
+				FS_TRACE_WARN("Can't get gravity:speedVar Info");
+			}
 
 			FsArray* g=ScriptUtil::getArray(gravity,"gravity");
 			if(g)
@@ -364,25 +514,80 @@ bool Particle2DEmitter::init(FsFile* file)
 				ScriptUtil::getFloat(g,0,&m_gravity.x);
 				ScriptUtil::getFloat(g,1,&m_gravity.y);
 			}
+			else 
+			{
+				FS_TRACE_WARN("Can't Get gravity:gravity Info");
+			}
 			FS_SAFE_DEC_REF(g);
-			ScriptUtil::getFloat(gravity,"radialAcceleration",m_radialAcceleration);
-			ScriptUtil::getFloat(gravity,"radialAccelerationVar",m_radialAccelerationVar);
-			ScriptUtil::getFloat(gravity,"tangentialAcceleration",m_tangentialAcceleration);
-			ScriptUtil::getFloat(gravity,"tangentialAccelerationVar",m_tangentialAccelerationVar);
+
+			if(!ScriptUtil::getFloat(gravity,"radialAcceleration",&m_radialAcceleration))
+			{
+				FS_TRACE_WARN("Can't Get gravity:radialAcceleration Info");
+			}
+			if(!ScriptUtil::getFloat(gravity,"radialAccelerationVar",&m_radialAccelerationVar))
+			{
+				FS_TRACE_WARN("Can't Get gravity:radialAccelerationVar Info");
+			}
+			if(!ScriptUtil::getFloat(gravity,"tangentialAcceleration",&m_tangentialAcceleration))
+			{
+				FS_TRACE_WARN("Can't Get gravity::tangentialAcceleration Info");
+			}
+			if(!ScriptUtil::getFloat(gravity,"tangentialAccelerationVar",&m_tangentialAccelerationVar))
+			{
+				FS_TRACE_WARN("Can't Get gravity::tangentialAccelerationVar Info");
+			}
 		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get gravity Info");
+		}
+
 		FS_SAFE_DEC_REF(gravity);
 
-		FsDict* radial=ScriptUtil::getString(dict,"radial");
+		FsDict* radial=ScriptUtil::getDict(environment,"radial");
 		if(radial)
 		{
-			ScriptUtil::getFloat(radial,"beginRadius",&m_beginRadius);
-			ScriptUtil::getFloat(radial,"beginRadiusVar",&m_beginRadiusVar);
-			ScriptUtil::getFloat(radial,"rotateSpeed",&m_rotateSpeed);
-			ScriptUtil::getFloat(radial,"rotateSpeedVar",&m_rotateSpeedVar);
+			if(!ScriptUtil::getFloat(radial,"startRadius",&m_startRadius))
+			{
+				FS_TRACE_WARN("Can't Get radial:startRadius Info");
+			}
+			if(!ScriptUtil::getFloat(radial,"startRadiusVar",&m_startRadiusVar))
+			{
+				FS_TRACE_WARN("Can't Get radial:startRadiusVar Info");
+			}
+			if(!ScriptUtil::getFloat(radial,"endRadius",&m_endRadius))
+			{
+				FS_TRACE_WARN("Can't Get radial:endRadius Info");
+			}
+			if(!ScriptUtil::getFloat(radial,"endRadiusVar",&m_endRadiusVar))
+			{
+				FS_TRACE_WARN("Can't Get radial:endRadiusVar Info");
+			}
+		
+			if(!ScriptUtil::getFloat(radial,"rotateSpeed",&m_rotateSpeed))
+			{
+				FS_TRACE_WARN("Can't Get radial:rotateSpeed Info");
+			}
+			if(!ScriptUtil::getFloat(radial,"rotateSpeedVar",&m_rotateSpeedVar))
+			{
+				FS_TRACE_WARN("Can't Get radial:rotateSpeedVar Info");
+			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Can't Get radial Info");
 		}
 		FS_SAFE_DEC_REF(radial);
 
 	}
+	else 
+	{
+
+		FS_TRACE_WARN("Can't Find Environment Info");
+	}
+
+	FS_SAFE_DEC_REF(environment);
+	FS_SAFE_DEC_REF(dict);
 	return true;
 
 }

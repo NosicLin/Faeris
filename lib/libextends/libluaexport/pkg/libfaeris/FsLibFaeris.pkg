@@ -19,6 +19,9 @@ $pfile "stage/entity/FsQuad2D.pkg"
 $pfile "stage/entity/FsLabelTTF.pkg"
 $pfile "stage/entity/FsSprite2D.pkg"
 $pfile "stage/entity/FsLabelBitmap.pkg"
+$pfile "stage/entity/FsParticle2DEmitter.pkg"
+
+
 
 /* stage */
 $pfile "stage/FsStageElement.pkg"

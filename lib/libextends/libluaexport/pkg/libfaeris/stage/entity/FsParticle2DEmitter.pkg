@@ -1,0 +1,150 @@
+$#include "stage/entity/FsParticle2DEmitter.h"
+
+class Particle2DEmitter:public FsObject 
+{
+	public:
+		enum
+		{
+			MOVE_FREE,
+			MOVE_GROUP,
+		};
+
+		enum
+		{
+			ENV_GRAVITY,
+			ENV_RADIAL,
+		};
+
+	public:
+		static Particle2DEmitter* create();
+		static Particle2DEmitter* create(const char* filename);
+
+	public:
+
+		/* about emitter */
+
+		/* particle life time */
+		void setDurationTime(float time);
+		float getDurationTime();
+		void setDurationTimeVar(float time);
+		float getDurationTimeVar();
+
+
+		/* max particle num */
+		void setMaxParticleNu(int number);
+		int getMaxParticleNu();
+		void setEmitSpeed(int speed);
+
+		int getEmitSpeed();
+
+
+		/* about particle */
+
+		/* life time */
+		void setLifeTime(float time);
+		float getLifeTime();
+		void setLifeTimeVar(float time);
+		float getLifeTimeVar();
+
+		/* size */
+		void setStartSize(float size);
+		float getStartSize();
+		void setStartSizeVar(float size);
+		float getStartSizeVar();
+		void setEndSize(float size);
+		float getEndSize();
+		void setEndSizeVar(float size);
+		float getEndSizeVar();
+
+
+		/* color */
+		void setStartColor(Color c);
+		Color getStartColor();
+		void setStartColorVar(Color c);
+		Color getStartColorVar();
+		void setEndColor(Color c);
+		Color getEndColor();
+		void setEndColorVar(Color c);
+		Color getEndColorVar();
+
+		/* angle */
+		void setAngle(float angle);
+		float getAngle();
+		void setAngleVar(float angle);
+		float getAngleVar();
+		
+
+		/* rotation */
+		void setStartRotation(float angle);
+		float getStartRotation();
+		void setStartRotationVar(float angle);
+		float getStartRotationVar();
+		void setEndRotation(float angle);
+		float getEndRotation();
+
+		void setEndRotationVar(float angle);
+		float getEndRotationVar();
+
+		/* position */
+		void setPosition(Vector2 pos);
+		
+
+		Vector2 getPosition();
+
+
+		void setPositionVar(Vector2 pos);
+		Vector2 getPositionVar();
+
+		/* move mode */
+		void setMoveMode(int mode);
+		int getMoveMode();
+
+
+		/* texture */
+		void setBlendSrc(int blend);
+		int getBlendSrc();
+		void setBlendDst(int blend);
+		int getBlendDst();
+		void setTexture(Texture2D* texture);
+		Texture2D* getTexture();
+
+
+		/* environment */
+		void setEnvironmentMode(int mode);
+		int getEnvironmentMode();
+
+		/* gravity mode */
+		void setSpeed(float speed);
+		float getSpeed();
+		void setSpeedVar(float speed);
+		float getSpeedVar();
+
+		void setGravity(Vector2 g);
+		Vector2 getGravity();
+
+		void setRadialAcceleration(float accel);
+		float getRadialAcceleration();
+		void setRadialAccelerationVar(float accel);
+		float getRadialAccelerationVar();
+		void setTangentialAcceleration(float accel);
+
+		float getTangentialAcceleration();
+		void setTangentialAccelerationVar(float accel);
+		float getTangentialAccelerationVar();
+
+		/* radial mode */
+		void setStartRadius(float radius);
+		float getStartRadius();
+		void setStartRadiusVar(float radius);
+		float getStartRadiusVar();
+		void setEndRadius(float radius);
+		float getEndRadius();
+		void setEndRadiusVar(float radius);
+		float getEndRadiusVar();
+		void setRotateSpeed(float speed);
+		float getRotateSpeed();
+
+		void setRotateSpeedVar(float speed);
+		float getRotateSpeedVar();
+};
+

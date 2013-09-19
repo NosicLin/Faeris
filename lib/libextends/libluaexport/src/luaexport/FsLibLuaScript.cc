@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibLuaScript
-** Generated automatically by tolua++-1.0.92 on 09/19/13 07:09:36.
+** Generated automatically by tolua++-1.0.92 on 09/19/13 07:26:33.
 */
 
 #ifndef __cplusplus
