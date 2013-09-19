@@ -16,6 +16,8 @@ class Layer@__layer:public StageElement
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		int getEntityNu();
+
 		void clearEntity();
 		Scene* getScene();
 

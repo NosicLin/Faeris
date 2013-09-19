@@ -37,6 +37,7 @@ class Layer:public StageElement
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		int getEntityNu();
 
 		/* used for Entity parent change,
 		 * user can't direct call this interface */

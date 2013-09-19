@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 09/19/13 07:26:33.
+** Generated automatically by tolua++-1.0.92 on 09/19/13 10:02:39.
 */
 
 #ifndef __cplusplus
@@ -9567,6 +9567,38 @@ static int tolua_FsLibFaeris___layer_remove00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'remove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getEntityNu of class  Layer */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___layer_getEntityNu00
+static int tolua_FsLibFaeris___layer_getEntityNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Layer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Layer* self = (Layer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getEntityNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getEntityNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getEntityNu'.",&tolua_err);
  return 0;
 #endif
 }
@@ -19608,6 +19640,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setTouchEnabled",tolua_FsLibFaeris___layer_setTouchEnabled00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris___layer_add00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___layer_remove00);
+   tolua_function(tolua_S,"getEntityNu",tolua_FsLibFaeris___layer_getEntityNu00);
    tolua_function(tolua_S,"clearEntity",tolua_FsLibFaeris___layer_clearEntity00);
    tolua_function(tolua_S,"getScene",tolua_FsLibFaeris___layer_getScene00);
    tolua_function(tolua_S,"setScissorArea",tolua_FsLibFaeris___layer_setScissorArea00);

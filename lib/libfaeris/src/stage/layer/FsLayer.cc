@@ -10,6 +10,11 @@ NS_FS_BEGIN
 	return FS_LAYER_CLASS_NAME;
 }
 
+int Layer::getEntityNu()
+{
+	return m_ownerEntity->size();
+}
+
 void Layer::add(Entity* entity)
 {
 	if(entity->layer()==this)
