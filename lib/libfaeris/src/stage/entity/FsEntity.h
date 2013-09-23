@@ -55,6 +55,10 @@ class Entity :public StageElement
 		float getZorder(){return m_zorlder;}
 		void setZorder(float z){m_zorlder=z;}
 
+		/* used for layer to sort */
+		uint32_t getAddOlder(){return m_addOlder;}
+		void  setAddOlder(uint32_t older){ m_addOlder=older;}
+
 
 	public: /* get transform info */
 		Vector3 getPosition(){return m_translate;}
@@ -170,6 +174,7 @@ class Entity :public StageElement
 
 		/* zorlder */
 		float m_zorlder;
+		uint32_t m_addOlder;
 
 		/* matrix */
 		Matrix4 m_localMatrix;

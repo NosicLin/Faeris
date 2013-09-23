@@ -179,6 +179,7 @@ bool Quad2D::init(const char* file)
 	Texture2D* tex=Global::textureMgr()->loadTexture(file);
 	if(tex==NULL)
 	{
+		FS_TRACE_WARN("Can't Load Texture(%s)",file);
 		return false;
 	}
 	bool ret=init(tex);

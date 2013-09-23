@@ -94,7 +94,7 @@ FsFile* FgzReader::getFile(const char* filename)
 
 	if(info==NULL)
 	{
-		FS_TRACE_INFO("Can't Find File(%s) In FgzPackage",filename);
+		//FS_TRACE_INFO("Can't Find File(%s) In FgzPackage",filename);
 		return NULL;
 	}
 

@@ -91,6 +91,8 @@ class Layer:public StageElement
 
 		Scene* m_scene;
 
+		uint32_t m_addOlder;
+
 		friend class Scene;
 
 };

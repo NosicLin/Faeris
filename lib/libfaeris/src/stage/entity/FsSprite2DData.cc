@@ -273,6 +273,7 @@ bool Sprite2DData::loadTextures(FsArray* array)
 			Texture2D* tex=Global::textureMgr()->loadTexture(name->cstr());
 			if(!tex)
 			{
+				FS_TRACE_WARN("Can't Load Resource(%s) For Sprite",name->cstr());
 				name->decRef();
 				return false;
 			}

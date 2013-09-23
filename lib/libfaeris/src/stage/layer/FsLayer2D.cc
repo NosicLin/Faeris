@@ -10,7 +10,18 @@ NS_FS_BEGIN
 
 static bool FsFuncEntity_SortZolder(Entity* left,Entity* right)
 {
-	return left->getZorder()<right->getZorder();
+	if( left->getZorder()<right->getZorder())
+	{
+		return true;
+	}
+	else if(left->getZorder()>right->getZorder())
+	{
+		return false;
+	}
+	else 
+	{
+		return left->getAddOlder()<right->getAddOlder();
+	}
 }
 
 static bool FsFuncEntity_SortY(Entity* left,Entity* right)

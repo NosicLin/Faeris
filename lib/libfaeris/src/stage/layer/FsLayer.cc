@@ -53,6 +53,7 @@ void Layer::remove(Entity* entity)
 
 void Layer::takeOwnership(Entity* entity)
 {
+	entity->setAddOlder(m_addOlder++);
 	m_ownerEntity->insert(entity,entity);
 	entity->setLayer(this);
 	if(entity->childNu()==0) /* no child */
@@ -66,6 +67,7 @@ void Layer::takeOwnership(Entity* entity)
 	{
 		Entity* child=(Entity*)array->get(i);
 		m_ownerEntity->insert(child,child);
+		child->setAddOlder(m_addOlder++);
 		child->setLayer(this);
 		child->decRef();
 	}
@@ -243,6 +245,7 @@ bool Layer::touchesEnd(TouchEvent* event)
 
 void Layer::init()
 {
+	m_addOlder=0;
 	m_entity=FsDict::create();
 	m_ownerEntity=FsSlowDict::create();
 	assert(m_entity);

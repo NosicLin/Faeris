@@ -151,6 +151,7 @@ int luaf_import(lua_State* l)
 	}
 	else 
 	{
+		FS_TRACE_WARN("Can't f_import File(%s)",file);
 		lua_pushboolean(l,false);
 	}
 	return 1;
