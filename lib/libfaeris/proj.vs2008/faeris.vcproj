@@ -278,6 +278,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\graphics\material\FsMat_V4F_T2F_C4F.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\graphics\material\FsMat_V4F_T2F_C4F.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\graphics\material\FsMaterial.cc"
 						>
 					</File>
@@ -842,11 +850,19 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\stage\entity\FsParticle2DEffect.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\stage\entity\FsParticle2DEmitter.cc"
 						>
 					</File>
 					<File
 						RelativePath="..\src\stage\entity\FsParticle2DEmitter.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsParticleEffect.cc"
 						>
 					</File>
 					<File

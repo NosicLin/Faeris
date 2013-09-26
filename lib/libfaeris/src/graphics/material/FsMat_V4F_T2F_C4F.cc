@@ -1,5 +1,5 @@
 #include "graphics/material/FsMat_V4F_T2F_C4F.h"
-
+#include "graphics/FsProgram.h"
 
 NS_FS_BEGIN
 
@@ -41,7 +41,7 @@ void main()                         \n\
 
 static Mat_V4F_T2F_C4F* s_shareMatrial=NULL;
 
-Mat_V4F_T2F_C4F* Mat_V4F_T2F::shareMaterial()
+Mat_V4F_T2F_C4F* Mat_V4F_T2F_C4F::shareMaterial()
 {
 	if(s_shareMatrial==NULL)
 	{
@@ -57,15 +57,8 @@ void Mat_V4F_T2F_C4F::purgeShareMaterial()
 	s_shareMatrial=NULL;
 }
 
-void Mat_V4F_T2F_C4F::setOpacity(float opacity)
-{
-	m_opacity=opacity;
-}
 
-float Mat_V4F_T2F_C4F::getOpacity()
-{
-	return m_opacity;
-}
+
 
 int Mat_V4F_T2F_C4F::getV4FLocation()
 {
@@ -80,11 +73,19 @@ int Mat_V4F_T2F_C4F::getT2FLocation()
 
 void Mat_V4F_T2F_C4F::onUse(Render* r)
 {
+	float color[4]=
+	{
+		m_color.r/255.0f,
+		m_color.g/255.0f,
+		m_color.b/255.0f,
+		m_color.a/255.0f,
+	};
 	int texture0 =0;
 	Material::onUse(r);
 	r->setProgram(m_program);
 	Matrix4* mat=r->getMVPMatrix();
 	r->setUniform(m_mvpUniform,Render::U_M_4,1,mat);
+	r->setUniform(m_colorUniform,Render::U_F_4,1,color);
 	r->setUniform(m_opacityUniform,Render::U_F_1,1,&this->m_opacity);
 	r->setUniform(m_textureUniform,Render::U_I_1,1,&texture0);
 }
@@ -94,7 +95,7 @@ Mat_V4F_T2F_C4F::Mat_V4F_T2F_C4F()
 	m_program=Program::create(v4f_t2f_c4f_vert_str,
 			sizeof(v4f_t2f_c4f_vert_str),
 			v4f_t2f_c4f_frag_str,
-			sizeof(v4f_t2f_c4f_frag_str),
+			sizeof(v4f_t2f_c4f_frag_str)
 			);
 
 	if(m_program)
@@ -106,14 +107,17 @@ Mat_V4F_T2F_C4F::Mat_V4F_T2F_C4F()
 
 		m_v4fLocation=m_program->getAttributeLocation("a_position");
 		m_t2fLocation=m_program->getAttributeLocation("a_texCoord");
+		m_c4fLocation=m_program->getAttributeLocation("a_color");
 	}
 	else 
 	{
 		m_opacityUniform=-1;
 		m_colorUniform=-1;
 		m_textureUniform=-1;
-		m_positionAttribute=-1;
-		m_textcoordAttribute=-1;
+
+		m_v4fLocation=-1;
+		m_t2fLocation=-1;
+		m_c4fLocation=-1;
 	}
 	setDepthTest(false);
 	m_opacity=1.0f;

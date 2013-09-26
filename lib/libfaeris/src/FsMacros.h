@@ -240,6 +240,7 @@ enum
 #define FS_SPRITE2D_CLASS_NAME "Sprite2D"
 #define FS_LABEL_BITMAP_CLASS_NAME "LabelBitmap"
 #define FS_PARTICLE2D_EMITTER_CLASS_NAME "Particle2DEmitter"
+#define FS_PARTICLE2D_EFFECT_CLASS_NAME   "Particle2DEffect"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"

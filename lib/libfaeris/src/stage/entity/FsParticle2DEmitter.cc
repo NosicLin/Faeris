@@ -96,7 +96,7 @@ void Particle2DEmitter::generateParticle(Particle* p)
 	p->m_colorAlpha=Math::clampf(fbegin/255.0f,0,1.0f);
 	p->m_colorAlphaDt=(Math::clampf(fend/255.0f,0,1.0f)-p->m_colorAlpha)/lifetime;
 
-	p->m_angle=m_angle+m_angleVar*Math::random(0.0f,1.0f);
+
 
 	fbegin=m_startRotation+m_startRotationVar*Math::random(0.0f,1.0f);
 	fend=m_endRotation+m_endRotationVar*Math::random(0.0f,1.0f);
@@ -109,9 +109,13 @@ void Particle2DEmitter::generateParticle(Particle* p)
 	p->m_startPos=p->m_position;
 
 	p->m_gravityMode.m_gravity=m_gravity;
-	p->m_gravityMode.m_speed=m_speed+m_speedVar*Math::random(0.0f,1.0f);
+
 	p->m_gravityMode.m_radialAcceleration=m_radialAcceleration+m_radialAccelerationVar*Math::random(0.0f,1.0f);
 	p->m_gravityMode.m_tangentialAcceleration=m_tangentialAcceleration+m_tangentialAccelerationVar*Math::random(0.0f,1.0f);
+
+	float speed=m_speed+m_speedVar*Math::random(0.0f,1.0f);
+	float angle=m_angle+m_angleVar*Math::random(0.0f,1.0f);
+	p->m_gravityMode.m_direction=Vector2(Math::cosa(angle)*speed,Math::sina(angle)*speed);
 
 
 	fbegin=m_startRadius+m_startRadiusVar*Math::random(0.0f,1.0f);
@@ -120,6 +124,7 @@ void Particle2DEmitter::generateParticle(Particle* p)
 	p->m_radialMode.m_radius=fbegin;
 	p->m_radialMode.m_radiusDt=(fend-fbegin)/m_lifeTime;
 	p->m_radialMode.m_angleDt=m_rotateSpeed+m_rotateSpeedVar*Math::random(0.0f,1.0f);
+	p->m_radialMode.m_angle=angle;
 }
 
 

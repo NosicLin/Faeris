@@ -86,5 +86,12 @@ inline Vector2 Vector2::operator*(float v) const
 	return this->scale(v);
 }
 
+inline Vector2& Vector2::operator +=(const Vector2& v)
+{
+	this->x+=v.x;
+	this->y+=v.y;
+	return *this;
+}
+
 #endif
 

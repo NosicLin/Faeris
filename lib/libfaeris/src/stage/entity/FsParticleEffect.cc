@@ -1,45 +1,50 @@
 #include <assert.h>
-#include "stage/entity/FsParticleEffect.h"
+#include "stage/entity/FsParticle2DEffect.h"
+#include "stage/entity/FsParticle2DEmitter.h"
+#include "math/FsMathUtil.h"
+#include "graphics/FsRender.h"
+#include "graphics/material/FsMat_V4F_T2F.h"
 
 NS_FS_BEGIN
 
 
-const char* ParticleEffect::className()
+const char* Particle2DEffect::className()
 {
-	return FS_PARTICLE_EFFECT_CLASS_NAME;
+	return FS_PARTICLE2D_EFFECT_CLASS_NAME;
 }
 
 
-ParticleEffect* ParticleEffect::create(const char* filename)
+Particle2DEffect* Particle2DEffect::create(const char* filename)
 {
-	ParticleEmitter* emit=ParticleEmitter::create(filename);
+	Particle2DEmitter* emit=Particle2DEmitter::create(filename);
 	if( emit==NULL) 
 	{
 		FS_TRACE_WARN("Create Emitter For File(%s) Failed",filename);
 		return NULL;
 	}
-	ParticleEffect* ret=ParticleEffect::create(emit);
+	Particle2DEffect* ret=Particle2DEffect::create(emit);
 	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
-ParticleEffect* ParticleEffect::create(FsFile* file)
+Particle2DEffect* Particle2DEffect::create(FsFile* file)
 {
-	ParticleEmitter* emit=ParticleEmitter::create(file);
+	Particle2DEmitter* emit=Particle2DEmitter::create(file);
 	if(emit==NULL)
 	{
 		FS_TRACE_WARN("create Emiit for Failed");
 		return NULL;
 	}
 
-	ParticleEffect* ret=ParticleEffect::create(emit);
+	Particle2DEffect* ret=Particle2DEffect::create(emit);
 	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
-ParticleEffect* ParticleEffect::create(ParticleEmitter* emitter)
+
+Particle2DEffect* Particle2DEffect::create(Particle2DEmitter* emitter)
 {
-	ParticleEffect* ret=new ParticleEffect;
+	Particle2DEffect* ret=new Particle2DEffect;
 	if(!ret->init(emitter))
 	{
 		delete ret;
@@ -48,78 +53,111 @@ ParticleEffect* ParticleEffect::create(ParticleEmitter* emitter)
 }
 
 
-ParticleEffect::ParticleEffect()
+Particle2DEffect* Particle2DEffect::create()
 {
+	Particle2DEffect* ret=new Particle2DEffect;
+	if(!ret->init(NULL))
+	{
+		delete ret;
+	}
+	return ret;
+}
+
+
+
+Particle2DEffect::Particle2DEffect()
+{
+	m_maxParticles=0;
+	m_emitSpeed=0;
 	m_lifeTime=0;
 	m_elapseTime=0;
+	m_opacity=1.0;
+
 	m_emitter=NULL;
+
 	m_stop=true;
 	m_pause=false;
 	m_autoRemove=true;
+
+	m_material=Mat_V4F_T2F::shareMaterial();
+
 }
 
-ParticleEffectL::~ParticleEffect()
+Particle2DEffect::~Particle2DEffect()
 {
 	destory();
 }
 
-bool ParticleEffect::init(ParticleEmitter* emitter)
+bool Particle2DEffect::init(Particle2DEmitter* emitter)
 {
 	FS_SAFE_ASSIGN(m_emitter,emitter);
 	return true;
 }
 
-void ParticleEffect::start()
+void Particle2DEffect::destory()
+{
+	FS_SAFE_DEC_REF(m_emitter);
+	m_emitter=NULL;
+	FS_SAFE_DEC_REF(m_material);
+	m_material=NULL;
+}
+
+void Particle2DEffect::start()
 {
 	if(!m_emitter)
 	{
-		m_running=false;
+		m_stop=true;
 		FS_TRACE_WARN("no emitter find, start faild");
 		return;
 	}
 
-	m_lifeTime=m_emitter->getDurationTime()+m_emitter->getDurationTimeVar()*Math:random(0.0f,1.0f);
+
+	m_lifeTime=m_emitter->getDurationTime()+m_emitter->getDurationTimeVar()*Math::random(0.0f,1.0f);
+	m_emitSpeed=m_emitter->getEmitSpeed();
+	m_maxParticles=m_emitter->getMaxParticleNu();
+
+
 	m_elapseTime=0.0f;
 	m_stop=false;
 	m_pause=false;
 }
 
-void ParticleEffect::stop()
+void Particle2DEffect::stop()
 {
 	m_stop=true;
 }
 
 
-void ParticleEffect::setPause(bool pause)
+void Particle2DEffect::setPause(bool pause)
 {
 	m_pause=pause;
 }
 
 
-bool ParticleEffect::isPause()
+bool Particle2DEffect::isPause()
 {
 	return m_pause;
 }
 
-bool ParticleEffect::isStop()
+bool Particle2DEffect::isStop()
 {
 	return m_stop;
 }
 
-void ParticleEffect::setEmitter(ParticleEmitter* emit)
+void Particle2DEffect::setEmitter(Particle2DEmitter* emit)
 {
 	FS_SAFE_ASSIGN(m_emitter,emit);
 	m_stop=true;
 	m_pause=false;
 }
 
-ParticleEmitter* ParticleEffect::getEmitter()
+Particle2DEmitter* Particle2DEffect::getEmitter()
 {
 	FS_SAFE_ADD_REF(m_emitter);
 	return m_emitter;
 }
 
-void ParticleEffect::setAutoRemoveOnStop(bool remove)
+void Particle2DEffect::setAutoRemoveOnStop(bool remove)
 {
 	m_autoRemove=remove;
 }
@@ -127,7 +165,7 @@ void ParticleEffect::setAutoRemoveOnStop(bool remove)
 
 
 
-void ParticleEffect::update(float dt)
+void Particle2DEffect::update(float dt)
 {
 	if(m_stop||m_pause)
 	{
@@ -136,7 +174,7 @@ void ParticleEffect::update(float dt)
 
 	/* update particle */
 	int size=m_particles.size();
-	int i=0;
+	unsigned int i=0;
 	int pos=0;
 	Particle* p=NULL;
 
@@ -166,7 +204,7 @@ void ParticleEffect::update(float dt)
 
 	
 	/* check particle stop */
-	if ( m_elapseTime > m_lifeTime )
+	if ( ( m_lifeTime > 0 ) && (m_elapseTime > m_lifeTime ))
 	{
 		/* no particle exist,so will set the state to stop */
 		if (m_particles.size()==0) 
@@ -181,7 +219,7 @@ void ParticleEffect::update(float dt)
 }
 
 
-void ParticleEffect::updateParticle(Particle* p,float dt)
+void Particle2DEffect::updateParticle(Particle* p,float dt)
 {
 	p->m_timeElapse+=dt;
 	p->m_size+=p->m_sizeDt*dt;
@@ -195,27 +233,33 @@ void ParticleEffect::updateParticle(Particle* p,float dt)
 
 
 	/* gravity mode */
-	if(p->m_envMode==ParticleEmitter::ENV_GRAVITY)
+	if(p->m_envMode==Particle2DEmitter::ENV_GRAVITY)
 	{
-		Vector2f radial=p->m_position;
-		radial.normalise();
-		Vector2f tangent=Vector2f(-radial.y,radial.x);
+		Vector2 radial=Vector2(0,0);
+		if(p->m_position.x || p->m_position.y) 
+		{
+			radial=p->m_position;
+			radial.normalize();
+		}
+
+		Vector2 tangent=Vector2(-radial.y,radial.x);
 
 		p->m_gravityMode.m_direction+=
-						tangent*p->m_gravityMode.m_tangentialAcceleration+
-					    radial *p->m_gravityMode.m_radialAcceleration+ 
-					    p->m_gravityMode.m_gravity;
+						tangent*p->m_gravityMode.m_tangentialAcceleration*dt+
+					    radial *p->m_gravityMode.m_radialAcceleration*dt+ 
+					    p->m_gravityMode.m_gravity*dt;
 
 		p->m_position+=p->m_gravityMode.m_direction*dt;
 	}
+
 	/* radial mode */
-	else if (p->m_envMode==ParticleEmitter::ENV_RADIAL)
+	else if (p->m_envMode==Particle2DEmitter::ENV_RADIAL)
 	{
 		p->m_radialMode.m_radius+=p->m_radialMode.m_radiusDt*dt;
 		p->m_radialMode.m_angle+=p->m_radialMode.m_angleDt*dt;
 
-		p->m_position=Vector2f(-Math::cosf(p->m_radialMode.m_angle),
-							   -Math::sinf(p->m_radialMode.m_angle))*p->m_radialMode.m_radius;
+		p->m_position=Vector2(-Math::cosa(p->m_radialMode.m_angle),
+							   -Math::sina(p->m_radialMode.m_angle))*p->m_radialMode.m_radius;
 
 	}
 	else 
@@ -224,7 +268,7 @@ void ParticleEffect::updateParticle(Particle* p,float dt)
 	}
 }
 
-void ParticleEffect::generateParticle(float dt)
+void Particle2DEffect::generateParticle(float dt)
 {
 	if(m_elapseTime>m_lifeTime)
 	{
@@ -248,9 +292,9 @@ void ParticleEffect::generateParticle(float dt)
 		diff=dt;
 	}
 
-	assert(diff>=0):
+	assert(diff>=0);
 
-	int generate_nu=m_emitSpeed*diff;
+	int generate_nu=(int)(m_emitSpeed*diff);
 
 	int particle_size=m_particles.size();
 	if(generate_nu+particle_size>m_maxParticles)
@@ -270,7 +314,7 @@ void ParticleEffect::generateParticle(float dt)
 
 }
 
-void ParticleEffect::draw(Render* r,bool update_world_matrix)
+void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 {
 	if(!m_emitter)
 	{
@@ -308,7 +352,9 @@ void ParticleEffect::draw(Render* r,bool update_world_matrix)
 
 	int pos_loc=m_material->getV4FLocation();
 	int tex_loc=m_material->getT2FLocation();
-	int col_loc=m_material->getC4FLocation();
+
+	int color_uniform=m_material->getColorUniform();
+	int texture_uniform=m_material->getTextureUniform();
 
 	static Face3 faces[2]=
 	{
@@ -316,10 +362,38 @@ void ParticleEffect::draw(Render* r,bool update_world_matrix)
 		Face3(2,3,0),
 	};
 
-	for(unsigned int i=0;i<m_vertices.size();i++)
+	static float t[8]={
+		0.0f,0.0f,
+		0.0f,1.0f,
+		1.0f,1.0f,
+		1.0f,0.0f,
+
+	};
+	render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,t);
+
+	for(unsigned int i=0;i<m_particles.size();i++)
 	{
-		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,&m_vertices[i]);
-		render->setAndEnableVertexAttrPointer(col_loc,4,FS_FLOAT,4,0,&m_vertices[i].c4);
+		float color[4]={
+			m_particles[i].m_colorRed,
+			m_particles[i].m_colorGreen,
+			m_particles[i].m_colorBlue,
+			m_particles[i].m_colorAlpha,
+		};
+		float x=m_particles[i].m_position.x;
+		float y=m_particles[i].m_position.y;
+		float size=m_particles[i].m_size;
+		float hlsize=size/2;
+
+
+		float v[8]=
+		{
+			x-hlsize,y+hlsize,
+			x-hlsize,y-hlsize,
+			x+hlsize,y-hlsize,
+			x+hlsize,y+hlsize,
+		};
+		render->setUniform(color_uniform,Render::U_F_4,1,color);
+		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,v);
 		render->drawFace3(faces,2);
 	}
 

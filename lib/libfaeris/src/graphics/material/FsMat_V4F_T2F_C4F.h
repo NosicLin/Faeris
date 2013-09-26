@@ -1,7 +1,7 @@
 #ifndef _FS_MAT_V4F_T2F_C4F_H_
 #define _FS_MAT_V4F_T2F_C4F_H_
 
-#include "graphics/material/FsMacros.h"
+#include "FsMacros.h"
 #include "graphics/material/FsMaterial.h"
 
 NS_FS_BEGIN
@@ -10,6 +10,7 @@ class Mat_V4F_T2F_C4F:public Material
 	public:
 		static Mat_V4F_T2F_C4F* create();
 		static Mat_V4F_T2F_C4F* shareMaterial();
+		static void purgeShareMaterial();
 
 	public:
 		virtual void onUse(Render* r);
@@ -25,10 +26,19 @@ class Mat_V4F_T2F_C4F:public Material
 			return m_opacity;
 		}
 
+		void setColor(Color c);
+		Color getColor();
+
 	public:
 		int getV4FLocation();
 		int getC4FLocation();
 		int getT2FLocation();
+
+		int getOpacityUniform(){return m_opacityUniform;}
+		int getColorUniform(){return m_colorUniform;}
+		int getMvpUniform(){return m_mvpUniform;}
+		int getTextureUniform(){return m_textureUniform;}
+
 
 	protected:
 		Mat_V4F_T2F_C4F();
@@ -36,10 +46,13 @@ class Mat_V4F_T2F_C4F:public Material
 
 	private:
 		float m_opacity;
+		Color m_color;
 
 		/* uniform and attribute */
 		int  m_opacityUniform;
+		int  m_colorUniform;
 		int  m_mvpUniform;
+		int  m_textureUniform;
 
 		int  m_v4fLocation;
 		int  m_c4fLocation;

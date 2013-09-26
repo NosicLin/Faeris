@@ -10,6 +10,7 @@
 
 NS_FS_BEGIN
 
+
 class Fs_V2F_T2F
 {
 	

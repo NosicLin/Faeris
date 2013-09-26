@@ -37,6 +37,8 @@ class Vector2
 		Vector2 operator - (const Vector2& v)const;
 		Vector2 operator / (float v) const ;
 		Vector2 operator * (float v) const ;
+
+		Vector2& operator +=(const Vector2& v);
 };
 
 #include "FsVector2.inl"

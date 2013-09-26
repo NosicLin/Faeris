@@ -21,6 +21,12 @@ class Mat_V4F_T2F: public Material
 		int getV4FLocation();
 		int getT2FLocation();
 
+		int getOpacityUniform(){return m_opacityUniform;}
+		int getColorUniform(){return m_colorUniform;}
+		int getMvpUniform(){return m_mvpUniform;}
+		int getTextureUniform(){return m_textureUniform;}
+
+
 	public:
 		virtual void onUse(Render* r);
 		virtual const char* className();

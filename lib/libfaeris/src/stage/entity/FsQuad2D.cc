@@ -130,7 +130,7 @@ void Quad2D::draw(Render* render,bool updateMatrix)
 				m_textureCoord.y),	  /* d */
 	};
 
-	Face3 faces[2]=
+	static Face3 faces[2]=
 	{
 		Face3(0,1,2),
 		Face3(2,3,0),
