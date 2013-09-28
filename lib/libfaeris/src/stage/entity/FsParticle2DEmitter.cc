@@ -54,6 +54,17 @@ Particle2DEmitter* Particle2DEmitter::create(FsFile* file)
 	return ret;
 }
 
+Particle2DEmitter* Particle2DEmitter::create(FsDict* dict)
+{
+	Particle2DEmitter* ret= new Particle2DEmitter;
+	if(!ret->init(dict))
+	{
+		delete ret;
+		return NULL;
+	}
+	return ret;
+}
+
 void Particle2DEmitter::generateParticle(Particle* p)
 {
 	float fbegin,fend;
