@@ -118,15 +118,12 @@ void Particle2DEffect::start()
 
 
 	m_elapseTime=0.0f;
-<<<<<<< HEAD
-	m_stop=false;
-	m_pause=false;
-=======
+
 	m_generateParticle=0.0f;
 	m_stop=false;
 	m_pause=false;
 
->>>>>>> dev_particle
+
 }
 
 void Particle2DEffect::stop()
@@ -174,11 +171,8 @@ void Particle2DEffect::setAutoRemoveOnStop(bool remove)
 
 void Particle2DEffect::update(float dt)
 {
-<<<<<<< HEAD
-=======
 	updateWorldMatrix();
 
->>>>>>> dev_particle
 	if(m_stop||m_pause)
 	{
 		return ;
@@ -214,11 +208,6 @@ void Particle2DEffect::update(float dt)
 	/* generate particle */
 	generateParticle(dt);
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> dev_particle
 	
 	/* check particle stop */
 	if ( ( m_lifeTime > 0 ) && (m_elapseTime > m_lifeTime ))
@@ -233,10 +222,6 @@ void Particle2DEffect::update(float dt)
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> dev_particle
 }
 
 
@@ -287,10 +272,6 @@ void Particle2DEffect::updateParticle(Particle* p,float dt)
 	{
 		FS_TRACE_WARN("Error Env Mode");
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> dev_particle
 }
 
 void Particle2DEffect::generateParticle(float dt)
@@ -319,9 +300,6 @@ void Particle2DEffect::generateParticle(float dt)
 
 	assert(diff>=0);
 
-<<<<<<< HEAD
-	int generate_nu=(int)(m_emitSpeed*diff);
-=======
 	m_generateParticle+=m_emitSpeed*diff;
 
 	int generate_nu=(int)floor(m_generateParticle);
@@ -329,7 +307,6 @@ void Particle2DEffect::generateParticle(float dt)
 
 	float per_diff=1.0f/(float)m_emitSpeed;
 
->>>>>>> dev_particle
 
 	int particle_size=m_particles.size();
 	if(generate_nu+particle_size>m_maxParticles)
@@ -339,12 +316,6 @@ void Particle2DEffect::generateParticle(float dt)
 
 	m_particles.resize(particle_size+generate_nu);
 
-<<<<<<< HEAD
-	for(int i=0;i<generate_nu;i++)
-	{
-		Particle* p=&m_particles[i+particle_size];
-		m_emitter->generateParticle(p);
-=======
 	Vector2 start_pos=Vector2(m_worldMatrix.m03,m_worldMatrix.m13);
 
 	for(int i=0;i<generate_nu;i++)
@@ -355,18 +326,12 @@ void Particle2DEffect::generateParticle(float dt)
 		p->m_startPos=start_pos;
 
 		updateParticle(p,per_diff*i);
->>>>>>> dev_particle
 	}
 
 	m_elapseTime+=dt;
 
-<<<<<<< HEAD
-}
-
-=======
 
 }
->>>>>>> dev_particle
 void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 {
 	if(!m_emitter)
@@ -385,14 +350,7 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	}
 
 
-<<<<<<< HEAD
-	if(update_world_matrix)
-	{
-		updateWorldMatrix();
-	}
-=======
 	updateWorldMatrix();
->>>>>>> dev_particle
 
 
 	render->pushMatrix();
@@ -428,11 +386,8 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	};
 	render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,t);
 
-<<<<<<< HEAD
-=======
 	Vector2 cur_pos=Vector2(m_worldMatrix.m03,m_worldMatrix.m13);
 
->>>>>>> dev_particle
 	for(unsigned int i=0;i<m_particles.size();i++)
 	{
 		float color[4]={
@@ -441,10 +396,6 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 			m_particles[i].m_colorBlue,
 			m_particles[i].m_colorAlpha,
 		};
-<<<<<<< HEAD
-		float x=m_particles[i].m_position.x;
-		float y=m_particles[i].m_position.y;
-=======
 		float x,y;
 
 		if( m_particles[i].m_moveMode== Particle2DEmitter::MOVE_FREE)
@@ -458,7 +409,6 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 			y=m_particles[i].m_position.y;
 		}
 
->>>>>>> dev_particle
 		float size=m_particles[i].m_size;
 		float hlsize=size/2;
 

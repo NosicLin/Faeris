@@ -110,10 +110,7 @@ class Particle2DEffect:public Entity
 		bool m_stop;
 		bool m_pause;
 		bool m_autoRemove;
-<<<<<<< HEAD
-=======
 		float m_generateParticle;
->>>>>>> dev_particle
 
 		Mat_V4F_T2F* m_material;
 
