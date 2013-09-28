@@ -104,10 +104,23 @@ void Particle2DEmitter::generateParticle(Particle* p)
 	p->m_rotation=fbegin;
 	p->m_rotationDt=(fend-fbegin)/lifetime;
 
+<<<<<<< HEAD
 	p->m_position=m_position+m_positionVar*Math::random(0.0f,1.0f);
 
 	p->m_startPos=p->m_position;
 
+=======
+	p->m_position.x=m_position.x+m_positionVar.x*Math::random(0.0f,1.0f);
+	p->m_position.y=m_position.y+m_positionVar.y*Math::random(0.0f,1.0f);
+	
+
+	p->m_startPos=p->m_position;
+
+
+	p->m_envMode=m_enviromentMode;
+	p->m_moveMode=m_moveMode;
+
+>>>>>>> dev_particle
 	p->m_gravityMode.m_gravity=m_gravity;
 
 	p->m_gravityMode.m_radialAcceleration=m_radialAcceleration+m_radialAccelerationVar*Math::random(0.0f,1.0f);
@@ -272,7 +285,11 @@ bool Particle2DEmitter::init(FsFile* file)
 		FsArray* start_color=ScriptUtil::getArray(particle,"startColor");
 		if(start_color)
 		{
+<<<<<<< HEAD
 			int r,g,b,a;
+=======
+			int r=255,g=255,b=255,a=255;
+>>>>>>> dev_particle
 			ScriptUtil::getInteger(start_color,0,&r);
 			ScriptUtil::getInteger(start_color,1,&g);
 			ScriptUtil::getInteger(start_color,2,&b);
@@ -287,7 +304,11 @@ bool Particle2DEmitter::init(FsFile* file)
 		FsArray* start_color_var=ScriptUtil::getArray(particle,"startColorVar");
 		if (start_color_var)
 		{
+<<<<<<< HEAD
 			int r,g,b,a;
+=======
+			int r=255,g=255,b=255,a=255;
+>>>>>>> dev_particle
 			ScriptUtil::getInteger(start_color_var,0,&r);
 			ScriptUtil::getInteger(start_color_var,1,&g);
 			ScriptUtil::getInteger(start_color_var,2,&b);
@@ -303,7 +324,11 @@ bool Particle2DEmitter::init(FsFile* file)
 		FsArray* end_color=ScriptUtil::getArray(particle,"endColor");
 		if(end_color)
 		{
+<<<<<<< HEAD
 			int r,g,b,a;
+=======
+			int r=255,g=255,b=255,a=255;
+>>>>>>> dev_particle
 			ScriptUtil::getInteger(end_color,0,&r);
 			ScriptUtil::getInteger(end_color,1,&g);
 			ScriptUtil::getInteger(end_color,2,&b);
@@ -320,7 +345,11 @@ bool Particle2DEmitter::init(FsFile* file)
 		FsArray* end_color_var=ScriptUtil::getArray(particle,"endColorVar");
 		if(end_color_var)
 		{
+<<<<<<< HEAD
 			int r,g,b,a;
+=======
+			int r=255,g=255,b=255,a=255;
+>>>>>>> dev_particle
 			ScriptUtil::getInteger(end_color_var,0,&r);
 			ScriptUtil::getInteger(end_color_var,1,&g);
 			ScriptUtil::getInteger(end_color_var,2,&b);
