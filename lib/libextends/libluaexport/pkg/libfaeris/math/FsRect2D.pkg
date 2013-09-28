@@ -1,0 +1,19 @@
+$#include "math/FsRect2D.h"
+
+class Rect2D
+{
+	public:
+		Rect2D(float _x,float _y,float _width,float _height);
+		Rect2D(const Vector2& _start,float _width,float _height);
+		Rect2D();
+	public:
+		void set(float _x,float _y,float _width,float _height);
+
+	public:
+		float x;
+		float y;
+		float width;
+		float height;
+};
+
+

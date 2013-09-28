@@ -1,0 +1,10 @@
+$#include "FsObject.h"
+class FsObject 
+{
+	public:
+		const char* className();
+	public:
+		LUA_TABLE m_scriptData@data;
+};
+
+

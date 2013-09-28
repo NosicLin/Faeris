@@ -1,0 +1,8 @@
+$#include "mgr/FsSprite2DDataMgr.h"
+
+class Sprite2DDataMgr:public ResourceMgr 
+{
+
+};
+
+

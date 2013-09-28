@@ -1,0 +1,8 @@
+$#include "sys/event/FsSysDispatcher.h"
+
+class SysDispatcher:public FsObject 
+{
+	public:
+		void addListener(SysEventListener* l);
+		void removeListener(SysEventListener* l);
+};

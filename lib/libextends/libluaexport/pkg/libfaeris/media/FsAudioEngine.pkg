@@ -1,0 +1,37 @@
+$#include "media/FsAudioEngine.h"
+$#include "FsLuaExport.h"
+
+class AudioEngine:public FsObject
+{
+	public:
+		static AudioEngine* create();
+		static AudioEngine* create(int channel_nu);
+
+	public:
+		/* background music */
+		void playBackgroundMusic(const char* name,bool loop=true);
+		void stopBackgroundMusic();
+		void pauseBackgroundMusic();
+		void resumeBackgroundMusic();
+		void rewindBackgroundMusic();
+
+		/* load and unload sound */
+		int loadSound(const char* name);
+		int unloadSound(const char* name);
+		int unloadSounds();
+
+		Channel* playSound(const char* name,int loop=0,int priority=AudioEngine::PRIORITY_MIDDLE);
+
+		/* single channel */
+		void pauseChannel(Channel* c);
+		void resumeChannel(Channel* c);
+		void stopChannel(Channel* c);
+		void setChannelVolume(Channel* c,float value);
+		float getChannelVolume(Channel* c);
+
+		/* all channel */
+		void pauseChannels();
+		void resumeChannels();
+		void stopChannnels();
+		void setVolume(float value);
+};

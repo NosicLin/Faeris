@@ -1,0 +1,89 @@
+#ifndef _FS_DIRECTOR_H_
+#define _FS_DIRECTOR_H_
+#include "FsMacros.h"
+#include "scheduler/FsSchedulerTarget.h"
+
+NS_FS_BEGIN
+class Scene;
+class DirectorTouchEventListener;
+class DirectorKeypadEventListener;
+
+class FsArray;
+class Vector2;
+class Render;
+class TouchEvent;
+
+class Director :public SchedulerTarget
+{
+	public:
+		static Director* create();
+
+	public:
+		/* inherit FsObject */
+		virtual const char* className();
+
+		/* inherit SchedulerTarget */
+		virtual void update(int priority,float dt);
+
+	public:
+		void push();
+		void pop();
+
+		void run(Scene*  scene);
+
+		Scene* current();
+
+		void pause();
+		void start();
+
+		bool isRunning();
+		void setAutoSwapBuffers(bool swap);
+
+	public: 
+		virtual void draw();
+		virtual void update(float dt);
+
+	protected:
+		Director();
+		~Director();
+		void init();
+		void destroy();
+		void repace(Scene* scene);
+
+		void drawScene();
+		void swapBuffers();
+
+
+		void touchBegin(float x,float y);
+		void touchMove(float x,float y);
+		void touchEnd(float x,float y);
+		void touchesBegin(TouchEvent* event);
+		void touchesPointerDown(TouchEvent* event);
+		void touchesMove(TouchEvent* event);
+		void touchesPointerUp(TouchEvent* event);
+		void touchesEnd(TouchEvent* event);
+
+		void keypadEvent(int type,int keycode);
+
+	private:
+		Scene* m_current;
+
+		Scene* m_next;
+		bool m_sceneChange;
+
+		FsArray* m_secenQueue;
+		bool m_stop;
+		bool m_autoSwapBuffers;
+		DirectorTouchEventListener* m_touchEventListener;
+		DirectorKeypadEventListener* m_keypadEventListener;
+
+		friend class DirectorTouchEventListener;
+		friend class DirectorKeypadEventListener;
+
+};
+
+
+NS_FS_END 
+
+#endif /*_FS_DIRECTOR_H_*/
+

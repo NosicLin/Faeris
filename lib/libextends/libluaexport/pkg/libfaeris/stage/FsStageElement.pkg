@@ -1,0 +1,17 @@
+$#include "stage/FsStageElement.h"
+
+class StageElement:public FsObject
+{
+	public:
+		void doAction(Action* action);
+		void removeAction(Action* action);
+		void clearAction();
+
+		void stopAction();
+		bool isActionStop();
+		void resumeAction();
+
+	public:
+		void updateAction(float dt);
+};
+

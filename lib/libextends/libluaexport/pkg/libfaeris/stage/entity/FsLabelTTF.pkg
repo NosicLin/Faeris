@@ -1,0 +1,43 @@
+$#include "stage/entity/FsLabelTTF.h"
+$#include "luaext/FsLuaEntity.h"
+
+class LabelTTF@__LabelTTF:public Entity
+{
+	public:
+		void setString(const char* str);
+		const char* getString();
+
+		void setFont(FontTTF* font);
+		FontTTF* getFont();
+
+		void setAlign(int h,int v);
+		void getAlign(int* h=NULL,int* v=NULL);
+
+		void setColor(Color c);
+		Color getColor();
+
+		void setOpacity(float opacity);
+		float getOpacity();
+
+};
+
+class LuaLabelTTF@LabelTTF:public LabelTTF
+{
+	public:
+		enum 
+		{
+			ALIGN_V_CENTER,
+			ALIGN_V_TOP,
+			ALIGN_V_BOTTOM,
+
+			ALIGN_H_LEFT,
+			ALIGN_H_RIGHT,
+			ALIGN_H_CENTER,
+		};
+	public:
+		static LuaLabelTTF* create(const char* text,FontTTF* font);
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+};
+

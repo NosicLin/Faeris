@@ -1,0 +1,33 @@
+$#include "stage/layer/FsLayer.h"
+
+class Layer@__layer:public StageElement
+{
+	public:
+		/* visible */
+		bool visible();
+		void setVisible(bool visible);
+
+		/* touch enable */
+		bool touchEnabled();
+		void setTouchEnabled(bool enable);
+
+		
+
+		/* entity */
+		void add(Entity* entity);
+		void remove(Entity* entity);
+		int getEntityNu();
+
+		void clearEntity();
+		Scene* getScene();
+
+		/* scissor */
+		void setScissorArea(float x,float y,float width,float height);
+		void getScissorArea(float* x=NULL,float* y=NULL,float* width=NULL,float* height=NULL);
+		bool scissorEnabled();
+		void setScissorEnabled(bool enable);
+
+};
+
+
+

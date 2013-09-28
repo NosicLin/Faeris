@@ -1,0 +1,69 @@
+emitter:{
+	durationTime:20 
+	durationTimeVar:10 
+	emitSpeed:10 
+	maxParticleNu:200
+}
+
+
+particle:{
+	lifeTime:10 
+	lifeTimeVar:2 
+	startSize:1.0
+	startSizeVar:2.0
+	endSize:3
+	endSizeVar:3.0
+
+	startColor:[255,255,255,255]
+	startColorVar:[3,4,4,4]
+
+	endColor:[125,255,125,255]
+	endColorVar:[3,4,5,5]
+
+	angle:30 
+	angleVar:2
+
+	startRotation:10 
+	startRotationVar:20
+	endRotation:30
+	endRotationVar:0
+
+	position:[50,25]
+	positionVar:[20,0]
+
+	moveMode:"free"
+}
+
+texture:{
+	blendSrc:"one"
+	blendDst:"zero"
+	url:"texture/file.png"
+}
+
+
+
+environment:{
+	mode:"gravity"
+	gravity:{
+		speed:20
+		speedVar:30
+		gravity:[23,2]
+		radialAcceleration:20
+		radialAccelerationVar:40
+		tangentialAcceleration:10
+		tangentialAccelerationVar:5
+	}
+	radial:{
+		startRadius:20
+		startRadiusVar:40
+		endRadius:40
+		endRadiusVar:-30
+		rotateSpeed:30
+		rotateSpeedVar:30
+	}
+}
+
+
+
+
+

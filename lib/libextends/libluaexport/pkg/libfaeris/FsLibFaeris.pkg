@@ -1,0 +1,110 @@
+$#include "FsLuaExport.h"
+
+/*  FsTypes.pkg it must first here */
+
+$pfile  "FsTypes.pkg"
+
+$pfile "FsGlobal.pkg"
+
+/* core */
+$pfile "FsObject.pkg"
+
+
+
+
+/* entity */
+$pfile "stage/entity/FsEntity.pkg"
+$pfile "stage/entity/FsColorQuad2D.pkg"
+$pfile "stage/entity/FsQuad2D.pkg"
+$pfile "stage/entity/FsLabelTTF.pkg"
+$pfile "stage/entity/FsSprite2D.pkg"
+$pfile "stage/entity/FsLabelBitmap.pkg"
+$pfile "stage/entity/FsParticle2DEmitter.pkg"
+$pfile "stage/entity/FsParticle2DEffect.pkg"
+
+
+
+/* stage */
+$pfile "stage/FsStageElement.pkg"
+
+
+
+/* scheduler */
+$pfile "scheduler/FsScheduler.pkg"
+$pfile "scheduler/FsLuaSchedulerTarget.pkg"
+
+
+
+/* scene */
+$pfile "stage/FsScene.pkg"
+$pfile "stage/FsDirector.pkg"
+$pfile "stage/layer/FsLayer.pkg"
+$pfile "stage/layer/FsColorLayer.pkg"
+$pfile "stage/layer/FsLayer2D.pkg"
+
+
+
+/* graphics */
+$pfile "graphics/FsRender.pkg"
+$pfile "graphics/FsColor.pkg"
+$pfile "graphics/FsFontTTF.pkg"
+$pfile "graphics/FsTexture2D.pkg"
+$pfile "graphics/FsFontBitmap.pkg"
+
+
+/* math */
+$pfile "math/FsVector2.pkg"
+$pfile "math/FsVector3.pkg"
+$pfile "math/FsVector4.pkg"
+$pfile "math/FsMatrix4.pkg"
+$pfile "math/FsRect2D.pkg"
+
+
+/* sys */
+$pfile "sys/FsWindow.pkg"
+$pfile "sys/FsKeyCode.pkg"
+
+/* sys/event */
+$pfile "sys/event/FsTouchEventListener.pkg"
+$pfile "sys/event/FsSysEventListener.pkg"
+$pfile "sys/event/FsTouchDispatcher.pkg"
+$pfile "sys/event/FsSysDispatcher.pkg"
+$pfile "sys/event/FsKeypadDispatcher.pkg"
+
+/* mgr */
+$pfile "mgr/FsTextureMgr.pkg"
+$pfile "mgr/FsSprite2DDataMgr.pkg"
+$pfile "mgr/FsResourceMgr.pkg"
+$pfile "mgr/FsResource.pkg"
+
+
+/* action */
+$pfile "action/FsAction.pkg"
+$pfile "action/FsMoveByAction.pkg"
+$pfile "action/FsMoveToAction.pkg"
+$pfile "action/FsPauseAction.pkg"
+$pfile "action/FsRotateZByAction.pkg"
+$pfile "action/FsRotateZToAction.pkg"
+$pfile "action/FsScaleByAction.pkg"
+$pfile "action/FsScaleToAction.pkg"
+$pfile "action/FsSeqAction.pkg"
+
+
+/* media */
+$pfile "media/FsAudioEngine.pkg"
+
+
+/* network */
+
+$pfile "sys/network/FsHttpEngine.pkg"
+
+
+
+
+
+
+
+
+
+
+

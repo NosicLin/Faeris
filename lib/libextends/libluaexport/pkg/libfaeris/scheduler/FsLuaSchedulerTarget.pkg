@@ -1,0 +1,15 @@
+$#include "luaext/FsLuaSchedulerTarget.h"
+
+
+class SchedulerTarget@__SchedulerTarget:public FsObject 
+{
+}
+
+class LuaSchedulerTarget@SchedulerTarget:public SchedulerTarget 
+{
+	public:
+		static LuaSchedulerTarget* create();
+	public:
+		void update(int priority,float dt);
+};
+

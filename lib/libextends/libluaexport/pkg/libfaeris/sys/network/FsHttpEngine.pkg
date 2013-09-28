@@ -1,0 +1,55 @@
+$#include "FsLuaExport.h"
+$#include "sys/network/FsHttpEngine.h"
+$#include "luaext/FsLuaHttpRequest.h"
+$#include "sys/network/FsHttpReponse.h"
+
+class HttpEngine:public FsObject 
+{
+	public:
+		static HttpEngine* create();
+
+	public:
+		void send(LuaHttpRequest* request);
+		void clear();
+		void stop();
+};
+
+
+
+class LuaHttpRequest@HttpRequest:public FsObject 
+{
+	public:
+		enum
+		{
+			VERSION_1_0,
+			VERSION_1_1,
+		};
+		enum 
+		{
+			METHOD_GET,
+			METHOD_POST,
+		};
+	public:
+		static LuaHttpRequest* create();	
+
+	public:
+		void setUrl(const char* url);
+		const char* getUrl();
+
+		void setMethod(int method);
+		int getMethod();
+
+		void setVersion(int version);
+		int getVersion();
+
+		void addHeader(const char* header);
+		void removeHeader(const char* header);
+		void clearHeader();
+		int getHeaderNu();
+
+
+		void setData(const char* data);
+
+};
+
+

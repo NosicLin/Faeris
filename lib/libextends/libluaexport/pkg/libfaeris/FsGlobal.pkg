@@ -1,0 +1,16 @@
+$#include "FsGlobal.h"
+
+class Global@share
+{
+	public:
+		static Scheduler* scheduler();
+		static TouchDispatcher* touchDispatcher();
+		static Director* director();
+		static SysDispatcher* sysDispatcher();
+
+		static Window* window();
+		static Render* render();
+		static TextureMgr* textureMgr();
+		static Sprite2DDataMgr* sprite2DDataMgr();
+};
+

@@ -1,0 +1,10 @@
+$#include "action/FsScaleToAction.h"
+
+class ScaleToAction:public Action 
+{
+	public:
+		static ScaleToAction* create(float sx,float sy,float sz,float time);
+		static ScaleToAction* create(float sx,float sy,float time);
+};
+
+

@@ -1,0 +1,19 @@
+$#include "sys/event/FsKeypadDispatcher.h"
+
+class KeypadEvent 
+{
+	public:
+		enum 
+		{
+			KEYPAD_DOWN,
+			KEYPAD_UP,
+		};
+
+	public:
+		int keycode;
+		int type;
+};
+
+
+
+

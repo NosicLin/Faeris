@@ -1,0 +1,15 @@
+#ifndef _FAERIS_IMAGE_DECODER_H_
+#define _FAERIS_IMAGE_DECODER_H_
+#include "FsMacros.h"
+#include "graphics/FsImage2D.h"
+
+NS_FS_BEGIN
+
+class FsFile;
+Image2D* FsUtil_ImageReader(const char* filename,Image2D::ImageType type);
+Image2D* FsUtil_ImageReader(FsFile* file,Image2D::ImageType type);
+
+NS_FS_END
+
+#endif /*_FAERIS_PICTURE_DECODER_H_*/
+

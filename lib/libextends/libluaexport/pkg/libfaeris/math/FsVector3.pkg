@@ -1,0 +1,25 @@
+$#include "math/FsVector3.h"
+class Vector3
+{
+	public:
+		float x;
+		float y;
+		float z;
+	public:
+		Vector3(float x,float y,float z);
+		Vector3();
+		Vector3 add(const Vector3& v) const ;
+		Vector3 sub(const Vector3& v) const ;
+		Vector3 scale(float k) const ;
+		float dot(const Vector3& v) const ;
+		Vector3 cross(const Vector3& v)const;
+		Vector3 normal() const ;
+		void normalize() ;
+		Vector3 proj(const Vector3& v) const;
+		float angle(const Vector3& v) const;
+		float length() const;
+		float length2() const;
+		bool equal(const Vector3& v) const;
+		void set(float x,float y,float z);
+};
+

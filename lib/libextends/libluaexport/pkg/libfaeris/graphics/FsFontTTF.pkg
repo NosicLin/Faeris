@@ -1,0 +1,13 @@
+$#include "graphics/FsFontTTF.h"
+class FontTTF:public FsObject
+{
+	public:
+		static FontTTF* create(const char* name,int size);
+
+	public:
+		int getHeight();
+		int getAscend();
+		int getDescend();
+};
+
+

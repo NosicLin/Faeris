@@ -1,0 +1,41 @@
+$#include "luaext/FsLuaScene.h"
+class Scene@__Scene:public StageElement
+{
+	public:
+		void push(Layer* layer);
+		void pop();
+		void insert(int pos,Layer*  layer);
+		void replace(int pos,Layer* layer);
+		void remove(Layer* layer);
+
+		int layerNu();
+		int getLayerIndex(Layer* layer);
+
+		Layer* top();
+		Layer* getLayer(int index);
+};
+
+class LuaScene@Scene:public Scene
+{
+	public:
+		static LuaScene* create();
+
+	public:
+		void onEnter@enter();
+		void onExit@exit();
+		void onUpdate@update(float dt);
+		void onDraw@draw(Render* render);
+
+		void onTouchBegin@touchBegin(float x,float y);
+		void onTouchEnd@touchEnd(float x,float y);
+		void onTouchMove@touchMove(float x,float y);
+
+		void onTouchesBegin@touchesBegin(TouchEvent* event);
+		void onTouchesPointerDown@touchesPointerDown(TouchEvent* event);
+		void onTouchesMove@touchesMove(TouchEvent* event);
+		void onTouchesPointerUp@touchesPointerUp(TouchEvent* event);
+		void onTouchesEnd@touchesEnd(TouchEvent* event);
+
+		void onKeypadEvent@keypadEvent(int type,int keycode);
+};
+

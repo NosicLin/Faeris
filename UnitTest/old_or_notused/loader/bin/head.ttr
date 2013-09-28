@@ -1,0 +1,26 @@
+version:"v1.0"
+type:"texture.2d"
+
+#filter 
+filter_mag:linear
+filter_min:nearest
+filter_mipmap:linear
+
+#swap 
+swap_t:clamp_edge
+swap_s: repeat, clamp, clamp_to_edge
+
+#internal format 
+format:rgba,alpha,luminance,luminance_alpha,intensity,rgb
+
+#env 
+env_mode:decal,repleace,modulate,blend,add,combine
+
+mipmap:true
+imageNu:3
+source:[
+		"head512x512.png"
+		"head256x256.png"
+		"head128x128.png"
+]
+

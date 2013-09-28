@@ -1,0 +1,20 @@
+$#include "sys/FsWindow.h"
+
+class Window:public FsObject
+{
+		void setCaption(const char* name);
+		std::string getCaption(){return m_caption;}
+		void setPosition(int x,int y);
+		void setSize(uint width,uint height);
+		void show();
+		void hide();
+		void setStyle(long flags);
+
+		void setFullScreen(bool full);
+
+		int getWidth();
+		int getHeight();
+		int getPosX();
+		int getPosY();
+} ;
+

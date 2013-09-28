@@ -1,0 +1,27 @@
+type:"material.shader"
+version:"v1.0"
+shader:"pong.shader"
+frontSide:ccw
+blendEquation:logic_op
+srcFactor:src_alpha_saturate
+dstFactor:src_alpha_saturate
+shadeMode:smooth
+depthTest:false
+depthMask:false
+opacity:0.33
+uniforms:[
+	{
+		name:lightIndent
+		type:uint
+		count:3
+		value:[1.2,-3,3, 3,3.3,3.4, 1.1323]
+	},
+	{
+		name:lightColor
+		type:mat3
+		count:1
+		value:[1.1,1.0,1.0]
+	}
+]
+
+

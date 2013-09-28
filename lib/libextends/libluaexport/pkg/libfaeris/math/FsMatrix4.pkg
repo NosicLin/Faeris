@@ -1,0 +1,97 @@
+$#include "math/FsMatrix4.h"
+
+class  Matrix4
+{
+
+		Matrix4();
+		Matrix4(const float v[16]);
+
+		Matrix4(float v00,float v01,float v02,float v03,
+				float v10,float v11,float v12,float v13,
+				float v20,float v21,float v22,float v23,
+				float v30,float v31,float v32,float v33);
+
+
+		void add(const Matrix4& n); 
+		void mul(const Matrix4& n);
+
+		void mulScaler(float s);
+		Vector3 mulVector3(const Vector3& v);
+		Vector4 mulVector4(const Vector4& v);
+
+
+
+		void transpose();
+		void getTranspose(Matrix4* m);
+		void inverse();
+		void getInverse(Matrix4* m);
+		float getDetermiant();
+
+
+		/* aux function to quick change Matrix4  */
+		void makeTranslate(float x,float y,float z);
+		void makeTranslate(const Vector3& v);
+		void makeRotateX(float theta);
+		void makeRotateY(float theta);
+		void makeRotateZ(float theta);
+		void makeRotateAxis(const Vector3& v,float angle);
+		void makeRotateAxis(float x,float y,float z,float angle);
+
+		void makeRotateFromEuler(float x,float y,float z,int type);
+		void makeRotateFromEuler(const Vector3& v,int type);
+
+		void makeScale(float x,float y,float z);
+		void makeScale(const Vector3& v);
+		void makeIdentity();
+
+		void makeCompose(const Vector3& t,const Vector3& r,int r_type,const Vector3& s);
+
+		void makeLookAt(const Vector3& eye,const Vector3& target,const Vector3& up);
+		void makeFrustum(float left,float right,float bottom,float top,float n,float f);
+		void makePerspective(float fov,float aspect,float n,float f);
+		void makeOrthographic(float left,float right,float top,float bottom,float n,float f);
+
+
+		/* set rotate,scale and translate part in Matrix4 */
+		void setTranslate(float x,float y,float z);
+		void setTranslate(const Vector3& v);
+		void setRotationFromEuler(float rx,float ry,float rz,int type);
+		//void setRotationFromQuaternion(const Quaternion& q); 
+		void setScale(float sx,float sy,float sz);
+		void setScale(const Vector3& v);
+
+		/* transform rotate,scale,translate part in Matrix4 */
+		void translate(float vx,float vy,float vz);
+		void translate(const Vector3& v);
+
+		void rotateX(float angle);
+		void rotateY(float angle);
+		void rotateZ(float angle);
+		void rotateByAxis(float x,float y,float z,float angle);
+		void rotateByAxis(const Vector3& v,float angle);
+	
+		void scale(float x,float y,float z);
+		void scale(const Vector3& v);
+
+		/* decompose and compose matrix */
+
+	//	void compose(const Vector3& t,const Quaternion& q,const Vector3& s);
+	//	void decompose(Vector3* t,Quaternion* q,Vector3* s);
+		
+		/* get rotate,scale,and translate information from Matrix4 */
+		Vector3 getColumnX();
+		Vector3 getColumnY();
+		Vector3 getColumnZ();
+
+
+		Vector3 getTranslate();
+		Vector3 getScale();
+		//Quaternion getRotate();
+};
+
+
+
+
+
+
+

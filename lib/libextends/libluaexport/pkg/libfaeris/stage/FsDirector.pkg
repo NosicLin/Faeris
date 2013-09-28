@@ -1,0 +1,19 @@
+$#include "stage/FsDirector.h"
+
+class Director:public FsObject
+{
+	public:
+		void push();
+		void pop();
+
+		void run(Scene*  scene);
+
+		Scene* current();
+
+		void pause();
+		void start();
+		bool isRunning();
+		void setAutoSwapBuffers(bool swap);
+};
+
+
