@@ -102,7 +102,7 @@ void Particle2DEffect::destory()
 	m_material=NULL;
 }
 
-void Particle2DEffect::start()
+void Particle2DEffect::start(bool restart)
 {
 	if(!m_emitter)
 	{
@@ -110,17 +110,28 @@ void Particle2DEffect::start()
 		FS_TRACE_WARN("no emitter find, start faild");
 		return;
 	}
+	if(restart||m_stop)
+	{
+		m_lifeTime=m_emitter->getDurationTime()+m_emitter->getDurationTimeVar()*Math::random(0.0f,1.0f);
+		m_emitSpeed=m_emitter->getEmitSpeed();
+		m_maxParticles=m_emitter->getMaxParticleNu();
+		m_particles.clear();
+		m_elapseTime=0.0f;
+		m_generateParticle=0.0f;
+	}
+	m_stop=false;
+	m_pause=false;
+}
 
-
+void Particle2DEffect::refresh()
+{
+	if(!m_emitter)
+	{
+		return;
+	}
 	m_lifeTime=m_emitter->getDurationTime()+m_emitter->getDurationTimeVar()*Math::random(0.0f,1.0f);
 	m_emitSpeed=m_emitter->getEmitSpeed();
 	m_maxParticles=m_emitter->getMaxParticleNu();
-
-
-	m_elapseTime=0.0f;
-	m_generateParticle=0.0f;
-	m_stop=false;
-	m_pause=false;
 
 }
 
@@ -232,9 +243,10 @@ void Particle2DEffect::updateParticle(Particle* p,float dt)
 	p->m_size+=p->m_sizeDt*dt;
 
 	p->m_colorRed+=p->m_colorRedDt*dt;
-	p->m_colorGreenDt+=p->m_colorGreenDt*dt;
+	p->m_colorGreen+=p->m_colorGreenDt*dt;
 	p->m_colorBlue+=p->m_colorBlueDt*dt;
 	p->m_colorAlpha+=p->m_colorAlphaDt*dt;
+
 
 	p->m_rotation+=p->m_rotationDt*dt;
 
@@ -304,17 +316,25 @@ void Particle2DEffect::generateParticle(float dt)
 
 	m_generateParticle+=m_emitSpeed*diff;
 
-	int generate_nu=(int)floor(m_generateParticle);
-	m_generateParticle-=generate_nu;
-
-	float per_diff=1.0f/(float)m_emitSpeed;
+    int generate_nu=(int)floor(m_generateParticle);
+    m_generateParticle-=generate_nu;
 
 
-	int particle_size=m_particles.size();
+    float per_diff=1.0f/(float)m_emitSpeed;
+    int particle_size=m_particles.size();
+
+
 	if(generate_nu+particle_size>m_maxParticles)
 	{
-		generate_nu=m_maxParticles-particle_size;
-	}
+        generate_nu=m_maxParticles-particle_size;
+
+    }
+	if(generate_nu<0)
+    {
+        generate_nu=0;
+    }
+
+    //FS_TRACE_WARN("gernerate_nu=%d",generate_nu);
 
 	m_particles.resize(particle_size+generate_nu);
 

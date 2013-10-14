@@ -10,6 +10,12 @@ bool PathUtil::absolutePath(const char* name)
 	{
 		return true;
 	}
+
+	if((strlen(name)>=2)&&name[1]==':')
+	{
+		return true;
+	}
+
 	return false;
 }
 

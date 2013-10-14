@@ -66,11 +66,12 @@ class Particle2DEffect:public Entity
 		static Particle2DEffect* create();
 
 	public:
-		void start();
+		void start(bool restart=true);
 		void stop();
 		void setPause(bool pause);
 		bool isPause();
 		bool isStop();
+		void refresh();
 
 		void setEmitter(Particle2DEmitter* emit);
 		Particle2DEmitter* getEmitter();
