@@ -54,6 +54,17 @@ Particle2DEmitter* Particle2DEmitter::create(FsFile* file)
 	return ret;
 }
 
+Particle2DEmitter* Particle2DEmitter::create(FsDict* dict)
+{
+	Particle2DEmitter* ret= new Particle2DEmitter;
+	if(!ret->init(dict))
+	{
+		delete ret;
+		return NULL;
+	}
+	return ret;
+}
+
 void Particle2DEmitter::generateParticle(Particle* p)
 {
 	float fbegin,fend;
@@ -204,7 +215,19 @@ bool Particle2DEmitter::init(const char* filename)
 
 bool Particle2DEmitter::init(FsFile* file)
 {
+	bool ret=false;
 	FsDict* dict=ScriptUtil::parseScript(file);
+	if(dict)
+	{
+		ret=init(dict);
+		dict->decRef();
+
+	}
+	return ret;
+
+}
+bool Particle2DEmitter::init(FsDict* dict)
+{
 
 	if(dict==NULL)
 	{
@@ -598,9 +621,7 @@ bool Particle2DEmitter::init(FsFile* file)
 	}
 
 	FS_SAFE_DEC_REF(environment);
-	FS_SAFE_DEC_REF(dict);
 	return true;
-
 }
 
 NS_FS_END

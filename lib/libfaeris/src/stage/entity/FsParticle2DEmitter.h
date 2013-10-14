@@ -14,6 +14,7 @@ NS_FS_BEGIN
 class FsFile;
 class Texture2D;
 class Particle;
+class FsDict;
 
 
 class Particle2DEmitter:public FsObject 
@@ -34,6 +35,7 @@ class Particle2DEmitter:public FsObject
 		static Particle2DEmitter* create();
 		static Particle2DEmitter* create(const char* filename);
 		static Particle2DEmitter* create(FsFile* file);
+		static Particle2DEmitter* create(FsDict* dict);
 
 	public:
 
@@ -455,6 +457,7 @@ class Particle2DEmitter:public FsObject
 		bool init();
 		bool init(const char* filename);
 		bool init(FsFile* file);
+		bool init(FsDict* dict);
 
 	private:
 

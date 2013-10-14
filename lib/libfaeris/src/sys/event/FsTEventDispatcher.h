@@ -18,7 +18,7 @@ class TEventDispatcher:public SchedulerTarget
 
 	public:
 		/* override SchedulerTarget */
-		virtual void update(int priority,float dt)
+        virtual void update(int /*priority*/,float /*dt*/)
 		{
 			flush();
 		}
