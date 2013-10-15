@@ -39,6 +39,7 @@ static GLint FsBlend_ToGLEnum(int value)
 	{
 		case Render::EQUATION_ADD:      
 			return GL_FUNC_ADD;
+
 		case Render::EQUATION_SUBTRACT: 
 			return GL_FUNC_SUBTRACT;
 

@@ -21,7 +21,8 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
 	{
 		FS_TRACE_WARN("Create Emitter For File(%s) Failed",filename);
 		return NULL;
-	}
+    }
+
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
 	FS_SAFE_DEC_REF(emit);
 	return ret;
@@ -156,6 +157,28 @@ bool Particle2DEffect::isStop()
 {
 	return m_stop;
 }
+
+
+float Particle2DEffect::getLifeTime()
+{
+	return m_lifeTime;
+}
+
+
+
+float Particle2DEffect::getElapseTime()
+{
+	return m_elapseTime;
+}
+
+
+int Particle2DEffect::getMaxParticleNu()
+{
+	return m_maxParticles;
+}
+
+
+
 
 void Particle2DEffect::setEmitter(Particle2DEmitter* emit)
 {
@@ -378,12 +401,19 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	render->pushMatrix();
 	render->mulMatrix(&m_worldMatrix);
 
+
 	m_material->setOpacity(m_opacity);
 	render->setMaterial(m_material);
+	//FS_TRACE_WARN("material:%d,%d,%d",m_material->getBlendEquation(), m_material->getBlendSrc(), m_material->getBlendDst());
+
+
 
 	render->setActiveTexture(1);
 	render->bindTexture(texture,0);
 	texture->decRef();
+	render->setBlend(Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
+
+	//FS_TRACE_WARN("emitter:%d,%d,%d",Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
 
 	render->disableAllAttrArray();
 

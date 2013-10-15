@@ -67,11 +67,15 @@ class Particle2DEffect:public Entity
 
 	public:
 		void start(bool restart=true);
+		void refresh();
 		void stop();
 		void setPause(bool pause);
 		bool isPause();
 		bool isStop();
-		void refresh();
+
+		float getLifeTime();
+		float getElapseTime();
+
 
 		void setEmitter(Particle2DEmitter* emit);
 		Particle2DEmitter* getEmitter();
@@ -79,6 +83,7 @@ class Particle2DEffect:public Entity
 		void setAutoRemoveOnStop(bool remove);
 
 		int getParticleNu(){return m_particles.size(); }
+		int getMaxParticleNu();
 
 	public:
 		/* override entity */

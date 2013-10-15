@@ -12,6 +12,60 @@
 
 NS_FS_BEGIN
 
+int S_StrToBlendFactor(const char* factor)
+{
+	if(strcmp(factor,"SrcZero")==0)
+	{
+		return Render::FACTOR_ZERO;
+	}
+	else if(strcmp(factor,"SrcOne")==0)
+	{
+		return Render::FACTOR_ONE;
+	}
+	else if(strcmp(factor,"SrcColor")==0)
+	{
+		return Render::FACTOR_SRC_COLOR;
+	}
+	else if(strcmp(factor,"OneMinusSrcColor")==0)
+	{
+		return Render::FACTOR_ONE_MINUS_SRC_COLOR;
+	}
+	else if(strcmp(factor,"DstColor")==0)
+	{
+		return Render::FACTOR_DST_COLOR;
+	}
+	else if(strcmp(factor,"OneMinusDstColor")==0)
+	{
+		return Render::FACTOR_ONE_MINUS_DST_COLOR;
+	}
+	else if(strcmp(factor,"SrcAlpha")==0)
+	{
+		return Render::FACTOR_SRC_ALPHA;
+	}
+	else if(strcmp(factor,"OneMinusSrcAlpha")==0)
+	{
+		return Render::FACTOR_ONE_MINUS_SRC_ALPHA;
+	}
+	else if(strcmp(factor,"DstAlpha")==0)
+	{
+		return Render::FACTOR_DST_ALPHA;
+	}
+	else if(strcmp(factor,"OneMinusDstAlpha")==0)
+	{
+		return Render::FACTOR_ONE_MINUS_DST_ALPHA;
+	}
+	else if(strcmp(factor,"SrcAlphaSaturate")==0)
+	{
+		return Render::FACTOR_SRC_ALPHA_SATURATE;
+	}
+
+
+	FS_TRACE_WARN("Unkown Factor Str(%s)",factor);
+	return Render::FACTOR_ONE;
+
+}
+
+
 const char* Particle2DEmitter::className()
 {
 	return FS_PARTICLE2D_EMITTER_CLASS_NAME;
@@ -170,7 +224,7 @@ Particle2DEmitter::Particle2DEmitter()
 	m_position(0,0),
 	m_positionVar(0,0),
 	m_moveMode(MOVE_GROUP),
-	m_blendSrc(Render::FACTOR_ONE),
+	m_blendSrc(Render::FACTOR_SRC_ALPHA),
 	m_blendDst(Render::FACTOR_ONE_MINUS_SRC_ALPHA),
 	m_texture(NULL),
 	m_enviromentMode(ENV_GRAVITY),
@@ -456,10 +510,7 @@ bool Particle2DEmitter::init(FsDict* dict)
 		FsString* blendSrc=ScriptUtil::getString(texture,"blendSrc");
 		if(blendSrc)
 		{
-			if(blendSrc->equal(" xxx x"))
-			{
-				/* TODO */
-			}
+			m_blendSrc=S_StrToBlendFactor(blendSrc->cstr());
 		}
 		else 
 		{
@@ -471,10 +522,7 @@ bool Particle2DEmitter::init(FsDict* dict)
 		FsString* blendDst=ScriptUtil::getString(texture,"blendDst");
 		if(blendDst)
 		{
-			if(blendDst->equal("xxx xxx"))
-			{
-				/* TODO */
-			}
+			m_blendDst=S_StrToBlendFactor(blendDst->cstr());
 		}
 		else 
 		{
