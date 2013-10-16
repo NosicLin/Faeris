@@ -14,11 +14,11 @@ NS_FS_BEGIN
 
 int S_StrToBlendFactor(const char* factor)
 {
-	if(strcmp(factor,"SrcZero")==0)
+	if(strcmp(factor,"Zero")==0)
 	{
 		return Render::FACTOR_ZERO;
 	}
-	else if(strcmp(factor,"SrcOne")==0)
+	else if(strcmp(factor,"One")==0)
 	{
 		return Render::FACTOR_ONE;
 	}

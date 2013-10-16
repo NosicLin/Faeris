@@ -356,22 +356,29 @@ void Particle2DEffect::generateParticle(float dt)
     {
         generate_nu=0;
     }
+	
+	int new_size=generate_nu+particle_size;
 
-    //FS_TRACE_WARN("gernerate_nu=%d",generate_nu);
+	m_particles.resize(new_size);
+	FS_TRACE_ERROR_ON(m_particles.size()!=new_size,"std::vector.resize Error ");
 
-	m_particles.resize(particle_size+generate_nu);
+	/* FIXME: this is a bug, when engine build in debug mode and used as a static library 
+	 *        for other application, if the application build with debug mode, std::vector.size() 
+	 *        function will work Ok, but if application build with release mode, std::vector size()
+	 *        function will not work, I don't kown how to solve it 
+	 */
+
 
 	Vector2 start_pos=Vector2(m_worldMatrix.m03,m_worldMatrix.m13);
 
 	for(int i=0;i<generate_nu;i++)
 	{
 		Particle* p=&m_particles[i+particle_size];
-
 		m_emitter->generateParticle(p);
 		p->m_startPos=start_pos;
-
 		updateParticle(p,per_diff*i);
 	}
+	
 
 	m_elapseTime+=dt;
 
