@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 09/26/13 10:23:05.
+** Generated automatically by tolua++-1.0.92 on 10/23/13 10:10:11.
 */
 
 #ifndef __cplusplus
@@ -49,6 +49,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "math/FsRect2D.h"
 #include "sys/FsWindow.h"
 #include "sys/FsKeyCode.h"
+#include "sys/FsSys.h"
 #include "luaext/FsLuaTouchEventListener.h"
 #include "luaext/FsLuaSysEventListener.h"
 #include "sys/event/FsTouchDispatcher.h"
@@ -162,8 +163,9 @@ static void tolua_reg_types (lua_State* tolua_S)
  
  toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
- toluaext_usertype(tolua_S,"Render");
  toluaext_usertype(tolua_S,"LuaHttpRequest");
+ toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"ScaleByAction");
  toluaext_usertype(tolua_S,"SysDispatcher");
  tolua_usertype(tolua_S,"Particle2DEffect");
  toluaext_usertype(tolua_S,"LabelTTF");
@@ -176,21 +178,21 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"TouchEventListener");
  toluaext_usertype(tolua_S,"ResourceMgr");
  toluaext_usertype(tolua_S,"LuaScene");
- toluaext_usertype(tolua_S,"ScaleByAction");
  toluaext_usertype(tolua_S,"Quad2D");
+ tolua_usertype(tolua_S,"Sys");
  toluaext_usertype(tolua_S,"PauseAction");
- toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"LuaSysEventListener");
  tolua_usertype(tolua_S,"Global");
  toluaext_usertype(tolua_S,"MoveByAction");
  toluaext_usertype(tolua_S,"Entity");
  toluaext_usertype(tolua_S,"Resource");
  tolua_usertype(tolua_S,"KeypadEvent");
- toluaext_usertype(tolua_S,"LuaEntity");
- toluaext_usertype(tolua_S,"LuaSprite2D");
  tolua_usertype(tolua_S,"TouchPoint");
+ toluaext_usertype(tolua_S,"LuaSprite2D");
+ toluaext_usertype(tolua_S,"LuaEntity");
  toluaext_usertype(tolua_S,"SysEventListener");
+ toluaext_usertype(tolua_S,"Render");
  toluaext_usertype(tolua_S,"LuaLabelBitmap");
- toluaext_usertype(tolua_S,"LuaSysEventListener");
  toluaext_usertype(tolua_S,"StageElement");
  toluaext_usertype(tolua_S,"LuaLabelTTF");
  toluaext_usertype(tolua_S,"FontBitmap");
@@ -613,6 +615,38 @@ static int tolua_FsLibFaeris___Entity_addChild00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'addChild'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getParent of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getParent00
+static int tolua_FsLibFaeris___Entity_getParent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getParent'", NULL);
+#endif
+  {
+   Entity* tolua_ret = (Entity*)  self->getParent();
+    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"Entity");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getParent'.",&tolua_err);
  return 0;
 #endif
 }
@@ -17248,6 +17282,45 @@ static int tolua_FsLibFaeris_Window_getPosY00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: openInputTextDialog of class  Sys */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Sys_openInputTextDialog00
+static int tolua_FsLibFaeris_Sys_openInputTextDialog00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Sys",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,6,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* title = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* msg = ((const char*)  tolua_tostring(tolua_S,3,0));
+  int input_mode = ((int)  tolua_tonumber(tolua_S,4,FS_INPUT_MODE_ANY));
+  int input_flag = ((int)  tolua_tonumber(tolua_S,5,FS_INPUT_FLAG_SENSITIVE));
+  int return_type = ((int)  tolua_tonumber(tolua_S,6,FS_KEYBOARD_RETURN_TYPE_DEFAULT));
+  int max_length = ((int)  tolua_tonumber(tolua_S,7,-1));
+  {
+   Sys::openInputTextDialog(title,msg,input_mode,input_flag,return_type,max_length);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'openInputTextDialog'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: create of class  LuaTouchEventListener */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_TouchEventListener_create00
 static int tolua_FsLibFaeris_TouchEventListener_create00(lua_State* tolua_S)
@@ -17655,6 +17728,7 @@ static int tolua_set_KeypadEvent_keycode(lua_State* tolua_S)
  return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
+
 
 /* get function: type of class  KeypadEvent */
 #ifndef TOLUA_DISABLE_tolua_get_KeypadEvent_type
@@ -19728,6 +19802,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"localToWorld",tolua_FsLibFaeris___Entity_localToWorld00);
    tolua_function(tolua_S,"worldToLocal",tolua_FsLibFaeris___Entity_worldToLocal00);
    tolua_function(tolua_S,"addChild",tolua_FsLibFaeris___Entity_addChild00);
+   tolua_function(tolua_S,"getParent",tolua_FsLibFaeris___Entity_getParent00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___Entity_remove00);
    tolua_function(tolua_S,"detach",tolua_FsLibFaeris___Entity_detach00);
    tolua_function(tolua_S,"allChild",tolua_FsLibFaeris___Entity_allChild00);
@@ -20470,6 +20545,27 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"KEY_X",KEY_X);
   tolua_constant(tolua_S,"KEY_Y",KEY_Y);
   tolua_constant(tolua_S,"KEY_Z",KEY_Z);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_ANY",FS_INPUT_MODE_ANY);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_EMAIL_ADDR",FS_INPUT_MODE_EMAIL_ADDR);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_NUMERIC",FS_INPUT_MODE_NUMERIC);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_PHONE_NUMBER",FS_INPUT_MODE_PHONE_NUMBER);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_URL",FS_INPUT_MODE_URL);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_DECIMAL",FS_INPUT_MODE_DECIMAL);
+  tolua_constant(tolua_S,"FS_INPUT_MODE_SINGLE_LINE",FS_INPUT_MODE_SINGLE_LINE);
+  tolua_constant(tolua_S,"FS_INPUT_FLAG_PASSWORD",FS_INPUT_FLAG_PASSWORD);
+  tolua_constant(tolua_S,"FS_INPUT_FLAG_SENSITIVE",FS_INPUT_FLAG_SENSITIVE);
+  tolua_constant(tolua_S,"FS_INPUT_FLAG_INITIAL_CAPS_WORD",FS_INPUT_FLAG_INITIAL_CAPS_WORD);
+  tolua_constant(tolua_S,"FS_INPUT_FLAG_INITIAL_CAPS_SENTENCE",FS_INPUT_FLAG_INITIAL_CAPS_SENTENCE);
+  tolua_constant(tolua_S,"FS_INPUT_FLAG_INITIAL_CAPS_ALL_CHARACTERS",FS_INPUT_FLAG_INITIAL_CAPS_ALL_CHARACTERS);
+  tolua_constant(tolua_S,"FS_KEYBOARD_RETURN_TYPE_DEFAULT",FS_KEYBOARD_RETURN_TYPE_DEFAULT);
+  tolua_constant(tolua_S,"FS_KEYBOARD_RETURN_TYPE_DONE",FS_KEYBOARD_RETURN_TYPE_DONE);
+  tolua_constant(tolua_S,"FS_KEYBOARD_RETURN_TYPE_SEND",FS_KEYBOARD_RETURN_TYPE_SEND);
+  tolua_constant(tolua_S,"FS_KEYBOARD_RETURN_TYPE_SEARCH",FS_KEYBOARD_RETURN_TYPE_SEARCH);
+  tolua_constant(tolua_S,"FS_KEYBOARD_RETURN_TYPE_GO",FS_KEYBOARD_RETURN_TYPE_GO);
+  tolua_cclass(tolua_S,"Sys","Sys","",NULL);
+  tolua_beginmodule(tolua_S,"Sys");
+   tolua_function(tolua_S,"openInputTextDialog",tolua_FsLibFaeris_Sys_openInputTextDialog00);
+  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"__TouchEventListener","TouchEventListener","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"__TouchEventListener");
   tolua_endmodule(tolua_S);

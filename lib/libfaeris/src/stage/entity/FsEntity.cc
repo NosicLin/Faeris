@@ -192,6 +192,11 @@ void Entity::addChild(Entity* n)
 	n->m_parent=this;
 }
 
+Entity* Entity::getParent()
+{
+	return m_parent;
+}
+
 
 FsArray* Entity::allChild()
 {

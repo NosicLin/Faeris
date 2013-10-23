@@ -33,6 +33,8 @@ class Entity :public StageElement
 
 		/* relation ship*/
 		void addChild(Entity* n);
+		Entity* getParent();
+
 		void remove(Entity* n);
 		void clearChild();
 		Layer* getLayer();

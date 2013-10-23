@@ -850,6 +850,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\stage\entity\FsParticle2DEffect.cc"
+						>
+					</File>
+					<File
 						RelativePath="..\src\stage\entity\FsParticle2DEffect.h"
 						>
 					</File>
@@ -859,10 +863,6 @@
 					</File>
 					<File
 						RelativePath="..\src\stage\entity\FsParticle2DEmitter.h"
-						>
-					</File>
-					<File
-						RelativePath="..\src\stage\entity\FsParticleEffect.cc"
 						>
 					</File>
 					<File

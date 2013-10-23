@@ -9,6 +9,8 @@ class Entity@__Entity:public StageElement
 
 		/* relation ship*/
 		void addChild(Entity* n);
+		Entity* getParent();
+
 		void remove(Entity* n);
 		void detach();
 		FsArray* allChild();

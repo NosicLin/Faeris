@@ -119,5 +119,38 @@ bool Sys::isDir(const char* dir_name)
 
 }
 
+void Sys::openInputTextDialog(const char* title,const char* msg,
+							int input_mode,int input_flag,
+							int return_type,int max_length)
+{
+	const char* p_title=title!=NULL? title:"InputTextDialog";
+	const char* p_msg=msg!=NULL?msg:"";
+
+	JNIEnv* env=JniUtil::getEnv();
+
+	jstring j_title=env->NewStringUTF(p_title);
+	jstring j_msg=env->NewStringUTF(p_msg);
+
+	FS_JNI_CALL_STATIC_METHOD("com/faeris/lib/Fs_Application",
+							  "showInputBoxDialog",
+							  "(Ljava/lang/String;Ljava/lang/String;IIII)V",
+							  j_title,j_msg,input_mode,input_flag,return_type,max_length);
+
+	env->DeleteLocalRef(j_title);
+	env->DeleteLocalRef(j_msg);
+
+}
+
+
+							
 NS_FS_END 
+
+
+
+
+
+
+
+
+
 

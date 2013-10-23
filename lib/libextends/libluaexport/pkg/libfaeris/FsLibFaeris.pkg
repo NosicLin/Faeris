@@ -63,6 +63,8 @@ $pfile "math/FsRect2D.pkg"
 /* sys */
 $pfile "sys/FsWindow.pkg"
 $pfile "sys/FsKeyCode.pkg"
+$pfile "sys/FsSys.pkg"
+
 
 /* sys/event */
 $pfile "sys/event/FsTouchEventListener.pkg"

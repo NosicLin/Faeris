@@ -31,6 +31,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/stage/entity/FsSprite2D.cc \
 					../../src/stage/entity/FsLabelBitmap.cc \
 					../../src/stage/entity/FsParticle2DEmitter.cc \
+					../../src/stage/entity/FsParticle2DEffect.cc \
 					../../src/stage/layer/FsColorLayer.cc \
 					../../src/stage/layer/FsLayer.cc \
 					../../src/stage/layer/FsLayer2D.cc \

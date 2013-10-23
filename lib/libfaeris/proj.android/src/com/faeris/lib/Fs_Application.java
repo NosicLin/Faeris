@@ -61,6 +61,8 @@ public class Fs_Application
 		msg.obj=null;
 		m_eventHandler.handleMessage(msg);
 	}
+
+
 	public static void exit()
 	{
 		m_context.finish();
@@ -121,6 +123,47 @@ public class Fs_Application
 	public static String getDeviceName()
 	{
 		return Build.MODEL;
+	}
+
+
+	public static void showInputBoxDialog(
+									String title,String content,
+									int input_mode,int input_flag,
+									int return_type,int max_length)
+	{
+		InputBoxMessage e_msg=new InputBoxMessage(title,content,
+											input_mode,input_flag,
+											return_type,max_length);
+		Message msg=new Message();
+		
+		msg.what=Fs_UiEvent.UIEVENT_SHOW_INPUT_BOX_DIALOG;
+		msg.obj=e_msg;
+		m_eventHandler.handleMessage(msg);
+	}
+
+
+
+	public static class InputBoxMessage
+	{
+		public String title;
+		public String content;
+		public int inputMode;
+		public int inputFlag;
+		public int returnType;
+		public int maxLength;
+
+		public InputBoxMessage(String title,String content,
+								int input_mode,int input_flag,
+								int return_type,int max_length)
+		{
+			this.title=title;
+			this.content=content;
+			this.inputMode=input_mode;
+			this.inputFlag=input_flag;
+			this.returnType=return_type;
+			this.maxLength=max_length;
+		}
+
 	}
 
 
