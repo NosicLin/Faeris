@@ -131,7 +131,7 @@ void Sys::openInputTextDialog(const char* title,const char* msg,
 	jstring j_title=env->NewStringUTF(p_title);
 	jstring j_msg=env->NewStringUTF(p_msg);
 
-	FS_JNI_CALL_STATIC_METHOD("com/faeris/lib/Fs_Application",
+	FS_JNI_CALL_VOID_STATIC_METHOD("com/faeris/lib/Fs_Application",
 							  "showInputBoxDialog",
 							  "(Ljava/lang/String;Ljava/lang/String;IIII)V",
 							  j_title,j_msg,input_mode,input_flag,return_type,max_length);

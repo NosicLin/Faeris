@@ -97,6 +97,14 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onKeyEventMenu
 
 /*
  * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onInputText
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onInputText(JNIEnv*,jclass,jstring);
+
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
  * Method:    onResize
  * Signature: (II)V
  */

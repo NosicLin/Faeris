@@ -24,6 +24,7 @@ public class Fs_Jni {
 	public static native void onKeyEventMenu();
 	
 	/* input method */
+	public static native void onInputText(String text);
 	
 	
 	/* surface event */

@@ -26,6 +26,7 @@ class LuaScene:public Scene
 		virtual void touchesPointerUp(TouchEvent* event);
 		virtual void touchesEnd(TouchEvent* event);
 		virtual void keypadEvent(int type,int keycode);
+		virtual void inputTextEvent(const char* value,int length);
 
 
 
@@ -40,6 +41,7 @@ class LuaScene:public Scene
 		void onTouchEnd(float x,float y){Scene::touchEnd(x,y);}
 		void onTouchMove(float x,float y){Scene::touchMove(x,y);}
 		void onTouchesBegin(TouchEvent* event){Scene::touchesBegin(event);}
+
 		void onTouchesPointerDown(TouchEvent* event)
 		{
 			Scene::touchesPointerDown(event);
@@ -60,6 +62,12 @@ class LuaScene:public Scene
 		{
 			Scene::keypadEvent(type,keycode);
 		}
+
+		void onInputTextEvent(const char* value)
+		{
+			Scene::inputTextEvent(value,strlen(value));
+		}
+
 
 		/* inherit FsObject */
 		virtual const char* className();

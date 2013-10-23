@@ -1,5 +1,6 @@
 #include "stage/FsDirector.h"
 #include "sys/event/FsTouchDispatcher.h"
+#include "sys/event/FsInputTextDispatcher.h"
 #include "FsGlobal.h"
 #include "support/util/FsArray.h"
 #include "math/FsVector2.h"
@@ -117,6 +118,36 @@ class DirectorKeypadEventListener:public KeypadEventListener
 		Director* m_director;
 };
 
+
+class DirectorInputTextEventListener:public InputTextEventListener 
+{
+	public:
+		static DirectorInputTextEventListener* create(Director* director)
+		{
+			return new DirectorInputTextEventListener(director);
+		}
+	public:
+		virtual void textInput(const char* text,int length)
+		{
+			m_director->inputTextEvent(text,length);
+		}
+	protected:
+		DirectorInputTextEventListener(Director* director)
+		{
+			m_director=director;
+		}
+
+		~DirectorInputTextEventListener()
+		{
+		}
+	private:
+		Director* m_director;
+};
+
+
+
+
+
 Director* Director::create()
 {
 	Director* ret=new Director;
@@ -141,7 +172,7 @@ void Director::update(int priority,float dt)
 		if(m_next)
 		{
 			m_next->enter();
-			
+
 		}
 
 		m_current=m_next;
@@ -253,6 +284,10 @@ void Director::init()
 	m_keypadEventListener=DirectorKeypadEventListener::create(this);
 	Global::keypadDispatcher()->addListener(m_keypadEventListener);
 
+
+	m_inputTextEventListener=DirectorInputTextEventListener::create(this);
+	Global::inputTextDispatcher()->addListener(m_inputTextEventListener);
+
 }
 void Director::destroy()
 {
@@ -276,7 +311,12 @@ void Director::destroy()
 
 	Global::keypadDispatcher()->removeListener(m_keypadEventListener);
 	m_keypadEventListener->decRef();
+
+	Global::inputTextDispatcher()->removeListener(m_inputTextEventListener);
+	m_inputTextEventListener->decRef();
 }
+
+
 
 void Director::repace(Scene* scene)
 {
@@ -386,6 +426,13 @@ void Director::keypadEvent(int type,int keycode)
 	m_current->keypadEvent(type,keycode);
 }
 
+
+void Director::inputTextEvent(const char* text,int length)
+{
+	if(m_stop) return ;
+	if(!m_current) return;
+	m_current->inputTextEvent(text,length);
+}
 
 
 

@@ -426,6 +426,14 @@
 					Name="event"
 					>
 					<File
+						RelativePath="..\src\sys\event\FsInputTextDispatcher.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\sys\event\FsInputtextDispatcher.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\sys\event\FsKeypadDispatcher.cc"
 						>
 					</File>

@@ -102,7 +102,7 @@ public class Fs_InputBoxDialog extends Dialog
 		this.setContentView(layout,edit_text_params);
 		this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		this.m_textViewTitle.setText(this.m_title);
-		this.m_textViewTitle.setText(this.m_message);
+		this.m_inputEditText.setText(this.m_message);
 
 		int old_ime_options=this.m_inputEditText.getImeOptions();
 		this.m_inputEditText.setImeOptions(old_ime_options|EditorInfo.IME_FLAG_NO_EXTRACT_UI);
@@ -207,6 +207,8 @@ public class Fs_InputBoxDialog extends Dialog
 		{
 			if(actionid != EditorInfo.IME_NULL || (actionid==EditorInfo.IME_NULL && event!=null && event.getAction()==KeyEvent.ACTION_DOWN))
 		{
+			Fs_Jni.onInputText(Fs_InputBoxDialog.this.m_inputEditText.getText().toString());
+
 			Fs_InputBoxDialog.this.closeKeyboard();
 			Fs_InputBoxDialog.this.dismiss();
 			return true;

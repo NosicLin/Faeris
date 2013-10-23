@@ -2,12 +2,16 @@
 #define _FS_GLOBAL_H_
 
 #include "FsMacros.h"
+
 #include "scheduler/FsScheduler.h"
 #include "stage/FsDirector.h"
 #include "graphics/FsRender.h"
+
 #include "sys/event/FsTouchDispatcher.h"
 #include "sys/event/FsSysDispatcher.h"
 #include "sys/event/FsKeypadDispatcher.h"
+#include "sys/event/FsInputTextDispatcher.h"
+
 #include "sys/FsWindow.h"
 #include "extends/FsScriptEngine.h"
 #include "mgr/FsTextureMgr.h"
@@ -47,6 +51,8 @@ class Global
 	FS_GLOBAL_H(TouchDispatcher,touchDispatcher,setTouchDispatcher);
 	FS_GLOBAL_H(SysDispatcher,sysDispatcher,setSysDispatcher);
 	FS_GLOBAL_H(KeypadDispatcher,keypadDispatcher,setKeypadDispatcher);
+	FS_GLOBAL_H(InputTextDispatcher,inputTextDispatcher,setInputTextDispatcher);
+
 	FS_GLOBAL_H(Director,director,setDirector);
 	FS_GLOBAL_H(Window,window,setWindow);
 	FS_GLOBAL_H(Render,render,setRender);

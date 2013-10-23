@@ -53,6 +53,8 @@ class Scene:public StageElement
 
 		virtual void keypadEvent(int type,int keycode);
 
+		virtual void inputTextEvent(const char* text,int length);
+
 		/*  inherit FsObject */
 		virtual const char* className();
 	public:

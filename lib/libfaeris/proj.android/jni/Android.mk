@@ -51,6 +51,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/sys/event/FsSysDispatcher.cc \
 					../../src/sys/event/FsTouchDispatcher.cc \
 					../../src/sys/event/FsKeypadDispatcher.cc \
+					../../src/sys/event/FsInputTextDispatcher.cc \
 					../../src/sys/io/FsFile.cc \
 					../../src/sys/io/FsSysFile.cc \
 					../../src/sys/io/FsVFS.cc \

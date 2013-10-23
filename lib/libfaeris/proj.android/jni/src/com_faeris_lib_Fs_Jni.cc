@@ -178,12 +178,29 @@ JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onKeyEventMenu
 
 /*
  * Class:     com_faeris_lib_Fs_Jni
+ * Method:    onInputText
+ * Signature: (Ljava/lang/String;)V
+ */
+	JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onInputText
+(JNIEnv* env, jclass, jstring value)
+{
+	const char* t_value=env->GetStringUTFChars(value,NULL);
+	InputTextDispatcher* dispatcher=Global::inputTextDispatcher();
+	if(dispatcher)
+	{
+		dispatcher->dispatchEvent(new InputTextEvent(t_value));
+	}
+	env->ReleaseStringUTFChars(value,t_value);
+}
+
+/*
+ * Class:     com_faeris_lib_Fs_Jni
  * Method:    onTouchesBegin
  * Signature: (IFF)V
  */
 
 	JNIEXPORT void JNICALL Java_com_faeris_lib_Fs_1Jni_onTouchesBegin
-(JNIEnv *, jclass, jint id, jfloat x, jfloat y)
+(JNIEnv*, jclass, jint id, jfloat x, jfloat y)
 {
 	TouchDispatcher* dispatcher= Global::touchDispatcher();
 	if(dispatcher)

@@ -273,6 +273,8 @@ enum
 #define FS_SYS_EVENT_LISTENER_CLASS_NAME "SysEventListener"
 #define FS_KEYPAD_EVENT_LISTENER_CLASS_NAME "KeypadEventListener"
 #define FS_KEYPAD_DISPATCHER_CLASS_NAME "KeypadDispatcher"
+#define FS_INPUT_TEXT_DISPATCHER_CLASS_NAME "InputTextDispatcher"
+#define FS_INPUT_TEXT_EVENT_LISTENER_CLASS_NAME "InputTextEventListener"
 
 /* scheduler */
 #define FS_SCHEDULER_CLASS_NAME "Scheduler"

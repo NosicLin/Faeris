@@ -7,6 +7,7 @@ NS_FS_BEGIN
 class Scene;
 class DirectorTouchEventListener;
 class DirectorKeypadEventListener;
+class DirectorInputTextEventListener;
 
 class FsArray;
 class Vector2;
@@ -65,6 +66,8 @@ class Director :public SchedulerTarget
 
 		void keypadEvent(int type,int keycode);
 
+		void inputTextEvent(const char* text,int length);
+
 	private:
 		Scene* m_current;
 
@@ -76,9 +79,11 @@ class Director :public SchedulerTarget
 		bool m_autoSwapBuffers;
 		DirectorTouchEventListener* m_touchEventListener;
 		DirectorKeypadEventListener* m_keypadEventListener;
+		DirectorInputTextEventListener* m_inputTextEventListener;
 
 		friend class DirectorTouchEventListener;
 		friend class DirectorKeypadEventListener;
+		friend class DirectorInputTextEventListener;
 
 };
 

@@ -364,6 +364,10 @@ void Scene::keypadEvent(int type,int keycode)
 {
 }
 
+void Scene::inputTextEvent(const char* text,int length)
+{
+}
+
 
 
 const char* Scene::className()

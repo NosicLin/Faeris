@@ -85,6 +85,20 @@ class JniUtil
 		env->DeleteLocalRef(class_id); \
 	}while(0)
 
+#define FS_JNI_CALL_VOID_STATIC_METHOD(cls_name,md_name,sig,...) \
+	do{ \
+		jmethodID method_id=0; \
+		jclass class_id=0; \
+		JNIEnv* env=0; \
+		env=JniUtil::getEnv(false); \
+		FS_TRACE_ERROR_ON(env==NULL,"Can't Get Env"); \
+		class_id=JniUtil::getClass(cls_name); \
+		FS_TRACE_ERROR_ON(class_id==NULL,"Can't Get Class(%s)",cls_name); \
+		method_id=JniUtil::getStaticMethodID(class_id,md_name,sig); \
+		FS_TRACE_ERROR_ON(method_id==NULL,"Can't Get  Sig(%s) Method(%s) in Class(%s)",sig,md_name,cls_name); \
+		env->CallStaticVoidMethod(class_id,method_id,##__VA_ARGS__); \
+		env->DeleteLocalRef(class_id); \
+	}while(0)
 
 NS_FS_END 
 

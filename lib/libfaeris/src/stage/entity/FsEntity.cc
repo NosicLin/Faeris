@@ -194,6 +194,7 @@ void Entity::addChild(Entity* n)
 
 Entity* Entity::getParent()
 {
+	FS_SAFE_ADD_REF(m_parent);
 	return m_parent;
 }
 

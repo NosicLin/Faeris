@@ -125,6 +125,16 @@ void LuaScene::keypadEvent(int type,int keycode)
 	}
 }
 
+void LuaScene::inputTextEvent(const char* value,int length)
+{
+	LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+	if(!se->callFunctionInTable(m_scriptData,"onInputText",2,0,"fs",this,value))
+	{
+		FS_TRACE_WARN("onInputText %s",value);
+		Scene::inputTextEvent(value,length);
+	}
+}
+
 
 const char*  LuaScene::className()
 {

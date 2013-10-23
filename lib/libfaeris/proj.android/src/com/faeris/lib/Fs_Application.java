@@ -35,7 +35,7 @@ public class Fs_Application
 		m_packageName=app_info.packageName;
 		m_apkPath=app_info.sourceDir;
 		m_dataDir=context.getFilesDir().getAbsolutePath();
-		m_eventHandler=new Fs_UiEvent();
+		m_eventHandler=new Fs_UiEvent(context);
 		m_externalDir="/mnt/sdcard/fgame/"+m_packageName+"/";
 		
 		/* imei and imsi */
@@ -59,7 +59,7 @@ public class Fs_Application
 		Message msg=new Message();
 		msg.what=Fs_UiEvent.UIEVENT_EXIT;
 		msg.obj=null;
-		m_eventHandler.handleMessage(msg);
+		m_eventHandler.sendMessage(msg);
 	}
 
 
@@ -138,7 +138,7 @@ public class Fs_Application
 		
 		msg.what=Fs_UiEvent.UIEVENT_SHOW_INPUT_BOX_DIALOG;
 		msg.obj=e_msg;
-		m_eventHandler.handleMessage(msg);
+		m_eventHandler.sendMessage(msg);
 	}
 
 

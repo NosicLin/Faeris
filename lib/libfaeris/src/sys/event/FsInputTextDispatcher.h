@@ -1,6 +1,8 @@
 #ifndef _FS_INPUT_TEXT_DISPATCHER_H_
 #define _FS_INPUT_TEXT_DISPATCHER_H_
 
+#include <string>
+
 #include "FsMacros.h"
 #include "sys/event/FsTEventDispatcher.h"
 
@@ -14,7 +16,7 @@ class InputTextEvent
 			m_text=std::string(text);
 		}
 
-		~InputTextEvent();
+		~InputTextEvent(){}
 
 	public:
 		const char* getText(){return m_text.c_str();}
@@ -35,7 +37,7 @@ class InputTextEventListener:public FsObject
 		
 
 	public:
-		void handleEvent(TouchEvent* event)
+		void handleEvent(InputTextEvent* event)
 		{
 			textInput(event->getText(),event->getTextLength());
 		}
@@ -48,7 +50,7 @@ class InputTextEventListener:public FsObject
 
 
 
-class InputTextDispatcher:public TEventDispatcher<TouchEvent,TouchEventListener> 
+class InputTextDispatcher:public TEventDispatcher<InputTextEvent,InputTextEventListener> 
 {
 	public:
 		static InputTextDispatcher* create();
