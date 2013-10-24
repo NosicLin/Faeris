@@ -167,6 +167,10 @@ public class Fs_Application
 	}
 
 
+	public static void runOnEngineThread(Runnable runable)
+	{
+		Fs_Application.m_context.getFsGLSurfaceView().queueEvent(runable);
+	}
 
 
 }

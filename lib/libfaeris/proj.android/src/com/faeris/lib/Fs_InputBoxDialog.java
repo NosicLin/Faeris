@@ -207,7 +207,14 @@ public class Fs_InputBoxDialog extends Dialog
 		{
 			if(actionid != EditorInfo.IME_NULL || (actionid==EditorInfo.IME_NULL && event!=null && event.getAction()==KeyEvent.ACTION_DOWN))
 		{
-			Fs_Jni.onInputText(Fs_InputBoxDialog.this.m_inputEditText.getText().toString());
+				
+			Fs_Application.runOnEngineThread(new Runnable(){
+				public void run(){
+					Fs_Jni.onInputText(Fs_InputBoxDialog.this.m_inputEditText.getText().toString());
+			}
+			});
+		
+
 
 			Fs_InputBoxDialog.this.closeKeyboard();
 			Fs_InputBoxDialog.this.dismiss();

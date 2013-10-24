@@ -81,6 +81,7 @@ public abstract class Fs_Activity extends Activity
 		Fs_Jni.setEnv("imsi",imsi);
 	}
 	
+
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -89,5 +90,10 @@ public abstract class Fs_Activity extends Activity
 	    		android.os.Process.killProcess(android.os.Process.myPid());
 	    	}
 	        return super.onKeyDown(keyCode, event);
+	}
+
+	public Fs_GLSurfaceView getFsGLSurfaceView()
+	{
+		return m_view;
 	}
 }
