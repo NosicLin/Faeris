@@ -41,10 +41,18 @@ void Scheduler::mainLoop()
 	while(!m_stop)
 	{
 		cur_time=m_timer.now();
-		diff_time=cur_time-last_time;
 
+		if(m_sheduleWithMilliSecond) 
+		{
+			diff_time=cur_time-last_time;
+		}
+		else 
+		{
+			diff_time=(cur_time-last_time)/1000.0f;
 
-		float sleep_time=update((float)diff_time/1000.0f);
+		}
+		float sleep_time=update(diff_time);
+
 		
 		while(m_timer.now()-cur_time<=m_intervalTime){}
 		
@@ -114,6 +122,7 @@ bool Scheduler::hasTarget(SchedulerTarget* target,int priority)
 	}
 	return false;
 }
+
 bool Scheduler::hasTarget(SchedulerTarget* target)
 {
 	for(int i=0;i<PRIORITY_NU;i++)
@@ -125,6 +134,18 @@ bool Scheduler::hasTarget(SchedulerTarget* target)
 	}
 	return false;
 }
+
+void Scheduler::scheduleWithMiliSecond(bool enable)
+{
+	m_sheduleWithMilliSecond=enable;
+}
+
+
+
+
+
+
+
 
 void Scheduler::runSyncTask(Task* t)
 {
@@ -143,6 +164,8 @@ void Scheduler::init()
 	m_stop=false;
 	m_fps=60;
 	m_intervalTime=(1.0f/60.0f)*1000;
+
+	m_sheduleWithMilliSecond=false;
 
 	m_taskHanding=FsArray::create();
 	m_taskPending=FsArray::create();

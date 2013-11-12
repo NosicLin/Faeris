@@ -24,6 +24,8 @@ class Sprite2D@__Sprite2D:public Entity
 		void setAnimation(const char* name);
 		const char* getAnimation();
 
+		bool hasAnimation(const char* name);
+
 		void updateAnimation(float dt);
 
 		void playAnimation(int mode=Sprite2D::ANIM_LOOP);

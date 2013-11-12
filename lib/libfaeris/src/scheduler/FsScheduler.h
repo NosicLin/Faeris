@@ -47,6 +47,8 @@ class Scheduler :public FsObject
 		void remove(SchedulerTarget* s);
 		bool hasTarget(SchedulerTarget* target,int priority);
 		bool hasTarget(SchedulerTarget* target);
+		void scheduleWithMiliSecond(bool enable);
+
 
 	public:
 		void runSyncTask(Task* t);
@@ -71,6 +73,10 @@ class Scheduler :public FsObject
 		FsArray* m_taskHanding;
 		FsArray* m_taskPending;
 		Mutex* m_taskLock;
+
+		/* capcity old */
+		bool m_sheduleWithMilliSecond;
+
 
 
 };

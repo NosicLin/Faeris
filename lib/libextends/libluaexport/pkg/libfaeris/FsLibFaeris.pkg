@@ -64,6 +64,7 @@ $pfile "math/FsRect2D.pkg"
 $pfile "sys/FsWindow.pkg"
 $pfile "sys/FsKeyCode.pkg"
 $pfile "sys/FsSys.pkg"
+$pfile "sys/FsTimer.pkg"
 
 
 /* sys/event */
@@ -97,7 +98,6 @@ $pfile "media/FsAudioEngine.pkg"
 
 
 /* network */
-
 $pfile "sys/network/FsHttpEngine.pkg"
 
 

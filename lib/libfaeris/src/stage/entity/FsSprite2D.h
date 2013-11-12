@@ -42,6 +42,8 @@ class Sprite2D :public Entity
 		const char* getAnimation();
 		void updateAnimation(float dt);
 
+		bool hasAnimation(const char* name);
+
 		void playAnimation(int mode=ANIM_LOOP);
 		void startAnimation(int mode=ANIM_LOOP);
 		void stopAnimation();

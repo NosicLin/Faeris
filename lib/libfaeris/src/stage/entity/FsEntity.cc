@@ -299,6 +299,22 @@ void Entity::detach()
 	}
 }
 
+
+
+
+Matrix4* Entity::getWorldMatrix()
+{
+	updateWorldMatrix();
+	return &m_worldMatrix;
+
+}
+Matrix4* Entity::getLocalMatrix()
+{
+	updateLocalMatrix();
+	return &m_localMatrix;
+}
+
+
 NS_FS_END
 
 

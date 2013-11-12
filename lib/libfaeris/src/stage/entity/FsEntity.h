@@ -43,6 +43,9 @@ class Entity :public StageElement
 		FsArray* allChild();
 		int childNu();
 
+		Matrix4* getWorldMatrix();
+		Matrix4* getLocalMatrix();
+
 
 		void drop(bool recusive=true);
 

@@ -18,9 +18,9 @@ ColorQuad2D* ColorQuad2D::create(float width,float height,Color c)
 	return quad;
 }
 
-void ColorQuad2D::update(float /*dt*/)
+void ColorQuad2D::update(float dt)
 {
-	/* do nothing */
+	Entity::update(dt);
 }
 
 void ColorQuad2D::draw(Render* render,bool updateMatrix)

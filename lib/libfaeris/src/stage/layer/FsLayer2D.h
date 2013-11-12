@@ -30,6 +30,7 @@ public:
 		Vector2 toLayerCoord(const Vector2& v)const ;
 
 		void setViewArea(float x,float y,float width,float height);
+		void getViewArea(float* x,float* y,float* width,float* height);
 		void setViewArea(const Rect2D& area);
 
 		void setSortMode(int mode);

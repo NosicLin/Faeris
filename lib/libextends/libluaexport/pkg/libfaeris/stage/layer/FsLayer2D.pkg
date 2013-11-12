@@ -6,12 +6,16 @@ class Layer2D@__Layer2D:public Layer
 
 	public:
 		Matrix4 getProjectMatrix()const ;
-		Rect2D getViewArea()const;
+		//Rect2D getViewArea()const;
 
 		void toLayerCoord(float* x,float* y)const ;
 		Vector2 toLayerCoord(const Vector2& v)const ;
 
+
 		void setViewArea(float x,float y,float width,float height);
+		void getViewArea(float* x=0,float* y=0,float* width=0,float* height=0);
+
+
 		void setViewArea(const Rect2D& area);
 
 		void setSortMode(int mode);

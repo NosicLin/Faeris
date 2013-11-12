@@ -1,0 +1,13 @@
+$#include "sys/FsTimer.h"
+
+class Timer
+{
+	public:
+		Timer();
+		void reset();
+		float now() ;
+};
+
+
+
+

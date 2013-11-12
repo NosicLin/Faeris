@@ -25,6 +25,7 @@ class Scheduler :public FsObject
 		void stop();
 		void setFps(int fps);
 		void mainLoop();
+		void scheduleWithMiliSecond(bool enable);
 
 	public:
 		void add(SchedulerTarget* s,int priority);

@@ -76,6 +76,19 @@ void Layer2D::setViewArea(float x,float y,float width,float height)
 {
 	m_viewArea.set(x,y,width,height);
 }
+
+
+void Layer2D::getViewArea(float* x,float* y,float* width,float* height)
+{
+	*x=m_viewArea.x;
+	*y=m_viewArea.y;
+	*width=m_viewArea.width;
+	*height=m_viewArea.height;
+}
+
+
+
+
 void Layer2D::setViewArea(const Rect2D& area)
 {
 	m_viewArea=area;
