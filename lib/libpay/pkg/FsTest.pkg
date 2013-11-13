@@ -1,0 +1,12 @@
+$#include "FsTest.h"
+
+class Test 
+{
+	public:
+		Test();
+	
+	public:
+		void printSelf();
+};
+
+

@@ -9,6 +9,8 @@
 #include "support/util/FsDict.h"
 #include "support/util/FsArray.h"
 
+#include "FsPayModule.h"
+
 
 #if FS_PLATFORM_OS(FS_OS_WIN32)
 	#define FS_CONFIGURE_FILE "win32.fgame"
@@ -36,6 +38,7 @@ int main(int argc,char** argv)
 	}
 
 	FsFaeris_ModuleInit();
+
 
 		/* get share object */
 	Window* win=Global::window();
@@ -103,7 +106,13 @@ int main(int argc,char** argv)
 
 	engine=LuaEngine::create();
 	Global::setScriptEngine(engine);
+
+	FsModuel_PayInit();
+
+
 	engine->executeFile(entry->cstr());
+
+
 
 
 

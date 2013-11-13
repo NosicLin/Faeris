@@ -6,6 +6,7 @@
 
 #include "sys/FsSys.h"
 #include "FsGlobal.h"
+#include "FsPayModule.h"
 
 NS_FS_USE
 extern "C"
@@ -14,7 +15,10 @@ extern "C"
 	{
 		LuaEngine* engine=LuaEngine::create();
 		Global::setScriptEngine(engine);
+		FsModuel_PayInit();
+
 		engine->decRef();
+
 
 		Sys::setJavaVM(vm);
 
