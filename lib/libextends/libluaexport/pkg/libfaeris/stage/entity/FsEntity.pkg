@@ -92,7 +92,9 @@ class Entity@__Entity:public StageElement
 
 	public:
 		void setVisible(bool visible);
+		void setChildVisible(bool visiable,bool rec);
 		bool visible();
+
 		bool hit2D(float x,float y);
 		void draw(Render* render,bool update_matrix=true);
 };

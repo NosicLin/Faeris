@@ -222,6 +222,23 @@ void Entity::getAllChild(FsArray* ret)
 	}
 }
 
+void Entity::setChildVisible(bool visiable, bool rec)
+{
+	int child_nu=m_chirdren->size();
+
+	for(int i=0;i<child_nu;i++)
+	{
+		Entity* ob=(Entity*)m_chirdren->get(i);
+		ob->setVisible(visiable);
+		if(rec)
+		{
+			ob->setChildVisible(visiable,true);
+		}
+		ob->decRef();
+	}
+}
+
+
 
 
 void Entity::remove(Entity* n)
