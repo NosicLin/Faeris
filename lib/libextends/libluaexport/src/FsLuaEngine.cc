@@ -309,6 +309,56 @@ bool LuaEngine::callFunctionInTable(int lua_table,const char* func_name,int argn
 }
 
 
+bool LuaEngine::callFunctionInName(const char* luaFunc, const char* argt, ...) const
+{
+	lua_getglobal(m_state, luaFunc);
+	int argn = argt ? strlen(argt) : 0;
+
+	va_list ap;
+	va_start(ap, argt);
+
+	for (int i=0; i<argn; i++)
+	{
+		switch (argt[i])
+		{
+		case 'c':
+			{
+				const char* str = va_arg(ap, const char*);
+				lua_pushstring(m_state, str);
+			}
+			break;
+		case 'p':
+			{
+				void* p = va_arg(ap, void*);
+				lua_pushlightuserdata(m_state, p);
+			}
+			break;
+		case 'i':
+			{
+				int v = va_arg(ap, int);
+				lua_pushinteger(m_state, v);
+			}
+			break;
+		case 'f':
+			{
+				double d = va_arg(ap, double);
+				lua_pushnumber(m_state, d);
+			}
+			break;
+		}
+	}
+
+	if(lua_pcall(m_state,argn,0,0))
+	{
+		FsUtil_Log("[LUA_ERROR] %s",lua_tostring(m_state,-1));
+		lua_remove(m_state,-1);
+		return false;
+	}
+
+	return true;
+
+}
+
 
 
 /* no args */

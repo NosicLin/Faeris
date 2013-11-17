@@ -56,6 +56,7 @@ class LuaEngine:public ScriptEngine
 		/* no args */
 		bool callFunctionInTable(int lua_table,const char* func_name,int retnu);
 		bool callFunction(int lua_function,const char* name,const char* fmt,...);
+		bool callFunctionInName(const char* luaFunc, const char* argt, ...) const;
 
 		/* lua function*/
 		void removeLuaFunction(int refid);

@@ -30,7 +30,7 @@ class FgzWriter:
 		self.m_log=""
 		error_nu=0
 		try:
-			tf=open(target_file,"w+")
+			tf=open(target_file,"wb+")
 		except Exception,e:
 			self.m_log=e
 			return False
