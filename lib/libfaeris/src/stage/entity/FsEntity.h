@@ -43,6 +43,8 @@ class Entity :public StageElement
 		FsArray* allChild();
 		int childNu();
 
+
+
 		Matrix4* getWorldMatrix();
 		Matrix4* getLocalMatrix();
 
@@ -134,6 +136,7 @@ class Entity :public StageElement
 	public:
 		void setVisible(bool visible){m_visible=visible;}
 		bool visible(){return m_visible;}
+		void setChildVisible(bool visiable,bool rec);
 
 		/* for hiting */
 		virtual bool hit2D(float x,float y);

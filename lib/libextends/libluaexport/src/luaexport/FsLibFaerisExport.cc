@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 11/02/13 06:43:04.
+** Generated automatically by tolua++-1.0.92 on 11/14/13 11:55:58.
 */
 
 #ifndef __cplusplus
@@ -2415,6 +2415,41 @@ static int tolua_FsLibFaeris___Entity_setVisible00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setVisible'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setChildVisible of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_setChildVisible00
+static int tolua_FsLibFaeris___Entity_setChildVisible00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  bool visiable = ((bool)  tolua_toboolean(tolua_S,2,0));
+  bool rec = ((bool)  tolua_toboolean(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setChildVisible'", NULL);
+#endif
+  {
+   self->setChildVisible(visiable,rec);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setChildVisible'.",&tolua_err);
  return 0;
 #endif
 }
@@ -20210,6 +20245,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getZorder",tolua_FsLibFaeris___Entity_getZorder00);
    tolua_function(tolua_S,"setZorder",tolua_FsLibFaeris___Entity_setZorder00);
    tolua_function(tolua_S,"setVisible",tolua_FsLibFaeris___Entity_setVisible00);
+   tolua_function(tolua_S,"setChildVisible",tolua_FsLibFaeris___Entity_setChildVisible00);
    tolua_function(tolua_S,"visible",tolua_FsLibFaeris___Entity_visible00);
    tolua_function(tolua_S,"hit2D",tolua_FsLibFaeris___Entity_hit2D00);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris___Entity_draw00);
