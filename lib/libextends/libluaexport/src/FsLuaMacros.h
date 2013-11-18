@@ -33,6 +33,8 @@
 
 #define FS_EXPORT_LIB_SPINE_SPRITE
 
+#define FS_EXPORT_LIB_BOX2D
+
 #endif /*_FS_LUA_MACROS_H_*/
 
 
