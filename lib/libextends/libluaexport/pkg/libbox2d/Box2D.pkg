@@ -31,6 +31,7 @@ For discussion please visit http://box2d.org/forum
 
 $#include "FsMacros.h"
 $#include "Box2D/Box2D.h"
+$#include "FsLuaExport.h"
 
 $#include <Box2D/Dynamics/Contacts/b2Contact.h>
 $#include <Box2D/Dynamics/Contacts/b2CircleContact.h>
@@ -116,4 +117,5 @@ $pfile "b2WeldJoint.pkg"
 $pfile "b2WheelJoint.pkg"
 $pfile "b2World.pkg"
 $pfile "b2WorldCallbacks.pkg"
+$pfile "fb2Draw.pkg"
 

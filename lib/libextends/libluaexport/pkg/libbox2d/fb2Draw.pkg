@@ -1,10 +1,5 @@
-#include "FsMacros.h"
-#include "Box2D/Common/b2Draw.h"
+$#include "box2d/fb2Draw.h"
 
-
-NS_FS_BEGIN
-
-class Mat_V4F;
 class fb2Draw:public b2Draw 
 {
 	public:
@@ -31,11 +26,6 @@ class fb2Draw:public b2Draw
 		/// @param xf a transform.
 		virtual void DrawTransform(const b2Transform& xf) ;
 
-	private:
-		float32 m_ratio;
-		Mat_V4F* m_material;
 };
 
 
-
-NS_FS_END

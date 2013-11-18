@@ -16,6 +16,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#ifndef _B2_DRAW_H_
+#define _B2_DRAW_H_
 #include <Box2D/Common/b2Math.h>
 
 /// Color for debug drawing. Each value has the range [0,1].
@@ -79,3 +81,6 @@ public:
 protected:
     uint32 m_drawFlags;
 };
+
+
+#endif /*_B2_DRAW_H_*/

@@ -254,6 +254,14 @@
 					Name="material"
 					>
 					<File
+						RelativePath="..\src\graphics\material\FsMat_V4F.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\graphics\material\FsMat_V4F.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\graphics\material\FsMat_V4F_C4F.cc"
 						>
 					</File>
