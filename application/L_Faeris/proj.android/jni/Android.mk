@@ -14,7 +14,7 @@ LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../../../lib/3rdparty/lua/include \
 					 -I$(LOCAL_PATH)/../../../../lib/libfaeris/src/support  \
 					 -I$(LOCAL_PATH)/../../../../lib/libextends/libluaexport/src \
 					 -I$(LOCAL_PATH)/../../../../lib/libextends/libluaexport/src/luaext \
-					 -I$(LOCAL_PATH)/../../../../lib/libpay/src  \
+					 -I$(LOCAL_PATH)/../../../../lib/libxAccess/src  \
 
 					 
 
@@ -31,7 +31,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
 LOCAL_WHOLE_STATIC_LIBRARIES += spinesprite_static
 
-LOCAL_WHOLE_STATIC_LIBRARIES += libpay_static
+LOCAL_WHOLE_STATIC_LIBRARIES += libthirdParty_static
 
 
 
@@ -51,7 +51,7 @@ $(call import-module,../../../../lib/lib3rdparty/minizip/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/zlib/proj.android/jni)
 $(call import-module,../../../../lib/libextends/libluaexport/proj.android)
 $(call import-module,../../../../lib/libextends/libspinesprite/proj.android)
-$(call import-module,../../../../lib/libpay/proj.android/jni)
+$(call import-module,../../../../lib/libxAccess/proj.android/jni)
 
 
 

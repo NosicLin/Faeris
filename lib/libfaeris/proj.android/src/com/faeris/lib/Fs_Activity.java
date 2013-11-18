@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 
-public abstract class Fs_Activity extends Activity
+public  class Fs_Activity extends Activity
 {
 	/* attibute */
 	
