@@ -242,7 +242,6 @@ public class Fs_InputBoxDialog extends Dialog
 	{
 		final InputMethodManager imm=(InputMethodManager) this.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(this.m_inputEditText.getWindowToken(),0);
-
 	}
 
 }

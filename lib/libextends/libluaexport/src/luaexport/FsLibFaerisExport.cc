@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 11/14/13 11:55:58.
+** Generated automatically by tolua++-1.0.92 on 11/18/13 06:03:51.
 */
 
 #ifndef __cplusplus
@@ -16,6 +16,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "FsLuaExport.h"
 #include "FsGlobal.h"
 #include "FsObject.h"
+#include "FsMacros.h"
 #include "stage/entity/FsEntity.h"
 #include "luaext/FsLuaEntity.h"
 #include "luaext/FsLuaEntity.h"
@@ -20187,6 +20188,11 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"className",tolua_FsLibFaeris_FsObject_className00);
    tolua_variable(tolua_S,"data",tolua_get_FsObject_data,tolua_set_FsObject_data);
   tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"FS_PLATFORM_WIN32",FS_PLATFORM_WIN32);
+  tolua_constant(tolua_S,"FS_PLATFORM_LINUX",FS_PLATFORM_LINUX);
+  tolua_constant(tolua_S,"FS_PLATFORM_ANDROID",FS_PLATFORM_ANDROID);
+  tolua_constant(tolua_S,"FS_PLATFORM_APPLE",FS_PLATFORM_APPLE);
+  tolua_constant(tolua_S,"FS_CUR_PLATFORM",FS_CUR_PLATFORM);
   tolua_cclass(tolua_S,"__Entity","Entity","StageElement",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"__Entity");
    tolua_function(tolua_S,"localToWorld",tolua_FsLibFaeris___Entity_localToWorld00);
