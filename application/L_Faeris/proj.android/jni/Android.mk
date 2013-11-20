@@ -19,6 +19,7 @@ LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../../../../lib/3rdparty/lua/include \
 					 
 
 
+
 LOCAL_WHOLE_STATIC_LIBRARIES := zlib_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += freetype_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += minizip_static 
@@ -30,6 +31,8 @@ LOCAL_WHOLE_STATIC_LIBRARIES += curl_static
 LOCAL_WHOLE_STATIC_LIBRARIES += faeris_static 
 LOCAL_WHOLE_STATIC_LIBRARIES += luaexport_static
 LOCAL_WHOLE_STATIC_LIBRARIES += spinesprite_static
+LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
+LOCAL_WHOLE_STATIC_LIBRARIES += lib3rdextends_static
 
 LOCAL_WHOLE_STATIC_LIBRARIES += libthirdParty_static
 
@@ -52,6 +55,9 @@ $(call import-module,../../../../lib/lib3rdparty/zlib/proj.android/jni)
 $(call import-module,../../../../lib/libextends/libluaexport/proj.android)
 $(call import-module,../../../../lib/libextends/libspinesprite/proj.android)
 $(call import-module,../../../../lib/libxAccess/proj.android/jni)
+$(call import-module,../../../../lib/lib3rdparty/Box2D/proj.android)
+$(call import-module,../../../../lib/libextends/lib3rdextends/proj.android/jni)
+
 
 
 

@@ -154,6 +154,7 @@ public class Fs_GLSurfaceView  extends GLSurfaceView
 		}
 		return true;
 	}
+	
 	@Override
 		protected void onSizeChanged(final int new_width,final int new_height, final int old_width,final int old_height)
 		{

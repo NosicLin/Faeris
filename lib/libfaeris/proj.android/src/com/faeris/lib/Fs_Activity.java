@@ -2,7 +2,11 @@ package com.faeris.lib;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -42,6 +46,7 @@ public  class Fs_Activity extends Activity
 	{
 		super.onPause();
 		this.m_view.onPause();
+		
 		//Fs_Jni.onBackground();
 	}
 	
@@ -51,8 +56,9 @@ public  class Fs_Activity extends Activity
 	protected void onDestroy()
 	{
 		Log.v("Fs_Activity","onDestroy");
+		
 		super.onDestroy();
-		//Fs_Jni.onDestroy();
+		Fs_Jni.onDestroy();
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	
@@ -85,11 +91,27 @@ public  class Fs_Activity extends Activity
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    	if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    		Log.v("Fs_Activity","Exit");
-	    		android.os.Process.killProcess(android.os.Process.myPid());
-	    	}
-	        return super.onKeyDown(keyCode, event);
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			AlertDialog.Builder builder = new Builder(Fs_Activity.this);
+			builder.setMessage("确认退出游戏吗?");
+			builder.setTitle("提示");
+			builder.setPositiveButton("确认", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						Fs_Activity.this.finish();
+					}
+			});
+
+			builder.setNegativeButton("取消", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+					}
+				});
+
+				builder.create().show();
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public Fs_GLSurfaceView getFsGLSurfaceView()
@@ -97,3 +119,8 @@ public  class Fs_Activity extends Activity
 		return m_view;
 	}
 }
+
+
+
+
+
