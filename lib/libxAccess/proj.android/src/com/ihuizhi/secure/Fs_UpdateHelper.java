@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 
 
@@ -52,8 +53,7 @@ public class Fs_UpdateHelper {
 		
 		mIsForceUpdate =  getForceUpdateStatus();		
 	}
-	
-	
+		
 	
 	public void checkUpdate( long objADD)
 	{
@@ -173,8 +173,14 @@ public class Fs_UpdateHelper {
 						//有错误，或者不需要更新
 						String Eerromsg = (String)msg.obj;						
 						Log.i(TAG, Eerromsg);						
-						
-						checkUpdateCallBack(RQF_INSTALL_FAIL);
+						if(mIsForceUpdate){
+							
+							Toast.makeText(mContext, "网络错误！错误代码 - "+Eerromsg, Toast.LENGTH_LONG);
+							Fs_Application.asynExit();						
+						}
+						else{
+							checkUpdateCallBack(RQF_INSTALL_FAIL);  // -- 暂时强制关掉							
+						}
 					}
 					break;
 				}				
@@ -217,8 +223,6 @@ public class Fs_UpdateHelper {
 						//						
 						SysUtil.browserInterface(mContext, mInfo.getApkUrl());
 						setDownlock(true);
-						
-//						FileDownloadeUrl(mInfo.getApkUrl());
 					}
 				});
 
