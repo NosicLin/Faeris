@@ -25,7 +25,7 @@ NS_FS_USE
 typedef int LUA_FUNCTION;
 typedef int LUA_TABLE;
 
-
+TOLUA_API int  tolua_Box2D_open (lua_State* tolua_S);
 TOLUA_API int  tolua_FsLibAudio_open (lua_State* tolua_S);
 TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 

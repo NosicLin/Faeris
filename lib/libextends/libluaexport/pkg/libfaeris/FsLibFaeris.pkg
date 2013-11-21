@@ -2,12 +2,16 @@ $#include "FsLuaExport.h"
 
 /*  FsTypes.pkg it must first here */
 
+
+
 $pfile  "FsTypes.pkg"
 
 $pfile "FsGlobal.pkg"
 
 /* core */
 $pfile "FsObject.pkg"
+
+$pfile "FsMacros.pkg"
 
 
 

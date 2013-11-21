@@ -12,6 +12,8 @@ LOCAL_CFLAGS     :=  -I$(LOCAL_PATH)/../src \
 					 -I$(LOCAL_PATH)/../../../lib3rdparty/lua/include \
 					 -I$(LOCAL_PATH)/../../../lib3rdparty/tolua++/include \
 					 -I$(LOCAL_PATH)/../../../lib3rdparty/fmod/include \
+					 -I$(LOCAL_PATH)/../../../lib3rdparty/Box2D  \
+					 -I$(LOCAL_PATH)/../../../libextends/lib3rdextends/src \
 					 -I$(LOCAL_PATH)/../../../libfaeris/src \
 					 -I$(LOCAL_PATH)/../../../libfaeris/src/support  \
 					 -I$(LOCAL_PATH)/../../libaudio/src \
@@ -31,6 +33,7 @@ LOCAL_SRC_FILES :=  ../src/toluaext++.cc \
 					../src/luaexport/FsLibLuaScript.cc \
 					../src/luaexport/FsLuaFuncExport.cc \
 					../src/luaexport/FsLibSpineSprite.cc \
+					../src/luaexport/FsLibBox2d.cc  \
 
 
 

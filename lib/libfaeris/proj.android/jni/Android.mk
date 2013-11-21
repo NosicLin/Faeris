@@ -16,6 +16,7 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../src \
  					-I$(LOCAL_PATH)/../../../lib3rdparty/fmod/include \
 
 
+
 LOCAL_SRC_FILES :=  \
 					src/com_faeris_lib_Fs_Jni.cc \
 					../../src/FsGlobal.cc \
@@ -44,6 +45,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/graphics/FsProgram.cc \
 					../../src/graphics/FsTexture2D.cc \
 					../../src/graphics/FsFontBitmap.cc \
+					../../src/graphics/material/FsMat_V4F.cc \
 					../../src/graphics/material/FsMat_V4F_C4F.cc \
 					../../src/graphics/material/FsMat_V4F_T2F.cc \
 					../../src/graphics/material/FsMat_V4F_T2F_A1F.cc \

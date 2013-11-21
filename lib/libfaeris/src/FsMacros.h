@@ -10,18 +10,33 @@
 #define NS_FS_END FS_END_NAMESPACE(Faeris)
 #define NS_FS_USE using namespace Faeris;
 
+enum 
+{
+	FS_PLATFORM_WIN32=1,
+	FS_PLATFORM_LINUX=2,
+	FS_PLATFORM_ANDROID=3,
+	FS_PLATFORM_APPLE=4,
+};
+
 
 #if defined(WIN32)
 	#define FS_OS_WIN32
+	#define FS_CUR_PLATFORM  FS_PLATFORM_WIN32
 
 #elif defined(LINUX)
 	#define FS_OS_LINUX
+	#define FS_CUR_PLATFORM FS_PLATFORM_LINUX
 
 #elif defined(ANDROID)
 	#define FS_OS_ANDROID
+	#define FS_CUR_PLATFORM FS_PLATFORM_ANDROID
+
 #else
 	#error "UNKOWN PLATFORM OS"
 #endif
+
+
+
 
 
 #define FS_PLATFORM_OS defined
@@ -262,6 +277,8 @@ enum
 #define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"
 #define FS_POSITION_ALPHA_TEXTURE_MATERIAL_CLASS_NAME "Mat_V4F_T2F_A1F"
 #define FS_POSITION_TEXTURE_MATERIAL_CLASS_NAME "Mat_V4F_T2F"
+#define FS_MAT_V4F_CLASS_NAME "Mat_V4F"
+
 
 /* sys */
 #define FS_WINDOW_CLASS_NAME "Window"

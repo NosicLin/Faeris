@@ -65,6 +65,9 @@ LuaEngine::LuaEngine()
 	tolua_FsSpineSprite_open(m_state);
 #endif 
 
+#if FS_CONFIG(FS_EXPORT_LIB_BOX2D) 
+	tolua_Box2D_open(m_state);
+#endif
 
 
 
