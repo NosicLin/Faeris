@@ -5,7 +5,7 @@
 
 NS_FS_USE;
 
-static const char* JNI_CALLFUNCTION_CLASS_NAME="com/rThirdParty/Fs_rCallFunction";
+static const char* JNI_CALLFUNCTION_CLASS_NAME="com/rwhz/minder/Fs_rCallFunction";
 
 
 void f_BillingPointUp(const char* bpid, const char* price )

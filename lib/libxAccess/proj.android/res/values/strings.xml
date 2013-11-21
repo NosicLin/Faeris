@@ -1,5 +1,14 @@
 <resources>
 
     <string name="app_name">libpay</string>
-
+    
+    
+    <string name="updateUrl">http://192.168.1.224:8081/cooky_server/service/apk?</string>
+    
+   	<string name="confirm_install_hint">"安装提示"</string>	   
+   	<string name="confirm_install">"发现游戏新版本。\n\n点击确定，立即安装。"</string>
+	
+	<string name="Ensure">"确定"</string>
+	<string name="Cancel">"取消"</string>
+    
 </resources>

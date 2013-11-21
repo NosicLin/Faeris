@@ -1,10 +1,10 @@
-package com.rThirdParty.pay;
+package com.rwhz.pay;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.faeris.lib.Fs_Application;
-import com.rThirdParty.Fs_r3rdPartyJni;
+import com.rwhz.minder.Fs_r3rdPartyJni;
 
 public class Fs_r3rdParty_Pay  {
 	

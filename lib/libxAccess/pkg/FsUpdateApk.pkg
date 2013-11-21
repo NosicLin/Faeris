@@ -1,0 +1,15 @@
+$#include"FsUpdateApk.h"
+
+
+class UpdateApk:public FsObject 
+{
+	public:
+		static UpdateApk* create();				
+		
+	public:
+		void checkUpdate();
+};
+
+
+
+
