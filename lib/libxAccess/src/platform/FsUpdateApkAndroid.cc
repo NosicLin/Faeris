@@ -6,7 +6,7 @@
 #define  UPDATE_APK_RET_SUCCESS  1 
 
 NS_FS_BEGIN
-static const char* JNI_CALLFUNCTION_CLASS_NAME="com/rwhz/minder/Fs_rCallFunction";
+static const char* JNI_CALLFUNCTION_CLASS_NAME="com/ihuizhi/minder/Fs_rCallFunction";
 
 
 

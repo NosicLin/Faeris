@@ -13,7 +13,7 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../../libfaeris/src \
 
 
 LOCAL_SRC_FILES :=  \
-			src/com_rwhz_minder_Fs_r3rdPartyJni.cc \
+			src/com_ihuizhi_minder_Fs_r3rdPartyJni.cc \
 			../../src/FsxAccessExport.cc \
 			../../src/FsxAccessModule.cc\
 			../../src/FsxAccessFuc.cc\

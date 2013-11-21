@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/com/rwhz/android/SysUtil.java=UTF-8
-encoding//src/com/rwhz/net/HttpAsync.java=UTF-8
-encoding//src/com/rwhz/net/HttpCallback.java=UTF-8
-encoding//src/com/rwhz/net/HttpThread.java=UTF-8
-encoding//src/com/rwhz/res/Constant.java=UTF-8
+encoding//src/com/ihuizhi/android/SysUtil.java=UTF-8
+encoding//src/com/ihuizhi/net/HttpAsync.java=UTF-8
+encoding//src/com/ihuizhi/net/HttpCallback.java=UTF-8
+encoding//src/com/ihuizhi/net/HttpThread.java=UTF-8
+encoding//src/com/ihuizhi/res/Constant.java=UTF-8

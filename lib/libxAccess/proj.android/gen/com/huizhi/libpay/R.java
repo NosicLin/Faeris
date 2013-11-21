@@ -14,11 +14,14 @@ public final class R {
         public static int ic_launcher=0x7f020000;
     }
     public static final class string {
-        public static int Cancel=0x7f030005;
-        public static int Ensure=0x7f030004;
+        public static int Cancel=0x7f030008;
+        public static int Ensure=0x7f030007;
+        public static int Set=0x7f030006;
         public static int app_name=0x7f030000;
         public static int confirm_install=0x7f030003;
         public static int confirm_install_hint=0x7f030002;
+        public static int netstate=0x7f030004;
+        public static int setnetwork=0x7f030005;
         public static int updateUrl=0x7f030001;
     }
     public static final class style {
