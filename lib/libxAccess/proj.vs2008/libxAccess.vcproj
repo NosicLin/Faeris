@@ -148,11 +148,11 @@
 			Name="src"
 			>
 			<File
-				RelativePath="..\src\FsTest.cc"
+				RelativePath="..\src\FsUpdateApk.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\src\FsTest.h"
+				RelativePath="..\src\FsUpdateApk.h"
 				>
 			</File>
 			<File

@@ -1,5 +1,20 @@
 <resources>
 
     <string name="app_name">libpay</string>
+    
+    
+    <string name="updateUrl">http://192.168.1.224:8091/service/apk?</string>
+    
+   	<string name="confirm_install_hint">"安装提示"</string>	   
+   	<string name="confirm_install">"发现游戏新版本。\n\n点击确定，立即安装。"</string>
 
+   	
+   		<string name="netstate">"网络状态"</string>
+   		<string name="setnetwork">"当前网络不可用， 是否设置网络？"</string>
+		<string name="Set">"设置"</string>
+   				
+   		
+	<string name="Ensure">"确定"</string>
+	<string name="Cancel">"取消"</string>
+    
 </resources>

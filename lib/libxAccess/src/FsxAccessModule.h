@@ -4,6 +4,9 @@
 #include "FsGlobal.h"
 #include "FsLuaEngine.h"
 
+/* access  */
+
+#define FS_ACCESS_UPDATEAPK_CLASS_NAME "UpdateApk"
 
 int FsModuel_xAccessInit();
 

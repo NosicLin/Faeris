@@ -1,16 +1,20 @@
-package com.rThirdParty;
+  package com.ihuizhi.minder;
 
 import android.app.Activity;
 import android.util.Log;
 
 import com.faeris.lib.Fs_Activity;
+import com.ihuizhi.secure.Fs_UpdateHelper;
 import com.tendcloud.tenddata.TCAgent;
 
 public class Fs_rMinder {
 
 	public static Fs_rMinder mMinder =  null;
 	public static Fs_Activity mContext = null;
+	
 	public static Fs_rMindHandler mHandler = null;
+	
+	
 	public static Fs_rMinder  createMinder(Fs_Activity context)
 	{
 		if (mMinder ==null  || mHandler == null || context == null )
@@ -34,15 +38,17 @@ public class Fs_rMinder {
 	public void init()
 	{
 		TCAgent.init(mContext);
+				
 		//≥ı ºªØ		
 		Log.i("Delo", "Fs_rMinder:init()");	
 	}
+	
 	
 	public void onResume(Activity context){
 		// ª÷∏¥
 		
 		TCAgent.onResume(mContext);
-		
+		mHandler.onResume(mContext);		
 		Log.i("Delo", "Fs_rMiner:onResume()");
 	}
 	

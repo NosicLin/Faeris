@@ -1,7 +1,8 @@
-package com.rThirdParty;
+package com.ihuizhi.minder;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 
 public class Fs_rCallFunction {
 		
@@ -34,5 +35,14 @@ public class Fs_rCallFunction {
 	}
 	
 	
+	public static void CheckUpdate(long objADD)
+	{	
+		Bundle bundle = new Bundle();
+		bundle.putLong("objADD", objADD);
+		Message msg = Fs_rMinder.mHandler.obtainMessage();
+		msg.what =Fs_rMindHandler.MIND_HANDLER_CHECKUPDATE;
+		msg.obj = bundle;
+		Fs_rMinder.mHandler.sendMessage(msg);
+	}
 	
 }

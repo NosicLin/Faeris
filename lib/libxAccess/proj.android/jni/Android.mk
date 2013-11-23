@@ -13,11 +13,12 @@ LOCAL_CFLAGS :=     -I$(LOCAL_PATH)/../../../libfaeris/src \
 
 
 LOCAL_SRC_FILES :=  \
-			src/com_rThirdParty_Fs_r3rdPartyJni.cc \
+			src/com_ihuizhi_minder_Fs_r3rdPartyJni.cc \
 			../../src/FsxAccessExport.cc \
 			../../src/FsxAccessModule.cc\
-			../../src/FsTest.cc \
 			../../src/FsxAccessFuc.cc\
+			../../src/FsUpdateApk.cc\
+			../../src/FsTest.cc \
 
 
 include $(BUILD_STATIC_LIBRARY)

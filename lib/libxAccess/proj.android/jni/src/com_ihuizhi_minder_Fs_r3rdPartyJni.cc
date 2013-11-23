@@ -1,9 +1,10 @@
 
-#include "com_rThirdParty_Fs_r3rdPartyJni.h"
+#include "com_ihuizhi_minder_Fs_r3rdPartyJni.h"
 #include "FsGlobal.h"
 #include "FsLuaEngine.h"
 #include "FsMacros.h"
 #include "FsxAccessModule.h"
+#include "FsUpdateApk.h"
 
 NS_FS_USE;
 
@@ -16,7 +17,7 @@ extern "C" {
  * Method:    onForeground
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_rThirdParty_Fs_1r3rdPartyJni_onForeground
+JNIEXPORT void JNICALL Java_com_ihuizhi_minder_Fs_1r3rdPartyJni_onForeground
   (JNIEnv *, jclass){
   	
 
@@ -28,7 +29,7 @@ JNIEXPORT void JNICALL Java_com_rThirdParty_Fs_1r3rdPartyJni_onForeground
  * Method:    BillingPointCB
  * Signature: (Ljava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_com_rThirdParty_Fs_1r3rdPartyJni_NativeBillingPointCB
+JNIEXPORT void JNICALL Java_com_ihuizhi_minder_Fs_1r3rdPartyJni_NativeBillingPointCB
   (JNIEnv * env, jclass, jstring bpid, jint ret)
   {
 
@@ -43,6 +44,21 @@ JNIEXPORT void JNICALL Java_com_rThirdParty_Fs_1r3rdPartyJni_NativeBillingPointC
 		env->ReleaseStringUTFChars(bpid,t_bpid);
 
   }
+  
+  
+  /*
+ * Class:     com_rwhz_minder_Fs_r3rdPartyJni
+ * Method:    NativeCheckUpdateCB
+ * Signature: (Ljava/lang/Long;I)V
+ */
+ 
+JNIEXPORT void JNICALL Java_com_ihuizhi_minder_Fs_1r3rdPartyJni_NativeCheckUpdateCB
+  (JNIEnv * env, jclass, jlong objADD , jint ret)
+  {
+  		UpdateApk* update = (UpdateApk*)objADD;
+		update->onResult(ret);
+  }
+
 
 #ifdef __cplusplus
 }
