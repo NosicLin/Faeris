@@ -10,6 +10,7 @@ import com.faeris.lib.Fs_Application.InputBoxMessage;
 public class Fs_UiEvent extends Handler {
 	public final static int UIEVENT_EXIT=1;
 	public final static int UIEVENT_SHOW_INPUT_BOX_DIALOG=2;
+	public final static int UIEVENT_RUNNABLE=3;
 	
 	private WeakReference<Fs_Activity> m_activity;
 
@@ -28,8 +29,16 @@ public class Fs_UiEvent extends Handler {
 			case Fs_UiEvent.UIEVENT_SHOW_INPUT_BOX_DIALOG:
 				showInputBoxDialog(msg);
 				break;
+			case Fs_UiEvent.UIEVENT_RUNNABLE:
+				executeRunnable(msg.obj);
+				break;
 
 		}
+	}
+	public void executeRunnable(Object ob)
+	{
+		Runnable run=(Runnable)ob;
+		run.run();
 	}
 	
 	public void exit(Message msg)

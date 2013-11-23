@@ -317,21 +317,25 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 			{
 				if(map_type->equal("zip"))
 				{
+
 					Package* package=Package::create(map_url->cstr(),Package::PACKAGE_ZIP);
 					if(package)
 					{
 						VFS::mapPackage(map_path->cstr(),package);
 					}
 					FS_SAFE_DEC_REF(package);
+
 				}
 				else if(map_type->equal("fgz"))
 				{
+
 					Package* package=Package::create(map_url->cstr(),Package::PACKAGE_FGZ);
 					if(package)
 					{
 						VFS::mapPackage(map_path->cstr(),package);
 					}
 					FS_SAFE_DEC_REF(package);
+
 				}
 			}
 

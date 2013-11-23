@@ -35,6 +35,8 @@
 
 #define FS_EXPORT_LIB_BOX2D
 
+#define FS_EXPORT_LIB_SENSOR
+
 #endif /*_FS_LUA_MACROS_H_*/
 
 

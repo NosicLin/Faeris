@@ -1,7 +1,5 @@
 LOCAL_PATH :=$(call my-dir)
 
-IMPORT_PATH := $(LOCAL_PATH)
-
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := spinesprite_static

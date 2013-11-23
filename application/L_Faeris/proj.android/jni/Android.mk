@@ -35,6 +35,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
 LOCAL_WHOLE_STATIC_LIBRARIES += lib3rdextends_static
 
 LOCAL_WHOLE_STATIC_LIBRARIES += libthirdParty_static
+LOCAL_WHOLE_STATIC_LIBRARIES += libsensor_static
 
 
 
@@ -44,6 +45,7 @@ LOCAL_LDLIBS    += -llog -lGLESv2  -lEGL
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-add-path,$(IMPORT_PATH))
+
 $(call import-module,../../../../lib/libfaeris/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/curl/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/freetype/proj.android/jni)
@@ -57,6 +59,7 @@ $(call import-module,../../../../lib/libextends/libspinesprite/proj.android)
 $(call import-module,../../../../lib/libxAccess/proj.android/jni)
 $(call import-module,../../../../lib/lib3rdparty/Box2D/proj.android)
 $(call import-module,../../../../lib/libextends/lib3rdextends/proj.android/jni)
+$(call import-module,../../../../lib/libextends/libsensor/proj.android)
 
 
 

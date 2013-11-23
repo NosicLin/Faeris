@@ -170,6 +170,14 @@ public class Fs_Application
 	{
 		Fs_Application.m_context.getFsGLSurfaceView().queueEvent(runable);
 	}
+	public static void runUiThread(Runnable runable)
+	{
+		Message msg=new Message();
+		
+		msg.what=Fs_UiEvent.UIEVENT_RUNNABLE;
+		msg.obj=runable;
+		m_eventHandler.sendMessage(msg);
+	}
 
 
 }
