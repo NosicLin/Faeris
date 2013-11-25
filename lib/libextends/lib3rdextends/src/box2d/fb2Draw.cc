@@ -53,8 +53,9 @@ void fb2Draw::DrawPolygon(const b2Vec2* old_vertices, int vertexCount,const b2Co
 
 	r->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,vertex_nu,0,vertices);
 	r->drawArray(Render::LINE_LOOP,0,vertex_nu);
-
 	r->popMatrix();
+
+	delete[] vertices;
 
 
 }
@@ -114,7 +115,7 @@ void fb2Draw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& co
 
 	for(int32 i=0;i<k_segments;++i)
 	{
-		b2Vec2 v=center+radius*b2Vec2(Math::cosa(theta),Math::cosa(theta));
+		b2Vec2 v=center+radius*b2Vec2(Math::sina(theta),Math::cosa(theta));
 		vertex[i].x=v.x*m_ratio;
 		vertex[i].y=v.y*m_ratio;
 		theta+= k_increment;
@@ -136,6 +137,7 @@ void fb2Draw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& co
 	r->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,vertexCount,0,vertex);
 	r->drawArray(Render::LINE_LOOP,0,vertexCount);
 	r->popMatrix();
+
 }
 
 
@@ -152,7 +154,7 @@ void fb2Draw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2
 
 	for(int32 i=0;i<k_segments;++i)
 	{
-		b2Vec2 v=center+radius*b2Vec2(Math::cosa(theta),Math::cosa(theta));
+		b2Vec2 v=center+radius*b2Vec2(Math::sina(theta),Math::cosa(theta));
 		vertex[i].x=v.x*m_ratio;
 		vertex[i].y=v.y*m_ratio;
 		theta+= k_increment;
@@ -186,15 +188,14 @@ void fb2Draw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2
 void fb2Draw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color) 
 {
 	Vector2 vertex[2]={
-		Vector2(p1.x,p1.y),
-		Vector2(p2.x,p2.y),
+		Vector2(p1.x*m_ratio,p1.y*m_ratio),
+		Vector2(p2.x*m_ratio,p2.y*m_ratio),
 	};
 
 	int vertex_nu=2;
 
 	Render* r=Global::render();
 	r->pushMatrix();
-
 
 	int pos_loc=m_material->getV4FLocation();
 
@@ -208,7 +209,7 @@ void fb2Draw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& col
 	r->disableAllAttrArray();
 
 	r->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,vertex_nu,0,vertex);
-	r->drawArray(Render::TRIANGLE_FAN,0,2);
+	r->drawArray(Render::LINE_LOOP,0,2);
 
 	r->popMatrix();
 

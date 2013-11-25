@@ -1,4 +1,4 @@
-  package com.ihuizhi.minder;
+ package com.ihuizhi.minder;
 
 import android.app.Activity;
 import android.util.Log;
