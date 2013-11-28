@@ -246,18 +246,53 @@ const char* Glyph::className()
 Glyph::Glyph()
 {
 	m_char=-1;
+	m_size=0;
 	m_minx=0;
 	m_miny=0;
 	m_maxx=0;
 	m_maxy=0;
 	m_advance=0;
 	m_bitmap=NULL;
+	m_texture=NULL;
 }
+
 
 Glyph::~Glyph()
 {
 	FS_SAFE_DEC_REF(m_bitmap);
+	FS_SAFE_DEC_REF(m_texture);
 }
+
+Image2D* Glyph::getImage2D()
+{
+	FS_SAFE_ADD_REF(m_bitmap);
+	return m_bitmap;
+}
+
+Texture2D* Glyph::getTexture2D()
+{
+	if(m_texture==NULL)
+	{
+		generateTexture();
+	}
+
+	if(m_texture) 
+	{
+		m_texture->addRef();
+		return m_texture;
+	}
+	return NULL;
+}
+
+
+void Glyph::generateTexture()
+{
+	if(m_bitmap)
+	{
+		m_texture=Texture2D::create(m_bitmap);
+	}
+}
+
 
 FontTTFData* FontTTFData::create(FsFile* file)
 {
@@ -272,7 +307,26 @@ FontTTFData* FontTTFData::create(FsFile* file)
 
 Glyph* FontTTFData::loadGlyph(uint16_t char_index,int size)
 {
-	return m_data->loadGlyph(char_index,size);
+
+	Glyph key(char_index,size)
+
+	GlyphMgrSet::iterator iter=m_glyphs.find(key);
+
+	if (iter != m_glyphs.end()) 
+	{
+		FS_SAFE_ADD_REF(*iter);
+		return *iter;
+	}
+
+	Glyph* ret=NULL;
+
+	ret=m_data->loadGlyph(char_index,size);
+	ret->setFontData(this);
+	if (ret)
+	{
+		m_glyphs.insert(ret);
+	}
+	return ret;
 }
 
 bool FontTTFData::getFontMetrices(int size,FontMetrices* metrics)
@@ -280,15 +334,18 @@ bool FontTTFData::getFontMetrices(int size,FontMetrices* metrics)
 	return m_data->getFontMetrices(size,metrics);
 }
 
+
 const char* FontTTFData::className()
 {
 	return FS_FONT_TTF_DATA_CLASS_NAME;
 }
 
+
 bool FontTTFData::init(FsFile* file)
 {
 	return m_data->init(file);
 }
+
 
 FontTTFData::FontTTFData()
 {
@@ -298,6 +355,11 @@ FontTTFData::FontTTFData()
 FontTTFData::~FontTTFData()
 {
 	if(m_data) delete m_data;
+
+	for (GlyphMgrSet::iterator iter=m_glyphs.begin();iter!=m_glyphs.end();++iter)
+	{
+		(*iter)->setFontData(NULL);
+	}
 }
 
 
@@ -336,6 +398,7 @@ Glyph* FontTTF::loadGlyph(uint16_t char_index)
 	}
 	return ret;
 }
+
 
 int FontTTF::getHeight()
 {
@@ -400,6 +463,8 @@ void FontTTF::addCache(Glyph* glyph)
 	m_caches[char_index]=glyph;
 }
 
-
-
 NS_FS_END
+
+
+
+

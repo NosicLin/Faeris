@@ -1,0 +1,49 @@
+#INFO: RichLabelTTF used to render text from true type font file, with some 
+       feature, now it support feature is:
+		1. multiline typo text 
+		2. single word with color 
+
+
+
+# 1. Feature color
+	Programer use  setString(const char* str) interface to tell RichLabelTTF 
+	to render the text they want. there some format for the string. if you 
+	want to render string,like "god is a girl", with word "god" is blue and 
+	"is" is red and "a girl" is white, you can write the text like this:
+
+		 <color=#0000FF>god  <color=#FF0000>is <color=#FFFFFF>a girl 
+			
+		
+# 2. Feature multiline
+	If you want to render text with multiline, you must use string "\n",
+	like the below example:
+
+			god is a girl
+			it leave in the sky  
+			so we can't see it 
+
+	you can't setting the text like this:
+
+			god is a girl\nit leave in the sky\nso we can't see it 
+
+# 3. Special Character
+	Becase the character "<" and ">" are used for color showing, so you can't 
+	directly render them. but can use  string "<lp>" and string "<rp>" 
+	instead, like this:
+
+			<computer graphics> is a good book
+
+	so you setting the text like this 
+
+			<lp>computer graphics<rp> is a good book
+
+		
+
+
+
+
+
+
+
+
+

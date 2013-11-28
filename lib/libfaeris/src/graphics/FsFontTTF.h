@@ -25,6 +25,8 @@ class Glyph:public FsObject
 
 	public:
 		uint16_t m_char;
+		uint16_t m_size;
+
 		/* glyph metrics */
 		int m_minx;
 		int m_miny;
@@ -32,22 +34,49 @@ class Glyph:public FsObject
 		int m_maxy;
 		int m_advance;
 
-		/* gray bit */
+	public:
+		Glyph(uint16_t c,uint16_t s);
+		~Glyph();
+
+		Image2D* getImage2D();
+		Texture2D* getTexture2D();
+
+		void setFontData(FontTTFData* data);
+
+	private:
+		FontTTFData* m_fontData;  /* weak ref */
 		Image2D* m_bitmap;
+		Texture2D* m_texture;
+
+	public:
+		void generateTexture();
+
 	public:
 		virtual const char* className();
-
-	protected:
-		Glyph();
-		~Glyph();
 };
 
 
 class PlatfromFontTTFData;
+
 class FontTTFData:public Resource
 {
+
+	public:
+		class GlyphCompareKey
+		{
+			public:
+				bool operator()(Glyph* l,Glyph* r) const 
+				{
+					return l==r; 
+				}
+		};
+
+		typedef std::set<Glyph*,GlyphCompareKey> GlyphMgrSet;
+
+
 	public:
 		static FontTTFData* create(FsFile* file);
+
 	public:
 		Glyph* loadGlyph(uint16_t char_index,int size);
 		bool getFontMetrices(int size,FontMetrices* metrics);
@@ -62,12 +91,13 @@ class FontTTFData:public Resource
 
 	private:
 		PlatfromFontTTFData* m_data;
-
+		GlyphMgrSet m_glyphs;
 };
-
 
 class FontTTF:public FsObject
 {
+	public:
+
 	public:
 		static FontTTF* create(const char* name,int size);
 
@@ -76,6 +106,7 @@ class FontTTF:public FsObject
 		int getHeight();
 		int getAscend();
 		int getDescend();
+
 	public:
 		virtual const char* className();
 
@@ -85,12 +116,14 @@ class FontTTF:public FsObject
 
 		void purgeCache();
 		void addCache(Glyph* glyph);
+
 	private:
 		FontTTFData* m_data;
 		int m_size;
 		FontMetrices m_metrices;
-
 		Glyph* m_caches[FS_FONT_GLYPH_CACHE_NU-1];
+
+
 };
 
 

@@ -8,10 +8,12 @@
 #include "graphics/FsColor.h"
 
 NS_FS_BEGIN
+
 class Image2D;
 class Texture2D;
 class Mat_V4F_T2F;
 class FontTTF;
+
 class LineTypography
 {
 	public:
