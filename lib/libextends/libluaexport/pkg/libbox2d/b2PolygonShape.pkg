@@ -38,7 +38,11 @@ public:
     /// Copy vertices. This assumes the vertices define a convex polygon.
     /// It is assumed that the exterior is the the right of each edge.
     /// The count must be in the range [3, b2_maxPolygonVertices].
+
     void Set(const b2Vec2* vertices, int32 vertexCount);
+
+	void Set(int32 vertexCount,const b2Vec2 vertices[vertexCount]);
+
 
     /// Build vertices to represent an axis-aligned box.
     /// @param hx the half-width.
@@ -68,7 +72,7 @@ public:
     /// Get the vertex count.
     int32 GetVertexCount() const ;
 
-    /// Get a vertex by index.
+    /// Get a vertex by index
     const b2Vec2& GetVertex(int32 index);
 
     b2Vec2 m_centroid;

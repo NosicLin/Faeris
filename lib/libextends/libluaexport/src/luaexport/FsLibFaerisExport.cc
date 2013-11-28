@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 11/23/13 07:50:03.
+** Generated automatically by tolua++-1.0.92 on 11/27/13 07:59:16.
 */
 
 #ifndef __cplusplus
@@ -427,6 +427,34 @@ static int tolua_FsLibFaeris_share_sprite2DDataMgr00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'sprite2DDataMgr'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getObjectNu of class  FsObject */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FsObject_getObjectNu00
+static int tolua_FsLibFaeris_FsObject_getObjectNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"FsObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   int tolua_ret = (int)  FsObject::getObjectNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getObjectNu'.",&tolua_err);
  return 0;
 #endif
 }
@@ -20185,6 +20213,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"FsObject","FsObject","",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"FsObject");
+   tolua_function(tolua_S,"getObjectNu",tolua_FsLibFaeris_FsObject_getObjectNu00);
    tolua_function(tolua_S,"className",tolua_FsLibFaeris_FsObject_className00);
    tolua_variable(tolua_S,"data",tolua_get_FsObject_data,tolua_set_FsObject_data);
   tolua_endmodule(tolua_S);
