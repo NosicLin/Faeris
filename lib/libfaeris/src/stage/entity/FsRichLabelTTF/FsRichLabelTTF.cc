@@ -14,8 +14,8 @@ RichTypoData* RichTypoData::create(FontTTF* font,const char* u8_str,int start,in
 		return NULL;
 	}
 
-
 }
+
 
 
 RichLabelTTF::RichLabelTTF()
@@ -127,33 +127,6 @@ void RichLabelTTF::setTextAlign(int align)
 		m_typoData->adjustAlign(align);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 NS_FS_END
