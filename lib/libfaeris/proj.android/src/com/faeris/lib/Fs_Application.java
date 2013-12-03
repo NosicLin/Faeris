@@ -141,6 +141,10 @@ public class Fs_Application
 		m_eventHandler.sendMessage(msg);
 	}
 
+	public static void showNetSettingInterface()
+	{
+		
+	}
 
 
 	public static class InputBoxMessage
@@ -170,6 +174,7 @@ public class Fs_Application
 	{
 		Fs_Application.m_context.getFsGLSurfaceView().queueEvent(runable);
 	}
+	
 	public static void runUiThread(Runnable runable)
 	{
 		Message msg=new Message();

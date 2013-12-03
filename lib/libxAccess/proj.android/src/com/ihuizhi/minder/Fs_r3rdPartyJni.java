@@ -9,3 +9,5 @@ public class Fs_r3rdPartyJni {
 	public static native void NativeCheckUpdateCB(long objAdd,  int ret);
 	
 }
+
+
