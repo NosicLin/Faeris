@@ -5,6 +5,7 @@ import com.ihuizhi.pay.Fs_r3rdParty_Pay;
 import com.ihuizhi.secure.Fs_UpdateHelper;
 import com.tendcloud.tenddata.TCAgent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,14 +28,14 @@ public class Fs_rMindHandler extends Handler {
 	private Context  mContext = null;
 	
 	
-	public Fs_rMindHandler(Context context)
+	public Fs_rMindHandler(Activity context)
 	{
 		super();
 		
 		mContext  = context;
 		
 		if(_3rdPay == null)
-			_3rdPay = new Fs_r3rdParty_Pay(mContext);
+			_3rdPay = new Fs_r3rdParty_Pay(context);
 		
 	}
 
@@ -82,7 +83,7 @@ public class Fs_rMindHandler extends Handler {
 	 	
 		if(eventLabel!=null && eventLabel.length()>0)
 		{
-			TCAgent.onEvent(mContext, "²âÊÔÊÂ¼ş","àÅ£¬²âÊÔµÄ");
+			TCAgent.onEvent(mContext,eventID,eventLabel);
 			//Log.e("Delo", "logTalkingData:"+eventId+" :"+label);
 		}
 		else

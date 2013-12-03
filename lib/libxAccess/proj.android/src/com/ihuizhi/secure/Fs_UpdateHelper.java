@@ -107,20 +107,17 @@ public class Fs_UpdateHelper {
 			 			try {
 			 				
 			 		       String content = EntityUtils.toString(response.getEntity(),"UTF-8");			 		       
-			 				Fs_UpdateInfo Info = new Fs_UpdateInfo();			 				
 				 			JSONObject req = new JSONObject(content);				 							 			
-				 			Log.i(TAG, "update : result:" + req.toString());
-				 			
-				 			Info.setResult(req.getInt("ret"));
-				 			Info.setApkUrl(req.getString("url"));
-											 				
-				 			if(Info.getResult() == 0 )
+
+				 			Log.i(TAG, "update : result:" + req.toString());				 							 			
+
+			 				Fs_UpdateInfo Info = new Fs_UpdateInfo();			 				
+				 			Info.parseJson(req);
+				 							 			
+				 			if(  Info.getResult() == 0 )
 				 			{
 				 				if(Info.getApkUrl().length() > 0)
 				 				{
-						 			Info.setStatus(req.getInt("status"));
-						 			Info.setMsg(req.getString("msg"));
-						 			Info.setVersion(req.getInt("version"));							 			
 				 					SendMessage(Fs_UpdateHelper.RQF_INSTALL_CHECK , Info);				 				
 				 				}
 				 				else
@@ -216,7 +213,7 @@ public class Fs_UpdateHelper {
 				R.string.confirm_install_hint));
 		tDialog.setMessage(context.getResources().getString(
 				R.string.confirm_install));
-
+		
 		tDialog.setPositiveButton(R.string.Ensure,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {						

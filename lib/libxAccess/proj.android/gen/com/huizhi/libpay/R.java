@@ -8,21 +8,91 @@
 package com.huizhi.libpay;
 
 public final class R {
+    public static final class anim {
+        public static int popupwindow_open=0x7f040000;
+        public static int vg_controller_l_translate_gone=0x7f040001;
+        public static int vg_controller_l_translate_visible=0x7f040002;
+        public static int vg_controller_translate_gone=0x7f040003;
+        public static int vg_controller_translate_visible=0x7f040004;
+    }
+    public static final class array {
+        /**  支付指令  
+         */
+        public static int ID=0x7f090000;
+        public static int Order=0x7f090002;
+        public static int Port=0x7f090001;
+    }
     public static final class attr {
     }
+    public static final class color {
+        public static int vg_login_text_style=0x7f080000;
+        public static int vg_pay_background=0x7f080002;
+        public static int vg_pay_line=0x7f080003;
+        public static int vg_white=0x7f080001;
+    }
     public static final class drawable {
-        public static int ic_launcher=0x7f020000;
+        public static int company_logo72=0x7f020000;
+        public static int ic_launcher=0x7f020001;
+        public static int info=0x7f020002;
+        public static int infoicon=0x7f020003;
+        public static int vg_alipay=0x7f020004;
+        public static int vg_back=0x7f020005;
+        public static int vg_back_normal=0x7f020006;
+        public static int vg_back_press=0x7f020007;
+        public static int vg_credit_card=0x7f020008;
+        public static int vg_pay_centr_title=0x7f020009;
+        public static int vg_pay_centr_title2=0x7f02000a;
+        public static int vg_save_card=0x7f02000b;
+        public static int vg_szf=0x7f02000c;
+        public static int vg_tenpay=0x7f02000d;
+        public static int vg_white_background=0x7f02000e;
+    }
+    public static final class id {
+        public static int back=0x7f0a0002;
+        public static int grid=0x7f0a0005;
+        public static int pay_img=0x7f0a0000;
+        public static int pay_text=0x7f0a0001;
+        public static int product_amount=0x7f0a0004;
+        public static int product_name=0x7f0a0003;
+    }
+    public static final class layout {
+        public static int loading=0x7f030000;
+        public static int loading_dialog=0x7f030001;
+        public static int pay_type_item=0x7f030002;
+        public static int payment_activity=0x7f030003;
+    }
+    public static final class raw {
+        public static int errors=0x7f050000;
     }
     public static final class string {
-        public static int Cancel=0x7f030008;
-        public static int Ensure=0x7f030007;
-        public static int Set=0x7f030006;
-        public static int app_name=0x7f030000;
-        public static int confirm_install=0x7f030003;
-        public static int confirm_install_hint=0x7f030002;
-        public static int netstate=0x7f030004;
-        public static int setnetwork=0x7f030005;
-        public static int updateUrl=0x7f030001;
+        public static int Cancel=0x7f060017;
+        public static int Ensure=0x7f060016;
+        public static int Set=0x7f060015;
+        public static int app_name=0x7f060000;
+        public static int confirm_install=0x7f060012;
+        public static int confirm_install_hint=0x7f060011;
+        public static int netstate=0x7f060013;
+        public static int sdkAppID=0x7f060007;
+        public static int sdkDesc=0x7f06000d;
+        public static int sdkNAME=0x7f06000e;
+        /**      支付SDK需要的配置数据        
+         */
+        public static int sdkNotifyUrl=0x7f060006;
+        public static int sdkPartnerID=0x7f060008;
+        public static int sdkPrivateKey=0x7f06000f;
+        public static int sdkQn=0x7f060009;
+        public static int sdkReqFee=0x7f06000a;
+        public static int sdkSign=0x7f06000b;
+        public static int sdkSignType=0x7f06000c;
+        public static int setnetwork=0x7f060014;
+        /**  请求更新文字 
+         */
+        public static int updateUrl=0x7f060010;
+        public static int vg_amount_tip=0x7f060004;
+        public static int vg_pay_center=0x7f060001;
+        public static int vg_pay_product_amount=0x7f060003;
+        public static int vg_pay_product_name=0x7f060002;
+        public static int vg_payment_check_info=0x7f060005;
     }
     public static final class style {
         /** 
@@ -34,11 +104,39 @@ public final class R {
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
          */
-        public static int AppBaseTheme=0x7f040000;
+        public static int AppBaseTheme=0x7f070001;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static int AppTheme=0x7f040001;
+        public static int AppTheme=0x7f070002;
+        public static int Theme_UPPay=0x7f070000;
+        public static int sdk_controller_text=0x7f070004;
+        /**  dialog样式 
+ dialog样式 
+         */
+        public static int vgSdkDialog=0x7f070003;
     }
 }

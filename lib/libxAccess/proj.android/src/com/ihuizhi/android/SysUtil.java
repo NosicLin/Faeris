@@ -17,6 +17,7 @@ import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 
 public class SysUtil {	
 	
@@ -57,6 +58,11 @@ public class SysUtil {
 		}
 		
 		return packageName;				
+	}
+	
+	public static boolean isCheckSimCardState(Context context)
+	{		
+		return  (((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE)).getSimState() == TelephonyManager.SIM_STATE_READY); 
 	}
 
 	public static int getVersionCode(Context context) {
