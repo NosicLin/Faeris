@@ -30,15 +30,16 @@ NS_FS_END
 
 
 #if FS_PLATFORM_OS(FS_OS_LINUX) 
-#include "platform/FsUpdateApkLinux.cc"
+	#include "platform/FsUpdateApkLinux.cc"
 
 #elif FS_PLATFORM_OS(FS_OS_ANDROID)
-#include "platform/FsUpdateApkAndroid.cc"
+	//#include "platform/FsUpdateApkAndroid.cc"
+	#include "platform/FsUpdateApkWin32.cc"
 
 #elif FS_PLATFORM_OS(FS_OS_WIN32)
-#include "platform/FsUpdateApkWin32.cc"
+	#include "platform/FsUpdateApkWin32.cc"
 #else 
-#error "FsUpateApk platform error"
+	#error "FsUpateApk platform error"
 #endif  /*FsUpateApk*/
 
 
