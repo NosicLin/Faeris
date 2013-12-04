@@ -36,6 +36,7 @@ class Sys
 										int input_mode=FS_INPUT_MODE_ANY,int input_flag=FS_INPUT_FLAG_SENSITIVE,
 										int return_type=FS_KEYBOARD_RETURN_TYPE_DEFAULT,
 										int max_length=-1);
+		static void openNetSettingInterface();
 };
 
 

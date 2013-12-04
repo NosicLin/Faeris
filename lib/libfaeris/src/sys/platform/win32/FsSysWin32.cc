@@ -51,6 +51,11 @@ void Sys::openInputTextDialog(const char* title,const char* msg,
 
 }
 
+void Sys::openNetSettingInterface()
+{
+
+}
+
 NS_FS_END 
 
 

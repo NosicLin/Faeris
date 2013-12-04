@@ -141,6 +141,13 @@ void Sys::openInputTextDialog(const char* title,const char* msg,
 
 }
 
+void Sys::openNetSettingInterface()
+{
+	FS_JNI_CALL_VOID_STATIC_METHOD("com/faeris/lib/Fs_Application",
+								   "showNetSettingInterface","()V");
+
+}
+
 
 							
 NS_FS_END 

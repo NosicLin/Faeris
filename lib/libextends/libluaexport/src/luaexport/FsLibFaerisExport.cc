@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 11/23/13 07:50:03.
+** Generated automatically by tolua++-1.0.92 on 12/03/13 10:12:17.
 */
 
 #ifndef __cplusplus
@@ -17593,6 +17593,33 @@ static int tolua_FsLibFaeris_Sys_openInputTextDialog00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: openNetSettingInterface of class  Sys */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Sys_openNetSettingInterface00
+static int tolua_FsLibFaeris_Sys_openNetSettingInterface00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Sys",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   Sys::openNetSettingInterface();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'openNetSettingInterface'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: new of class  Timer */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Timer_new00
 static int tolua_FsLibFaeris_Timer_new00(lua_State* tolua_S)
@@ -20969,6 +20996,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"Sys","Sys","",NULL);
   tolua_beginmodule(tolua_S,"Sys");
    tolua_function(tolua_S,"openInputTextDialog",tolua_FsLibFaeris_Sys_openInputTextDialog00);
+   tolua_function(tolua_S,"openNetSettingInterface",tolua_FsLibFaeris_Sys_openNetSettingInterface00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"Timer","Timer","",tolua_collect_Timer);

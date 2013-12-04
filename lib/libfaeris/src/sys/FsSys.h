@@ -66,6 +66,10 @@ class Sys
 										int return_type=FS_KEYBOARD_RETURN_TYPE_DEFAULT,
 										int max_length=-1);
 
+		static void openNetSettingInterface();
+
+
+
 	private:
 		static FsDict* m_env;
 		static char m_tempBuf[FS_SYS_TEMP_BUF_SIZE];

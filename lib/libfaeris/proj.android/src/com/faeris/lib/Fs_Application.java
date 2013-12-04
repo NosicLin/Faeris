@@ -1,11 +1,13 @@
 package com.faeris.lib;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.os.Build;
 import android.os.Message;
+import android.provider.Settings;
 
 public class Fs_Application 
 {
@@ -143,7 +145,13 @@ public class Fs_Application
 
 	public static void showNetSettingInterface()
 	{
-		
+		Fs_Application.runUiThread(new Runnable(){
+
+			public void run(){
+				Fs_Application.m_context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+			}
+		});
+
 	}
 
 
