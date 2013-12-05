@@ -9,6 +9,7 @@ NS_FS_BEGIN
 class RichTextParser
 {
 	public:
+
 		RichTextParser();
 		~RichTextParser();
 
@@ -19,6 +20,7 @@ class RichTextParser
 		Color getColor();
 
 	protected:
+
 		void destory();
 		bool parseSpecialString();
 
