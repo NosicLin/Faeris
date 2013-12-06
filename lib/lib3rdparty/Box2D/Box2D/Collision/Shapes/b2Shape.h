@@ -26,6 +26,7 @@
 /// This holds the mass data computed for a shape.
 struct b2MassData
 {
+
     /// The mass of the shape, usually in kilograms.
     float32 mass;
 

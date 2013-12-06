@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Box2D
-** Generated automatically by tolua++-1.0.92 on 12/03/13 10:12:19.
+** Generated automatically by tolua++-1.0.92 on 12/06/13 06:48:26.
 */
 
 #ifndef __cplusplus
@@ -169,13 +169,6 @@ static int tolua_collect_b2ContactFilter (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_b2ClipVertex (lua_State* tolua_S)
-{
- b2ClipVertex* self = (b2ClipVertex*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
 static int tolua_collect_b2RayCastCallback (lua_State* tolua_S)
 {
  b2RayCastCallback* self = (b2RayCastCallback*) tolua_tousertype(tolua_S,1,0);
@@ -183,9 +176,9 @@ static int tolua_collect_b2RayCastCallback (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_b2PulleyJointDef (lua_State* tolua_S)
+static int tolua_collect_b2ClipVertex (lua_State* tolua_S)
 {
- b2PulleyJointDef* self = (b2PulleyJointDef*) tolua_tousertype(tolua_S,1,0);
+ b2ClipVertex* self = (b2ClipVertex*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -197,9 +190,23 @@ static int tolua_collect_b2QueryCallback (lua_State* tolua_S)
 	return 0;
 }
 
+static int tolua_collect_b2PulleyJointDef (lua_State* tolua_S)
+{
+ b2PulleyJointDef* self = (b2PulleyJointDef*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
 static int tolua_collect_b2DestructionListener (lua_State* tolua_S)
 {
  b2DestructionListener* self = (b2DestructionListener*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_b2WheelJointDef (lua_State* tolua_S)
+{
+ b2WheelJointDef* self = (b2WheelJointDef*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -225,16 +232,16 @@ static int tolua_collect_b2Rot (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_b2WheelJointDef (lua_State* tolua_S)
+static int tolua_collect_b2ChainAndPolygonContact (lua_State* tolua_S)
 {
- b2WheelJointDef* self = (b2WheelJointDef*) tolua_tousertype(tolua_S,1,0);
+ b2ChainAndPolygonContact* self = (b2ChainAndPolygonContact*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_b2ChainAndPolygonContact (lua_State* tolua_S)
+static int tolua_collect_b2MassData (lua_State* tolua_S)
 {
- b2ChainAndPolygonContact* self = (b2ChainAndPolygonContact*) tolua_tousertype(tolua_S,1,0);
+ b2MassData* self = (b2MassData*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -27681,6 +27688,63 @@ static int tolua_set_b2_version(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  b2MassData */
+#ifndef TOLUA_DISABLE_tolua_Box2D_b2MassData_new00
+static int tolua_Box2D_b2MassData_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"b2MassData",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   b2MassData* tolua_ret = (b2MassData*)  Mtolua_new((b2MassData)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"b2MassData");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  b2MassData */
+#ifndef TOLUA_DISABLE_tolua_Box2D_b2MassData_new00_local
+static int tolua_Box2D_b2MassData_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"b2MassData",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   b2MassData* tolua_ret = (b2MassData*)  Mtolua_new((b2MassData)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"b2MassData");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* get function: mass of class  b2MassData */
 #ifndef TOLUA_DISABLE_tolua_get_b2MassData_mass
 static int tolua_get_b2MassData_mass(lua_State* tolua_S)
@@ -32284,8 +32348,15 @@ TOLUA_API int tolua_Box2D_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"revision",tolua_get_b2Version_revision,tolua_set_b2Version_revision);
   tolua_endmodule(tolua_S);
   tolua_variable(tolua_S,"b2_version",tolua_get_b2_version,tolua_set_b2_version);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"b2MassData","b2MassData","",tolua_collect_b2MassData);
+  #else
   tolua_cclass(tolua_S,"b2MassData","b2MassData","",NULL);
+  #endif
   tolua_beginmodule(tolua_S,"b2MassData");
+   tolua_function(tolua_S,"new",tolua_Box2D_b2MassData_new00);
+   tolua_function(tolua_S,"new_local",tolua_Box2D_b2MassData_new00_local);
+   tolua_function(tolua_S,".call",tolua_Box2D_b2MassData_new00_local);
    tolua_variable(tolua_S,"mass",tolua_get_b2MassData_mass,tolua_set_b2MassData_mass);
    tolua_variable(tolua_S,"center",tolua_get_b2MassData_center,tolua_set_b2MassData_center);
    tolua_variable(tolua_S,"I",tolua_get_b2MassData_I,tolua_set_b2MassData_I);
