@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 12/06/13 07:17:01.
+** Generated automatically by tolua++-1.0.92 on 12/06/13 08:15:44.
 */
 
 #ifndef __cplusplus
@@ -8233,18 +8233,20 @@ static int tolua_FsLibFaeris_Particle2DEffect_start00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Particle2DEffect",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   Particle2DEffect* self = (Particle2DEffect*)  tolua_tousertype(tolua_S,1,0);
+  bool loop = ((bool)  tolua_toboolean(tolua_S,2,true));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'start'", NULL);
 #endif
   {
-   self->start();
+   self->start(loop);
   }
  }
  return 0;

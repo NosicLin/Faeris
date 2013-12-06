@@ -10,7 +10,7 @@ class Particle2DEffect:public Entity
 		static Particle2DEffect* create();
 
 	public:
-		void start();
+		void start(bool loop=true);
 		void stop();
 		void setPause(bool pause);
 		bool isPause();
