@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Box2D
-** Generated automatically by tolua++-1.0.92 on 12/06/13 06:48:26.
+** Generated automatically by tolua++-1.0.92 on 12/06/13 07:17:04.
 */
 
 #ifndef __cplusplus
@@ -10347,6 +10347,57 @@ static int tolua_Box2D_b2PolygonShape_Set00(lua_State* tolua_S)
  tolua_error(tolua_S,"#ferror in function 'Set'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Set of class  b2PolygonShape */
+#ifndef TOLUA_DISABLE_tolua_Box2D_b2PolygonShape_Set01
+static int tolua_Box2D_b2PolygonShape_Set01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"b2PolygonShape",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_istable(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  b2PolygonShape* self = (b2PolygonShape*)  tolua_tousertype(tolua_S,1,0);
+  int32 vertexCount = ((int32)  tolua_tonumber(tolua_S,2,0));
+#ifdef __cplusplus
+  b2Vec2* vertices = Mtolua_new_dim(b2Vec2, vertexCount);
+#else
+  b2Vec2* vertices = (b2Vec2*) malloc((vertexCount)*sizeof(b2Vec2));
+#endif
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Set'", NULL);
+#endif
+  {
+#ifndef TOLUA_RELEASE
+   if (!tolua_isusertypearray(tolua_S,3,"b2Vec2",vertexCount,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<vertexCount;i++)
+    vertices[i] = *((b2Vec2*)  tolua_tofieldusertype(tolua_S,3,i+1,0));
+   }
+  }
+  {
+   self->Set(vertexCount,vertices);
+  }
+#ifdef __cplusplus
+  Mtolua_delete_dim(vertices);
+#else
+  free(vertices);
+#endif
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Box2D_b2PolygonShape_Set00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -31412,6 +31463,7 @@ TOLUA_API int tolua_Box2D_open (lua_State* tolua_S)
    tolua_function(tolua_S,"Clone",tolua_Box2D_b2PolygonShape_Clone00);
    tolua_function(tolua_S,"GetChildCount",tolua_Box2D_b2PolygonShape_GetChildCount00);
    tolua_function(tolua_S,"Set",tolua_Box2D_b2PolygonShape_Set00);
+   tolua_function(tolua_S,"Set",tolua_Box2D_b2PolygonShape_Set01);
    tolua_function(tolua_S,"SetAsBox",tolua_Box2D_b2PolygonShape_SetAsBox00);
    tolua_function(tolua_S,"SetAsBox",tolua_Box2D_b2PolygonShape_SetAsBox01);
    tolua_function(tolua_S,"TestPoint",tolua_Box2D_b2PolygonShape_TestPoint00);

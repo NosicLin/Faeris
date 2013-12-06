@@ -115,7 +115,7 @@ void fb2Draw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& co
 
 	for(int32 i=0;i<k_segments;++i)
 	{
-		b2Vec2 v=center+radius*b2Vec2(Math::sina(theta),Math::cosa(theta));
+		b2Vec2 v=center+radius*b2Vec2(Math::cosa(theta),Math::sina(theta));
 		vertex[i].x=v.x*m_ratio;
 		vertex[i].y=v.y*m_ratio;
 		theta+= k_increment;
@@ -154,7 +154,7 @@ void fb2Draw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2
 
 	for(int32 i=0;i<k_segments;++i)
 	{
-		b2Vec2 v=center+radius*b2Vec2(Math::sina(theta),Math::cosa(theta));
+		b2Vec2 v=center+radius*b2Vec2(Math::cosa(theta),Math::sina(theta));
 		vertex[i].x=v.x*m_ratio;
 		vertex[i].y=v.y*m_ratio;
 		theta+= k_increment;

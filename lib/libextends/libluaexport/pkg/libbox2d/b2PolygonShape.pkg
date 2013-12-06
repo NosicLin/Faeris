@@ -41,6 +41,9 @@ public:
 
     void Set(const b2Vec2* vertices, int32 vertexCount);
 
+	void Set(int32 vertexCount,const b2Vec2 vertices[vertexCount]);
+
+
     /// Build vertices to represent an axis-aligned box.
     /// @param hx the half-width.
     /// @param hy the half-height.
@@ -69,7 +72,7 @@ public:
     /// Get the vertex count.
     int32 GetVertexCount() const ;
 
-    /// Get a vertex by index.
+    /// Get a vertex by index
     const b2Vec2& GetVertex(int32 index);
 
     b2Vec2 m_centroid;

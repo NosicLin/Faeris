@@ -4,6 +4,8 @@
 
 NS_FS_BEGIN 
 
+int FsObject::m_objectNu=0;
+
 FsObject::~FsObject()
 {
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
@@ -16,7 +18,9 @@ FsObject::~FsObject()
 		}
 	}
 #endif 
+	FsObject::m_objectNu--;
 }
+
 
 long FsObject::getHashCode()
 {

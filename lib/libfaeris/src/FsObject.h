@@ -9,6 +9,14 @@ NS_FS_BEGIN
 
 class FsObject 
 {
+	/* class attribute */
+	private:
+		static int m_objectNu;
+	public:
+		static int getObjectNu(){return FsObject::m_objectNu;}
+
+
+	/* object attribute */
 	private:
 		int m_refNu;
 	public:
@@ -31,7 +39,9 @@ class FsObject
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 			,m_scriptData(-1)
 #endif 
-		{}
+		{
+			FsObject::m_objectNu++;
+		}
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
