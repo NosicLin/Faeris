@@ -21,7 +21,8 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
 	{
 		FS_TRACE_WARN("Create Emitter For File(%s) Failed",filename);
 		return NULL;
-	}
+    }
+
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
 	FS_SAFE_DEC_REF(emit);
 	return ret;
@@ -155,6 +156,28 @@ bool Particle2DEffect::isStop()
 {
 	return m_stop;
 }
+
+
+float Particle2DEffect::getLifeTime()
+{
+	return m_lifeTime;
+}
+
+
+
+float Particle2DEffect::getElapseTime()
+{
+	return m_elapseTime;
+}
+
+
+int Particle2DEffect::getMaxParticleNu()
+{
+	return m_maxParticles;
+}
+
+
+
 
 void Particle2DEffect::setEmitter(Particle2DEmitter* emit)
 {
@@ -328,22 +351,29 @@ void Particle2DEffect::generateParticle(float dt)
     {
         generate_nu=0;
     }
+	
+	int new_size=generate_nu+particle_size;
 
-    //FS_TRACE_WARN("gernerate_nu=%d",generate_nu);
+	m_particles.resize(new_size);
+	FS_TRACE_ERROR_ON(m_particles.size()!=new_size,"std::vector.resize Error ");
 
-	m_particles.resize(particle_size+generate_nu);
+	/* FIXME: this is a bug, when engine build in debug mode and used as a static library 
+	 *        for other application, if the application build with debug mode, std::vector.size() 
+	 *        function will work Ok, but if application build with release mode, std::vector size()
+	 *        function will not work, I don't kown how to solve it 
+	 */
+
 
 	Vector2 start_pos=Vector2(m_worldMatrix.m03,m_worldMatrix.m13);
 
 	for(int i=0;i<generate_nu;i++)
 	{
 		Particle* p=&m_particles[i+particle_size];
-
 		m_emitter->generateParticle(p);
 		p->m_startPos=start_pos;
-
 		updateParticle(p,per_diff*i);
 	}
+	
 
 	m_elapseTime+=dt;
 
@@ -373,12 +403,19 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	render->pushMatrix();
 	render->mulMatrix(&m_worldMatrix);
 
+
 	m_material->setOpacity(m_opacity);
 	render->setMaterial(m_material);
+	//FS_TRACE_WARN("material:%d,%d,%d",m_material->getBlendEquation(), m_material->getBlendSrc(), m_material->getBlendDst());
+
+
 
 	render->setActiveTexture(1);
 	render->bindTexture(texture,0);
 	texture->decRef();
+	render->setBlend(Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
+
+	//FS_TRACE_WARN("emitter:%d,%d,%d",Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
 
 	render->disableAllAttrArray();
 
