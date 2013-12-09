@@ -330,7 +330,7 @@ void Sprite2D::setAnimationOffset(float x,float y)
 {
 	if(m_curAnimation) 
 	{
-		if(m_curAnimationCacheData) 
+		if(!m_curAnimationCacheData) 
 		{
 			FsString* anim_name=m_curAnimation->getName();
 			m_curAnimationCacheData =AnimationCacheData::create(m_curAnimation);
