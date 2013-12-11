@@ -1,4 +1,4 @@
-$#include "action/FsPauseAction.h"
+$#include "stage/action/FsPauseAction.h"
 class PauseAction:public Action 
 {
 	public:

@@ -1,4 +1,4 @@
-$#include "action/FsMoveToAction.h"
+$#include "stage/action/FsMoveToAction.h"
 class MoveToAction:public Action
 {
 	static MoveToAction* create(float sx,float sy,float sz,float time);

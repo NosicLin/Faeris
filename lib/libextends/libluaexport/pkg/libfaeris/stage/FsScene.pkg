@@ -13,7 +13,12 @@ class Scene@__Scene:public StageElement
 
 		Layer* top();
 		Layer* getLayer(int index);
+
+		ObjectMgr* takeObjectMgr();
+		void dropObjectData();
+
 };
+
 
 class LuaScene@Scene:public Scene
 {

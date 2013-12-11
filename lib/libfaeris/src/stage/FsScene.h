@@ -12,6 +12,9 @@ class Layer;
 class FsSlowArray;
 class Vector2;
 class TouchEvent;
+class ObjectMgr;
+
+
 class Scene:public StageElement
 {
 	public:
@@ -32,9 +35,10 @@ class Scene:public StageElement
 
 
 	public:
-		virtual void drop(bool recursion=true);
+		virtual void dropData();
 
 	public:
+
 		/* event hook */
 		virtual void enter();
 		virtual void exit();
@@ -57,8 +61,13 @@ class Scene:public StageElement
 
 		/*  inherit FsObject */
 		virtual const char* className();
+
 	public:
 		void updateLayers(float dt);
+		ObjectMgr* takeObjectMgr();
+		void dropObjectData();
+
+
 
 	protected:
 		Scene();
@@ -68,7 +77,19 @@ class Scene:public StageElement
 
 	private:
 		FsSlowArray* m_layers;
+		ObjectMgr* m_objectMgr;
+
 };
 NS_FS_END
 #endif /*_FS_SCENE_H_ */
+
+
+
+
+
+
+
+
+
+
 

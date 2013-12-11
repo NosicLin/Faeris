@@ -1,7 +1,7 @@
 #ifndef _FS_PAUSE_ACTION_H_
 #define _FS_PAUSE_ACTION_H_
 
-#include "action/FsAction.h"
+#include "stage/action/FsAction.h"
 
 NS_FS_BEGIN
 class PauseAction:public Action 

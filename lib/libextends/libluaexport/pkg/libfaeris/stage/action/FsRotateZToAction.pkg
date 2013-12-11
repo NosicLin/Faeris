@@ -1,4 +1,4 @@
-$#include "action/FsRotateZToAction.h"
+$#include "stage/action/FsRotateZToAction.h"
 
 class RotateZToAction:public Action 
 {

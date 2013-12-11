@@ -39,7 +39,7 @@ $pfile "scheduler/FsLuaSchedulerTarget.pkg"
 
 
 
-/* scene */
+/* stage/scene */
 $pfile "stage/FsScene.pkg"
 $pfile "stage/FsDirector.pkg"
 $pfile "stage/layer/FsLayer.pkg"
@@ -83,18 +83,20 @@ $pfile "mgr/FsTextureMgr.pkg"
 $pfile "mgr/FsSprite2DDataMgr.pkg"
 $pfile "mgr/FsResourceMgr.pkg"
 $pfile "mgr/FsResource.pkg"
+$pfile "mgr/FsObjectMgr.pkg"
 
 
-/* action */
-$pfile "action/FsAction.pkg"
-$pfile "action/FsMoveByAction.pkg"
-$pfile "action/FsMoveToAction.pkg"
-$pfile "action/FsPauseAction.pkg"
-$pfile "action/FsRotateZByAction.pkg"
-$pfile "action/FsRotateZToAction.pkg"
-$pfile "action/FsScaleByAction.pkg"
-$pfile "action/FsScaleToAction.pkg"
-$pfile "action/FsSeqAction.pkg"
+
+/* stage/action */
+$pfile "stage/action/FsAction.pkg"
+$pfile "stage/action/FsMoveByAction.pkg"
+$pfile "stage/action/FsMoveToAction.pkg"
+$pfile "stage/action/FsPauseAction.pkg"
+$pfile "stage/action/FsRotateZByAction.pkg"
+$pfile "stage/action/FsRotateZToAction.pkg"
+$pfile "stage/action/FsScaleByAction.pkg"
+$pfile "stage/action/FsScaleToAction.pkg"
+$pfile "stage/action/FsSeqAction.pkg"
 
 
 /* media */

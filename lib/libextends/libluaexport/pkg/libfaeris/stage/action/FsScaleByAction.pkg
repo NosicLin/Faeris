@@ -1,4 +1,4 @@
-$#include "action/FsScaleByAction.h"
+$#include "stage/action/FsScaleByAction.h"
 
 class ScaleByAction:public Action 
 {

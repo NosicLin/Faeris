@@ -7,6 +7,7 @@
 
 NS_FS_BEGIN
 
+class ObjectMgr;
 class FsObject 
 {
 	/* class attribute */
@@ -19,6 +20,8 @@ class FsObject
 	/* object attribute */
 	private:
 		int m_refNu;
+		ObjectMgr* m_objectMgr;
+
 	public:
 		int refCnt(){return m_refNu;}
 		void addRef(){m_refNu++;}
@@ -35,17 +38,24 @@ class FsObject
 
 	public:
 		FsObject()
-			:m_refNu(1)
+			:m_refNu(1),
+			m_objectMgr(NULL),
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
-			,m_scriptData(-1)
+			m_scriptData(-1)
 #endif 
 		{
 			FsObject::m_objectNu++;
 		}
+		FsObject(bool mgred);
+
+
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
+		virtual void dropData();
+		void giveObjectMgr(ObjectMgr* ob);
+		ObjectMgr* takeObjectMgr();
 
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
@@ -55,8 +65,12 @@ class FsObject
 	public:
 		virtual void dropScriptData();
 #endif 
+
 };
 NS_FS_END
 
 #endif 
+
+
+
 

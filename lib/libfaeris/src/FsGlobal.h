@@ -17,6 +17,7 @@
 #include "mgr/FsTextureMgr.h"
 #include "mgr/FsFontTTFDataMgr.h"
 #include "mgr/FsSprite2DDataMgr.h"
+#include "mgr/FsObjectMgr.h"
 
 
 #define FS_GLOBAL_H(t,get,set) \
@@ -42,9 +43,7 @@
 
 
 NS_FS_BEGIN
-
 class FsDict;
-
 class Global
 {
 	FS_GLOBAL_H(Scheduler,scheduler,setScheduler);
@@ -62,6 +61,9 @@ class Global
 	FS_GLOBAL_H(TextureMgr,textureMgr,setTextureMgr);
 	FS_GLOBAL_H(FontTTFDataMgr,fontTTFDataMgr,setFontTTFDataMgr);
 	FS_GLOBAL_H(Sprite2DDataMgr,sprite2DDataMgr,setSprite2DDataMgr);
+	FS_GLOBAL_H(ObjectMgr,objectMgr,setObjectMgr);
+
+
 };
 NS_FS_END 
 

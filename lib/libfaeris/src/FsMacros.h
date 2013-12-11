@@ -314,6 +314,7 @@ enum
 #define FS_TEXTURE_MGR_CLASS_NAME "TextureMgr"
 #define FS_FONT_TTF_DATA_MGR_CLASS_NAME  "FontTTFDataMgr"
 #define FS_SPRITE_2D_DATA_MGR_CLASS_NAME "Sprite2DDataMgr"
+#define FS_OBJECT_MGR_CLASS_NAME "ObjectMgr"
 
 
 /* action */

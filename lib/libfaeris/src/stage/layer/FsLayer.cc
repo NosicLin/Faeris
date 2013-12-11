@@ -3,6 +3,7 @@
 #include "stage/FsScene.h"
 #include "support/util/FsDict.h"
 #include "support/util/FsSlowDict.h"
+#include "mgr/FsObjectMgr.h"
 
 NS_FS_BEGIN
  const char* Layer::className()
@@ -31,7 +32,6 @@ void Layer::add(Entity* entity)
 
 	m_entity->insert(entity,entity);
 	takeOwnership(entity);
-
 }
 
 
@@ -51,11 +51,25 @@ void Layer::remove(Entity* entity)
 	dropOwnership(entity);
 }
 
+
 void Layer::takeOwnership(Entity* entity)
 {
+	ObjectMgr* obmgr=NULL;
+	if(m_scene) 
+	{
+		obmgr=m_scene->takeObjectMgr();
+	}
+
 	entity->setAddOlder(m_addOlder++);
 	m_ownerEntity->insert(entity,entity);
 	entity->setLayer(this);
+
+	if(obmgr)
+	{
+		obmgr->manageObject(entity);
+	}
+
+
 	if(entity->childNu()==0) /* no child */
 	{
 		return;
@@ -69,6 +83,10 @@ void Layer::takeOwnership(Entity* entity)
 		m_ownerEntity->insert(child,child);
 		child->setAddOlder(m_addOlder++);
 		child->setLayer(this);
+		if(obmgr)
+		{
+			obmgr->manageObject(child);
+		}
 		child->decRef();
 	}
 	array->decRef();
@@ -168,25 +186,49 @@ Scene* Layer::getScene()
 	return m_scene;
 }
 
+Scene* Layer::takeScene()
+{
+	return m_scene;
+}
 
-void Layer::drop(bool recursion)
+void Layer::giveScene(Scene* scene)
+{
+	if(scene)
+	{
+		ObjectMgr* obmgr=scene->takeObjectMgr();
+		obmgr->manageObject(this);
+
+		FsDict::Iterator* iter=m_ownerEntity->getIterator();
+		while(!iter->done())
+		{
+			Entity* entity=(Entity*)iter->getValue();
+			obmgr->manageObject(entity);
+			entity->decRef();
+			iter->next();
+		}
+		delete iter;
+	}
+
+	m_scene=scene;
+}
+
+
+void Layer::dropData()
 {
 	FsDict::Iterator iter(m_entity);
+
 	while(!iter.done())
 	{
 		Entity* entity=(Entity*)iter.getValue();
 		dropOwnership(entity);
-
-		if(recursion)
-		{
-			entity->drop(true);
-		}
-
 		entity->decRef();
 		iter.next();
 	}
+
 	m_entity->clear();
-	FsObject::dropScriptData();
+
+	StageElement::dropData();
+
 }
 
 

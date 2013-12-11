@@ -72,12 +72,27 @@ void StageElement::updateAction(float dt)
 	m_actions->flush();
 }
 
+void StageElement::dropData()
+{
+	FsObject::dropData();
+	m_actions->clear();
+}
+
+
 
 StageElement::StageElement()
 {
 	m_actions=FsSlowArray::create();
 	m_stop=false;
 }
+
+StageElement::StageElement(bool mgr)
+	:FsObject(mgr)
+{
+	m_actions=FsSlowArray::create();
+	m_stop=false;
+}
+
 
 StageElement::~StageElement()
 {

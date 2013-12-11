@@ -1,6 +1,9 @@
 #include "stage/FsScene.h"
 #include "stage/layer/FsLayer.h"
 #include "support/util/FsSlowArray.h"
+#include "mgr/FsObjectMgr.h"
+
+
 NS_FS_BEGIN
 
 Scene* Scene::create()
@@ -12,13 +15,14 @@ Scene* Scene::create()
 /* layer operation */
 void Scene::push(Layer* layer)
 {
-	if(layer->m_scene)
+	if(layer->takeScene())
 	{
 		FS_TRACE_WARN("layer is already owned by scene");
 		return ;
 	}
 	m_layers->push(layer);
-	layer->m_scene=this;
+
+	layer->giveScene(this);
 }
 
 void Scene::pop()
@@ -30,20 +34,20 @@ void Scene::pop()
 		return;
 	}
 	Layer* ret=(Layer*)m_layers->get(size-1);
-	ret->m_scene=NULL;
+	ret->giveScene(NULL);
 	m_layers->pop();
 	ret->decRef();
 }
 
 void Scene::insert(int pos,Layer* layer)
 {
-	if(layer->m_scene)
+	if(layer->takeScene())
 	{
 		FS_TRACE_WARN("layer is already owned by scene");
 		return ;
 	}
 	m_layers->insert(pos,layer);
-	layer->m_scene=this;
+	layer->giveScene(this);
 }
 void Scene::replace(int pos,Layer* layer)
 {
@@ -53,7 +57,7 @@ void Scene::replace(int pos,Layer* layer)
 		FS_TRACE_WARN("Index(%d) Layer Out Of Range",pos);
 		return; 
 	}
-	ret->m_scene=NULL;
+	ret->giveScene(NULL);
 	ret->decRef();
 
 	m_layers->set(pos,layer);
@@ -61,13 +65,13 @@ void Scene::replace(int pos,Layer* layer)
 
 void Scene::remove(Layer* layer)
 {
-	if(layer->m_scene!=this)
+	if(layer->takeScene()!=this)
 	{
 		FS_TRACE_WARN("Layer is not owned by scene");
 		return;
 	}
 
-	layer->m_scene=NULL;
+	layer->giveScene(NULL);
 	m_layers->remove(layer);
 }
 
@@ -111,28 +115,21 @@ void Scene::clear()
 	for(int i=layer_nu-1;i>=0;i--)
 	{
 		Layer* layer=(Layer*)m_layers->get(i);
-		layer->m_scene=NULL;
+		layer->giveScene(NULL);
 		layer->decRef();
 	}
 	m_layers->clear();
 }
 
-void Scene::drop(bool recursion) 
+void Scene::dropData()
 {
-	int layer_nu=m_layers->size();
-	for(int i=layer_nu-1;i>=0;i--)
-	{
-		Layer* layer=(Layer*)m_layers->get(i);
-		if(recursion)
-		{
-			layer->drop(true);
-		}
-		layer->m_scene=NULL;
-		layer->decRef();
-	}
 	m_layers->clear();
-	FsObject::dropScriptData();
+	StageElement::dropData();
 }
+
+
+
+
 
 /* event */
 
@@ -369,6 +366,18 @@ void Scene::inputTextEvent(const char* text,int length)
 }
 
 
+ObjectMgr* Scene::takeObjectMgr()
+{
+	return m_objectMgr;
+}
+
+void Scene::dropObjectData()
+{
+	m_objectMgr->dropObjectData();
+}
+
+
+
 
 const char* Scene::className()
 {
@@ -387,11 +396,13 @@ Scene::~Scene()
 void Scene::init()
 {
 	m_layers=FsSlowArray::create();
+	m_objectMgr=ObjectMgr::create();
 }
 
 void Scene::destroy()
 {
 	m_layers->decRef();
+	m_objectMgr->decRef();
 }
 
 

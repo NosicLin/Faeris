@@ -49,7 +49,7 @@ class Entity :public StageElement
 		Matrix4* getLocalMatrix();
 
 
-		void drop(bool recusive=true);
+		void dropData();
 
 		//Entity* getChildByName(FsString* name,bool recusive=0);
 		//Entity* getChildByName(const char* name,bool recusive=0);

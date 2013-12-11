@@ -32,7 +32,12 @@ class Layer:public StageElement
 		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
 		void clearEntity();
+		
 		Scene* getScene();
+		Scene* takeScene();
+		void giveScene(Scene* scene);
+
+
 
 		/* entity */
 		void add(Entity* entity);
@@ -63,7 +68,7 @@ class Layer:public StageElement
 		virtual bool touchesEnd(TouchEvent* event);
 
 		/* drop data */
-		virtual void drop(bool recursion=true);
+		virtual void dropData();
 
 
 		/* inherit FsObject */
@@ -89,7 +94,7 @@ class Layer:public StageElement
 		Rect2D m_scissorArea;
 		bool m_scissorEnabled;
 
-		Scene* m_scene;
+		Scene* m_scene;  /* weak ref */
 
 		uint32_t m_addOlder;
 
@@ -99,4 +104,3 @@ class Layer:public StageElement
 NS_FS_END
 
 #endif /*_FS_LAYER_H_*/
-

@@ -4,6 +4,7 @@
 #include "FsMacros.h"
 #include "FsObject.h"
 
+
 NS_FS_BEGIN
 class Action;
 class FsSlowArray;
@@ -21,12 +22,15 @@ class StageElement:public FsObject
 	public:
 		virtual void update(float dt);
 		virtual const char* className();
+		virtual void dropData();
 
 	public:
 		void updateAction(float dt);
 
 	protected:
 		StageElement();
+		StageElement(bool mgr);
+
 		virtual ~StageElement();
 
 
@@ -34,8 +38,8 @@ class StageElement:public FsObject
 		FsSlowArray* m_actions;
 		bool m_stop;
 };
-NS_FS_END
 
+NS_FS_END
 #endif /*_FS_STAGE_ELEMENT_H_*/
 
 

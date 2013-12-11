@@ -1,7 +1,7 @@
 #ifndef _FS_MOVE_TO_ACTION_H_
 #define _FS_MOVE_TO_ACTION_H_
 
-#include "action/FsAction.h"
+#include "stage/action/FsAction.h"
 #include "math/FsVector3.h"
 
 NS_FS_BEGIN

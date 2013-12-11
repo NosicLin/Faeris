@@ -15,9 +15,11 @@ Entity* Entity::create()
 	return ret;
 }
 Entity::Entity()
+	:StageElement(true)
 {
 	init();
 }
+
 
 Entity::~Entity()
 {
@@ -276,26 +278,23 @@ void Entity::clearChild()
 		node->decRef();
 	}
 }
+
 Layer* Entity::getLayer()
 {
 	FS_SAFE_ADD_REF(m_layer);
 	return m_layer;
 }
 
-void Entity::drop(bool recusive)
+void Entity::dropData()
 {
 	while(m_chirdren->size()>0)
 	{
 		Entity* node=(Entity*)m_chirdren->get(0);
 		remove(node);
-
-		if(recusive)
-		{
-			node->drop(true);
-		}
 		node->decRef();
 	}
-	FsObject::dropScriptData();
+
+	StageElement::dropData();
 }
 
 

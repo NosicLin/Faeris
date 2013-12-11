@@ -1,4 +1,4 @@
-#include "action/FsPauseAction.h"
+#include "stage/action/FsPauseAction.h"
 
 NS_FS_BEGIN
 

@@ -1,4 +1,4 @@
-#include "action/FsScaleToAction.h"
+#include "stage/action/FsScaleToAction.h"
 
 #include "stage/entity/FsEntity.h"
 NS_FS_BEGIN

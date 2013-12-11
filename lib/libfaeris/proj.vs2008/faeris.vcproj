@@ -934,6 +934,82 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="action"
+					>
+					<File
+						RelativePath="..\src\stage\action\FsAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsMoveByAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsMoveByAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsMoveToAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsMoveToAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsPauseAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsPauseAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsRotateZByAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsRotateZByAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsRotateZToAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsRotateZToAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsScaleByAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsScaleByAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsScaleToAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsScaleToAction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsSeqAction.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\action\FsSeqAction.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="math"
@@ -1023,6 +1099,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\mgr\FsObjectMgr.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\mgr\FsObjectMgr.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\mgr\FsResource.cc"
 					>
 				</File>
@@ -1080,82 +1164,6 @@
 				</File>
 				<File
 					RelativePath="..\src\scheduler\FsTask.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="action"
-				>
-				<File
-					RelativePath="..\src\action\FsAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsMoveByAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsMoveByAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsMoveToAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsMoveToAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsPauseAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsPauseAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsRotateZByAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsRotateZByAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsRotateZToAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsRotateZToAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsScaleByAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsScaleByAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsScaleToAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsScaleToAction.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsSeqAction.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\action\FsSeqAction.h"
 					>
 				</File>
 			</Filter>

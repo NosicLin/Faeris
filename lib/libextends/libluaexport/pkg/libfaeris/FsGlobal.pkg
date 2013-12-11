@@ -12,5 +12,6 @@ class Global@share
 		static Render* render();
 		static TextureMgr* textureMgr();
 		static Sprite2DDataMgr* sprite2DDataMgr();
+		static ObjectMgr* objectMgr();
 };
 
