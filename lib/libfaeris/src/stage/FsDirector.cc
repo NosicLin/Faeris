@@ -174,6 +174,11 @@ void Director::update(int priority,float dt)
 			m_next->enter();
 
 		}
+		ScriptEngine* sc=Global::scriptEngine();
+		if(sc)
+		{
+			sc->collectGarbage();
+		}
 
 		m_current=m_next;
 		m_next=NULL;
@@ -208,6 +213,13 @@ void Director::push()
 		m_secenQueue->push(m_current);
 	}
 	FS_TRACE_WARN_ON(m_current==NULL,"No Current Exist");
+}
+
+
+void Director::push(Scene* scene)
+{
+	m_secenQueue->push(scene);
+
 }
 void Director::pop()
 {

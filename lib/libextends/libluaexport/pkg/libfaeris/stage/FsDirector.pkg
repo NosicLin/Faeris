@@ -4,6 +4,7 @@ class Director:public FsObject
 {
 	public:
 		void push();
+		void push(Scene* scene);
 		void pop();
 
 		void run(Scene*  scene);

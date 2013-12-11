@@ -215,6 +215,16 @@ bool ResourceMgr::unPreloadResource(const char* path)
 	return ret;
 }
 
+int ResourceMgr::getPreloadResourceNu()
+{
+	return m_preload->size();
+}
+
+int ResourceMgr::getCacheResourceNu()
+{
+	return m_caches.size();
+}
+
 void ResourceMgr::clearPreloadResource()
 {
 	m_preload->clear();
@@ -229,9 +239,44 @@ void ResourceMgr::clearCache()
 		iter->second->setMgr(NULL);
 	}
 	m_caches.clear();
+
 }
 
+void ResourceMgr::dump()
+{
+	printf("%s Dump Resource Begin\n",className());
+	printf("----Cache Resource----\n");
+	for(MgrSet::iterator iter=m_caches.begin();iter!=m_caches.end();++iter)
+	{
+		printf("\t%s\n",iter->first->cstr());
+	}
+	printf("----Preload Resource----\n");
+
+	FsDict::Iterator iter(m_preload);
+	while(!iter.done())
+	{
+		FsString* key=(FsString*)iter.getKey();
+		printf("\t%s\n",key->cstr());
+		key->decRef();
+		iter.next();
+	}
+
+
+	printf("%s Dump Resource End\n",className());
+
+}
+
+
 NS_FS_END
+
+
+
+
+
+
+
+
+
 
 
 

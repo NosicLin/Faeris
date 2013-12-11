@@ -28,6 +28,8 @@ class Director :public SchedulerTarget
 
 	public:
 		void push();
+		void push(Scene* scene);
+
 		void pop();
 
 		void run(Scene*  scene);

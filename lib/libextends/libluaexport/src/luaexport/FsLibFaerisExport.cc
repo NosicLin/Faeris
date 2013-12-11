@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 12/11/13 10:03:17.
+** Generated automatically by tolua++-1.0.92 on 12/11/13 14:06:56.
 */
 
 #ifndef __cplusplus
@@ -517,6 +517,37 @@ static int tolua_FsLibFaeris_FsObject_className00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'className'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: dropData of class  FsObject */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FsObject_dropData00
+static int tolua_FsLibFaeris_FsObject_dropData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"FsObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  FsObject* self = (FsObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'dropData'", NULL);
+#endif
+  {
+   self->dropData();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'dropData'.",&tolua_err);
  return 0;
 #endif
 }
@@ -10041,6 +10072,34 @@ static int tolua_FsLibFaeris_Director_push00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: push of class  Director */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Director_push01
+static int tolua_FsLibFaeris_Director_push01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Director",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Scene",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Director* self = (Director*)  tolua_tousertype(tolua_S,1,0);
+  Scene* scene = ((Scene*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'push'", NULL);
+#endif
+  {
+   self->push(scene);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris_Director_push00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: pop of class  Director */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Director_pop00
 static int tolua_FsLibFaeris_Director_pop00(lua_State* tolua_S)
@@ -18503,6 +18562,101 @@ static int tolua_FsLibFaeris_ResourceMgr_add00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getCacheResourceNu of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_ResourceMgr_getCacheResourceNu00
+static int tolua_FsLibFaeris_ResourceMgr_getCacheResourceNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ResourceMgr* self = (ResourceMgr*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCacheResourceNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getCacheResourceNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCacheResourceNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: dump of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_ResourceMgr_dump00
+static int tolua_FsLibFaeris_ResourceMgr_dump00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ResourceMgr* self = (ResourceMgr*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'dump'", NULL);
+#endif
+  {
+   self->dump();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'dump'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPreloadResourceNu of class  ResourceMgr */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_ResourceMgr_getPreloadResourceNu00
+static int tolua_FsLibFaeris_ResourceMgr_getPreloadResourceNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ResourceMgr",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ResourceMgr* self = (ResourceMgr*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPreloadResourceNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getPreloadResourceNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPreloadResourceNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: preloadResource of class  ResourceMgr */
 #ifndef TOLUA_DISABLE_tolua_FsLibFaeris_ResourceMgr_preloadResource00
 static int tolua_FsLibFaeris_ResourceMgr_preloadResource00(lua_State* tolua_S)
@@ -20530,6 +20684,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"FsObject");
    tolua_function(tolua_S,"getObjectNu",tolua_FsLibFaeris_FsObject_getObjectNu00);
    tolua_function(tolua_S,"className",tolua_FsLibFaeris_FsObject_className00);
+   tolua_function(tolua_S,"dropData",tolua_FsLibFaeris_FsObject_dropData00);
    tolua_variable(tolua_S,"data",tolua_get_FsObject_data,tolua_set_FsObject_data);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"FS_PLATFORM_WIN32",FS_PLATFORM_WIN32);
@@ -20927,6 +21082,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"Director","Director","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Director");
    tolua_function(tolua_S,"push",tolua_FsLibFaeris_Director_push00);
+   tolua_function(tolua_S,"push",tolua_FsLibFaeris_Director_push01);
    tolua_function(tolua_S,"pop",tolua_FsLibFaeris_Director_pop00);
    tolua_function(tolua_S,"run",tolua_FsLibFaeris_Director_run00);
    tolua_function(tolua_S,"current",tolua_FsLibFaeris_Director_current00);
@@ -21386,6 +21542,9 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"load",tolua_FsLibFaeris_ResourceMgr_load00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris_ResourceMgr_remove00);
    tolua_function(tolua_S,"add",tolua_FsLibFaeris_ResourceMgr_add00);
+   tolua_function(tolua_S,"getCacheResourceNu",tolua_FsLibFaeris_ResourceMgr_getCacheResourceNu00);
+   tolua_function(tolua_S,"dump",tolua_FsLibFaeris_ResourceMgr_dump00);
+   tolua_function(tolua_S,"getPreloadResourceNu",tolua_FsLibFaeris_ResourceMgr_getPreloadResourceNu00);
    tolua_function(tolua_S,"preloadResource",tolua_FsLibFaeris_ResourceMgr_preloadResource00);
    tolua_function(tolua_S,"unPreloadResource",tolua_FsLibFaeris_ResourceMgr_unPreloadResource00);
    tolua_function(tolua_S,"clearPreloadResource",tolua_FsLibFaeris_ResourceMgr_clearPreloadResource00);

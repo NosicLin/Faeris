@@ -9,8 +9,13 @@ class ResourceMgr:public FsObject
 		Resource* load(const char* path);
 		void remove(Resource* res);
 		void add(const char* name,Resource* res);
+		int getCacheResourceNu();
+
+		void dump();
+
 
 	public:
+		int getPreloadResourceNu();
 		bool preloadResource(const char* path);
 		bool unPreloadResource(const char* path);
 		void clearPreloadResource();

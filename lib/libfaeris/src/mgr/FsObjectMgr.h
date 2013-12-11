@@ -16,7 +16,7 @@ class ObjectMgr:public FsObject
 			public:
 				bool operator()(FsObject* l,FsObject* r) const 
 				{
-					return l==r;
+					return l<r;
 				}
 		};
 

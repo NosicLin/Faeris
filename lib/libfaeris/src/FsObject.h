@@ -43,7 +43,7 @@ class FsObject
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 			m_scriptData(-1)
 #endif 
-		{
+		{ 
 			FsObject::m_objectNu++;
 		}
 		FsObject(bool mgred);

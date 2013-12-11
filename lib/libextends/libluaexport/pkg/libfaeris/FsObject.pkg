@@ -5,7 +5,10 @@ class FsObject
 		static int getObjectNu();
 
 	public:
+
 		const char* className();
+		void dropData();
+
 	public:
 		LUA_TABLE m_scriptData@data;
 };

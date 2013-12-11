@@ -44,11 +44,15 @@ class ResourceMgr:public FsObject
 		Resource* load(const char* path);
 		void remove(Resource* res);
 		void add(const char* name,Resource* res);
+		int getCacheResourceNu();
 
 	public:
 		bool preloadResource(const char* path);
 		bool unPreloadResource(const char* path);
 		void clearPreloadResource();
+		int getPreloadResourceNu();
+
+		virtual void dump();
 
 
 	protected:

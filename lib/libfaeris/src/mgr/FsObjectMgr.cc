@@ -8,8 +8,16 @@ const char* ObjectMgr::className()
 	return FS_OBJECT_MGR_CLASS_NAME;
 }
 
-ObjectMgr::ObjectMgr() {}
-ObjectMgr::~ObjectMgr(){}
+ObjectMgr::ObjectMgr()
+{
+
+}
+
+ObjectMgr::~ObjectMgr()
+{
+	unManageAllObject();
+}
+
 bool ObjectMgr::init()
 {
 	return true;
@@ -57,6 +65,7 @@ void ObjectMgr::unManageObject(FsObject* ob)
 		FS_TRACE_WARN("Object Is Not Manage By This ObjectMgr");
 		return;
 	}
+	assert(m_mgr.find(ob)!=m_mgr.end());
 	m_mgr.erase(ob);
 	ob->giveObjectMgr(NULL);
 }
@@ -68,7 +77,9 @@ void ObjectMgr::dropObjectData()
 	for (MgrSet::iterator iter=m_mgr.begin();iter!=m_mgr.end();++iter)
 	{
 		obs->push(*iter);
+		(*iter)->giveObjectMgr(NULL);
 	}
+
 	m_mgr.clear();
 	int size=obs->size();
 	for( int i=0;i<size;i++)

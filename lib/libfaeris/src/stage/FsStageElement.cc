@@ -74,8 +74,8 @@ void StageElement::updateAction(float dt)
 
 void StageElement::dropData()
 {
-	FsObject::dropData();
 	m_actions->clear();
+	FsObject::dropData();
 }
 
 

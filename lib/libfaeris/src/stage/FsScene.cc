@@ -123,7 +123,7 @@ void Scene::clear()
 
 void Scene::dropData()
 {
-	m_layers->clear();
+	clear();
 	StageElement::dropData();
 }
 

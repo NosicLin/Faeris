@@ -80,6 +80,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/mgr/FsResourceMgr.cc \
 					../../src/mgr/FsTextureMgr.cc \
 					../../src/mgr/FsSprite2DDataMgr.cc \
+					../../src/mgr/FsObjectMgr.cc \
 					../../src/scheduler/FsScheduler.cc \
 					../../src/scheduler/FsSchedulerTarget.cc \
 					../../src/scheduler/FsTask.cc \
@@ -118,15 +119,15 @@ LOCAL_SRC_FILES :=  \
 					../../src/support/util/FsInteger.cc \
 					../../src/media/FsAudioEngine.cc \
 					../../src/media/FsAudioPlayer.cc \
-					../../src/action/FsAction.cc \
-					../../src/action/FsMoveByAction.cc \
-					../../src/action/FsMoveToAction.cc \
-					../../src/action/FsPauseAction.cc \
-					../../src/action/FsRotateZByAction.cc \
-					../../src/action/FsRotateZToAction.cc \
-					../../src/action/FsScaleByAction.cc \
-					../../src/action/FsScaleToAction.cc \
-					../../src/action/FsSeqAction.cc \
+					../../src/stage/action/FsAction.cc \
+					../../src/stage/action/FsMoveByAction.cc \
+					../../src/stage/action/FsMoveToAction.cc \
+					../../src/stage/action/FsPauseAction.cc \
+					../../src/stage/action/FsRotateZByAction.cc \
+					../../src/stage/action/FsRotateZToAction.cc \
+					../../src/stage/action/FsScaleByAction.cc \
+					../../src/stage/action/FsScaleToAction.cc \
+					../../src/stage/action/FsSeqAction.cc \
 
 
 

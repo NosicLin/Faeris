@@ -26,7 +26,12 @@ NS_FS_BEGIN
 
 int FsFaeris_ModuleInit()
 {
+
 	VFS::moduleInit();
+
+	ObjectMgr* ob_mgr=ObjectMgr::create();
+	Global::setObjectMgr(ob_mgr);
+
 
 	Scheduler* scheduler=Scheduler::create();
 	Global::setScheduler(scheduler);
@@ -103,6 +108,8 @@ int FsFaeris_ModuleExit()
 	KeypadDispatcher* key_dispatcher=Global::keypadDispatcher();
 	InputTextDispatcher* input_text_dispatcher=Global::inputTextDispatcher();
 
+	ObjectMgr* ob_mgr=Global::objectMgr();
+
 
 	Director* director=Global::director();
 	Window* window=Global::window();
@@ -141,6 +148,7 @@ int FsFaeris_ModuleExit()
 	tex_mgr->forceDestroy();
 	font_mgr->forceDestroy();
 	sprite_mgr->forceDestroy();
+	ob_mgr->forceDestroy();
 
 	/* material */
 	Mat_V4F_T2F_A1F::purgeShareMaterial();
@@ -159,6 +167,7 @@ int FsFaeris_ModuleExit()
 	Global::dropTextureMgr();
 	Global::dropFontTTFDataMgr();
 	Global::dropSprite2DDataMgr();
+	Global::dropObjectMgr();
 	return 0;
 }
 
