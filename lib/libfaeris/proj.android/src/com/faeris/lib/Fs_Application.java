@@ -36,7 +36,7 @@ public class Fs_Application
 		Fs_Application.m_context=context;
 		m_packageName=app_info.packageName;
 		m_apkPath=app_info.sourceDir;
-		m_dataDir=context.getFilesDir().getAbsolutePath();
+		m_dataDir=context.getFilesDir().getAbsolutePath()+"/";
 		m_eventHandler=new Fs_UiEvent(context);
 		m_externalDir="/mnt/sdcard/fgame/"+m_packageName+"/";
 		
