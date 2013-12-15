@@ -16,7 +16,7 @@ How To Create Game Project
 	win:{
 		width:960    # window width 
 		height:640   # window height
-		caption:"FontTest"  #window name 
+		caption:"Faeris Game"  #window name 
 	}
 	script:{
 		entry:"main.lua"  # script entry when start
