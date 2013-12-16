@@ -131,7 +131,7 @@ FsFile* ZipReader::getFile(const char* filename)
 {
 	if(unzLocateFile(m_unzfile,filename,true)!=UNZ_OK)
 	{
-		FS_TRACE_INFO("File(%s) Not Found In Zip Package",filename);
+	//	FS_TRACE_INFO("File(%s) Not Found In Zip Package",filename);
 		return NULL;
 	}
 
