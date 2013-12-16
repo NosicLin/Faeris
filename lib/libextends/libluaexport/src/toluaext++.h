@@ -49,6 +49,9 @@ TOLUA_API int  toluaext_is_luatable(lua_State* L,
 TOLUA_API int  toluaext_to_luatable(lua_State* L,int lo,int def);
 TOLUA_API void toluaext_remove_luatable(lua_State* L,int refid);
 TOLUA_API void toluaext_push_luatable(lua_State* L,int refid);
+TOLUA_API int toluaext_get_luatable_nu();
+
+
 
 
 TOLUA_API int toluaext_fscollector(lua_State* L);

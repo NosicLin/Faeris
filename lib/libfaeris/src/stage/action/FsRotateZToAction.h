@@ -8,7 +8,7 @@ class RotateZToAction:public Action
 		static RotateZToAction* create(float angle,float time);
 
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
 
 	protected:

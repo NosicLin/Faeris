@@ -5,16 +5,25 @@
 #include "FsObject.h"
 
 
+
 NS_FS_BEGIN
 
-class StageElement;
+class ActionTarget;
+class Scene;
 
 class Action:public FsObject
 {
 	public:
-		virtual bool run(StageElement* target,float dt)=0;
-		const char* className();
+		Action():FsObject(true){}
+		virtual ~Action(){}
 
+	public:
+		virtual void giveScene(Scene* scene);
+
+
+	public:
+		virtual bool run(ActionTarget* target,float dt)=0;
+		const char* className();
 };
 
 NS_FS_END 

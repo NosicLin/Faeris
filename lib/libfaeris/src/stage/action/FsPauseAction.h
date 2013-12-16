@@ -10,7 +10,7 @@ class PauseAction:public Action
 		static PauseAction* create(float time);
 
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
 
 	protected:

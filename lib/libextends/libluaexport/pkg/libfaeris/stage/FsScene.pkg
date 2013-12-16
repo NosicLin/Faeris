@@ -1,5 +1,5 @@
 $#include "luaext/FsLuaScene.h"
-class Scene@__Scene:public StageElement
+class Scene@__Scene:public ActionTarget
 {
 	public:
 		void push(Layer* layer);

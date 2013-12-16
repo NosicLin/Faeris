@@ -21,7 +21,7 @@ class MoveByAction:public Action
 		static MoveByAction* create(const Vector3& pos,float time);
 
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
 
 	protected:

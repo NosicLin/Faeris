@@ -29,7 +29,7 @@ $pfile "stage/entity/FsParticle2DEffect.pkg"
 
 
 /* stage */
-$pfile "stage/FsStageElement.pkg"
+$pfile "stage/FsActionTarget.pkg"
 
 
 

@@ -3,7 +3,7 @@
 
 
 #include "FsMacros.h"
-#include "stage/FsStageElement.h"
+#include "stage/FsActionTarget.h"
 #include "math/FsVector3.h"
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
@@ -13,10 +13,14 @@
 NS_FS_BEGIN
 class Render;
 class Layer;
-class Entity :public StageElement
+class Scene;
+class Entity :public ActionTarget
 {
 	public:
 		Entity* create();
+
+
+
 
 	public:
 		virtual void update(float dt);
@@ -25,6 +29,10 @@ class Entity :public StageElement
 
 		/* inherit FsObject */
 		virtual const char* className();
+
+		/* inherit ActionTarget */
+		virtual Scene* takeScene();
+		virtual void giveScene(Scene* scene);
 
 	public:
 

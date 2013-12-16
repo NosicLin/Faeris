@@ -242,7 +242,7 @@ enum
 
 
 /* stage */
-#define FS_STAGE_ELEMENT_CLASS_NAME "StageElement"
+#define FS_ACTION_TARGET_CLASS_NAME "ActionTarget"
 
 
 /* entity */
@@ -272,6 +272,7 @@ enum
 #define FS_INTEGER_CLASS_NAME "FsInteger"
 #define FS_DICT_CLASS_NAME "FsDict"
 #define FS_SLOW_DICT_CLASS_NAME "FsSlowDict"
+
 /* material */
 #define FS_MATERIAL_CLASS_NAME "Material"
 #define FS_QUAD_2D_MATERIAL_CLASS_NAME "Quad2DMaterial"

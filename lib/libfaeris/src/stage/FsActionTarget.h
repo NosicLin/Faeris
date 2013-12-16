@@ -1,5 +1,5 @@
-#ifndef _FS_STAGE_ELEMENT_H_
-#define _FS_STAGE_ELEMENT_H_
+#ifndef _FS_ACTION_TARGET_H_
+#define _FS_ACTION_TARGET_H_
 
 #include "FsMacros.h"
 #include "FsObject.h"
@@ -8,8 +8,13 @@
 NS_FS_BEGIN
 class Action;
 class FsSlowArray;
-class StageElement:public FsObject
+class Scene;
+class ActionTarget:public FsObject
 {
+	public:
+		virtual Scene* takeScene();
+		virtual void giveScene(Scene* scene);
+
 	public:
 		void doAction(Action* action);
 		void removeAction(Action* action);
@@ -20,6 +25,7 @@ class StageElement:public FsObject
 		void resumeAction();
 
 	public:
+
 		virtual void update(float dt);
 		virtual const char* className();
 		virtual void dropData();
@@ -28,11 +34,9 @@ class StageElement:public FsObject
 		void updateAction(float dt);
 
 	protected:
-		StageElement();
-		StageElement(bool mgr);
-
-		virtual ~StageElement();
-
+		ActionTarget();
+		ActionTarget(bool mgr);
+		virtual ~ActionTarget();
 
 	protected:
 		FsSlowArray* m_actions;
@@ -40,6 +44,8 @@ class StageElement:public FsObject
 };
 
 NS_FS_END
-#endif /*_FS_STAGE_ELEMENT_H_*/
+
+#endif /*_FS_ACTION_TARGET_H_*/
+
 
 

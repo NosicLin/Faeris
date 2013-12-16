@@ -15,7 +15,7 @@ ScaleByAction* ScaleByAction::create(float sx,float sy,float sz,float time)
 }
 
 
-bool ScaleByAction::run(StageElement* target,float dt)
+bool ScaleByAction::run(ActionTarget* target,float dt)
 {
 	float old_dt=dt;
 	if(m_elapse>m_lifeTime)

@@ -13,7 +13,7 @@ RotateZToAction* RotateZToAction::create(float angle,float time)
 	return new RotateZToAction(angle,time);
 }
 
-bool RotateZToAction::run(StageElement* target,float dt)
+bool RotateZToAction::run(ActionTarget* target,float dt)
 {
 	float old_dt=dt;
 	if(m_elapse>=m_lifeTime)

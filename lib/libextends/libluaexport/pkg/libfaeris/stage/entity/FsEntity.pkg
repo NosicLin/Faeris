@@ -1,7 +1,7 @@
 $#include "stage/entity/FsEntity.h"
 $#include "luaext/FsLuaEntity.h"
 
-class Entity@__Entity:public StageElement
+class Entity@__Entity:public ActionTarget
 {
 	public:
 		Vector3 localToWorld(const Vector3& v);

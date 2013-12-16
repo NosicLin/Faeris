@@ -14,7 +14,7 @@ RotateZByAction* RotateZByAction::create(float angle,float time)
 	return new RotateZByAction(angle,time);
 }
 
-bool RotateZByAction::run(StageElement* target,float dt)
+bool RotateZByAction::run(ActionTarget* target,float dt)
 {
 	float old_dt=dt;
 

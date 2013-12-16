@@ -41,6 +41,7 @@ ObjectMgr* ObjectMgr::create()
 
 void ObjectMgr::manageObject(FsObject* ob)
 {
+
 	ObjectMgr* pre_mgr=ob->takeObjectMgr();
 
 	if(pre_mgr==this)

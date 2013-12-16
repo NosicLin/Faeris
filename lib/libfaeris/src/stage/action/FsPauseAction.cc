@@ -13,7 +13,7 @@ PauseAction* PauseAction::create(float time)
 }
 
 
-bool PauseAction::run(StageElement* target,float dt)
+bool PauseAction::run(ActionTarget* target,float dt)
 {
 	m_elapse+=dt;
 	if(m_elapse>=m_lifeTime)

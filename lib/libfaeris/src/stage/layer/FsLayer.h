@@ -1,7 +1,7 @@
 #ifndef _FS_LAYER_H_
 #define _FS_LAYER_H_
 
-#include "stage/FsStageElement.h"
+#include "stage/FsActionTarget.h"
 #include "math/FsRect2D.h"
 
 NS_FS_BEGIN
@@ -14,7 +14,7 @@ class Vector2;
 class TouchEvent;
 class Scene;
 
-class Layer:public StageElement
+class Layer:public ActionTarget
 {
 	public:
 		/* visible */

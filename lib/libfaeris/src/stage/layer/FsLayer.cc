@@ -54,19 +54,15 @@ void Layer::remove(Entity* entity)
 
 void Layer::takeOwnership(Entity* entity)
 {
-	ObjectMgr* obmgr=NULL;
-	if(m_scene) 
-	{
-		obmgr=m_scene->takeObjectMgr();
-	}
 
 	entity->setAddOlder(m_addOlder++);
 	m_ownerEntity->insert(entity,entity);
 	entity->setLayer(this);
 
-	if(obmgr)
+	if(m_scene)
 	{
-		obmgr->manageObject(entity);
+		entity->giveScene(m_scene);
+	
 	}
 
 
@@ -81,12 +77,15 @@ void Layer::takeOwnership(Entity* entity)
 	{
 		Entity* child=(Entity*)array->get(i);
 		m_ownerEntity->insert(child,child);
+
 		child->setAddOlder(m_addOlder++);
 		child->setLayer(this);
-		if(obmgr)
+
+		if(m_scene)
 		{
-			obmgr->manageObject(child);
+			child->giveScene(m_scene);
 		}
+
 		child->decRef();
 	}
 	array->decRef();
@@ -195,14 +194,12 @@ void Layer::giveScene(Scene* scene)
 {
 	if(scene)
 	{
-		ObjectMgr* obmgr=scene->takeObjectMgr();
-		obmgr->manageObject(this);
-
+		ActionTarget::giveScene(scene);
 		FsDict::Iterator* iter=m_ownerEntity->getIterator();
 		while(!iter->done())
 		{
 			Entity* entity=(Entity*)iter->getValue();
-			obmgr->manageObject(entity);
+			entity->giveScene(scene);
 			entity->decRef();
 			iter->next();
 		}
@@ -227,7 +224,7 @@ void Layer::dropData()
 
 	m_entity->clear();
 
-	StageElement::dropData();
+	ActionTarget::dropData();
 
 }
 

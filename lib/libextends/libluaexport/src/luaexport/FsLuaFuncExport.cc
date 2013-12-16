@@ -228,6 +228,15 @@ int luaf_getenv(lua_State* l)
 
 }
 
+int luaf_getluatablenu(lua_State* l)
+{
+
+	int nu=toluaext_get_luatable_nu();
+	lua_pushinteger(l,nu);
+
+	return 1;
+}
+
 
 static const struct luaL_reg luafuncs[]=
 {

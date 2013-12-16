@@ -803,6 +803,14 @@
 				Name="stage"
 				>
 				<File
+					RelativePath="..\src\stage\FsActionTarget.cc"
+					>
+				</File>
+				<File
+					RelativePath="..\src\stage\FsActionTarget.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\stage\FsDirector.cc"
 					>
 				</File>
@@ -816,14 +824,6 @@
 				</File>
 				<File
 					RelativePath="..\src\stage\FsScene.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\stage\FsStageElement.cc"
-					>
-				</File>
-				<File
-					RelativePath="..\src\stage\FsStageElement.h"
 					>
 				</File>
 				<Filter

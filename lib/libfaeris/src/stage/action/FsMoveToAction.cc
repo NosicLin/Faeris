@@ -13,7 +13,7 @@ MoveToAction* MoveToAction::create(const Vector3& pos,float time)
 	return new MoveToAction(pos,time);
 }
 
-bool MoveToAction::run(StageElement* target,float dt)
+bool MoveToAction::run(ActionTarget* target,float dt)
 {
 	float old_dt=dt;
 	if(m_elapse>=m_lifeTime)

@@ -19,7 +19,7 @@ LuaAction* LuaAction::create()
 	return new LuaAction;
 }
 
-bool LuaAction::run(StageElement* target,float dt)
+bool LuaAction::run(ActionTarget* target,float dt)
 {
 
 	LuaEngine* se=(LuaEngine*)Global::scriptEngine();

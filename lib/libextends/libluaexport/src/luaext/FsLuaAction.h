@@ -10,7 +10,7 @@ class LuaAction:public Action
 	public:
 		static LuaAction* create();
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
 
 

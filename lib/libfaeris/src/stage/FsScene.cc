@@ -124,7 +124,7 @@ void Scene::clear()
 void Scene::dropData()
 {
 	clear();
-	StageElement::dropData();
+	ActionTarget::dropData();
 }
 
 

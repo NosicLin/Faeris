@@ -11,7 +11,7 @@ class ScaleToAction:public Action
 			return ScaleToAction::create(sx,sy,1,time);
 		}
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
 
 	protected:

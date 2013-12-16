@@ -1,6 +1,6 @@
-$#include "stage/FsStageElement.h"
+$#include "stage/FsActionTarget.h"
 
-class StageElement:public FsObject
+class ActionTarget:public FsObject
 {
 	public:
 		void doAction(Action* action);

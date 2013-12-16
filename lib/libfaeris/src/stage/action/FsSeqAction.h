@@ -3,17 +3,20 @@
 
 #include "stage/action/FsAction.h" 
 
-
 NS_FS_BEGIN
+
 class FsArray;
+class Scene;
 class SeqAction:public Action 
 {
 	public:
 		static SeqAction* create();
 
 	public:
-		virtual bool run(StageElement* target,float dt);
+		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
+		virtual void dropData();
+		virtual void giveScene(Scene* scene);
 
 	public:
 		void addAction(Action* action);

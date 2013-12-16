@@ -2,7 +2,7 @@
 #define _FS_SCENE_H_
 
 #include "FsMacros.h"
-#include "stage/FsStageElement.h"
+#include "stage/FsActionTarget.h"
 
 
 
@@ -15,7 +15,7 @@ class TouchEvent;
 class ObjectMgr;
 
 
-class Scene:public StageElement
+class Scene:public ActionTarget
 {
 	public:
 		static Scene* create();

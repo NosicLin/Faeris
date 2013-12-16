@@ -13,7 +13,7 @@ ScaleToAction* ScaleToAction::create(float sx,float sy,float sz,float time)
 	return new ScaleToAction(sx,sy,sz,time);
 }
 
-bool ScaleToAction::run(StageElement* target,float dt)
+bool ScaleToAction::run(ActionTarget* target,float dt)
 {
 	float old_dt=dt;
 	if(m_elapse>=m_lifeTime)

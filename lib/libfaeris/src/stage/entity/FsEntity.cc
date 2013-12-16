@@ -4,7 +4,7 @@
 
 NS_FS_BEGIN
 
- const char* Entity::className()
+const char* Entity::className()
 {
 	return FS_ENTITY_CLASS_NAME;
 }
@@ -15,7 +15,7 @@ Entity* Entity::create()
 	return ret;
 }
 Entity::Entity()
-	:StageElement(true)
+	:ActionTarget(true)
 {
 	init();
 }
@@ -25,6 +25,30 @@ Entity::~Entity()
 {
 	destroy();
 }
+
+Scene* Entity::takeScene()
+{
+
+	if(m_layer)
+	{
+		return m_layer->takeScene();
+	}
+
+	return NULL;
+}
+
+
+void Entity::giveScene(Scene* scene)
+{
+
+	ActionTarget::giveScene(scene);
+
+}
+
+
+
+
+
 
 void Entity::update(float dt)
 {
@@ -294,7 +318,7 @@ void Entity::dropData()
 		node->decRef();
 	}
 
-	StageElement::dropData();
+	ActionTarget::dropData();
 }
 
 
