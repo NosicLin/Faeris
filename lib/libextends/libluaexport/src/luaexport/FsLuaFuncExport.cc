@@ -228,7 +228,7 @@ int luaf_getenv(lua_State* l)
 
 }
 
-int luaf_getluatablenu(lua_State* l)
+int luaf_gettablehandlenu(lua_State* l)
 {
 
 	int nu=toluaext_get_luatable_nu();
@@ -251,6 +251,7 @@ static const struct luaL_reg luafuncs[]=
 	{"f_getenv",luaf_getenv},
 	{"f_setenv",luaf_setenv},
 	{"f_mappackage",luaf_mappackage},
+	{"f_gettablehandlenu",luaf_gettablehandlenu},
 	{NULL,NULL},
 };
 

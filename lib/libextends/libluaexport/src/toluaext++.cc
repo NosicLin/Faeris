@@ -140,6 +140,7 @@ TOLUA_API void toluaext_push_luafunction(lua_State* L,int refid)
 	lua_remove(L,-2);						/* stack: ... func */
 
 }
+
 TOLUA_API void toluaext_remove_luafunction(lua_State* L,int refid)
 {
 	lua_pushstring(L,TOLUA_REFID_FUNCTION_MAPPING);
@@ -182,7 +183,7 @@ TOLUA_API int toluaext_is_luatable(lua_State* L,int lo,const char* type,int def,
 }
 
 
-static int _table_hander_nu=0;
+static int _table_handle_nu=0;
 
 TOLUA_API void toluaext_remove_luatable(lua_State* L,int refid)
 {
@@ -192,7 +193,7 @@ TOLUA_API void toluaext_remove_luatable(lua_State* L,int refid)
 	lua_pushnil(L);	                        /* stack: ... mapping refid nil */
 	lua_rawset(L,-3);                       /* stack: ... mapping */
 	lua_pop(L,1);
-	_table_handler_nu--;
+	_table_handle_nu--;
 
 }
 
@@ -208,7 +209,7 @@ TOLUA_API void toluaext_push_luatable(lua_State* L,int refid)
 
 TOLUA_API int toluaext_get_luatable_nu()
 {
-	return _table_handler_nu;
+	return _table_handle_nu;
 }
 
 
@@ -224,7 +225,7 @@ TOLUA_API int toluaext_to_luatable(lua_State* L,int lo,int def)
 	lua_pushvalue(L,lo); 					 /* stack: fun .... mapping refid func */
 	lua_rawset(L,-3);						 /* stack: fun .... mapping  */
 	lua_pop(L,1);
-	_table_handler_nu++;
+	_table_handle_nu++;
 	return s_table_ref_id;
 }
 
