@@ -2,6 +2,8 @@
 #include "stage/layer/FsLayer.h"
 #include "support/util/FsSlowArray.h"
 #include "mgr/FsObjectMgr.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
+
 
 
 NS_FS_BEGIN
@@ -121,6 +123,20 @@ void Scene::clear()
 	m_layers->clear();
 }
 
+void Scene::setEnabledFade(bool fade)
+{
+	m_fadeEnabled=fade;
+}
+
+void Scene::setFadeColor(Color c)
+{
+	m_fadeColor=c;
+}
+
+
+
+
+
 void Scene::dropData()
 {
 	clear();
@@ -180,6 +196,53 @@ void Scene::draw(Render* render)
 	}
 	m_layers->unlock();
 	m_layers->flush();
+
+
+	if(m_fadeEnabled)
+	{
+
+		Mat_V4F_C4F* material=Mat_V4F_C4F::shareMaterial();
+		material->setOpacity(1.0);
+
+		Matrix4 mat;
+		mat.makeOrthographic(0,1,0,1,-100,100);
+		render->setProjectionMatrix(&mat);
+
+		render->setMaterial(material);
+
+		render->setActiveTexture(0);
+		render->disableAllAttrArray();
+
+		int pos_loc=material->getV4FLocation();
+		int color_loc=material->getC4FLocation();
+
+		static Vector3 vv[4]=
+		{
+			Vector3(0,0,0),
+			Vector3(1,0,0),
+			Vector3(1,1,0),
+			Vector3(0,1,0),
+		};
+		float vc[16]=
+		{
+			m_fadeColor.r/255.0f,m_fadeColor.g/255.0f,m_fadeColor.b/255.0f,m_fadeColor.a/255.0f,
+			m_fadeColor.r/255.0f,m_fadeColor.g/255.0f,m_fadeColor.b/255.0f,m_fadeColor.a/255.0f,
+			m_fadeColor.r/255.0f,m_fadeColor.g/255.0f,m_fadeColor.b/255.0f,m_fadeColor.a/255.0f,
+			m_fadeColor.r/255.0f,m_fadeColor.g/255.0f,m_fadeColor.b/255.0f,m_fadeColor.a/255.0f,
+		};
+
+		Face3 faces[2]=
+		{
+			Face3(0,1,2),
+			Face3(2,3,0),
+		};
+
+		render->setAndEnableVertexAttrPointer(pos_loc,3,FS_FLOAT,4,0,vv);
+		render->setAndEnableVertexAttrPointer(color_loc,4,FS_FLOAT,4,0,vc);
+
+		render->drawFace3(faces,2);
+	}
+
 }
 void Scene::touchBegin(float x,float y)
 {
@@ -395,9 +458,15 @@ Scene::~Scene()
 
 void Scene::init()
 {
+
 	m_layers=FsSlowArray::create();
 	m_objectMgr=ObjectMgr::create();
+	m_fadeColor=Color(255,255,255,0);
+	m_fadeEnabled=true;
+
 }
+
+
 
 void Scene::destroy()
 {
@@ -407,3 +476,8 @@ void Scene::destroy()
 
 
 NS_FS_END
+
+
+
+
+

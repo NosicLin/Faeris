@@ -1,0 +1,19 @@
+$#include "box2d/fb2ContactListener.h"
+class fb2ContactListener:public b2ContactListener,public FsObject
+{
+	public:
+
+		fb2ContactListener();
+		~fb2ContactListener();
+
+	public:
+		virtual const char* className();
+
+	public:
+		virtual void BeginContact(b2Contact* contact);
+		virtual void EndContact(b2Contact* contact);
+		virtual void PreSolve(b2Contact* contact, const b2Manifold* old_mf);
+		virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
+
+};
+

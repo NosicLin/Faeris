@@ -117,5 +117,7 @@ $pfile "b2WeldJoint.pkg"
 $pfile "b2WheelJoint.pkg"
 $pfile "b2World.pkg"
 $pfile "b2WorldCallbacks.pkg"
+
 $pfile "fb2Draw.pkg"
+$pfile "fb2ContactListener.pkg"
 

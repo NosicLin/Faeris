@@ -3,6 +3,7 @@
 
 #include "FsMacros.h"
 #include "stage/FsActionTarget.h"
+#include "graphics/FsColor.h"
 
 
 
@@ -19,6 +20,7 @@ class Scene:public ActionTarget
 {
 	public:
 		static Scene* create();
+
 	public:
 		/* layer operation */
 		void push(Layer* layer);
@@ -30,8 +32,11 @@ class Scene:public ActionTarget
 		Layer* top();
 		Layer* getLayer(int index);
 		int getLayerIndex(Layer* layer);
-
 		void clear();
+
+		/* fade */
+		void setEnabledFade(bool fade);
+		void setFadeColor(Color c);
 
 
 	public:
@@ -78,6 +83,9 @@ class Scene:public ActionTarget
 	private:
 		FsSlowArray* m_layers;
 		ObjectMgr* m_objectMgr;
+
+		Color m_fadeColor;
+		bool m_fadeEnabled;
 
 };
 NS_FS_END

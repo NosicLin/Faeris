@@ -49,7 +49,7 @@ void ColorLayer::draw(Render*  r)
 	int pos_loc=material->getV4FLocation();
 	int color_loc=material->getC4FLocation();
 
-	Vector3 vv[4]=
+	static Vector3 vv[4]=
 	{
 		Vector3(0,0,0),
 		Vector3(1,0,0),

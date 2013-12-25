@@ -43,6 +43,8 @@
 
 
 NS_FS_BEGIN
+
+
 class FsDict;
 class Global
 {

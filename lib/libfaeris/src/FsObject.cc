@@ -53,7 +53,7 @@ ObjectMgr* FsObject::takeObjectMgr()
 }
 
 
-long FsObject::getHashCode()
+long FsObject::getHashCode() 
 {
 	return (long)this;
 }

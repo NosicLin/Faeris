@@ -1,2 +1,2 @@
 main:
-	../../tool/$(TOLUA)  -o ../../src/luaexport/FsLibBox2d.cc Box2D.pkg
+	../../tool/$(TOLUA) -L basic.lua -o ../../src/luaexport/FsLibBox2d.cc Box2D.pkg
