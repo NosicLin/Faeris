@@ -12,6 +12,7 @@
 #include "stage/entity/FsSprite2D.h"
 #include "stage/entity/FsLabelTTF.h"
 #include "stage/entity/FsLabelBitmap.h"
+#include "stage/entity/FsVertexPolygon.h"
 
 #if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
 #include "FsSpineSprite.h"
@@ -177,6 +178,33 @@ class LuaSprite2D:public TEntity<Sprite2D>
 	protected:
 		LuaSprite2D(){}
 		~LuaSprite2D(){}
+};
+
+
+class LuaVertexPolygon:public TEntity<VertexPolygon> 
+{
+	public:
+		static LuaVertexPolygon* create()
+		{
+			LuaVertexPolygon* ret=new LuaVertexPolygon();
+			if(!ret->init())
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+
+	public:
+
+		virtual const char* className()
+		{
+			return FS_LUA_VERTEX_POLYGON_CLASS_NAME;
+		}
+
+	protected:
+		LuaVertexPolygon(){}
+		~LuaVertexPolygon(){}
 };
 
 

@@ -905,6 +905,14 @@
 						RelativePath="..\src\stage\entity\FsSprite2DData.h"
 						>
 					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsVertexPolygon.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsVertexPolygon.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="layer"

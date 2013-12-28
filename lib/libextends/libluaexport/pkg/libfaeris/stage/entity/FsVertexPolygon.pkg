@@ -1,0 +1,67 @@
+$#include "stage/entity/FsVertexPolygon.h"
+$#include "luaext/FsLuaEntity.h"
+
+class VertexPolygon@__VertexPolygon:public Entity
+{
+	public:
+
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		void setColor(Color color);
+		Color getColor();
+
+		void setVertex(uint index,Vector3 v);
+		void setVertex(uint index,Vector2 v);
+
+		void setVertex(uint index,float x,float y,float z=0);
+
+
+		Vector3 getVertex(uint index);
+
+		void append(Vector3 v);
+		void append(Vector2 v);
+		void append(float x,float y,float z=0);
+
+		void removeVertex(uint index);
+
+		void insertVertex(uint index,Vector3 v );
+		void insertVertex(uint index,Vector2 v );
+		void insertVertex(uint index,float x,float y,float z=0);
+
+
+		void resize(int nu);
+		int getVertexNu();
+
+		void setMode(int mode);
+		int getMode();
+
+		void setPointSize(float size);
+		float getPointSize();
+};
+
+class LuaVertexPolygon@VertexPolygon:public VertexPolygon 
+{
+	public:
+		enum 
+		{
+			POINTS,
+			LINES,
+			LINE_STRIP,
+			LINE_LOOP,
+			TRIANGLES,
+			TRIANGLE_FAN,
+			TRIANGLE_STRIP,
+		};
+	public:
+		static LuaVertexPolygon* create();
+
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+};
+
+
+
+
+

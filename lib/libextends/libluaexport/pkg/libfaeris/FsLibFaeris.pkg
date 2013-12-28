@@ -25,6 +25,7 @@ $pfile "stage/entity/FsSprite2D.pkg"
 $pfile "stage/entity/FsLabelBitmap.pkg"
 $pfile "stage/entity/FsParticle2DEmitter.pkg"
 $pfile "stage/entity/FsParticle2DEffect.pkg"
+$pfile "stage/entity/FsVertexPolygon.pkg"
 
 
 

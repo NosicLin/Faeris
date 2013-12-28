@@ -256,6 +256,7 @@ enum
 #define FS_LABEL_BITMAP_CLASS_NAME "LabelBitmap"
 #define FS_PARTICLE2D_EMITTER_CLASS_NAME "Particle2DEmitter"
 #define FS_PARTICLE2D_EFFECT_CLASS_NAME   "Particle2DEffect"
+#define FS_VERTEX_POLYGON_CLASS_NAME "VertexPolygon"
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 12/25/13 02:38:48.
+** Generated automatically by tolua++-1.0.92 on 12/28/13 07:48:18.
 */
 
 #ifndef __cplusplus
@@ -30,6 +30,8 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "luaext/FsLuaEntity.h"
 #include "stage/entity/FsParticle2DEmitter.h"
 #include "stage/entity/FsParticle2DEffect.h"
+#include "stage/entity/FsVertexPolygon.h"
+#include "luaext/FsLuaEntity.h"
 #include "stage/FsActionTarget.h"
 #include "scheduler/FsScheduler.h"
 #include "luaext/FsLuaSchedulerTarget.h"
@@ -170,44 +172,46 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluaext_usertype(tolua_S,"HttpEngine");
  tolua_usertype(tolua_S,"Particle2DEmitter");
  tolua_usertype(tolua_S,"FsFile");
+ tolua_usertype(tolua_S,"LuaVertexPolygon");
  toluaext_usertype(tolua_S,"Sprite2D");
  
  toluaext_usertype(tolua_S,"LuaHttpRequest");
+ tolua_usertype(tolua_S,"Channel");
  toluaext_usertype(tolua_S,"LuaColorLayer");
  tolua_usertype(tolua_S,"Matrix4");
- tolua_usertype(tolua_S,"Channel");
+ toluaext_usertype(tolua_S,"RotateZToAction");
  toluaext_usertype(tolua_S,"Render");
  toluaext_usertype(tolua_S,"ScaleByAction");
  toluaext_usertype(tolua_S,"SysDispatcher");
  toluaext_usertype(tolua_S,"Quad2D");
  toluaext_usertype(tolua_S,"LabelTTF");
- toluaext_usertype(tolua_S,"Window");
+ toluaext_usertype(tolua_S,"LuaLabelBitmap");
  toluaext_usertype(tolua_S,"TouchDispatcher");
  toluaext_usertype(tolua_S,"SeqAction");
  toluaext_usertype(tolua_S,"Layer2D");
- toluaext_usertype(tolua_S,"LuaLayer2D");
+ tolua_usertype(tolua_S,"VertexPolygon");
  toluaext_usertype(tolua_S,"FsObject");
- toluaext_usertype(tolua_S,"RotateZToAction");
+ toluaext_usertype(tolua_S,"MoveByAction");
  toluaext_usertype(tolua_S,"ResourceMgr");
  toluaext_usertype(tolua_S,"LuaScene");
  toluaext_usertype(tolua_S,"TouchEventListener");
  tolua_usertype(tolua_S,"Sys");
  toluaext_usertype(tolua_S,"PauseAction");
- toluaext_usertype(tolua_S,"LuaLabelBitmap");
- tolua_usertype(tolua_S,"Global");
- toluaext_usertype(tolua_S,"LuaColorQuad2D");
- toluaext_usertype(tolua_S,"MoveByAction");
- toluaext_usertype(tolua_S,"Entity");
  toluaext_usertype(tolua_S,"Resource");
+ tolua_usertype(tolua_S,"Global");
+ toluaext_usertype(tolua_S,"Entity");
  tolua_usertype(tolua_S,"KeypadEvent");
- toluaext_usertype(tolua_S,"LuaSprite2D");
- toluaext_usertype(tolua_S,"LuaSysEventListener");
- toluaext_usertype(tolua_S,"SysEventListener");
+ toluaext_usertype(tolua_S,"LuaLayer2D");
  toluaext_usertype(tolua_S,"LuaEntity");
  tolua_usertype(tolua_S,"TouchPoint");
+ toluaext_usertype(tolua_S,"LuaSprite2D");
+ toluaext_usertype(tolua_S,"LuaColorQuad2D");
+ toluaext_usertype(tolua_S,"SysEventListener");
+ toluaext_usertype(tolua_S,"LuaSysEventListener");
  tolua_usertype(tolua_S,"Particle2DEffect");
  toluaext_usertype(tolua_S,"LuaLabelTTF");
  toluaext_usertype(tolua_S,"FontBitmap");
+ toluaext_usertype(tolua_S,"Window");
 }
 
 /* method: scheduler of class  Global */
@@ -8637,6 +8641,803 @@ static int tolua_FsLibFaeris_Particle2DEffect_getOpacity00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOpacity of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setOpacity00
+static int tolua_FsLibFaeris___VertexPolygon_setOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  float opacity = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOpacity'", NULL);
+#endif
+  {
+   self->setOpacity(opacity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOpacity of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getOpacity00
+static int tolua_FsLibFaeris___VertexPolygon_getOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOpacity'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getOpacity();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setColor of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setColor00
+static int tolua_FsLibFaeris___VertexPolygon_setColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Color",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  Color color = *((Color*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
+#endif
+  {
+   self->setColor(color);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getColor of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getColor00
+static int tolua_FsLibFaeris___VertexPolygon_getColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getColor'", NULL);
+#endif
+  {
+   Color tolua_ret = (Color)  self->getColor();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((Color)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"Color");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(Color));
+     tolua_pushusertype(tolua_S,tolua_obj,"Color");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setVertex00
+static int tolua_FsLibFaeris___VertexPolygon_setVertex00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"Vector3",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  Vector3 v = *((Vector3*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVertex'", NULL);
+#endif
+  {
+   self->setVertex(index,v);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVertex'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setVertex01
+static int tolua_FsLibFaeris___VertexPolygon_setVertex01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"Vector2",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  Vector2 v = *((Vector2*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVertex'", NULL);
+#endif
+  {
+   self->setVertex(index,v);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_setVertex00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setVertex02
+static int tolua_FsLibFaeris___VertexPolygon_setVertex02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+  float z = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVertex'", NULL);
+#endif
+  {
+   self->setVertex(index,x,y,z);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_setVertex01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getVertex00
+static int tolua_FsLibFaeris___VertexPolygon_getVertex00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVertex'", NULL);
+#endif
+  {
+   Vector3 tolua_ret = (Vector3)  self->getVertex(index);
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((Vector3)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"Vector3");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(Vector3));
+     tolua_pushusertype(tolua_S,tolua_obj,"Vector3");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVertex'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: append of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_append00
+static int tolua_FsLibFaeris___VertexPolygon_append00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  Vector3 v = *((Vector3*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'append'", NULL);
+#endif
+  {
+   self->append(v);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'append'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: append of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_append01
+static int tolua_FsLibFaeris___VertexPolygon_append01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector2",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  Vector2 v = *((Vector2*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'append'", NULL);
+#endif
+  {
+   self->append(v);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_append00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: append of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_append02
+static int tolua_FsLibFaeris___VertexPolygon_append02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float z = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'append'", NULL);
+#endif
+  {
+   self->append(x,y,z);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_append01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_removeVertex00
+static int tolua_FsLibFaeris___VertexPolygon_removeVertex00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeVertex'", NULL);
+#endif
+  {
+   self->removeVertex(index);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeVertex'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: insertVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_insertVertex00
+static int tolua_FsLibFaeris___VertexPolygon_insertVertex00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"Vector3",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  Vector3 v = *((Vector3*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'insertVertex'", NULL);
+#endif
+  {
+   self->insertVertex(index,v);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'insertVertex'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: insertVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_insertVertex01
+static int tolua_FsLibFaeris___VertexPolygon_insertVertex01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"Vector2",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  Vector2 v = *((Vector2*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'insertVertex'", NULL);
+#endif
+  {
+   self->insertVertex(index,v);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_insertVertex00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: insertVertex of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_insertVertex02
+static int tolua_FsLibFaeris___VertexPolygon_insertVertex02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int index = (( unsigned int)  tolua_tonumber(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+  float z = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'insertVertex'", NULL);
+#endif
+  {
+   self->insertVertex(index,x,y,z);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_FsLibFaeris___VertexPolygon_insertVertex01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resize of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_resize00
+static int tolua_FsLibFaeris___VertexPolygon_resize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  int nu = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resize'", NULL);
+#endif
+  {
+   self->resize(nu);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVertexNu of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getVertexNu00
+static int tolua_FsLibFaeris___VertexPolygon_getVertexNu00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVertexNu'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getVertexNu();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVertexNu'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMode of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setMode00
+static int tolua_FsLibFaeris___VertexPolygon_setMode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  int mode = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMode'", NULL);
+#endif
+  {
+   self->setMode(mode);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMode of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getMode00
+static int tolua_FsLibFaeris___VertexPolygon_getMode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMode'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getMode();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPointSize of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_setPointSize00
+static int tolua_FsLibFaeris___VertexPolygon_setPointSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  float size = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPointSize'", NULL);
+#endif
+  {
+   self->setPointSize(size);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPointSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPointSize of class  VertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___VertexPolygon_getPointSize00
+static int tolua_FsLibFaeris___VertexPolygon_getPointSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"VertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  VertexPolygon* self = (VertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPointSize'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getPointSize();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPointSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  LuaVertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_VertexPolygon_create00
+static int tolua_FsLibFaeris_VertexPolygon_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaVertexPolygon",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   LuaVertexPolygon* tolua_ret = (LuaVertexPolygon*)  LuaVertexPolygon::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"LuaVertexPolygon");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onDraw of class  LuaVertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_VertexPolygon_draw00
+static int tolua_FsLibFaeris_VertexPolygon_draw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaVertexPolygon",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaVertexPolygon* self = (LuaVertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  Render* r = ((Render*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
+#endif
+  {
+   self->onDraw(r);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onUpdate of class  LuaVertexPolygon */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_VertexPolygon_update00
+static int tolua_FsLibFaeris_VertexPolygon_update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaVertexPolygon",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaVertexPolygon* self = (LuaVertexPolygon*)  tolua_tousertype(tolua_S,1,0);
+  float dt = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onUpdate'", NULL);
+#endif
+  {
+   self->onUpdate(dt);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
  return 0;
 #endif
 }
@@ -21011,6 +21812,43 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getParticleNu",tolua_FsLibFaeris_Particle2DEffect_getParticleNu00);
    tolua_function(tolua_S,"setOpacity",tolua_FsLibFaeris_Particle2DEffect_setOpacity00);
    tolua_function(tolua_S,"getOpacity",tolua_FsLibFaeris_Particle2DEffect_getOpacity00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"__VertexPolygon","VertexPolygon","Entity",NULL);
+  tolua_beginmodule(tolua_S,"__VertexPolygon");
+   tolua_function(tolua_S,"setOpacity",tolua_FsLibFaeris___VertexPolygon_setOpacity00);
+   tolua_function(tolua_S,"getOpacity",tolua_FsLibFaeris___VertexPolygon_getOpacity00);
+   tolua_function(tolua_S,"setColor",tolua_FsLibFaeris___VertexPolygon_setColor00);
+   tolua_function(tolua_S,"getColor",tolua_FsLibFaeris___VertexPolygon_getColor00);
+   tolua_function(tolua_S,"setVertex",tolua_FsLibFaeris___VertexPolygon_setVertex00);
+   tolua_function(tolua_S,"setVertex",tolua_FsLibFaeris___VertexPolygon_setVertex01);
+   tolua_function(tolua_S,"setVertex",tolua_FsLibFaeris___VertexPolygon_setVertex02);
+   tolua_function(tolua_S,"getVertex",tolua_FsLibFaeris___VertexPolygon_getVertex00);
+   tolua_function(tolua_S,"append",tolua_FsLibFaeris___VertexPolygon_append00);
+   tolua_function(tolua_S,"append",tolua_FsLibFaeris___VertexPolygon_append01);
+   tolua_function(tolua_S,"append",tolua_FsLibFaeris___VertexPolygon_append02);
+   tolua_function(tolua_S,"removeVertex",tolua_FsLibFaeris___VertexPolygon_removeVertex00);
+   tolua_function(tolua_S,"insertVertex",tolua_FsLibFaeris___VertexPolygon_insertVertex00);
+   tolua_function(tolua_S,"insertVertex",tolua_FsLibFaeris___VertexPolygon_insertVertex01);
+   tolua_function(tolua_S,"insertVertex",tolua_FsLibFaeris___VertexPolygon_insertVertex02);
+   tolua_function(tolua_S,"resize",tolua_FsLibFaeris___VertexPolygon_resize00);
+   tolua_function(tolua_S,"getVertexNu",tolua_FsLibFaeris___VertexPolygon_getVertexNu00);
+   tolua_function(tolua_S,"setMode",tolua_FsLibFaeris___VertexPolygon_setMode00);
+   tolua_function(tolua_S,"getMode",tolua_FsLibFaeris___VertexPolygon_getMode00);
+   tolua_function(tolua_S,"setPointSize",tolua_FsLibFaeris___VertexPolygon_setPointSize00);
+   tolua_function(tolua_S,"getPointSize",tolua_FsLibFaeris___VertexPolygon_getPointSize00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"VertexPolygon","LuaVertexPolygon","VertexPolygon",NULL);
+  tolua_beginmodule(tolua_S,"VertexPolygon");
+   tolua_constant(tolua_S,"POINTS",LuaVertexPolygon::POINTS);
+   tolua_constant(tolua_S,"LINES",LuaVertexPolygon::LINES);
+   tolua_constant(tolua_S,"LINE_STRIP",LuaVertexPolygon::LINE_STRIP);
+   tolua_constant(tolua_S,"LINE_LOOP",LuaVertexPolygon::LINE_LOOP);
+   tolua_constant(tolua_S,"TRIANGLES",LuaVertexPolygon::TRIANGLES);
+   tolua_constant(tolua_S,"TRIANGLE_FAN",LuaVertexPolygon::TRIANGLE_FAN);
+   tolua_constant(tolua_S,"TRIANGLE_STRIP",LuaVertexPolygon::TRIANGLE_STRIP);
+   tolua_function(tolua_S,"create",tolua_FsLibFaeris_VertexPolygon_create00);
+   tolua_function(tolua_S,"draw",tolua_FsLibFaeris_VertexPolygon_draw00);
+   tolua_function(tolua_S,"update",tolua_FsLibFaeris_VertexPolygon_update00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"ActionTarget","ActionTarget","FsObject",NULL);
   tolua_beginmodule(tolua_S,"ActionTarget");
