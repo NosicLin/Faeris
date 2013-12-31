@@ -160,6 +160,9 @@ public:
     /// @param angle the world rotation in radians.
     void SetTransform(const b2Vec2& position, float32 angle);
 
+	void SetPosition(const b2Vec2& position);
+
+
     /// Get the body transform for the body's origin.
     /// @return the world transform of the body's origin.
     const b2Transform& GetTransform() const;

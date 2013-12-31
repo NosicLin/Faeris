@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Box2D
-** Generated automatically by tolua++-1.0.92 on 12/28/13 07:48:22.
+** Generated automatically by tolua++-1.0.92 on 12/31/13 08:41:09.
 */
 
 #ifndef __cplusplus
@@ -5257,6 +5257,39 @@ static int tolua_Box2D_b2Body_SetTransform00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'SetTransform'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SetPosition of class  b2Body */
+#ifndef TOLUA_DISABLE_tolua_Box2D_b2Body_SetPosition00
+static int tolua_Box2D_b2Body_SetPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"b2Body",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const b2Vec2",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  b2Body* self = (b2Body*)  tolua_tousertype(tolua_S,1,0);
+  const b2Vec2* position = ((const b2Vec2*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SetPosition'", NULL);
+#endif
+  {
+   self->SetPosition(*position);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SetPosition'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31510,6 +31543,7 @@ TOLUA_API int tolua_Box2D_open (lua_State* tolua_S)
    tolua_function(tolua_S,"CreateFixture",tolua_Box2D_b2Body_CreateFixture01);
    tolua_function(tolua_S,"DestroyFixture",tolua_Box2D_b2Body_DestroyFixture00);
    tolua_function(tolua_S,"SetTransform",tolua_Box2D_b2Body_SetTransform00);
+   tolua_function(tolua_S,"SetPosition",tolua_Box2D_b2Body_SetPosition00);
    tolua_function(tolua_S,"GetTransform",tolua_Box2D_b2Body_GetTransform00);
    tolua_function(tolua_S,"GetPosition",tolua_Box2D_b2Body_GetPosition00);
    tolua_function(tolua_S,"GetAngle",tolua_Box2D_b2Body_GetAngle00);

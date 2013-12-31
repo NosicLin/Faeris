@@ -438,6 +438,11 @@ void b2Body::SynchronizeFixtures()
     }
 }
 
+void b2Body::SetPosition(const b2Vec2& position)
+{
+	SetTransform(position,GetAngle());
+}
+
 void b2Body::SetActive(bool flag)
 {
     b2Assert(m_world->IsLocked() == false);
