@@ -327,7 +327,6 @@ void Entity::detach()
 {
 	if(m_parent)
 	{
-		assert(m_layer);
 		m_parent->remove(this);
 	}
 	else 
