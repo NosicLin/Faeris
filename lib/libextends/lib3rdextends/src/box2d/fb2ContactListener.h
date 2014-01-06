@@ -6,21 +6,22 @@
 #include "FsObject.h"
 NS_FS_BEGIN
 
-class fb2ContactListener:public b2ContactListener,public FsObject
+class fb2ContactListener:public b2ContactListener
 {
 	public:
 
 		fb2ContactListener();
 		~fb2ContactListener();
 
-	public:
-		virtual const char* className();
 
 	public:
 		virtual void BeginContact(b2Contact* contact);
 		virtual void EndContact(b2Contact* contact);
 		virtual void PreSolve(b2Contact* contact, const b2Manifold* old_mf);
 		virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
+
+	public:
+		int m_scriptData;
 
 };
 

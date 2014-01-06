@@ -1,13 +1,12 @@
 $#include "box2d/fb2ContactListener.h"
-class fb2ContactListener:public b2ContactListener,public FsObject
+
+class fb2ContactListener:b2ContactListener
 {
 	public:
 
 		fb2ContactListener();
 		~fb2ContactListener();
 
-	public:
-		virtual const char* className();
 
 	public:
 		virtual void BeginContact(b2Contact* contact);
@@ -15,5 +14,7 @@ class fb2ContactListener:public b2ContactListener,public FsObject
 		virtual void PreSolve(b2Contact* contact, const b2Manifold* old_mf);
 		virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 
+	public:
+		LUA_TABLE m_scriptData@data;
 };
 

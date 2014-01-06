@@ -4,7 +4,6 @@ _to_functions = _to_functions or {}
 _push_functions = _push_functions or {}
 
 local fsobject= {
-	"fb2ContactListener"
 }
 
 

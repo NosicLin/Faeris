@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Box2D
-** Generated automatically by tolua++-1.0.92 on 12/31/13 08:41:09.
+** Generated automatically by tolua++-1.0.92 on 01/06/14 01:42:15.
 */
 
 #ifndef __cplusplus
@@ -470,7 +470,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"b2ContactFeature");
  tolua_usertype(tolua_S,"b2FixtureDef");
  tolua_usertype(tolua_S,"b2FixtureProxy");
- toluaext_usertype(tolua_S,"fb2ContactListener");
+ tolua_usertype(tolua_S,"fb2ContactListener");
  tolua_usertype(tolua_S,"b2ContactFilter");
  tolua_usertype(tolua_S,"b2DistanceJointDef");
  tolua_usertype(tolua_S,"b2SimplexCache");
@@ -486,7 +486,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"b2ContactID");
  tolua_usertype(tolua_S,"b2Manifold");
  tolua_usertype(tolua_S,"b2ContactCreateFcn");
- tolua_usertype(tolua_S,"b2Shape");
+ 
  tolua_usertype(tolua_S,"b2Profile");
  tolua_usertype(tolua_S,"b2BodyDef");
  tolua_usertype(tolua_S,"b2WorldManifold");
@@ -542,7 +542,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"b2ClipVertex");
  tolua_usertype(tolua_S,"b2Vec2");
  tolua_usertype(tolua_S,"b2Filter");
- tolua_usertype(tolua_S,"FsObject");
+ tolua_usertype(tolua_S,"b2Shape");
  tolua_usertype(tolua_S,"b2Island");
  tolua_usertype(tolua_S,"b2Block");
  tolua_usertype(tolua_S,"b2EdgeShape");
@@ -31072,7 +31072,7 @@ static int tolua_Box2D_fb2ContactListener_new00(lua_State* tolua_S)
  {
   {
    fb2ContactListener* tolua_ret = (fb2ContactListener*)  Mtolua_new((fb2ContactListener)());
-    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"fb2ContactListener");
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"fb2ContactListener");
   }
  }
  return 1;
@@ -31100,7 +31100,7 @@ static int tolua_Box2D_fb2ContactListener_new00_local(lua_State* tolua_S)
  {
   {
    fb2ContactListener* tolua_ret = (fb2ContactListener*)  Mtolua_new((fb2ContactListener)());
-    toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"fb2ContactListener");
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"fb2ContactListener");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
@@ -31137,38 +31137,6 @@ static int tolua_Box2D_fb2ContactListener_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: className of class  fb2ContactListener */
-#ifndef TOLUA_DISABLE_tolua_Box2D_fb2ContactListener_className00
-static int tolua_Box2D_fb2ContactListener_className00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"fb2ContactListener",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  fb2ContactListener* self = (fb2ContactListener*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'className'", NULL);
-#endif
-  {
-   const char* tolua_ret = (const char*)  self->className();
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'className'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31310,20 +31278,48 @@ static int tolua_Box2D_fb2ContactListener_PostSolve00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: __FsObject__ of class  fb2ContactListener */
-#ifndef TOLUA_DISABLE_tolua_get_fb2ContactListener___FsObject__
-static int tolua_get_fb2ContactListener___FsObject__(lua_State* tolua_S)
+/* get function: m_scriptData of class  fb2ContactListener */
+#ifndef TOLUA_DISABLE_tolua_get_fb2ContactListener_data
+static int tolua_get_fb2ContactListener_data(lua_State* tolua_S)
 {
   fb2ContactListener* self = (fb2ContactListener*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '__FsObject__'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_scriptData'",NULL);
 #endif
-#ifdef __cplusplus
-   tolua_pushusertype(tolua_S,(void*)static_cast<FsObject*>(self), "FsObject");
-#else
-   tolua_pushusertype(tolua_S,(void*)((FsObject*)self), "FsObject");
-#endif
+   toluaext_push_luatable(tolua_S,self->m_scriptData);
  return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: m_scriptData of class  fb2ContactListener */
+#ifndef TOLUA_DISABLE_tolua_set_fb2ContactListener_data
+static int tolua_set_fb2ContactListener_data(lua_State* tolua_S)
+{
+  fb2ContactListener* self = (fb2ContactListener*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_scriptData'",NULL);
+   if((!toluaext_is_luatable(tolua_S,2,"LUA_TABLE",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  if(self->m_scriptData!=-1) 
+	{
+		toluaext_remove_luatable(tolua_S,self->m_scriptData); 
+	}
+	self->m_scriptData=toluaext_to_luatable(tolua_S,2,0);
+	if(self->m_scriptData==-1)
+	{
+		lua_pushvalue(tolua_S,TOLUA_NOPEER);
+		lua_setfenv(tolua_S,1);
+	}
+	else 
+	{
+		toluaext_push_luatable(tolua_S,self->m_scriptData);
+		lua_setfenv(tolua_S,1);
+	}
+	
+;
+ return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -32915,19 +32911,18 @@ TOLUA_API int tolua_Box2D_open (lua_State* tolua_S)
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"fb2ContactListener","fb2ContactListener","b2ContactListener",tolua_collect_fb2ContactListener);
   #else
-  tolua_cclass(tolua_S,"fb2ContactListener","fb2ContactListener","b2ContactListener",toluaext_fscollector);
+  tolua_cclass(tolua_S,"fb2ContactListener","fb2ContactListener","b2ContactListener",NULL);
   #endif
   tolua_beginmodule(tolua_S,"fb2ContactListener");
    tolua_function(tolua_S,"new",tolua_Box2D_fb2ContactListener_new00);
    tolua_function(tolua_S,"new_local",tolua_Box2D_fb2ContactListener_new00_local);
    tolua_function(tolua_S,".call",tolua_Box2D_fb2ContactListener_new00_local);
    tolua_function(tolua_S,"delete",tolua_Box2D_fb2ContactListener_delete00);
-   tolua_function(tolua_S,"className",tolua_Box2D_fb2ContactListener_className00);
    tolua_function(tolua_S,"BeginContact",tolua_Box2D_fb2ContactListener_BeginContact00);
    tolua_function(tolua_S,"EndContact",tolua_Box2D_fb2ContactListener_EndContact00);
    tolua_function(tolua_S,"PreSolve",tolua_Box2D_fb2ContactListener_PreSolve00);
    tolua_function(tolua_S,"PostSolve",tolua_Box2D_fb2ContactListener_PostSolve00);
-   tolua_variable(tolua_S,"__FsObject__",tolua_get_fb2ContactListener___FsObject__,NULL);
+   tolua_variable(tolua_S,"data",tolua_get_fb2ContactListener_data,tolua_set_fb2ContactListener_data);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;
