@@ -37,6 +37,8 @@ class Sprite2D :public Entity
 		void setOpacity(float opacity);
 		float getOpacity();
 
+		void setBlendMode(int blendsrc,int blenddst);
+
 		/* animation */
 		void setAnimation(const char* name);
 		const char* getAnimation();
@@ -81,9 +83,15 @@ class Sprite2D :public Entity
 	private:
 		Color  m_color;
 		float m_opacity;
+		int m_blendSrc;
+		int m_blendDst;
+
+
+
 
 		int m_curFrame;
 		float m_elapseTime;
+
 
 
 

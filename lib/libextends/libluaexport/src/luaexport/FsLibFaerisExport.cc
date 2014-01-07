@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/06/14 01:42:13.
+** Generated automatically by tolua++-1.0.92 on 01/07/14 09:11:52.
 */
 
 #ifndef __cplusplus
@@ -4130,6 +4130,41 @@ static int tolua_FsLibFaeris___Sprite2D_getOpacity00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setBlendMode of class  Sprite2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Sprite2D_setBlendMode00
+static int tolua_FsLibFaeris___Sprite2D_setBlendMode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Sprite2D",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Sprite2D* self = (Sprite2D*)  tolua_tousertype(tolua_S,1,0);
+  int blendsrc = ((int)  tolua_tonumber(tolua_S,2,0));
+  int blenddst = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlendMode'", NULL);
+#endif
+  {
+   self->setBlendMode(blendsrc,blenddst);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setBlendMode'.",&tolua_err);
  return 0;
 #endif
 }
@@ -21642,6 +21677,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getColor",tolua_FsLibFaeris___Sprite2D_getColor00);
    tolua_function(tolua_S,"setOpacity",tolua_FsLibFaeris___Sprite2D_setOpacity00);
    tolua_function(tolua_S,"getOpacity",tolua_FsLibFaeris___Sprite2D_getOpacity00);
+   tolua_function(tolua_S,"setBlendMode",tolua_FsLibFaeris___Sprite2D_setBlendMode00);
    tolua_function(tolua_S,"setAnimation",tolua_FsLibFaeris___Sprite2D_setAnimation00);
    tolua_function(tolua_S,"getAnimation",tolua_FsLibFaeris___Sprite2D_getAnimation00);
    tolua_function(tolua_S,"hasAnimation",tolua_FsLibFaeris___Sprite2D_hasAnimation00);
@@ -21992,6 +22028,17 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Render","Render","FsObject",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Render");
+   tolua_constant(tolua_S,"FACTOR_ZERO",Render::FACTOR_ZERO);
+   tolua_constant(tolua_S,"FACTOR_ONE",Render::FACTOR_ONE);
+   tolua_constant(tolua_S,"FACTOR_SRC_COLOR",Render::FACTOR_SRC_COLOR);
+   tolua_constant(tolua_S,"FACTOR_ONE_MINUS_SRC_COLOR",Render::FACTOR_ONE_MINUS_SRC_COLOR);
+   tolua_constant(tolua_S,"FACTOR_DST_COLOR",Render::FACTOR_DST_COLOR);
+   tolua_constant(tolua_S,"FACTOR_ONE_MINUS_DST_COLOR",Render::FACTOR_ONE_MINUS_DST_COLOR);
+   tolua_constant(tolua_S,"FACTOR_SRC_ALPHA",Render::FACTOR_SRC_ALPHA);
+   tolua_constant(tolua_S,"FACTOR_ONE_MINUS_SRC_ALPHA",Render::FACTOR_ONE_MINUS_SRC_ALPHA);
+   tolua_constant(tolua_S,"FACTOR_DST_ALPHA",Render::FACTOR_DST_ALPHA);
+   tolua_constant(tolua_S,"FACTOR_ONE_MINUS_DST_ALPHA",Render::FACTOR_ONE_MINUS_DST_ALPHA);
+   tolua_constant(tolua_S,"FACTOR_SRC_ALPHA_SATURATE",Render::FACTOR_SRC_ALPHA_SATURATE);
    tolua_function(tolua_S,"setScissorArea",tolua_FsLibFaeris_Render_setScissorArea00);
    tolua_function(tolua_S,"setScissorEnabled",tolua_FsLibFaeris_Render_setScissorEnabled00);
    tolua_function(tolua_S,"setViewport",tolua_FsLibFaeris_Render_setViewport00);

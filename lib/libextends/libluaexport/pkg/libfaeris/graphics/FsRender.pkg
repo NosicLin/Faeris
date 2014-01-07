@@ -2,6 +2,20 @@ $#include "graphics/FsRender.h"
 
 class Render:public FsObject 
 {
+	enum
+	{
+		FACTOR_ZERO,
+		FACTOR_ONE,
+		FACTOR_SRC_COLOR,
+		FACTOR_ONE_MINUS_SRC_COLOR,
+		FACTOR_DST_COLOR,
+		FACTOR_ONE_MINUS_DST_COLOR,
+		FACTOR_SRC_ALPHA,
+		FACTOR_ONE_MINUS_SRC_ALPHA,
+		FACTOR_DST_ALPHA,
+		FACTOR_ONE_MINUS_DST_ALPHA,
+		FACTOR_SRC_ALPHA_SATURATE,
+	};
 
 	void setScissorArea(float x,float y,float width,float height);
 	void setScissorEnabled(bool enable);

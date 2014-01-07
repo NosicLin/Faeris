@@ -164,6 +164,13 @@ bool Sprite2D::isAnimationPlaying()
 	return !m_stop;
 }
 
+void Sprite2D::setBlendMode(int blendsrc,int blenddst)
+{
+	m_blendSrc=blendsrc;
+	m_blendDst=blenddst;
+}
+
+
 
 void Sprite2D::setCurFrame(int frame)
 {
@@ -223,10 +230,14 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 
 	m_material->setOpacity(m_opacity);
 	m_material->setColor(m_color);
-
 	render->setMaterial(m_material);
+
+	render->setBlend(Render::EQUATION_ADD,m_blendSrc,m_blendDst);
+
 	render->setActiveTexture(1);
 	render->disableAllAttrArray();
+
+
 
 	Sprite2DKeyFrame* frame=m_curAnimation->getKeyFrame(m_curFrame);
 
@@ -380,6 +391,9 @@ Sprite2D::Sprite2D()
 	m_data=NULL;
 	m_curAnimation=NULL;
 	m_curAnimationCacheData=NULL;
+
+	m_blendSrc=Render::FACTOR_SRC_ALPHA;
+	m_blendDst=Render::FACTOR_ONE_MINUS_SRC_ALPHA;
 
 	m_textures=NULL;
 	m_animationCacheData=NULL;

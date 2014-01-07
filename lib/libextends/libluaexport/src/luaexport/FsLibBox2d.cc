@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Box2D
-** Generated automatically by tolua++-1.0.92 on 01/06/14 01:42:15.
+** Generated automatically by tolua++-1.0.92 on 01/07/14 09:11:55.
 */
 
 #ifndef __cplusplus
@@ -2063,33 +2063,6 @@ static int tolua_Box2D_b2Contact_GetManifold00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: GetManifold of class  b2Contact */
-#ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetManifold01
-static int tolua_Box2D_b2Contact_GetManifold01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"b2Contact",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  b2Contact* self = (b2Contact*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetManifold'", NULL);
-#endif
-  {
-   const b2Manifold* tolua_ret = (const b2Manifold*)  self->GetManifold();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const b2Manifold");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_Box2D_b2Contact_GetManifold00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: GetWorldManifold of class  b2Contact */
 #ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetWorldManifold00
 static int tolua_Box2D_b2Contact_GetWorldManifold00(lua_State* tolua_S)
@@ -2252,33 +2225,6 @@ static int tolua_Box2D_b2Contact_GetNext00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: GetNext of class  b2Contact */
-#ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetNext01
-static int tolua_Box2D_b2Contact_GetNext01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"b2Contact",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  b2Contact* self = (b2Contact*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetNext'", NULL);
-#endif
-  {
-   const b2Contact* tolua_ret = (const b2Contact*)  self->GetNext();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const b2Contact");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_Box2D_b2Contact_GetNext00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: GetFixtureA of class  b2Contact */
 #ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetFixtureA00
 static int tolua_Box2D_b2Contact_GetFixtureA00(lua_State* tolua_S)
@@ -2308,33 +2254,6 @@ static int tolua_Box2D_b2Contact_GetFixtureA00(lua_State* tolua_S)
  tolua_error(tolua_S,"#ferror in function 'GetFixtureA'.",&tolua_err);
  return 0;
 #endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: GetFixtureA of class  b2Contact */
-#ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetFixtureA01
-static int tolua_Box2D_b2Contact_GetFixtureA01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"b2Contact",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  b2Contact* self = (b2Contact*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetFixtureA'", NULL);
-#endif
-  {
-   const b2Fixture* tolua_ret = (const b2Fixture*)  self->GetFixtureA();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const b2Fixture");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_Box2D_b2Contact_GetFixtureA00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -2399,33 +2318,6 @@ static int tolua_Box2D_b2Contact_GetFixtureB00(lua_State* tolua_S)
  tolua_error(tolua_S,"#ferror in function 'GetFixtureB'.",&tolua_err);
  return 0;
 #endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: GetFixtureB of class  b2Contact */
-#ifndef TOLUA_DISABLE_tolua_Box2D_b2Contact_GetFixtureB01
-static int tolua_Box2D_b2Contact_GetFixtureB01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"b2Contact",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  b2Contact* self = (b2Contact*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetFixtureB'", NULL);
-#endif
-  {
-   const b2Fixture* tolua_ret = (const b2Fixture*)  self->GetFixtureB();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const b2Fixture");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_Box2D_b2Contact_GetFixtureB00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -31398,18 +31290,14 @@ TOLUA_API int tolua_Box2D_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"b2Contact","b2Contact","",NULL);
   tolua_beginmodule(tolua_S,"b2Contact");
    tolua_function(tolua_S,"GetManifold",tolua_Box2D_b2Contact_GetManifold00);
-   tolua_function(tolua_S,"GetManifold",tolua_Box2D_b2Contact_GetManifold01);
    tolua_function(tolua_S,"GetWorldManifold",tolua_Box2D_b2Contact_GetWorldManifold00);
    tolua_function(tolua_S,"IsTouching",tolua_Box2D_b2Contact_IsTouching00);
    tolua_function(tolua_S,"SetEnabled",tolua_Box2D_b2Contact_SetEnabled00);
    tolua_function(tolua_S,"IsEnabled",tolua_Box2D_b2Contact_IsEnabled00);
    tolua_function(tolua_S,"GetNext",tolua_Box2D_b2Contact_GetNext00);
-   tolua_function(tolua_S,"GetNext",tolua_Box2D_b2Contact_GetNext01);
    tolua_function(tolua_S,"GetFixtureA",tolua_Box2D_b2Contact_GetFixtureA00);
-   tolua_function(tolua_S,"GetFixtureA",tolua_Box2D_b2Contact_GetFixtureA01);
    tolua_function(tolua_S,"GetChildIndexA",tolua_Box2D_b2Contact_GetChildIndexA00);
    tolua_function(tolua_S,"GetFixtureB",tolua_Box2D_b2Contact_GetFixtureB00);
-   tolua_function(tolua_S,"GetFixtureB",tolua_Box2D_b2Contact_GetFixtureB01);
    tolua_function(tolua_S,"GetChildIndexB",tolua_Box2D_b2Contact_GetChildIndexB00);
    tolua_function(tolua_S,"SetFriction",tolua_Box2D_b2Contact_SetFriction00);
    tolua_function(tolua_S,"GetFriction",tolua_Box2D_b2Contact_GetFriction00);

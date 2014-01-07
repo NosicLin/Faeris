@@ -20,6 +20,8 @@ class Sprite2D@__Sprite2D:public Entity
 		void setOpacity(float opacity);
 		float getOpacity();
 
+		void setBlendMode(int blendsrc,int blenddst);
+
 		/* animation */
 		void setAnimation(const char* name);
 		const char* getAnimation();
