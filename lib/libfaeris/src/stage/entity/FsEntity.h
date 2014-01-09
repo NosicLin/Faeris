@@ -19,9 +19,6 @@ class Entity :public ActionTarget
 	public:
 		Entity* create();
 
-
-
-
 	public:
 		virtual void update(float dt);
 		virtual void draw(Render* r,bool updateMatrix=true);
