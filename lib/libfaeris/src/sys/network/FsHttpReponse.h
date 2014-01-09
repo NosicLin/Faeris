@@ -23,9 +23,13 @@ class HttpReponse :public FsObject
 		void appendError(uint8_t* data,int len);
 		void setErrorBuf(uint8_t* buf,int len);
 		void getErrorBuf(uint8_t** buf,int* len);
+
 	public:
 		virtual const char* className();
 
+	protected:
+		HttpReponse();
+		virtual ~HttpReponse();
 
 	private:
 		int m_code;

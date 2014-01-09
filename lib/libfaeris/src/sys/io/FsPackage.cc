@@ -7,7 +7,7 @@ NS_FS_BEGIN
 
 Package* Package::create(const char* filename,int type)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't Find File For Package");
@@ -23,7 +23,7 @@ Package* Package::create(const char* filename,int type)
 		case PACKAGE_FGZ:
 			ret=FgzPackage::create(file);
 	}
-	file->decRef();
+	file->autoDestroy();
 	return ret;
 }
 

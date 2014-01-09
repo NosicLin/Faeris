@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/07/14 09:11:52.
+** Generated automatically by tolua++-1.0.92 on 01/10/14 01:19:23.
 */
 
 #ifndef __cplusplus
@@ -526,37 +526,6 @@ static int tolua_FsLibFaeris_FsObject_className00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: dropData of class  FsObject */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_FsObject_dropData00
-static int tolua_FsLibFaeris_FsObject_dropData00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"FsObject",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  FsObject* self = (FsObject*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'dropData'", NULL);
-#endif
-  {
-   self->dropData();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'dropData'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* get function: m_scriptData of class  FsObject */
 #ifndef TOLUA_DISABLE_tolua_get_FsObject_data
 static int tolua_get_FsObject_data(lua_State* tolua_S)
@@ -819,9 +788,9 @@ static int tolua_FsLibFaeris___Entity_detach00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: allChild of class  Entity */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_allChild00
-static int tolua_FsLibFaeris___Entity_allChild00(lua_State* tolua_S)
+/* method: takeAllChild of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_takeAllChild00
+static int tolua_FsLibFaeris___Entity_takeAllChild00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -835,17 +804,17 @@ static int tolua_FsLibFaeris___Entity_allChild00(lua_State* tolua_S)
  {
   Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'allChild'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'takeAllChild'", NULL);
 #endif
   {
-   FsArray* tolua_ret = (FsArray*)  self->allChild();
+   FsArray* tolua_ret = (FsArray*)  self->takeAllChild();
     toluaext_pushfsobject2(tolua_S,(void*)tolua_ret,"FsArray");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'allChild'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'takeAllChild'.",&tolua_err);
  return 0;
 #endif
 }
@@ -10348,69 +10317,6 @@ static int tolua_FsLibFaeris___Scene_getLayer00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getLayer'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: takeObjectMgr of class  Scene */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Scene_takeObjectMgr00
-static int tolua_FsLibFaeris___Scene_takeObjectMgr00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Scene",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Scene* self = (Scene*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'takeObjectMgr'", NULL);
-#endif
-  {
-   ObjectMgr* tolua_ret = (ObjectMgr*)  self->takeObjectMgr();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"ObjectMgr");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'takeObjectMgr'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: dropObjectData of class  Scene */
-#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Scene_dropObjectData00
-static int tolua_FsLibFaeris___Scene_dropObjectData00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Scene",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Scene* self = (Scene*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'dropObjectData'", NULL);
-#endif
-  {
-   self->dropObjectData();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'dropObjectData'.",&tolua_err);
  return 0;
 #endif
 }
@@ -21520,7 +21426,6 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"FsObject");
    tolua_function(tolua_S,"getObjectNu",tolua_FsLibFaeris_FsObject_getObjectNu00);
    tolua_function(tolua_S,"className",tolua_FsLibFaeris_FsObject_className00);
-   tolua_function(tolua_S,"dropData",tolua_FsLibFaeris_FsObject_dropData00);
    tolua_variable(tolua_S,"data",tolua_get_FsObject_data,tolua_set_FsObject_data);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"FS_PLATFORM_WIN32",FS_PLATFORM_WIN32);
@@ -21536,7 +21441,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getParent",tolua_FsLibFaeris___Entity_getParent00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___Entity_remove00);
    tolua_function(tolua_S,"detach",tolua_FsLibFaeris___Entity_detach00);
-   tolua_function(tolua_S,"allChild",tolua_FsLibFaeris___Entity_allChild00);
+   tolua_function(tolua_S,"takeAllChild",tolua_FsLibFaeris___Entity_takeAllChild00);
    tolua_function(tolua_S,"childNu",tolua_FsLibFaeris___Entity_childNu00);
    tolua_function(tolua_S,"getLayer",tolua_FsLibFaeris___Entity_getLayer00);
    tolua_function(tolua_S,"getLocalMatrix",tolua_FsLibFaeris___Entity_getLocalMatrix00);
@@ -21933,8 +21838,6 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getLayerIndex",tolua_FsLibFaeris___Scene_getLayerIndex00);
    tolua_function(tolua_S,"top",tolua_FsLibFaeris___Scene_top00);
    tolua_function(tolua_S,"getLayer",tolua_FsLibFaeris___Scene_getLayer00);
-   tolua_function(tolua_S,"takeObjectMgr",tolua_FsLibFaeris___Scene_takeObjectMgr00);
-   tolua_function(tolua_S,"dropObjectData",tolua_FsLibFaeris___Scene_dropObjectData00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Scene","LuaScene","Scene",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Scene");

@@ -164,7 +164,7 @@ Resource* ResourceMgr::loadFromPath(const char* name)
 	Resource* ret=findFromCache(fs_name);
 	if(ret==NULL)
 	{
-		FsFile* file=VFS::open(name);
+		FsFile* file=VFS::createFile(name);
 		if(file==NULL)
 		{
 			ret=NULL;

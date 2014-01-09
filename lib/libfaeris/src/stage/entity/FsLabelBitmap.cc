@@ -230,7 +230,7 @@ LabelBitmap::LabelBitmap()
 
 LabelBitmap::~LabelBitmap()
 {
-	destroy();
+	destruct();
 }
 
 bool LabelBitmap::init(FontBitmap* font)
@@ -238,14 +238,16 @@ bool LabelBitmap::init(FontBitmap* font)
 	if(!font) return false;
 
 	Texture2D* tex=font->getTexture(0);
+
 	m_texture=tex;
+	m_texture->addRef();
 
 	font->addRef();
 	m_font=font;
 	return true;
 }
 
-void LabelBitmap::destroy()
+void LabelBitmap::destruct()
 {
 
 	clear();
@@ -287,11 +289,11 @@ int LabelBitmap::setString(uint16_t* utf16_str,int len)
 	for(int i=0;i<len;i++)
 	{
 		int index=utf16_str[i];
-		GlyphBitmap* g=m_font->loadGlyph(index);
+		GlyphBitmap* g=m_font->takeGlyph(index);
 		if(g==NULL)
 		{
 			FS_TRACE_INFO("Can't Find Index(%d) At FontBitmap,Use Space Instead",index);
-			g=m_font->loadGlyph(' ');
+			g=m_font->takeGlyph(' ');
 			assert(g);
 		}
 		glyphs.push_back(g);

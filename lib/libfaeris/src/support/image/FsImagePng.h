@@ -6,11 +6,14 @@
 #include "sys/io/FsVFS.h"
 
 NS_FS_BEGIN
-Image2D* FsUtil_PngReader(const char* filename);
-Image2D* FsUtil_PngReader(FsFile* file);
+
+FS_FEATURE_NEW_OBJECT(Image2D*) FsUtil_PngReader(const char* filename);
+FS_FEATURE_NEW_OBJECT(Image2D*) FsUtil_PngReader(FsFile* file);
+
 int FsUtil_PngWriter(FsFile* file,Image2D* img);
 
 NS_FS_END
+
 #endif /*_FS_IMAGE_PNG_H_*/
 
 

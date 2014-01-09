@@ -152,7 +152,6 @@ void HttpRequest::onReponse(HttpReponse* data)
 	{
 		schedule->runSyncTask(task);
 	}
-	task->decRef();
 }
 
 void HttpRequest::onSyncReponse(HttpReponse* data)

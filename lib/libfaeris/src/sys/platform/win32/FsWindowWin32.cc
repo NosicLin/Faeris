@@ -16,6 +16,7 @@
 NS_FS_BEGIN
 
 class PlatformWindow;
+
 class EventGraper:public SchedulerTarget
 {
 	public:
@@ -35,6 +36,7 @@ EventGraper::EventGraper()
 {
 	m_window=NULL;
 }
+
 
 EventGraper* EventGraper::create(PlatformWindow* win)
 {
@@ -283,7 +285,6 @@ PlatformWindow::~PlatformWindow()
 	}
 	UnregisterClass("FaerisWindow",hinstance);
 	Global::scheduler()->remove(m_eventGrap,Scheduler::HIGHEST);
-	m_eventGrap->decRef();
 }
 
 PlatformWindow::PlatformWindow()

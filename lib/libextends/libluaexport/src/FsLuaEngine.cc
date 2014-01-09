@@ -116,7 +116,7 @@ static const char* s_file_lua_reader(lua_State* L,void* data,size_t* size)
 
 int LuaEngine::executeFile(const char* filename)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FsUtil_Log("[LUA_ERROR] File Not Found %s", filename);

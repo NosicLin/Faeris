@@ -89,7 +89,7 @@ class LabelBitmap:public Entity
 		LabelBitmap();
 		virtual ~LabelBitmap();
 		bool init(FontBitmap* font);
-		void destroy();
+		void destruct();
 
 		int setString(uint16_t* utf16_str,int len);
 

@@ -23,7 +23,6 @@ FsObject::~FsObject()
 }
 
 
-
 void FsObject::setObjectMgr(ObjectMgr* mgr)
 {
 	m_objectMgr=mgr;

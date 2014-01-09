@@ -98,7 +98,7 @@ GlyphBitmap* FontBitmap::GlyphSet::find(int key)
 
 FontBitmap* FontBitmap::create(const char* fnt)
 {
-	FsFile* file=VFS::open(fnt);
+	FsFile* file=VFS::createFile(fnt);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't open File(%s) For FontBitmap",fnt);
@@ -150,7 +150,7 @@ void FontBitmap::destroy()
 }
 
 
-GlyphBitmap* FontBitmap::loadGlyph(uint16_t index)
+GlyphBitmap* FontBitmap::takeGlyph(uint16_t index)
 {
 	return m_glyphs->find(index);
 

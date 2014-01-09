@@ -229,9 +229,9 @@ void Director::pop()
 		return ;
 	}
 	Scene* scene=(Scene*)m_secenQueue->get(m_secenQueue->size()-1);
-	m_secenQueue->pop();
-
 	repace(scene);
+
+	m_secenQueue->pop();
 }
 
 void Director::run(Scene* scene)
@@ -240,7 +240,6 @@ void Director::run(Scene* scene)
 }
 Scene* Director::current()
 {
-	FS_SAFE_ADD_REF(m_current);
 	return m_current;
 }
 
@@ -279,7 +278,7 @@ Director::Director()
 
 Director::~Director()
 {
-	destroy();
+	destruct();
 }
 void Director::init()
 {
@@ -291,17 +290,20 @@ void Director::init()
 	m_autoSwapBuffers=false;
 
 	m_touchEventListener=DirectorTouchEventListener::create(this);
+	m_touchEventListener->addRef();
 	Global::touchDispatcher()->addListener(m_touchEventListener);
 
 	m_keypadEventListener=DirectorKeypadEventListener::create(this);
+	m_keypadEventListener->addRef();
 	Global::keypadDispatcher()->addListener(m_keypadEventListener);
 
 
 	m_inputTextEventListener=DirectorInputTextEventListener::create(this);
+	m_inputTextEventListener->addRef();
 	Global::inputTextDispatcher()->addListener(m_inputTextEventListener);
 
 }
-void Director::destroy()
+void Director::destruct()
 {
 	if(m_current)
 	{
@@ -445,11 +447,6 @@ void Director::inputTextEvent(const char* text,int length)
 	if(!m_current) return;
 	m_current->inputTextEvent(text,length);
 }
-
-
-
-
-
 
 
 

@@ -15,7 +15,6 @@ Entity* Entity::create()
 	return ret;
 }
 Entity::Entity()
-	:ActionTarget(true)
 {
 	init();
 }
@@ -23,29 +22,8 @@ Entity::Entity()
 
 Entity::~Entity()
 {
-	destroy();
+	destruct();
 }
-
-Scene* Entity::takeScene()
-{
-
-	if(m_layer)
-	{
-		return m_layer->takeScene();
-	}
-
-	return NULL;
-}
-
-
-void Entity::giveScene(Scene* scene)
-{
-
-	ActionTarget::giveScene(scene);
-
-}
-
-
 
 
 
@@ -61,7 +39,7 @@ void Entity::draw(Render* r,bool updateMatrix)
 }
 void Entity::init()
 {
-	m_name=NULL;
+
 	m_translate.set(0,0,0);
 	m_rotate.set(0,0,0);
 	m_scale.set(1,1,1);
@@ -78,7 +56,7 @@ void Entity::init()
 	m_layer=NULL;
 }
 
-void Entity::destroy()
+void Entity::destruct()
 {
 	assert(m_parent==NULL);
 	assert(m_layer==NULL);
@@ -87,8 +65,8 @@ void Entity::destroy()
 	{
 		Entity* entity=(Entity*) m_chirdren->get(i);
 		entity->setParent(NULL);
-		entity->decRef();
 	}
+
 	m_chirdren->decRef();
 }
 
@@ -139,7 +117,6 @@ void Entity::updateAllWorldMatrix()
 	{
 		Entity* node=(Entity*)iter.getValue();
 		node->updateChildWorldMatrix(dirty);
-		node->decRef();
 		iter.next();
 	}
 }
@@ -161,7 +138,6 @@ void Entity::updateChildWorldMatrix(bool force)
 	{
 		Entity* node=(Entity*)iter.getValue();
 		node->updateChildWorldMatrix(dirty);
-		node->decRef();
 		iter.next();
 	}
 }
@@ -225,7 +201,7 @@ Entity* Entity::getParent()
 }
 
 
-FsArray* Entity::allChild()
+FsArray* Entity::takeAllChild()
 {
 	FsArray* ret=FsArray::create();
 	getAllChild(ret);
@@ -244,7 +220,6 @@ void Entity::getAllChild(FsArray* ret)
 		Entity* ob=(Entity*)m_chirdren->get(i);
 		ret->push(ob);
 		ob->getAllChild(ret);
-		ob->decRef();
 	}
 }
 
@@ -260,7 +235,6 @@ void Entity::setChildVisible(bool visiable, bool rec)
 		{
 			ob->setChildVisible(visiable,true);
 		}
-		ob->decRef();
 	}
 }
 
@@ -275,9 +249,6 @@ void Entity::remove(Entity* n)
 		Entity* node=(Entity*)m_chirdren->get(i);
 		if(n==node)
 		{
-			m_chirdren->remove(i);
-			node->m_parent=NULL;
-
 			/* if node is manger by a layer, then 
 			 * drop the owner ship */
 			if(node->m_layer)
@@ -285,10 +256,11 @@ void Entity::remove(Entity* n)
 				node->m_layer->dropOwnership(node);
 				assert(node->m_layer==NULL);
 			}
-			node->decRef();
+
+			node->m_parent=NULL;
+			m_chirdren->remove(i);
 			return;
 		}
-		node->decRef();
 	}
 	FS_TRACE_WARN("Entity Not Found");
 }
@@ -299,27 +271,14 @@ void Entity::clearChild()
 	{
 		Entity* node=(Entity*)m_chirdren->get(0);
 		remove(node);
-		node->decRef();
 	}
 }
 
 Layer* Entity::getLayer()
 {
-	FS_SAFE_ADD_REF(m_layer);
 	return m_layer;
 }
 
-void Entity::dropData()
-{
-	while(m_chirdren->size()>0)
-	{
-		Entity* node=(Entity*)m_chirdren->get(0);
-		remove(node);
-		node->decRef();
-	}
-
-	ActionTarget::dropData();
-}
 
 
 
@@ -329,12 +288,14 @@ void Entity::detach()
 	{
 		m_parent->remove(this);
 	}
+	else if(m_layer)
+	{
+		m_layer->remove(this);
+	}
 	else 
 	{
-		if(m_layer)
-		{
-			m_layer->remove(this);
-		}
+		FS_TRACE_WARN("Entity Is Already Detached");
+
 	}
 }
 
@@ -355,10 +316,6 @@ Matrix4* Entity::getLocalMatrix()
 
 
 NS_FS_END
-
-
-
-
 
 
 

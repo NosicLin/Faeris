@@ -15,7 +15,7 @@
 class XirParser
 {
 	public:
-		static Faeris::FsDict* create(Faeris::FsFile* file);
+		static Faeris::FsDict* parse(Faeris::FsFile* file);
 };
 
 class YYParserParm
@@ -70,13 +70,18 @@ class YYParserParm
 		void setRoot(Faeris::FsDict* root)
 		{
 			FS_SAFE_ASSIGN(m_root,root);
+			if(root) root->addRef();
+			if(m_root) { m_root->decRef(); }
+			m_root=root;
 		}
-
 		Faeris::FsDict* getRoot()
 		{
+			if(m_root)
+			{
+				m_root->addRef();
+			}
 			return m_root;
 		}
-
 		~YYParserParm()
 		{
 			if(m_root) m_root->decRef();

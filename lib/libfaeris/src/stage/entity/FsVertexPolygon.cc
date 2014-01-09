@@ -172,7 +172,7 @@ VertexPolygon::VertexPolygon()
 
 VertexPolygon::~VertexPolygon()
 {
-	destory();
+	destruct();
 }
 
 bool VertexPolygon::init()
@@ -182,7 +182,7 @@ bool VertexPolygon::init()
 
 }
 
-void VertexPolygon::destory()
+void VertexPolygon::destruct()
 {
 
 	FS_SAFE_DEC_REF(m_material);

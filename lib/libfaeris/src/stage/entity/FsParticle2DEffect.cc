@@ -86,7 +86,7 @@ Particle2DEffect::Particle2DEffect()
 
 Particle2DEffect::~Particle2DEffect()
 {
-	destory();
+	destruct();
 }
 
 bool Particle2DEffect::init(Particle2DEmitter* emitter)
@@ -95,7 +95,7 @@ bool Particle2DEffect::init(Particle2DEmitter* emitter)
 	return true;
 }
 
-void Particle2DEffect::destory()
+void Particle2DEffect::destruct()
 {
 	FS_SAFE_DEC_REF(m_emitter);
 	m_emitter=NULL;
@@ -188,7 +188,6 @@ void Particle2DEffect::setEmitter(Particle2DEmitter* emit)
 
 Particle2DEmitter* Particle2DEffect::getEmitter()
 {
-	FS_SAFE_ADD_REF(m_emitter);
 	return m_emitter;
 }
 
@@ -412,7 +411,6 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 
 	render->setActiveTexture(1);
 	render->bindTexture(texture,0);
-	texture->decRef();
 	render->setBlend(Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
 
 	//FS_TRACE_WARN("emitter:%d,%d,%d",Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());

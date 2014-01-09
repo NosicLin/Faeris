@@ -13,7 +13,7 @@
 NS_FS_BEGIN
 
 
-Image2D* LineTypography::typo(const char* text,FontTTF* font)
+FS_FEATURE_NEW_OBJECT(Image2D*) LineTypography::typo(const char* text,FontTTF* font)
 {
 	uint16_t* unicode=FsIconv_UTF8_to_UNICODE(text);
 	if(!unicode)
@@ -32,7 +32,7 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 			continue;
 		}
 
-		Glyph* g=font->loadGlyph(ch);
+		Glyph* g=font->takeGlyph(ch);
 		if(font)
 		{
 			glyphs->push(g);
@@ -80,7 +80,6 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 			}
 			penx+=g->m_advance;
 		}
-		g->decRef();
 	}
 
 	int width=maxx-minx+1;
@@ -133,7 +132,6 @@ Image2D* LineTypography::typo(const char* text,FontTTF* font)
 				*(cur_dst_buffer+3)=gray;
 			}
 		}
-		g->decRef();
 		startx+=g->m_advance;
 	}
 	glyphs->decRef();
@@ -172,16 +170,13 @@ void LabelTTF::setFont(FontTTF* font)
 {
 	if(font!=m_font)
 	{
-		FS_SAFE_ADD_REF(font);
-		FS_SAFE_DEC_REF(m_font);
-		m_font=font;
+		FS_SAFE_ASSIGN(m_font,font);
 		m_dirty=true;
 	}
 }
 
 FontTTF* LabelTTF::getFont()
 {
-	FS_SAFE_ADD_REF(m_font);
 	return m_font;
 }
 
@@ -305,7 +300,7 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 		Vector3(rect.x,rect.y+rect.height,0.0f),
 	};
 
-	TexCoord2 vc[4]=
+	static TexCoord2 vc[4]=
 	{
 		TexCoord2(0,1),
 		TexCoord2(1,1),
@@ -313,7 +308,7 @@ void LabelTTF::draw(Render* render,bool updateMatrix)
 		TexCoord2(0,0),
 	};
 
-	Face3 faces[2]=
+	static Face3 faces[2]=
 	{
 		Face3(0,1,2),
 		Face3(2,3,0),
@@ -388,6 +383,7 @@ LabelTTF::~LabelTTF()
 {
 	FS_SAFE_DEC_REF(m_texture);
 	FS_SAFE_DEC_REF(m_font);
+
 	m_material->decRef();
 }
 

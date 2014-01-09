@@ -161,7 +161,7 @@ long SegFile::getLength()
 
 SegFile::~SegFile()
 {
-	destroy();
+	destruct();
 }
 
 
@@ -173,7 +173,7 @@ SegFile::SegFile()
 	m_curpos=0;
 }
 
-void SegFile::destroy()
+void SegFile::destruct()
 {
 	FS_SAFE_DEC_REF(m_stream);
 	m_stream=0;

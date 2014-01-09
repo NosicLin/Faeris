@@ -17,14 +17,14 @@ Scene* Scene::create()
 /* layer operation */
 void Scene::push(Layer* layer)
 {
-	if(layer->takeScene())
+	if(layer->getScene())
 	{
 		FS_TRACE_WARN("layer is already owned by scene");
 		return ;
 	}
 	m_layers->push(layer);
 
-	layer->giveScene(this);
+	layer->setScene(this);
 }
 
 void Scene::pop()
@@ -36,20 +36,19 @@ void Scene::pop()
 		return;
 	}
 	Layer* ret=(Layer*)m_layers->get(size-1);
-	ret->giveScene(NULL);
+	ret->setScene(NULL);
 	m_layers->pop();
-	ret->decRef();
 }
 
 void Scene::insert(int pos,Layer* layer)
 {
-	if(layer->takeScene())
+	if(layer->getScene())
 	{
 		FS_TRACE_WARN("layer is already owned by scene");
 		return ;
 	}
 	m_layers->insert(pos,layer);
-	layer->giveScene(this);
+	layer->setScene(this);
 }
 void Scene::replace(int pos,Layer* layer)
 {
@@ -59,21 +58,18 @@ void Scene::replace(int pos,Layer* layer)
 		FS_TRACE_WARN("Index(%d) Layer Out Of Range",pos);
 		return; 
 	}
-	ret->giveScene(NULL);
-	ret->decRef();
-
+	ret->setScene(NULL);
 	m_layers->set(pos,layer);
 }
 
 void Scene::remove(Layer* layer)
 {
-	if(layer->takeScene()!=this)
+	if(layer->getScene()!=this)
 	{
 		FS_TRACE_WARN("Layer is not owned by scene");
 		return;
 	}
-
-	layer->giveScene(NULL);
+	layer->setScene(NULL);
 	m_layers->remove(layer);
 }
 
@@ -102,11 +98,8 @@ int Scene::getLayerIndex(Layer* layer)
 		cur=(Layer*)m_layers->get(i);
 		if(cur==layer)
 		{
-			cur->decRef();
 			return i;
 		}
-
-		cur->decRef();
 	}
 	return -1;
 }
@@ -117,8 +110,7 @@ void Scene::clear()
 	for(int i=layer_nu-1;i>=0;i--)
 	{
 		Layer* layer=(Layer*)m_layers->get(i);
-		layer->giveScene(NULL);
-		layer->decRef();
+		layer->setScene(NULL);
 	}
 	m_layers->clear();
 }
@@ -132,19 +124,6 @@ void Scene::setFadeColor(Color c)
 {
 	m_fadeColor=c;
 }
-
-
-
-
-
-void Scene::dropData()
-{
-	clear();
-	ActionTarget::dropData();
-}
-
-
-
 
 
 /* event */
@@ -175,7 +154,6 @@ void Scene::updateLayers(float dt)
 		{
 			layer->update(dt);
 		}
-		layer->decRef();
 	}
 	m_layers->unlock();
 	m_layers->flush();
@@ -192,7 +170,6 @@ void Scene::draw(Render* render)
 		{
 			layer->draw(render);
 		}
-		layer->decRef();
 	}
 	m_layers->unlock();
 	m_layers->flush();
@@ -256,7 +233,6 @@ void Scene::touchBegin(float x,float y)
 		{
 			handle=layer->touchBegin(x,y);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -277,7 +253,6 @@ void Scene::touchMove(float x,float y)
 		{
 			handle=layer->touchMove(x,y);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -299,7 +274,6 @@ void Scene::touchEnd(float x,float y)
 		{
 			handle=layer->touchEnd(x,y);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -321,7 +295,6 @@ void Scene::touchesBegin(TouchEvent* event)
 		{
 			handle=layer->touchesBegin(event);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -343,7 +316,6 @@ void Scene::touchesPointerDown(TouchEvent* event)
 		{
 			handle=layer->touchesPointerDown(event);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -364,7 +336,6 @@ void Scene::touchesMove(TouchEvent* event)
 		{
 			handle=layer->touchesMove(event);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -386,7 +357,6 @@ void Scene::touchesPointerUp(TouchEvent* event)
 		{
 			handle=layer->touchesPointerUp(event);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -408,7 +378,6 @@ void Scene::touchesEnd(TouchEvent* event)
 		{
 			handle=layer->touchesEnd(event);
 		}
-		layer->decRef();
 		if(handle)
 		{
 			break;
@@ -429,17 +398,6 @@ void Scene::inputTextEvent(const char* text,int length)
 }
 
 
-ObjectMgr* Scene::takeObjectMgr()
-{
-	return m_objectMgr;
-}
-
-void Scene::dropObjectData()
-{
-	m_objectMgr->dropObjectData();
-}
-
-
 
 
 const char* Scene::className()
@@ -453,14 +411,13 @@ Scene::Scene()
 }
 Scene::~Scene()
 {
-	destroy();
+	destruct();
 }
 
 void Scene::init()
 {
 
 	m_layers=FsSlowArray::create();
-	m_objectMgr=ObjectMgr::create();
 	m_fadeColor=Color(255,255,255,0);
 	m_fadeEnabled=true;
 
@@ -468,10 +425,9 @@ void Scene::init()
 
 
 
-void Scene::destroy()
+void Scene::destruct()
 {
 	m_layers->decRef();
-	m_objectMgr->decRef();
 }
 
 

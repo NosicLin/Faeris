@@ -105,6 +105,8 @@ namespace Faeris
 /* copy able */
 #define FS_FEATURE public
 
+#define FS_FEATURE_NEW_OBJECT(v) v 
+
 #define FS_MAKE_NO_COPYABLE(class_name) \
 	private: \
     class_name& operator&(class_name& /*other*/){return *this;} \

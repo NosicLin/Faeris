@@ -270,7 +270,7 @@ FontTTFData* FontTTFData::create(FsFile* file)
 	return ret;
 }
 
-Glyph* FontTTFData::loadGlyph(uint16_t char_index,int size)
+Glyph* FontTTFData::takeGlyph(uint16_t char_index,int size)
 {
 	return m_data->loadGlyph(char_index,size);
 }
@@ -320,7 +320,7 @@ FontTTF* FontTTF::create(const char* name,int size)
 	return ret;
 }
 
-Glyph* FontTTF::loadGlyph(uint16_t char_index)
+Glyph* FontTTF::takeGlyph(uint16_t char_index)
 {
 	Glyph* ret=m_caches[char_index%(FS_FONT_GLYPH_CACHE_NU-1)];
 
@@ -329,7 +329,7 @@ Glyph* FontTTF::loadGlyph(uint16_t char_index)
 		ret->addRef();
 		return ret;
 	}
-	ret=m_data->loadGlyph(char_index,m_size);
+	ret=m_data->takeGlyph(char_index,m_size);
 	if(ret)
 	{
 		addCache(ret);

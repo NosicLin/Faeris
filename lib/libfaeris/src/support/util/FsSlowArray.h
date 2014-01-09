@@ -39,7 +39,7 @@ class FsSlowArray:public FsObject
 		FsSlowArray();
 		virtual ~FsSlowArray();
 		void init();
-		void destroy();
+		void destruct();
 
 
 	private:

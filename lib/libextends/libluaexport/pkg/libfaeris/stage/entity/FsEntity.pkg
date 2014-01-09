@@ -13,7 +13,7 @@ class Entity@__Entity:public ActionTarget
 
 		void remove(Entity* n);
 		void detach();
-		FsArray* allChild();
+		FsArray* takeAllChild();
 		int childNu();
 
 		Layer* getLayer();

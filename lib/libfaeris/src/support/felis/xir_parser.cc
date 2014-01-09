@@ -51,7 +51,7 @@ void xir_parse_err(const char* msg,void* parm)
 
 }
 
-Faeris::FsDict* XirParser::parse(Faeris::FsFile* file)
+Faeris::FsDict* XirParser::create(Faeris::FsFile* file)
 {
 	XirScanner* lex=new XirScanner(file,&Xir_Top);
 	YYParserParm* parm=new YYParserParm(lex);
@@ -64,7 +64,10 @@ Faeris::FsDict* XirParser::parse(Faeris::FsFile* file)
 	}
 
 	delete lex;
+
 	Faeris::FsDict* root=parm->getRoot();
+	root->addRef();
+
 	FS_TRACE_ERROR_ON(root==NULL,"Some Error Must Happened In xir_grammy.y");
 	delete parm;
 	return root;

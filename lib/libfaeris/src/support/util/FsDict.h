@@ -28,13 +28,11 @@ class  FsDict:public FsObject
 				FsObject* getKey()
 				{
 					FsObject* ret= m_dict->m_table[m_curPos].m_key;
-					ret->addRef();
 					return ret;
 				}
 				FsObject* getValue()
 				{
 					FsObject* ret=m_dict->m_table[m_curPos].m_value;
-					ret->addRef();
 					return ret;
 				}
 				bool done()
@@ -93,7 +91,7 @@ class  FsDict:public FsObject
 		bool insertWithNewKey(FsObject* key,FsObject* value);
 		bool remove(FsObject* key);
 		void clear();
-		Iterator* getIterator();
+		FS_FEATURE_NEW_OBJECT(Iterator*) takeIterator();
 		ulong size(){return m_used;}
 	protected:
 		DictEntry* getEntry(FsObject* key);

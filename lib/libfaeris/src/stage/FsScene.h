@@ -38,10 +38,6 @@ class Scene:public ActionTarget
 		void setEnabledFade(bool fade);
 		void setFadeColor(Color c);
 
-
-	public:
-		virtual void dropData();
-
 	public:
 
 		/* event hook */
@@ -69,20 +65,16 @@ class Scene:public ActionTarget
 
 	public:
 		void updateLayers(float dt);
-		ObjectMgr* takeObjectMgr();
-		void dropObjectData();
-
 
 
 	protected:
 		Scene();
 		~Scene();
 		void init();
-		void destroy();
+		void destruct();
 
 	private:
 		FsSlowArray* m_layers;
-		ObjectMgr* m_objectMgr;
 
 		Color m_fadeColor;
 		bool m_fadeEnabled;

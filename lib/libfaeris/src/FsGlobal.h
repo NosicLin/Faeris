@@ -28,7 +28,6 @@
 		}\
 		static t* get() \
 		{\
-			FS_SAFE_ADD_REF(m_##t);\
 			return m_##t; \
 		}\
 		static void drop##t() \

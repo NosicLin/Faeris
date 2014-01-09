@@ -1,4 +1,4 @@
-#ifndef FAERIS_OBJECT_H_ 
+#ifndef FAERIS_OBJECT_H_
 #define FAERIS_OBJECT_H_
 
 #include "FsMacros.h"
@@ -19,7 +19,7 @@ class FsObject
 
 	/* object attribute */
 	private:
-		bool m_autoDelete;
+		bool m_refDelete;
 		int m_refNu;
 		ObjectMgr* m_objectMgr;
 
@@ -29,21 +29,28 @@ class FsObject
 		void decRef()
 		{
 			m_refNu--;
-			if((m_refNu<=0)&&m_autoDelete)
+			if((m_refNu<=0)&&m_refDelete)
 			{
 				delete this;
 			}
 		}
 
-		void destory(){
+		void destroy(){
 			FS_TRACE_WARN_ON(m_refNu>0,"Object(%s) Is Owner By Other %d Object",className(),m_refNu);
 			delete this;
+		}
+		void autoDestroy()
+		{
+			if(m_refNu<=0)
+			{
+				delete this;
+			}
 		}
 
 	public:
 		FsObject()
-			:m_autoDelete(true),
-			:m_refNu(0),
+			:m_refDelete(true),
+			m_refNu(0),
 			m_objectMgr(NULL),
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 			m_scriptData(-1)
@@ -57,7 +64,6 @@ class FsObject
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
 
-		virtual void destruct();
 
 
 		void setObjectMgr(ObjectMgr* ob);

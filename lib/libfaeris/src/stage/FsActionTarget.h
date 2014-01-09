@@ -12,10 +12,6 @@ class Scene;
 class ActionTarget:public FsObject
 {
 	public:
-		virtual Scene* takeScene();
-		virtual void giveScene(Scene* scene);
-
-	public:
 		void doAction(Action* action);
 		void removeAction(Action* action);
 		void clearAction();
@@ -28,14 +24,12 @@ class ActionTarget:public FsObject
 
 		virtual void update(float dt);
 		virtual const char* className();
-		virtual void dropData();
 
 	public:
 		void updateAction(float dt);
 
 	protected:
 		ActionTarget();
-		ActionTarget(bool mgr);
 		virtual ~ActionTarget();
 
 	protected:

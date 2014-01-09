@@ -49,7 +49,7 @@ Mat_V4F_T2F* Mat_V4F_T2F::shareMaterial()
 
 void Mat_V4F_T2F::purgeShareMaterial()
 {
-	s_shareMatrial->forceDestroy();
+	s_shareMatrial->destroy();
 	s_shareMatrial=NULL;
 }
 

@@ -89,7 +89,6 @@ const char* Sprite2D::getAnimation()
 		return NULL;
 	}
 	FsString* name=m_curAnimation->getName();
-	name->decRef();
 	return name->cstr();
 }
 
@@ -259,7 +258,6 @@ void Sprite2D::draw(Render* render,bool update_matrix)
 		render->setAndEnableVertexAttrPointer(tex_loc,2,FS_FLOAT,4,0,quad->texcoord);
 		render->setAndEnableVertexAttrPointer(alpha_loc,1,FS_FLOAT,4,0,quad->alpha);
 		render->drawFace3(faces,2);
-		tex->decRef();
 	}
 	render->popMatrix();
 }

@@ -7,7 +7,6 @@ class FsObject
 	public:
 
 		const char* className();
-		void dropData();
 
 	public:
 		LUA_TABLE m_scriptData@data;

@@ -14,6 +14,13 @@ HttpReponse* HttpReponse::create()
 	return new HttpReponse;
 }
 
+HttpReponse::HttpReponse()
+{
+}
+HttpReponse::~HttpReponse()
+{
+}
+
 void HttpReponse::setReponseCode(int code)
 {
 	m_code=code;

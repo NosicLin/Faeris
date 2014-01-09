@@ -15,6 +15,7 @@ bool FsArray::checkType(FsObject* ob)
 {
 	return ob->className()==s_FsArrayName;
 }
+
 FsArray::FsArray()
 {
 	m_cap=FS_ARRAY_MIN_SIZE;
@@ -152,7 +153,6 @@ FsObject* FsArray::get(ulong index)
 		FS_TRACE_WARN("Access Out Of Range");
 		return NULL;
 	}
-	if(m_obs[index]) m_obs[index]->addRef();
 	return m_obs[index];
 }
 FsObject* FsArray::top()
@@ -162,7 +162,6 @@ FsObject* FsArray::top()
 		FS_TRACE_WARN("Access Out Of Range");
 		return NULL;
 	}
-	FS_SAFE_ADD_REF(m_obs[m_size-1]);
 	return m_obs[m_size-1];
 }
 

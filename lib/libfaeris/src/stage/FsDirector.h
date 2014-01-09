@@ -50,7 +50,7 @@ class Director :public SchedulerTarget
 		Director();
 		~Director();
 		void init();
-		void destroy();
+		void destruct();
 		void repace(Scene* scene);
 
 		void drawScene();

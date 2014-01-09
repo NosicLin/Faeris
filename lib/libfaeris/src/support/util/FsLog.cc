@@ -54,7 +54,7 @@ void FsLog::log(const char* fmt,...)
 FileLog* FileLog::create(const char* filename)
 {
 
-	FsFile* f=VFS::open(filename,VFS::FS_IO_CREATE|VFS::FS_IO_APPEND);
+	FsFile* f=VFS::createFile(filename,VFS::FS_IO_CREATE|VFS::FS_IO_APPEND);
 	if(f==NULL)
 	{
 		return NULL;

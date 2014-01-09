@@ -155,7 +155,7 @@ FsSlowArray::FsSlowArray()
 }
 FsSlowArray::~FsSlowArray()
 {
-	destroy();
+	destruct();
 }
 
 void FsSlowArray::init()
@@ -165,7 +165,7 @@ void FsSlowArray::init()
 
 }
 
-void FsSlowArray::destroy()
+void FsSlowArray::destruct()
 {
 	m_items->decRef();
 

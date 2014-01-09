@@ -103,7 +103,7 @@ Scheduler::Scheduler()
 }
 Scheduler::~Scheduler()
 {
-	destroy();
+	destruct();
 }
 
 
@@ -172,7 +172,7 @@ void Scheduler::init()
 	m_taskLock=new Mutex();
 }
 
-void Scheduler::destroy()
+void Scheduler::destruct()
 {
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
@@ -184,6 +184,7 @@ void Scheduler::destroy()
 
 	m_taskHanding->decRef();
 	m_taskHanding=NULL;
+
 	delete m_taskLock;
 	m_taskLock=NULL;
 

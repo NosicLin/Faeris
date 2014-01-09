@@ -130,7 +130,7 @@ FsSlowDict::~FsSlowDict()
 	m_pendingCommand.clear();
 }
 
-FsDict::Iterator* FsSlowDict::getIterator()
+FsDict::Iterator* FsSlowDict::takeIterator()
 {
 	return new FsDict::Iterator(m_dict);
 }

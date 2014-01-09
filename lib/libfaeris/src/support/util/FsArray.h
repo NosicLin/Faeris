@@ -24,7 +24,6 @@ class FsArray:public FsObject
 				FsObject* getValue()
 				{
 					FsObject* ret=m_host->m_obs[m_curPos];
-					if(ret) ret->addRef();
 					return ret;
 				}
 				Iterator(FsArray* ay)
