@@ -19,6 +19,7 @@ class FsObject
 
 	/* object attribute */
 	private:
+		bool m_autoDelete;
 		int m_refNu;
 		ObjectMgr* m_objectMgr;
 
@@ -28,17 +29,21 @@ class FsObject
 		void decRef()
 		{
 			m_refNu--;
-			FS_TRACE_ERROR_ON(m_refNu<0,"%s Reference Error",className());
-			if(m_refNu<=0)
+			if((m_refNu<=0)&&m_autoDelete)
 			{
 				delete this;
 			}
 		}
-		void forceDestroy(){delete this;}
+
+		void destory(){
+			FS_TRACE_WARN_ON(m_refNu>0,"Object(%s) Is Owner By Other %d Object",className(),m_refNu);
+			delete this;
+		}
 
 	public:
 		FsObject()
-			:m_refNu(1),
+			:m_autoDelete(true),
+			:m_refNu(0),
 			m_objectMgr(NULL),
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 			m_scriptData(-1)
@@ -46,16 +51,17 @@ class FsObject
 		{ 
 			FsObject::m_objectNu++;
 		}
-		FsObject(bool mgred);
-
 
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
-		virtual void dropData();
-		void giveObjectMgr(ObjectMgr* ob);
-		ObjectMgr* takeObjectMgr();
+
+		virtual void destruct();
+
+
+		void setObjectMgr(ObjectMgr* ob);
+		ObjectMgr* getObjectMgr();
 
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
