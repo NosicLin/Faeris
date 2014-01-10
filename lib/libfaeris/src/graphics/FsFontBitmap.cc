@@ -147,10 +147,9 @@ void FontBitmap::destruct()
 }
 
 
-GlyphBitmap* FontBitmap::takeGlyph(uint16_t index)
+GlyphBitmap* FontBitmap::getGlyph(uint16_t index)
 {
 	GlyphBitmap* g= m_glyphs->find(index);
-	if(g) g->addRef();
 	return g;
 
 }
@@ -351,10 +350,7 @@ bool FontBitmap::init(FsFile* file)
 			{
 				max_xadvance=v_xadvance;
 			}
-
 			glyphs->insert(v_id,glyph);
-
-			glyph->decRef();
 		}
 		else
 		{

@@ -65,7 +65,7 @@ TOLUA_API int  tolua_FsLibFaeris_open (lua_State* tolua_S);
 #include "mgr/FsResource.h"
 #include "mgr/FsObjectMgr.h"
 #include "stage/action/FsAction.h"
-#include "Luaext/FsLuaAction.h"
+#include "luaext/FsLuaAction.h"
 #include "stage/action/FsMoveByAction.h"
 #include "stage/action/FsMoveToAction.h"
 #include "stage/action/FsPauseAction.h"

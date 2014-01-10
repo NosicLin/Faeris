@@ -1,5 +1,5 @@
 $#include "stage/action/FsAction.h"
-$#include "Luaext/FsLuaAction.h"
+$#include "luaext/FsLuaAction.h"
 
 
 class Action@__Action:public FsObject 

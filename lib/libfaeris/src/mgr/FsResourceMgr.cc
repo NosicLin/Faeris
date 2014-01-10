@@ -250,14 +250,16 @@ void ResourceMgr::unloadAll(bool force)
 void ResourceMgr::dump()
 {
 
+	/*
 	FsDict::Iterator iter(m_caches);
 	while(!iter.done())
 	{
 		FsString* key=(FsString*)iter.getKey();
-		printf("\t%s\n",key->cstr());
+	//	printf("\t%s\n",key->cstr());
 		iter.next();
 	}
-	printf("%s Dump Resource End\n",className());
+	//printf("%s Dump Resource End\n",className());
+	*/
 }
 
 

@@ -1,3 +1,5 @@
+#include "string.h"
+
 #include "stage/entity/FsParticle2DEmitter.h"
 #include "stage/entity/FsParticle2DEffect.h"
 #include "sys/io/FsVFS.h"

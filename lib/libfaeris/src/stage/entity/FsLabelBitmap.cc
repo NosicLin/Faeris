@@ -221,6 +221,7 @@ LabelBitmap::LabelBitmap()
 	m_texture=NULL;
 
 	m_material=Mat_V4F_T2F::shareMaterial();
+	m_material->addRef();
 	m_width=0;
 	m_height=0;
 	m_relOffsetx=0;
@@ -239,11 +240,9 @@ bool LabelBitmap::init(FontBitmap* font)
 
 	Texture2D* tex=font->getTexture(0);
 
-	m_texture=tex;
-	m_texture->addRef();
+	FS_SAFE_ASSIGN(m_texture,tex);
+	FS_SAFE_ASSIGN(m_font,font);
 
-	font->addRef();
-	m_font=font;
 	return true;
 }
 
@@ -289,11 +288,11 @@ int LabelBitmap::setString(uint16_t* utf16_str,int len)
 	for(int i=0;i<len;i++)
 	{
 		int index=utf16_str[i];
-		GlyphBitmap* g=m_font->takeGlyph(index);
+		GlyphBitmap* g=m_font->getGlyph(index);
 		if(g==NULL)
 		{
 			FS_TRACE_INFO("Can't Find Index(%d) At FontBitmap,Use Space Instead",index);
-			g=m_font->takeGlyph(' ');
+			g=m_font->getGlyph(' ');
 			assert(g);
 		}
 		glyphs.push_back(g);
@@ -487,12 +486,6 @@ int LabelBitmap::setString(uint16_t* utf16_str,int len)
 	for(l_iter=mul_line_vertices.begin();l_iter!=mul_line_vertices.end();++l_iter)  /* for every line */
 	{
 		delete *l_iter;
-	}
-
-	std::vector<GlyphBitmap*>::iterator g_iter=glyphs.begin();
-	for(;g_iter!=glyphs.end();++g_iter)
-	{
-		(*g_iter)->decRef();
 	}
 
 

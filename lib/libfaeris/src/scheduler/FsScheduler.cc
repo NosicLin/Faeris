@@ -51,7 +51,8 @@ void Scheduler::mainLoop()
 			diff_time=(cur_time-last_time)/1000.0f;
 
 		}
-		float sleep_time=update(diff_time);
+
+		update(diff_time);
 
 		
 		while(m_timer.now()-cur_time<=m_intervalTime){}

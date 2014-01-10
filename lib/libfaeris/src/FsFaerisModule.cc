@@ -16,6 +16,9 @@
 
 #include "graphics/material/FsMat_V4F_T2F_A1F.h"
 #include "graphics/material/FsMat_V4F_T2F.h"
+#include "graphics/material/FsMat_V4F.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
+#include "graphics/material/FsMat_V4F_T2F_C4F.h"
 #include "sys/io/FsVFS.h"
 #include "sys/io/FsPackage.h"
 #include "support/util/FsDict.h"
@@ -30,47 +33,59 @@ int FsFaeris_ModuleInit()
 	VFS::moduleInit();
 
 	ObjectMgr* ob_mgr=ObjectMgr::create();
+	FS_NO_REF_DESTROY(ob_mgr);
 	Global::setObjectMgr(ob_mgr);
 
 
 	Scheduler* scheduler=Scheduler::create();
+	FS_NO_REF_DESTROY(scheduler);
 	Global::setScheduler(scheduler);
 
 
 	TouchDispatcher* touch_dispatcher=TouchDispatcher::create();
+	FS_NO_REF_DESTROY(touch_dispatcher);
 	Global::setTouchDispatcher(touch_dispatcher);
 
 
 	SysDispatcher* sys_dispatcher=SysDispatcher::create();
+	FS_NO_REF_DESTROY(sys_dispatcher);
 	Global::setSysDispatcher(sys_dispatcher);
 
 	KeypadDispatcher* key_dispatcher=KeypadDispatcher::create();
+	FS_NO_REF_DESTROY(key_dispatcher);
 	Global::setKeypadDispatcher(key_dispatcher);
 
 
 	InputTextDispatcher* input_text_dispatcher=InputTextDispatcher::create();
+	FS_NO_REF_DESTROY(input_text_dispatcher);
 	Global::setInputTextDispatcher(input_text_dispatcher);
 
 
 
 	Director* director=Director::create();
+	FS_NO_REF_DESTROY(director);
 	Global::setDirector(director);
 
 
 	Window* window=Window::create();
+	FS_NO_REF_DESTROY(window);
 	Global::setWindow(window);
 
 	Render* render=Render::create();
+	FS_NO_REF_DESTROY(render);
 	Global::setRender(render);
 
 	TextureMgr* tex_mgr=TextureMgr::create();
+	FS_NO_REF_DESTROY(tex_mgr);
 	Global::setTextureMgr(tex_mgr);
 
 
 	FontTTFDataMgr* font_mgr=FontTTFDataMgr::create();
+	FS_NO_REF_DESTROY(font_mgr);
 	Global::setFontTTFDataMgr(font_mgr);
 
 	Sprite2DDataMgr* sprite_mgr=Sprite2DDataMgr::create();
+	FS_NO_REF_DESTROY(sprite_mgr);
 	Global::setSprite2DDataMgr(sprite_mgr);
 
 
@@ -101,6 +116,7 @@ int FsFaeris_ModuleExit()
 	SysDispatcher* sys_dispatcher=Global::sysDispatcher();
 	KeypadDispatcher* key_dispatcher=Global::keypadDispatcher();
 	InputTextDispatcher* input_text_dispatcher=Global::inputTextDispatcher();
+
 	Director* director=Global::director();
 
 
@@ -132,20 +148,33 @@ int FsFaeris_ModuleExit()
 
 
 	/* destroy */
-	window->destroy();
-	render->destroy();
+	FS_DESTROY(render);
+	FS_DESTROY(window);
 
-	scheduler->destroy();
+	FS_DESTROY(scheduler);
+	FS_DESTROY(director);
+
+	/* scheduler target */
+	FS_DESTROY(touch_dispatcher);
+	FS_DESTROY(sys_dispatcher);
+	FS_DESTROY(key_dispatcher);
+	FS_DESTROY(input_text_dispatcher);
 
 	/* mgr */
-	tex_mgr->destroy();
-	font_mgr->destroy();
-	sprite_mgr->destroy();
-	ob_mgr->destroy();
+	FS_DESTROY(tex_mgr);
+	FS_DESTROY(font_mgr);
+	FS_DESTROY(sprite_mgr);
+	FS_DESTROY(ob_mgr);
+
+
 
 	/* material */
-	Mat_V4F_T2F_A1F::purgeShareMaterial();
+	Mat_V4F::purgeShareMaterial();
+	Mat_V4F_C4F::purgeShareMaterial();
 	Mat_V4F_T2F::purgeShareMaterial();
+	Mat_V4F_T2F_A1F::purgeShareMaterial();
+	Mat_V4F_T2F_C4F::purgeShareMaterial();
+
 
 	VFS::moduleExit();
 

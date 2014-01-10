@@ -10,6 +10,7 @@ class Mat_V4F_C4F:public Material
 	public:
 		static Mat_V4F_C4F* create();
 		static Mat_V4F_C4F* shareMaterial();
+		static void purgeShareMaterial();
 
 	public:
 		virtual void onUse(Render* r);

@@ -285,8 +285,8 @@ void Director::init()
 	m_current=NULL;
 	m_next=NULL;
 	m_sceneChange=false;
+
 	m_secenQueue=FsArray::create();
-	
 	FS_NO_REF_DESTROY(m_secenQueue);
 
 	m_stop=false;

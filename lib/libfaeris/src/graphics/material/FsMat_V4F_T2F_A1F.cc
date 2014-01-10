@@ -46,15 +46,15 @@ Mat_V4F_T2F_A1F* Mat_V4F_T2F_A1F::shareMaterial()
 	if(s_shareMatrial==NULL)
 	{
 		s_shareMatrial=Mat_V4F_T2F_A1F::create();
+		FS_NO_REF_DESTROY(s_shareMatrial);
 	}
 
-	s_shareMatrial->addRef();
 	return s_shareMatrial;
 }
 
 void Mat_V4F_T2F_A1F::purgeShareMaterial()
 {
-	s_shareMatrial->destroy();
+	FS_SAFE_DESTROY(s_shareMatrial);
 	s_shareMatrial=NULL;
 }
 

@@ -66,7 +66,7 @@ class FontBitmap:public Resource
 		static FontBitmap* create(const char* fnt);
 		static FontBitmap* create(FsFile* file);
 	public:
-		GlyphBitmap* takeGlyph(uint16_t char_index);
+		GlyphBitmap* getGlyph(uint16_t char_index);
 
 
 		Texture2D* getTexture(int index);

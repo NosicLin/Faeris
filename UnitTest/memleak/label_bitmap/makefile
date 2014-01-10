@@ -31,21 +31,21 @@ BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 CC=g++
 FLAGS=-g -Wall   -include sys/types.h -DLINUX
 INCLUDE=  -I.   \
-		  -I../../../libfaeris/src
+		  -I../../../lib/libfaeris/src
 
 LIB=-Llib \
-   	 -L../../../build/linux/lib \
+	-L../../../lib/library/linux/ \
+	-L../../../lib/library/linux/3rdparty \
 	-L../../../build/linux/prebuild/debug/ \
 	-l$(PROJECT) \
 	-l$(PROJECT)debug \
-   	-lfaeris  \
-	-llibpng -lzlib   -lGLEW -lfreetype -lminizip
+	-lfaerisd   -llibpngd -lzlibd  -lX11 -lGLEW -lGL -lfreetype -lminizipd -lpthread
 
 
 
 
 main: obj lib bin $(ALL_OBJ_WITH_PATH) $(BIN_OBJ_NAME_WITH_PATH) \
-   	$(BIN_NAME_WITH_PATH)  lib/lib$(PROJECT).a
+	$(BIN_NAME_WITH_PATH)  lib/lib$(PROJECT).a
 
 lib/lib$(PROJECT).a:$(OBJ_NAME_WITH_PATH) 
 	ar cr $@ $(OBJ_NAME_WITH_PATH)
@@ -55,17 +55,17 @@ lib/lib$(PROJECT)debug.a:$(DEBUG_OBJ_NAME_WITH_PATH)
 
 
 bin/%.exe:obj/%.o lib/lib$(PROJECT).a lib/lib$(PROJECT)debug.a 
-	$(CC) $(FLAGS) -o $@ $< -Xlinker "-(" $(LIB) -Xlinker "-)"
+	$(CC)  $(FLAGS) -o $@ $< -Xlinker "-(" $(LIB) -Xlinker "-)"
 
 obj/%.o:%.cc
 	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE) 
 
 obj/%.o:debug/%.cc
 	$(CC) $(FLAGS) -c -o $@ $< $(INCLUDE) 
-	
+
 xir_grammer.cc:xir_grammer.y
 	bison xir_grammer.y -o xir_grammer.cc
-	
+
 init:
 	mkdir -p obj 
 	mkdir -p bin
@@ -94,7 +94,7 @@ depend:
 		file_name=`basename $$element`;\
 		result=`echo $$file_name | sed -e 's/.c/.o/'`;\
 		gcc -M -MT "obj/$$result" $$element $(INCLUDE) >>.$(PROJECT).dep ;\
-	done
+		done
 
 -include .$(PROJECT).dep
 

@@ -354,7 +354,7 @@ void Particle2DEffect::generateParticle(float dt)
 	int new_size=generate_nu+particle_size;
 
 	m_particles.resize(new_size);
-	FS_TRACE_ERROR_ON(m_particles.size()!=new_size,"std::vector.resize Error ");
+	FS_TRACE_ERROR_ON(m_particles.size()!=(unsigned int)new_size,"std::vector.resize Error ");
 
 	/* FIXME: this is a bug, when engine build in debug mode and used as a static library 
 	 *        for other application, if the application build with debug mode, std::vector.size() 
@@ -421,7 +421,6 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	int tex_loc=m_material->getT2FLocation();
 
 	int color_uniform=m_material->getColorUniform();
-	int texture_uniform=m_material->getTextureUniform();
 
 	static Face3 faces[2]=
 	{

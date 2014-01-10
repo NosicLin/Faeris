@@ -9,7 +9,7 @@
 #include "support/util/FsDict.h"
 #include "support/util/FsArray.h"
 
-#include "FsxAccessModule.h"
+//#include "FsxAccessModule.h"
 
 
 #if FS_PLATFORM_OS(FS_OS_WIN32)
@@ -108,7 +108,7 @@ int main(int argc,char** argv)
 	engine=LuaEngine::create();
 	Global::setScriptEngine(engine);
 
-	FsModuel_xAccessInit();
+	//FsModuel_xAccessInit();
 
 
 	engine->executeFile(entry->cstr());

@@ -39,11 +39,17 @@ Mat_V4F_C4F* Mat_V4F_C4F::shareMaterial()
 	if(s_share_material==NULL)
 	{
 		s_share_material = Mat_V4F_C4F::create();
+		FS_NO_REF_DESTROY(s_share_material);
 	}
 
-	FS_SAFE_ADD_REF(s_share_material);
 	return s_share_material;
 }
+void Mat_V4F_C4F::purgeShareMaterial()
+{
+	FS_SAFE_DESTROY(s_share_material);
+	s_share_material=NULL;
+}
+
 
 Mat_V4F_C4F* Mat_V4F_C4F::create()
 {

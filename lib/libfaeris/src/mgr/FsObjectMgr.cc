@@ -85,7 +85,7 @@ void ObjectMgr::dropObjectData()
 	int size=obs->size();
 	for( int i=0;i<size;i++)
 	{
-		FsObject* o=obs->get(i);
+	//	FsObject* o=obs->get(i);
 	}
 	obs->decRef();
 }
