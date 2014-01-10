@@ -115,10 +115,8 @@ bool Scheduler::hasTarget(SchedulerTarget* target,int priority)
 		SchedulerTarget* t=(SchedulerTarget*)m_target[priority]->get(i);
 		if(t==target)
 		{
-			t->decRef();
 			return true;
 		}
-		t->decRef();
 	}
 	return false;
 }
@@ -169,6 +167,10 @@ void Scheduler::init()
 
 	m_taskHanding=FsArray::create();
 	m_taskPending=FsArray::create();
+
+	FS_NO_REF_DESTROY(m_taskPending);
+	FS_NO_REF_DESTROY(m_taskHanding);
+
 	m_taskLock=new Mutex();
 }
 
@@ -176,17 +178,14 @@ void Scheduler::destruct()
 {
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
-		m_target[i]->decRef();
+		FS_SAFE_DEC_REF(m_target[i]);
 		m_target[i]=NULL;
 	}
-	m_taskPending->decRef();
-	m_taskPending=NULL;
 
-	m_taskHanding->decRef();
-	m_taskHanding=NULL;
+	FS_DESTROY(m_taskPending);
+	FS_DESTROY(m_taskHanding);
 
-	delete m_taskLock;
-	m_taskLock=NULL;
+	FS_DELETE(m_taskLock);
 
 
 }
@@ -214,7 +213,6 @@ float Scheduler::update(float dt)
 	{
 		Task* t=(Task*)m_taskHanding->get(i);
 		t->run();
-		t->decRef();
 	}
 	m_taskHanding->clear();
 
@@ -229,23 +227,11 @@ float Scheduler::update(float dt)
 		{
 			SchedulerTarget* target=(SchedulerTarget*)m_target[i]->get(j);
 			target->update(i,dt);
-			target->decRef();
 		}
 		m_target[i]->unlock();
 		m_target[i]->flush();
 	}
 
-	
-	/*
-	
-	ScriptEngine* sc=Global::scriptEngine();
-	if(sc)
-	{
-
-		sc->collectGarbage();
-	}
-	*/
-	
 	
 
 	float update_end=m_timer.now();

@@ -416,18 +416,18 @@ Scene::~Scene()
 
 void Scene::init()
 {
-
 	m_layers=FsSlowArray::create();
+	FS_NO_REF_DESTROY(m_layers);
+
 	m_fadeColor=Color(255,255,255,0);
 	m_fadeEnabled=true;
-
 }
 
 
 
 void Scene::destruct()
 {
-	m_layers->decRef();
+	FS_DESTROY(m_layers);
 }
 
 

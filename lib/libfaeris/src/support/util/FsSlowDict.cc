@@ -115,11 +115,13 @@ FsSlowDict::FsSlowDict()
 {
 	m_lock=false;
 	m_dict=FsDict::create();
+	FS_NO_REF_DESTROY(m_dict);
 }
 
 FsSlowDict::~FsSlowDict()
 {
-	m_dict->decRef();
+	FS_DESTROY(m_dict);
+
 	int pending_nu=m_pendingCommand.size();
 
 	for(int i=0;i<pending_nu;i++)

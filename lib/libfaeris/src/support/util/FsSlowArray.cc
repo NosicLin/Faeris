@@ -162,12 +162,13 @@ void FsSlowArray::init()
 {
 	m_lock=false;
 	m_items=FsArray::create();
+	FS_NO_REF_DESTROY(m_items);
 
 }
 
 void FsSlowArray::destruct()
 {
-	m_items->decRef();
+	FS_DESTROY(m_items);
 
 	int pending_nu=m_pendingCommand.size();
 	for( int i=0;i<pending_nu;i++)

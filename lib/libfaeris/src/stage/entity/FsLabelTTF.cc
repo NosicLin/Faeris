@@ -32,7 +32,7 @@ FS_FEATURE_NEW_OBJECT(Image2D*) LineTypography::typo(const char* text,FontTTF* f
 			continue;
 		}
 
-		Glyph* g=font->takeGlyph(ch);
+		Glyph* g=font->getGlyph(ch);
 		if(font)
 		{
 			glyphs->push(g);
@@ -41,9 +41,8 @@ FS_FEATURE_NEW_OBJECT(Image2D*) LineTypography::typo(const char* text,FontTTF* f
 		{
 			FS_TRACE_WARN("Can't Load Glyph %d,just ignore it",ch);
 		}
-
-		FS_SAFE_DEC_REF(g);
 	}
+
 
 	int maxx=0,minx=0,maxy=0, miny=0;
 	int glyphs_nu=glyphs->size();
@@ -85,6 +84,7 @@ FS_FEATURE_NEW_OBJECT(Image2D*) LineTypography::typo(const char* text,FontTTF* f
 	int width=maxx-minx+1;
 	int height=maxy-miny;
 	int font_height=font->getHeight();
+
 	assert(height<=font_height);
 	height=font_height;
 
@@ -348,7 +348,7 @@ void LabelTTF::init(const char* text,FontTTF* font)
 
 void LabelTTF::generateTexture()
 {
-	FS_SAFE_DEC_REF(m_texture);
+	FS_SAFE_DESTROY(m_texture);
 	m_texture=NULL;
 	if(!m_font) /* no font exist */
 	{
@@ -356,14 +356,21 @@ void LabelTTF::generateTexture()
 	}
 
 	LineTypography typo;
+
 	Image2D* image=typo.typo(m_string.c_str(), m_font);
+	FS_NO_REF_DESTROY(image);
+
 	if(image==NULL)
 	{
 		return;
 	}
 
 	m_texture=Texture2D::create(image);
-	image->decRef();
+
+	FS_NO_REF_DESTROY(m_texture);
+
+	FS_DESTROY(image);
+
 }
 
 LabelTTF::LabelTTF()
@@ -381,7 +388,7 @@ LabelTTF::LabelTTF()
 
 LabelTTF::~LabelTTF()
 {
-	FS_SAFE_DEC_REF(m_texture);
+	FS_SAFE_DESTROY(m_texture);
 	FS_SAFE_DEC_REF(m_font);
 
 	m_material->decRef();

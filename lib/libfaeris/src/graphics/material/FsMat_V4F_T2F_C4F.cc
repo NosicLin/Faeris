@@ -98,6 +98,8 @@ Mat_V4F_T2F_C4F::Mat_V4F_T2F_C4F()
 			sizeof(v4f_t2f_c4f_frag_str)
 			);
 
+	FS_SAFE_ADD_REF(m_program);
+
 	if(m_program)
 	{
 		m_opacityUniform=m_program->getUniformLocation("u_opacity");

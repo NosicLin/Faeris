@@ -52,8 +52,9 @@ void Entity::init()
 	m_zorlder=0.0f;
 
 	m_parent=NULL;
-	m_chirdren=new FsArray();
 	m_layer=NULL;
+	m_chirdren=new FsArray();
+	FS_NO_REF_DESTROY(m_chirdren);
 }
 
 void Entity::destruct()
@@ -66,8 +67,7 @@ void Entity::destruct()
 		Entity* entity=(Entity*) m_chirdren->get(i);
 		entity->setParent(NULL);
 	}
-
-	m_chirdren->decRef();
+	FS_DESTROY(m_chirdren);
 }
 
 

@@ -79,8 +79,6 @@ void Sprite2D::setAnimation(const char*  name)
 {
 	Sprite2DAnimation* anim=m_data->getAnimation(name);
 	setAnimation(anim);
-
-	FS_SAFE_DEC_REF(anim);
 }
 const char* Sprite2D::getAnimation()
 {
@@ -88,6 +86,7 @@ const char* Sprite2D::getAnimation()
 	{
 		return NULL;
 	}
+
 	FsString* name=m_curAnimation->getName();
 	return name->cstr();
 }
@@ -275,19 +274,21 @@ bool Sprite2D::init(const char* name)
 		FS_TRACE_WARN("Can't Find Sprite2DData(%s)",name);
 		return false;
 	}
-	m_data=data;
-	m_textures=data->getTextures();
+
+	FS_SAFE_ASSIGN(m_data,data);
+
+	FS_SAFE_ASSIGN(m_textures,data->getTextures());
+
 	m_animationCacheData=FsDict::create();
+
+	FS_NO_REF_DESTROY(m_animationCacheData);
 
 	return true;
 }
 
 void Sprite2D::setAnimation(Sprite2DAnimation* anim)
 {
-	FS_SAFE_ADD_REF(anim);
-	FS_SAFE_DEC_REF(m_curAnimation);
-	m_curAnimation=anim;
-
+	FS_SAFE_ASSIGN(m_curAnimation,anim);
 
 	if(m_curAnimation)
 	{
@@ -302,9 +303,6 @@ void Sprite2D::setAnimation(Sprite2DAnimation* anim)
 		{
 			m_curFps=m_curAnimation->getFps();
 		}
-
-		FS_SAFE_DEC_REF(anim_name);
-		FS_SAFE_DEC_REF(m_curAnimationCacheData);
 		m_elapseTime=0.0f;
 	}
 	else 
@@ -327,8 +325,6 @@ void Sprite2D::setFps(int fps)
 			FsString* anim_name=m_curAnimation->getName();
 			m_curAnimationCacheData =AnimationCacheData::create(m_curAnimation);
 			m_animationCacheData->insert(anim_name,m_curAnimationCacheData);
-			FS_SAFE_DEC_REF(anim_name);
-			FS_SAFE_DEC_REF(m_curAnimationCacheData);
 			m_curFps=fps;
 		}
 		m_curAnimationCacheData->m_fps=fps;
@@ -344,8 +340,6 @@ void Sprite2D::setAnimationOffset(float x,float y)
 			FsString* anim_name=m_curAnimation->getName();
 			m_curAnimationCacheData =AnimationCacheData::create(m_curAnimation);
 			m_animationCacheData->insert(anim_name,m_curAnimationCacheData);
-			FS_SAFE_DEC_REF(anim_name);
-			FS_SAFE_DEC_REF(m_curAnimationCacheData);
 		}
 		m_curAnimationCacheData->m_offsetx=x;
 		m_curAnimationCacheData->m_offsety=y;
@@ -402,9 +396,11 @@ Sprite2D::~Sprite2D()
 {
 	FS_SAFE_DEC_REF(m_data);
 	FS_SAFE_DEC_REF(m_curAnimation);
+
 	FS_SAFE_DEC_REF(m_textures);
 	FS_SAFE_DEC_REF(m_material);
-	FS_SAFE_DEC_REF(m_animationCacheData);
+
+	FS_DESTROY(m_animationCacheData);
 }
 
 

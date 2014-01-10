@@ -286,20 +286,25 @@ void Director::init()
 	m_next=NULL;
 	m_sceneChange=false;
 	m_secenQueue=FsArray::create();
+	
+	FS_NO_REF_DESTROY(m_secenQueue);
+
 	m_stop=false;
 	m_autoSwapBuffers=false;
 
+	/* touch event listener */
 	m_touchEventListener=DirectorTouchEventListener::create(this);
-	m_touchEventListener->addRef();
+	FS_NO_REF_DESTROY(m_touchEventListener);
 	Global::touchDispatcher()->addListener(m_touchEventListener);
 
+	/* keypad event listener */
 	m_keypadEventListener=DirectorKeypadEventListener::create(this);
-	m_keypadEventListener->addRef();
+	FS_NO_REF_DESTROY(m_keypadEventListener);
 	Global::keypadDispatcher()->addListener(m_keypadEventListener);
 
-
+	/* inputText event listener */
 	m_inputTextEventListener=DirectorInputTextEventListener::create(this);
-	m_inputTextEventListener->addRef();
+	FS_NO_REF_DESTROY(m_inputTextEventListener);
 	Global::inputTextDispatcher()->addListener(m_inputTextEventListener);
 
 }
@@ -318,16 +323,16 @@ void Director::destruct()
 		m_next=NULL;
 	}
 
-	m_secenQueue->decRef();
+	FS_DESTROY(m_secenQueue);
 
 	Global::touchDispatcher()->removeListener(m_touchEventListener);
-	m_touchEventListener->decRef();
+	FS_DESTROY(m_touchEventListener);
 
 	Global::keypadDispatcher()->removeListener(m_keypadEventListener);
-	m_keypadEventListener->decRef();
+	FS_DESTROY(m_keypadEventListener);
 
 	Global::inputTextDispatcher()->removeListener(m_inputTextEventListener);
-	m_inputTextEventListener->decRef();
+	FS_DESTROY(m_inputTextEventListener);
 }
 
 

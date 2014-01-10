@@ -116,6 +116,8 @@ HttpEngine::HttpEngine()
 bool HttpEngine::init()
 {
 	m_requests=FsArray::create();
+	FS_NO_REF_DESTROY(m_requests);
+
 	m_reqSem=new Semaphore(0);
 	m_reqMutex=new Mutex();
 	m_stop=false;
@@ -130,21 +132,9 @@ void HttpEngine::destruct()
 	stop(); /* signal thread to  stop */
 	join(); /* wait thread to exit */
 
-	if(m_requests)
-	{
-		m_requests->destroy();
-		m_requests=NULL;
-	}
-	if(m_reqSem)
-	{
-		delete m_reqSem;
-		m_reqSem=NULL;
-	}
-	if(m_reqMutex)
-	{
-		delete m_reqMutex;
-		m_reqMutex=NULL;
-	}
+	FS_SAFE_DESTROY(m_requests);
+	FS_SAFE_DELETE(m_reqSem);
+	FS_SAFE_DELETE(m_reqMutex);
 }
 
 

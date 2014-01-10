@@ -1,6 +1,6 @@
 $#include "graphics/FsFontBitmap.h"
 
-class FontBitmap:public Resource
+class FontBitmap:public FsObject
 {
 	public:
 		static FontBitmap* create(const char* fnt);

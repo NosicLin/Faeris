@@ -53,17 +53,22 @@ void xir_parse_err(const char* msg,void* parm)
 
 Faeris::FsDict* XirParser::create(Faeris::FsFile* file)
 {
+	bool file_ref_delete=file->getRefDelete();
+	file->setRefDelete(false);
 	XirScanner* lex=new XirScanner(file,&Xir_Top);
 	YYParserParm* parm=new YYParserParm(lex);
 	int ret=yyparse(parm);
 	if(ret!=YYACCEPT)
 	{
+	
 		delete lex;
 		delete parm;
+		file->setRefDelete(file_ref_delete);
 		return NULL;
 	}
 
 	delete lex;
+	file->setRefDelete(file_ref_delete);
 
 	Faeris::FsDict* root=parm->getRoot();
 	root->addRef();

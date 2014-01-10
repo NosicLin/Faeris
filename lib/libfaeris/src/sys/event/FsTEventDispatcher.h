@@ -44,7 +44,6 @@ class TEventDispatcher:public SchedulerTarget
 				{
 					T_Listener* listen=(T_Listener*)m_listenerArray->get(j);
 					listen->handleEvent(event);
-					listen->decRef();
 				}
 			}
 			m_listenerArray->unlock();
@@ -73,25 +72,32 @@ class TEventDispatcher:public SchedulerTarget
 		}
 		virtual ~TEventDispatcher()
 		{
-			destroy();
+			destruct();
 		}
 		void init()
 		{
 			m_eventPending=new EventQueue;
 			m_eventHandling=new EventQueue;
+
 			m_listenerArray=FsSlowArray::create();
+			FS_NO_REF_DESTROY(m_listenerArray);
+
 		}
-		void destroy()
+
+		void destruct()
 		{
 			clearEventQueue(m_eventPending);
 			clearEventQueue(m_eventHandling);
 			delete m_eventPending;
 			delete m_eventHandling;
-			m_listenerArray->decRef();
+
+			FS_DESTROY(m_listenerArray);
+
 			m_eventPending=NULL;
 			m_eventHandling=NULL;
 			m_listenerArray=NULL;
 		}
+
 		void swapEventQueue()
 		{
 			EventQueue* tmp=m_eventHandling;

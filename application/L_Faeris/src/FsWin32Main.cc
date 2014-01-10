@@ -68,11 +68,12 @@ int main(int argc,char** argv)
 	FS_TRACE_INFO("fgame path is %s, dir=%s,file=%s",config,dir_name.c_str(),file_name.c_str());
 
 	file=VFS::createFile(file_name.c_str());
+
+
 	if(file==NULL)
 	{
 		goto error;
 	}
-
 
 	dict=ScriptUtil::parseScript(file);
 	file->decRef();

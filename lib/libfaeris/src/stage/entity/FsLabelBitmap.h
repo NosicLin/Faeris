@@ -17,7 +17,6 @@
 NS_FS_BEGIN
 class FontBitmap;
 class Texture2D;
-class PositionTextureMaterial;
 
 class LabelBitmap:public Entity 
 {

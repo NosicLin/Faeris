@@ -152,8 +152,6 @@ void LuaEngine::pushBoolean(bool value)
 }
 void LuaEngine::pushFsObject(FsObject* ob)
 {
-	if(ob) ob->addRef();
-
 	toluaext_pushfsobject(m_state,ob);
 }
 

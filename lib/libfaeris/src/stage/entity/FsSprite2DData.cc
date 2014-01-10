@@ -84,7 +84,6 @@ void Sprite2DAnimation::setName(FsString* name)
 }
 FsString* Sprite2DAnimation::getName()
 {
-	FS_SAFE_ADD_REF(m_name);
 	return m_name;
 }
 
@@ -108,7 +107,6 @@ Sprite2DAnimation::~Sprite2DAnimation()
 		delete m_keys[i];
 	}
 	m_keys.clear();
-	FS_SAFE_DEC_REF(m_name);
 }
 
 Sprite2DData* Sprite2DData::create(FsFile* file)
@@ -127,7 +125,6 @@ void Sprite2DData::addAnimation(Sprite2DAnimation* animation)
 	FsString* name=animation->getName();
 	assert(name!=NULL);
 	m_animations->insert(name,animation);
-	name->decRef();
 }
 
 Sprite2DAnimation* Sprite2DData::getAnimation(const char* name)
@@ -162,14 +159,19 @@ const char* Sprite2DData::className()
 Sprite2DData::Sprite2DData()
 {
 	m_animations=FsDict::create();
+	FS_NO_REF_DESTROY(m_animations);
+
 	m_textures=FsArray::create();
+	FS_NO_REF_DESTROY(m_textures);
+
 	m_name=NULL;
 }
 
 Sprite2DData::~Sprite2DData()
 {
-	m_animations->decRef();
-	m_textures->decRef();
+	FS_DESTROY(m_animations);
+	FS_DESTROY(m_textures);
+
 	FS_SAFE_DEC_REF(m_name);
 
 }
@@ -178,7 +180,9 @@ Sprite2DData::~Sprite2DData()
 bool Sprite2DData::init(FsFile* file)
 {
 	bool ret=false;
+
 	FsDict* dict=ScriptUtil::parseScript(file);
+
 	if(dict==NULL)
 	{
 		FS_TRACE_WARN("Parse File For Sprite2DData Failed");
@@ -187,7 +191,9 @@ bool Sprite2DData::init(FsFile* file)
 	FsString* type=ScriptUtil::getString(dict,"type");
 	FsString* name=ScriptUtil::getString(dict,"name");
 	FsString* version=ScriptUtil::getString(dict,"version");
+
 	int resourceNu=0;
+
 	FsArray* textures=ScriptUtil::getArray(dict,"resources");
 	FsArray* animations=ScriptUtil::getArray(dict,"animations");
 
@@ -244,12 +250,14 @@ bool Sprite2DData::init(FsFile* file)
 		FS_TRACE_WARN("load Animation Error");
 		goto error;
 	}
-	name->addRef();
-	m_name=name;
+
+	FS_SAFE_ASSIGN(m_name,name);
 
 	ret=true;
 
+
 error:
+	FS_DESTROY(dict);
 	return  ret;
 }
 
@@ -352,13 +360,13 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 			}
 			else 
 			{
-				ret->decRef();
+				FS_DESTROY(ret);
 				return NULL;
 			}
 		}
 		else 
 		{
-			ret->decRef();
+			FS_DESTROY(ret);
 			return NULL;
 		}
 	}

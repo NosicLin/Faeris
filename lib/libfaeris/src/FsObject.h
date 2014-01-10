@@ -34,9 +34,14 @@ class FsObject
 				delete this;
 			}
 		}
+		void setRefDelete(bool value)
+		{
+			m_refDelete=value;
+		}
+		bool getRefDelete(){return m_refDelete;}
 
 		void destroy(){
-			FS_TRACE_WARN_ON(m_refNu>0,"Object(%s) Is Owner By Other %d Object",className(),m_refNu);
+			FS_TRACE_WARN_ON(m_refNu>1,"Object(%s) Is Owner By Other %d Object",className(),m_refNu);
 			delete this;
 		}
 		void autoDestroy()

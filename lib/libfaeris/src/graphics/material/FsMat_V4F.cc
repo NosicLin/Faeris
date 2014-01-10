@@ -86,6 +86,8 @@ Mat_V4F::Mat_V4F()
 {
 	m_program=Program::create(mat_v4f_vert_str,sizeof(mat_v4f_vert_str),mat_v4f_frag_str,sizeof(mat_v4f_frag_str));
 
+	FS_SAFE_ADD_REF(m_program);
+
 
 	if(m_program) 
 	{

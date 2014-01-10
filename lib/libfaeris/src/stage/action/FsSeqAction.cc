@@ -32,12 +32,14 @@ SeqAction::~SeqAction()
 bool SeqAction::init()
 {
 	m_actions=FsArray::create();
+	FS_NO_REF_DESTROY(m_actions);
 	return true;
+
 }
 
 void SeqAction::destruct()
 {
-	FS_SAFE_DEC_REF(m_actions);
+	FS_DESTROY(m_actions);
 }
 
 

@@ -49,7 +49,7 @@ class FontTTFData:public Resource
 	public:
 		static FontTTFData* create(FsFile* file);
 	public:
-		Glyph* takeGlyph(uint16_t char_index,int size);
+		Glyph* createGlyph(uint16_t char_index,int size);
 		bool getFontMetrices(int size,FontMetrices* metrics);
 
 	public:
@@ -72,7 +72,7 @@ class FontTTF:public FsObject
 		static FontTTF* create(const char* name,int size);
 
 	public:
-		Glyph* takeGlyph(uint16_t char_index);
+		Glyph* getGlyph(uint16_t char_index);
 		int getHeight();
 		int getAscend();
 		int getDescend();

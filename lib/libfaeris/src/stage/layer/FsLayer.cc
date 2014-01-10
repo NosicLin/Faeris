@@ -233,10 +233,13 @@ bool Layer::touchesEnd(TouchEvent* event)
 void Layer::init()
 {
 	m_addOlder=0;
+
 	m_entity=FsDict::create();
+	FS_NO_REF_DESTROY(m_entity);
+
 	m_ownerEntity=FsSlowDict::create();
-	assert(m_entity);
-	assert(m_ownerEntity);
+	FS_NO_REF_DESTROY(m_ownerEntity);
+
 	m_visible=true;
 	m_touchEnabled=false;
 	m_scissorEnabled=false;
@@ -247,8 +250,10 @@ void Layer::init()
 void Layer::destruct()
 {
 	clearEntity();
-	m_entity->decRef();
-	m_ownerEntity->decRef();
+
+	FS_DESTROY(m_entity);
+	FS_DESTROY(m_ownerEntity);
+
 }
 
 void Layer::updateAllWorldMatrix()

@@ -46,7 +46,7 @@ class Image2D:public FsObject
 		virtual ~Image2D();
 		void init(uint width,uint height,PixelFormat format);
 		void init(uint width,uint height,void* data,PixelFormat format);
-		void destroy();
+		void destruct();
 
 	private:
 		uint m_pixel_bytes;

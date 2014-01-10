@@ -123,6 +123,8 @@ Mat_V4F_T2F::Mat_V4F_T2F()
 {
 	m_program=Program::create(quad_material_vert_str,sizeof(quad_material_vert_str),
 			quad_material_frag_str,sizeof(quad_material_frag_str));
+	FS_SAFE_ADD_REF(m_program);
+
 	if(m_program)
 	{
 
