@@ -94,8 +94,7 @@ const char* Sprite2D::getAnimation()
 bool Sprite2D::hasAnimation(const char* name)
 {
 	Sprite2DAnimation* anim=m_data->getAnimation(name);
-	bool ret=anim!=NULL;
-	FS_SAFE_DEC_REF(anim);
+	bool ret=(anim!=NULL);
 	return ret;
 }
 

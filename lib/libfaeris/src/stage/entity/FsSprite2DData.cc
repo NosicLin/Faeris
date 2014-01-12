@@ -107,6 +107,8 @@ Sprite2DAnimation::~Sprite2DAnimation()
 		delete m_keys[i];
 	}
 	m_keys.clear();
+
+	FS_SAFE_DEC_REF(m_name);
 }
 
 Sprite2DData* Sprite2DData::create(FsFile* file)

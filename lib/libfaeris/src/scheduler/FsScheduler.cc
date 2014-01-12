@@ -36,7 +36,7 @@ void Scheduler::mainLoop()
 	//long begin_time=m_timer.now();
 	float last_time=m_timer.now();
 
-	float diff_time,cur_time;
+	float diff_time=0,cur_time=0;
 
 	while(!m_stop)
 	{

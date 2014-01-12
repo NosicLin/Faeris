@@ -66,6 +66,10 @@ class FontTTFData:public Resource
 };
 
 
+
+
+
+
 class FontTTF:public FsObject
 {
 	public:

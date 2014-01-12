@@ -151,6 +151,13 @@ LabelTTF* LabelTTF::create(const char* text,FontTTF* font)
 	return ret;
 }
 
+LabelTTF* LabelTTF::create(FontTTF* font)
+{
+	return LabelTTF::create("",font);
+}
+
+
+
 void LabelTTF::setString(const char* text)
 {
 	if(m_string!=text)

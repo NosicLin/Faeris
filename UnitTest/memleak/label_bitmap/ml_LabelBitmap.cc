@@ -17,10 +17,18 @@ class MyLayer:public Layer2D
 		{
 			FontBitmap* font=FontBitmap::create("font.fnt");
 			LabelBitmap* label=LabelBitmap::create(font);
+
 			label->setString("My Name Is ChenLin(陈林)");
 			label->setPosition(200,300,0);
+
+			m_label2=LabelBitmap::create(font);
+			m_label2->setString("Hello world");
+			m_label2->setPosition(200,400,0);
+
+
 			m_time=0;
 			add(label);
+			add(m_label2);
 			m_labe=label;
 
 		}
@@ -49,6 +57,7 @@ class MyLayer:public Layer2D
 	private:
 		float m_time;
 		LabelBitmap* m_labe;
+		LabelBitmap* m_label2;
 };
 
 int main()

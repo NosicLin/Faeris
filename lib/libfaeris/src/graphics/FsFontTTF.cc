@@ -16,24 +16,35 @@
 
 
 NS_FS_BEGIN
-static FT_Library s_library;
-static bool s_freetypeInitFlags=false;
-static int s_initFreetype()
+static FT_Library S_mLibrary;
+
+static int S_mFreetypeRefNu=0;
+
+static int S_RefFreetype()
 {
-	if(!s_freetypeInitFlags)
+	if(S_mFreetypeRefNu==0)
 	{
-		FT_Error error = FT_Init_FreeType( &s_library );
+		FT_Error error = FT_Init_FreeType( &S_mLibrary);
 		if(error)
 		{
 			FS_TRACE_WARN("init FT_Library Failed");
 			return -1;
 		}
-		s_freetypeInitFlags=true;
 	}
-
+	S_mFreetypeRefNu++;
 	return 0;
 }
 
+static int S_unRefFreeType()
+{
+	assert(S_mFreetypeRefNu>0);
+	S_mFreetypeRefNu--;
+	if(S_mFreetypeRefNu==0)
+	{
+		FT_Done_FreeType(S_mLibrary);
+	}
+	return 0;
+}
 
 
 static unsigned long  s_fileRead(FT_Stream stream,
@@ -66,6 +77,7 @@ class PlatfromFontTTFData
 
 	private:
 		int m_curSize;
+		bool m_refFreeType;
 		FsFile* m_source;
 		FT_Stream m_stream;
 		FT_Face m_face;
@@ -142,6 +154,7 @@ PlatfromFontTTFData::PlatfromFontTTFData()
 	m_source=NULL;
 	m_stream=NULL;
 	m_face=NULL;
+	m_refFreeType=false;
 }
 PlatfromFontTTFData::~PlatfromFontTTFData()
 {
@@ -156,16 +169,21 @@ PlatfromFontTTFData::~PlatfromFontTTFData()
 	{
 		free(m_stream);
 	}
+	if(m_refFreeType)
+	{
+		S_unRefFreeType();
+	}
 }
 
 
 bool PlatfromFontTTFData::init(FsFile* file)
 {
-	if(s_initFreetype()<0)
+	if(S_RefFreetype()<0)
 	{
 		return false;
 	}
 
+	m_refFreeType=true;
 
 	FT_CharMap found=NULL;
 	FT_Error error;
@@ -179,7 +197,7 @@ bool PlatfromFontTTFData::init(FsFile* file)
 	m_args.flags=FT_OPEN_STREAM;
 	m_args.stream=m_stream;
 
-	error=FT_Open_Face(s_library,&m_args,0,&m_face);
+	error=FT_Open_Face(S_mLibrary,&m_args,0,&m_face);
 	if(error)
 	{
 		FS_TRACE_WARN("Open FT_Face Failed");
@@ -205,7 +223,7 @@ bool PlatfromFontTTFData::init(FsFile* file)
 	{
 		FT_Set_Charmap(m_face,found);
 	}
-	
+
 	FS_SAFE_ASSIGN(m_source,file);
 	m_curSize=-1;
 	return true;

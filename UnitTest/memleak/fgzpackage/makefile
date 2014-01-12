@@ -30,17 +30,19 @@ BIN_NAME_WITH_PATH=$(addprefix bin/,$(BIN_NAME))
 BIN_OBJ_NAME=$(BIN:%.cc=%.o)
 BIN_OBJ_NAME_WITH_PATH=$(addprefix obj/,$(BIN_OBJ_NAME))
 
+
 CC=g++
-FLAGS=-g -Wall  -DLINUX
+FLAGS=-g -Wall   -include sys/types.h -DLINUX
 INCLUDE=  -I.   \
 		  -I../../../lib/libfaeris/src
 
 LIB=-Llib \
-   	 -L../../../lib/library/linux \
+	-L../../../lib/library/linux/ \
+	-L../../../lib/library/linux/3rdparty \
+	-L../../../build/linux/prebuild/debug/ \
 	-l$(PROJECT) \
 	-l$(PROJECT)debug \
-   	-lfaerisd  \
-	-llibpngd -lzlibd  -lGLEW  -lminizip
+	-lfaerisd   -llibpngd -lzlibd  -lX11 -lGLEW -lGL -lfreetype -lminizipd -lpthread
 
 
 
