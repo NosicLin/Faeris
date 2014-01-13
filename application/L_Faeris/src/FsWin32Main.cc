@@ -130,6 +130,7 @@ error:
 	FsFaeris_ModuleExit();
 	if(engine)
 	{
+		Global::dropScriptEngine();
 		FS_DESTROY(engine);
 	}
 	return 0;

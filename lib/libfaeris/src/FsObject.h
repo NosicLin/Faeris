@@ -79,8 +79,11 @@ class FsObject
 	public:
 		int m_scriptData; /* script data */
 
+
 	public:
-		virtual void dropScriptData();
+		void dropScriptData();
+		void finalize();
+
 #endif 
 
 };

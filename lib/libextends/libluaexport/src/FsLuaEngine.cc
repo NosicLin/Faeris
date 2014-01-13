@@ -432,6 +432,18 @@ const char*  LuaEngine::className()
 }
 
 
+
+void _FsScriptExtends_Finalize(FsObject* ob) 
+{
+
+	LuaEngine* engine=(LuaEngine*)Global::scriptEngine();
+	if(engine)
+	{
+		engine->callFunctionInTable(ob->m_scriptData,"onFinalize",1,0,"u<FsObject>",ob);
+	}
+}
+
+
 NS_FS_END
 
 

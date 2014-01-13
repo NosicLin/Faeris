@@ -16,6 +16,7 @@ FsObject::~FsObject()
 	}
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
+	finalize();
 	dropScriptData();
 #endif 
 
@@ -57,6 +58,14 @@ void FsObject::dropScriptData()
 		}
 		m_scriptData=-1;
 	}
+}
+
+void _FsScriptExtends_Finalize(FsObject*);
+
+void FsObject::finalize()
+{
+	/* NOTE: lua: implement in file FsScriptEngine.cc */
+	_FsScriptExtends_Finalize(this);
 }
 #endif 
 
