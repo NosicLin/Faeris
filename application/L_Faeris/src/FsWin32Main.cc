@@ -97,6 +97,7 @@ int main(int argc,char** argv)
 
 
 	entry=ScriptUtil::getString(script,"entry");
+
 	if(!entry)
 	{
 		FS_TRACE_WARN("Can't Find Script Entry");
@@ -106,16 +107,14 @@ int main(int argc,char** argv)
 	}
 
 	engine=LuaEngine::create();
+	FS_NO_REF_DESTROY(engine);
 	Global::setScriptEngine(engine);
 
 	//FsModuel_xAccessInit();
 
 
 	engine->executeFile(entry->cstr());
-
-
-
-
+	dict->decRef();
 
 	Global::scheduler()->mainLoop();
 
@@ -126,11 +125,13 @@ int main(int argc,char** argv)
 
 
 	/* relese resource */
-	engine->decRef();
-
 
 error:
 	FsFaeris_ModuleExit();
+	if(engine)
+	{
+		FS_DESTROY(engine);
+	}
 	return 0;
 }
 
