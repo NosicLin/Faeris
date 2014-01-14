@@ -5,7 +5,6 @@ class FsObject
 		static int getObjectNu();
 
 	public:
-
 		int refCnt();
 		void addRef();
 		void decRef();

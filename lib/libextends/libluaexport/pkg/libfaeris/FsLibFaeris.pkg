@@ -15,6 +15,8 @@ $pfile "FsMacros.pkg"
 
 
 
+/* stage */
+$pfile "stage/FsActionTarget.pkg"
 
 /* entity */
 $pfile "stage/entity/FsEntity.pkg"
@@ -28,9 +30,13 @@ $pfile "stage/entity/FsParticle2DEffect.pkg"
 $pfile "stage/entity/FsVertexPolygon.pkg"
 
 
+/* mgr */
+$pfile "mgr/FsResource.pkg"
+$pfile "mgr/FsTextureMgr.pkg"
+$pfile "mgr/FsSprite2DDataMgr.pkg"
+$pfile "mgr/FsResourceMgr.pkg"
+$pfile "mgr/FsObjectMgr.pkg"
 
-/* stage */
-$pfile "stage/FsActionTarget.pkg"
 
 
 
@@ -79,12 +85,6 @@ $pfile "sys/event/FsTouchDispatcher.pkg"
 $pfile "sys/event/FsSysDispatcher.pkg"
 $pfile "sys/event/FsKeypadDispatcher.pkg"
 
-/* mgr */
-$pfile "mgr/FsTextureMgr.pkg"
-$pfile "mgr/FsSprite2DDataMgr.pkg"
-$pfile "mgr/FsResourceMgr.pkg"
-$pfile "mgr/FsResource.pkg"
-$pfile "mgr/FsObjectMgr.pkg"
 
 
 
@@ -106,7 +106,6 @@ $pfile "media/FsAudioEngine.pkg"
 
 /* network */
 $pfile "sys/network/FsHttpEngine.pkg"
-
 
 
 
