@@ -170,7 +170,7 @@ void SpineSprite::draw(Render* render,bool update_matrix)
 	m_skeleton->b=(float)m_color.b/255.0f;
 	m_skeleton->a=(float)m_color.a/255.0f;
 
-	Animation_apply(m_curAnimation,m_skeleton,m_elapseTime/1000,true);
+	Animation_apply(m_curAnimation,m_skeleton,m_elapseTime,true);
 	//FS_TRACE_WARN("Time is %f",m_elapseTime/1000);
 
 	Skeleton_updateWorldTransform(m_skeleton);
