@@ -401,6 +401,8 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		return;
 	}
 
+	float t_width=(float)texture->getWidth();
+	float t_height=(float)texture->getHeight();
 
 	updateWorldMatrix();
 
@@ -469,15 +471,16 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		}
 
 		float size=m_particles[i].m_size;
-		float hlsize=size/2;
+		float hwsize=t_width*size/2;
+		float hhsize=t_height*size/2;
 
 
 		float v[8]=
 		{
-			x-hlsize,y+hlsize,
-			x-hlsize,y-hlsize,
-			x+hlsize,y-hlsize,
-			x+hlsize,y+hlsize,
+			x-hwsize,y+hhsize,
+			x-hwsize,y-hhsize,
+			x+hwsize,y-hhsize,
+			x+hwsize,y+hhsize,
 		};
 		render->setUniform(color_uniform,Render::U_F_4,1,color);
 		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,v);
