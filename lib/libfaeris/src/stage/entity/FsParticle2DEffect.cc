@@ -24,7 +24,6 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
     }
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
-	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
@@ -38,7 +37,6 @@ Particle2DEffect* Particle2DEffect::create(FsFile* file)
 	}
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
-	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
@@ -395,6 +393,11 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		return;
 	}
 
+	int t_width=texture->getWidth();
+	int t_height=texture->getHeight();
+
+
+
 
 	updateWorldMatrix();
 
@@ -412,6 +415,7 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	render->setActiveTexture(1);
 	render->bindTexture(texture,0);
 	render->setBlend(Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
+
 
 	//FS_TRACE_WARN("emitter:%d,%d,%d",Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
 
@@ -461,15 +465,17 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		}
 
 		float size=m_particles[i].m_size;
-		float hlsize=size/2;
+
+		float hwsize=t_width*size/2;
+		float hhsize=t_height*size/2;
 
 
 		float v[8]=
 		{
-			x-hlsize,y+hlsize,
-			x-hlsize,y-hlsize,
-			x+hlsize,y-hlsize,
-			x+hlsize,y+hlsize,
+			x-hwsize,y+hhsize,
+			x-hwsize,y-hhsize,
+			x+hwsize,y-hhsize,
+			x+hwsize,y+hhsize,
 		};
 		render->setUniform(color_uniform,Render::U_F_4,1,color);
 		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,v);

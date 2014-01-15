@@ -51,7 +51,6 @@ extern "C" {
 	{
 		VFS::mapPackage("",package);
 	}
-	FS_SAFE_DEC_REF(package);
 
 
 	/* add extern filter */
@@ -61,14 +60,15 @@ extern "C" {
 
 	VFS::PrefixNameFilter*  sdcard_filter=VFS::PrefixNameFilter::create(buf);
 	VFS::addFilter(sdcard_filter);
-	sdcard_filter->decRef();
+
 
 	/* add name filter */
 	VFS::PrefixNameFilter* assets_filter=VFS::PrefixNameFilter::create("assets/");
 	VFS::addFilter(assets_filter);
-	assets_filter->decRef();
 
-	FsFile* fgame=VFS::open("android.fgame");
+	FsFile* fgame=VFS::createFile("android.fgame");
+	FS_NO_REF_DESTROY(fgame);
+
 	if(fgame!=NULL)
 	{
 		FsDict* dict=NULL;
@@ -96,24 +96,18 @@ extern "C" {
 			}
 			sc=Global::scriptEngine();
 			sc->executeFile(entry->cstr());
+
 		}while(false);
 
 		FS_SAFE_DEC_REF(dict);
-		FS_SAFE_DEC_REF(script);
-		FS_SAFE_DEC_REF(entry);
-		FS_SAFE_DEC_REF(sc);
-		fgame->decRef();
 	}
 	else 
 	{
 		ScriptEngine* sc=Global::scriptEngine();
 		sc->executeFile("main.lua");
-		sc->decRef();
 	}
 
-
-
-	/* run main.lua script */
+	FS_SAFE_DESTROY(fgame);
 
 }
 

@@ -50,6 +50,7 @@ LOCAL_SRC_FILES :=  \
 					../../src/graphics/material/FsMat_V4F_C4F.cc \
 					../../src/graphics/material/FsMat_V4F_T2F.cc \
 					../../src/graphics/material/FsMat_V4F_T2F_A1F.cc \
+					../../src/graphics/material/FsMat_V4F_T2F_C4F.cc \
 					../../src/graphics/material/FsMaterial.cc \
 					../../src/sys/event/FsSysDispatcher.cc \
 					../../src/sys/event/FsTouchDispatcher.cc \

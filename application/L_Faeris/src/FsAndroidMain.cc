@@ -15,11 +15,8 @@ extern "C"
 	{
 		LuaEngine* engine=LuaEngine::create();
 		Global::setScriptEngine(engine);
+
 		FsModuel_xAccessInit();
-
-		engine->decRef();
-
-
 		Sys::setJavaVM(vm);
 
 		return JNI_VERSION_1_4;
