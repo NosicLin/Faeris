@@ -121,7 +121,7 @@ void Layer::updateEntity(float dt)
 	while(!iter->done())
 	{
 		Entity* entity=(Entity*)iter->getValue();
-		if( entity->visible()) 
+		if( entity->visible()&&entity->getLayer()==this) 
 		{
 			entity->update(dt);
 		}
