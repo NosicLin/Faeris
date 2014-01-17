@@ -47,7 +47,7 @@ static int S_unRefFreeType()
 }
 
 
-static unsigned long  s_fileRead(FT_Stream stream,
+static unsigned long  S_fileRead(FT_Stream stream,
 		unsigned long offset,
 		unsigned char* buffer,
 		unsigned long count)
@@ -62,11 +62,11 @@ static unsigned long  s_fileRead(FT_Stream stream,
 
 
 
-class PlatfromFontTTFData
+class PlatfromFontTTF
 {
 	public:
-		PlatfromFontTTFData();
-		~PlatfromFontTTFData();
+		PlatfromFontTTF();
+		~PlatfromFontTTF();
 	public:
 		Glyph* createGlyph(uint16_t char_index,int size);
 		bool getFontMetrices(int size,FontMetrices* metrics);
@@ -84,7 +84,7 @@ class PlatfromFontTTFData
 		FT_Open_Args m_args;
 };
 
-Glyph* PlatfromFontTTFData::createGlyph(uint16_t char_index,int size)
+Glyph* PlatfromFontTTF::createGlyph(uint16_t char_index,int size)
 {
 	if(!setFontSize(size))
 	{
@@ -101,11 +101,17 @@ Glyph* PlatfromFontTTFData::createGlyph(uint16_t char_index,int size)
 	/* get glyph metrics */
 	FT_Glyph_Metrics* metrics=&m_face->glyph->metrics;
 
-	ret->m_minx=FT_FLOOR(metrics->horiBearingX);
-	ret->m_maxx=ret->m_minx+FT_CEIL(metrics->width);
-	ret->m_maxy=FT_FLOOR(metrics->horiBearingY);
-	ret->m_miny=ret->m_maxy-FT_CEIL(metrics->height);
-	ret->m_advance=FT_CEIL(metrics->horiAdvance);
+
+	int minx=FT_FLOOR(metrics->horiBearingX);
+	int maxx=ret->m_minx+FT_CEIL(metrics->width);
+	int maxy=FT_FLOOR(metrics->horiBearingY);
+	int miny=ret->m_maxy-FT_CEIL(metrics->height);
+	int advance=FT_CEIL(metrics->horiAdvance);
+
+	ret->setBound(minx,miny,maxx,maxy);
+	ret->setAdvance(advance);
+
+
 
 	FT_Bitmap* bitmap_src=&m_face->glyph->bitmap;
 	int rows=bitmap_src->rows;
@@ -122,17 +128,18 @@ Glyph* PlatfromFontTTFData::createGlyph(uint16_t char_index,int size)
 		return ret;
 	}
 	Image2D* image=Image2D::create(width,rows,Image2D::PIXEL_GRAY8);
-	FS_NO_REF_DESTROY(image);
 
 	void* data_dst=image->getPixelData();
 	void* data_src=bitmap_src->buffer;
+
 	memcpy(data_dst,data_src,rows*width);
 
-	ret->m_bitmap=image;
+	ret->setImage(image);
+
 	return ret;
 }
 
-bool PlatfromFontTTFData::getFontMetrices(int size,FontMetrices* metrics)
+bool PlatfromFontTTF::getFontMetrices(int size,FontMetrices* metrics)
 {
 	if(!setFontSize(size))
 	{
@@ -148,7 +155,7 @@ bool PlatfromFontTTFData::getFontMetrices(int size,FontMetrices* metrics)
 	return true;
 }
 
-PlatfromFontTTFData::PlatfromFontTTFData()
+PlatfromFontTTF::PlatfromFontTTF()
 {
 	m_curSize=-1;
 	m_source=NULL;
@@ -156,7 +163,7 @@ PlatfromFontTTFData::PlatfromFontTTFData()
 	m_face=NULL;
 	m_refFreeType=false;
 }
-PlatfromFontTTFData::~PlatfromFontTTFData()
+PlatfromFontTTF::~PlatfromFontTTF()
 {
 	if(m_face)
 	{
@@ -176,7 +183,7 @@ PlatfromFontTTFData::~PlatfromFontTTFData()
 }
 
 
-bool PlatfromFontTTFData::init(FsFile* file)
+bool PlatfromFontTTF::init(FsFile* file)
 {
 	if(S_RefFreetype()<0)
 	{
@@ -189,7 +196,7 @@ bool PlatfromFontTTFData::init(FsFile* file)
 	FT_Error error;
 	m_stream=(FT_Stream)malloc(sizeof(*m_stream));
 	memset(m_stream,0,sizeof(*m_stream));
-	m_stream->read=s_fileRead;
+	m_stream->read=S_fileRead;
 	m_stream->descriptor.pointer=file;
 	m_stream->pos=0;
 	m_stream->size=file->getLength();
@@ -231,7 +238,7 @@ bool PlatfromFontTTFData::init(FsFile* file)
 
 
 
-bool PlatfromFontTTFData::setFontSize(int size)
+bool PlatfromFontTTF::setFontSize(int size)
 {
 	if(m_curSize==size)
 	{
@@ -248,9 +255,9 @@ bool PlatfromFontTTFData::setFontSize(int size)
 }
 
 
-Glyph* Glyph::create()
+Glyph* Glyph::create(uint16_t c_id,uint16_t size)
 {
-	Glyph* ret=new Glyph;
+	Glyph* ret=new Glyph(c_id,size);
 	return ret;
 }
 
@@ -259,25 +266,88 @@ const char* Glyph::className()
 	return FS_GLYPH_CLASS_NAME;
 }
 
-Glyph::Glyph()
+Glyph::Glyph(uint16_t c_id,uint16_t size)
 {
-	m_char=-1;
+	m_char=c_id;
+	m_size=size;
 	m_minx=0;
 	m_miny=0;
 	m_maxx=0;
 	m_maxy=0;
 	m_advance=0;
 	m_bitmap=NULL;
+	m_texture=NULL;
+}
+uint16_t Glyph::getChar()
+{
+	return m_char;
+}
+uint16_t Glyph::getSize()
+{
+	return m_size;
+}
+
+void Glyph::setBound(int minx,int miny,int maxx,int maxy)
+{
+	m_minx=minx;
+	m_miny=miny;
+	m_maxx=maxx;
+	m_maxy=maxy;
+}
+
+void Glyph::getBound(int* minx,int* miny,int* maxx,int* maxy)
+{
+	*minx=m_minx;
+	*miny=m_miny;
+	*maxx=m_maxx;
+	*maxy=m_maxy;
+}
+
+
+Image2D* Glyph::getImage()
+{
+	return m_bitmap;
+}
+
+void Glyph::setImage(Image2D* image)
+{
+	FS_SAFE_ASSIGN(m_bitmap,image);
+}
+
+
+Texture2D* Glyph::getTexture()
+{
+	if(!m_texture)
+	{
+		if(m_bitmap)
+		{
+			m_texture=Texture2D::create(m_bitmap);
+			FS_NO_REF_DESTROY(m_texture);
+		}
+	}
+
+	return m_texture;
 }
 
 Glyph::~Glyph()
 {
-	FS_SAFE_DESTROY(m_bitmap);
+	if(m_mgr)
+	{
+		m_mgr->removeGlyph(this);
+		m_mgr=NULL;
+	}
+
+	FS_SAFE_DEC_REF(m_bitmap);
+	FS_SAFE_DESTROY(m_texture);
 }
 
-FontTTFData* FontTTFData::create(FsFile* file)
+
+
+/* ----- FontTTF ------ */
+
+FontTTF* FontTTF::create(FsFile* file)
 {
-	FontTTFData* ret=new FontTTFData();
+	FontTTF* ret=new FontTTF();
 	if(!ret->init(file))
 	{
 		delete ret;
@@ -286,137 +356,191 @@ FontTTFData* FontTTFData::create(FsFile* file)
 	return ret;
 }
 
-Glyph* FontTTFData::createGlyph(uint16_t char_index,int size)
+
+Glyph* FontTTF::getGlyph(uint16_t char_index,int size)
 {
-	return m_data->createGlyph(char_index,size);
+	Glyph* g=NULL;
+
+	g=findFromCache(char_index,size);
+	if(g)
+	{
+		return g;
+	}
+
+	g=findFromMgr(char_index,size);
+	if(!g)
+	{
+		Glyph* g=m_data->createGlyph(char_index,size);
+		addToMgr(g);
+	}
+	if(g)
+	{
+		addToCache(g);
+	}
+	return g;
 }
 
-bool FontTTFData::getFontMetrices(int size,FontMetrices* metrics)
+
+void FontTTF::removeGlyph(Glyph* g)
+{
+	assert(findFromCache(g->getChar(),g->getSize())==NULL);
+	m_glyphSet.erase(g);
+}
+
+
+
+
+bool FontTTF::getFontMetrices(int size,FontMetrices* metrics)
 {
 	return m_data->getFontMetrices(size,metrics);
 }
 
-const char* FontTTFData::className()
+
+const char* FontTTF::className()
 {
 	return FS_FONT_TTF_DATA_CLASS_NAME;
 }
 
-bool FontTTFData::init(FsFile* file)
+bool FontTTF::init(FsFile* file)
 {
-	m_data=new PlatfromFontTTFData();
+	m_data=new PlatfromFontTTF();
 	return m_data->init(file);
 }
-
-FontTTFData::FontTTFData()
-{
-	m_data=NULL;
-}
-
-FontTTFData::~FontTTFData()
-{
-	FS_SAFE_DELETE(m_data);
-}
-
-
-FontTTF* FontTTF::create(const char* name,int size)
-{
-	FontTTFData* data=(FontTTFData*)Global::fontTTFDataMgr()->load(name);
-	if(!data)
-	{
-		return NULL;
-	}
-	FontTTF* ret=new FontTTF;
-	if(!data->getFontMetrices(size,&ret->m_metrices))
-	{
-		FS_DESTROY(ret);
-		return NULL;
-	}
-	FS_SAFE_ASSIGN(ret->m_data,data);
-	ret->m_size=size;
-	return ret;
-}
-
-Glyph* FontTTF::getGlyph(uint16_t char_index)
-{
-	Glyph* ret=m_caches[char_index%(FS_FONT_GLYPH_CACHE_NU-1)];
-
-	if(ret&&ret->m_char==char_index)
-	{
-		return ret;
-	}
-
-	ret=m_data->createGlyph(char_index,m_size);
-	if(ret)
-	{
-		addCache(ret);
-	}
-	return ret;
-}
-
-int FontTTF::getHeight()
-{
-	return m_metrices.m_height;
-}
-
-int FontTTF::getAscend()
-{
-	return m_metrices.m_ascend;
-}
-
-int FontTTF::getDescend()
-{
-	return m_metrices.m_descend;
-}
-const char* FontTTF::className()
-{
-	return FS_FONT_TTF_CLASS_NAME;
-}
-
 
 FontTTF::FontTTF()
 {
 	m_data=NULL;
-	m_size=-1;
-	for(int i=0;i<FS_FONT_GLYPH_CACHE_NU-1;i++)
+	for(int i=0;i<FS_FONT_GLYPH_CACHE_NU;i++)
 	{
 		m_caches[i]=NULL;
 	}
 }
 
+void FontTTF::clearCache()
+{
+	for(int i=0;i<FS_FONT_GLYPH_CACHE_NU;i++)
+	{
+		Glyph* g=m_caches[i];
+		FS_SAFE_DEC_REF(g);
+		m_caches[i]=NULL;
+	}
+}
+
+
+void FontTTF::destruct()
+{
+	GlyphSet::iterator iter;
+	for(iter=m_glyphSet.begin();iter!=m_glyphSet.end();++iter)
+	{
+		iter->setFont(NULL);
+	}
+	m_glyphSet.clear();
+
+	clearCache();
+	FS_SAFE_DELETE(m_data);
+}
+
+
 FontTTF::~FontTTF()
 {
-	purgeCache();
-	FS_SAFE_DEC_REF(m_data);
+	destruct();
 }
 
 
-void FontTTF::purgeCache()
+void FontTTF::addToMgr(Glyph* g)
 {
-	for(int i=0;i<FS_FONT_GLYPH_CACHE_NU-1;i++)
+	g->setFont(this);
+
+	m_glyphSet.insert(g);
+}
+
+
+void FontTTF::addToCache(Glyph* g)
+{
+	uint32_t hash_code=glyphHashCode(g);
+
+	int index=hash_code%(FS_FONT_GLYPH_CACHE_NU-1);
+
+	Glyph* old=m_caches[index];
+
+	FS_SAFE_DEC_REF(old);
+
+	FS_SAFE_ADD_REF(g);
+
+	m_caches[index]=g;
+
+}
+
+Glyph* FontTTF::findFromCache(uint16_t char_index,uint16_t size)
+{
+
+	uint32_t hash_code=glyphHashCode(g);
+	int index=hash_code%(FS_FONT_GLYPH_CACHE_NU-1);
+
+	Glyph* g=m_caches[index];
+	if(g)
 	{
-		if(m_caches[i])
+		if(g->getChar()==char_index&& g->getSize()==size)
 		{
-			m_caches[i]->decRef();
-			m_caches[i]=NULL;
+			return g;
 		}
 	}
+	return NULL;
+
 }
 
-void FontTTF::addCache(Glyph* glyph)
+
+Glyph* FontTTF::findFromMgr(uint16_t char_index, uint16_t size)
 {
-	int char_index=glyph->m_char%(FS_FONT_GLYPH_CACHE_NU-1);
+	Glyph g(char_index,size);
 
-	Glyph* old=m_caches[char_index];
+	GlyphSet::iterator iter=m_glyphSet->find(g);
 
-	if(old!=NULL)
+	if(iter!=m_glyphSet.end())
 	{
-		old->decRef();
+		return  *iter;
 	}
 
-	glyph->addRef();
-	m_caches[char_index]=glyph;
+	return NULL;
 }
+
+
+
+Glyph* FontTTF::createGlyph(uint16_t char_index,uint16_t size)
+{
+	Glyph* g=m_data->createGlyph();
+	return g;
+}
+
+
+uint32_t FontTTF::getGlyphHashCode(Glyph* g)
+{
+	uint32_t c_id=g->getChar();
+	uint32_t size=g->getSize();
+	return size<<16|c_id;
+}
+
+
+
+
+
+
+
+
+
+
+
 NS_FS_END
+
+
+
+
+
+
+
+
+
+
 
 
 

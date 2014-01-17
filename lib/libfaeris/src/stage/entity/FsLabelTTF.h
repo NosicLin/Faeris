@@ -33,15 +33,19 @@ class LabelTTF:public Entity
 
 		};
 	public:
-		static LabelTTF* create(const char* text,FontTTF* font);
-		static LabelTTF* create(FontTTF* font);
+		static LabelTTF* create(const char* font,int size);
+		static LabelTTF* create(const char* font,int size,const char* text);
 
 	public:
 		void setString(const char* string);
 		const char* getString();
 
-		void setFont(FontTTF* font);
-		FontTTF* getFont();
+		void setFont(const char* font);
+		const char* getFont();
+
+		void setSize(int size);
+		int getSize();
+
 
 		void setAlign(int h,int v);
 		void getAlign(int* h,int* v);
@@ -52,7 +56,6 @@ class LabelTTF:public Entity
 		void setOpacity(float opacity);
 		float getOpacity();
 
-		Rect2D getRect2D();
 
 	public:
 		/* inherit Entity */
@@ -63,24 +66,26 @@ class LabelTTF:public Entity
 		virtual const char* className();
 	protected:
 		void init(const char* text,FontTTF* font);
-		void generateTexture();
-
 		LabelTTF();
 		~LabelTTF();
 
 
 	private:
 		int m_dirty;
+		std::string m_text;
+		std::string m_fontName`;
 
-		std::string m_string;
+
+
 		int m_alignv;
 		int m_alignh;
 
 		Color m_color;
 		float m_opacity;
-		FontTTF* m_font;
-		Texture2D* m_texture;
 
+
+
+		FontTTF* m_font;
 		Mat_V4F_T2F* m_material;
 };
 NS_FS_END

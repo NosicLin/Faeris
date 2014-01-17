@@ -10,11 +10,9 @@ NS_FS_BEGIN
 class RichLabelTTF 
 {
 	public:
-		static RichLabelTTF* create();
+		static RichLabelTTF* create(const char* ttf_file,int size);
+		static RichLabelTTF* create(const char* ttf_file);
 
-
-
-	public:
 
 };
 
