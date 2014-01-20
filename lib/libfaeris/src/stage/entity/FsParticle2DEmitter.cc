@@ -1,3 +1,5 @@
+#include "string.h"
+
 #include "stage/entity/FsParticle2DEmitter.h"
 #include "stage/entity/FsParticle2DEffect.h"
 #include "sys/io/FsVFS.h"
@@ -256,7 +258,7 @@ bool Particle2DEmitter::init()
 
 bool Particle2DEmitter::init(const char* filename)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("can't open file:%s for particle",filename);
@@ -316,7 +318,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 			FS_TRACE_WARN("Can't Get emittor:maxParticleNu Info");
 		}
 	}
-	FS_SAFE_DEC_REF(emittor);
 
 
 	/* --- particle ----- */
@@ -415,10 +416,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 			FS_TRACE_WARN("Can't Get particle:EndColorVar");
 		}
 
-		FS_SAFE_DEC_REF(start_color);
-		FS_SAFE_DEC_REF(start_color_var);
-		FS_SAFE_DEC_REF(end_color);
-		FS_SAFE_DEC_REF(end_color_var);
 
 		if(!ScriptUtil::getFloat(particle,"angle",&m_angle))
 		{
@@ -461,7 +458,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get particle:position Info");
 		}
-		FS_SAFE_DEC_REF(position);
 
 		FsArray* position_var=ScriptUtil::getArray(particle,"positionVar");
 		if(position_var)
@@ -474,7 +470,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 			FS_TRACE_WARN("Can't Get particle:positionVar Info");
 		}
 
-		FS_SAFE_DEC_REF(position_var);
 
 		FsString* move_mode=ScriptUtil::getString(particle,"moveMode");
 		if(move_mode)
@@ -496,11 +491,7 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get particle:moveMode Info");
 		}
-		FS_SAFE_DEC_REF(move_mode);
 	}
-
-	FS_SAFE_DEC_REF(particle);
-
 
 
 	/* --- texture --- */
@@ -516,7 +507,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get blendSrc Info");
 		}
-		FS_SAFE_DEC_REF(blendSrc);
 
 
 		FsString* blendDst=ScriptUtil::getString(texture,"blendDst");
@@ -528,7 +518,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get blendDst Info");
 		}
-		FS_SAFE_DEC_REF(blendDst);
 
 		FsString* url=ScriptUtil::getString(texture,"url");
 		if(url)
@@ -541,14 +530,12 @@ bool Particle2DEmitter::init(FsDict* dict)
 			FS_TRACE_WARN("Can't Get Texture Url");
 		}
 
-		FS_SAFE_DEC_REF(url);
 
 	}
 	else 
 	{
 		FS_TRACE_WARN("Can't Find Texture Info");
 	}
-	FS_SAFE_DEC_REF(texture);
 	
 
 	/* ---- enviroment ----- */
@@ -575,7 +562,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get environment:mode Info");
 		}
-		FS_SAFE_DEC_REF(mode);
 
 		FsDict* gravity=ScriptUtil::getDict(environment,"gravity");
 		if(gravity)
@@ -600,7 +586,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 			{
 				FS_TRACE_WARN("Can't Get gravity:gravity Info");
 			}
-			FS_SAFE_DEC_REF(g);
 
 			if(!ScriptUtil::getFloat(gravity,"radialAcceleration",&m_radialAcceleration))
 			{
@@ -624,7 +609,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 			FS_TRACE_WARN("Can't Get gravity Info");
 		}
 
-		FS_SAFE_DEC_REF(gravity);
 
 		FsDict* radial=ScriptUtil::getDict(environment,"radial");
 		if(radial)
@@ -659,7 +643,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		{
 			FS_TRACE_WARN("Can't Get radial Info");
 		}
-		FS_SAFE_DEC_REF(radial);
 
 	}
 	else 
@@ -668,7 +651,6 @@ bool Particle2DEmitter::init(FsDict* dict)
 		FS_TRACE_WARN("Can't Find Environment Info");
 	}
 
-	FS_SAFE_DEC_REF(environment);
 	return true;
 }
 

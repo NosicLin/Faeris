@@ -39,7 +39,7 @@ class HttpEngine:public FsObject,public Thread
 		HttpEngine();
 		virtual ~HttpEngine();
 		bool init();
-		void destroy();
+		void destruct();
 
 
 	private:

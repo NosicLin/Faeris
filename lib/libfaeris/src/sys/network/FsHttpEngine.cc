@@ -75,6 +75,8 @@ void HttpEngine::run()
 		else 
 		{
 			HttpRequest* request=(HttpRequest*)m_requests->get(0); 
+			request->addRef();
+
 			m_requests->remove((ulong)0);
 			m_reqMutex->unlock();
 
@@ -92,12 +94,13 @@ void HttpEngine::run()
 			}
 			if(reponse==NULL)
 			{
-				reponse=new HttpReponse();
+				reponse=HttpReponse::create();
 				reponse->setErrorBuf((uint8_t*)FS_REQUEST_UNKOWN_ERROR,sizeof(FS_REQUEST_UNKOWN_ERROR));
 				reponse->setReponseCode(0);
 			}
 
 			request->onReponse(reponse);
+
 			request->decRef();
 			reponse->decRef();
 		}
@@ -113,6 +116,8 @@ HttpEngine::HttpEngine()
 bool HttpEngine::init()
 {
 	m_requests=FsArray::create();
+	FS_NO_REF_DESTROY(m_requests);
+
 	m_reqSem=new Semaphore(0);
 	m_reqMutex=new Mutex();
 	m_stop=false;
@@ -122,32 +127,20 @@ bool HttpEngine::init()
 }
 
 
-void HttpEngine::destroy()
+void HttpEngine::destruct()
 {
 	stop(); /* signal thread to  stop */
 	join(); /* wait thread to exit */
 
-	if(m_requests)
-	{
-		m_requests->decRef();
-		m_requests=NULL;
-	}
-	if(m_reqSem)
-	{
-		delete m_reqSem;
-		m_reqSem=NULL;
-	}
-	if(m_reqMutex)
-	{
-		delete m_reqMutex;
-		m_reqMutex=NULL;
-	}
+	FS_SAFE_DESTROY(m_requests);
+	FS_SAFE_DELETE(m_reqSem);
+	FS_SAFE_DELETE(m_reqMutex);
 }
 
 
 HttpEngine::~HttpEngine()
 {
-	destroy();
+	destruct();
 }
 
 NS_FS_END 

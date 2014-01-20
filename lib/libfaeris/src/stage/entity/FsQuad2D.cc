@@ -171,7 +171,7 @@ Quad2D::Quad2D()
 }
 Quad2D::~Quad2D()
 {
-	destory();
+	destruct();
 }
 
 bool Quad2D::init(const char* file)
@@ -183,7 +183,6 @@ bool Quad2D::init(const char* file)
 		return false;
 	}
 	bool ret=init(tex);
-	tex->decRef();
 	return ret;
 }
 bool Quad2D::init(Texture2D* tex)
@@ -201,7 +200,7 @@ bool Quad2D::init(Texture2D* tex)
 	m_opacity=1.0f;
 	return true;
 }
-void Quad2D::destory()
+void Quad2D::destruct()
 {
 	FS_SAFE_DEC_REF(m_texture);
 	FS_SAFE_DEC_REF(m_material);

@@ -14,9 +14,6 @@ class Scene@__Scene:public ActionTarget
 		Layer* top();
 		Layer* getLayer(int index);
 
-		ObjectMgr* takeObjectMgr();
-		void dropObjectData();
-
 };
 
 

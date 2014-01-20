@@ -229,9 +229,9 @@ void Director::pop()
 		return ;
 	}
 	Scene* scene=(Scene*)m_secenQueue->get(m_secenQueue->size()-1);
-	m_secenQueue->pop();
-
 	repace(scene);
+
+	m_secenQueue->pop();
 }
 
 void Director::run(Scene* scene)
@@ -240,7 +240,6 @@ void Director::run(Scene* scene)
 }
 Scene* Director::current()
 {
-	FS_SAFE_ADD_REF(m_current);
 	return m_current;
 }
 
@@ -279,29 +278,37 @@ Director::Director()
 
 Director::~Director()
 {
-	destroy();
+	destruct();
 }
 void Director::init()
 {
 	m_current=NULL;
 	m_next=NULL;
 	m_sceneChange=false;
+
 	m_secenQueue=FsArray::create();
+	FS_NO_REF_DESTROY(m_secenQueue);
+
 	m_stop=false;
 	m_autoSwapBuffers=false;
 
+	/* touch event listener */
 	m_touchEventListener=DirectorTouchEventListener::create(this);
+	FS_NO_REF_DESTROY(m_touchEventListener);
 	Global::touchDispatcher()->addListener(m_touchEventListener);
 
+	/* keypad event listener */
 	m_keypadEventListener=DirectorKeypadEventListener::create(this);
+	FS_NO_REF_DESTROY(m_keypadEventListener);
 	Global::keypadDispatcher()->addListener(m_keypadEventListener);
 
-
+	/* inputText event listener */
 	m_inputTextEventListener=DirectorInputTextEventListener::create(this);
+	FS_NO_REF_DESTROY(m_inputTextEventListener);
 	Global::inputTextDispatcher()->addListener(m_inputTextEventListener);
 
 }
-void Director::destroy()
+void Director::destruct()
 {
 	if(m_current)
 	{
@@ -316,16 +323,16 @@ void Director::destroy()
 		m_next=NULL;
 	}
 
-	m_secenQueue->decRef();
+	FS_DESTROY(m_secenQueue);
 
 	Global::touchDispatcher()->removeListener(m_touchEventListener);
-	m_touchEventListener->decRef();
+	FS_DESTROY(m_touchEventListener);
 
 	Global::keypadDispatcher()->removeListener(m_keypadEventListener);
-	m_keypadEventListener->decRef();
+	FS_DESTROY(m_keypadEventListener);
 
 	Global::inputTextDispatcher()->removeListener(m_inputTextEventListener);
-	m_inputTextEventListener->decRef();
+	FS_DESTROY(m_inputTextEventListener);
 }
 
 
@@ -445,11 +452,6 @@ void Director::inputTextEvent(const char* text,int length)
 	if(!m_current) return;
 	m_current->inputTextEvent(text,length);
 }
-
-
-
-
-
 
 
 

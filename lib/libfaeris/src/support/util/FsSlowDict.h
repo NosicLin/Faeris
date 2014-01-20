@@ -31,7 +31,8 @@ class FsSlowDict:public FsObject
 		void remove(FsObject* key);
 		void clear();
 		ulong size();
-		FsDict::Iterator* getIterator();
+
+		FS_FEATURE_NEW_OBJECT(FsDict::Iterator*) takeIterator();
 
 	protected:
 		FsSlowDict();

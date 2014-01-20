@@ -397,7 +397,7 @@ int FsUtil_PngWriter(FsFile* file,Image2D* img)
 
 Image2D* FsUtil_PngReader(const char* filename)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't Open File(%s) For Image2D",filename);

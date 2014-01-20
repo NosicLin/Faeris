@@ -16,38 +16,20 @@ FsObject::~FsObject()
 	}
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
+	finalize();
 	dropScriptData();
 #endif 
 
 	FsObject::m_objectNu--;
 }
 
-FsObject::FsObject(bool mgred)
-	:m_refNu(1),
-	m_objectMgr(NULL),
 
-#if FS_CONFIG(FS_SCRIPT_SUPPORT)
-	m_scriptData(-1)
-#endif 
-{
-	FsObject::m_objectNu++;
-	if(mgred)
-	{
-		ObjectMgr* mgr=Global::objectMgr();
-		if(mgr)
-		{
-			mgr->manageObject(this);
-		}
-	}
-}
-
-
-void FsObject::giveObjectMgr(ObjectMgr* mgr)
+void FsObject::setObjectMgr(ObjectMgr* mgr)
 {
 	m_objectMgr=mgr;
 }
 
-ObjectMgr* FsObject::takeObjectMgr()
+ObjectMgr* FsObject::getObjectMgr()
 {
 	return m_objectMgr;
 }
@@ -63,16 +45,6 @@ bool FsObject::equal(FsObject* ob)
 	return this==ob;
 }
 
-void FsObject::dropData()
-{
-
-#if FS_CONFIG(FS_SCRIPT_SUPPORT)
-	dropScriptData();
-#endif 
-
-}
-
-
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 void FsObject::dropScriptData()
@@ -87,7 +59,18 @@ void FsObject::dropScriptData()
 		m_scriptData=-1;
 	}
 }
+
+void _FsScriptExtends_Finalize(FsObject*);
+
+void FsObject::finalize()
+{
+	/* NOTE: lua: implement in file FsScriptEngine.cc */
+	_FsScriptExtends_Finalize(this);
+}
 #endif 
 
 NS_FS_END 
+
+
+
 

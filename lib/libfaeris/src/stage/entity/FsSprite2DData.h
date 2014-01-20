@@ -98,6 +98,7 @@ class Sprite2DData:public Resource
 		Sprite2DData();
 		~Sprite2DData();
 		bool init(FsFile* file);
+
 		bool loadTextures(FsArray* array);
 		bool loadAnimations(FsArray* dict);
 

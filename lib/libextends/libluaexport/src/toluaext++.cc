@@ -82,7 +82,6 @@ TOLUA_API void toluaext_pushfsobject(lua_State* L,Faeris::FsObject* value)
 			}
 			lua_setfenv(L, -2);
 #endif
-			tolua_register_gc(L,lua_gettop(L));
 		}
 		else
 		{
@@ -109,8 +108,6 @@ TOLUA_API void toluaext_pushfsobject(lua_State* L,Faeris::FsObject* value)
 			lua_pushvalue(L, -5);					/* stack: mt ubox[u] super super[mt] flag mt */
 			lua_setmetatable(L,-5);                /* stack: mt ubox[u] super super[mt] flag */
 			lua_pop(L,3);                          /* stack: mt ubox[u] */
-			value->decRef();
-
 		}
 		lua_remove(L, -2);	/* stack: ubox[u]*/
 	}

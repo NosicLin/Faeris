@@ -26,7 +26,7 @@ class SegFile:public FsFile
 	protected:
 		virtual ~SegFile();
 		SegFile();
-		void destroy();
+		void destruct();
 		bool init(FsFile* file,uint32_t offset,uint32_t length);
 
 	private:

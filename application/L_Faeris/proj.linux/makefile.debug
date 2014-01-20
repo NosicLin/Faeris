@@ -33,6 +33,7 @@ LINK_LIB= -lluaexportd \
 		  -lX11  \
 		  -lGLEW \
 		  -lGL  \
+		  -llib3rdextends \
 		  -lpthread \
 		  -lluad \
 		  -ltolua++d \
@@ -43,6 +44,7 @@ LINK_LIB= -lluaexportd \
 		  -lminizipd \
 		  -lfreetype \
 		  -lfmodex \
+		  -llibbox2dd \
 
 
 #Source File 

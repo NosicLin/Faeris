@@ -120,6 +120,7 @@ PlatformWindow::PlatformWindow()
 	m_contex=NULL;
 	m_delete_msg=0;
 	m_eventGrap=EventGraper::create(this);
+	FS_NO_REF_DESTROY(m_eventGrap);
 	Global::scheduler()->add(m_eventGrap,Scheduler::HIGHEST);
 }
 PlatformWindow::~PlatformWindow()
@@ -129,7 +130,7 @@ PlatformWindow::~PlatformWindow()
 	XCloseDisplay(m_dpy);
 	XFree(m_vi);
 	Global::scheduler()->remove(m_eventGrap,Scheduler::HIGHEST);
-	m_eventGrap->decRef();
+	FS_DESTROY(m_eventGrap);
 }
 
 PlatformWindow* PlatformWindow::create()

@@ -65,6 +65,18 @@ bool Sys::isDir(const char* dir_name)
 
 }
 
+void Sys::openInputTextDialog(const char* title,const char* msg,
+							int input_mode,int input_flag,
+							int return_type,int max_length)
+{
+
+}
+
+void Sys::openNetSettingInterface()
+{
+
+}
+
 
 NS_FS_END
 

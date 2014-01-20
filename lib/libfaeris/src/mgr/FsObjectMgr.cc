@@ -42,7 +42,7 @@ ObjectMgr* ObjectMgr::create()
 void ObjectMgr::manageObject(FsObject* ob)
 {
 
-	ObjectMgr* pre_mgr=ob->takeObjectMgr();
+	ObjectMgr* pre_mgr=ob->getObjectMgr();
 
 	if(pre_mgr==this)
 	{
@@ -54,21 +54,21 @@ void ObjectMgr::manageObject(FsObject* ob)
 		pre_mgr->unManageObject(ob);
 	}
 
-	ob->giveObjectMgr(this);
+	ob->setObjectMgr(this);
 	m_mgr.insert(ob);
 }
 
 
 void ObjectMgr::unManageObject(FsObject* ob) 
 {
-	if(ob->takeObjectMgr()!=this)
+	if(ob->getObjectMgr()!=this)
 	{
 		FS_TRACE_WARN("Object Is Not Manage By This ObjectMgr");
 		return;
 	}
 	assert(m_mgr.find(ob)!=m_mgr.end());
 	m_mgr.erase(ob);
-	ob->giveObjectMgr(NULL);
+	ob->setObjectMgr(NULL);
 }
 
 
@@ -78,16 +78,14 @@ void ObjectMgr::dropObjectData()
 	for (MgrSet::iterator iter=m_mgr.begin();iter!=m_mgr.end();++iter)
 	{
 		obs->push(*iter);
-		(*iter)->giveObjectMgr(NULL);
+		(*iter)->setObjectMgr(NULL);
 	}
 
 	m_mgr.clear();
 	int size=obs->size();
 	for( int i=0;i<size;i++)
 	{
-		FsObject* o=obs->get(i);
-		o->dropData();
-		o->decRef();
+	//	FsObject* o=obs->get(i);
 	}
 	obs->decRef();
 }
@@ -96,7 +94,7 @@ void ObjectMgr::unManageAllObject()
 {
 	for(MgrSet::iterator iter=m_mgr.begin();iter!=m_mgr.end();++iter)
 	{
-		(*iter)->giveObjectMgr(NULL);
+		(*iter)->setObjectMgr(NULL);
 	}
 	m_mgr.clear();
 }

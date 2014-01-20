@@ -20,9 +20,9 @@ FgzPackage* FgzPackage::create(FsFile* file)
 	return ret;
 }
 
-FsFile* FgzPackage::getBlock(const char* filename)
+FsFile* FgzPackage::takeBlock(const char* filename)
 {
-	return m_reader->getFile(filename);
+	return m_reader->takeFile(filename);
 }
 
 

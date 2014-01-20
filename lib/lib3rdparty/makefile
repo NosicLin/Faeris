@@ -3,6 +3,7 @@ DIR=    libpng \
 		 minizip \
 		 tolua++ \
 		 zlib \
+		 Box2D \
 
 main:
 	for d in $(DIR) ;do \

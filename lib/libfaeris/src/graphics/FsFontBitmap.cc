@@ -86,7 +86,6 @@ GlyphBitmap* FontBitmap::GlyphSet::find(int key)
 	std::map<int,GlyphBitmap*>::iterator iter=m_values.find(key);
 	if(iter!=m_values.end())
 	{
-		iter->second->addRef();
 		return iter->second;
 	}
 	else 
@@ -98,7 +97,7 @@ GlyphBitmap* FontBitmap::GlyphSet::find(int key)
 
 FontBitmap* FontBitmap::create(const char* fnt)
 {
-	FsFile* file=VFS::open(fnt);
+	FsFile* file=VFS::createFile(fnt);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't open File(%s) For FontBitmap",fnt);
@@ -131,28 +130,27 @@ FontBitmap::FontBitmap()
 	m_ascent=0;
 	m_height=0;
 	m_textures=NULL;
-
-
 }
 
 FontBitmap::~FontBitmap()
 {
-	destroy();
+	destruct();
 }
 
-void FontBitmap::destroy()
+void FontBitmap::destruct()
 {
 	FS_SAFE_DELETE(m_glyphs);
 	m_glyphs=NULL;
 
-	FS_SAFE_DEC_REF(m_textures);
+	FS_DESTROY(m_textures);
 	m_textures=NULL;
 }
 
 
-GlyphBitmap* FontBitmap::loadGlyph(uint16_t index)
+GlyphBitmap* FontBitmap::getGlyph(uint16_t index)
 {
-	return m_glyphs->find(index);
+	GlyphBitmap* g= m_glyphs->find(index);
+	return g;
 
 }
 
@@ -352,10 +350,7 @@ bool FontBitmap::init(FsFile* file)
 			{
 				max_xadvance=v_xadvance;
 			}
-
 			glyphs->insert(v_id,glyph);
-
-			glyph->decRef();
 		}
 		else
 		{
@@ -389,7 +384,6 @@ next_line:
 		g->m_maxx=max_xadvance;
 		glyphs->insert(' ',g);
 	}
-	FS_SAFE_DEC_REF(g);
 
 	/* find tab */
 	g=glyphs->find('\t');
@@ -401,7 +395,6 @@ next_line:
 		g->m_maxx=max_xadvance;
 		glyphs->insert('\t',g);
 	}
-	FS_SAFE_DEC_REF(g);
 
 
 	/* find line */
@@ -412,7 +405,6 @@ next_line:
 		g->m_char='\n';
 		glyphs->insert('\n',g);
 	}
-	FS_SAFE_DEC_REF(g);
 
 
 
@@ -427,8 +419,9 @@ next_line:
 	m_height=line_height;
 
 	m_textures=FsArray::create();
+	FS_NO_REF_DESTROY(m_textures);
 	m_textures->push(texture);
-	texture->decRef();
+
 	return true;
 
 error:

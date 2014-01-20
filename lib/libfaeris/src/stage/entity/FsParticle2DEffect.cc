@@ -24,7 +24,6 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
     }
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
-	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
@@ -38,7 +37,6 @@ Particle2DEffect* Particle2DEffect::create(FsFile* file)
 	}
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
-	FS_SAFE_DEC_REF(emit);
 	return ret;
 }
 
@@ -86,7 +84,7 @@ Particle2DEffect::Particle2DEffect()
 
 Particle2DEffect::~Particle2DEffect()
 {
-	destory();
+	destruct();
 }
 
 bool Particle2DEffect::init(Particle2DEmitter* emitter)
@@ -95,7 +93,7 @@ bool Particle2DEffect::init(Particle2DEmitter* emitter)
 	return true;
 }
 
-void Particle2DEffect::destory()
+void Particle2DEffect::destruct()
 {
 	FS_SAFE_DEC_REF(m_emitter);
 	m_emitter=NULL;
@@ -188,7 +186,6 @@ void Particle2DEffect::setEmitter(Particle2DEmitter* emit)
 
 Particle2DEmitter* Particle2DEffect::getEmitter()
 {
-	FS_SAFE_ADD_REF(m_emitter);
 	return m_emitter;
 }
 
@@ -355,7 +352,7 @@ void Particle2DEffect::generateParticle(float dt)
 	int new_size=generate_nu+particle_size;
 
 	m_particles.resize(new_size);
-	FS_TRACE_ERROR_ON(m_particles.size()!=new_size,"std::vector.resize Error ");
+	FS_TRACE_ERROR_ON(m_particles.size()!=(unsigned int)new_size,"std::vector.resize Error ");
 
 	/* FIXME: this is a bug, when engine build in debug mode and used as a static library 
 	 *        for other application, if the application build with debug mode, std::vector.size() 
@@ -396,6 +393,11 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		return;
 	}
 
+	int t_width=texture->getWidth();
+	int t_height=texture->getHeight();
+
+
+
 
 	updateWorldMatrix();
 
@@ -412,8 +414,8 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 
 	render->setActiveTexture(1);
 	render->bindTexture(texture,0);
-	texture->decRef();
 	render->setBlend(Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
+
 
 	//FS_TRACE_WARN("emitter:%d,%d,%d",Render::EQUATION_ADD,m_emitter->getBlendSrc(),m_emitter->getBlendDst());
 
@@ -423,7 +425,6 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	int tex_loc=m_material->getT2FLocation();
 
 	int color_uniform=m_material->getColorUniform();
-	int texture_uniform=m_material->getTextureUniform();
 
 	static Face3 faces[2]=
 	{
@@ -464,15 +465,17 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 		}
 
 		float size=m_particles[i].m_size;
-		float hlsize=size/2;
+
+		float hwsize=t_width*size/2;
+		float hhsize=t_height*size/2;
 
 
 		float v[8]=
 		{
-			x-hlsize,y+hlsize,
-			x-hlsize,y-hlsize,
-			x+hlsize,y-hlsize,
-			x+hlsize,y+hlsize,
+			x-hwsize,y+hhsize,
+			x-hwsize,y-hhsize,
+			x+hwsize,y-hhsize,
+			x+hwsize,y+hhsize,
 		};
 		render->setUniform(color_uniform,Render::U_F_4,1,color);
 		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,v);

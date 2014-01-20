@@ -39,16 +39,13 @@ typedef struct
 class FgzFileInfo:public FsObject
 {
 	public:
-		FgzFileInfo()
+		static FgzFileInfo* create()
 		{
-			m_filename=NULL;
+			return new FgzFileInfo();
 		}
 
-		virtual ~FgzFileInfo()
-		{
-			FS_SAFE_DEC_REF(m_filename);
-		}
 
+	public:
 		virtual const char* className()
 		{
 			return "FgzFileInfo";
@@ -59,12 +56,23 @@ class FgzFileInfo:public FsObject
 		{
 			FsString* str=FsString::create(name);
 			FS_SAFE_ASSIGN(m_filename,str);
-			str->decRef();
 		}
 		void setDataOffset(uint32_t offset)
 		{
 			m_dataOffset=offset;
 		}
+
+	protected:
+		FgzFileInfo()
+		{
+			m_filename=NULL;
+		}
+
+		virtual ~FgzFileInfo()
+		{
+			FS_SAFE_DEC_REF(m_filename);
+		}
+
 
 	public:
 		FsString* m_filename;
@@ -87,7 +95,7 @@ FgzReader* FgzReader::create(FsFile* file)
 
 
 
-FsFile* FgzReader::getFile(const char* filename)
+FsFile* FgzReader::takeFile(const char* filename)
 {
 	FgzFileInfo* info=(FgzFileInfo*)m_files->lookup(filename);
 	FsFile* ret=NULL;
@@ -151,7 +159,8 @@ FsFile* FgzReader::getFile(const char* filename)
 		FS_TRACE_WARN("UnSupport Compress Method");
 	}
 
-	info->decRef();
+	FS_SAFE_ADD_REF(ret);
+
 	return ret;
 }
 
@@ -168,7 +177,7 @@ FgzReader::FgzReader()
 
 FgzReader::~FgzReader()
 {
-	destroy();
+	destruct();
 }
 
 bool FgzReader::init(FsFile* file)
@@ -219,7 +228,7 @@ bool FgzReader::init(FsFile* file)
 		}
 
 
-		info=new FgzFileInfo();
+		info=FgzFileInfo::create();
 
 		ret=file->read(&info->m_header,sizeof(info->m_header));
 
@@ -258,14 +267,14 @@ bool FgzReader::init(FsFile* file)
 		file_data_pos=current_offset+sizeof(FgzFileHeader)+info->m_header.m_filenameLength;
 		info->setDataOffset(file_data_pos);
 
-		//FS_TRACE_INFO("add File %s",info->m_filename->cstr());
-		fileset->insert(info->m_filename,info);
 
 
 
 		/* update current offset to read next file */
 		current_offset+=sizeof(FgzFileHeader)+info->m_header.m_filenameLength+info->m_header.m_ensize;
-		info->decRef();
+
+		//FS_TRACE_INFO("add File %s",info->m_filename->cstr());
+		fileset->insert(info->m_filename,info);
 		info=NULL;
 	}
 
@@ -280,7 +289,7 @@ error:
 	return false;
 }
 
-void FgzReader::destroy()
+void FgzReader::destruct()
 {
 	FS_SAFE_DEC_REF(m_files);
 	FS_SAFE_DEC_REF(m_stream);

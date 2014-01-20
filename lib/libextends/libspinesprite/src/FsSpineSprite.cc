@@ -146,6 +146,7 @@ float SpineSprite::getDurationTime()
 
 void SpineSprite::update(float dt)
 {
+	Entity::update(dt);
 	updateAnimation(dt);
 }
 

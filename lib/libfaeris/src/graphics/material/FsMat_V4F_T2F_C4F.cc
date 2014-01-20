@@ -45,15 +45,15 @@ Mat_V4F_T2F_C4F* Mat_V4F_T2F_C4F::shareMaterial()
 {
 	if(s_shareMatrial==NULL)
 	{
-		s_shareMatrial=Mat_V4F_T2F_C4F::create();
+		s_shareMatrial=new Mat_V4F_T2F_C4F;
+		FS_NO_REF_DESTROY(s_shareMatrial);
 	}
-	s_shareMatrial->addRef();
 	return s_shareMatrial;
 }
 
 void Mat_V4F_T2F_C4F::purgeShareMaterial()
 {
-	s_shareMatrial->forceDestroy();
+	FS_SAFE_DESTROY(s_shareMatrial);
 	s_shareMatrial=NULL;
 }
 
@@ -97,6 +97,8 @@ Mat_V4F_T2F_C4F::Mat_V4F_T2F_C4F()
 			v4f_t2f_c4f_frag_str,
 			sizeof(v4f_t2f_c4f_frag_str)
 			);
+
+	FS_SAFE_ADD_REF(m_program);
 
 	if(m_program)
 	{

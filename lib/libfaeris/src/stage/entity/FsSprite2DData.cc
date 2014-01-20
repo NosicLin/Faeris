@@ -80,13 +80,10 @@ int Sprite2DAnimation::getFps()
 
 void Sprite2DAnimation::setName(FsString* name)
 {
-	FS_SAFE_ADD_REF(name);
-	FS_SAFE_DEC_REF(m_name);
-	m_name=name;
+	FS_SAFE_ASSIGN(m_name,name);
 }
 FsString* Sprite2DAnimation::getName()
 {
-	FS_SAFE_ADD_REF(m_name);
 	return m_name;
 }
 
@@ -110,6 +107,7 @@ Sprite2DAnimation::~Sprite2DAnimation()
 		delete m_keys[i];
 	}
 	m_keys.clear();
+
 	FS_SAFE_DEC_REF(m_name);
 }
 
@@ -129,7 +127,6 @@ void Sprite2DData::addAnimation(Sprite2DAnimation* animation)
 	FsString* name=animation->getName();
 	assert(name!=NULL);
 	m_animations->insert(name,animation);
-	name->decRef();
 }
 
 Sprite2DAnimation* Sprite2DData::getAnimation(const char* name)
@@ -146,7 +143,6 @@ int Sprite2DData::getAnimationNu()
 
 FsArray* Sprite2DData::getTextures()
 {
-	m_textures->addRef();
 	return m_textures;
 }
 
@@ -165,14 +161,19 @@ const char* Sprite2DData::className()
 Sprite2DData::Sprite2DData()
 {
 	m_animations=FsDict::create();
+	FS_NO_REF_DESTROY(m_animations);
+
 	m_textures=FsArray::create();
+	FS_NO_REF_DESTROY(m_textures);
+
 	m_name=NULL;
 }
 
 Sprite2DData::~Sprite2DData()
 {
-	m_animations->decRef();
-	m_textures->decRef();
+	FS_DESTROY(m_animations);
+	FS_DESTROY(m_textures);
+
 	FS_SAFE_DEC_REF(m_name);
 
 }
@@ -181,7 +182,9 @@ Sprite2DData::~Sprite2DData()
 bool Sprite2DData::init(FsFile* file)
 {
 	bool ret=false;
+
 	FsDict* dict=ScriptUtil::parseScript(file);
+
 	if(dict==NULL)
 	{
 		FS_TRACE_WARN("Parse File For Sprite2DData Failed");
@@ -190,7 +193,9 @@ bool Sprite2DData::init(FsFile* file)
 	FsString* type=ScriptUtil::getString(dict,"type");
 	FsString* name=ScriptUtil::getString(dict,"name");
 	FsString* version=ScriptUtil::getString(dict,"version");
+
 	int resourceNu=0;
+
 	FsArray* textures=ScriptUtil::getArray(dict,"resources");
 	FsArray* animations=ScriptUtil::getArray(dict,"animations");
 
@@ -248,17 +253,13 @@ bool Sprite2DData::init(FsFile* file)
 		goto error;
 	}
 
-	name->addRef();
-	m_name=name;
+	FS_SAFE_ASSIGN(m_name,name);
+
 	ret=true;
 
+
 error:
-	FS_SAFE_DEC_REF(dict);
-	FS_SAFE_DEC_REF(type);
-	FS_SAFE_DEC_REF(name);
-	FS_SAFE_DEC_REF(version);
-	FS_SAFE_DEC_REF(textures);
-	FS_SAFE_DEC_REF(animations);
+	FS_DESTROY(dict);
 	return  ret;
 }
 
@@ -274,17 +275,14 @@ bool Sprite2DData::loadTextures(FsArray* array)
 			if(!tex)
 			{
 				FS_TRACE_WARN("Can't Load Resource(%s) For Sprite",name->cstr());
-				name->decRef();
 				return false;
 			}
 			m_textures->push(tex);
-			tex->decRef();
 		}
 		else 
 		{
 			return false;
 		}
-		name->decRef();
 	}
 	return true;
 }
@@ -302,7 +300,6 @@ bool Sprite2DData::loadAnimations(FsArray* array)
 		}
 
 		Sprite2DAnimation* anim=createAnimation(dict);
-		dict->decRef();
 
 		if(!anim)
 		{
@@ -311,7 +308,6 @@ bool Sprite2DData::loadAnimations(FsArray* array)
 		}
 
 		addAnimation(anim);
-		anim->decRef();
 	}
 	return true;
 }
@@ -327,29 +323,29 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 	if(name==NULL)
 	{
 		FS_TRACE_WARN("Can't Find Name Filed");
-		goto error;
+		return NULL;
 	}
 	if(keyframes==NULL)
 	{
 		FS_TRACE_WARN("Can't Find keyFrames Filed");
-		goto error;
+		return NULL;
 	}
 
 	if(!ScriptUtil::getInteger(dict,"fps",&fps))
 	{
 		FS_TRACE_WARN("Can't Find fps Filed");
-		goto error;
+		return NULL;
 	}
 	if(!ScriptUtil::getInteger(dict,"frameNu",&frame_nu))
 	{
 		FS_TRACE_WARN("Can't Find frameNu Filed");
-		goto error;
+		return NULL;
 	}
 
 	if(frame_nu!=(int)keyframes->size())
 	{
 		FS_TRACE_WARN("Frame in keyFrames not Equal frameNu");
-		goto error;
+		return NULL;
 	}
 	ret=Sprite2DAnimation::create();
 
@@ -359,7 +355,6 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 		if(frame)
 		{
 			Sprite2DKeyFrame* key=createKeyFrame(frame);
-			frame->decRef();
 
 			if(key)
 			{
@@ -367,16 +362,14 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 			}
 			else 
 			{
-				ret->decRef();
-				ret=NULL;
-				goto error;
+				FS_DESTROY(ret);
+				return NULL;
 			}
 		}
 		else 
 		{
-			ret->decRef();
-			ret=NULL;
-			goto error;
+			FS_DESTROY(ret);
+			return NULL;
 		}
 	}
 
@@ -384,9 +377,6 @@ Sprite2DAnimation* Sprite2DData::createAnimation(FsDict* dict)
 	if(fps<=0) fps=1;
 	ret->setFps(fps);
 
-error:
-	FS_SAFE_DEC_REF(name);
-	FS_SAFE_DEC_REF(keyframes);
 	return ret;
 }
 
@@ -436,7 +426,6 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 					}
 				}
 			}
-			FS_SAFE_DEC_REF(tex_coord);
 		}
 
 		/* vertex */
@@ -459,7 +448,6 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 					}
 				}
 			}
-			FS_SAFE_DEC_REF(vertex);
 		}
 
 		/* alpha */
@@ -482,7 +470,6 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 					}
 				}
 			}
-			FS_SAFE_DEC_REF(alpha);
 		}
 
 		if(error)
@@ -496,7 +483,6 @@ Sprite2DKeyFrame* Sprite2DData::createKeyFrame(FsArray* frame)
 
 			ret->addQuad(q);
 		}
-		quad->decRef();
 	}
 
 	return ret;

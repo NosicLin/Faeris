@@ -14,18 +14,18 @@ class ZipReader:public FsObject
 		static bool CheckType(FsFile* file);
 
 	public:
-		FsFile* getFile(const char* filename);
+		FsFile* takeFile(const char* filename);
 
 
 	public:
 		/* override FsObject */
 		virtual const char* className();
 
-	public:
+	protected:
 		ZipReader();
 		virtual ~ZipReader();
 		bool init(FsFile* file,void* unzfile);
-		void destroy();
+		void destruct();
 
 	private:
 		void* m_unzfile;

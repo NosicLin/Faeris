@@ -7,14 +7,15 @@ NS_FS_BEGIN
 ResourceMgr::ResourceMgr(ResourceCreateFunc func)
 {
 	m_func=func;
-	m_preload=FsDict::create();
+	m_caches=FsDict::create();
+
+	FS_NO_REF_DESTROY(m_caches);
 }
 
 
 ResourceMgr::~ResourceMgr()
 {
-	clearCache();
-	m_preload->decRef();
+	FS_DESTROY(m_caches);
 }
 
 
@@ -62,7 +63,7 @@ Resource* ResourceMgr::load(const char* file_name)
 
 	if(ret==NULL)
 	{
-		loadFromSearchPath(file_name);
+		ret=loadFromSearchPath(file_name);
 	}
 	return ret;
 
@@ -78,9 +79,7 @@ void ResourceMgr::remove(Resource* res)
 
 	FsString* key=res->getResourceName();
 	assert(key);
-	removeCache(key->cstr());
-	key->decRef();
-
+	removeCache(key);
 }
 
 void ResourceMgr::add(const char* name,Resource* res)
@@ -97,14 +96,18 @@ void ResourceMgr::add(const char* name,Resource* res)
 		}
 		return;
 	}
-	FsString* fs_name=FsString::create(name);
-	m_caches[fs_name]=res;
+	FsString* f_name=FsString::create(name);
+	m_caches->insert(f_name,res);
 
 	res->m_mgr=this;
-	res->setResourceName(fs_name);
-
-	fs_name->decRef();
+	res->setResourceName(f_name);
 }
+
+int ResourceMgr::getCacheResourceNu()
+{
+	return m_caches->size();
+}
+
 
 
 /* protected */
@@ -141,129 +144,122 @@ Resource* ResourceMgr::loadFromSearchPath(const char* file_name)
 	return ret;
 }
 
-void ResourceMgr::removeCache(const char* name)
+void ResourceMgr::removeCache(FsString* key)
 {
-	FsString* fs_name=FsString::create(name);
-	m_caches.erase(fs_name);
-	fs_name->decRef();
+	m_caches->remove(key);
 }
 
 Resource* ResourceMgr::findFromCache(FsString* name)
 {
-	MgrSet::iterator iter=m_caches.find(name);
-	if(iter==m_caches.end())
-	{
-		return NULL;
-	}
-	return iter->second;
+	Resource* ret=(Resource*)m_caches->lookup(name);
+	return ret;
 }
 
 Resource* ResourceMgr::loadFromPath(const char* name)
 {
-	FsString* fs_name=FsString::create(name);
-	Resource* ret=findFromCache(fs_name);
+	//FS_TRACE_WARN("%s",name);
+	FsString* f_name=FsString::create(name);
+	Resource* ret=findFromCache(f_name);
 	if(ret==NULL)
 	{
-		FsFile* file=VFS::open(name);
+		FsFile* file=VFS::createFile(name);
 		if(file==NULL)
 		{
 			ret=NULL;
 		}
 		else 
 		{
+			FS_SAFE_ADD_REF(file);
 			ret=m_func(file);
 			FS_SAFE_DEC_REF(file);
 			if(ret)
 			{
-				add(name,ret);
+				addCache(f_name,ret);
 			}
 		}
 	}
-	else 
-	{
-		FS_SAFE_ADD_REF(ret);
-	}
-	fs_name->decRef();
+	f_name->autoDestroy();
 	return ret;
 }
+
+void ResourceMgr::addCache(FsString* name,Resource* res)
+{
+	res->setResourceName(name);
+	m_caches->insert(name,res);
+}
+
+
+
 
 bool ResourceMgr::preloadResource(const char* path)
 {
-	FsString* fs_path=FsString::create(path);
 	Resource* ret=load(path);
 
-	if(ret)
+	if (ret==NULL)
 	{
-		m_preload->insert(fs_path,ret);
-		FS_SAFE_DEC_REF(fs_path);
-		FS_SAFE_DEC_REF(ret);
-		return true;
+		return false;
+	}
+	return true;
+}
+
+
+bool ResourceMgr::unload(const char* path,bool force)
+{
+	Resource* res=load(path);
+	if(res!=NULL)
+	{
+		if(res->refCnt()==1||force) 
+		{
+			remove(res);
+			return true;
+		}
+	}
+	return false;
+}
+
+
+void ResourceMgr::unloadAll(bool force)
+{
+	if(force)
+	{
+		m_caches->clear();
 	}
 	else 
 	{
-		FS_SAFE_DEC_REF(fs_path);
-		return false;
+		std::vector<Resource*> need_unload;
+		FsDict::Iterator iter(m_caches);
+		while(!iter.done())
+		{
+			Resource* res=(Resource*)iter.getValue();
+			if(res->refCnt()==1)
+			{
+				need_unload.push_back(res);
+			}
+			iter.next();
+		}
+
+		int size=need_unload.size();
+		for(int i=0;i<size;i++)
+		{
+			remove(need_unload[i]);
+		}
 	}
 }
 
-
-bool ResourceMgr::unPreloadResource(const char* path)
-{
-	FsString* fs_path=FsString::create(path);
-	bool ret=m_preload->remove(fs_path);
-	FS_SAFE_DEC_REF(fs_path);
-	return ret;
-}
-
-int ResourceMgr::getPreloadResourceNu()
-{
-	return m_preload->size();
-}
-
-int ResourceMgr::getCacheResourceNu()
-{
-	return m_caches.size();
-}
-
-void ResourceMgr::clearPreloadResource()
-{
-	m_preload->clear();
-}
-
-void ResourceMgr::clearCache()
-{
-	MgrSet::iterator iter=m_caches.begin();
-
-	for(;iter!=m_caches.end();++iter)
-	{
-		iter->second->setMgr(NULL);
-	}
-	m_caches.clear();
-
-}
 
 void ResourceMgr::dump()
 {
-	printf("%s Dump Resource Begin\n",className());
-	printf("----Cache Resource----\n");
-	for(MgrSet::iterator iter=m_caches.begin();iter!=m_caches.end();++iter)
-	{
-		printf("\t%s\n",iter->first->cstr());
-	}
-	printf("----Preload Resource----\n");
 
-	FsDict::Iterator iter(m_preload);
+	/*
+	FsDict::Iterator iter(m_caches);
 	while(!iter.done())
 	{
 		FsString* key=(FsString*)iter.getKey();
-		printf("\t%s\n",key->cstr());
-		key->decRef();
+	//	printf("\t%s\n",key->cstr());
 		iter.next();
 	}
-
-
-	printf("%s Dump Resource End\n",className());
-
+	//printf("%s Dump Resource End\n",className());
+	*/
 }
 
 

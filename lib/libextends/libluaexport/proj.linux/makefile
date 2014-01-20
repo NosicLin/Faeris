@@ -13,6 +13,8 @@ SRC_DIR=../src
 INCLUDE_DIR=-I../src \
 			-I../../../libfaeris/src \
 			-I../../../lib3rdparty/tolua++/include \
+			-I../../../lib3rdparty/Box2D/ \
+			-I../../../libextends/lib3rdextends/src \
 			-I../../../lib3rdparty/lua/include \
 			-I../../../libextends/libaudio/src \
 			-I../../../libextends/libnetwork/src \
@@ -24,7 +26,10 @@ SRC=  luaexport/FsLibSpineSprite.cc \
 	  luaexport/FsLibFaerisExport.cc \
 	  luaexport/FsLibLuaScript.cc \
 	  luaexport/FsLuaFuncExport.cc \
+	  luaexport/FsLibBox2d.cc \
+	  luaext/FsLuaAction.cc \
 	  luaext/FsLuaScene.cc \
+	  luaext/FsLuaSchedulerTarget.cc \
 	  luaext/FsLuaSysEventListener.cc \
 	  luaext/FsLuaTouchEventListener.cc \
 	  luaext/FsLuaHttpRequest.cc \

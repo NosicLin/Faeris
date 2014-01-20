@@ -34,8 +34,7 @@ class Layer:public ActionTarget
 		void clearEntity();
 		
 		Scene* getScene();
-		Scene* takeScene();
-		void giveScene(Scene* scene);
+		void setScene(Scene* scene);
 
 
 
@@ -67,8 +66,6 @@ class Layer:public ActionTarget
 		virtual bool touchesPointerUp(TouchEvent* event);
 		virtual bool touchesEnd(TouchEvent* event);
 
-		/* drop data */
-		virtual void dropData();
 
 
 		/* inherit FsObject */
@@ -81,7 +78,7 @@ class Layer:public ActionTarget
 		Layer();
 		virtual ~Layer();
 		void init();
-		void destroy();
+		void destruct();
 		void updateAllWorldMatrix();
 	
 

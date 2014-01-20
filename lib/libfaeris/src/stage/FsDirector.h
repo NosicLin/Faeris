@@ -50,7 +50,7 @@ class Director :public SchedulerTarget
 		Director();
 		~Director();
 		void init();
-		void destroy();
+		void destruct();
 		void repace(Scene* scene);
 
 		void drawScene();
@@ -74,11 +74,14 @@ class Director :public SchedulerTarget
 		Scene* m_current;
 
 		Scene* m_next;
+
 		bool m_sceneChange;
 
 		FsArray* m_secenQueue;
+
 		bool m_stop;
 		bool m_autoSwapBuffers;
+
 		DirectorTouchEventListener* m_touchEventListener;
 		DirectorKeypadEventListener* m_keypadEventListener;
 		DirectorInputTextEventListener* m_inputTextEventListener;

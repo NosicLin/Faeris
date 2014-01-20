@@ -87,6 +87,32 @@ function f_require(filename)
 end
 
 
+function f_newclass()
+	local ret={}
+	ret.__index=ret 
+	return ret
+end
+
+
+function f_extends(o,c)
+	if type(o)=="table" then 
+		setmetatable(o,c)
+	elseif type(o)=="userdata" then 
+		if o.data then 
+			setmetatable(o.data,c)
+		else 
+			o.data={}
+			setmetatable(o.data,c)
+		end
+	else 
+		f_utillog("not support type(%s) extends",type(o));
+	end
+end
+
+
+
+
+
 
 $]
 

@@ -41,9 +41,15 @@ Mat_V4F* Mat_V4F::shareMaterial()
 	if(s_share_material==NULL)
 	{
 		s_share_material=Mat_V4F::create();
+		FS_NO_REF_DESTROY(s_share_material);
 	}
-	FS_SAFE_ADD_REF(s_share_material);
 	return s_share_material;
+}
+
+void Mat_V4F::purgeShareMaterial()
+{
+	FS_SAFE_DESTROY(s_share_material);
+	s_share_material=NULL;
 }
 
 
@@ -85,6 +91,8 @@ const char* Mat_V4F::className()
 Mat_V4F::Mat_V4F()
 {
 	m_program=Program::create(mat_v4f_vert_str,sizeof(mat_v4f_vert_str),mat_v4f_frag_str,sizeof(mat_v4f_frag_str));
+
+	FS_SAFE_ADD_REF(m_program);
 
 
 	if(m_program) 

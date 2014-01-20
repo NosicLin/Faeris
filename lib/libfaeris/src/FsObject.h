@@ -1,4 +1,4 @@
-#ifndef FAERIS_OBJECT_H_ 
+#ifndef FAERIS_OBJECT_H_
 #define FAERIS_OBJECT_H_
 
 #include "FsMacros.h"
@@ -19,6 +19,7 @@ class FsObject
 
 	/* object attribute */
 	private:
+		bool m_refDelete;
 		int m_refNu;
 		ObjectMgr* m_objectMgr;
 
@@ -28,17 +29,33 @@ class FsObject
 		void decRef()
 		{
 			m_refNu--;
-			FS_TRACE_ERROR_ON(m_refNu<0,"%s Reference Error",className());
+			if((m_refNu<=0)&&m_refDelete)
+			{
+				delete this;
+			}
+		}
+		void setRefDelete(bool value)
+		{
+			m_refDelete=value;
+		}
+		bool getRefDelete(){return m_refDelete;}
+
+		void destroy(){
+			FS_TRACE_WARN_ON(m_refNu>1,"Object(%s) Is Owner By Other %d Object",className(),m_refNu);
+			delete this;
+		}
+		void autoDestroy()
+		{
 			if(m_refNu<=0)
 			{
 				delete this;
 			}
 		}
-		void forceDestroy(){delete this;}
 
 	public:
 		FsObject()
-			:m_refNu(1),
+			:m_refDelete(true),
+			m_refNu(0),
 			m_objectMgr(NULL),
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 			m_scriptData(-1)
@@ -46,24 +63,27 @@ class FsObject
 		{ 
 			FsObject::m_objectNu++;
 		}
-		FsObject(bool mgred);
-
 
 		virtual ~FsObject();
 		virtual const char* className()=0;
 		virtual long getHashCode();
 		virtual bool equal(FsObject* ob); 
-		virtual void dropData();
-		void giveObjectMgr(ObjectMgr* ob);
-		ObjectMgr* takeObjectMgr();
+
+
+
+		void setObjectMgr(ObjectMgr* ob);
+		ObjectMgr* getObjectMgr();
 
 
 #if FS_CONFIG(FS_SCRIPT_SUPPORT)
 	public:
 		int m_scriptData; /* script data */
 
+
 	public:
-		virtual void dropScriptData();
+		void dropScriptData();
+		void finalize();
+
 #endif 
 
 };

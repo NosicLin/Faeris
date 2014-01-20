@@ -115,6 +115,12 @@ class LuaLabelTTF:public TEntity<LabelTTF>
 			ret->init(text,font);
 			return ret;
 		}
+		static LuaLabelTTF* create(FontTTF* font)
+		{
+			LuaLabelTTF* ret=new LuaLabelTTF();
+			ret->init("",font);
+			return ret;
+		}
 	public:
 		virtual const char* className()
 		{

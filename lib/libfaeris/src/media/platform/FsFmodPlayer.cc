@@ -47,7 +47,7 @@ Sound* FmodPlayer::createSound(const char* filename)
 	FMOD_CREATESOUNDEXINFO exinfo;
 
 
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Open File %s For Load Sound Failed",filename);
@@ -333,7 +333,7 @@ Music* FmodPlayer::createMusic(const char* filename)
 	FMOD_CREATESOUNDEXINFO exinfo;
 
 
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Open File %s For Load Sound Failed",filename);

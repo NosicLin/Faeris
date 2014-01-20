@@ -34,6 +34,7 @@ class LabelTTF:public Entity
 		};
 	public:
 		static LabelTTF* create(const char* text,FontTTF* font);
+		static LabelTTF* create(FontTTF* font);
 
 	public:
 		void setString(const char* string);

@@ -6,19 +6,17 @@ class ResourceMgr:public FsObject
 		bool existSearchPath(const char* path);
 		void removeSearchPath(const char* path);
 
+		bool preloadResource(const char* path);
 		Resource* load(const char* path);
-		void remove(Resource* res);
-		void add(const char* name,Resource* res);
+		bool unload(const char* path,bool force=false);
+		void unloadAll(bool force=false);
 		int getCacheResourceNu();
 
-		void dump();
 
+		void remove(Resource* res);
+		void add(const char* name,Resource* res);
 
-	public:
-		int getPreloadResourceNu();
-		bool preloadResource(const char* path);
-		bool unPreloadResource(const char* path);
-		void clearPreloadResource();
+		virtual void dump();
 };
 
 

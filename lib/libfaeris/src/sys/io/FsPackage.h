@@ -18,7 +18,7 @@ class Package:public FsObject
 	public:
 		static  Package* create(const char* filename,int type=PACKAGE_UNKOWN);
 	public:
-		virtual FsFile* getBlock(const char* file)=0;
+		virtual FsFile* takeBlock(const char* file)=0;
 		virtual ~Package();
 	public:
 		virtual const char* className();

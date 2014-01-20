@@ -15,8 +15,6 @@ class SeqAction:public Action
 	public:
 		virtual bool run(ActionTarget* target,float dt);
 		virtual const char* className();
-		virtual void dropData();
-		virtual void giveScene(Scene* scene);
 
 	public:
 		void addAction(Action* action);
@@ -27,7 +25,7 @@ class SeqAction:public Action
 		SeqAction();
 		virtual ~SeqAction();
 		bool init();
-		void destory();
+		void destruct();
 
 	private:
 		FsArray* m_actions;

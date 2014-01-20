@@ -167,12 +167,11 @@ void Layer2D::draw(Render* r)
 void Layer2D::getEntityInView(std::vector<Entity*>* entitys)
 {
 	/* TODO(add real eliminate here) */
-	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	FsDict::Iterator* iter=m_ownerEntity->takeIterator();
 	while(!iter->done())
 	{
 		FsObject* ob=iter->getValue();
 		entitys->push_back((Entity*)ob);
-		ob->decRef();
 		iter->next();
 	}
 	delete iter;

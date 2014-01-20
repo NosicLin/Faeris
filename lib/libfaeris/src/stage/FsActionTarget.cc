@@ -13,48 +13,10 @@ const char* ActionTarget::className()
 }
 
 
-
-Scene* ActionTarget::takeScene()
-{
-	return NULL;
-}
-
-
-void ActionTarget::giveScene(Scene* scene )
-{
-	if(scene)
-	{
-		ObjectMgr* mgr=scene->takeObjectMgr();
-		if(mgr)
-		{
-			mgr->manageObject(this);
-			int size=m_actions->size();
-			for(int i=0;i<size;i++)
-			{
-				Action* action=(Action*)m_actions->get(i);
-				action->giveScene(scene);
-				action->decRef();
-			}
-		}
-	}
-}
-
-
-
 void ActionTarget::doAction(Action* action)
 {
 
 	m_actions->push(action);
-	Scene* scene=takeScene();
-
-	if(scene) 
-	{
-		ObjectMgr* mgr=scene->takeObjectMgr();
-		if(mgr)
-		{
-			action->giveScene(scene);
-		}
-	}
 }
 
 void ActionTarget::removeAction(Action* action)
@@ -106,37 +68,23 @@ void ActionTarget::updateAction(float dt)
 		{
 			m_actions->remove(action);
 		}
-		action->decRef();
 	}
 
 	m_actions->unlock();
 	m_actions->flush();
 }
 
-void ActionTarget::dropData()
-{
-	m_actions->clear();
-	FsObject::dropData();
-}
-
 
 ActionTarget::ActionTarget()
 {
 	m_actions=FsSlowArray::create();
+	FS_NO_REF_DESTROY(m_actions);
 	m_stop=false;
 }
-
-ActionTarget::ActionTarget(bool mgr)
-	:FsObject(mgr)
-{
-	m_actions=FsSlowArray::create();
-	m_stop=false;
-}
-
 
 ActionTarget::~ActionTarget()
 {
-	FS_SAFE_DEC_REF(m_actions);
+	FS_DESTROY(m_actions);
 }
 
 

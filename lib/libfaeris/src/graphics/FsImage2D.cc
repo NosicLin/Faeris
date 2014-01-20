@@ -163,10 +163,10 @@ void Image2D::setColor(uint w,uint h,Color c)
 }
 Image2D::~Image2D()
 {
-	destroy();
+	destruct();
 }
 
-void Image2D::destroy()
+void Image2D::destruct()
 {
 	if(m_buffer)
 	{

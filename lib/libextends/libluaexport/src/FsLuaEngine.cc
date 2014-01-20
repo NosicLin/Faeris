@@ -1,3 +1,6 @@
+#include <string.h>
+
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -116,7 +119,7 @@ static const char* s_file_lua_reader(lua_State* L,void* data,size_t* size)
 
 int LuaEngine::executeFile(const char* filename)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FsUtil_Log("[LUA_ERROR] File Not Found %s", filename);
@@ -152,8 +155,6 @@ void LuaEngine::pushBoolean(bool value)
 }
 void LuaEngine::pushFsObject(FsObject* ob)
 {
-	if(ob) ob->addRef();
-
 	toluaext_pushfsobject(m_state,ob);
 }
 
@@ -428,6 +429,18 @@ int LuaEngine::collectGarbage()
 const char*  LuaEngine::className()
 {
 	return FS_LUA_ENGINE_CLASS_NAME;
+}
+
+
+
+void _FsScriptExtends_Finalize(FsObject* ob) 
+{
+
+	LuaEngine* engine=(LuaEngine*)Global::scriptEngine();
+	if(engine)
+	{
+		engine->callFunctionInTable(ob->m_scriptData,"onFinalize",1,0,"u<FsObject>",ob);
+	}
 }
 
 

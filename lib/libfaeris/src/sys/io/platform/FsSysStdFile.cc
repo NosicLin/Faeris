@@ -11,8 +11,8 @@ SysFile* SysFile::getStdout()
 	if(ms_stdout==NULL)
 	{
 		ms_stdout=new SysFile(stdout);
+		ms_stdout->addRef();
 	}
-	ms_stdout->addRef();
 	return ms_stdout;
 }
 SysFile* SysFile::getStdin()
@@ -20,8 +20,8 @@ SysFile* SysFile::getStdin()
 	if(ms_stdin==NULL)
 	{
 		ms_stdin=new SysFile(stdin);
+		ms_stdin->addRef();
 	}
-	ms_stdin->addRef();
 	return ms_stdin;
 }
 SysFile* SysFile::getStderr()
@@ -29,13 +29,13 @@ SysFile* SysFile::getStderr()
 	if(ms_stderr==NULL)
 	{
 		ms_stderr=new SysFile(stderr);
+		ms_stderr->addRef();
 	}
-	ms_stderr->addRef();
 	return ms_stderr;
 }
 
 
-SysFile* SysFile::open(const char* name,uint mode)
+SysFile* SysFile::create(const char* name,uint mode)
 {
 	FILE* f=NULL;
 	switch(mode)

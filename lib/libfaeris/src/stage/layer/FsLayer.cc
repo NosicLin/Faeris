@@ -59,59 +59,43 @@ void Layer::takeOwnership(Entity* entity)
 	m_ownerEntity->insert(entity,entity);
 	entity->setLayer(this);
 
-	if(m_scene)
+	if(entity->childNu()!=0) /* add child  */
 	{
-		entity->giveScene(m_scene);
-	
-	}
-
-
-	if(entity->childNu()==0) /* no child */
-	{
-		return;
-	}
-
-	FsArray* array=entity->allChild();
-	int chirld_nu=array->size();
-	for(int i=0;i<chirld_nu;i++)
-	{
-		Entity* child=(Entity*)array->get(i);
-		m_ownerEntity->insert(child,child);
-
-		child->setAddOlder(m_addOlder++);
-		child->setLayer(this);
-
-		if(m_scene)
+		FsArray* array=entity->takeAllChild();
+		int chirld_nu=array->size();
+		for(int i=0;i<chirld_nu;i++)
 		{
-			child->giveScene(m_scene);
+			Entity* child=(Entity*)array->get(i);
+			m_ownerEntity->insert(child,child);
+
+			child->setAddOlder(m_addOlder++);
+			child->setLayer(this);
 		}
 
-		child->decRef();
+		array->decRef();
 	}
-	array->decRef();
 }
 
 
 void Layer::dropOwnership(Entity*  entity )
 {
-	m_ownerEntity->remove(entity);
+
+	if(entity->childNu()!=0)
+	{
+		FsArray* array=entity->takeAllChild();
+		int child_nu=array->size();
+		for(int i=0;i<child_nu;i++)
+		{
+			Entity* child=(Entity*)array->get(i);
+			child->setLayer(NULL);
+
+			m_ownerEntity->remove(child);
+		}
+		array->decRef();
+	}
+
 	entity->setLayer(NULL);
-
-	if(entity->childNu()==0)
-	{
-		return;
-	}
-
-	FsArray* array=entity->allChild();
-	int child_nu=array->size();
-	for(int i=0;i<child_nu;i++)
-	{
-		Entity* child=(Entity*)array->get(i);
-		m_ownerEntity->remove(child);
-		child->setLayer(NULL);
-		child->decRef();
-	}
-	array->decRef();
+	m_ownerEntity->remove(entity);
 }
 
 Layer::Layer()
@@ -121,7 +105,7 @@ Layer::Layer()
 
 Layer::~Layer()
 {
-	destroy();
+	destruct();
 }
 
 void Layer::update(float dt)
@@ -133,18 +117,18 @@ void Layer::update(float dt)
 void Layer::updateEntity(float dt)
 {
 	m_ownerEntity->lock();
-	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	FsDict::Iterator* iter=m_ownerEntity->takeIterator();
 	while(!iter->done())
 	{
 		Entity* entity=(Entity*)iter->getValue();
-		if( entity->visible()) 
+		if( entity->visible()&&entity->getLayer()==this) 
 		{
 			entity->update(dt);
 		}
-		entity->decRef();
 		iter->next();
 	}
 	delete iter;
+
 	m_ownerEntity->unlock();
 	m_ownerEntity->flush();
 
@@ -154,12 +138,11 @@ void Layer::updateEntity(float dt)
 void Layer::draw(Render* render)
 {
 	updateAllWorldMatrix();
-	FsDict::Iterator* iter=m_ownerEntity->getIterator();
+	FsDict::Iterator* iter=m_ownerEntity->takeIterator();
 	while(!iter->done())
 	{
 		Entity* entity=(Entity*)iter->getValue();
 		entity->draw(render,false);
-		entity->decRef();
 		iter->next();
 	}
 	delete iter;
@@ -173,60 +156,22 @@ void Layer::clearEntity()
 	{
 		Entity* entity=(Entity*)iter.getValue();
 		dropOwnership(entity);
-		entity->decRef();
 		iter.next();
 	}
 	m_entity->clear();
 }
+
 
 Scene* Layer::getScene()
 {
-	FS_SAFE_ADD_REF(m_scene);
 	return m_scene;
 }
 
-Scene* Layer::takeScene()
+void Layer::setScene(Scene* scene)
 {
-	return m_scene;
-}
-
-void Layer::giveScene(Scene* scene)
-{
-	if(scene)
-	{
-		ActionTarget::giveScene(scene);
-		FsDict::Iterator* iter=m_ownerEntity->getIterator();
-		while(!iter->done())
-		{
-			Entity* entity=(Entity*)iter->getValue();
-			entity->giveScene(scene);
-			entity->decRef();
-			iter->next();
-		}
-		delete iter;
-	}
-
 	m_scene=scene;
 }
 
-
-void Layer::dropData()
-{
-	FsDict::Iterator iter(m_entity);
-
-	while(!iter.done())
-	{
-		Entity* entity=(Entity*)iter.getValue();
-		dropOwnership(entity);
-		entity->decRef();
-		iter.next();
-	}
-
-	m_entity->clear();
-
-	ActionTarget::dropData();
-
-}
 
 
 
@@ -288,10 +233,13 @@ bool Layer::touchesEnd(TouchEvent* event)
 void Layer::init()
 {
 	m_addOlder=0;
+
 	m_entity=FsDict::create();
+	FS_NO_REF_DESTROY(m_entity);
+
 	m_ownerEntity=FsSlowDict::create();
-	assert(m_entity);
-	assert(m_ownerEntity);
+	FS_NO_REF_DESTROY(m_ownerEntity);
+
 	m_visible=true;
 	m_touchEnabled=false;
 	m_scissorEnabled=false;
@@ -299,19 +247,13 @@ void Layer::init()
 	m_scene=NULL;
 }
 
-void Layer::destroy()
+void Layer::destruct()
 {
-	FsDict::Iterator* iter=m_ownerEntity->getIterator();
-	while(!iter->done())
-	{
-		Entity* entity=(Entity*)iter->getValue();
-		entity->setLayer(NULL);
-		entity->decRef();
-		iter->next();
-	}
-	m_entity->decRef();
-	m_ownerEntity->decRef();
-	delete iter;
+	clearEntity();
+
+	FS_DESTROY(m_entity);
+	FS_DESTROY(m_ownerEntity);
+
 }
 
 void Layer::updateAllWorldMatrix()
@@ -322,7 +264,6 @@ void Layer::updateAllWorldMatrix()
 	{
 		Entity* entity=(Entity*) iter_entity.getValue();
 		entity->updateAllWorldMatrix();
-		entity->decRef();
 		iter_entity.next();
 	}
 }

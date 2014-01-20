@@ -16,6 +16,9 @@
 
 #include "graphics/material/FsMat_V4F_T2F_A1F.h"
 #include "graphics/material/FsMat_V4F_T2F.h"
+#include "graphics/material/FsMat_V4F.h"
+#include "graphics/material/FsMat_V4F_C4F.h"
+#include "graphics/material/FsMat_V4F_T2F_C4F.h"
 #include "sys/io/FsVFS.h"
 #include "sys/io/FsPackage.h"
 #include "support/util/FsDict.h"
@@ -30,47 +33,59 @@ int FsFaeris_ModuleInit()
 	VFS::moduleInit();
 
 	ObjectMgr* ob_mgr=ObjectMgr::create();
+	FS_NO_REF_DESTROY(ob_mgr);
 	Global::setObjectMgr(ob_mgr);
 
 
 	Scheduler* scheduler=Scheduler::create();
+	FS_NO_REF_DESTROY(scheduler);
 	Global::setScheduler(scheduler);
 
 
 	TouchDispatcher* touch_dispatcher=TouchDispatcher::create();
+	FS_NO_REF_DESTROY(touch_dispatcher);
 	Global::setTouchDispatcher(touch_dispatcher);
 
 
 	SysDispatcher* sys_dispatcher=SysDispatcher::create();
+	FS_NO_REF_DESTROY(sys_dispatcher);
 	Global::setSysDispatcher(sys_dispatcher);
-	
+
 	KeypadDispatcher* key_dispatcher=KeypadDispatcher::create();
+	FS_NO_REF_DESTROY(key_dispatcher);
 	Global::setKeypadDispatcher(key_dispatcher);
 
 
 	InputTextDispatcher* input_text_dispatcher=InputTextDispatcher::create();
+	FS_NO_REF_DESTROY(input_text_dispatcher);
 	Global::setInputTextDispatcher(input_text_dispatcher);
 
 
 
 	Director* director=Director::create();
+	FS_NO_REF_DESTROY(director);
 	Global::setDirector(director);
 
 
 	Window* window=Window::create();
+	FS_NO_REF_DESTROY(window);
 	Global::setWindow(window);
 
 	Render* render=Render::create();
+	FS_NO_REF_DESTROY(render);
 	Global::setRender(render);
 
 	TextureMgr* tex_mgr=TextureMgr::create();
+	FS_NO_REF_DESTROY(tex_mgr);
 	Global::setTextureMgr(tex_mgr);
 
 
 	FontTTFDataMgr* font_mgr=FontTTFDataMgr::create();
+	FS_NO_REF_DESTROY(font_mgr);
 	Global::setFontTTFDataMgr(font_mgr);
 
 	Sprite2DDataMgr* sprite_mgr=Sprite2DDataMgr::create();
+	FS_NO_REF_DESTROY(sprite_mgr);
 	Global::setSprite2DDataMgr(sprite_mgr);
 
 
@@ -86,15 +101,6 @@ int FsFaeris_ModuleInit()
 	scheduler->add(director,Scheduler::LOWEST);
 
 	/* set Global */
-	
-
-	
-	
-	
-	
-	
-	
-	
 
 	return 0;
 }
@@ -103,18 +109,23 @@ int FsFaeris_ModuleInit()
 int FsFaeris_ModuleExit()
 {
 	Scheduler* scheduler=Global::scheduler();
+
+
+	/* scheduler target */
 	TouchDispatcher* touch_dispatcher=Global::touchDispatcher();
 	SysDispatcher* sys_dispatcher=Global::sysDispatcher();
 	KeypadDispatcher* key_dispatcher=Global::keypadDispatcher();
 	InputTextDispatcher* input_text_dispatcher=Global::inputTextDispatcher();
 
-	ObjectMgr* ob_mgr=Global::objectMgr();
-
-
 	Director* director=Global::director();
+
+
+	/* window and render */
 	Window* window=Global::window();
 	Render* render=Global::render();
 
+	/* manager */
+	ObjectMgr* ob_mgr=Global::objectMgr();
 	TextureMgr* tex_mgr=Global::textureMgr();
 	FontTTFDataMgr* font_mgr=Global::fontTTFDataMgr();
 	Sprite2DDataMgr* sprite_mgr=Global::sprite2DDataMgr();
@@ -135,24 +146,36 @@ int FsFaeris_ModuleExit()
 
 
 
-	render->forceDestroy();
-	window->forceDestroy();
-	director->forceDestroy();
-	touch_dispatcher->forceDestroy();
-	sys_dispatcher->forceDestroy();
-	key_dispatcher->forceDestroy();
 
-	scheduler->forceDestroy();
+	/* destroy */
+	FS_DESTROY(render);
+	FS_DESTROY(window);
+
+	FS_DESTROY(scheduler);
+	FS_DESTROY(director);
+
+	/* scheduler target */
+	FS_DESTROY(touch_dispatcher);
+	FS_DESTROY(sys_dispatcher);
+	FS_DESTROY(key_dispatcher);
+	FS_DESTROY(input_text_dispatcher);
 
 	/* mgr */
-	tex_mgr->forceDestroy();
-	font_mgr->forceDestroy();
-	sprite_mgr->forceDestroy();
-	ob_mgr->forceDestroy();
+	FS_DESTROY(tex_mgr);
+	FS_DESTROY(font_mgr);
+	FS_DESTROY(sprite_mgr);
+	FS_DESTROY(ob_mgr);
+
+
 
 	/* material */
-	Mat_V4F_T2F_A1F::purgeShareMaterial();
+	Mat_V4F::purgeShareMaterial();
+	Mat_V4F_C4F::purgeShareMaterial();
 	Mat_V4F_T2F::purgeShareMaterial();
+	Mat_V4F_T2F_A1F::purgeShareMaterial();
+	Mat_V4F_T2F_C4F::purgeShareMaterial();
+
+
 	VFS::moduleExit();
 
 
@@ -187,10 +210,7 @@ void FsFaeris_ConfigResourceMgr(ResourceMgr* mgr,FsDict* dict)
 		{
 			mgr->addSearchPath(s_path->cstr());
 		}
-		FS_SAFE_DEC_REF(s_path);
 	}
-	array->decRef();
-
 }
 
 int FsFaeris_LoadConfig(FsDict* dict)
@@ -200,14 +220,12 @@ int FsFaeris_LoadConfig(FsDict* dict)
 	{
 		FsFaeris_ConfigManager(mgr);
 	}
-	FS_SAFE_DEC_REF(mgr);
 
 	FsDict* vfs=ScriptUtil::getDict(dict,"vfs");
 	if(vfs)
 	{
 		FsFaeris_ConfigVFS(vfs);
 	}
-	FS_SAFE_DEC_REF(vfs);
 
 
 	FsDict* win=ScriptUtil::getDict(dict,"win");
@@ -215,14 +233,13 @@ int FsFaeris_LoadConfig(FsDict* dict)
 	{
 		FsFaeris_ConfigWin(win);
 	}
-	FS_SAFE_DEC_REF(win);
 
 	FsDict* env=ScriptUtil::getDict(dict,"evn");
 	if(env)
 	{
 		FsFaeris_ConfigENV(env);
 	}
-	FS_SAFE_DEC_REF(env);
+
 	return 0;
 }
 
@@ -239,9 +256,7 @@ int FsFaeris_ConfigManager(FsDict* dict)
 		{
 			FsFaeris_ConfigResourceMgr(mgr,texmgr);
 		}
-		FS_SAFE_DEC_REF(mgr);
 	}
-	FS_SAFE_DEC_REF(texmgr);
 
 
 	/* FontTTFDataMgr */
@@ -253,9 +268,7 @@ int FsFaeris_ConfigManager(FsDict* dict)
 		{
 			FsFaeris_ConfigResourceMgr(mgr,fontmgr);
 		}
-		FS_SAFE_DEC_REF(mgr);
 	}
-	FS_SAFE_DEC_REF(fontmgr);
 
 
 	/* Sprite2DDataMgr */
@@ -267,9 +280,7 @@ int FsFaeris_ConfigManager(FsDict* dict)
 		{
 			FsFaeris_ConfigResourceMgr(mgr,spritemgr);
 		}
-		FS_SAFE_DEC_REF(mgr);
 	}
-	FS_SAFE_DEC_REF(spritemgr);
 	return 0;
 }
 
@@ -288,7 +299,6 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 				FsString* type= ScriptUtil::getString(f,"type");
 				if(!type)
 				{
-					f->decRef();
 					continue;
 				}
 
@@ -300,14 +310,10 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 						VFS::PrefixNameFilter* prefix_filter=VFS::PrefixNameFilter::create(value->cstr());
 						VFS::addFilter(prefix_filter);
 					}
-					FS_SAFE_DEC_REF(value);
 				}
-				FS_SAFE_DEC_REF(type);
 			}
-			FS_SAFE_DEC_REF(f);
 		}
 	}
-	FS_SAFE_DEC_REF(filters);
 
 	/* package */
 	FsArray* map_package=ScriptUtil::getArray(dict,"mapPackage");
@@ -332,7 +338,6 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 					{
 						VFS::mapPackage(map_path->cstr(),package);
 					}
-					FS_SAFE_DEC_REF(package);
 
 				}
 				else if(map_type->equal("fgz"))
@@ -343,19 +348,11 @@ int FsFaeris_ConfigVFS(FsDict* dict)
 					{
 						VFS::mapPackage(map_path->cstr(),package);
 					}
-					FS_SAFE_DEC_REF(package);
 
 				}
 			}
-
-			 
-			FS_SAFE_DEC_REF(map_path);
-			FS_SAFE_DEC_REF(map_type);
-			FS_SAFE_DEC_REF(map_url);
-			FS_SAFE_DEC_REF(p);
 		}
 	}
-	FS_SAFE_DEC_REF(map_package);
 	return 0;
 }
 
@@ -380,8 +377,6 @@ int FsFaeris_ConfigWin(FsDict* dict)
 	{
 		win->setCaption(caption->cstr());
 	}
-	FS_SAFE_DEC_REF(caption);
-	FS_SAFE_DEC_REF(win);
 	return 0;
 }
 
@@ -394,20 +389,6 @@ int FsFaeris_ConfigENV(FsDict* dict)
 
 
 NS_FS_END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

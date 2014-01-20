@@ -105,6 +105,8 @@ namespace Faeris
 /* copy able */
 #define FS_FEATURE public
 
+#define FS_FEATURE_NEW_OBJECT(v) v 
+
 #define FS_MAKE_NO_COPYABLE(class_name) \
 	private: \
     class_name& operator&(class_name& /*other*/){return *this;} \
@@ -121,6 +123,15 @@ namespace Faeris
 #define FS_SAFE_DEC_REF(f) \
 	do{ if(f) f->decRef();} while(0)
 
+#define FS_DESTROY(f) \
+	do{f->destroy();}while(0)
+
+#define FS_SAFE_DESTROY(f) \
+	do{ if(f) f->destroy();}while(0) 
+
+#define FS_NO_REF_DESTROY(f) \
+	do{ if(f) f->setRefDelete(false);}while(0)
+
 
 #define FS_SAFE_ASSIGN(d,s) \
 	do{ \
@@ -132,6 +143,8 @@ namespace Faeris
 #define FS_SAFE_DELETE(v) \
 	do{ if(v){ delete v;} } while(0)
 
+#define FS_DELETE(v) \
+	do{ delete v;}while(0)
 
 /* global Macros For Faeris */
 

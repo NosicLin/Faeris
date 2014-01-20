@@ -31,7 +31,7 @@ class FgzReader:public FsObject
 		static bool CheckType(FsFile* file);
 
 	public:
-		FsFile* getFile(const char* filename);
+		FsFile* takeFile(const char* filename);
 
 	public:
 		virtual const char* className();
@@ -41,7 +41,7 @@ class FgzReader:public FsObject
 		FgzReader();
 		virtual ~FgzReader();
 		bool init(FsFile* file);
-		void destroy();
+		void destruct();
 
 	private:
 		FsDict* m_files;

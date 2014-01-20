@@ -57,7 +57,7 @@ class Scheduler :public FsObject
 		Scheduler();
 		~Scheduler();
 		void init();
-		void destroy();
+		void destruct();
 
 	private:
 		/* scheduler target */

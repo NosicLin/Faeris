@@ -16,7 +16,7 @@ class ZipPackage:public Package
 
 	public:
 		/* inherite Package */
-		virtual FsFile* getBlock(const char* filename);
+		virtual FsFile* takeBlock(const char* filename);
 
 		/* inherite FsObject */
 		virtual const char* className();

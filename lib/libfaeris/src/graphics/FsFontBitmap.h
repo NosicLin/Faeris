@@ -66,7 +66,7 @@ class FontBitmap:public Resource
 		static FontBitmap* create(const char* fnt);
 		static FontBitmap* create(FsFile* file);
 	public:
-		GlyphBitmap* loadGlyph(uint16_t char_index);
+		GlyphBitmap* getGlyph(uint16_t char_index);
 
 
 		Texture2D* getTexture(int index);
@@ -87,7 +87,7 @@ class FontBitmap:public Resource
 		virtual ~FontBitmap();
 
 		bool init(FsFile* file);
-		void destroy();
+		void destruct();
 
 	private:
 		GlyphSet* m_glyphs;
@@ -98,7 +98,6 @@ class FontBitmap:public Resource
 		int m_descent;
 		int m_ascent;
 		int m_height;
-
 
 		FsArray* m_textures;
 };

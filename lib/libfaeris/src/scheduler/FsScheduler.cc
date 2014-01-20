@@ -36,7 +36,7 @@ void Scheduler::mainLoop()
 	//long begin_time=m_timer.now();
 	float last_time=m_timer.now();
 
-	float diff_time,cur_time;
+	float diff_time=0,cur_time=0;
 
 	while(!m_stop)
 	{
@@ -51,7 +51,8 @@ void Scheduler::mainLoop()
 			diff_time=(cur_time-last_time)/1000.0f;
 
 		}
-		float sleep_time=update(diff_time);
+
+		update(diff_time);
 
 		
 		while(m_timer.now()-cur_time<=m_intervalTime){}
@@ -103,7 +104,7 @@ Scheduler::Scheduler()
 }
 Scheduler::~Scheduler()
 {
-	destroy();
+	destruct();
 }
 
 
@@ -115,10 +116,8 @@ bool Scheduler::hasTarget(SchedulerTarget* target,int priority)
 		SchedulerTarget* t=(SchedulerTarget*)m_target[priority]->get(i);
 		if(t==target)
 		{
-			t->decRef();
 			return true;
 		}
-		t->decRef();
 	}
 	return false;
 }
@@ -169,23 +168,25 @@ void Scheduler::init()
 
 	m_taskHanding=FsArray::create();
 	m_taskPending=FsArray::create();
+
+	FS_NO_REF_DESTROY(m_taskPending);
+	FS_NO_REF_DESTROY(m_taskHanding);
+
 	m_taskLock=new Mutex();
 }
 
-void Scheduler::destroy()
+void Scheduler::destruct()
 {
 	for(int i=0;i<PRIORITY_NU;i++)
 	{
-		m_target[i]->decRef();
+		FS_SAFE_DEC_REF(m_target[i]);
 		m_target[i]=NULL;
 	}
-	m_taskPending->decRef();
-	m_taskPending=NULL;
 
-	m_taskHanding->decRef();
-	m_taskHanding=NULL;
-	delete m_taskLock;
-	m_taskLock=NULL;
+	FS_DESTROY(m_taskPending);
+	FS_DESTROY(m_taskHanding);
+
+	FS_DELETE(m_taskLock);
 
 
 }
@@ -213,7 +214,6 @@ float Scheduler::update(float dt)
 	{
 		Task* t=(Task*)m_taskHanding->get(i);
 		t->run();
-		t->decRef();
 	}
 	m_taskHanding->clear();
 
@@ -228,23 +228,11 @@ float Scheduler::update(float dt)
 		{
 			SchedulerTarget* target=(SchedulerTarget*)m_target[i]->get(j);
 			target->update(i,dt);
-			target->decRef();
 		}
 		m_target[i]->unlock();
 		m_target[i]->flush();
 	}
 
-	
-	/*
-	
-	ScriptEngine* sc=Global::scriptEngine();
-	if(sc)
-	{
-
-		sc->collectGarbage();
-	}
-	*/
-	
 	
 
 	float update_end=m_timer.now();

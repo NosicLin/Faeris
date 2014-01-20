@@ -192,12 +192,11 @@ FsObject* FsDict::lookup(FsObject* key)
 		return NULL;
 	}
 	FS_ASSERT(p->m_value);
-	p->m_value->addRef();
 	return p->m_value;
 }
 FsObject* FsDict::lookup(const char* key)
 {
-	FsObject* ob=new FsString(key);
+	FsObject* ob=FsString::create(key);
 	FsObject* ret=lookup(ob);
 	ob->decRef();
 	return ret;

@@ -41,7 +41,7 @@ class MapPackage:public FsObject
 		static MapPackage* create(const char* path,Package* package);
 
 	public:
-		FsFile* getFile(const char* path);
+		FsFile* takeFile(const char* path);
 	public:
 		virtual const char* className();
 
@@ -77,7 +77,7 @@ bool moduleExit();
 void setRoot(const char* path);
 const char* getRoot();
 
-FsFile* open(const char* name,uint mode=FS_IO_RDONLY);
+FsFile* createFile(const char* name,uint mode=FS_IO_RDONLY);
 
 
 bool addFilter(NameFilter* filter);

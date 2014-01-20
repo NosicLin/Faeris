@@ -15,7 +15,7 @@
 class XirParser
 {
 	public:
-		static Faeris::FsDict* parse(Faeris::FsFile* file);
+		static Faeris::FsDict* create(Faeris::FsFile* file);
 };
 
 class YYParserParm
@@ -51,14 +51,12 @@ class YYParserParm
 				delete[] esc_str;
 			}
 			m_pending_obs->push(ob);
-			ob->decRef();
 			return ob;
 		}
 		Faeris::FsDict* newDictObject()
 		{
 			Faeris::FsDict* ob=new Faeris::FsDict();
 			m_pending_obs->push(ob);
-			ob->decRef();
 			return ob;
 		}
 
@@ -66,24 +64,19 @@ class YYParserParm
 		{
 			Faeris::FsArray* ob=new Faeris::FsArray;
 			m_pending_obs->push(ob);
-			ob->decRef();
 			return ob;
 		}
 
 		void setRoot(Faeris::FsDict* root)
 		{
-			if(root) root->addRef();
-			if(m_root) { m_root->decRef(); }
-			m_root=root;
+			FS_SAFE_ASSIGN(m_root,root);
 		}
+
 		Faeris::FsDict* getRoot()
 		{
-			if(m_root)
-			{
-				m_root->addRef();
-			}
 			return m_root;
 		}
+
 		~YYParserParm()
 		{
 			if(m_root) m_root->decRef();

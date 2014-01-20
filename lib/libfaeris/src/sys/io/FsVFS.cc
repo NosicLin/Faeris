@@ -66,7 +66,7 @@ MapPackage* MapPackage::create(const char* path,Package* package)
 	return ret;
 }
 
-FsFile* MapPackage::getFile(const char* file_name)
+FsFile* MapPackage::takeFile(const char* file_name)
 {
 	int file_name_size=strlen(file_name);
 	int path_size=m_path.size();
@@ -89,7 +89,7 @@ FsFile* MapPackage::getFile(const char* file_name)
 	}
 	if(start_with)
 	{
-		return m_package->getBlock(file_name+path_size);
+		return m_package->takeBlock(file_name+path_size);
 	}
 	return NULL;
 }
@@ -172,21 +172,21 @@ const char* getRoot()
 
 
 
-FsFile* rawOpen(const char* name,uint mode)
+FsFile* rawCreate(const char* name,uint mode)
 {
 	FsFile* ret=NULL;
 
 	/* file is absolutePath */
 	if(PathUtil::absolutePath(name))
 	{
-		ret=SysFile::open(name,mode);
+		ret=SysFile::create(name,mode);
 		return ret;
 	}
 
 	std::string rel_path=std::string(s_root)+std::string(name);
 
 	/* look with root dir */
-	ret=SysFile::open(rel_path.c_str(),mode);
+	ret=SysFile::create(rel_path.c_str(),mode);
 	if(ret!=NULL)
 	{
 		return ret;
@@ -203,8 +203,7 @@ FsFile* rawOpen(const char* name,uint mode)
 	for(int i=0;i<package_nu;i++)
 	{
 		MapPackage* package=(MapPackage*) s_mapPackage->get(i);
-		ret=package->getFile(name);
-		package->decRef();
+		ret=package->takeFile(name);
 
 		if(ret!=NULL)
 		{
@@ -215,13 +214,13 @@ FsFile* rawOpen(const char* name,uint mode)
 	return NULL;
 }
 
-FsFile* open(const char* name,uint mode)
+FsFile* createFile(const char* name,uint mode)
 {
 	FsFile* ret=NULL;
 
 
 	/* file is relative path */
-	ret=rawOpen(name,mode);
+	ret=rawCreate(name,mode);
 	if(ret!=NULL) return ret;
 
 
@@ -233,10 +232,9 @@ FsFile* open(const char* name,uint mode)
 	{
 		NameFilter* f=(NameFilter*)s_nameFilter->get(i);
 		std::string filter_name=f->apply(name);
-		f->decRef();
 
 
-		ret=rawOpen(filter_name.c_str(),mode);
+		ret=rawCreate(filter_name.c_str(),mode);
 		if(ret!=NULL)
 		{
 			return ret;
@@ -266,9 +264,8 @@ bool mapPackage(const char* path,Package* package)
 	MapPackage* map=MapPackage::create(path,package);
 
 	if(!map) return false;
-
 	s_mapPackage->push(map);
-	map->decRef();
+
 	return true;
 
 }
@@ -311,7 +308,7 @@ int saveFile(const char* filename,const uint8_t* buff,int32_t len)
 		}
 	}
 	
-	FsFile* file=VFS::open(filename,VFS::FS_IO_CREATE|VFS::FS_IO_TRUNC);
+	FsFile* file=VFS::createFile(filename,VFS::FS_IO_CREATE|VFS::FS_IO_TRUNC);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't Open File(%s) For Write",filename);
@@ -325,7 +322,7 @@ int saveFile(const char* filename,const uint8_t* buff,int32_t len)
 
 int loadFile(const char* filename,uint8_t** buf_out,uint* len_out)
 {
-	FsFile* file=VFS::open(filename);
+	FsFile* file=VFS::createFile(filename);
 	if(file==NULL)
 	{
 		FS_TRACE_WARN("Can't Open File(%s) For Read",filename);
@@ -337,6 +334,8 @@ int loadFile(const char* filename,uint8_t** buf_out,uint* len_out)
 	file->read(buf,length);
 	*buf_out=buf;
 	*len_out=length;
+
+	file->decRef();
 
 	return 0;
 }

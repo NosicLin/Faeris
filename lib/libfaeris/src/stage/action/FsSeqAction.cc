@@ -23,30 +23,8 @@ SeqAction* SeqAction::create()
 
 SeqAction::~SeqAction()
 {
-	destory();
+	destruct();
 }
-
-void SeqAction::dropData()
-{
-	m_actions->clear();
-	Action::dropData();
-}
-
-void SeqAction::giveScene(Scene* scene)
-{
-
-	Action::giveScene(scene);
-
-	int size=m_actions->size();
-
-	for(int i=0;i<size;i++)
-	{
-		Action* action=(Action*) m_actions->get(i);
-		action->giveScene(scene);
-		action->decRef();
-	}
-}
-
 
 
 
@@ -54,12 +32,14 @@ void SeqAction::giveScene(Scene* scene)
 bool SeqAction::init()
 {
 	m_actions=FsArray::create();
+	FS_NO_REF_DESTROY(m_actions);
 	return true;
+
 }
 
-void SeqAction::destory()
+void SeqAction::destruct()
 {
-	FS_SAFE_DEC_REF(m_actions);
+	FS_DESTROY(m_actions);
 }
 
 
@@ -94,7 +74,6 @@ bool SeqAction::run(ActionTarget* target,float dt)
 	{
 		m_actions->remove(cur);
 	}
-	cur->decRef();
 	return false;
 }
 

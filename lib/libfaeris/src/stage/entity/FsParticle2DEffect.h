@@ -100,7 +100,7 @@ class Particle2DEffect:public Entity
 		Particle2DEffect();
 		~Particle2DEffect();
 		bool init(Particle2DEmitter* emitter);
-		void destory();
+		void destruct();
 
 	private:
 		std::vector<Particle> m_particles;

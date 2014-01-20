@@ -16,22 +16,16 @@ void Resource::setMgr(ResourceMgr* mgr)
 
 void Resource::setResourceName(FsString* name)
 {
-	FS_SAFE_ADD_REF(name);
-	FS_SAFE_DEC_REF(m_resourceName);
-	m_resourceName=name;
+	FS_SAFE_ASSIGN(m_resourceName,name);
 
 }
 FsString* Resource::getResourceName()
 {
-	FS_SAFE_ADD_REF(m_resourceName);
 	return m_resourceName;
 }
 Resource::~Resource() 
 {
-	if(m_mgr)
-	{
-		m_mgr->remove(this);
-	}
+	assert(m_mgr==NULL);
 	FS_SAFE_DEC_REF(m_resourceName);
 }
 

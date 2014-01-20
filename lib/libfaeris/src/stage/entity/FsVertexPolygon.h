@@ -79,7 +79,7 @@ class VertexPolygon :public Entity
 		VertexPolygon();
 		virtual ~VertexPolygon();
 		bool init();
-		void destory();
+		void destruct();
 
 	private:
 		float m_opacity;

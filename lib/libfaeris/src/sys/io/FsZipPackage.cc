@@ -18,9 +18,9 @@ ZipPackage* ZipPackage::create(FsFile* file)
 	return ret;
 }
 
-FsFile* ZipPackage::getBlock(const char* filename)
+FsFile* ZipPackage::takeBlock(const char* filename)
 {
-	return m_reader->getFile(filename);
+	return m_reader->takeFile(filename);
 }
 
 

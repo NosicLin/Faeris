@@ -14,12 +14,8 @@ class Scene;
 class Action:public FsObject
 {
 	public:
-		Action():FsObject(true){}
+		Action(){}
 		virtual ~Action(){}
-
-	public:
-		virtual void giveScene(Scene* scene);
-
 
 	public:
 		virtual bool run(ActionTarget* target,float dt)=0;

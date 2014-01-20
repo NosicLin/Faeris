@@ -2,4 +2,13 @@ $#include "mgr/FsResource.h"
 
 class Resource:public FsObject 
 {
+	public:
+		int refCnt();
+		void addRef();
+		void decRef();
+		void setRefDelete(bool value);
+		bool getRefDelete();
+
+		void destroy();
+		void autoDestroy();
 };

@@ -102,7 +102,7 @@ ZipReader::ZipReader()
 
 ZipReader::~ZipReader()
 {
-	destroy();
+	destruct();
 }
 
 bool ZipReader::init(FsFile* file,void* unz_file)
@@ -113,7 +113,7 @@ bool ZipReader::init(FsFile* file,void* unz_file)
 	return true;
 }
 
-void ZipReader::destroy()
+void ZipReader::destruct()
 {
 	if(m_unzfile)
 	{
@@ -127,7 +127,7 @@ void ZipReader::destroy()
 	}
 }
 
-FsFile* ZipReader::getFile(const char* filename)
+FsFile* ZipReader::takeFile(const char* filename)
 {
 	if(unzLocateFile(m_unzfile,filename,true)!=UNZ_OK)
 	{

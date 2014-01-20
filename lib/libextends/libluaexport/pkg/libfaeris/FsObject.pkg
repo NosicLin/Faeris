@@ -5,12 +5,21 @@ class FsObject
 		static int getObjectNu();
 
 	public:
+		int refCnt();
+		void addRef();
+		void decRef();
+		void setRefDelete(bool value);
+		bool getRefDelete();
 
+		void destroy();
+		void autoDestroy();
+
+	public:
 		const char* className();
-		void dropData();
 
 	public:
 		LUA_TABLE m_scriptData@data;
 };
+
 
 

@@ -218,7 +218,7 @@ static bool s_StringWrite(FsString* str,FsFile* file)
 
 FsDict* ScriptUtil::parseScript(FsFile* file)
 {
-	return XirParser::parse(file);
+	return XirParser::create(file);
 }
 bool ScriptUtil::saveScript(FsFile* file,FsDict* dict,int indent)
 {
@@ -299,7 +299,6 @@ FsArray* ScriptUtil::getArray(FsDict* dict,const char* key)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -318,7 +317,6 @@ FsDict* ScriptUtil::getDict(FsDict* dict,const char* key)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -336,7 +334,6 @@ FsString* ScriptUtil::getString(FsDict* dict,const char* key)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -349,7 +346,6 @@ bool ScriptUtil::getInteger(FsDict* dict,const char* key,int* value)
 		return false;
 	}
 	*value=parseInteger(str);
-	str->decRef();
 	return true;
 
 }
@@ -362,7 +358,6 @@ bool ScriptUtil::getFloat(FsDict* dict,const char* key,float* value)
 		return false;
 	}
 	*value=parseFloat(str);
-	str->decRef();
 	return true;
 }
 /* aux for quick get object in array */
@@ -379,7 +374,6 @@ FsArray* ScriptUtil::getArray(FsArray* array,uint index)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -398,7 +392,6 @@ FsDict* ScriptUtil::getDict(FsArray* array,uint index)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -416,7 +409,6 @@ FsString* ScriptUtil::getString(FsArray* array,uint index)
 	}
 	else 
 	{
-		ob->decRef();
 		return NULL;
 	}
 }
@@ -430,7 +422,6 @@ bool ScriptUtil::getInteger(FsArray* array,uint index,int* v)
 	}
 
 	*v=parseInteger(str);
-	str->decRef();
 	return true;
 }
 bool ScriptUtil::getFloat(FsArray* array,uint index,float* v)
@@ -441,7 +432,6 @@ bool ScriptUtil::getFloat(FsArray* array,uint index,float* v)
 		return false ;
 	}
 	*v=parseFloat(str);
-	str->decRef();
 	return true;
 }
 
@@ -453,7 +443,6 @@ bool ScriptUtil::getBoolean(FsDict* dict,const char* name,bool* value)
 		return false;
 	}
 	*value=parseBoolean(str);
-	str->decRef();
 	return true;
 }
 bool ScriptUtil::getBoolean(FsArray* array,uint index,bool* value)
@@ -464,7 +453,6 @@ bool ScriptUtil::getBoolean(FsArray* array,uint index,bool* value)
 		return false;
 	}
 	*value=parseBoolean(str);
-	str->decRef();
 	return true;
 }
 	

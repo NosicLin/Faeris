@@ -27,9 +27,6 @@ class Entity :public ActionTarget
 		/* inherit FsObject */
 		virtual const char* className();
 
-		/* inherit ActionTarget */
-		virtual Scene* takeScene();
-		virtual void giveScene(Scene* scene);
 
 	public:
 
@@ -45,7 +42,7 @@ class Entity :public ActionTarget
 		Layer* getLayer();
 
 		void detach();
-		FsArray* allChild();
+		FS_FEATURE_NEW_OBJECT(FsArray*) takeAllChild();
 		int childNu();
 
 
@@ -54,10 +51,6 @@ class Entity :public ActionTarget
 		Matrix4* getLocalMatrix();
 
 
-		void dropData();
-
-		//Entity* getChildByName(FsString* name,bool recusive=0);
-		//Entity* getChildByName(const char* name,bool recusive=0);
 
 		bool updateLocalMatrix();
 		bool updateWorldMatrix();
@@ -151,8 +144,7 @@ class Entity :public ActionTarget
 		virtual ~Entity();
 
 		void init();
-		void init(FsString* name);
-		void destroy();
+		void destruct();
 		void updateChildWorldMatrix(bool force);
 		void getAllChild(FsArray* array);
 	
@@ -177,8 +169,6 @@ class Entity :public ActionTarget
 			};
 			ulong m_flags;
 		};
-
-		FsString* m_name;
 
 		/* transform info */
 		Vector3 m_translate;

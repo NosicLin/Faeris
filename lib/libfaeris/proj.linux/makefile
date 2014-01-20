@@ -26,13 +26,26 @@ SRC= FsGlobal.cc \
 	 FsObject.cc \
 	 FsFaerisModule.cc  \
 	 extends/FsScriptEngine.cc \
+	 stage/FsActionTarget.cc \
+	 stage/action/FsAction.cc \
+	 stage/action/FsMoveByAction.cc \
+	 stage/action/FsMoveToAction.cc \
+	 stage/action/FsPauseAction.cc \
+	 stage/action/FsRotateZByAction.cc \
+	 stage/action/FsRotateZToAction.cc \
+	 stage/action/FsScaleByAction.cc \
+	 stage/action/FsScaleToAction.cc \
+	 stage/action/FsSeqAction.cc \
 	 stage/entity/FsColorQuad2D.cc \
 	 stage/entity/FsEntity.cc \
 	 stage/entity/FsLabelBitmap.cc \
 	 stage/entity/FsLabelTTF.cc \
+	 stage/entity/FsParticle2DEffect.cc \
+	 stage/entity/FsParticle2DEmitter.cc \
 	 stage/entity/FsQuad2D.cc \
 	 stage/entity/FsSprite2D.cc \
 	 stage/entity/FsSprite2DData.cc \
+	 stage/entity/FsVertexPolygon.cc \
 	 stage/layer/FsColorLayer.cc \
 	 stage/layer/FsLayer.cc \
 	 stage/layer/FsLayer2D.cc \
@@ -41,6 +54,7 @@ SRC= FsGlobal.cc \
 	 sys/event/FsKeypadDispatcher.cc \
 	 sys/event/FsSysDispatcher.cc \
 	 sys/event/FsTouchDispatcher.cc \
+	 sys/event/FsInputTextDispatcher.cc \
 	 sys/io/FsFile.cc \
 	 sys/io/FsSysFile.cc \
 	 sys/io/FsSegFile.cc \
@@ -65,9 +79,11 @@ SRC= FsGlobal.cc \
 	 graphics/FsProgram.cc \
 	 graphics/FsRender.cc \
 	 graphics/FsTexture2D.cc \
+	 graphics/material/FsMat_V4F.cc \
 	 graphics/material/FsMat_V4F_C4F.cc \
 	 graphics/material/FsMat_V4F_T2F.cc \
 	 graphics/material/FsMat_V4F_T2F_A1F.cc \
+	 graphics/material/FsMat_V4F_T2F_C4F.cc \
 	 graphics/material/FsMaterial.cc \
 	 math/FsMathUtil.cc \
 	 math/FsMatrix4.cc \
@@ -78,6 +94,7 @@ SRC= FsGlobal.cc \
 	 mgr/FsResourceMgr.cc \
 	 mgr/FsSprite2DDataMgr.cc \
 	 mgr/FsTextureMgr.cc \
+	 mgr/FsObjectMgr.cc \
 	 scheduler/FsScheduler.cc \
 	 scheduler/FsSchedulerTarget.cc \
 	 scheduler/FsTask.cc \
@@ -110,6 +127,7 @@ SRC= FsGlobal.cc \
 	 support/util/FsPathUtil.cc \
 	 support/util/FsScriptUtil.cc \
 	 support/util/FsSlowArray.cc \
+	 support/util/FsSlowDict.cc \
 	 support/util/FsString.cc \
 	 media/FsAudioEngine.cc \
 	 media/FsAudioPlayer.cc \

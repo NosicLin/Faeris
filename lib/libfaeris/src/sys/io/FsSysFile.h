@@ -17,10 +17,11 @@ NS_FS_BEGIN
 class SysFile:public FsFile 
 {
 	public:
-		static SysFile* open(const char* name,uint mode=FsFile::FS_IO_RDONLY);
+		static SysFile* create(const char* name,uint mode=FsFile::FS_IO_RDONLY);
 		static SysFile* getStdout();
 		static SysFile* getStderr();
 		static SysFile* getStdin();
+
 	private:
 		static SysFile* ms_stdout;
 		static SysFile* ms_stdin;

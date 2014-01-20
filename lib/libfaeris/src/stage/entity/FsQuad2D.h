@@ -52,7 +52,7 @@ class Quad2D:public Entity
 		~Quad2D();
 		bool init(const char* tex);
 		bool init(Texture2D* tex);
-		void destory();
+		void destruct();
 
 	private:
 		Rect2D m_rect;

@@ -14,7 +14,7 @@ class FgzPackage:public Package
 
 	public:
 		/* override Package */
-		virtual FsFile* getBlock(const char* filename);
+		virtual FsFile* takeBlock(const char* filename);
 
 		/* override FsObject */
 		virtual const char* className();

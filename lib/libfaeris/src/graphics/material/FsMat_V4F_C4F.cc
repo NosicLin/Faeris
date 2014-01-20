@@ -39,11 +39,17 @@ Mat_V4F_C4F* Mat_V4F_C4F::shareMaterial()
 	if(s_share_material==NULL)
 	{
 		s_share_material = Mat_V4F_C4F::create();
+		FS_NO_REF_DESTROY(s_share_material);
 	}
 
-	FS_SAFE_ADD_REF(s_share_material);
 	return s_share_material;
 }
+void Mat_V4F_C4F::purgeShareMaterial()
+{
+	FS_SAFE_DESTROY(s_share_material);
+	s_share_material=NULL;
+}
+
 
 Mat_V4F_C4F* Mat_V4F_C4F::create()
 {
@@ -74,6 +80,7 @@ Mat_V4F_C4F::Mat_V4F_C4F()
 	int length_vert=sizeof(color_program_vert_str);
 	int length_frag=sizeof(color_program_frag_str);
 	m_program=Program::create(color_program_vert_str,length_vert,color_program_frag_str,length_frag);
+	FS_SAFE_ADD_REF(m_program);
 	if(m_program==NULL)
 	{
 		FS_TRACE_WARN("Create Program Failed");

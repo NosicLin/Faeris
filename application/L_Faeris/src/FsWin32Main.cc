@@ -9,7 +9,7 @@
 #include "support/util/FsDict.h"
 #include "support/util/FsArray.h"
 
-#include "FsxAccessModule.h"
+//#include "FsxAccessModule.h"
 
 
 #if FS_PLATFORM_OS(FS_OS_WIN32)
@@ -67,12 +67,13 @@ int main(int argc,char** argv)
 
 	FS_TRACE_INFO("fgame path is %s, dir=%s,file=%s",config,dir_name.c_str(),file_name.c_str());
 
-	file=VFS::open(file_name.c_str());
+	file=VFS::createFile(file_name.c_str());
+
+
 	if(file==NULL)
 	{
 		goto error;
 	}
-
 
 	dict=ScriptUtil::parseScript(file);
 	file->decRef();
@@ -96,6 +97,7 @@ int main(int argc,char** argv)
 
 
 	entry=ScriptUtil::getString(script,"entry");
+
 	if(!entry)
 	{
 		FS_TRACE_WARN("Can't Find Script Entry");
@@ -105,16 +107,14 @@ int main(int argc,char** argv)
 	}
 
 	engine=LuaEngine::create();
+	FS_NO_REF_DESTROY(engine);
 	Global::setScriptEngine(engine);
 
-	FsModuel_xAccessInit();
+	//FsModuel_xAccessInit();
 
 
 	engine->executeFile(entry->cstr());
-
-
-
-
+	dict->decRef();
 
 	Global::scheduler()->mainLoop();
 
@@ -125,11 +125,14 @@ int main(int argc,char** argv)
 
 
 	/* relese resource */
-	engine->decRef();
-
 
 error:
 	FsFaeris_ModuleExit();
+	if(engine)
+	{
+		Global::dropScriptEngine();
+		FS_DESTROY(engine);
+	}
 	return 0;
 }
 

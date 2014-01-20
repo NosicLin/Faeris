@@ -15,7 +15,6 @@ const char* Sys::getEnv(const char* key)
 	FsString* ret=(FsString*)m_env->lookup(key);
 	if(ret)
 	{
-		ret->decRef();
 		return ret->cstr();
 	}
 	return NULL;
@@ -31,9 +30,6 @@ void Sys::setEnv(const char* key,const char* value)
 	FsString* t_key=FsString::create(key);
 	FsString* t_value=FsString::create(value);
 	m_env->insert(t_key,t_value);
-
-	t_key->decRef();
-	t_value->decRef();
 }
 
 NS_FS_END 
