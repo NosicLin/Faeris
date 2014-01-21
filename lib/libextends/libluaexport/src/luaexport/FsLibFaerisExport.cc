@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/15/14 05:59:49.
+** Generated automatically by tolua++-1.0.92 on 01/20/14 09:23:40.
 */
 
 #ifndef __cplusplus
@@ -3812,6 +3812,41 @@ static int tolua_FsLibFaeris___Quad2D_getRect2D00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getRect2D'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setRectAnchor of class  Quad2D */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Quad2D_setRectAnchor00
+static int tolua_FsLibFaeris___Quad2D_setRectAnchor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Quad2D",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Quad2D* self = (Quad2D*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRectAnchor'", NULL);
+#endif
+  {
+   self->setRectAnchor(x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setRectAnchor'.",&tolua_err);
  return 0;
 #endif
 }
@@ -21995,6 +22030,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getTextureCoord",tolua_FsLibFaeris___Quad2D_getTextureCoord00);
    tolua_function(tolua_S,"setRect2D",tolua_FsLibFaeris___Quad2D_setRect2D00);
    tolua_function(tolua_S,"getRect2D",tolua_FsLibFaeris___Quad2D_getRect2D00);
+   tolua_function(tolua_S,"setRectAnchor",tolua_FsLibFaeris___Quad2D_setRectAnchor00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Quad2D","LuaQuad2D","Quad2D",toluaext_fscollector);
   tolua_beginmodule(tolua_S,"Quad2D");

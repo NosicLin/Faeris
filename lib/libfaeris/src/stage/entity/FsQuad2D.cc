@@ -85,6 +85,13 @@ Rect2D Quad2D::getRect2D()
 	return m_rect;
 }
 
+void Quad2D::setRectAnchor(float x,float y)
+{
+	m_rect.x=-m_rect.width*x;
+	m_rect.y=-m_rect.height*y;
+}
+
+
 
 
 

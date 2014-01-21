@@ -30,6 +30,9 @@ class Quad2D:public Entity
 		void setTexture(Texture2D* tex);
 		Texture2D* getTexture();
 
+		//void setTexture(const char* tex,bool new_rect=true); 
+
+
 		/* texture coord */
 		void setTextureCoord(const Rect2D& coord);
 		Rect2D getTextureCoord();
@@ -38,6 +41,9 @@ class Quad2D:public Entity
 		/* Rect2D */
 		void setRect2D(const Rect2D& rect);
 		Rect2D getRect2D();
+
+		void setRectAnchor(float x,float y);
+
 	public:
 		/* inherit Entity */
 		virtual void draw(Render* r,bool updateMatrix);

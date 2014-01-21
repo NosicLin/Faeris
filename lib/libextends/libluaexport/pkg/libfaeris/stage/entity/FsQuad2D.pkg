@@ -22,9 +22,12 @@ class Quad2D@__Quad2D:public Entity
 		Rect2D getTextureCoord();
 
 
+
 		/* Rect2D */
 		void setRect2D(const Rect2D& rect);
 		Rect2D getRect2D();
+
+		void setRectAnchor(float x,float y);
 };
 
 class LuaQuad2D@Quad2D:public Quad2D
