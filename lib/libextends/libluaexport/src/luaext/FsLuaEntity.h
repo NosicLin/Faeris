@@ -79,6 +79,17 @@ class LuaQuad2D:public TEntity<Quad2D>
 			}
 			return ret;
 		}
+		static LuaQuad2D* create()
+		{
+			LuaQuad2D* ret=new LuaQuad2D();
+			if(!ret->init())
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+
 		static LuaQuad2D* create(const char* name,const Rect2D& rect)
 		{
 			LuaQuad2D* ret=new LuaQuad2D();

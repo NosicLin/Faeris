@@ -4,8 +4,6 @@ $#include "luaext/FsLuaEntity.h"
 class Quad2D@__Quad2D:public Entity 
 {
 	public:
-
-		/* color */
 		void setColor(Color c);
 		Color getColor();
 
@@ -14,6 +12,7 @@ class Quad2D@__Quad2D:public Entity
 		float getOpacity();
 
 		/* texture */
+		void setTexture(const char* tex);
 		void setTexture(Texture2D* tex);
 		Texture2D* getTexture();
 
@@ -22,17 +21,33 @@ class Quad2D@__Quad2D:public Entity
 		Rect2D getTextureCoord();
 
 
-
 		/* Rect2D */
 		void setRect2D(const Rect2D& rect);
 		Rect2D getRect2D();
 
-		void setRectAnchor(float x,float y);
+
+		void setWidth(float width);
+		void setHeight(float height);
+		void setSize(float width,float height);
+		float getWidth();
+		float getHeight();
+		void getSize(float* width,float* height);
+			
+		void setAnchorX(float x);
+		void setAnchorY(float y);
+		void setAnchor(float x,float y);
+		void getAnchor(float* x,float* y);
+
+		float getAnchorX();
+		float getAnchorY();
 };
+
+
 
 class LuaQuad2D@Quad2D:public Quad2D
 {
 	public:
+		static LuaQuad2D* create();
 		static LuaQuad2D* create(const char* tex);
 		static LuaQuad2D* create(const char* tex,Rect2D);
 		static LuaQuad2D* create(const char* text,float width,float height);

@@ -12,6 +12,7 @@ class Mat_V4F_T2F;
 class Quad2D:public Entity 
 {
 	public:
+		static Quad2D* create();
 		static Quad2D* create(const char* tex);
 		static Quad2D* create(const char* tex,const Rect2D& rect);
 		static Quad2D* create(const char* tex,float width,float height);
@@ -27,11 +28,9 @@ class Quad2D:public Entity
 		float getOpacity();
 
 		/* texture */
+		void setTexture(const char* tex);
 		void setTexture(Texture2D* tex);
 		Texture2D* getTexture();
-
-		//void setTexture(const char* tex,bool new_rect=true); 
-
 
 		/* texture coord */
 		void setTextureCoord(const Rect2D& coord);
@@ -42,7 +41,21 @@ class Quad2D:public Entity
 		void setRect2D(const Rect2D& rect);
 		Rect2D getRect2D();
 
-		void setRectAnchor(float x,float y);
+
+		void setWidth(float width);
+		void setHeight(float height);
+		void setSize(float width,float height);
+		float getWidth();
+		float getHeight();
+		void getSize(float* width,float* height);
+			
+		void setAnchorX(float x);
+		void setAnchorY(float y);
+		void setAnchor(float x,float y);
+		void getAnchor(float* x,float* y);
+
+		float getAnchorX();
+		float getAnchorY();
 
 	public:
 		/* inherit Entity */
@@ -56,12 +69,15 @@ class Quad2D:public Entity
 	protected:
 		Quad2D();
 		~Quad2D();
+		bool init();
 		bool init(const char* tex);
 		bool init(Texture2D* tex);
 		void destruct();
 
 	private:
-		Rect2D m_rect;
+		float m_width,m_height;
+		float m_anchorX,m_anchorY;
+
 		Rect2D m_textureCoord;
 		Texture2D* m_texture;
 		Color m_color;

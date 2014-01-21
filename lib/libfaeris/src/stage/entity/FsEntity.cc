@@ -167,6 +167,7 @@ bool Entity::hit2D(float x,float y)
 
 void Entity::addChild(Entity* n)
 {
+	FS_TRACE_WARN_ON(n==NULL,"Entity Is NULL");
 	if(n->m_parent==this)
 	{
 		return;

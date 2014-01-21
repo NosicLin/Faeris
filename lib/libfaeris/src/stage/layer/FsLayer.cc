@@ -18,6 +18,7 @@ int Layer::getEntityNu()
 
 void Layer::add(Entity* entity)
 {
+	FS_TRACE_WARN_ON(entity==NULL,"Entity Is NULL");
 	if(entity->layer()==this)
 	{
 		FS_TRACE_WARN("object all ready add to this layer");
