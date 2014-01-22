@@ -149,10 +149,7 @@ void Layer2D::draw(Render* r)
 	for(int i=0;i<entity_nu;i++)
 	{
 		Entity* ob=entitys[i];
-		if(ob->visible())
-		{
-			ob->draw(r,false);
-		}
+		ob->draws(r,false);
 	}
 
 	r->popMatrix();
@@ -167,7 +164,7 @@ void Layer2D::draw(Render* r)
 void Layer2D::getEntityInView(std::vector<Entity*>* entitys)
 {
 	/* TODO(add real eliminate here) */
-	FsDict::Iterator* iter=m_ownerEntity->takeIterator();
+	FsDict::Iterator* iter=m_entity->takeIterator();
 	while(!iter->done())
 	{
 		FsObject* ob=iter->getValue();

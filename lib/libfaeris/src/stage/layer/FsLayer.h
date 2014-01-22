@@ -43,11 +43,6 @@ class Layer:public ActionTarget
 		void remove(Entity* entity);
 		int getEntityNu();
 
-		/* used for Entity parent change,
-		 * user can't direct call this interface */
-		void takeOwnership(Entity* entity);
-		void dropOwnership(Entity* entity);
-
 
 	public:
 		/* event hook */
@@ -80,11 +75,9 @@ class Layer:public ActionTarget
 		void init();
 		void destruct();
 		void updateAllWorldMatrix();
-	
 
 	protected:
-		FsDict* m_entity;  /* direct add to layer */
-		FsSlowDict* m_ownerEntity; /* all sub chirld */
+		FsSlowDict* m_entity;  /* direct add to layer */
 		bool m_visible;
 		bool m_touchEnabled;
 

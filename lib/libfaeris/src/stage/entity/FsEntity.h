@@ -8,7 +8,7 @@
 #include "math/FsMatrix4.h"
 #include "math/FsRect2D.h"
 #include "support/util/FsString.h"
-#include "support/util/FsArray.h"
+#include "support/util/FsSlowArray.h"
 
 NS_FS_BEGIN
 class Render;
@@ -23,10 +23,11 @@ class Entity :public ActionTarget
 		virtual void update(float dt);
 		virtual void draw(Render* r,bool updateMatrix=true);
 
+		virtual void updates(float dt);
+		virtual void draws(Render* r,bool updateMatrix=true);
 
 		/* inherit FsObject */
 		virtual const char* className();
-
 
 	public:
 
@@ -35,30 +36,29 @@ class Entity :public ActionTarget
 
 		/* relation ship*/
 		void addChild(Entity* n);
-		Entity* getParent();
-
 		void remove(Entity* n);
 		void clearChild();
-		Layer* getLayer();
 
 		void detach();
 		FS_FEATURE_NEW_OBJECT(FsArray*) takeAllChild();
 		int childNu();
 
 
-
 		Matrix4* getWorldMatrix();
 		Matrix4* getLocalMatrix();
-
-
 
 		bool updateLocalMatrix();
 		bool updateWorldMatrix();
 		void updateAllWorldMatrix();
 
 	public: /* zorlder */
-		float getZorder(){return m_zorlder;}
-		void setZorder(float z){m_zorlder=z;}
+		float getZorder();
+		void setZorder(float z);
+		Layer* getLayer();
+		Entity* getParent();
+		Scene* getScene();
+
+
 
 		/* used for layer to sort */
 		uint32_t getAddOlder(){return m_addOlder;}
@@ -148,10 +148,10 @@ class Entity :public ActionTarget
 		void updateChildWorldMatrix(bool force);
 		void getAllChild(FsArray* array);
 	
-		Entity* parent(){return m_parent;}
-		void setParent(Entity* parent){m_parent=parent;}
-		void setLayer(Layer* layer){m_layer=layer;}
-		Layer* layer(){return m_layer;}
+		void setParent(Entity* parent);
+		void setLayer(Layer* layer);
+
+		void sortChildren();
 
 
 	protected:  
@@ -166,6 +166,7 @@ class Entity :public ActionTarget
 				ulong m_hasBoundBox:1;
 				ulong m_hasBoundBox2D:1;
 				ulong m_visible:1;
+				ulong m_zorderDirty:1;
 			};
 			ulong m_flags;
 		};
@@ -179,6 +180,7 @@ class Entity :public ActionTarget
 		float m_zorlder;
 		uint32_t m_addOlder;
 
+
 		/* matrix */
 		Matrix4 m_localMatrix;
 		Matrix4 m_worldMatrix;
@@ -187,7 +189,7 @@ class Entity :public ActionTarget
 		/* relation ship*/
 		Layer* m_layer;
 		Entity* m_parent;
-		FsArray* m_chirdren;
+		FsSlowArray* m_chirdren;
 
 		/* bound box */
 		Rect2D m_boundBox2D;
@@ -196,6 +198,12 @@ class Entity :public ActionTarget
 
 
 		friend class Layer;
+
+
+
+	/* class attribute */
+	private:
+		static uint32_t ms_olderCount;
 };
 
 #include "stage/entity/FsEntity.inl"
