@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "stage/layer/FsLayer.h"
 #include "stage/entity/FsEntity.h"
 #include "stage/FsScene.h"
@@ -6,7 +7,23 @@
 #include "mgr/FsObjectMgr.h"
 
 NS_FS_BEGIN
- const char* Layer::className()
+static bool FsFuncEntity_SortZolder(Entity* left,Entity* right)
+{
+	if( left->getZorder()<right->getZorder())
+	{
+		return true;
+	}
+	else if(left->getZorder()>right->getZorder())
+	{
+		return false;
+	}
+	else 
+	{
+		return left->getAddOlder()<right->getAddOlder();
+	}
+}
+
+const char* Layer::className()
 {
 	return FS_LAYER_CLASS_NAME;
 }
@@ -51,6 +68,10 @@ void Layer::remove(Entity* entity)
 	}
 	entity->setLayer(NULL);
 	m_entity->remove(entity);
+	if(m_touchFocus==entity)
+	{
+		m_touchFocus=NULL;
+	}
 }
 
 
@@ -117,6 +138,7 @@ void Layer::clearEntity()
 	}
 	m_entity->clear();
 	delete iter;
+	m_touchFocus=NULL;
 }
 
 
@@ -149,16 +171,58 @@ void Layer::getScissorArea(float* x,float* y,float* width,float* height)
 
 bool Layer::touchBegin(float x,float y)
 {
-	return m_touchEnabled;
+	m_touchFocus=NULL;
+	m_entity->lock();
+	Vector3 tv=toLayerCoord(Vector3(x,y,0));
+	if(m_dispatchTouchEnabled)
+	{
+		std::vector<Entity*> entitys;
+		getTouchEnabledEntity(&entitys);
+		sortEntity(&entitys);
+		int entity_nu=entitys.size();
+		for(int i=0;i<entity_nu;i++)
+		{
+			Entity* e=entitys[i];
+			if(e->getLayer()==this&&e->hit2D(tv.x,tv.y))
+			{
+				/* NOTE: entity will detach when called touchBegin */
+				bool ret=e->touchBegin(tv.x,tv.y);
+				/* check entity accept event and not detach */
+				if(ret&&e->getLayer()==this)
+				{
+					m_touchFocus=e;
+					break;  
+				}
+			}
+		}
+	}
+	m_entity->unlock();
+	m_entity->flush();
+	return m_touchFocus!=NULL;
 }
 bool Layer::touchMove(float x,float y)
 {
-	return m_touchEnabled;
+	Vector3 tv=toLayerCoord(Vector3(x,y,0));
+	if(m_touchFocus) 
+	{
+		return m_touchFocus->touchMove(tv.x,tv.y);
+	}
+	return false;
 }
 bool Layer::touchEnd(float x,float y)
 {
-	return m_touchEnabled; 
+	Vector3 tv=toLayerCoord(Vector3(x,y,0));
+	if(m_touchFocus) 
+	{
+		bool ret=m_touchFocus->touchEnd(tv.x,tv.y);
+		m_touchFocus=NULL;
+		return ret;
+	}
+
+	return false;
 }
+
+
 /* touches event */
 bool Layer::touchesBegin(TouchEvent* event)
 {
@@ -197,10 +261,21 @@ void Layer::init()
 
 
 	m_visible=true;
+
 	m_touchEnabled=false;
+	m_touchesEnabled=false;
+
+	m_dispatchTouchEnabled=false;
+	m_dispatchTouchesEnabled=false;
+
+
+
 	m_scissorEnabled=false;
 	m_scissorArea.set(0,0,1,1);
 	m_scene=NULL;
+
+	m_touchFocus=NULL;
+
 }
 
 void Layer::destruct()
@@ -221,6 +296,43 @@ void Layer::updateAllWorldMatrix()
 	}
 	delete iter;
 }
+
+void Layer::getTouchEnabledEntity(std::vector<Entity*>* e)
+{
+	FsDict::Iterator* iter= m_entity->takeIterator();
+
+	while(!iter->done())
+	{
+		Entity* entity=(Entity*) iter->getValue();
+		if(entity->getTouchEnabled()&&entity->getVisible())
+		{
+			e->push_back(entity);
+		}
+		iter->next();
+	}
+	delete iter;
+
+}
+
+void Layer::sortEntity(std::vector<Entity*>* entitys)
+{
+	std::sort(entitys->begin(),entitys->end(),FsFuncEntity_SortZolder);
+}
+
+Vector3 Layer::toLayerCoord(const Vector3& v)
+{
+	return v;
+}
+
+
+
+
+
+
+
+
+
+
 
 NS_FS_END
 

@@ -155,7 +155,11 @@ class Render:public FsObject
 		/* set opengl state */
 		void setViewport(int x,int y,int width,int height);
 		void setScissorArea(float x,float y,float width,float height);
+		void setScissorArea(const Rect2D& area);
+		Rect2D getScissorArea();
 		void setScissorEnabled(bool enable);
+		bool getScissorEnabled();
+
 		void setDepthTest(bool enable);
 
 		/* blend */

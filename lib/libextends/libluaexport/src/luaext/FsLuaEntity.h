@@ -15,6 +15,7 @@
 #include "stage/entity/FsVertexPolygon.h"
 #include "stage/entity/FsParticle2DEffect.h"
 #include "stage/entity/FsParticle2DEmitter.h"
+#include "stage/entity/FsPanel.h"
 
 #if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
 #include "FsSpineSprite.h"
@@ -281,6 +282,33 @@ class LuaVertexPolygon:public TEntity<VertexPolygon>
 	protected:
 		LuaVertexPolygon(){}
 		~LuaVertexPolygon(){}
+};
+
+class LuaPanel:public TEntity<Panel>
+{
+	public:
+		static LuaPanel* create()
+		{
+			return LuaPanel::create(0,0);
+		}
+		static LuaPanel* create(float width,float height)
+		{
+			LuaPanel* ret=new LuaPanel();
+			if(!ret->init(width,height))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_PANEL_CLASS_NAME;
+		}
+
+
+
 };
 
 

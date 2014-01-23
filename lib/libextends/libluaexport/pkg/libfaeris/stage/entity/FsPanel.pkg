@@ -1,0 +1,30 @@
+$#include "stage/entity/FsPanel.h"
+$#include "luaext/FsLuaEntity.h"
+
+class Panel@__Panel:public Entity 
+{
+	public:
+		void setSize(float width,float height);
+		void getSize(float* width,float* height);
+
+		void setAnchor(float x,float y);
+		void getAnchor(float* x,float* y);
+
+		void setScissorEnabled(bool enabled);
+		bool getScissorEnabled();
+		void dropTouchFocus();
+};
+
+
+class LuaPanel@Panel:public Panel 
+{
+	public:
+		static LuaPanel* create();
+		static LuaPanel* create(float width,float height);
+
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+};
+
+

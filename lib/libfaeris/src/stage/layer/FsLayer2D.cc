@@ -40,7 +40,7 @@ Layer2D* Layer2D::create()
 }
 
 
-Matrix4 Layer2D::getProjectMatrix()const 
+Matrix4 Layer2D::getProjectMatrix() 
 {
 	Matrix4 mat;
 	mat.makeOrthographic(
@@ -58,18 +58,18 @@ Rect2D Layer2D::getViewArea()const
 	return m_viewArea;
 }
 
-void Layer2D::toLayerCoord(float* x,float* y)const
+void Layer2D::toLayerCoord(float* x,float* y)
 {
 	*x=*x*m_viewArea.width+m_viewArea.x;
 	*y=*y*m_viewArea.height+m_viewArea.y;
 }
 
-Vector2 Layer2D::toLayerCoord(const Vector2& v)const 
+Vector3 Layer2D::toLayerCoord(const Vector3& v)
 {
 	float x=v.x;
 	float y=v.y;
 	toLayerCoord(&x,&y);
-	return Vector2(x,y);
+	return Vector3(x,y,0);
 }
 
 void Layer2D::setViewArea(float x,float y,float width,float height)

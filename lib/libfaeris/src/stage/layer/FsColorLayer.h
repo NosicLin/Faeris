@@ -20,6 +20,7 @@ class ColorLayer:public Layer
 	public:
 		/* inherit Layer */
 		virtual void draw(Render*  r);
+		virtual Matrix4 getProjectMatrix();
 
 		/* inherit FsObject */
 		virtual const char* className();

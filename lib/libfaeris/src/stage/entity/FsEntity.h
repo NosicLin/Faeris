@@ -133,11 +133,37 @@ class Entity :public ActionTarget
 
 	public:
 		void setVisible(bool visible){m_visible=visible;}
-		bool visible(){return m_visible;}
+		bool getVisible(){return m_visible;}
 		void setChildVisible(bool visiable,bool rec);
 
 		/* for hiting */
 		virtual bool hit2D(float x,float y);
+
+
+	public:
+
+
+		/* single touch */
+		void setTouchEnabled(bool enabled);
+		bool getTouchEnabled();
+
+		virtual bool touchBegin(float x,float y);
+		virtual bool touchMove(float x,float y);
+		virtual bool touchEnd(float x,float y);
+
+		/* multi touches */
+		void setTouchesEnabled(bool enabled);
+		bool getTouchesEnabled();
+
+		/* TODO:(implement) 
+		bool touchesBegin(float x,float y,int id);
+		bool touchesPointerDown(float x,float y,int id);
+		bool touchesPointerMove(float x,float y,int id);
+		bool touchesPointerUp(float x,float y,int id);
+		bool touchesEnd(float x,float y,int id);
+		*/
+
+
 
 	protected:
 		Entity();
@@ -167,6 +193,8 @@ class Entity :public ActionTarget
 				ulong m_hasBoundBox2D:1;
 				ulong m_visible:1;
 				ulong m_zorderDirty:1;
+				ulong m_touchEnabled:1;
+				ulong m_touchesEnabled:1;
 			};
 			ulong m_flags;
 		};

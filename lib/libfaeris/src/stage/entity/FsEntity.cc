@@ -105,7 +105,8 @@ void Entity::init()
 	m_hasBoundBox=0;
 	m_visible=1;
 	m_zorderDirty=1;
-
+	m_touchEnabled=0;
+	m_touchesEnabled=0;
 
 	m_zorlder=0.0f;
 
@@ -436,7 +437,64 @@ Matrix4* Entity::getLocalMatrix()
 }
 
 
+/* touch */
+void Entity::setTouchEnabled(bool enabled)
+{
+	m_touchEnabled=enabled;
+}
+bool Entity::getTouchEnabled()
+{
+	return m_touchEnabled;
+}
+
+bool Entity::touchBegin(float x,float y)
+{
+	return m_touchEnabled;
+}
+bool Entity::touchMove(float x,float y)
+{
+	return m_touchEnabled;
+}
+bool Entity::touchEnd(float x,float y)
+{
+	return m_touchEnabled;
+}
+
+
+
+
+
+
+void Entity::setTouchesEnabled(bool enabled)
+{
+	m_touchesEnabled=enabled;
+}
+bool Entity::getTouchesEnabled()
+{
+	return m_touchesEnabled;
+}
+
+
+
+
+
+
 NS_FS_END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

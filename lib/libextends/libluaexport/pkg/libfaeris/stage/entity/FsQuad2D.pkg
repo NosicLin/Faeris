@@ -55,6 +55,10 @@ class LuaQuad2D@Quad2D:public Quad2D
 	public:
 		void onDraw@draw(Render* r);
 		void onUpdate@update(float dt);
+		bool onTouchBegin@touchBegin(float x,float y);
+		bool onTouchMove@touchMove(float x,float y);
+		bool onTouchEnd@touchEnd(float x,float y);
+		bool onHit2D@hit2D(float x,float y);
 };
 
 

@@ -23,11 +23,8 @@ public:
 		static Layer2D* create();
 
 	public:
-		Matrix4 getProjectMatrix()const ;
 		Rect2D getViewArea()const;
 
-		void toLayerCoord(float* x,float* y)const ;
-		Vector2 toLayerCoord(const Vector2& v)const ;
 
 		void setViewArea(float x,float y,float width,float height);
 		void getViewArea(float* x,float* y,float* width,float* height);
@@ -45,6 +42,9 @@ public:
 	public:
 		/* inherit  Layer */
 		virtual void draw(Render *r);
+		virtual Matrix4 getProjectMatrix();
+		virtual Vector3 toLayerCoord(const Vector3& v);
+		void toLayerCoord(float* x,float* y);
 
 		/* inherit FsObject */
 		virtual const char* className();

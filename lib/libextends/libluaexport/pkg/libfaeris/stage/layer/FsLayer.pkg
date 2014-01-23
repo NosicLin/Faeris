@@ -4,29 +4,41 @@ class Layer@__layer:public ActionTarget
 {
 	public:
 		/* visible */
-		bool visible();
+		bool getVisible();
+		bool getVisible@visible();
 		void setVisible(bool visible);
 
 		/* touch enable */
 		bool touchEnabled();
 		void setTouchEnabled(bool enable);
+		void setTouchesEnabled(bool enable);
+		bool getTouchesEnabled();
 
-		
+		/* dispatch touch */
+		void setDispatchTouchEnabled(bool enable);
+		bool getDispatchTouchEnabled();
+		void setDispatchTouchesEnabled(bool enable);
+		bool getDispatchTouchesEnabled();
+
+		/* scissor */
+		void setScissorArea(float x,float y,float width,float height);
+		void getScissorArea(float* x,float* y,float* width,float* height);
+		bool scissorEnabled(){return m_scissorEnabled;}
+		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
+
+
+		/* project matrix */
+		Matrix4 getProjectMatrix();
+		Vector3 toLayerCoord(const Vector3& v);
 
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		void clearEntity();
 		int getEntityNu();
 
-		void clearEntity();
+		/* scene */
 		Scene* getScene();
-
-		/* scissor */
-		void setScissorArea(float x,float y,float width,float height);
-		void getScissorArea(float* x=NULL,float* y=NULL,float* width=NULL,float* height=NULL);
-		bool scissorEnabled();
-		void setScissorEnabled(bool enable);
-
 };
 
 

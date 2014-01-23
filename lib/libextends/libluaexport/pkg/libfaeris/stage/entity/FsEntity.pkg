@@ -93,10 +93,26 @@ class Entity@__Entity:public ActionTarget
 	public:
 		void setVisible(bool visible);
 		void setChildVisible(bool visiable,bool rec);
-		bool visible();
+		bool getVisible@visible();
+		bool getVisible();
+
+
 
 		bool hit2D(float x,float y);
 		void draw(Render* render,bool update_matrix=true);
+
+		/* single touch */
+		void setTouchEnabled(bool enabled);
+		bool getTouchEnabled();
+
+		virtual bool touchBegin(float x,float y);
+		virtual bool touchMove(float x,float y);
+		virtual bool touchEnd(float x,float y);
+
+		/* multi touches */
+		void setTouchesEnabled(bool enabled);
+		bool getTouchesEnabled();
+
 };
 
 class LuaEntity@Entity:public Entity 
@@ -106,10 +122,11 @@ class LuaEntity@Entity:public Entity
 	public:
 		void onUpdate@update(float dt);
 		void onDraw@draw(Render* r);
+		bool onTouchBegin@touchBegin(float x,float y);
+		bool onTouchMove@touchMove(float x,float y);
+		bool onTouchEnd@touchEnd(float x,float y);
+		bool onHit2D@hit2D(float x,float y);
 };
-
-
-
 
 
 

@@ -866,6 +866,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\src\stage\entity\FsPanel.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsPanel.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\stage\entity\FsParticle2DEffect.cc"
 						>
 					</File>

@@ -150,7 +150,7 @@ void Scene::updateLayers(float dt)
 	for(int i=layer_nu-1;i>=0;i--)
 	{
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->visible())
+		if(layer->getVisible())
 		{
 			layer->update(dt);
 		}
@@ -166,7 +166,7 @@ void Scene::draw(Render* render)
 	for(int i=0;i<layer_nu;i++)
 	{
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->visible())
+		if(layer->getVisible())
 		{
 			layer->draw(render);
 		}
@@ -229,7 +229,7 @@ void Scene::touchBegin(float x,float y)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchBegin(x,y);
 		}
@@ -249,7 +249,7 @@ void Scene::touchMove(float x,float y)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchMove(x,y);
 		}
@@ -270,7 +270,7 @@ void Scene::touchEnd(float x,float y)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchEnd(x,y);
 		}
@@ -291,7 +291,7 @@ void Scene::touchesBegin(TouchEvent* event)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchesBegin(event);
 		}
@@ -312,7 +312,7 @@ void Scene::touchesPointerDown(TouchEvent* event)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchesPointerDown(event);
 		}
@@ -332,7 +332,7 @@ void Scene::touchesMove(TouchEvent* event)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchesMove(event);
 		}
@@ -353,7 +353,7 @@ void Scene::touchesPointerUp(TouchEvent* event)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchesPointerUp(event);
 		}
@@ -374,7 +374,7 @@ void Scene::touchesEnd(TouchEvent* event)
 	{
 		bool handle=false;
 		Layer* layer=(Layer*)m_layers->get(i);
-		if(layer->touchEnabled()&&layer->visible())
+		if(layer->touchEnabled()&&layer->getVisible())
 		{
 			handle=layer->touchesEnd(event);
 		}
