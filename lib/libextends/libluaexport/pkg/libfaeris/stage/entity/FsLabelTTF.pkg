@@ -36,8 +36,10 @@ class LuaLabelTTF@LabelTTF:public LabelTTF
 		};
 	public:
 		static LuaLabelTTF* create(const char* text,FontTTF* font);
+
 	public:
 		void onDraw@draw(Render* r);
 		void onUpdate@update(float dt);
 };
+
 

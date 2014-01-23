@@ -14,8 +14,6 @@ $pfile "FsObject.pkg"
 $pfile "FsMacros.pkg"
 
 
-
-
 /* entity */
 $pfile "stage/entity/FsEntity.pkg"
 $pfile "stage/entity/FsColorQuad2D.pkg"

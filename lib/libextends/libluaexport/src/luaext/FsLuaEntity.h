@@ -13,6 +13,8 @@
 #include "stage/entity/FsLabelTTF.h"
 #include "stage/entity/FsLabelBitmap.h"
 #include "stage/entity/FsVertexPolygon.h"
+#include "stage/entity/FsParticle2DEffect.h"
+#include "stage/entity/FsParticle2DEmitter.h"
 
 #if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
 #include "FsSpineSprite.h"
@@ -179,6 +181,58 @@ class LuaSprite2D:public TEntity<Sprite2D>
 		LuaSprite2D(){}
 		~LuaSprite2D(){}
 };
+
+class LuaParticle2DEffect:public TEntity<Particle2DEffect>
+{
+	public:
+		static LuaParticle2DEffect* create(const char* filename)
+		{
+			Particle2DEmitter* emit=Particle2DEmitter::create(filename);
+			if( emit==NULL) 
+			{
+				FS_TRACE_WARN("Create Emitter For File(%s) Failed",filename);
+				return NULL;
+			}
+			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
+			FS_SAFE_DEC_REF(emit);
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create(FsFile*  file)
+		{
+			Particle2DEmitter* emit=Particle2DEmitter::create(file);
+			if(emit==NULL)
+			{
+				FS_TRACE_WARN("create Emiit for Failed");
+				return NULL;
+			}
+
+			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
+			FS_SAFE_DEC_REF(emit);
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create(Particle2DEmitter* emitter)
+		{
+			LuaParticle2DEffect* ret=new LuaParticle2DEffect;
+			if(!ret->init(emitter))
+			{
+				delete ret;
+			}
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create()
+		{
+			LuaParticle2DEffect* ret=new LuaParticle2DEffect;
+			if(!ret->init(NULL))
+			{
+				delete ret;
+			}
+			return ret;
+		}
+};
+
 
 
 class LuaVertexPolygon:public TEntity<VertexPolygon> 
