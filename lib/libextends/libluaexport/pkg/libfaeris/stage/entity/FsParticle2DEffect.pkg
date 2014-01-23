@@ -10,18 +10,24 @@ class Particle2DEffect@__Particle2DEffect:public Entity
 		static Particle2DEffect* create();
 
 	public:
-		void start(bool loop=true);
+		void start(bool restart=true);
+		void refresh();
 		void stop();
 		void setPause(bool pause);
 		bool isPause();
 		bool isStop();
+
+		float getLifeTime();
+		float getElapseTime();
 
 		void setEmitter(Particle2DEmitter* emit);
 		Particle2DEmitter* getEmitter();
 
 		void setAutoRemoveOnStop(bool remove);
 
-		int getParticleNu();
+		int getParticleNu(){return m_particles.size(); }
+		int getMaxParticleNu();
+;
 
 	public:
 
