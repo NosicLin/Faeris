@@ -33,6 +33,7 @@ void Layer::add(Entity* entity)
 
 	m_entity->insert(entity,entity);
 	entity->setAddOlder(m_addOlder++);
+	entity->setLayer(this);
 }
 
 

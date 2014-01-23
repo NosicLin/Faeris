@@ -404,18 +404,6 @@ void Entity::sortChildren()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 void Entity::detach()
 {
 	if(m_parent)
