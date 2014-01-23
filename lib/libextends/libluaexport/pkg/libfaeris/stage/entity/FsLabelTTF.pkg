@@ -42,3 +42,4 @@ class LuaLabelTTF@LabelTTF:public LabelTTF
 		void onUpdate@update(float dt);
 };
 
+

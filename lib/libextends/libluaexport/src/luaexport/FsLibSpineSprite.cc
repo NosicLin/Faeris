@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsSpineSprite
-** Generated automatically by tolua++-1.0.92 on 01/21/14 07:46:51.
+** Generated automatically by tolua++-1.0.92 on 01/23/14 07:52:06.
 */
 
 #ifndef __cplusplus
@@ -535,39 +535,6 @@ static int tolua_FsSpineSprite_SpineSprite_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: onDraw of class  LuaSpineSprite */
-#ifndef TOLUA_DISABLE_tolua_FsSpineSprite_SpineSprite_draw00
-static int tolua_FsSpineSprite_SpineSprite_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"LuaSpineSprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  LuaSpineSprite* self = (LuaSpineSprite*)  tolua_tousertype(tolua_S,1,0);
-  Render* r = ((Render*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
-#endif
-  {
-   self->onDraw(r);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: onUpdate of class  LuaSpineSprite */
 #ifndef TOLUA_DISABLE_tolua_FsSpineSprite_SpineSprite_update00
 static int tolua_FsSpineSprite_SpineSprite_update00(lua_State* tolua_S)
@@ -596,6 +563,39 @@ static int tolua_FsSpineSprite_SpineSprite_update00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onDraw of class  LuaSpineSprite */
+#ifndef TOLUA_DISABLE_tolua_FsSpineSprite_SpineSprite_draw00
+static int tolua_FsSpineSprite_SpineSprite_draw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaSpineSprite",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaSpineSprite* self = (LuaSpineSprite*)  tolua_tousertype(tolua_S,1,0);
+  Render* r = ((Render*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onDraw'", NULL);
+#endif
+  {
+   self->onDraw(r);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -634,8 +634,8 @@ TOLUA_API int tolua_FsSpineSprite_open (lua_State* tolua_S)
    tolua_constant(tolua_S,"ANIM_START",LuaSpineSprite::ANIM_START);
    tolua_constant(tolua_S,"ANIM_END",LuaSpineSprite::ANIM_END);
    tolua_function(tolua_S,"create",tolua_FsSpineSprite_SpineSprite_create00);
-   tolua_function(tolua_S,"draw",tolua_FsSpineSprite_SpineSprite_draw00);
    tolua_function(tolua_S,"update",tolua_FsSpineSprite_SpineSprite_update00);
+   tolua_function(tolua_S,"draw",tolua_FsSpineSprite_SpineSprite_draw00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

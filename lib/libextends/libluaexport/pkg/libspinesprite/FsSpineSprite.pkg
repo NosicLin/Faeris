@@ -54,8 +54,20 @@ class LuaSpineSprite@SpineSprite:public SpineSprite
 		static LuaSpineSprite* create(const char* filename);
 
 	public:
-		void onDraw@draw(Render* r);
 		void onUpdate@update(float dt);
+		void onDraw@draw(Render* r);
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 
