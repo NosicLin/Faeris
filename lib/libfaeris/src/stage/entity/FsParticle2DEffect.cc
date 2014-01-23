@@ -24,6 +24,7 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
     }
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
+	emit->autoDestroy();
 	return ret;
 }
 
@@ -37,6 +38,7 @@ Particle2DEffect* Particle2DEffect::create(FsFile* file)
 	}
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
+	emit->autoDestroy();
 	return ret;
 }
 

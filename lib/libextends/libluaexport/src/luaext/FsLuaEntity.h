@@ -211,7 +211,7 @@ class LuaParticle2DEffect:public TEntity<Particle2DEffect>
 				return NULL;
 			}
 			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
-			FS_SAFE_DEC_REF(emit);
+			emit->autoDestroy();
 			return ret;
 		}
 
@@ -225,7 +225,7 @@ class LuaParticle2DEffect:public TEntity<Particle2DEffect>
 			}
 
 			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
-			FS_SAFE_DEC_REF(emit);
+			emit->autoDestroy();
 			return ret;
 		}
 
@@ -247,6 +247,11 @@ class LuaParticle2DEffect:public TEntity<Particle2DEffect>
 				delete ret;
 			}
 			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_PARTICLE2D_EFFECT_CLASS_NAME;
 		}
 };
 

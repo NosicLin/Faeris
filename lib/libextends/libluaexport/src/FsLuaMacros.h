@@ -26,6 +26,7 @@
 
 #define FS_LUA_ACTION_CLASS_NAME    		    "LuaAction"
 
+#define FS_LUA_PARTICLE2D_EFFECT_CLASS_NAME     "LuaParticle2DEffect"
 
 
 #define FS_EXPORT_LIB_FAERIS

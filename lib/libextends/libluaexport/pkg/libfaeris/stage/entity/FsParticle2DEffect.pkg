@@ -4,12 +4,6 @@ $#include "stage/entity/FsParticle2DEffect.h"
 class Particle2DEffect@__Particle2DEffect:public Entity 
 {
 	public:
-		static Particle2DEffect* create(const char* filename);
-		static Particle2DEffect* create(FsFile* file);
-		static Particle2DEffect* create(Particle2DEmitter* emitter);
-		static Particle2DEffect* create();
-
-	public:
 		void start(bool restart=true);
 		void refresh();
 		void stop();

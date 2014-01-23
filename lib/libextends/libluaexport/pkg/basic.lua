@@ -69,6 +69,9 @@ local fsobject= {
 	"LabelBitmap",
 	"LuaLabelBitmap",
 
+	"Particle2DEffect",
+	"LuaParticle2DEffect",
+
 
 	--sys/event 
 	"TouchEventListener",
