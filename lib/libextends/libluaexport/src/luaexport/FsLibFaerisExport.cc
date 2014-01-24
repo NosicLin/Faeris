@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/24/14 01:43:35.
+** Generated automatically by tolua++-1.0.92 on 01/24/14 07:18:26.
 */
 
 #ifndef __cplusplus
@@ -1234,6 +1234,37 @@ static int tolua_FsLibFaeris___Entity_detach00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'detach'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: clearChild of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_clearChild00
+static int tolua_FsLibFaeris___Entity_clearChild00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'clearChild'", NULL);
+#endif
+  {
+   self->clearChild();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'clearChild'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3028,6 +3059,71 @@ static int tolua_FsLibFaeris___Entity_getVisible00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getVisible'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVisibles of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_setVisibles00
+static int tolua_FsLibFaeris___Entity_setVisibles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  bool visible = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVisibles'", NULL);
+#endif
+  {
+   self->setVisibles(visible);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVisibles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVisibles of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_getVisibles00
+static int tolua_FsLibFaeris___Entity_getVisibles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVisibles'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->getVisibles();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVisibles'.",&tolua_err);
  return 0;
 #endif
 }
@@ -24608,6 +24704,7 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getParent",tolua_FsLibFaeris___Entity_getParent00);
    tolua_function(tolua_S,"remove",tolua_FsLibFaeris___Entity_remove00);
    tolua_function(tolua_S,"detach",tolua_FsLibFaeris___Entity_detach00);
+   tolua_function(tolua_S,"clearChild",tolua_FsLibFaeris___Entity_clearChild00);
    tolua_function(tolua_S,"takeAllChild",tolua_FsLibFaeris___Entity_takeAllChild00);
    tolua_function(tolua_S,"childNu",tolua_FsLibFaeris___Entity_childNu00);
    tolua_function(tolua_S,"getLayer",tolua_FsLibFaeris___Entity_getLayer00);
@@ -24661,6 +24758,8 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setChildVisible",tolua_FsLibFaeris___Entity_setChildVisible00);
    tolua_function(tolua_S,"visible",tolua_FsLibFaeris___Entity_visible00);
    tolua_function(tolua_S,"getVisible",tolua_FsLibFaeris___Entity_getVisible00);
+   tolua_function(tolua_S,"setVisibles",tolua_FsLibFaeris___Entity_setVisibles00);
+   tolua_function(tolua_S,"getVisibles",tolua_FsLibFaeris___Entity_getVisibles00);
    tolua_function(tolua_S,"hit2D",tolua_FsLibFaeris___Entity_hit2D00);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris___Entity_draw00);
    tolua_function(tolua_S,"setTouchEnabled",tolua_FsLibFaeris___Entity_setTouchEnabled00);

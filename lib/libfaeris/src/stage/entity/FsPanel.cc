@@ -219,7 +219,7 @@ bool Panel::hit2D(float x,float y)
 
 	float diffx=tv.x-(-m_anchorX*m_width);
 	float diffy=tv.y-(-m_anchorY*m_height);
-	if(diffx>=0 && diffy <=m_width)
+	if(diffx>=0 && diffx <=m_width)
 	{
 		if(diffy>=0 && diffy<=m_height)
 		{

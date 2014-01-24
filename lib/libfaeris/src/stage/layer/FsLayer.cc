@@ -101,7 +101,7 @@ void Layer::updateEntity(float dt)
 		Entity* entity=(Entity*)iter->getValue();
 		if(entity->getLayer()==this) 
 		{
-			entity->updates(dt);
+			if(entity->getVisibles()) entity->updates(dt);
 		}
 		iter->next();
 	}
@@ -120,7 +120,7 @@ void Layer::draw(Render* render)
 	while(!iter->done())
 	{
 		Entity* entity=(Entity*)iter->getValue();
-		entity->draws(render,false);
+		if(entity->getVisibles()) entity->draws(render,false);
 		iter->next();
 	}
 	delete iter;

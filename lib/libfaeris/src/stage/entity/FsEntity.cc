@@ -44,7 +44,7 @@ void Entity::updates(float dt)
 		Entity* e=(Entity*)m_chirdren->get(i);
 		if(e->getParent()==this) /* e not remove from entity */
 		{
-			e->updates(dt);
+			if(e->getVisibles()) e->updates(dt);
 		}
 	}
 	m_chirdren->unlock();
@@ -72,7 +72,7 @@ void Entity::draws(Render* r,bool updateMatrix)
 		Entity* e=(Entity*) m_chirdren->get(i);
 		if(e->getZorder()<0) 
 		{
-			e->draws(r,updateMatrix);
+			if(e->getVisibles()) e->draws(r,updateMatrix);
 		}
 		else 
 		{
@@ -104,6 +104,7 @@ void Entity::init()
 	m_hasBoundSphere=0;
 	m_hasBoundBox=0;
 	m_visible=1;
+	m_visibles=1;
 	m_zorderDirty=1;
 	m_touchEnabled=0;
 	m_touchesEnabled=0;

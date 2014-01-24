@@ -133,7 +133,11 @@ class Entity :public ActionTarget
 
 	public:
 		void setVisible(bool visible){m_visible=visible;}
-		bool getVisible(){return m_visible;}
+		bool getVisible(){return m_visible&&m_visibles;}
+
+		void setVisibles(bool visible){m_visibles=visible;}
+		bool getVisibles(){return m_visibles;}
+
 		void setChildVisible(bool visiable,bool rec);
 
 		/* for hiting */
@@ -192,6 +196,7 @@ class Entity :public ActionTarget
 				ulong m_hasBoundBox:1;
 				ulong m_hasBoundBox2D:1;
 				ulong m_visible:1;
+				ulong m_visibles:1;
 				ulong m_zorderDirty:1;
 				ulong m_touchEnabled:1;
 				ulong m_touchesEnabled:1;
