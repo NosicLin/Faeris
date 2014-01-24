@@ -1,0 +1,81 @@
+$#include "stage/entity/FsButton.h"
+
+class ButtonState
+{
+	public:
+		void setFlag(int flags) ;
+		void clearFlag(int flags) ;
+
+		void setColor(Color c) ;
+		Color getColor();
+
+		void setOpacity(float opacity);
+		float getOpacity();
+
+		void setTexture(const char* filename);
+		void setTexture(Texture2D* tex) ;
+		Texture2D* getTexture() ;
+
+		void setSize(float width,float height);
+		void getSize(float* width,float* height);
+
+		void setAnchor(float x,float y);
+		void getAnchor(float* x=0,float* y=0);
+
+		void setPosition(Vector3 t);
+		Vector3 getPosition();
+
+		void setRotate(Vector3 r);
+		Vector3 getRotate();
+
+		void setScale(Vector3 s);
+		Vector3 getScale();
+
+		void setZorder(float orlder);
+		float getZorder();
+
+		void setChild(FsArray* child);
+		FsArray* getChild();
+};
+
+class Button:public Quad2D
+{
+	public:
+		enum 
+		{
+			FLAG_COLOR= 0x1L,
+			FLAG_OPACITY= 0x2L,
+			FLAG_TEXTURE= 0x4L,
+			FLAG_SIZE=0x8L,
+			FLAG_ANCHOR =0x10L,
+			FLAG_TRANSLATE=0x20L,
+			FLAG_ROTATE=0x40L,
+			FLAG_SCALE=0x80L,
+			FLAG_ZORDER=0x100L,
+			FLAG_CHILDREN=0x200L,
+			FLAG_ALL= 0x3FFL,
+		};
+
+	public:
+		static Button* create();
+		static Button* create(const char* filename);
+		static Button* create(const char* filename,float width,float height);
+
+	public:
+		ButtonState* getNormalState();
+		ButtonState* getPressState();
+	public:
+		virtual void click();
+		virtual void touchMoveIn(float x,float y);
+		virtual void touchMoveOut(float x,float y);
+
+		void setStateNormal();
+		void setStatePress();
+};
+
+
+
+
+
+
+

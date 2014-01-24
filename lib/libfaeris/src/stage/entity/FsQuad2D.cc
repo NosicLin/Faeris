@@ -63,6 +63,11 @@ void Quad2D::setTexture(Texture2D* tex)
 		m_width=(float)m_texture->getWidth();
 		m_height=(float)m_texture->getHeight();
 	}
+	else 
+	{
+		m_width=0;
+		m_height=0;
+	}
 
 }
 void Quad2D::setTexture(const char* filename)
@@ -73,6 +78,11 @@ void Quad2D::setTexture(const char* filename)
 	{
 		m_width=(float)m_texture->getWidth();
 		m_height=(float)m_texture->getHeight();
+	}
+	else 
+	{
+		m_width=0;
+		m_height=0;
 	}
 }
 

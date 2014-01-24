@@ -26,12 +26,7 @@ class Panel:public Entity
 		void setScissorEnabled(bool enabled);
 		bool getScissorEnabled();
 
-		void dropTouchFocus();
-
 	public:
-		virtual bool touchBegin(float x,float y);
-		virtual bool touchMove(float x,float y);
-		virtual bool touchEnd(float x,float y);
 		virtual void draws(Render* r,bool updateMatrix=true);
 		virtual const char* className();
 		virtual bool hit2D(float x,float y);
@@ -43,7 +38,6 @@ class Panel:public Entity
 
 
 	private:
-		Entity* m_touchFocus;
 		bool m_scissorEnabled;
 		float m_width;
 		float m_height;
