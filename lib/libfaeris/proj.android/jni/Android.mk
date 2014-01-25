@@ -34,6 +34,8 @@ LOCAL_SRC_FILES :=  \
 					../../src/stage/entity/FsParticle2DEmitter.cc \
 					../../src/stage/entity/FsParticle2DEffect.cc \
 					../../src/stage/entity/FsVertexPolygon.cc \
+					../../src/stage/entity/FsPanel.cc \
+					../../src/stage/entity/FsButton.cc \
 					../../src/stage/layer/FsColorLayer.cc \
 					../../src/stage/layer/FsLayer.cc \
 					../../src/stage/layer/FsLayer2D.cc \

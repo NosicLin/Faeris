@@ -11,7 +11,7 @@ class LabelTTF@__LabelTTF:public Entity
 		FontTTF* getFont();
 
 		void setAlign(int h,int v);
-		void getAlign(int* h=NULL,int* v=NULL);
+		void getAlign(int* h=0,int* v=0);
 
 		void setColor(Color c);
 		Color getColor();

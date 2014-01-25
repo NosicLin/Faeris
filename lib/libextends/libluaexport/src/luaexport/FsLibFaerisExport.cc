@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/25/14 02:20:30.
+** Generated automatically by tolua++-1.0.92 on 01/25/14 05:43:42.
 */
 
 #ifndef __cplusplus
@@ -5644,8 +5644,8 @@ static int tolua_FsLibFaeris___LabelTTF_getAlign00(lua_State* tolua_S)
 #endif
  {
   LabelTTF* self = (LabelTTF*)  tolua_tousertype(tolua_S,1,0);
-  int h = ((int)  tolua_tonumber(tolua_S,2,NULL));
-  int v = ((int)  tolua_tonumber(tolua_S,3,NULL));
+  int h = ((int)  tolua_tonumber(tolua_S,2,0));
+  int v = ((int)  tolua_tonumber(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAlign'", NULL);
 #endif
