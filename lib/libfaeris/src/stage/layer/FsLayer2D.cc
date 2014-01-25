@@ -149,7 +149,7 @@ void Layer2D::draw(Render* r)
 	for(int i=0;i<entity_nu;i++)
 	{
 		Entity* ob=entitys[i];
-		ob->draws(r,false);
+		if(ob->getVisibles()) ob->draws(r,false);
 	}
 
 	r->popMatrix();

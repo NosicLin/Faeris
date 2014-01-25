@@ -105,6 +105,11 @@ class Entity@__Entity:public ActionTarget
 
 		bool hit2D(float x,float y);
 		void draw(Render* render,bool update_matrix=true);
+		void draws(Render* render,bool update_matrix=true);
+
+		void update(float dt);
+		void updates(float dt);
+
 
 		/* single touch */
 		void setTouchEnabled(bool enabled);

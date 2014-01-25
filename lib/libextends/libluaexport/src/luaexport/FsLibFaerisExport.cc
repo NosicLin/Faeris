@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/24/14 07:18:26.
+** Generated automatically by tolua++-1.0.92 on 01/24/14 11:15:47.
 */
 
 #ifndef __cplusplus
@@ -3195,6 +3195,107 @@ static int tolua_FsLibFaeris___Entity_draw00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: draws of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_draws00
+static int tolua_FsLibFaeris___Entity_draws00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"Render",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  Render* render = ((Render*)  tolua_tousertype(tolua_S,2,0));
+  bool update_matrix = ((bool)  tolua_toboolean(tolua_S,3,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draws'", NULL);
+#endif
+  {
+   self->draws(render,update_matrix);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'draws'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_update00
+static int tolua_FsLibFaeris___Entity_update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  float dt = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(dt);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: updates of class  Entity */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris___Entity_updates00
+static int tolua_FsLibFaeris___Entity_updates00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Entity",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Entity* self = (Entity*)  tolua_tousertype(tolua_S,1,0);
+  float dt = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'updates'", NULL);
+#endif
+  {
+   self->updates(dt);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'updates'.",&tolua_err);
  return 0;
 #endif
 }
@@ -24762,6 +24863,9 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getVisibles",tolua_FsLibFaeris___Entity_getVisibles00);
    tolua_function(tolua_S,"hit2D",tolua_FsLibFaeris___Entity_hit2D00);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris___Entity_draw00);
+   tolua_function(tolua_S,"draws",tolua_FsLibFaeris___Entity_draws00);
+   tolua_function(tolua_S,"update",tolua_FsLibFaeris___Entity_update00);
+   tolua_function(tolua_S,"updates",tolua_FsLibFaeris___Entity_updates00);
    tolua_function(tolua_S,"setTouchEnabled",tolua_FsLibFaeris___Entity_setTouchEnabled00);
    tolua_function(tolua_S,"getTouchEnabled",tolua_FsLibFaeris___Entity_getTouchEnabled00);
    tolua_function(tolua_S,"touchBegin",tolua_FsLibFaeris___Entity_touchBegin00);
