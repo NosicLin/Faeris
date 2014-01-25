@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibSensor
-** Generated automatically by tolua++-1.0.92 on 01/25/14 05:43:46.
+** Generated automatically by tolua++-1.0.92 on 01/25/14 08:01:54.
 */
 
 #ifndef __cplusplus

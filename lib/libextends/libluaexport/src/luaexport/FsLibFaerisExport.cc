@@ -1,6 +1,6 @@
 /*
 ** Lua binding: FsLibFaeris
-** Generated automatically by tolua++-1.0.92 on 01/25/14 05:43:42.
+** Generated automatically by tolua++-1.0.92 on 01/25/14 08:01:50.
 */
 
 #ifndef __cplusplus
@@ -12648,6 +12648,150 @@ static int tolua_FsLibFaeris_Panel_update00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchBegin of class  LuaPanel */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Panel_touchBegin00
+static int tolua_FsLibFaeris_Panel_touchBegin00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaPanel",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaPanel* self = (LuaPanel*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchBegin'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTouchBegin(x,y);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchBegin'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchMove of class  LuaPanel */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Panel_touchMove00
+static int tolua_FsLibFaeris_Panel_touchMove00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaPanel",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaPanel* self = (LuaPanel*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchMove'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTouchMove(x,y);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchMove'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTouchEnd of class  LuaPanel */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Panel_touchEnd00
+static int tolua_FsLibFaeris_Panel_touchEnd00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaPanel",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaPanel* self = (LuaPanel*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTouchEnd'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTouchEnd(x,y);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'touchEnd'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onHit2D of class  LuaPanel */
+#ifndef TOLUA_DISABLE_tolua_FsLibFaeris_Panel_hit2D00
+static int tolua_FsLibFaeris_Panel_hit2D00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"LuaPanel",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  LuaPanel* self = (LuaPanel*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onHit2D'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onHit2D(x,y);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'hit2D'.",&tolua_err);
  return 0;
 #endif
 }
@@ -26453,6 +26597,10 @@ TOLUA_API int tolua_FsLibFaeris_open (lua_State* tolua_S)
    tolua_function(tolua_S,"create",tolua_FsLibFaeris_Panel_create01);
    tolua_function(tolua_S,"draw",tolua_FsLibFaeris_Panel_draw00);
    tolua_function(tolua_S,"update",tolua_FsLibFaeris_Panel_update00);
+   tolua_function(tolua_S,"touchBegin",tolua_FsLibFaeris_Panel_touchBegin00);
+   tolua_function(tolua_S,"touchMove",tolua_FsLibFaeris_Panel_touchMove00);
+   tolua_function(tolua_S,"touchEnd",tolua_FsLibFaeris_Panel_touchEnd00);
+   tolua_function(tolua_S,"hit2D",tolua_FsLibFaeris_Panel_hit2D00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"ButtonState","ButtonState","",NULL);
   tolua_beginmodule(tolua_S,"ButtonState");
