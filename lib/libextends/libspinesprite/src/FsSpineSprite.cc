@@ -262,7 +262,7 @@ SpineSprite::SpineSprite()
 }
 SpineSprite::~SpineSprite()
 {
-	destroy();
+	destruct();
 }
 
 
@@ -274,34 +274,26 @@ bool SpineSprite::init(const char* name)
 		return false;
 	}
 
-	m_data=data;
+	FS_SAFE_ASSIGN(m_data,data);
 	SkeletonData* sk_data=m_data->getSkeletonData();
 
 	m_skeleton=Skeleton_create(sk_data);
 	m_material=Mat_V4F_T2F::shareMaterial();
+	FS_SAFE_ADD_REF(m_material);
 	return true;
 
 }
 
-void SpineSprite::destroy()
+void SpineSprite::destruct()
 {
-	if(m_material)
-	{
-		m_material->decRef();
-		m_material=NULL;
-	}
 
 	if(m_skeleton)
 	{
 		Skeleton_dispose(m_skeleton);
 		m_skeleton=NULL;
 	}
-
-	if(m_data)
-	{
-		m_data->decRef();
-		m_data=NULL;
-	}
+	FS_SAFE_DEC_REF(m_data);
+	FS_SAFE_DEC_REF(m_material);
 }
 
 

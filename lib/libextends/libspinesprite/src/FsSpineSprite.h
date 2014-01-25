@@ -61,9 +61,9 @@ class SpineSprite:public Entity
 
 	protected:
 		bool init(const char* name);
-		void destroy();
+		void destruct();
 		SpineSprite();
-		~SpineSprite();
+		virtual ~SpineSprite();
 
 	private:
 		Color m_color;
