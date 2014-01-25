@@ -107,6 +107,7 @@ class Entity :public ActionTarget
 		void moveZ(float t);
 
 	public:/* set transform */
+		void setRotate(const Vector3& r);
 		void setRotate(float rx,float ry,float rz);
 		void setRotateX(float r);
 		void setRotateY(float r);
@@ -146,6 +147,11 @@ class Entity :public ActionTarget
 
 	public:
 
+
+		void setDispatchTouchEnabled(bool enabled);
+		bool getDispatchTouchEnabled();
+		void setDispatchTouchesEnabled(bool enabled);
+		bool getDispatchTouchesEnabled();
 
 		/* single touch */
 		void setTouchEnabled(bool enabled);
@@ -200,6 +206,8 @@ class Entity :public ActionTarget
 				ulong m_zorderDirty:1;
 				ulong m_touchEnabled:1;
 				ulong m_touchesEnabled:1;
+				ulong m_dispatchTouchEnabled:1;
+				ulong m_dispatchTouchesEnabled:1;
 			};
 			ulong m_flags;
 		};
@@ -223,16 +231,13 @@ class Entity :public ActionTarget
 		Layer* m_layer;
 		Entity* m_parent;
 		FsSlowArray* m_chirdren;
+		Entity* m_touchFocus;
+
 
 		/* bound box */
 		Rect2D m_boundBox2D;
 
-
-
-
 		friend class Layer;
-
-
 
 	/* class attribute */
 	private:

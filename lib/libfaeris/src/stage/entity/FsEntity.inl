@@ -82,6 +82,10 @@ inline void Entity::moveZ(float t)
 	m_localMatrixDirty=1;
 	m_worldMatrixDirty=1;
 }
+inline void Entity::setRotate(const Vector3& r)
+{
+	setRotate(r.x,r.y,r.z);
+}
 
 inline void Entity::setRotate(float rx,float ry,float rz)
 {

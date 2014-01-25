@@ -101,6 +101,10 @@ class Entity@__Entity:public ActionTarget
 		bool getVisibles();
 
 
+		void setDispatchTouchEnabled(bool enabled);
+		bool getDispatchTouchEnabled();
+		void setDispatchTouchesEnabled(bool enabled);
+		bool getDispatchTouchesEnabled();
 
 
 		bool hit2D(float x,float y);

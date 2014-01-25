@@ -30,14 +30,12 @@ Panel::Panel()
 	m_anchorY=0.5;
 	m_width=0;
 	m_height=0;
-	m_touchFocus=NULL;
-	m_touchEnabled=true;;
+	m_touchEnabled=true;
 	m_scissorEnabled=true;
 }
 
 Panel::~Panel()
 {
-	FS_SAFE_DEC_REF(m_touchFocus);
 }
 
 bool Panel::init(float width,float height)
@@ -78,72 +76,6 @@ bool Panel::getScissorEnabled()
 	return m_scissorEnabled;
 }
 
-void Panel::dropTouchFocus()
-{
-	FS_SAFE_ASSIGN(m_touchFocus,(Entity*)NULL);
-}
-
-
-bool Panel::touchBegin(float x,float y)
-{
-	FS_SAFE_ASSIGN(m_touchFocus,(Entity*)NULL);
-	if(m_zorderDirty)
-	{
-		sortChildren();
-		m_zorderDirty=false;
-	}
-
-
-
-	m_chirdren->lock();
-	int child_nu=m_chirdren->size();
-
-	for(int i=0;i<child_nu;i++)
-	{
-		Entity* e=(Entity*)m_chirdren->get(i);
-		if(e->getVisible()&&e->getTouchEnabled()&&e->getParent()==this&&e->hit2D(x,y))
-		{
-			/* NOTE: entity will detach when called touchBegin */
-			bool ret=e->touchBegin(x,y);
-			if(ret&&e->getParent()==this)
-			{
-				FS_SAFE_ASSIGN(m_touchFocus,e);
-				break;
-			}
-		}
-	}
-	m_chirdren->unlock();
-	m_chirdren->flush();
-	return m_touchFocus!=NULL;
-}
-bool Panel::touchMove(float x,float y)
-{
-	if(m_touchFocus)
-	{
-		if(m_touchFocus->getParent()==this)
-		{
-			return m_touchFocus->touchMove(x,y);
-		}
-		else 
-		{
-			FS_SAFE_ASSIGN(m_touchFocus,(Entity*)NULL);
-		}
-	}
-	return false;
-}
-bool Panel::touchEnd(float x,float y)
-{
-	if(m_touchFocus)
-	{
-		if(m_touchFocus->getParent()==this)
-		{
-			return m_touchFocus->touchEnd(x,y);
-		}
-	}
-
-	FS_SAFE_ASSIGN(m_touchFocus,(Entity*)NULL);
-	return false;
-}
 
 void Panel::draws(Render* r,bool updateMatrix)
 {

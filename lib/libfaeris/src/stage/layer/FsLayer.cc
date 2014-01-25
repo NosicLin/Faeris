@@ -180,7 +180,7 @@ bool Layer::touchBegin(float x,float y)
 		getTouchEnabledEntity(&entitys);
 		sortEntity(&entitys);
 		int entity_nu=entitys.size();
-		for(int i=0;i<entity_nu;i++)
+		for(int i=entity_nu-1;i>=0;i--)
 		{
 			Entity* e=entitys[i];
 			if(e->getLayer()==this&&e->hit2D(tv.x,tv.y))

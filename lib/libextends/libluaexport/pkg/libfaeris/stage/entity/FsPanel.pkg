@@ -12,7 +12,6 @@ class Panel@__Panel:public Entity
 
 		void setScissorEnabled(bool enabled);
 		bool getScissorEnabled();
-		void dropTouchFocus();
 };
 
 

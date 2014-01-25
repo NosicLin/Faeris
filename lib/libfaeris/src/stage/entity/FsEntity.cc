@@ -108,11 +108,15 @@ void Entity::init()
 	m_zorderDirty=1;
 	m_touchEnabled=0;
 	m_touchesEnabled=0;
+	m_dispatchTouchEnabled=0;
+	m_dispatchTouchesEnabled=0;
 
 	m_zorlder=0.0f;
 
 	m_parent=NULL;
 	m_layer=NULL;
+	m_touchFocus=NULL;
+
 	m_chirdren=FsSlowArray::create();
 	FS_NO_REF_DESTROY(m_chirdren);
 }
@@ -128,6 +132,7 @@ void Entity::destruct()
 		entity->setParent(NULL);
 	}
 	FS_DESTROY(m_chirdren);
+	m_touchFocus=NULL;
 }
 
 
@@ -311,11 +316,17 @@ void Entity::remove(Entity* n)
 	}
 	n->setLayer(NULL);
 	n->setParent(NULL);
+	if( m_touchFocus== n)
+	{
+		m_touchFocus=NULL;
+	}
 	m_chirdren->remove(n);
+
 }
 
 void Entity::clearChild()
 {
+	m_touchFocus=NULL;
 	int child_nu=m_chirdren->size();
 	for(int i=0;i<child_nu;i++)
 	{
@@ -438,6 +449,7 @@ Matrix4* Entity::getLocalMatrix()
 }
 
 
+
 /* touch */
 void Entity::setTouchEnabled(bool enabled)
 {
@@ -450,15 +462,55 @@ bool Entity::getTouchEnabled()
 
 bool Entity::touchBegin(float x,float y)
 {
-	return m_touchEnabled;
+	m_touchFocus=NULL;
+
+	if(m_dispatchTouchEnabled)
+	{
+		if(m_zorderDirty)
+		{
+			sortChildren();
+			m_zorderDirty=false;
+		}
+		m_chirdren->lock();
+		int child_nu=m_chirdren->size();
+		for(int i=child_nu-1;i>=0;i--)
+		{
+			Entity* e=(Entity*)m_chirdren->get(i);
+			if(e->getVisible()&&e->getTouchEnabled()&&e->getParent()==this&&e->hit2D(x,y))
+			{
+				/* NOTE: entity will detach when called touchBegin */
+				bool ret=e->touchBegin(x,y);
+				if(ret&&e->getParent()==this)
+				{
+					m_touchFocus=e;
+					break;
+				}
+			}
+		}
+		m_chirdren->unlock();
+		m_chirdren->flush();
+	}
+	return m_touchFocus!=NULL;
 }
 bool Entity::touchMove(float x,float y)
 {
-	return m_touchEnabled;
+	if(m_touchFocus)
+	{
+		return m_touchFocus->touchMove(x,y);
+	}
+
+	return false;
 }
+
 bool Entity::touchEnd(float x,float y)
 {
-	return m_touchEnabled;
+	if(m_touchFocus)
+	{
+		bool ret=m_touchFocus->touchEnd(x,y);
+		m_touchFocus=NULL;
+		return ret;
+	}
+	return false;
 }
 
 
@@ -476,6 +528,25 @@ bool Entity::getTouchesEnabled()
 }
 
 
+void Entity::setDispatchTouchEnabled(bool enabled)
+{
+	m_dispatchTouchEnabled=enabled;
+}
+
+bool Entity::getDispatchTouchEnabled()
+{
+	return m_dispatchTouchEnabled;
+}
+
+void Entity::setDispatchTouchesEnabled(bool enabled)
+{
+	m_dispatchTouchesEnabled=enabled;
+}
+
+bool Entity::getDispatchTouchesEnabled()
+{
+	return m_dispatchTouchesEnabled;
+}
 
 
 

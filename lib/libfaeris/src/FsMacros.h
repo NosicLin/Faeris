@@ -271,6 +271,7 @@ enum
 #define FS_PARTICLE2D_EFFECT_CLASS_NAME   "Particle2DEffect"
 #define FS_VERTEX_POLYGON_CLASS_NAME "VertexPolygon"
 #define FS_PANEL_CLASS_NAME "Panel"
+#define FS_BUTTON_CLASS_NAME "Button"
 
 
 /* scene */
