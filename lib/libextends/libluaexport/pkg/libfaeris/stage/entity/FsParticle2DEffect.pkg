@@ -1,31 +1,51 @@
+$#include "luaext/FsLuaEntity.h"
 $#include "stage/entity/FsParticle2DEffect.h"
 
-class Particle2DEffect:public Entity 
+class Particle2DEffect@__Particle2DEffect:public Entity 
 {
 	public:
-
-		static Particle2DEffect* create(const char* filename);
-		static Particle2DEffect* create(FsFile* file);
-		static Particle2DEffect* create(Particle2DEmitter* emitter);
-		static Particle2DEffect* create();
-
-	public:
-		void start(bool loop=true);
+		void start(bool restart=true);
+		void refresh();
 		void stop();
 		void setPause(bool pause);
 		bool isPause();
 		bool isStop();
+
+		float getLifeTime();
+		float getElapseTime();
 
 		void setEmitter(Particle2DEmitter* emit);
 		Particle2DEmitter* getEmitter();
 
 		void setAutoRemoveOnStop(bool remove);
 
-		int getParticleNu();
+		int getParticleNu(){return m_particles.size(); }
+		int getMaxParticleNu();
+;
 
 	public:
+
 		/* override entity */
 		void setOpacity(float v){m_opacity=v;}
 		float getOpacity(){return m_opacity;}
 };
+
+class LuaParticle2DEffect@Particle2DEffect:public Particle2DEffect
+{
+	public:
+		static LuaParticle2DEffect* create(const char* filename);
+		static LuaParticle2DEffect* create(FsFile* file);
+		static LuaParticle2DEffect* create(Particle2DEmitter* emitter);
+		static LuaParticle2DEffect* create();
+
+	public:
+		void onDraw@draw(Render* r);
+		void onUpdate@update(float dt);
+		bool onTouchBegin@touchBegin(float x,float y);
+		bool onTouchMove@touchMove(float x,float y);
+		bool onTouchEnd@touchEnd(float x,float y);
+		bool onHit2D@hit2D(float x,float y);
+};
+
+
 

@@ -44,7 +44,7 @@ class  TLuaLayer:public T_F
 			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
 			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchMove",3,1,"fnn",this,x,y))
 			{
-				return T_F::touchBegin(x,y);
+				return T_F::touchMove(x,y);
 			}
 			bool ret=se->toBoolean(-1);
 			se->pop();

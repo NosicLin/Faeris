@@ -13,6 +13,8 @@ class Entity@__Entity:public ActionTarget
 
 		void remove(Entity* n);
 		void detach();
+		void clearChild();
+
 		FsArray* takeAllChild();
 		int childNu();
 
@@ -93,10 +95,38 @@ class Entity@__Entity:public ActionTarget
 	public:
 		void setVisible(bool visible);
 		void setChildVisible(bool visiable,bool rec);
-		bool visible();
+		bool getVisible@visible();
+		bool getVisible();
+		void setVisibles(bool visible);
+		bool getVisibles();
+
+
+		void setDispatchTouchEnabled(bool enabled);
+		bool getDispatchTouchEnabled();
+		void setDispatchTouchesEnabled(bool enabled);
+		bool getDispatchTouchesEnabled();
+
 
 		bool hit2D(float x,float y);
 		void draw(Render* render,bool update_matrix=true);
+		void draws(Render* render,bool update_matrix=true);
+
+		void update(float dt);
+		void updates(float dt);
+
+
+		/* single touch */
+		void setTouchEnabled(bool enabled);
+		bool getTouchEnabled();
+
+		virtual bool touchBegin(float x,float y);
+		virtual bool touchMove(float x,float y);
+		virtual bool touchEnd(float x,float y);
+
+		/* multi touches */
+		void setTouchesEnabled(bool enabled);
+		bool getTouchesEnabled();
+
 };
 
 class LuaEntity@Entity:public Entity 
@@ -106,10 +136,11 @@ class LuaEntity@Entity:public Entity
 	public:
 		void onUpdate@update(float dt);
 		void onDraw@draw(Render* r);
+		bool onTouchBegin@touchBegin(float x,float y);
+		bool onTouchMove@touchMove(float x,float y);
+		bool onTouchEnd@touchEnd(float x,float y);
+		bool onHit2D@hit2D(float x,float y);
 };
-
-
-
 
 
 

@@ -830,6 +830,14 @@
 					Name="entity"
 					>
 					<File
+						RelativePath="..\src\stage\entity\FsButton.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsButton.h"
+						>
+					</File>
+					<File
 						RelativePath="..\src\stage\entity\FsColorQuad2D.cc"
 						>
 					</File>
@@ -863,6 +871,14 @@
 					</File>
 					<File
 						RelativePath="..\src\stage\entity\FsLabelTTF.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsPanel.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\src\stage\entity\FsPanel.h"
 						>
 					</File>
 					<File

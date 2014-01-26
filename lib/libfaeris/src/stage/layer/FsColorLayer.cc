@@ -20,10 +20,18 @@ void ColorLayer::setColor(Color c)
 {
 	m_color=c;
 }
+
 Color ColorLayer::getColor()
 {
 	return m_color;
 }
+
+Matrix4 ColorLayer::getProjectMatrix()
+{
+	return Matrix4();
+}
+
+
 
 
 void ColorLayer::draw(Render*  r)
@@ -33,7 +41,7 @@ void ColorLayer::draw(Render*  r)
 		r->setScissorEnabled(true);
 		r->setScissorArea(m_scissorArea.x,m_scissorArea.y,m_scissorArea.width,m_scissorArea.height);
 	}
-	
+
 	Mat_V4F_C4F* material=Mat_V4F_C4F::shareMaterial();
 	material->setOpacity(1.0);
 
@@ -78,7 +86,7 @@ void ColorLayer::draw(Render*  r)
 	{
 		r->setScissorEnabled(false);
 	}
-	
+
 }
 
 const char* ColorLayer::className()

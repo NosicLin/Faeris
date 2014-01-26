@@ -24,6 +24,7 @@ Particle2DEffect* Particle2DEffect::create(const char* filename)
     }
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
+	emit->autoDestroy();
 	return ret;
 }
 
@@ -37,6 +38,7 @@ Particle2DEffect* Particle2DEffect::create(FsFile* file)
 	}
 
 	Particle2DEffect* ret=Particle2DEffect::create(emit);
+	emit->autoDestroy();
 	return ret;
 }
 
@@ -392,14 +394,13 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 	{
 		return;
 	}
+	if(update_world_matrix)
+	{
+		updateWorldMatrix();
+	}
+	 int t_width=texture->getWidth();
+     int t_height=texture->getHeight();
 
-	int t_width=texture->getWidth();
-	int t_height=texture->getHeight();
-
-
-
-
-	updateWorldMatrix();
 
 
 	render->pushMatrix();
@@ -472,10 +473,10 @@ void Particle2DEffect::draw(Render* render,bool update_world_matrix)
 
 		float v[8]=
 		{
-			x-hwsize,y+hhsize,
-			x-hwsize,y-hhsize,
-			x+hwsize,y-hhsize,
-			x+hwsize,y+hhsize,
+			 x-hwsize,y+hhsize,
+             x-hwsize,y-hhsize,
+             x+hwsize,y-hhsize,
+             x+hwsize,y+hhsize,
 		};
 		render->setUniform(color_uniform,Render::U_F_4,1,color);
 		render->setAndEnableVertexAttrPointer(pos_loc,2,FS_FLOAT,4,0,v);

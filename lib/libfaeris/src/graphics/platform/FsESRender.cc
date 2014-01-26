@@ -451,6 +451,15 @@ void Render::setViewport(int x,int y,int width,int height)
 	glViewport(x,y,width,height);
 }
 
+void Render::setScissorArea(const Rect2D& area)
+{
+	m_scissorArea=area;
+	if(m_scissorEnable)
+	{
+		_setGLScissor(m_scissorArea);
+	}
+}
+
 void Render::setScissorArea(float x,float y,float width,float height)
 {
 	m_scissorArea.set(x,y,width,height);
@@ -459,6 +468,20 @@ void Render::setScissorArea(float x,float y,float width,float height)
 		_setGLScissor(m_scissorArea);
 	}
 }
+
+Rect2D Render::getScissorArea()
+{
+	return m_scissorArea;
+}
+
+
+bool Render::getScissorEnabled()
+{
+	return m_scissorEnable;
+}
+
+
+
 
 
 void Render::setScissorEnabled(bool enable)

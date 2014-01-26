@@ -13,6 +13,10 @@
 #include "stage/entity/FsLabelTTF.h"
 #include "stage/entity/FsLabelBitmap.h"
 #include "stage/entity/FsVertexPolygon.h"
+#include "stage/entity/FsParticle2DEffect.h"
+#include "stage/entity/FsParticle2DEmitter.h"
+#include "stage/entity/FsPanel.h"
+#include "stage/entity/FsButton.h"
 
 #if FS_CONFIG(FS_EXPORT_LIB_SPINE_SPRITE)
 #include "FsSpineSprite.h"
@@ -79,6 +83,17 @@ class LuaQuad2D:public TEntity<Quad2D>
 			}
 			return ret;
 		}
+		static LuaQuad2D* create()
+		{
+			LuaQuad2D* ret=new LuaQuad2D();
+			if(!ret->init())
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+
 		static LuaQuad2D* create(const char* name,const Rect2D& rect)
 		{
 			LuaQuad2D* ret=new LuaQuad2D();
@@ -186,6 +201,63 @@ class LuaSprite2D:public TEntity<Sprite2D>
 		~LuaSprite2D(){}
 };
 
+class LuaParticle2DEffect:public TEntity<Particle2DEffect>
+{
+	public:
+		static LuaParticle2DEffect* create(const char* filename)
+		{
+			Particle2DEmitter* emit=Particle2DEmitter::create(filename);
+			if( emit==NULL) 
+			{
+				FS_TRACE_WARN("Create Emitter For File(%s) Failed",filename);
+				return NULL;
+			}
+			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
+			emit->autoDestroy();
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create(FsFile*  file)
+		{
+			Particle2DEmitter* emit=Particle2DEmitter::create(file);
+			if(emit==NULL)
+			{
+				FS_TRACE_WARN("create Emiit for Failed");
+				return NULL;
+			}
+
+			LuaParticle2DEffect* ret=LuaParticle2DEffect::create(emit);
+			emit->autoDestroy();
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create(Particle2DEmitter* emitter)
+		{
+			LuaParticle2DEffect* ret=new LuaParticle2DEffect;
+			if(!ret->init(emitter))
+			{
+				delete ret;
+			}
+			return ret;
+		}
+
+		static LuaParticle2DEffect* create()
+		{
+			LuaParticle2DEffect* ret=new LuaParticle2DEffect;
+			if(!ret->init(NULL))
+			{
+				delete ret;
+			}
+			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_PARTICLE2D_EFFECT_CLASS_NAME;
+		}
+};
+
+
 
 class LuaVertexPolygon:public TEntity<VertexPolygon> 
 {
@@ -211,6 +283,171 @@ class LuaVertexPolygon:public TEntity<VertexPolygon>
 	protected:
 		LuaVertexPolygon(){}
 		~LuaVertexPolygon(){}
+};
+
+class LuaButton:public TEntity<Button>
+{
+	public:
+		static LuaButton* create()
+		{
+			LuaButton* ret=new LuaButton();
+			if(!ret->init())
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+
+		static LuaButton* create(const char* image)
+		{
+			LuaButton* ret=new LuaButton();
+			if(!ret->init(image))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+
+		}
+		static LuaButton* create(const char* image,float width,float height)
+		{
+			LuaButton* ret=new LuaButton();
+			if(!ret->init(image))
+			{
+				delete ret;
+				return NULL;
+			}
+			ret->setSize(width,height);
+			return ret;
+		}
+
+
+	public:
+		/* inherit Button */
+
+		virtual void click()
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onClick",1,0,"f",this))
+			{
+				TEntity<Button>::click();
+			}
+		}
+
+		virtual void pressDown(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onPressDown",3,0,"fnn",this,x,y))
+			{
+				TEntity<Button>::pressDown(x,y);
+			}
+		}
+		virtual void pressMoveIn(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onPressMoveIn",3,0,"fnn",this,x,y))
+			{
+				TEntity<Button>::pressMoveIn(x,y);
+			}
+		}
+		virtual void pressMoveOut(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onPressMoveOut",3,0,"fnn",this,x,y))
+			{
+				TEntity<Button>::pressMoveOut(x,y);
+			}
+		}
+		virtual void pressUp(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onPressUp",3,0,"fnn",this,x,y))
+			{
+				TEntity<Button>::pressUp(x,y);
+			}
+		}
+		virtual void pressCancel(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*) Global::scriptEngine();
+			if(!se->callFunctionInTable(TEntity<Button>::m_scriptData,"onPressCancel",3,0,"fnn",this,x,y))
+			{
+				TEntity<Button>::pressCancel(x,y);
+			}
+		}
+
+	public:
+		virtual void onPressDown(float x,float y)
+		{
+			TEntity<Button>::pressDown(x,y);
+		}
+		virtual void onPressMoveIn(float x,float y)
+		{
+			TEntity<Button>::pressMoveIn(x,y);
+		}
+		virtual void onPressMoveOut(float x,float y)
+		{
+			TEntity<Button>::pressMoveOut(x,y);
+		}
+		virtual void onPressUp(float x,float y)
+		{
+			TEntity<Button>::pressUp(x,y);
+		}
+
+		virtual void onClick()
+		{
+			TEntity<Button>::click();
+		}
+		virtual void onPressCancel(float x,float y)
+		{
+			TEntity<Button>::pressCancel(x,y);
+		}
+
+
+
+	public:
+
+
+		/* inherit FsObject */
+		virtual const char* className()
+		{
+			return FS_LUA_BUTTON_CLASS_NAME;
+		}
+
+
+	protected:
+		LuaButton(){}
+		virtual ~LuaButton(){}
+
+
+};
+
+
+class LuaPanel:public TEntity<Panel>
+{
+	public:
+		static LuaPanel* create()
+		{
+			return LuaPanel::create(0,0);
+		}
+		static LuaPanel* create(float width,float height)
+		{
+			LuaPanel* ret=new LuaPanel();
+			if(!ret->init(width,height))
+			{
+				delete ret;
+				return NULL;
+			}
+			return ret;
+		}
+	public:
+		virtual const char* className()
+		{
+			return FS_LUA_PANEL_CLASS_NAME;
+		}
+
+
+
 };
 
 

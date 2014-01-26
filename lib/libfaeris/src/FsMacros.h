@@ -118,19 +118,19 @@ namespace Faeris
 /* for safe add and dec object refrence */
 
 #define FS_SAFE_ADD_REF(f) \
-	do{ if(f) f->addRef(); }while(0)
+	do{ if(f) (f)->addRef(); }while(0)
 
 #define FS_SAFE_DEC_REF(f) \
-	do{ if(f) f->decRef();} while(0)
+	do{ if(f) (f)->decRef();} while(0)
 
 #define FS_DESTROY(f) \
-	do{f->destroy();}while(0)
+	do{(f)->destroy();}while(0)
 
 #define FS_SAFE_DESTROY(f) \
-	do{ if(f) f->destroy();}while(0) 
+	do{ if(f) (f)->destroy();}while(0) 
 
 #define FS_NO_REF_DESTROY(f) \
-	do{ if(f) f->setRefDelete(false);}while(0)
+	do{ if(f) (f)->setRefDelete(false);}while(0)
 
 
 #define FS_SAFE_ASSIGN(d,s) \
@@ -141,10 +141,10 @@ namespace Faeris
 	}while(0)
 
 #define FS_SAFE_DELETE(v) \
-	do{ if(v){ delete v;} } while(0)
+	do{ if(v){ delete (v);} } while(0)
 
 #define FS_DELETE(v) \
-	do{ delete v;}while(0)
+	do{ delete (v);}while(0)
 
 /* global Macros For Faeris */
 
@@ -270,6 +270,9 @@ enum
 #define FS_PARTICLE2D_EMITTER_CLASS_NAME "Particle2DEmitter"
 #define FS_PARTICLE2D_EFFECT_CLASS_NAME   "Particle2DEffect"
 #define FS_VERTEX_POLYGON_CLASS_NAME "VertexPolygon"
+#define FS_PANEL_CLASS_NAME "Panel"
+#define FS_BUTTON_CLASS_NAME "Button"
+
 
 /* scene */
 #define FS_DIRECTOR_CLASS_NAME "Director"

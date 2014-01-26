@@ -30,6 +30,52 @@ class TEntity:public T_F
 				T_F::draw(r,updateMatrix);
 			}
 		}
+		virtual bool touchBegin(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchBegin",3,1,"fnn",this,x,y))
+			{
+				return T_F::touchBegin(x,y);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+		virtual bool touchMove(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchMove",3,1,"fnn",this,x,y))
+			{
+				return T_F::touchMove(x,y);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+
+		virtual bool touchEnd(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onTouchEnd",3,1,"fnn",this,x,y))
+			{
+				return  T_F::touchEnd(x,y);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
+
+		virtual bool hit2D(float x,float y)
+		{
+			LuaEngine* se=(LuaEngine*)Global::scriptEngine();
+			if(!se->callFunctionInTable(T_F::m_scriptData,"onHit2D",3,1,"fnn",this,x,y))
+			{
+				return  T_F::hit2D(x,y);
+			}
+			bool ret=se->toBoolean(-1);
+			se->pop();
+			return ret;
+		}
 
 	public:
 		virtual void onUpdate(float dt)
@@ -39,6 +85,22 @@ class TEntity:public T_F
 		virtual void onDraw(Render* r)
 		{
 			T_F::draw(r,true);
+		}
+		bool onTouchBegin(float x,float y)
+		{
+			return T_F::touchBegin(x,y);
+		}
+		bool onTouchEnd(float x,float y)
+		{
+			return T_F::touchEnd(x,y);
+		}
+		bool onTouchMove(float x,float y)
+		{
+			return T_F::touchMove(x,y);
+		}
+		bool onHit2D(float x,float y)
+		{
+			return T_F::hit2D(x,y);
 		}
 };
 

@@ -1,9 +1,9 @@
 #ifndef _FS_LAYER_H_
 #define _FS_LAYER_H_
-
+#include <vector>
 #include "stage/FsActionTarget.h"
 #include "math/FsRect2D.h"
-
+#include "math/FsVector3.h"
 NS_FS_BEGIN
 class Entity;
 class Scene;
@@ -18,12 +18,20 @@ class Layer:public ActionTarget
 {
 	public:
 		/* visible */
-		bool visible(){return m_visible;}
+		bool getVisible(){return m_visible;}
 		void setVisible(bool visible){m_visible=visible;}
 
 		/* touch enable */
 		bool touchEnabled(){return m_touchEnabled;}
 		void setTouchEnabled(bool enable){m_touchEnabled=enable;}
+		void setTouchesEnabled(bool enable){m_touchesEnabled=enable;}
+		bool getTouchesEnabled(){return m_touchesEnabled;}
+
+		/* dispatch touch */
+		void setDispatchTouchEnabled(bool enable){m_dispatchTouchEnabled=enable;}
+		bool getDispatchTouchEnabled(){return m_dispatchTouchEnabled;}
+		void setDispatchTouchesEnabled(bool enable){m_dispatchTouchesEnabled=enable;}
+		bool getDispatchTouchesEnabled(){return m_dispatchTouchesEnabled;}
 
 		/* scissor */
 		void setScissorArea(float x,float y,float width,float height);
@@ -31,24 +39,28 @@ class Layer:public ActionTarget
 		bool scissorEnabled(){return m_scissorEnabled;}
 		void setScissorEnabled(bool enable){m_scissorEnabled=enable;}
 
-		void clearEntity();
-		
-		Scene* getScene();
-		void setScene(Scene* scene);
 
+		/* project matrix */
+		virtual Matrix4 getProjectMatrix()=0;
+		virtual Vector3 toLayerCoord(const Vector3& v);
 
 
 		/* entity */
 		void add(Entity* entity);
 		void remove(Entity* entity);
+		void clearEntity();
 		int getEntityNu();
-
-		/* used for Entity parent change,
-		 * user can't direct call this interface */
-		void takeOwnership(Entity* entity);
-		void dropOwnership(Entity* entity);
+		
 
 
+
+		/* scene */
+		Scene* getScene();
+
+		/* WARN: Please don't call this interface, it used for Scene 
+		 *       When Layer add to Scene
+		 */
+		void setScene(Scene* scene);
 	public:
 		/* event hook */
 		virtual void update(float dt);
@@ -80,13 +92,25 @@ class Layer:public ActionTarget
 		void init();
 		void destruct();
 		void updateAllWorldMatrix();
-	
+
+		void getTouchEnabledEntity(std::vector<Entity*>* e);
+		void sortEntity(std::vector<Entity*>* e);
+
 
 	protected:
-		FsDict* m_entity;  /* direct add to layer */
-		FsSlowDict* m_ownerEntity; /* all sub chirld */
+		FsSlowDict* m_entity;  /* direct add to layer */
 		bool m_visible;
+
 		bool m_touchEnabled;
+		bool m_touchesEnabled;
+
+		bool m_dispatchTouchEnabled;
+		bool m_dispatchTouchesEnabled;
+
+
+		Entity* m_touchFocus;
+
+
 
 		Rect2D m_scissorArea;
 		bool m_scissorEnabled;
